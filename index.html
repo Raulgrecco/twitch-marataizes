@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <title>TV Marataízes - Twitch Player</title>
+  <title>TV Marataízes - Twitch Embed</title>
 </head>
 <body>
-  <iframe
-    src="https://player.twitch.tv/?channel=tvmarataizes&parent=tvmarataizes.com.br"
-    height="480"
-    width="720"
-    frameborder="0"
-    scrolling="no"
-    allowfullscreen>
-  </iframe>
+  <h1>TV Marataízes - Twitch Embed Player</h1>
+  <div id="twitch-embed"></div>
+
+  <script src="https://player.twitch.tv/js/embed/v1.js"></script>
+  <script type="text/javascript">
+    new Twitch.Embed("twitch-embed", {
+      width: 854,
+      height: 480,
+      channel: "tvmarataizes",
+      parent: ["www.tvmarataizes.com.br"]
+    });
+  </script>
 </body>
 </html>
