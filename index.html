@@ -122,6 +122,16 @@
       }
     }
   </style>
+
+  <script>
+    // Remove o parâmetro fbclid da URL para evitar problemas no carregamento
+    if (window.location.search.includes('fbclid')) {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('fbclid');
+      window.history.replaceState({}, document.title, url.toString());
+    }
+  </script>
+
   <script src="https://player.twitch.tv/js/embed/v1.js"></script>
 </head>
 <body>
@@ -150,5 +160,7 @@
       parent: ["www.tvmarataizes.com.br", "localhost"]
     });
   </script>
+</body>
+</html>
 </body>
 </html>
