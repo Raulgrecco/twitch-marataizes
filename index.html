@@ -1,92 +1,144 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>TV Marataízes – Streaming</title>
-<style>
-  body {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0; padding: 0;
-    background: #f7f5f0;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
-    padding: 2rem;
-    box-sizing: border-box;
-  }
-  #container {
-    display: flex;
-    gap: 2rem;
-    max-width: 1200px;
-    width: 100%;
-  }
-  #twitch-embed {
-    flex: 2;
-    aspect-ratio: 16 / 9;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    overflow: hidden;
-  }
-  #quadro {
-    flex: 1;
-    background: #fdd835; /* amarelo vibrante */
-    border-radius: 10px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    color: #3b1967;
-    font-weight: 600;
-    font-size: 1.1rem;
-    line-height: 1.4;
-    position: relative;
-  }
-  #quadro h2 {
-    margin-top: 0;
-    font-size: 1.7rem;
-    font-weight: 900;
-    color: #3b1967;
-  }
-  #quadro p {
-    margin-bottom: 0.8rem;
-  }
-  #quadro strong {
-    font-weight: 900;
-  }
-  #quadro .logo {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 80px;
-    opacity: 0.9;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TV Marataízes - Streaming</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 0;
+      background: #f7f5f0;
+      color: #333;
+      display: flex; 
+      flex-direction: column; 
+      align-items: center;
+      min-height: 100vh;
+    }
+    header {
+      background-color: #f7b733; /* amarelo vibrante */
+      width: 100%;
+      padding: 1rem 0;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: #222;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    }
+    main {
+      flex: 1;
+      width: 90vw;
+      max-width: 1200px;
+      margin: 2rem auto;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    #twitch-embed {
+      width: 640px;
+      aspect-ratio: 16 / 9;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      background: black;
+    }
+    .schedule {
+      background-color: #f7b733;
+      border-radius: 15px;
+      padding: 1.5rem 2rem;
+      max-width: 450px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      color: #3e0f5a;
+      font-weight: 700;
+      font-size: 1rem;
+      line-height: 1.4;
+      position: relative;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .schedule h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .schedule h2::before {
+      content: "📺✨";
+    }
+    .schedule p {
+      margin: 0.6rem 0;
+      font-weight: 700;
+    }
+    .schedule strong {
+      font-weight: 900;
+    }
+    .cta {
+      margin-top: 1rem;
+      background-color: #fa7e00;
+      color: white;
+      padding: 1rem;
+      font-size: 1.2rem;
+      border-radius: 6px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta:hover {
+      background-color: #e66900;
+    }
+    footer {
+      margin: 2rem 0 1rem;
+      font-size: 0.9rem;
+      color: #777;
+      text-align: center;
+    }
+    a {
+      color: #f7b733;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <script src="https://player.twitch.tv/js/embed/v1.js"></script>
 </head>
 <body>
-
-<div id="container">
-  <div id="twitch-embed"></div>
-
-  <div id="quadro">
-    <h2>HORÁRIOS</h2>
-    <p><strong>📺 PROGRAMAÇÃO TV MARATAÍZES ✨</strong></p>
-    <p>DE 18H À MEIA-NOITE, curta nossa programação ao vivo com <strong>conteúdos variados</strong> e <strong>mais de 2 horas de músicas</strong> com tradução para você aproveitar!</p>
-    <p>E DE 8H ÀS 12H, diversão garantida para a <strong>criançada</strong> com desenhos clássicos como <strong>Tom e Jerry, Pica-Pau, Caverna do Dragão</strong> e muito mais!</p>
-    <p><strong>TV Marataízes — entretenimento para toda a família, do café da manhã ao fim da noite.</strong></p>
-    <img src="https://i.imgur.com/YOUR_LOGO.png" alt="Logo TV Marataízes" class="logo" />
+  <header>TV Marataízes - Streaming ao vivo</header>
+  <main>
+    <div id="twitch-embed"></div>
+    
+    <div class="schedule">
+      <h2>HORÁRIOS</h2>
+      <p>PROGRAMAÇÃO TV MARATAÍZES ✨</p>
+      <p><strong>DE 18H À MEIA-NOITE,</strong> curta nossa programação ao vivo com conteúdos variados e mais de 2 horas de músicas com tradução para você aproveitar!</p>
+      <p><strong>E DE 8H ÀS 12H,</strong> diversão garantida para a criançada com desenhos clássicos como Tom e Jerry, Pica-Pau, Caverna do Dragão e muito mais!</p>
+      <p><strong>TV Marataízes — entretenimento para toda a família, do café da manhã ao fim da noite.</strong></p>
+    </div>
+  </main>
+  <div class="cta" onclick="window.open('https://www.twitch.tv/tvmarataizes', '_blank')">
+    Assista ao vivo no Twitch e não perca nenhuma programação!
   </div>
-</div>
+  <div class="cta" style="margin-top: 0.5rem;" onclick="window.open('https://www.twitch.tv/download', '_blank')">
+    Não tem Twitch? Baixe o app aqui para sua TV, celular ou computador!
+  </div>
+  <footer>
+    Acompanhe também em <a href="https://www.tvmarataizes.com.br">www.tvmarataizes.com.br</a> <br />
+    Direitos reservados © 2025
+  </footer>
 
-<script src="https://player.twitch.tv/js/embed/v1.js"></script>
-<script>
-  new Twitch.Embed("twitch-embed", {
-    width: "100%",
-    height: "100%",
-    channel: "tvmarataizes",
-    parent: ["www.tvmarataizes.com.br"]
-  });
-</script>
-
+  <script type="text/javascript">
+    new Twitch.Embed("twitch-embed", {
+      width: "100%",
+      height: "100%",
+      channel: "tvmarataizes",
+      parent: ["www.tvmarataizes.com.br", "localhost"]
+    });
+  </script>
 </body>
 </html>
