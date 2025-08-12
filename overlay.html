@@ -4,59 +4,64 @@
 <meta charset="UTF-8">
 <title>Overlay TV Marataízes</title>
 <style>
-  body {
-    margin: 0;
-    padding: 0;
-    background: transparent;
-    overflow: hidden;
-  }
-  .topbar {
-    background: #0a1628;
-    color: white;
-    font-family: Arial, sans-serif;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    padding: 5px 20px;
-    justify-content: space-between;
-  }
-  .ticker {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: rgba(0,0,0,0.7);
-    color: white;
-    font-size: 22px;
-    font-family: Arial, sans-serif;
-    white-space: nowrap;
-    overflow: hidden;
-    box-sizing: border-box;
-    padding: 5px 0;
-  }
-  .ticker span {
-    display: inline-block;
-    padding-left: 100%;
-    animation: scroll 20s linear infinite;
-  }
-  @keyframes scroll {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-  }
+    body {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        overflow: hidden;
+    }
+    /* Topo com clima */
+    .topbar {
+        background: #0a1628;
+        color: white;
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 5px 20px;
+    }
+    /* Ticker na parte inferior */
+    .ticker {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: rgba(0,0,0,0.7);
+        color: white;
+        font-size: 22px;
+        font-family: Arial, sans-serif;
+        white-space: nowrap;
+        overflow: hidden;
+        box-sizing: border-box;
+        padding: 5px 0;
+    }
+    .ticker span {
+        display: inline-block;
+        padding-left: 100%;
+        animation: scroll 20s linear infinite;
+    }
+    @keyframes scroll {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+    }
 </style>
 </head>
 <body>
 
 <!-- Topo com clima -->
 <div class="topbar">
-  <iframe src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=0&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=0&pictoicon=1&maxtemperature=1&mintemperature=1" 
-  frameborder="0" scrolling="no" allowtransparency="true" 
-  style="background: transparent; height: 35px; width: 100%;"></iframe>
+    <iframe src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=0&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=0&pictoicon=1&maxtemperature=1&mintemperature=1" 
+        frameborder="0" scrolling="no" allowtransparency="true"
+        style="background: transparent; height: 35px; width: 100%;">
+    </iframe>
 </div>
 
-<!-- Legenda inferior correndo -->
+<!-- Legenda rolando -->
 <div class="ticker">
-  <span>📢 AO VIVO: Siga e participe: twitch.tv/tvmarataizes • 📱 Anuncie no WhatsApp: (28) 99903-6141 • TV Marataízes — A sua TV local em streaming</span>
+    <span>📢 Projeto da Macuca Produções – Parte do Festival de Marataízes – Teatro de Sombras e Brincadeiras que Aproximam Pais e Filhos – Oficinas de Cinema Cine Arte Raiz – TV Marataízes também nasceu desse movimento!</span>
 </div>
 
 </body>
 </html>
+
+
