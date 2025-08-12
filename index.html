@@ -16,7 +16,7 @@
       --text:#ffffff;
       --ticker-h:86px;     /* altura do ticker */
       --ticker-fs:32px;    /* fonte do ticker */
-      --speed:18s;         /* velocidade do ticker (↓ = mais rápido) */
+      --speed:10s;         /* velocidade do ticker (↓ = mais rápido) */
     }
     html,body{margin:0;height:100%;background:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text)}
 
@@ -49,7 +49,7 @@
     @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
     @media (max-width:900px){
-      :root{ --ticker-h:72px; --ticker-fs:28px; --speed:16s }
+      :root{ --ticker-h:72px; --ticker-fs:28px; --speed:8s }
       .stage{padding:10px}
       .player-box{border-radius:8px}
     }
@@ -71,10 +71,7 @@
     <div class="player-box">
       <!-- IMPORTANTÍSSIMO: liste aqui TODOS os domínios onde a página abre -->
       <iframe
-        src="https://player.twitch.tv/?channel=tvmarataizes
-&parent=tvmarataizes.com.br
-&parent=www.tvmarataizes.com.br
-&parent=localhost"
+        src="https://player.twitch.tv/?channel=tvmarataizes&parent=tvmarataizes.com.br&parent=www.tvmarataizes.com.br&parent=localhost"
         allow="autoplay; fullscreen; picture-in-picture"
         allowfullscreen
         title="TV Marataízes ao vivo">
@@ -82,13 +79,15 @@
     </div>
   </div>
 
-  <!-- TICKER -->
+  <!-- TICKER (edite APENAS o data-text abaixo) -->
   <div class="ticker" role="marquee" aria-label="Notícias">
     <div class="pill">AO VIVO</div>
     <div class="track">
+      <!-- 🔧 ALTERE AQUI RAUL: mude só o conteúdo do data-text --> 
       <div class="lane"
-           data-text="🔴 TV Marataízes ao vivo — 📍 Marataízes, Itapemirim e Piúma • Quadro “Gente Daqui” às 20h • Apoio: Comércio Local">
+           data-text="🔴 TV Marataízes ao vivo — 📍 Marataízes, Itapemirim e Piúma • Festival de Cinema hoje às 19h — Mostra de Curtas + Programa Gente da Gente às 20h — Fique ligado!">
       </div>
+      <!-- 🔧 FIM DA ALTERAÇÃO -->
     </div>
   </div>
 
