@@ -50,39 +50,13 @@
   <div class="ticker" role="marquee" aria-label="Notícias">
     <div class="pill">AO VIVO</div>
     <div class="track">
-      <div class="lane" id="laneA">Carregando…</div>
+      <div class="lane" id="laneA">
+        <!-- ALTERE AQUI RAUL -->
+        Sorteio de bicicleta hoje às 20h • Entrevista com comerciantes locais às 19h • Previsão do tempo em instantes
+        <!-- FIM DA ALTERAÇÃO -->
+      </div>
     </div>
   </div>
-
-<script>
-  // Lê ticker.txt (uma frase por linha) no MESMO diretório do overlay.html
-  const lane = document.getElementById('laneA');
-  const SEP = ' • ';
-
-  async function loadTicker(){
-    try{
-      const res = await fetch('ticker.txt?cb=' + Date.now(), { cache:'no-store' });
-      if(!res.ok) throw new Error('ticker.txt não encontrado');
-      const txt = await res.text();
-      const items = txt.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
-      if(items.length === 0) { lane.textContent = ''; return; }
-
-      // monta duas vezes para rolagem contínua
-      const content = items.join(SEP);
-      lane.textContent = '';
-      const a = document.createElement('span'); a.textContent = content;
-      const dot = document.createElement('span'); dot.textContent = '   ' + SEP + '   ';
-      const b = document.createElement('span'); b.textContent = content;
-      lane.appendChild(a); lane.appendChild(dot); lane.appendChild(b);
-    }catch(e){
-      lane.textContent = '⚠️ Não foi possível carregar as notícias.';
-      console.warn(e);
-    }
-  }
-  loadTicker();
-  // atualiza a cada 20s
-  setInterval(loadTicker, 20000);
-</script>
 
 </body>
 </html>
