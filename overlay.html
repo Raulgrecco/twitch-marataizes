@@ -17,6 +17,7 @@
     --speed:38s;             /* duração do ciclo (↓ = mais rápido) */
   }
   html,body{margin:0;height:100%;background:transparent;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text)}
+  
   /* Topo – clima compacto */
   .topbar{position:fixed;top:0;left:0;right:0;height:56px;background:var(--top-bg);display:flex;align-items:center;padding:0 16px;box-shadow:0 6px 16px rgba(0,0,0,.25);pointer-events:none}
   .topbar iframe{width:100%;height:36px;border:0;background:transparent;pointer-events:none}
@@ -50,13 +51,44 @@
   <div class="ticker" role="marquee" aria-label="Notícias">
     <div class="pill">AO VIVO</div>
     <div class="track">
-      <div class="lane" id="laneA">
-        <!-- ALTERE AQUI RAUL -->
-        Promoção Amor dentro do Cone - R$ 10,00, vários sabores • Entrevista com comerciantes locais às 19h • Sensei Altenor: vidas transformadas pelo karatê em Marataízes
-        <!-- FIM DA ALTERAÇÃO -->
-      </div>
+      <div class="lane" id="laneA"></div>
     </div>
   </div>
+
+  <script>
+    const lane = document.getElementById('laneA');
+
+    function setMessage(msg) {
+      const base = (msg || '').trim();
+      lane.innerHTML = '';
+      // Repete para manter o efeito de rolagem contínua
+      for (let i = 0; i < 10; i++) {
+        const s = document.createElement('span');
+        s.textContent = (base ? base : ' ') + ' • ';
+        lane.appendChild(s);
+      }
+    }
+
+    async function pull() {
+      try {
+        const res = await fetch('ticker.txt?ts=' + Date.now(), { cache: 'no-store' });
+        if (res.ok) {
+          const txt = (await res.text()).trim();
+          if (txt) setMessage(txt);
+        }
+      } catch (e) {
+        console.error('Erro ao carregar ticker:', e);
+      }
+    }
+
+    // Carrega ao iniciar e atualiza a cada 10 segundos
+    setMessage('Carregando…');
+    pull();
+    setInterval(pull, 10000);
+
+    // Recalcula ao redimensionar
+    window.addEventListener('resize', () => setMessage(lane.textContent || ''));
+  </script>
 
 </body>
 </html>
