@@ -11,19 +11,18 @@
   <meta name="theme-color" content="#C4170C" />
   <style>
     :root{
-      --gn-red:#C4170C;    /* cor da faixa do ticker */
-      --top-bg:#0a1628;    /* cor da faixa do clima */
+      --gn-red:#C4170C;    /* faixa do ticker */
+      --top-bg:#0a1628;    /* faixa do clima */
       --text:#ffffff;
       --ticker-h:86px;     /* altura do ticker */
-      --ticker-fs:32px;    /* fonte do ticker */
-      --speed:10s;         /* velocidade do ticker (↓ = mais rápido) */
+      --ticker-fs:32px;    /* tamanho da fonte do ticker */
+      --speed:10s;         /* ↓ = mais rápido */
     }
     html,body{margin:0;height:100%;background:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text)}
 
-    /* Topo – Clima (opcional) */
+    /* Topo – Clima */
     .topbar{position:fixed;top:0;left:0;right:0;height:56px;background:var(--top-bg);
-      display:flex;align-items:center;padding:0 16px;box-shadow:0 6px 16px rgba(0,0,0,.25);
-      pointer-events:none}
+      display:flex;align-items:center;padding:0 16px;box-shadow:0 6px 16px rgba(0,0,0,.25);pointer-events:none}
     .topbar iframe{width:100%;height:36px;border:0;background:transparent;pointer-events:none}
 
     /* Miolo – Player responsivo */
@@ -33,7 +32,7 @@
       overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.25)}
     .player-box > *{width:100%;height:100%;border:0;display:block}
 
-    /* Rodapé – Ticker (sem JS) */
+    /* Rodapé – Ticker */
     .ticker{position:fixed;left:0;right:0;bottom:0;height:var(--ticker-h);background:var(--gn-red);
       display:flex;align-items:center;gap:18px;overflow:hidden;border-top:4px solid rgba(0,0,0,.15);
       box-shadow:0 -10px 28px rgba(0,0,0,.35);pointer-events:none}
@@ -43,9 +42,7 @@
     .lane{position:absolute;top:0;left:0;height:100%;display:inline-flex;align-items:center;
       gap:36px;white-space:nowrap;font-weight:900;font-size:var(--ticker-fs);
       will-change:transform;animation:scroll var(--speed) linear infinite}
-    /* duas cópias do mesmo texto, vindas do atributo data-text */
-    .lane::before,.lane::after{content:attr(data-text);display:inline-block;padding-right:36px}
-
+    /* rola metade porque duplicamos o conteúdo manualmente */
     @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
     @media (max-width:900px){
@@ -69,7 +66,6 @@
   <!-- PLAYER TWITCH -->
   <div class="stage">
     <div class="player-box">
-      <!-- IMPORTANTÍSSIMO: liste aqui TODOS os domínios onde a página abre -->
       <iframe
         src="https://player.twitch.tv/?channel=tvmarataizes&parent=tvmarataizes.com.br&parent=www.tvmarataizes.com.br&parent=localhost"
         allow="autoplay; fullscreen; picture-in-picture"
@@ -79,15 +75,17 @@
     </div>
   </div>
 
-  <!-- TICKER (edite APENAS o data-text abaixo) -->
+  <!-- TICKER (edite APENAS entre os comentários) -->
   <div class="ticker" role="marquee" aria-label="Notícias">
     <div class="pill">AO VIVO</div>
     <div class="track">
-      <!-- 🔧 ALTERE AQUI RAUL: mude só o conteúdo do data-text --> 
-      <div class="lane"
-           data-text="🔴 TV Marataízes ao vivo — 📍 Marataízes, Itapemirim e Piúma • Programação começa as 18h - Festival de Cinema hoje às 19h — Mostra de Curtas + Programa Gente da Gente às 20h — Fique ligado!">
+      <div class="lane">
+        <!-- 🔧 ALTERE O TEXTO AQUI (copia este bloco e cole novamente logo abaixo para duplicar) -->
+        🔴 TV Marataízes ao vivo — Início da Programçnao às 18h 📍 Marataízes, Itapemirim • Presidente Kennedy e Piúma  • Apoio: Comércio Local
+        <!-- 🔧 FIM DO TEXTO -->
+        <!-- 🔁 CÓPIA PARA ROLAGEM CONTÍNUA (mantenha igual ao de cima) -->
+        🔴 TV Marataízes ao vivo — Início da Programçnao às 18h 📍 Marataízes, Itapemirim • Presidente Kennedy e Piúma  • Apoio: Comércio Local
       </div>
-      <!-- 🔧 FIM DA ALTERAÇÃO -->
     </div>
   </div>
 
