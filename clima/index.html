@@ -1,83 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Clima • TV Marataízes</title>
-<style>
-  :root{
-    --bar: rgba(10,15,31,.85);
-    --text:#E6F1FF; --muted:#9BB3CC; --stroke: rgba(90,182,255,.25);
-  }
-  html,body{margin:0;padding:0;background:transparent;color:var(--text);font-family: Arial, Helvetica, sans-serif}
-  .wrap{width:1920px;height:120px;display:flex;align-items:center;justify-content:center}
-  .bar{width:1840px;height:96px;border-radius:16px;background:linear-gradient(90deg, rgba(17,24,49,.92), rgba(10,15,31,.92));
-       border:1px solid var(--stroke);display:flex;align-items:center;gap:18px;padding:0 20px;box-shadow:0 8px 28px rgba(0,0,0,.35)}
-  .logo{display:flex;align-items:center;gap:10px;margin-right:6px}
-  .logo img{width:42px;height:42px;object-fit:contain}
-  .logo .tag{font-weight:800;letter-spacing:.08em;font-size:18px;color:var(--muted);white-space:nowrap}
-  .icon{width:56px;height:56px;image-rendering:pixelated}
-  .item{display:flex;align-items:baseline;gap:8px;white-space:nowrap}
-  .val{font-size:32px;font-weight:800}
-  .lab{font-size:14px;color:var(--muted)}
-  .sep{width:1px;height:40px;background:var(--stroke);margin:0 6px}
-  .clock{margin-left:auto;font-size:28px;font-weight:700}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Marataízes - Clima</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .logo {
+            max-width: 200px;
+            margin-top: 20px;
+        }
+        iframe {
+            margin-top: 20px;
+            border: none;
+        }
+    </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="bar">
-      <div class="logo">
-        <img src="./logo.png" alt="Logo" onerror="this.style.display='none'">
-        <div class="tag">TV MARATAÍZES • CLIMA</div>
-      </div>
+    <img src="logo.png" alt="TV Marataízes" class="logo">
 
-      <img id="icon" class="icon" src="" alt="Ícone"/>
-      <div class="item"><div id="temp" class="val">--°</div><div class="lab" id="desc">—</div></div>
-      <div class="sep"></div>
-      <div class="item"><div class="val" id="wind">--</div><div class="lab">km/h</div></div>
-      <div class="sep"></div>
-      <div class="item"><div class="val" id="hum">--%</div><div class="lab">umid.</div></div>
-      <div class="sep"></div>
-      <div class="item"><div class="val" id="minmax">--°/--°</div><div class="lab">mín/máx</div></div>
-      <div class="clock" id="clock">--:--</div>
-    </div>
-  </div>
-
-<script>
-const CONFIG = {
-  apiKey: "c3c611c8ed29b827a90ce412aa129eec",
-  lat: -21.0434, lon: -40.8311,
-  units: "metric", lang: "pt_br", refreshMinutes: 5
-};
-
-function clock(){const d=new Date();const h=String(d.getHours()).padStart(2,"0");const m=String(d.getMinutes()).padStart(2,"0");document.getElementById("clock").textContent=`${h}:${m}`;}
-setInterval(clock,1000);clock();
-
-async function update(){
-  try{
-    const u=`https://api.openweathermap.org/data/2.5/weather?lat=${CONFIG.lat}&lon=${CONFIG.lon}&units=${CONFIG.units}&lang=${CONFIG.lang}&appid=${CONFIG.apiKey}`;
-    const r=await fetch(u); if(!r.ok) throw new Error("HTTP "+r.status);
-    const d=await r.json();
-    const kph=Math.round((d.wind?.speed||0)*3.6);
-    const t=Math.round(d.main?.temp??0);
-    const tmin=Math.round(d.main?.temp_min??0);
-    const tmax=Math.round(d.main?.temp_max??0);
-    const desc=(d.weather&&d.weather[0]?.description)||"—";
-    const icon=(d.weather&&d.weather[0]?.icon)||"01d";
-
-    document.getElementById("temp").textContent=t+"°";
-    document.getElementById("desc").textContent=desc;
-    document.getElementById("wind").textContent=kph;
-    document.getElementById("hum").textContent=(d.main?.humidity??0)+"%";
-    document.getElementById("minmax").textContent=`${tmin}°/${tmax}°`;
-    document.getElementById("icon").src=`https://openweathermap.org/img/wn/${icon}@2x.png`;
-  }catch(e){
-    document.getElementById("desc").textContent="erro ao atualizar";
-    console.error(e);
-  }
-}
-update(); setInterval(update, CONFIG.refreshMinutes*60*1000);
-</script>
+    <iframe src="https://www.meteoblue.com/pt/tempo/widget/daily/marataízes_brasil_3457671?geoloc=fixed&days=7&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&layout=light"
+        width="100%" height="420"></iframe>
 </body>
 </html>
