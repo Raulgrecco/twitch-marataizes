@@ -4,33 +4,64 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Overlay TV Marataízes</title>
+
+<!-- Evita cache -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
+
 <style>
   :root{
-    --gn-red:#C4170C;        /* vermelho estilo GloboNews */
-    --top-bg:#0a1628;        /* faixa do topo */
-    --text:#ffffff;
-    --ticker-h:88px;         /* altura do ticker */
-    --ticker-fs:34px;        /* tamanho da fonte do ticker */
-    --speed:38s;             /* duração do ciclo (↓ = mais rápido) */
+    /* ====== AJUSTES RÁPIDOS ====== */
+    --show-weather: 1;        /* 1 = mostra clima | 0 = esconde */
+    --ticker-h: 88px;         /* altura do rodapé */
+    --ticker-fs: 34px;        /* fonte do rodapé */
+    --speed: 38s;             /* será recalculado automaticamente via JS */
+
+    /* Cores */
+    --gn-red: #C4170C;        /* vermelho estilo GloboNews */
+    --top-bg: #0a1628;        /* faixa do topo (clima) */
+    --text:   #ffffff;
   }
-  html,body{margin:0;height:100%;background:transparent;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text)}
-  
-  /* Topo – clima compacto */
-  .topbar{position:fixed;top:0;left:0;right:0;height:56px;background:var(--top-bg);display:flex;align-items:center;padding:0 16px;box-shadow:0 6px 16px rgba(0,0,0,.25);pointer-events:none}
+
+  html,body{
+    margin:0;height:100%;background:transparent;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    color:var(--text)
+  }
+
+  /* ===== TOPO: Clima ===== */
+  .topbar{
+    display: calc(var(--show-weather)) ? flex : none;
+    position:fixed;top:0;left:0;right:0;height:56px;
+    background:var(--top-bg);align-items:center;padding:0 16px;
+    box-shadow:0 6px 16px rgba(0,0,0,.25);pointer-events:none
+  }
   .topbar iframe{width:100%;height:36px;border:0;background:transparent;pointer-events:none}
 
-  /* Rodapé – ticker vermelho */
-  .ticker{position:fixed;left:0;right:0;bottom:0;height:var(--ticker-h);background:var(--gn-red);display:flex;align-items:center;gap:18px;overflow:hidden;border-top:4px solid rgba(0,0,0,.15);box-shadow:0 -10px 28px rgba(0,0,0,.35);pointer-events:none}
-  .pill{margin-left:16px;padding:10px 14px;border-radius:10px;background:#000;color:#fff;font-weight:900;letter-spacing:.3px;text-transform:uppercase;white-space:nowrap;pointer-events:auto}
+  /* ===== RODAPÉ: Ticker ===== */
+  .ticker{
+    position:fixed;left:0;right:0;bottom:0;height:var(--ticker-h);
+    background:var(--gn-red);display:flex;align-items:center;gap:18px;
+    overflow:hidden;border-top:4px solid rgba(0,0,0,.15);
+    box-shadow:0 -10px 28px rgba(0,0,0,.35);pointer-events:none
+  }
+  .pill{
+    margin-left:16px;padding:10px 14px;border-radius:10px;background:#000;color:#fff;
+    font-weight:900;letter-spacing:.3px;text-transform:uppercase;white-space:nowrap;pointer-events:auto
+  }
   .track{position:relative;flex:1;height:100%;overflow:hidden}
-  .lane{position:absolute;top:0;left:0;height:100%;display:inline-flex;align-items:center;gap:36px;white-space:nowrap;font-weight:900;font-size:var(--ticker-fs);will-change:transform;animation:scroll var(--speed) linear infinite}
+  .lane{
+    position:absolute;top:0;left:0;height:100%;
+    display:inline-flex;align-items:center;gap:36px;white-space:nowrap;
+    font-weight:900;font-size:var(--ticker-fs);
+    will-change:transform;animation:scroll var(--speed) linear infinite
+  }
   @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-100%)}}
 
+  /* ===== Responsivo ===== */
   @media (max-width: 900px){
-    :root{ --ticker-h:72px; --ticker-fs:28px; --speed:34s }
+    :root{ --ticker-h:72px; --ticker-fs:28px }
     .topbar{height:52px}
     .topbar iframe{height:32px}
   }
@@ -38,7 +69,7 @@
 </head>
 <body>
 
-  <!-- TOPO: Clima -->
+  <!-- TOPO: Clima (mude --show-weather para 0 se quiser ocultar) -->
   <div class="topbar" aria-label="Clima agora">
     <iframe
       src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=0&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=0&pictoicon=1&maxtemperature=1&mintemperature=1"
@@ -47,48 +78,57 @@
     </iframe>
   </div>
 
-  <!-- RODAPÉ: Ticker -->
+  <!-- RODAPÉ: Ticker (texto vem do /ticker.txt) -->
   <div class="ticker" role="marquee" aria-label="Notícias">
-    <div class="pill">AO VIVO</div>
-    <div class="track">
-      <div class="lane" id="laneA"></div>
-    </div>
+    <div class="pill" id="pillLabel">AO VIVO</div>
+    <div class="track"><div class="lane" id="laneA"></div></div>
   </div>
 
-  <script>
-    const lane = document.getElementById('laneA');
+<script>
+  // ===== CONFIG BÁSICA (se quiser trocar a pílula sem editar HTML) =====
+  document.getElementById('pillLabel').textContent = 'AO VIVO'; // ex.: 'URGENTE', 'ESPECIAL'
 
-    function setMessage(msg) {
-      const base = (msg || '').trim();
-      lane.innerHTML = '';
-      // Repete para manter o efeito de rolagem contínua
-      for (let i = 0; i < 10; i++) {
-        const s = document.createElement('span');
-        s.textContent = (base ? base : ' ') + ' • ';
-        lane.appendChild(s);
-      }
+  const lane = document.getElementById('laneA');
+
+  function setMessage(msg) {
+    const base = (msg || '').trim();
+    lane.innerHTML = '';
+    // Repete o texto para preencher a faixa e criar um loop fluido
+    for (let i = 0; i < 10; i++) {
+      const s = document.createElement('span');
+      s.textContent = (base || ' ') + ' • ';
+      lane.appendChild(s);
     }
+    autoSpeed();
+  }
 
-    async function pull() {
-      try {
-        const res = await fetch('ticker.txt?ts=' + Date.now(), { cache: 'no-store' });
-        if (res.ok) {
-          const txt = (await res.text()).trim();
-          if (txt) setMessage(txt);
-        }
-      } catch (e) {
-        console.error('Erro ao carregar ticker:', e);
+  // ===== Velocidade automática conforme largura do conteúdo =====
+  function autoSpeed(){
+    const pxPerSec = 70; // menor = mais lento ; maior = mais rápido (ajuste a gosto)
+    // Usa scrollWidth para medir todo o conteúdo da faixa
+    const totalPx = lane.scrollWidth || 2000;
+    const dur = Math.max(20, Math.round(totalPx / pxPerSec)); // mínimo 20s
+    document.documentElement.style.setProperty('--speed', dur + 's');
+  }
+
+  // ===== Busca o texto do ticker na raiz do domínio =====
+  async function pull() {
+    try {
+      const res = await fetch('/ticker.txt?ts=' + Date.now(), { cache: 'no-store' });
+      if (res.ok) {
+        const txt = (await res.text()).trim();
+        if (txt) setMessage(txt);
       }
+    } catch (e) {
+      // silencioso — overlay nunca quebra
     }
+  }
 
-    // Carrega ao iniciar e atualiza a cada 10 segundos
-    setMessage('Carregando…');
-    pull();
-    setInterval(pull, 10000);
-
-    // Recalcula ao redimensionar
-    window.addEventListener('resize', () => setMessage(lane.textContent || ''));
-  </script>
-
+  // Inicializa
+  setMessage('Carregando…');
+  pull();                   // carrega ao abrir
+  setInterval(pull, 10000); // atualiza a cada 10s
+  window.addEventListener('resize', autoSpeed);
+</script>
 </body>
 </html>
