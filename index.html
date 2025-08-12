@@ -4,43 +4,25 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TV Marataízes — ao vivo</title>
-  <meta name="description" content="TV Marataízes ao vivo — programação local e cultura do sul do ES." />
+  <meta name="description" content="TV Marataízes ao vivo — programação local." />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <meta name="theme-color" content="#C4170C" />
   <style>
     :root{
+      --gn-red:#C4170C;      /* faixa da legenda do site */
       --text:#fff;
-      --top-bg:#0a1628;      /* cor do clima */
-      --gn-red:#C4170C;      /* cor da legenda do site */
-
-      /* >>> ajuste a altura do CLIMA aqui <<< */
-      --meteo-h:180px;       /* altura do widget meteoblue no desktop */
-      --top-h:var(--meteo-h);/* altura da barra do topo = altura do widget */
-
-      /* legenda do site (parada) */
-      --ticker-h:86px;
-      --ticker-fs:32px;
+      --ticker-h:86px;       /* altura da legenda */
+      --ticker-fs:32px;      /* tamanho da fonte da legenda */
     }
 
     html,body{margin:0;height:100%;background:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text)}
 
-    /* TOPO – CLIMA (fixo, com altura suficiente) */
-    .topbar{
-      position:fixed; top:0; left:0; right:0; height:var(--top-h);
-      background:var(--top-bg); display:flex; align-items:center; padding:0 16px;
-      box-shadow:0 6px 16px rgba(0,0,0,.25); z-index:10; pointer-events:none;
-    }
-    .topbar iframe{
-      width:100%; height:var(--meteo-h); border:0; background:transparent; pointer-events:none;
-    }
-
-    /* PLAYER – começa depois do clima e antes da legenda do site */
+    /* PLAYER ocupa a tela até antes da legenda */
     .stage{
-      position:fixed; left:0; right:0;
-      top:var(--top-h); bottom:var(--ticker-h);
-      display:flex; align-items:center; justify-content:center; padding:16px; z-index:1;
+      min-height:calc(100vh - var(--ticker-h));
+      display:flex; align-items:center; justify-content:center; padding:16px;
     }
     .player-box{
       width:min(100%,1200px); aspect-ratio:16/9; background:#000;
@@ -48,7 +30,7 @@
     }
     .player-box > *{width:100%; height:100%; border:0; display:block}
 
-    /* LEGENDA DO SITE – PARADA (não rola) e abaixo do vídeo */
+    /* LEGENDA DO SITE (parada) */
     .ticker{
       position:fixed; left:0; right:0; bottom:0; height:var(--ticker-h);
       background:var(--gn-red); display:flex; align-items:center; gap:18px;
@@ -65,11 +47,7 @@
     }
 
     @media (max-width:900px){
-      :root{
-        --meteo-h:130px;   /* altura do clima no celular */
-        --top-h:var(--meteo-h);
-        --ticker-h:72px; --ticker-fs:28px;
-      }
+      :root{ --ticker-h:72px; --ticker-fs:28px }
       .stage{ padding:10px }
       .player-box{ border-radius:8px }
     }
@@ -77,20 +55,11 @@
 </head>
 <body>
 
-  <!-- CLIMA -->
-  <div class="topbar" aria-label="Clima agora">
-    <iframe
-      src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=0&pictoicon=1&maxtemperature=1&mintemperature=1"
-      scrolling="no" allowtransparency="true"
-      sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox">
-    </iframe>
-  </div>
-
   <!-- PLAYER TWITCH -->
   <section class="stage">
     <div class="player-box">
       <iframe
-        src="https://player.twitch.tv/?channel=tvmarataizes&parent=tvmarataizes.com.br&parent=www.tvmarataizes.com.br&parent=localhost"
+        src="https://player.twitch.tv/?channel=tvmarataizes&parent=tvmarataizes.com.br&parent=www.tvmarataizes.com.br&parent=localhost&autoplay=true&muted=true"
         allow="autoplay; fullscreen; picture-in-picture"
         allowfullscreen
         title="TV Marataízes ao vivo">
@@ -98,13 +67,13 @@
     </div>
   </section>
 
-  <!-- LEGENDA DO SITE (PARADA) – edite o texto aqui -->
+  <!-- LEGENDA DO SITE (PARADA) – edite o texto abaixo -->
   <footer class="ticker" aria-label="Legenda do site">
     <div class="pill">AO VIVO</div>
     <div class="ticker-text">
-      <!-- ALTERE APENAS ESTA LINHA -->
+      <!-- 🔧 ALTERE APENAS ESTA LINHA -->
       Início da Programação às 18h • Apoio: Comércio Local
-      <!-- FIM -->
+      <!-- 🔧 FIM -->
     </div>
   </footer>
 
