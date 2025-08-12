@@ -1,146 +1,174 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8" />
+<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Overlay GN - Tempo + Ticker</title>
+<title>Overlay TV Marataízes</title>
 <style>
-  /* Fundo transparente para overlay no OBS */
-  html, body {
-    margin: 0; height: 100%; background: transparent;
-    font-family: "Segoe UI", Arial, system-ui, sans-serif;
-  }
-  * { box-sizing: border-box }
-
   :root{
-    /* Cores GN-like (pode mudar via URL) */
-    --gn-red: 196, 23, 12;      /* #C4170C */
-    --bar-bg: 0, 0, 0;          /* preto */
-    --bar-op: .90;              /* opacidade da barra */
-    --accent: 247,183,51;       /* amarelo detalhe */
-    --h: 64px;                  /* altura do ticker */
-    --speed: 22s;               /* velocidade do marquee */
-    --wx: 480px;                /* largura widget tempo */
-    --wy: 220px;                /* altura widget tempo */
+    --accent:#f7b733;
+    --ink:#ffffff;
+    --blur:10px;
+    --bar-h:64px;    /* altura padrão da faixa (pode ser trocada por ?h=) */
+    --speed:22s;     /* duração padrão da rolagem (pode ser trocada por ?speed=) */
+  }
+  html,body{
+    height:100%;
+    margin:0;
+    background:transparent; /* essencial pro OBS */
+  }
+  /* Um palco full-screen, sem capturar cliques do mouse do OBS */
+  .stage{
+    position:fixed; inset:0;
+    pointer-events:none;
+    font-family:system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    color:var(--ink);
   }
 
-  /* Tempo (canto superior direito) */
-  .weather {
-    position: fixed; right: 14px; top: 14px;
-    width: var(--wx); height: var(--wy);
-    background: rgba(0,0,0,.35);
-    border: 1px solid rgba(255,255,255,.12);
-    border-radius: 10px;
-    backdrop-filter: blur(2px);
-    overflow: hidden;
-    pointer-events: none; /* não intercepta clique no OBS */
+  /* ====== CLIMA (canto superior direito) ====== */
+  .wx{
+    position:absolute; top:10px; right:10px;
+    width:420px; height:250px;      /* ajuste fino aqui se quiser */
+    filter:drop-shadow(0 6px 18px rgba(0,0,0,.35));
+    pointer-events:none;            /* evita “pegar” clique no OBS */
   }
-  .weather iframe {
-    width: 100%; height: 100%; border: 0; background: transparent;
+  .wx iframe{
+    width:100%; height:100%; border:0; border-radius:12px; background:transparent;
   }
+  @media (max-width:1200px){ .wx{ transform:scale(.9); transform-origin:top right; } }
+  @media (max-width:900px){  .wx{ transform:scale(.8); } }
+  @media (max-width:720px){  .wx{ transform:scale(.7); } }
 
-  /* Barra inferior GN-like */
-  .ticker-wrap {
-    position: fixed; left: 0; right: 0; bottom: 0;
-    height: var(--h); display: flex; align-items: stretch;
-    background: rgba(var(--bar-bg), var(--bar-op));
-    border-top: 3px solid rgb(var(--accent));
+  /* ====== TICKER (rodapé) ====== */
+  .ticker{
+    position:fixed; left:0; right:0; bottom:0;
+    height:var(--bar-h);
+    display:flex; align-items:center; gap:14px;
+    backdrop-filter:saturate(140%) blur(var(--blur));
+    background:rgba(0,0,0,.45);
+    border-top:3px solid var(--accent);
+    pointer-events:none;            /* overlay puro, sem clique */
   }
-  .tag {
-    display: flex; align-items: center;
-    padding: 0 16px;
-    background: rgb(var(--gn-red));
-    color: #fff; font-weight: 900; letter-spacing: .3px;
-    font-size: 20px;
+  .tag{
+    flex:0 0 auto;
+    margin-left:16px;
+    padding:6px 10px;
+    background:var(--accent);
+    color:#1b1b1b;
+    font-weight:800;
+    border-radius:8px;
+    letter-spacing:.2px;
   }
-  .track {
-    flex: 1; overflow: hidden; position: relative; display: flex; align-items: center;
+  .ribbon{
+    position:relative; overflow:hidden;
+    flex:1 1 auto; height:100%;
   }
-  .marq {
-    display: inline-block; white-space: nowrap; color: #fff; font-weight: 700;
-    font-size: 20px; padding-left: 24px;
-    animation: scroll var(--speed) linear infinite;
-    will-change: transform;
+  .lane{
+    position:absolute; inset:0;
+    display:flex; align-items:center;
+    gap:36px; padding:0 16px;
+    white-space:nowrap;
+    font-size:clamp(16px, 2.2vh, 22px);
+    font-weight:700;
+    text-shadow:0 1px 2px rgba(0,0,0,.45);
+    animation:scroll var(--speed) linear infinite;
   }
-  .bullet { opacity: .55; padding: 0 18px }
-  @keyframes scroll {
-    from { transform: translateX(100%) }
-    to   { transform: translateX(-100%) }
-  }
-
-  /* Segurança para telas menores */
-  @media (max-width: 900px) {
-    :root { --wx: 380px; --wy: 200px; --h: 56px }
-    .tag, .marq { font-size: 18px }
+  .sep{ opacity:.55 }
+  @keyframes scroll{
+    from{ transform:translateX(0) }
+    to{   transform:translateX(-50%) } /* duplicamos o conteúdo pra loop perfeito */
   }
 </style>
 </head>
 <body>
+<div class="stage">
 
-<!-- CLIMA (meteoblue) -->
-<div class="weather" id="wxBox">
-  <iframe id="wx"
-    src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=5&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=coloured&pictoicon=1&maxtemperature=1&mintemperature=1&windspeed=1&windgust=0&winddirection=1&uv=0&humidity=0&precipitation=1&precipitationprobability=1&spot=1&pressure=0&layout=light"
-    scrolling="NO" frameborder="0" allowtransparency="true"
-    sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>
-</div>
-
-<!-- TICKER -->
-<div class="ticker-wrap">
-  <div class="tag" id="tag">AO VIVO</div>
-  <div class="track">
-    <div class="marq" id="mq">Carregando…</div>
+  <!-- CLIMA (Meteoblue – Marataízes) -->
+  <div class="wx" id="wx">
+    <iframe
+      src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=5&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=coloured&pictoicon=1&maxtemperature=1&mintemperature=1&windspeed=1&windgust=0&winddirection=1&uv=0&humidity=0&precipitation=1&precipitationprobability=1&spot=1&pressure=0&layout=light"
+      frameborder="0" scrolling="NO" allowtransparency="true"
+      sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox">
+    </iframe>
   </div>
+
+  <!-- TICKER -->
+  <div class="ticker" id="ticker" role="marquee" aria-label="Últimas notícias">
+    <div class="tag" id="tag">AO VIVO</div>
+    <div class="ribbon">
+      <div class="lane" id="lane"></div>
+    </div>
+  </div>
+
 </div>
 
 <script>
-  /* ========= Parâmetros por URL =========
-    &h=64                 -> altura do ticker (px)
-    &speed=18s            -> velocidade do texto (tempo menor = mais rápido)
-    &barbg=0,0,0&barop=.9 -> cor/alpha de fundo
-    &accent=247,183,51    -> cor da linha superior (RGB)
-    &tag=NOTÍCIAS         -> texto da tag
-    &tagcolor=196,23,12   -> cor da tag (RGB)
-    &wx=480&wy=220        -> largura/altura do widget do tempo (px)
-    &wxurl=URLENCODED     -> URL completa alternativa do widget meteoblue
-    &hidewx=1             -> oculta o widget do tempo
-  ===================================== */
-  const qs = new URLSearchParams(location.search);
-  const css = (k,v) => document.documentElement.style.setProperty(k,v);
+  // ---------- Parâmetros de URL ----------
+  const params = new URLSearchParams(location.search);
+  const h     = params.get("h");           // altura em px da faixa (ex: ?h=68)
+  const speed = params.get("speed");       // duração do ciclo (ex: ?speed=24s)
+  const tag   = params.get("tag");         // rótulo da tarja (ex: ?tag=NOTÍCIAS)
+  const nowx  = params.get("nowx");        // se =1, esconde o clima
 
-  if (qs.get('h')) css('--h', qs.get('h')+'px');
-  if (qs.get('speed')) css('--speed', qs.get('speed'));
-  if (qs.get('accent')) css('--accent', qs.get('accent'));
-  if (qs.get('barbg')) css('--bar-bg', qs.get('barbg'));
-  if (qs.get('barop')) css('--bar-op', qs.get('barop'));
-  if (qs.get('tagcolor')) css('--gn-red', qs.get('tagcolor'));
-  if (qs.get('wx')) css('--wx', qs.get('wx')+'px');
-  if (qs.get('wy')) css('--wy', qs.get('wy')+'px');
+  if(h)     document.documentElement.style.setProperty('--bar-h', h.replace('px','')+'px');
+  if(speed) document.documentElement.style.setProperty('--speed', speed);
+  if(tag)   document.getElementById('tag').textContent = tag.toUpperCase();
+  if(nowx=='1') document.getElementById('wx').style.display = 'none';
 
-  const tagEl = document.getElementById('tag');
-  if (qs.get('tag')) tagEl.textContent = qs.get('tag');
-
-  const wxBox = document.getElementById('wxBox');
-  const wxIframe = document.getElementById('wx');
-  if (qs.get('hidewx') === '1') wxBox.style.display = 'none';
-  if (qs.get('wxurl')) wxIframe.src = decodeURIComponent(qs.get('wxurl'));
-
-  // ----------- ticker -----------
-  const mq = document.getElementById('mq');
-  const SEP = ' <span class="bullet">•</span> ';
+  // ---------- Carrega ticker.txt ----------
+  const lane = document.getElementById('lane');
 
   async function loadTicker(){
     try{
-      const r = await fetch('ticker.txt?_=' + Date.now(), { cache:'no-store' });
-      const t = await r.text();
-      const itens = t.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
-      mq.innerHTML = itens.length ? itens.join(SEP) + SEP : ' ';
+      // cache-buster pra forçar atualização no OBS
+      const res = await fetch('ticker.txt?cb=' + Date.now());
+      if(!res.ok) throw new Error('ticker.txt não encontrado');
+      const text = await res.text();
+      const items = text
+        .split('\n')
+        .map(s => s.trim())
+        .filter(Boolean);
+
+      if(items.length) render(items);
+      else renderFallback();
     }catch(e){
-      mq.textContent = '⚠️ Não foi possível carregar as notícias.';
+      console.warn(e);
+      renderFallback();
     }
   }
+
+  function render(items){
+    // Monta duas cópias pro loop ser contínuo (50% + 50% = 100% do movimento)
+    const html = buildLine(items);
+    lane.innerHTML = html + html;
+  }
+
+  function buildLine(arr){
+    // separador com bolinha
+    const SEP = '<span class="sep">•</span>';
+    return arr
+      .map(s => `<span>${escapeHtml(s)}</span>`)
+      .join(` ${SEP} `);
+  }
+
+  function renderFallback(){
+    const fallback = [
+      "TV Marataízes ao vivo no Twitch!",
+      "Siga nosso Instagram para promoções locais",
+      "Clima de Marataízes em tempo real no canto superior"
+    ];
+    render(fallback);
+  }
+
+  function escapeHtml(s){
+    return s.replace(/[&<>"']/g, m =>
+      ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])
+    );
+  }
+
+  // Atualiza a cada 60s (ajuste se quiser)
   loadTicker();
-  setInterval(loadTicker, 20000); // atualiza a cada 20s
+  setInterval(loadTicker, 60_000);
 </script>
 </body>
 </html>
