@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Overlay TVM</title>
+<style>
+  html,body{height:100%;margin:0;background:transparent}
+  /* tudo clicável passa pro vídeo por baixo no OBS */
+  body{pointer-events:none;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+
+  /* Bloco do tempo (canto superior esquerdo) */
+  .weather{
+    position:fixed; top:8px; left:8px; width:520px; height:160px;
+    filter: drop-shadow(0 6px 14px rgba(0,0,0,.25));
+  }
+  .weather iframe{width:100%;height:100%;border:0;border-radius:10px;background:transparent}
+
+  /* Tarja (estilo Globonews) */
+  .lowerthird{
+    position:fixed; left:0; right:0; bottom:0; display:flex; gap:10px; align-items:center;
+    padding:10px 16px; background:rgba(0,0,0,.78); color:#fafafa;
+  }
+  .live-pill{
+    pointer-events:auto; /* permite clicar se quiser (pausar browser etc.) */
+    background:#f7b733; color:#111; font-weight:800; padding:9px 14px; border-radius:6px;
+    text-transform:uppercase; letter-spacing:.4px;
+  }
+  .ticker{white-space:nowrap; overflow:hidden; flex:1}
+  .ticker span{display:inline-block; padding-left:100%; animation:scroll var(--dur,28s) linear infinite}
+  @keyframes scroll{from{transform:translateX(0)} to{transform:translateX(-100%)}}
+</style>
+</head>
+<body>
+
+  <!-- Tempo (Marataízes) -->
+  <div class="weather">
+    <iframe
+      src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=5&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=coloured&pictoicon=1&maxtemperature=1&mintemperature=1&windspeed=1&windgust=0&winddirection=1&uv=0&humidity=0&precipitation=1&precipitationprobability=1&spot=1&pressure=0&layout=light"
+      frameborder="0" scrolling="NO" allowtransparency="true"
+      sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox">
+    </iframe>
+  </div>
+
+  <!-- Tarja -->
+  <div class="lowerthird">
+    <div class="live-pill" id="pill">AO VIVO</div>
+    <div class="ticker"><span id="txt">Boletins locais • Marataízes, Itapemirim e Presidente Kennedy • 🌤️ Previsão no canto superior • 💬 Siga: twitch.tv/tvmarataizes</span></div>
+  </div>
+
+<script>
+  // Permite configurar via URL: ?t=texto&s=28&pill=AO%20VIVO
+  const q = new URLSearchParams(location.search);
+  const t = q.get('t');
+  const s = parseInt(q.get('s'),10);
+  const p = q.get('pill');
+  if (t)  document.getElementById('txt').textContent = t;
+  if (!Number.isNaN(s)) document.documentElement.style.setProperty('--dur', s+'s');
+  if (p)  document.getElementById('pill').textContent = p;
+</script>
+</body>
+</html>
