@@ -1,105 +1,82 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
-<title>Overlay TV Marataízes</title>
-<style>
-  :root{
-    --accent:#f7b733;          /* cor da borda da tarja */
-    --bg-ticker:rgba(0,0,0,.72);
-    --txt:#ffffff;
-    --shadow:0 10px 28px rgba(0,0,0,.28);
-  }
-  html,body{height:100%; margin:0; background:transparent;}
-  /* container ocupa a tela inteira e não capta cliques */
-  .overlay{position:fixed; inset:0; pointer-events:none;}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TV Marataízes — ao vivo</title>
+  <meta name="description" content="TV Marataízes ao vivo — cultura, comércio local e programação raiz do sul do Espírito Santo." />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="theme-color" content="#C4170C" />
+  <style>
+    :root{
+      --gn-red:#C4170C;    /* faixa do ticker */
+      --top-bg:#0a1628;    /* faixa do topo (clima) */
+      --text:#ffffff;
+      --ticker-h:86px;     /* altura do ticker */
+      --ticker-fs:32px;    /* fonte do ticker */
+      --speed:38s;         /* velocidade do ticker */
+    }
+    html,body{margin:0;height:100%;background:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text)}
+    /* Topo – Clima */
+    .topbar{position:fixed;top:0;left:0;right:0;height:56px;background:var(--top-bg);display:flex;align-items:center;padding:0 16px;box-shadow:0 6px 16px rgba(0,0,0,.25);pointer-events:none}
+    .topbar iframe{width:100%;height:36px;border:0;background:transparent;pointer-events:none}
 
-  /* PREVISÃO (canto sup-esq) */
-  .wx{position:absolute; top:18px; left:18px; width:min(540px,38vw); height:min(220px,22vh);
-      filter:drop-shadow(var(--shadow));}
-  .wx iframe{width:100%; height:100%; border:0; background:transparent;}
+    /* Miolo – Player responsivo */
+    .stage{position:fixed;top:56px;bottom:var(--ticker-h);left:0;right:0;display:flex;align-items:center;justify-content:center;padding:16px}
+    .player-box{width:min(100%,1200px);aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.25)}
+    .player-box > *{width:100%;height:100%;border:0;display:block}
 
-  /* TARJA DE NOTÍCIAS (em baixo) */
-  .ticker{
-    position:absolute; left:0; right:0; bottom:0; height:64px;
-    background:var(--bg-ticker); color:var(--txt); pointer-events:none;
-    display:flex; align-items:center; overflow:hidden;
-    border-top:3px solid var(--accent);
-    font:600 18px/1.2 "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-  }
-  .ticker .label{
-    pointer-events:none; flex:0 0 auto; padding:0 14px; margin-right:10px;
-    background:var(--accent); color:#1a1a1a; height:100%; display:flex; align-items:center;
-    text-transform:uppercase; letter-spacing:.4px; font-weight:800;
-  }
-  .ticker .track{position:relative; flex:1 1 auto; overflow:hidden; height:100%;}
-  .ticker .scroll{
-    position:absolute; white-space:nowrap; will-change:transform;
-    padding-left:100%; /* começa fora da tela */
-    animation:marquee 35s linear infinite;
-  }
-  .dot{display:inline-block; width:8px; height:8px; margin:0 18px; border-radius:50%; background:var(--accent);}
-  @keyframes marquee{
-    0%   { transform:translateX(0); }
-    100% { transform:translateX(-100%); }
-  }
+    /* Rodapé – Ticker */
+    .ticker{position:fixed;left:0;right:0;bottom:0;height:var(--ticker-h);background:var(--gn-red);display:flex;align-items:center;gap:18px;overflow:hidden;border-top:4px solid rgba(0,0,0,.15);box-shadow:0 -10px 28px rgba(0,0,0,.35);pointer-events:none}
+    .pill{margin-left:16px;padding:10px 14px;border-radius:10px;background:#000;color:#fff;font-weight:900;letter-spacing:.3px;text-transform:uppercase;white-space:nowrap;pointer-events:auto}
+    .track{position:relative;flex:1;height:100%;overflow:hidden}
+    .lane{position:absolute;top:0;left:0;height:100%;display:inline-flex;align-items:center;gap:36px;white-space:nowrap;font-weight:900;font-size:var(--ticker-fs);will-change:transform;animation:scroll var(--speed) linear infinite}
+    @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-100%)}}
 
-  /* Ajustes responsivos */
-  @media (max-width: 900px){
-    .ticker{height:54px; font-size:16px}
-  }
-  @media (max-width: 600px){
-    .wx{width:88vw; height:28vh}
-    .ticker{height:50px; font-size:15px}
-  }
-</style>
+    @media (max-width:900px){
+      :root{ --ticker-h:72px; --ticker-fs:28px; --speed:34s }
+      .stage{padding:10px}
+      .player-box{border-radius:8px}
+    }
+  </style>
 </head>
 <body>
-  <div class="overlay">
-    <!-- PREVISÃO -->
-    <div class="wx" aria-label="Clima em Marataízes">
-      <iframe id="wxFrame"
-        src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=5&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=coloured&pictoicon=1&maxtemperature=1&mintemperature=1&windspeed=1&windgust=0&winddirection=1&uv=0&humidity=0&precipitation=1&precipitationprobability=1&spot=1&pressure=0&layout=light"
-        frameborder="0" scrolling="NO" allowtransparency="true"
-        sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox">
+
+  <!-- TOPO: Clima -->
+  <div class="topbar" aria-label="Clima agora">
+    <iframe
+      src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=0&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=0&pictoicon=1&maxtemperature=1&mintemperature=1"
+      scrolling="no" allowtransparency="true"
+      sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox">
+    </iframe>
+  </div>
+
+  <!-- PLAYER TWITCH -->
+  <div class="stage">
+    <div class="player-box">
+      <!-- IMPORTANTE: 'parent' precisa ter os domínios onde a página roda -->
+      <iframe
+        src="https://player.twitch.tv/?channel=tvmarataizes&parent=tvmarataizes.com.br&parent=www.tvmarataizes.com.br&autoplay=true&muted=true"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen
+        title="TV Marataízes ao vivo">
       </iframe>
     </div>
+  </div>
 
-    <!-- TARJA -->
-    <div class="ticker" role="marquee" aria-label="Manchetes">
-      <div class="label">Ao vivo</div>
-      <div class="track">
-        <div id="scroll" class="scroll">
-          <span id="text">
-            🔴 TV Marataízes ao vivo — 📍 Marataízes, Itapemirim e Presidente Kennedy |
-            ☀️ Previsão: veja acima | 💬 Siga: twitch.tv/tvmarataizes |
-            📢 Anuncie na TV Marataízes: comercial@tvmarataizes.com.br
-          </span>
-        </div>
+  <!-- TICKER -->
+  <div class="ticker" role="marquee" aria-label="Notícias">
+    <div class="pill">AO VIVO</div>
+    <div class="track">
+      <div class="lane">
+        <!-- ALTERE AQUI RAUL -->
+        🔴 TV Marataízes ao vivo — 📍 Marataízes, Itapemirim e Piúma • Programa “Gente Daqui” às 19h • Sorteio de bicicleta todo dia de festival
+        <!-- FIM ALTERAÇÃO -->
       </div>
     </div>
   </div>
 
-<script>
-  // Permite trocar o texto e a velocidade pela URL:
-  // ?t=Seu%20texto%20aqui&s=30  (s = duração da animação em segundos)
-  (function(){
-    const p = new URLSearchParams(location.search);
-    const t = p.get('t');
-    const s = parseFloat(p.get('s'));
-    if (t) document.getElementById('text').textContent = t;
-    if (!isNaN(s) && s > 5) document.getElementById('scroll').style.animationDuration = s + 's';
-  })();
-
-  // Recarrega a previsão a cada 10 min para manter atualizada
-  setInterval(()=> {
-    const fr = document.getElementById('wxFrame');
-    const u = new URL(fr.src);
-    u.searchParams.set('_ts', Date.now());  // bust cache
-    fr.src = u.toString();
-  }, 10 * 60 * 1000);
-</script>
 </body>
 </html>
