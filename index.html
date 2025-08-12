@@ -5,182 +5,113 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TV Marataízes - Streaming ao vivo</title>
   <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0; 
-      padding: 0;
-      background: #f7f5f0;
-      color: #333;
-      display: flex; 
-      flex-direction: column; 
-      align-items: center;
-      min-height: 100vh;
+    :root{
+      --bg:#f7f5f0; --card:#ffffff; --brand:#f7b733; --ink:#333;
+      --shadow:0 4px 14px rgba(0,0,0,.12); --radius:14px;
     }
-    header {
-      background-color: #f7b733;
-      width: 100%;
-      padding: 1rem 0;
-      text-align: center;
-      font-weight: 700;
-      font-size: 1.8rem;
-      color: #222;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-    }
-    main {
-      display: flex;
-      gap: 1rem;
-      width: 90vw;
-      max-width: 1200px;
-      margin: 2rem auto;
-      justify-content: center;
-      align-items: flex-start;
-      flex-wrap: wrap;
-    }
-    #twitch-embed {
-      flex: 1 1 640px;
-      aspect-ratio: 16 / 9;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      background: black;
-      min-width: 300px;
-    }
-    .side-column {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      flex: 1 1 350px;
-      max-width: 450px;
-    }
-    .schedule {
-      background-color: #f7b733;
-      border-radius: 15px;
-      padding: 1.5rem 2rem;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-      color: #3e0f5a;
-      font-weight: 700;
-      font-size: 1rem;
-      line-height: 1.4;
-    }
-    .schedule h2 {
-      font-size: 1.6rem;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .schedule h2::before {
-      content: "📺";
-    }
-    .schedule p {
-      margin: 0.6rem 0;
-      font-weight: 700;
-      white-space: pre-line;
-    }
-    .weather-widget {
-      display: flex;
-      justify-content: center;
-      background: white;
-      border-radius: 15px;
-      padding: 0.5rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .how-to-watch {
-      max-width: 600px;
-      margin: 2rem auto;
-      background: #fff3cd;
-      border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-      color: #664d03;
-    }
-    .how-to-watch h2 { font-size: 1.6rem; margin-bottom: 1rem; }
-    .how-to-watch h3 { margin-top: 1rem; margin-bottom: 0.5rem; }
-    .how-to-watch ol { padding-left: 1.2rem; margin: 0 0 0.5rem; }
-    footer {
-      margin: 2rem 0 1rem;
-      font-size: 0.9rem;
-      color: #777;
-      text-align: center;
-    }
-    a { color: #f7b733; text-decoration: none; font-weight: bold; }
-    a:hover { text-decoration: underline; }
-
-    @media (max-width: 767px) {
-      main { flex-direction: column; width: 95vw; }
-      #twitch-embed, .side-column { width: 100%; max-width: none; }
+    *{box-sizing:border-box}
+    body{font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;margin:0;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;align-items:center;min-height:100vh}
+    header{background:var(--brand);color:#222;width:100%;padding:1rem 0;text-align:center;font-weight:700;font-size:1.8rem;box-shadow:0 2px 5px rgba(0,0,0,.15)}
+    .weather-top{width:min(1200px,92vw);background:var(--card);border-radius:var(--radius);margin:20px auto 0;padding:10px 14px;box-shadow:var(--shadow)}
+    .weather-top .frame{width:100%;height:420px;border:0;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+    .frame--desktop{display:block}
+    .frame--mobile{display:none}
+    main{display:flex;gap:1rem;width:min(1200px,92vw);margin:18px auto 24px;align-items:flex-start;flex-wrap:wrap}
+    #twitch-embed{flex:1 1 640px;min-width:300px;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000;box-shadow:var(--shadow)}
+    .schedule{flex:1 1 350px;max-width:460px;background:var(--brand);border-radius:var(--radius);padding:1.5rem 1.6rem;box-shadow:var(--shadow);color:#3e0f5a;font-weight:700;line-height:1.45}
+    .schedule h2{margin:.2rem 0 1rem;font-size:1.6rem;display:flex;gap:.5rem;align-items:center}
+    .schedule h2::before{content:"📺"}
+    .schedule p{margin:.6rem 0;white-space:pre-line}
+    .how-to-watch{width:min(600px,92vw);margin:24px auto;background:#fff3cd;color:#664d03;border-radius:12px;padding:1.5rem;box-shadow:var(--shadow)}
+    .how-to-watch h2{font-size:1.6rem;margin:0 0 1rem}
+    .how-to-watch h3{margin:1rem 0 .5rem}
+    .how-to-watch ol{margin:0 0 .5rem;padding-left:1.2rem}
+    footer{margin:18px 0 14px;font-size:.9rem;color:#777;text-align:center}
+    a{color:var(--brand);font-weight:700;text-decoration:none}
+    a:hover{text-decoration:underline}
+    @media (max-width: 767px){
+      main{flex-direction:column}
+      #twitch-embed,.schedule{width:100%;max-width:none}
+      .frame--desktop{display:none}
+      .frame--mobile{display:block}
     }
   </style>
-
   <script>
     if (window.location.search.includes('fbclid')) {
-      const url = new URL(window.location.href);
-      url.searchParams.delete('fbclid');
-      window.history.replaceState({}, document.title, url.toString());
+      const u=new URL(location.href);u.searchParams.delete('fbclid');history.replaceState({},document.title,u.toString());
     }
   </script>
   <script src="https://player.twitch.tv/js/embed/v1.js"></script>
 </head>
 <body>
   <header>TV Marataízes - Streaming ao vivo</header>
+
+  <!-- CLIMA NO TOPO (6 dias desktop, 4 dias mobile) -->
+  <section class="weather-top" aria-label="Clima em Marataízes">
+    <!-- Desktop: 6 dias -->
+    <iframe class="frame frame--desktop"
+      src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=6&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=coloured&pictoicon=1&maxtemperature=1&mintemperature=1&windspeed=1&windgust=0&winddirection=1&uv=0&humidity=0&precipitation=1&precipitationprobability=1&spot=1&pressure=0&layout=light"
+      frameborder="0" scrolling="NO" allowtransparency="true"
+      sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox">
+    </iframe>
+
+    <!-- Mobile: 4 dias (mais compacto) -->
+    <iframe class="frame frame--mobile"
+      src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=4&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=coloured&pictoicon=1&maxtemperature=1&mintemperature=1&windspeed=1&windgust=0&winddirection=1&uv=0&humidity=0&precipitation=1&precipitationprobability=1&spot=1&pressure=0&layout=light"
+      frameborder="0" scrolling="NO" allowtransparency="true"
+      sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox">
+    </iframe>
+
+    <div style="font-size:12px;opacity:.7;text-align:right;margin-top:6px">
+      <!-- DO NOT REMOVE THIS LINK -->
+      <a href="https://www.meteoblue.com/en/weather/week/marataizes_brazil_3457819" target="_blank" rel="noopener">meteoblue</a>
+    </div>
+  </section>
+
+  <!-- PLAYER + PROGRAMAÇÃO -->
   <main>
     <div id="twitch-embed"></div>
 
-    <div class="side-column">
-      <section class="schedule">
-        <h2>Horários da TV Marataízes</h2>
-        <p>✨ Na TV Marataízes já está no ar:</p>
-        <p>🌟 Programação variada e divertida das 18h à meia-noite, com música, entretenimento e conteúdos para toda a família.</p>
-        <p>🛍️ Em breve, de 12h às 18h:</p>
-        <p>Ofertas imperdíveis dos melhores clientes e fornecedores de Marataízes, Itapemirim e Presidente Kennedy!</p>
-        <p>⏰ Fique ligado, toda semana lançaremos promoções especiais para você aproveitar.</p>
-      </section>
-
-      <section class="weather-widget">
-        <iframe src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=4&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=coloured&pictoicon=1&maxtemperature=1&mintemperature=1&windspeed=1&windgust=0&winddirection=1&uv=0&humidity=0&precipitation=1&precipitationprobability=1&spot=1&pressure=0&layout=light" 
-          frameborder="0" scrolling="NO" allowtransparency="true" 
-          sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox" 
-          style="width: 100%; height: 420px; border-radius: 10px;">
-        </iframe>
-      </section>
-    </div>
+    <section class="schedule" aria-label="Horários da programação">
+      <h2>Horários da TV Marataízes</h2>
+      <p>✨ Na TV Marataízes já está no ar:</p>
+      <p>🌟 Programação variada e divertida das 18h à meia-noite, com música, entretenimento e conteúdos para toda a família.</p>
+      <p>🛍️ Em breve, de 12h às 18h:</p>
+      <p>Ofertas imperdíveis dos melhores clientes e fornecedores de Marataízes, Itapemirim e Presidente Kennedy!</p>
+      <p>⏰ Fique ligado, toda semana lançaremos promoções especiais para você aproveitar.</p>
+    </section>
   </main>
 
-  <section class="how-to-watch">
+  <section class="how-to-watch" aria-label="Como assistir à TV Marataízes pelo Twitch">
     <h2>Como assistir à TV Marataízes pelo Twitch:</h2>
     <h3>No celular:</h3>
     <ol>
-      <li>Acesse a loja de aplicativos do seu celular.</li>
-      <li>Busque por <strong>"Twitch"</strong> e instale o aplicativo gratuito.</li>
-      <li>Abra o app, procure por <strong>"TV Marataízes"</strong> e siga o canal.</li>
+      <li>Instale o app <strong>Twitch</strong> (Google Play/App Store).</li>
+      <li>Procure por <strong>TV Marataízes</strong> e siga o canal.</li>
     </ol>
     <h3>Na smart TV:</h3>
     <ol>
-      <li>Verifique se sua TV já tem o app Twitch.</li>
-      <li>Se não, instale na loja de aplicativos da TV.</li>
-      <li>Abra e procure <strong>"TV Marataízes"</strong>.</li>
+      <li>Abra/instale o app Twitch na sua TV.</li>
+      <li>Busque por <strong>TV Marataízes</strong>.</li>
     </ol>
     <h3>No computador:</h3>
     <ol>
-      <li>Acesse <a href="https://www.twitch.tv" target="_blank">https://www.twitch.tv</a>.</li>
-      <li>Procure por <strong>"TV Marataízes"</strong> e siga o canal.</li>
+      <li>Acesse <a href="https://www.twitch.tv" target="_blank" rel="noopener noreferrer">twitch.tv</a>.</li>
+      <li>Siga o canal <strong>TV Marataízes</strong>.</li>
     </ol>
   </section>
 
   <footer>
-    Acompanhe também em <a href="https://www.tvmarataizes.com.br">www.tvmarataizes.com.br</a> <br />
+    Acompanhe também em <a href="https://www.tvmarataizes.com.br">www.tvmarataizes.com.br</a><br/>
     Direitos reservados © 2025
   </footer>
 
-  <script type="text/javascript">
+  <script>
     new Twitch.Embed("twitch-embed", {
-      width: "100%",
-      height: "100%",
-      channel: "tvmarataizes",
-      parent: ["www.tvmarataizes.com.br", "localhost"]
+      width:"100%", height:"100%",
+      channel:"tvmarataizes",
+      parent:["www.tvmarataizes.com.br","tvmarataizes.com.br","localhost"]
     });
   </script>
 </body>
 </html>
-
-
