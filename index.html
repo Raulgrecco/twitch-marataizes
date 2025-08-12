@@ -17,7 +17,7 @@
       min-height: 100vh;
     }
     header {
-      background-color: #f7b733; /* amarelo vibrante */
+      background-color: #f7b733;
       width: 100%;
       padding: 1rem 0;
       text-align: center;
@@ -45,18 +45,22 @@
       background: black;
       min-width: 300px;
     }
-    .schedule {
+    .side-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
       flex: 1 1 350px;
+      max-width: 450px;
+    }
+    .schedule {
       background-color: #f7b733;
       border-radius: 15px;
       padding: 1.5rem 2rem;
-      max-width: 450px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.15);
       color: #3e0f5a;
       font-weight: 700;
       font-size: 1rem;
       line-height: 1.4;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
     .schedule h2 {
       font-size: 1.6rem;
@@ -73,8 +77,13 @@
       font-weight: 700;
       white-space: pre-line;
     }
-    .schedule strong {
-      font-weight: 900;
+    .weather-widget {
+      display: flex;
+      justify-content: center;
+      background: white;
+      border-radius: 15px;
+      padding: 0.5rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
     .how-to-watch {
       max-width: 600px;
@@ -84,68 +93,32 @@
       padding: 1.5rem;
       box-shadow: 0 3px 8px rgba(0,0,0,0.1);
       color: #664d03;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
-    .how-to-watch h2 {
-      font-size: 1.6rem;
-      margin-bottom: 1rem;
-    }
-    .how-to-watch h3 {
-      margin-top: 1rem;
-      margin-bottom: 0.5rem;
-    }
-    .how-to-watch ol {
-      padding-left: 1.2rem;
-      margin-top: 0;
-      margin-bottom: 0.5rem;
-    }
-    .how-to-watch a {
-      color: #f7b733;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .how-to-watch a:hover {
-      text-decoration: underline;
-    }
+    .how-to-watch h2 { font-size: 1.6rem; margin-bottom: 1rem; }
+    .how-to-watch h3 { margin-top: 1rem; margin-bottom: 0.5rem; }
+    .how-to-watch ol { padding-left: 1.2rem; margin: 0 0 0.5rem; }
     footer {
       margin: 2rem 0 1rem;
       font-size: 0.9rem;
       color: #777;
       text-align: center;
     }
-    a {
-      color: #f7b733;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
+    a { color: #f7b733; text-decoration: none; font-weight: bold; }
+    a:hover { text-decoration: underline; }
 
-    /* Responsividade */
     @media (max-width: 767px) {
-      main {
-        flex-direction: column;
-        width: 95vw;
-      }
-      #twitch-embed, .schedule {
-        flex: none;
-        width: 100%;
-        max-width: none;
-        margin-bottom: 2rem;
-      }
+      main { flex-direction: column; width: 95vw; }
+      #twitch-embed, .side-column { width: 100%; max-width: none; }
     }
   </style>
 
   <script>
-    // Remove o parâmetro fbclid da URL para evitar problemas no carregamento
     if (window.location.search.includes('fbclid')) {
       const url = new URL(window.location.href);
       url.searchParams.delete('fbclid');
       window.history.replaceState({}, document.title, url.toString());
     }
   </script>
-
   <script src="https://player.twitch.tv/js/embed/v1.js"></script>
 </head>
 <body>
@@ -153,40 +126,44 @@
   <main>
     <div id="twitch-embed"></div>
 
-    <section class="schedule" aria-label="Horários da programação">
-      <h2>Horários da TV Marataízes</h2>
-      <p>✨ Na TV Marataízes já está no ar:</p>
-      <p>🌟 Programação variada e divertida das 18h à meia-noite, com música, entretenimento e conteúdos para toda a família.</p>
+    <div class="side-column">
+      <section class="schedule">
+        <h2>Horários da TV Marataízes</h2>
+        <p>✨ Na TV Marataízes já está no ar:</p>
+        <p>🌟 Programação variada e divertida das 18h à meia-noite, com música, entretenimento e conteúdos para toda a família.</p>
+        <p>🛍️ Em breve, de 12h às 18h:</p>
+        <p>Ofertas imperdíveis dos melhores clientes e fornecedores de Marataízes, Itapemirim e Presidente Kennedy!</p>
+        <p>⏰ Fique ligado, toda semana lançaremos promoções especiais para você aproveitar.</p>
+      </section>
 
-      <p>🛍️ Em breve, de 12h às 18h:</p>
-      <p>Ofertas imperdíveis dos melhores clientes e fornecedores de Marataízes, Itapemirim e Presidente Kennedy!</p>
-
-      <p>⏰ Fique ligado, toda semana lançaremos promoções especiais para você aproveitar.</p>
-    </section>
+      <section class="weather-widget">
+        <iframe src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=4&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=coloured&pictoicon=1&maxtemperature=1&mintemperature=1&windspeed=1&windgust=0&winddirection=1&uv=0&humidity=0&precipitation=1&precipitationprobability=1&spot=1&pressure=0&layout=light" 
+          frameborder="0" scrolling="NO" allowtransparency="true" 
+          sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox" 
+          style="width: 100%; height: 420px; border-radius: 10px;">
+        </iframe>
+      </section>
+    </div>
   </main>
 
-  <section class="how-to-watch" aria-label="Como assistir à TV Marataízes pelo Twitch">
+  <section class="how-to-watch">
     <h2>Como assistir à TV Marataízes pelo Twitch:</h2>
-    
     <h3>No celular:</h3>
     <ol>
-      <li>Acesse a loja de aplicativos do seu celular (Google Play Store ou App Store).</li>
+      <li>Acesse a loja de aplicativos do seu celular.</li>
       <li>Busque por <strong>"Twitch"</strong> e instale o aplicativo gratuito.</li>
-      <li>Abra o app, procure por <strong>"TV Marataízes"</strong> e siga o canal para receber notificações.</li>
+      <li>Abra o app, procure por <strong>"TV Marataízes"</strong> e siga o canal.</li>
     </ol>
-    
     <h3>Na smart TV:</h3>
     <ol>
-      <li>Verifique se sua smart TV já tem o app Twitch pré-instalado (a maioria das TVs recentes tem).</li>
-      <li>Caso não tenha, acesse a loja de aplicativos da sua TV (Samsung Smart Hub, LG Content Store, etc).</li>
-      <li>Busque e instale o app Twitch gratuitamente.</li>
-      <li>Abra o Twitch e procure pelo canal <strong>"TV Marataízes"</strong>.</li>
+      <li>Verifique se sua TV já tem o app Twitch.</li>
+      <li>Se não, instale na loja de aplicativos da TV.</li>
+      <li>Abra e procure <strong>"TV Marataízes"</strong>.</li>
     </ol>
-    
     <h3>No computador:</h3>
     <ol>
-      <li>Acesse o site oficial do Twitch: <a href="https://www.twitch.tv" target="_blank" rel="noopener noreferrer">https://www.twitch.tv</a></li>
-      <li>Procure pelo canal <strong>"TV Marataízes"</strong> e clique em seguir para não perder nenhuma transmissão.</li>
+      <li>Acesse <a href="https://www.twitch.tv" target="_blank">https://www.twitch.tv</a>.</li>
+      <li>Procure por <strong>"TV Marataízes"</strong> e siga o canal.</li>
     </ol>
   </section>
 
@@ -205,4 +182,5 @@
   </script>
 </body>
 </html>
+
 
