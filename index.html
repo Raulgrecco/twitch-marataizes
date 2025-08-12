@@ -25,6 +25,7 @@
       width:100%; display:flex; flex-direction:column; align-items:center;
       position:relative;
     }
+    /* CLIMA FIXO NO CANTO */
     .weather-float{
       position:absolute; top:10px; right:10px; z-index:9999;
       width:400px; height:260px; pointer-events:auto;
@@ -33,6 +34,7 @@
     .weather-float iframe{
       width:100%; height:100%; border:0; border-radius:10px; background:transparent;
     }
+    /* GRID PRINCIPAL */
     main{
       display:flex; gap:1rem; width:min(1200px,92vw);
       margin:18px auto 24px; align-items:flex-start; flex-wrap:wrap;
@@ -40,6 +42,23 @@
     #twitch-embed{
       flex:1 1 640px; min-width:300px; aspect-ratio:16/9;
       border-radius:10px; overflow:hidden; background:#000; box-shadow:var(--shadow);
+      position:relative;
+    }
+    /* BARRA DE NOTÍCIAS CORRENDO */
+    .news-ticker{
+      position:absolute; bottom:0; left:0; width:100%;
+      background:rgba(0,0,0,0.85); color:#fff;
+      font-size:1rem; font-weight:600;
+      white-space:nowrap; overflow:hidden;
+      border-top:2px solid var(--brand);
+    }
+    .news-ticker span{
+      display:inline-block; padding-left:100%;
+      animation: ticker 20s linear infinite;
+    }
+    @keyframes ticker{
+      0%{transform:translateX(0)}
+      100%{transform:translateX(-100%)}
     }
     .schedule{
       flex:1 1 350px; max-width:460px;
@@ -54,9 +73,6 @@
       width:min(600px,92vw); margin:24px auto; background:#fff3cd; color:#664d03;
       border-radius:12px; padding:1.5rem; box-shadow:var(--shadow);
     }
-    .how-to-watch h2{font-size:1.6rem; margin:0 0 1rem}
-    .how-to-watch h3{margin:1rem 0 .5rem}
-    .how-to-watch ol{margin:0 0 .5rem; padding-left:1.2rem}
     footer{margin:18px 0 14px; font-size:.9rem; color:#777; text-align:center}
     a{color:var(--brand); font-weight:700; text-decoration:none}
     a:hover{text-decoration:underline}
@@ -67,32 +83,6 @@
       .weather-float{transform:scale(.7); transform-origin:top right;}
       main{flex-direction:column}
       #twitch-embed,.schedule{width:100%; max-width:none}
-    }
-    /* ticker */
-    :root{
-      --ticker-h:50px; --ticker-bg:rgba(0,0,0,.7); --ticker-tag:#d50000;
-      --ticker-text:#fff; --ticker-speed:25s; --ticker-gap:40px;
-      --ticker-font:700 22px/1 Arial, Helvetica, sans-serif;
-    }
-    .ticker-wrap{
-      width:100%; height:var(--ticker-h); position:fixed; left:0; bottom:0;
-      display:flex; align-items:center; background:var(--ticker-bg); z-index:99999;
-    }
-    .ticker-tag{
-      background:var(--ticker-tag); color:var(--ticker-text);
-      font:var(--ticker-font); height:100%; display:flex; align-items:center; padding:0 14px;
-    }
-    .ticker-track{
-      position:relative; flex:1; height:100%; overflow:hidden;
-    }
-    .ticker-marquee{
-      position:absolute; white-space:nowrap; will-change:transform;
-      display:inline-block; color:var(--ticker-text); font:var(--ticker-font);
-      padding-left:20px; animation:ticker-scroll var(--ticker-speed) linear infinite;
-    }
-    .ticker-bullet{opacity:.55;padding:0 18px}
-    @keyframes ticker-scroll{
-      from{transform:translateX(100%)} to{transform:translateX(-100%)}
     }
   </style>
   <script>
@@ -108,37 +98,32 @@
 
   <div class="page">
     <div class="weather-float" aria-label="Clima em Marataízes">
-      <iframe src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=5&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=coloured&pictoicon=1&maxtemperature=1&mintemperature=1&windspeed=1&windgust=0&winddirection=1&uv=0&humidity=0&precipitation=1&precipitationprobability=1&spot=1&pressure=0&layout=light" frameborder="0" scrolling="NO" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>
+      <iframe src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=5&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=coloured&pictoicon=1&maxtemperature=1&mintemperature=1&windspeed=1&windgust=0&winddirection=1&uv=0&humidity=0&precipitation=1&precipitationprobability=1&spot=1&pressure=0&layout=light"
+        frameborder="0" scrolling="NO" allowtransparency="true"
+        sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox">
+      </iframe>
     </div>
 
     <main>
-      <div id="twitch-embed"></div>
+      <div id="twitch-embed">
+        <div class="news-ticker">
+          <span>📢 Promoção especial hoje às 20h | 🎶 Show ao vivo no centro amanhã | ☀️ Previsão do tempo: sol e calor em Marataízes | 🛍️ Ofertas imperdíveis dos nossos parceiros!</span>
+        </div>
+      </div>
+
       <section class="schedule">
         <h2>Horários da TV Marataízes</h2>
         <p>✨ Na TV Marataízes já está no ar:</p>
-        <p>🌟 Programação variada e divertida das 18h à meia-noite, com música, entretenimento e conteúdos para toda a família.</p>
-        <p>🛍️ Em breve, de 12h às 18h:</p>
-        <p>Ofertas imperdíveis dos melhores clientes e fornecedores de Marataízes, Itapemirim e Presidente Kennedy!</p>
-        <p>⏰ Fique ligado, toda semana lançaremos promoções especiais para você aproveitar.</p>
+        <p>🌟 Programação variada e divertida das 18h à meia-noite.</p>
+        <p>🛍️ Em breve, de 12h às 18h: Ofertas imperdíveis!</p>
       </section>
     </main>
 
     <section class="how-to-watch">
       <h2>Como assistir à TV Marataízes pelo Twitch:</h2>
-      <h3>No celular:</h3>
       <ol>
-        <li>Instale o app <strong>Twitch</strong> (Google Play/App Store).</li>
-        <li>Procure por <strong>TV Marataízes</strong> e siga o canal.</li>
-      </ol>
-      <h3>Na smart TV:</h3>
-      <ol>
-        <li>Abra/instale o app Twitch na sua TV.</li>
-        <li>Busque por <strong>TV Marataízes</strong>.</li>
-      </ol>
-      <h3>No computador:</h3>
-      <ol>
-        <li>Acesse <a href="https://www.twitch.tv" target="_blank">twitch.tv</a>.</li>
-        <li>Siga o canal <strong>TV Marataízes</strong>.</li>
+        <li>Instale o app <strong>Twitch</strong> no celular ou abra na Smart TV.</li>
+        <li>Busque por <strong>TV Marataízes</strong> e siga o canal.</li>
       </ol>
     </section>
 
@@ -147,31 +132,6 @@
       Direitos reservados © 2025
     </footer>
   </div>
-
-  <!-- ticker -->
-  <div class="ticker-wrap">
-    <div class="ticker-tag">AO VIVO</div>
-    <div class="ticker-track"><div class="ticker-marquee" id="mq">Carregando…</div></div>
-  </div>
-  <script>
-    const SOURCE_URL = "https://www.tvmarataizes.com.br/data/ticker.txt";
-    const SEP = ' <span class="ticker-bullet">•</span> ';
-    const mq = document.getElementById('mq');
-
-    async function carregarTicker() {
-      try {
-        const res = await fetch(SOURCE_URL + "?_=" + Date.now(), {cache:"no-store"});
-        if (!res.ok) throw new Error(res.status);
-        const txt = await res.text();
-        const linhas = txt.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
-        mq.innerHTML = (linhas.length ? linhas.join(SEP) + SEP : " ");
-      } catch(e){
-        console.error("Erro no ticker:", e);
-      }
-    }
-    carregarTicker();
-    setInterval(carregarTicker, 20000);
-  </script>
 
   <script>
     new Twitch.Embed("twitch-embed", {
