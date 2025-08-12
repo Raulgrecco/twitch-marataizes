@@ -11,18 +11,19 @@
   <meta name="theme-color" content="#C4170C" />
   <style>
     :root{
-      --gn-red:#C4170C;
-      --top-bg:#0a1628;
+      --gn-red:#C4170C;    /* cor da faixa do ticker */
+      --top-bg:#0a1628;    /* cor da faixa do clima */
       --text:#ffffff;
-      --ticker-h:86px;
-      --ticker-fs:32px;
-      --speed:38s;
+      --ticker-h:86px;     /* altura do ticker */
+      --ticker-fs:32px;    /* fonte do ticker */
+      --speed:38s;         /* velocidade do ticker (↓ = mais rápido) */
     }
     html,body{margin:0;height:100%;background:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text)}
 
-    /* Topo – Clima */
+    /* Topo – Clima (opcional) */
     .topbar{position:fixed;top:0;left:0;right:0;height:56px;background:var(--top-bg);
-      display:flex;align-items:center;padding:0 16px;box-shadow:0 6px 16px rgba(0,0,0,.25);pointer-events:none}
+      display:flex;align-items:center;padding:0 16px;box-shadow:0 6px 16px rgba(0,0,0,.25);
+      pointer-events:none}
     .topbar iframe{width:100%;height:36px;border:0;background:transparent;pointer-events:none}
 
     /* Miolo – Player responsivo */
@@ -32,7 +33,7 @@
       overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.25)}
     .player-box > *{width:100%;height:100%;border:0;display:block}
 
-    /* Rodapé – Ticker (sem JS – 2 cópias via ::before/::after) */
+    /* Rodapé – Ticker */
     .ticker{position:fixed;left:0;right:0;bottom:0;height:var(--ticker-h);background:var(--gn-red);
       display:flex;align-items:center;gap:18px;overflow:hidden;border-top:4px solid rgba(0,0,0,.15);
       box-shadow:0 -10px 28px rgba(0,0,0,.35);pointer-events:none}
@@ -42,7 +43,6 @@
     .lane{position:absolute;top:0;left:0;height:100%;display:inline-flex;align-items:center;
       gap:36px;white-space:nowrap;font-weight:900;font-size:var(--ticker-fs);
       will-change:transform;animation:scroll var(--speed) linear infinite}
-    .lane::before,.lane::after{content:attr(data-text);display:inline-block;padding-right:36px}
     @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
     @media (max-width:900px){
@@ -75,17 +75,17 @@
     </div>
   </div>
 
-  <!-- TICKER (edite APENAS o data-text abaixo, tudo numa linha) -->
+  <!-- TICKER -->
   <div class="ticker" role="marquee" aria-label="Notícias">
     <div class="pill">AO VIVO</div>
     <div class="track">
-      <!-- 🔧 ALTERE AQUI RAUL: MUDE SÓ O data-text (uma linha, aspas fechadas) -->"Programação Completa"
-      <div class="lane" data-text="Amor Dentro do Cone só 10,00 • Instagram @amordentrodocone • Hoje 19h: Mostra de Curtas • 20h: Gente da Gente • Amanhã: Sabores">
+      <div class="lane">
+        <!-- 🔧 ALTERE O TEXTO AQUI -->
+        🔴 TV Marataízes ao vivo — 📍 Marataízes, Itapemirim e Piúma • Festival de Cinema às 19h • Quadro “Gente Daqui” às 20h • Apoio: Comércio Local
+        <!-- 🔧 FIM DO TEXTO -->
       </div>
-      <!-- 🔧 FIM DA ALTERAÇÃO -->
     </div>
   </div>
 
 </body>
 </html>
-
