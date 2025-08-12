@@ -16,7 +16,7 @@
       --text:#ffffff;
       --ticker-h:86px;     /* altura do ticker */
       --ticker-fs:32px;    /* fonte do ticker */
-      --speed:38s;         /* velocidade do ticker (↓ = mais rápido) */
+      --speed:18s;         /* velocidade do ticker (↓ = mais rápido) */
     }
     html,body{margin:0;height:100%;background:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text)}
 
@@ -33,7 +33,7 @@
       overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.25)}
     .player-box > *{width:100%;height:100%;border:0;display:block}
 
-    /* Rodapé – Ticker */
+    /* Rodapé – Ticker (sem JS) */
     .ticker{position:fixed;left:0;right:0;bottom:0;height:var(--ticker-h);background:var(--gn-red);
       display:flex;align-items:center;gap:18px;overflow:hidden;border-top:4px solid rgba(0,0,0,.15);
       box-shadow:0 -10px 28px rgba(0,0,0,.35);pointer-events:none}
@@ -43,10 +43,13 @@
     .lane{position:absolute;top:0;left:0;height:100%;display:inline-flex;align-items:center;
       gap:36px;white-space:nowrap;font-weight:900;font-size:var(--ticker-fs);
       will-change:transform;animation:scroll var(--speed) linear infinite}
+    /* duas cópias do mesmo texto, vindas do atributo data-text */
+    .lane::before,.lane::after{content:attr(data-text);display:inline-block;padding-right:36px}
+
     @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
     @media (max-width:900px){
-      :root{ --ticker-h:72px; --ticker-fs:28px; --speed:34s }
+      :root{ --ticker-h:72px; --ticker-fs:28px; --speed:16s }
       .stage{padding:10px}
       .player-box{border-radius:8px}
     }
@@ -66,8 +69,12 @@
   <!-- PLAYER TWITCH -->
   <div class="stage">
     <div class="player-box">
+      <!-- IMPORTANTÍSSIMO: liste aqui TODOS os domínios onde a página abre -->
       <iframe
-        src="https://player.twitch.tv/?channel=tvmarataizes&parent=tvmarataizes.com.br&parent=www.tvmarataizes.com.br&parent=localhost"
+        src="https://player.twitch.tv/?channel=tvmarataizes
+&parent=tvmarataizes.com.br
+&parent=www.tvmarataizes.com.br
+&parent=localhost"
         allow="autoplay; fullscreen; picture-in-picture"
         allowfullscreen
         title="TV Marataízes ao vivo">
@@ -79,10 +86,8 @@
   <div class="ticker" role="marquee" aria-label="Notícias">
     <div class="pill">AO VIVO</div>
     <div class="track">
-      <div class="lane">
-        <!-- 🔧 ALTERE O TEXTO AQUI -->
-        🔴 TV Marataízes ao vivo — 📍 Marataízes, Itapemirim e Piúma • Apoio ao Comércio Local, notícias da região
-        <!-- 🔧 FIM DO TEXTO -->
+      <div class="lane"
+           data-text="🔴 TV Marataízes ao vivo — 📍 Marataízes, Itapemirim e Piúma • Quadro “Gente Daqui” às 20h • Apoio: Comércio Local">
       </div>
     </div>
   </div>
