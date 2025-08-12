@@ -13,69 +13,31 @@
     --top-bg:#0a1628;        /* faixa do topo */
     --text:#ffffff;
     --ticker-h:88px;         /* altura do ticker */
-    --ticker-fs:34px;        /* TAMANHO DA FONTE do ticker */
-    --speed:38s;             /* duração do ciclo (↓ mais rápido / ↑ mais lento) */
+    --ticker-fs:34px;        /* tamanho da fonte do ticker */
+    --speed:38s;             /* duração do ciclo (↓ = mais rápido) */
   }
+  html,body{margin:0;height:100%;background:transparent;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text)}
+  /* Topo – clima compacto */
+  .topbar{position:fixed;top:0;left:0;right:0;height:56px;background:var(--top-bg);display:flex;align-items:center;padding:0 16px;box-shadow:0 6px 16px rgba(0,0,0,.25);pointer-events:none}
+  .topbar iframe{width:100%;height:36px;border:0;background:transparent;pointer-events:none}
 
-  html,body{
-    margin:0; height:100%; background:transparent;
-    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-    color:var(--text);
-  }
+  /* Rodapé – ticker vermelho */
+  .ticker{position:fixed;left:0;right:0;bottom:0;height:var(--ticker-h);background:var(--gn-red);display:flex;align-items:center;gap:18px;overflow:hidden;border-top:4px solid rgba(0,0,0,.15);box-shadow:0 -10px 28px rgba(0,0,0,.35);pointer-events:none}
+  .pill{margin-left:16px;padding:10px 14px;border-radius:10px;background:#000;color:#fff;font-weight:900;letter-spacing:.3px;text-transform:uppercase;white-space:nowrap;pointer-events:auto}
+  .track{position:relative;flex:1;height:100%;overflow:hidden}
+  .lane{position:absolute;top:0;left:0;height:100%;display:inline-flex;align-items:center;gap:36px;white-space:nowrap;font-weight:900;font-size:var(--ticker-fs);will-change:transform;animation:scroll var(--speed) linear infinite}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-100%)}}
 
-  /* ===== TOP BAR (clima) ===== */
-  .topbar{
-    position:fixed; top:0; left:0; right:0; height:56px;
-    background:var(--top-bg);
-    display:flex; align-items:center; padding:0 16px;
-    box-shadow:0 6px 16px rgba(0,0,0,.25);
-    pointer-events:none;  /* não captura clique no OBS */
-  }
-  .topbar iframe{
-    width:100%; height:36px; border:0; background:transparent;
-    pointer-events:none;
-  }
-
-  /* ===== TICKER RODAPÉ (estilo GloboNews) ===== */
-  .ticker{
-    position:fixed; left:0; right:0; bottom:0;
-    height:var(--ticker-h); background:var(--gn-red);
-    display:flex; align-items:center; gap:18px; overflow:hidden;
-    border-top:4px solid rgba(0,0,0,.15);
-    box-shadow:0 -10px 28px rgba(0,0,0,.35);
-    pointer-events:none; /* overlay puro */
-  }
-  .pill{
-    margin-left:16px; padding:10px 14px; border-radius:10px;
-    background:#000; color:#fff; font-weight:900; letter-spacing:.3px;
-    text-transform:uppercase; white-space:nowrap; pointer-events:auto;
-  }
-  .track{
-    position:relative; flex:1; height:100%; overflow:hidden;
-  }
-  .lane{
-    position:absolute; top:0; left:0; height:100%;
-    display:inline-flex; align-items:center; gap:36px;
-    white-space:nowrap; font-weight:900; font-size:var(--ticker-fs);
-    will-change:transform;
-    animation:scroll var(--speed) linear infinite;
-  }
-  @keyframes scroll{
-    from{ transform:translateX(0) }
-    to  { transform:translateX(-100%) }
-  }
-
-  /* mantém legível em telas menores */
   @media (max-width: 900px){
-    :root{ --ticker-h:72px; --ticker-fs:28px; --speed:34s; }
-    .topbar{ height:52px }
-    .topbar iframe{ height:32px }
+    :root{ --ticker-h:72px; --ticker-fs:28px; --speed:34s }
+    .topbar{height:52px}
+    .topbar iframe{height:32px}
   }
 </style>
 </head>
 <body>
 
-  <!-- TOPO: Clima (Meteoblue “current” compact) -->
+  <!-- TOPO: Clima -->
   <div class="topbar" aria-label="Clima agora">
     <iframe
       src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=0&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=0&pictoicon=1&maxtemperature=1&mintemperature=1"
@@ -84,43 +46,42 @@
     </iframe>
   </div>
 
-  <!-- RODAPÉ: Ticker vermelho -->
+  <!-- RODAPÉ: Ticker -->
   <div class="ticker" role="marquee" aria-label="Notícias">
     <div class="pill">AO VIVO</div>
     <div class="track">
-      <div class="lane" id="laneA"></div>
+      <div class="lane" id="laneA">Carregando…</div>
     </div>
   </div>
 
 <script>
-  /* ======== TROQUE O TEXTO AQUI (use | para separar itens) ======== */
-  const TEXT = "📢 TV Marataízes ao vivo | 💬 Siga: twitch.tv/tvmarataizes | 📱 Anuncie: (28) 99903-6141 | 📍 Marataízes • Itapemirim • Presidente Kennedy - Promoção Amor Dentro do Cone por R$ 10,00";
-  /* ================================================================ */
-
-  const items = TEXT.split('|').map(s => s.trim()).filter(Boolean);
+  // Lê ticker.txt (uma frase por linha) no MESMO diretório do overlay.html
   const lane = document.getElementById('laneA');
+  const SEP = ' • ';
 
-  // duplica o conteúdo para rolagem contínua
-  function render(){
-    lane.innerHTML = '';
-    const make = (arr) => {
-      arr.forEach((t,i)=>{
-        const span = document.createElement('span');
-        span.textContent = t;
-        lane.appendChild(span);
-        if(i < arr.length-1){
-          const dot = document.createElement('span');
-          dot.textContent = ' • ';
-          lane.appendChild(dot);
-        }
-      });
-    };
-    make(items);
-    const sep = document.createElement('span'); sep.textContent = '   •   ';
-    lane.appendChild(sep);
-    make(items);
+  async function loadTicker(){
+    try{
+      const res = await fetch('ticker.txt?cb=' + Date.now(), { cache:'no-store' });
+      if(!res.ok) throw new Error('ticker.txt não encontrado');
+      const txt = await res.text();
+      const items = txt.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+      if(items.length === 0) { lane.textContent = ''; return; }
+
+      // monta duas vezes para rolagem contínua
+      const content = items.join(SEP);
+      lane.textContent = '';
+      const a = document.createElement('span'); a.textContent = content;
+      const dot = document.createElement('span'); dot.textContent = '   ' + SEP + '   ';
+      const b = document.createElement('span'); b.textContent = content;
+      lane.appendChild(a); lane.appendChild(dot); lane.appendChild(b);
+    }catch(e){
+      lane.textContent = '⚠️ Não foi possível carregar as notícias.';
+      console.warn(e);
+    }
   }
-  render();
+  loadTicker();
+  // atualiza a cada 20s
+  setInterval(loadTicker, 20000);
 </script>
 
 </body>
