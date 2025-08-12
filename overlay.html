@@ -1,62 +1,162 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Overlay TVM</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TV Marataízes – Overlay (Clima + Tarja)</title>
 <style>
-  html,body{height:100%;margin:0;background:transparent}
-  /* tudo clicável passa pro vídeo por baixo no OBS */
-  body{pointer-events:none;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  :root{
+    --gap: 16px;
+    --shadow: 0 10px 25px rgba(0,0,0,.25);
+    --brand: #f7b733;
+    --ink: #ffffff;
 
-  /* Bloco do tempo (canto superior esquerdo) */
+    /* ====== TARJA ====== */
+    --ticker-bg: rgba(0,0,0,.80);
+    --ticker-h: 78px;          /* altura da tarja */
+    --ticker-fs: 30px;         /* TAMANHO DA FONTE (aumentado) */
+    --ticker-speed: 42s;       /* velocidade da rolagem (menor = mais rápido) */
+
+    /* ====== CLIMA ====== */
+    --wx-w: 420px;             /* base do widget (antes do scale) */
+    --wx-h: 235px;
+    --wx-scale: 1.25;          /* AMPLIA o bloco do clima */
+  }
+
+  html,body{
+    height:100%;
+    margin:0;
+    background:transparent; /* fundamental para OBS */
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+    color: var(--ink);
+    overflow:hidden; /* evita barra ao animar o ticker */
+  }
+
+  /* ====== CLIMA CANTO SUPERIOR ESQUERDO ====== */
   .weather{
-    position:fixed; top:8px; left:8px; width:520px; height:160px;
-    filter: drop-shadow(0 6px 14px rgba(0,0,0,.25));
+    position: fixed;
+    top: var(--gap);
+    left: var(--gap);
+    width: var(--wx-w);
+    height: var(--wx-h);
+    transform: scale(var(--wx-scale));
+    transform-origin: top left;
+    filter: drop-shadow(var(--shadow));
+    pointer-events: none; /* não intercepta cliques no OBS */
   }
-  .weather iframe{width:100%;height:100%;border:0;border-radius:10px;background:transparent}
+  .weather iframe{
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: transparent;
+  }
 
-  /* Tarja (estilo Globonews) */
-  .lowerthird{
-    position:fixed; left:0; right:0; bottom:0; display:flex; gap:10px; align-items:center;
-    padding:10px 16px; background:rgba(0,0,0,.78); color:#fafafa;
+  /* ====== TARJA INFERIOR ====== */
+  .ticker{
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    height: var(--ticker-h);
+    background: var(--ticker-bg);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 18px;
+    padding: 0 18px;
+    box-shadow: var(--shadow);
+    backdrop-filter: saturate(120%) blur(2px);
   }
-  .live-pill{
-    pointer-events:auto; /* permite clicar se quiser (pausar browser etc.) */
-    background:#f7b733; color:#111; font-weight:800; padding:9px 14px; border-radius:6px;
-    text-transform:uppercase; letter-spacing:.4px;
+
+  .pill{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background: var(--brand);
+    color:#1a1a1a;
+    font-weight: 900;
+    height: 48px;
+    padding: 0 16px;
+    border-radius: 12px;
+    letter-spacing: .3px;
+    white-space: nowrap;
+    user-select: none;
   }
-  .ticker{white-space:nowrap; overflow:hidden; flex:1}
-  .ticker span{display:inline-block; padding-left:100%; animation:scroll var(--dur,28s) linear infinite}
-  @keyframes scroll{from{transform:translateX(0)} to{transform:translateX(-100%)}}
+
+  .marquee{
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+  }
+  .track{
+    position: absolute;
+    white-space: nowrap;
+    will-change: transform;
+    display: inline-block;
+    font-size: var(--ticker-fs);
+    line-height: var(--ticker-h);
+    animation: scroll var(--ticker-speed) linear infinite;
+    padding-left: 100vw; /* respiro inicial antes de entrar */
+  }
+  @keyframes scroll{
+    from{ transform: translateX(0); }
+    to  { transform: translateX(-100%); }
+  }
+
+  /* separadores entre itens */
+  .sep{
+    display:inline-block;
+    opacity:.6;
+    padding: 0 22px;
+  }
+
+  /* Responsivo básico */
+  @media (max-width: 1280px){
+    :root{ --ticker-fs: 26px; --ticker-h: 72px; --wx-scale: 1.15; }
+  }
+  @media (max-width: 980px){
+    :root{ --ticker-fs: 22px; --ticker-h: 66px; --wx-scale: 1.0; }
+  }
 </style>
 </head>
 <body>
 
-  <!-- Tempo (Marataízes) -->
-  <div class="weather">
+  <!-- ====== CLIMA (Marataízes) ======  -->
+  <div class="weather" aria-label="Clima em Marataízes">
     <iframe
       src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=5&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=coloured&pictoicon=1&maxtemperature=1&mintemperature=1&windspeed=1&windgust=0&winddirection=1&uv=0&humidity=0&precipitation=1&precipitationprobability=1&spot=1&pressure=0&layout=light"
-      frameborder="0" scrolling="NO" allowtransparency="true"
+      scrolling="no"
+      allowtransparency="true"
       sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox">
     </iframe>
   </div>
 
-  <!-- Tarja -->
-  <div class="lowerthird">
-    <div class="live-pill" id="pill">AO VIVO</div>
-    <div class="ticker"><span id="txt">Boletins locais • Marataízes, Itapemirim e Presidente Kennedy • 🌤️ Previsão no canto superior • 💬 Siga: twitch.tv/tvmarataizes</span></div>
+  <!-- ====== TARJA (ticker) ====== -->
+  <div class="ticker" aria-label="Tarja de notícias">
+    <div class="pill">AO VIVO</div>
+
+    <div class="marquee">
+      <!--
+        EDITE O TEXTO ENTRE <span class="track"> ... </span>
+        Separe as mensagens com o span .sep já colocado.
+        Dica: use frases curtas e diretas pra melhor leitura.
+      -->
+      <span class="track" id="tickerText">
+        Marataízes & região: novidades todos os dias! <span class="sep">•</span>
+        🌤️ Previsão do tempo: veja no topo esquerdo. <span class="sep">•</span>
+        💬 Siga e participe: twitch.tv/tvmarataizes <span class="sep">•</span>
+        📧 Anuncie: comercial@tvmarataizes.com.br <span class="sep">•</span>
+        🔔 Programação de entretenimento a partir das 18h.
+      </span>
+    </div>
   </div>
 
 <script>
-  // Permite configurar via URL: ?t=texto&s=28&pill=AO%20VIVO
-  const q = new URLSearchParams(location.search);
-  const t = q.get('t');
-  const s = parseInt(q.get('s'),10);
-  const p = q.get('pill');
-  if (t)  document.getElementById('txt').textContent = t;
-  if (!Number.isNaN(s)) document.documentElement.style.setProperty('--dur', s+'s');
-  if (p)  document.getElementById('pill').textContent = p;
+  /*
+    Opcional: se quiser “duplicar” automaticamente o conteúdo do ticker
+    para garantir rolagem contínua mesmo com pouco texto:
+  */
+  const track = document.getElementById('tickerText');
+  track.innerHTML = track.innerHTML + ' ' + track.innerHTML;
 </script>
+
 </body>
 </html>
