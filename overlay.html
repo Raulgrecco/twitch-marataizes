@@ -1,90 +1,127 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Overlay TV Marataízes</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
 <style>
-:root {
-  --brand:#f7b733; /* Amarelo */
-  --ink:#ffffff;
-  --bg-top:#0a1628;
-  --bg-ticker:#0b0b0c;
-  --live:#ff3b30;
-  --shadow:0 6px 18px rgba(0,0,0,.28);
+  :root{
+    --gn-red:#C4170C;        /* vermelho estilo GloboNews */
+    --top-bg:#0a1628;        /* faixa do topo */
+    --text:#ffffff;
+    --ticker-h:88px;         /* altura do ticker */
+    --ticker-fs:34px;        /* TAMANHO DA FONTE do ticker */
+    --speed:38s;             /* duração do ciclo (↓ mais rápido / ↑ mais lento) */
+  }
 
-  --top-height:58px;
-  --top-radius:12px;
-  --top-max:1280px;
-  --bottom-offset:-22px; /* Desce mais o ticker */
-  --ticker-height:70px; /* Mais alto */
-  --ticker-speed:36s;
-  --ticker-font:28px; /* Fonte maior */
-}
+  html,body{
+    margin:0; height:100%; background:transparent;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    color:var(--text);
+  }
 
-body {
-  margin: 0;
-  padding: 0;
-  background: transparent;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-}
+  /* ===== TOP BAR (clima) ===== */
+  .topbar{
+    position:fixed; top:0; left:0; right:0; height:56px;
+    background:var(--top-bg);
+    display:flex; align-items:center; padding:0 16px;
+    box-shadow:0 6px 16px rgba(0,0,0,.25);
+    pointer-events:none;  /* não captura clique no OBS */
+  }
+  .topbar iframe{
+    width:100%; height:36px; border:0; background:transparent;
+    pointer-events:none;
+  }
 
-/* Barra superior (clima) */
-.topbar {
-  background: var(--bg-top);
-  color: white;
-  font-size: 18px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 20px;
-}
+  /* ===== TICKER RODAPÉ (estilo GloboNews) ===== */
+  .ticker{
+    position:fixed; left:0; right:0; bottom:0;
+    height:var(--ticker-h); background:var(--gn-red);
+    display:flex; align-items:center; gap:18px; overflow:hidden;
+    border-top:4px solid rgba(0,0,0,.15);
+    box-shadow:0 -10px 28px rgba(0,0,0,.35);
+    pointer-events:none; /* overlay puro */
+  }
+  .pill{
+    margin-left:16px; padding:10px 14px; border-radius:10px;
+    background:#000; color:#fff; font-weight:900; letter-spacing:.3px;
+    text-transform:uppercase; white-space:nowrap; pointer-events:auto;
+  }
+  .track{
+    position:relative; flex:1; height:100%; overflow:hidden;
+  }
+  .lane{
+    position:absolute; top:0; left:0; height:100%;
+    display:inline-flex; align-items:center; gap:36px;
+    white-space:nowrap; font-weight:900; font-size:var(--ticker-fs);
+    will-change:transform;
+    animation:scroll var(--speed) linear infinite;
+  }
+  @keyframes scroll{
+    from{ transform:translateX(0) }
+    to  { transform:translateX(-100%) }
+  }
 
-/* Barra inferior estilo GloboNews */
-.ticker {
-  position: fixed;
-  bottom: var(--bottom-offset);
-  width: 100%;
-  height: var(--ticker-height);
-  background: var(--bg-ticker);
-  color: var(--ink);
-  font-size: var(--ticker-font);
-  font-weight: bold;
-  white-space: nowrap;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-  padding-left: 15px;
-  border-top: 4px solid var(--brand);
-}
-
-.ticker span {
-  display: inline-block;
-  padding-left: 100%;
-  animation: scroll var(--ticker-speed) linear infinite;
-}
-
-@keyframes scroll {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
-}
+  /* mantém legível em telas menores */
+  @media (max-width: 900px){
+    :root{ --ticker-h:72px; --ticker-fs:28px; --speed:34s; }
+    .topbar{ height:52px }
+    .topbar iframe{ height:32px }
+  }
 </style>
 </head>
 <body>
 
-<!-- Topo com clima -->
-<div class="topbar">
-  <iframe src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=0&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=0&pictocon=1&maxtemperature=1&mintemperature=1"
-    frameborder="0" scrolling="no" allowtransparency="true"
-    style="background: transparent; height: 35px; width: 100%;">
-  </iframe>
-</div>
+  <!-- TOPO: Clima (Meteoblue “current” compact) -->
+  <div class="topbar" aria-label="Clima agora">
+    <iframe
+      src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=0&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=0&pictoicon=1&maxtemperature=1&mintemperature=1"
+      scrolling="no" allowtransparency="true"
+      sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox">
+    </iframe>
+  </div>
 
-<!-- Barra inferior -->
-<div class="ticker">
-  <span>🔴 TV Marataízes ao vivo — 📍 Marataízes, Itapemirim e Presidente Kennedy | ☀️ Previsão: veja acima</span>
-</div>
+  <!-- RODAPÉ: Ticker vermelho -->
+  <div class="ticker" role="marquee" aria-label="Notícias">
+    <div class="pill">AO VIVO</div>
+    <div class="track">
+      <div class="lane" id="laneA"></div>
+    </div>
+  </div>
+
+<script>
+  /* ======== TROQUE O TEXTO AQUI (use | para separar itens) ======== */
+  const TEXT = "📢 TV Marataízes ao vivo | 💬 Siga: twitch.tv/tvmarataizes | 📱 Anuncie: (28) 99903-6141 | 📍 Marataízes • Itapemirim • Presidente Kennedy";
+  /* ================================================================ */
+
+  const items = TEXT.split('|').map(s => s.trim()).filter(Boolean);
+  const lane = document.getElementById('laneA');
+
+  // duplica o conteúdo para rolagem contínua
+  function render(){
+    lane.innerHTML = '';
+    const make = (arr) => {
+      arr.forEach((t,i)=>{
+        const span = document.createElement('span');
+        span.textContent = t;
+        lane.appendChild(span);
+        if(i < arr.length-1){
+          const dot = document.createElement('span');
+          dot.textContent = ' • ';
+          lane.appendChild(dot);
+        }
+      });
+    };
+    make(items);
+    const sep = document.createElement('span'); sep.textContent = '   •   ';
+    lane.appendChild(sep);
+    make(items);
+  }
+  render();
+</script>
 
 </body>
 </html>
