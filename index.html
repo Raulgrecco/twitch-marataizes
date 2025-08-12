@@ -1,4 +1,4 @@
-ival de<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
@@ -72,11 +72,31 @@ ival de<!DOCTYPE html>
     <div class="track">
       <div class="lane">
         <!-- ALTERE AQUI RAUL -->
-        🔴 TV Marataízes ao vivo — 📍 Marataízes, Itapemirim e Piúma • Programa “ Festival de cinema - Mostra Curtas metragens ” às 19h - as 20h Gente da gente  
+        <span id="tickerText">
+          🔴 TV Marataízes ao vivo — 📍 Marataízes, Itapemirim e Piúma • Programa “Festival de cinema - Mostra Curtas metragens” às 19h • Às 20h: Gente da Gente
+        </span>
         <!-- FIM ALTERAÇÃO -->
       </div>
     </div>
   </div>
+
+  <script>
+    (function(){
+      const el = document.getElementById('tickerText');
+      if(!el) return;
+      const q = new URLSearchParams(location.search);
+      let t = q.get('ticker');
+      if (t) {
+        try {
+          // Permite usar | na URL para separar por •
+          t = decodeURIComponent(t).replace(/\s*\|\s*/g, ' • ');
+          el.textContent = t;
+        } catch(e) {
+          el.textContent = t;
+        }
+      }
+    })();
+  </script>
 
 </body>
 </html>
