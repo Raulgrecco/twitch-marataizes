@@ -13,44 +13,80 @@
     --slug-dark:#B3130B;
     --top-bg:#0a1628;
     --white:#fff;
-    --bar-h:92px;
-    --fs:30px;
-    --speed:25s; /* velocidade intermediária por padrão */
+
+    --bar-h:92px;   /* altura da tarja */
+    --fs:40px;      /* fonte do letreiro */
+    --speed:30s;    /* MAIS RÁPIDO por padrão (ajuste via ?speed=) */
   }
+
   html,body{margin:0;height:100%;background:transparent;color:var(--white);
     font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-  /* topo clima */
-  .topbar{position:fixed;top:0;left:0;right:0;height:56px;background:var(--top-bg);
-    display:flex;align-items:center;padding:0 16px;box-shadow:0 6px 16px rgba(0,0,0,.25);pointer-events:none;z-index:2}
-  .topbar iframe{width:100%;height:36px;border:0;background:transparent;pointer-events:none}
-  /* rodapé */
-  .gnbar{position:fixed;left:0;right:0;bottom:0;height:var(--bar-h);background:var(--gn-red);
-    display:flex;align-items:center;gap:18px;border-top:4px solid rgba(0,0,0,.18);
-    box-shadow:0 -10px 28px rgba(0,0,0,.35);overflow:hidden;pointer-events:none;z-index:3}
-  .slug{margin-left:16px;background:var(--slug-dark);padding:12px 18px;border-radius:12px;
-    font-weight:900;letter-spacing:.4px;text-transform:uppercase;color:#fff;white-space:nowrap}
-  .track{position:relative;flex:1;height:100%;overflow:hidden}
-  .rail{position:absolute;top:0;left:0;height:100%;display:flex;align-items:center;gap:42px;
-    white-space:nowrap;font-weight:900;font-size:var(--fs);line-height:1.1;color:#fff;
-    text-shadow:0 2px 0 rgba(0,0,0,.25);will-change:transform;animation:scroll var(--speed) linear infinite}
-  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  .copy{display:inline-block;padding-right:64px}
-  @media (max-width:900px){:root{--bar-h:74px;--fs:30px}.topbar{height:52px}.topbar iframe{height:32px}}
+
+  /* TOPO (clima + relógio) */
+  .topbar{
+    position:fixed; top:0; left:0; right:0; height:56px;
+    background:var(--top-bg); display:flex; align-items:center; gap:16px;
+    padding:0 16px; box-shadow:0 6px 16px rgba(0,0,0,.25); z-index:3; pointer-events:none;
+  }
+  .topbar iframe{ flex:1 1 auto; height:36px; border:0; background:transparent }
+  .clock{
+    flex:0 0 auto; display:flex; align-items:center; gap:10px; pointer-events:auto;
+    font-weight:700; letter-spacing:.2px; color:#e9f2ff; text-shadow:0 1px 0 rgba(0,0,0,.35)
+  }
+  .clock .time{ font-size:18px }
+  .clock .date{ font-size:14px; opacity:.9 }
+
+  /* RODAPÉ */
+  .gnbar{
+    position:fixed; left:0; right:0; bottom:0; height:var(--bar-h);
+    background:var(--gn-red); display:flex; align-items:center; gap:18px;
+    border-top:4px solid rgba(0,0,0,.18); box-shadow:0 -10px 28px rgba(0,0,0,.35);
+    overflow:hidden; pointer-events:none; z-index:4;
+  }
+  .slug{
+    margin-left:16px; background:var(--slug-dark);
+    padding:12px 18px; border-radius:12px;
+    font-weight:900; letter-spacing:.4px; text-transform:uppercase; white-space:nowrap;
+  }
+  .track{ position:relative; flex:1; height:100%; overflow:hidden }
+  .rail{
+    position:absolute; top:0; left:0; height:100%;
+    display:flex; align-items:center; gap:42px; white-space:nowrap;
+    font-weight:900; font-size:var(--fs); line-height:1.1; color:#fff;
+    text-shadow:0 2px 0 rgba(0,0,0,.25);
+    will-change:transform; animation:scroll var(--speed) linear infinite;
+  }
+  @keyframes scroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .copy{ display:inline-block; padding-right:64px }
+
+  @media (max-width:900px){
+    :root{ --bar-h:74px; --fs:30px }
+    .topbar{ height:52px }
+    .topbar iframe{ height:32px }
+    .clock .time{ font-size:16px } .clock .date{ font-size:12px }
+  }
 </style>
 </head>
 <body>
-  <!-- TOPO -->
-  <div class="topbar">
-    <iframe src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=0&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=0&pictoicon=1&maxtemperature=1&mintemperature=1"
+
+  <!-- TOPO: clima + relógio -->
+  <div class="topbar" aria-label="Clima e hora">
+    <iframe
+      src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=0&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=0&pictoicon=1&maxtemperature=1&mintemperature=1"
       scrolling="no" allowtransparency="true"
-      sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>
+      sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox">
+    </iframe>
+    <div class="clock" aria-label="Relógio">
+      <span class="time" id="clockTime">--:--</span>
+      <span class="date" id="clockDate">--/--/----</span>
+    </div>
   </div>
 
-  <!-- RODAPÉ -->
-  <div class="gnbar" aria-label="Rodapé de notícias">
+  <!-- RODAPÉ: tarja + letreiro -->
+  <div class="gnbar" role="marquee" aria-label="Rodapé de notícias">
     <div class="slug" id="slug">NEWS</div>
     <div class="track">
-      <!-- Fallback: texto padrão (aparece mesmo sem JS) -->
+      <!-- Fallback: aparece mesmo se JS não rodar -->
       <div class="rail" id="rail">
         <div class="copy" id="a">Somzera e Imagem pro Relax — TV Marataízes ao vivo • Brasil • Mundo • Espírito Santo • Marataízes: cidade de praia e gente batalhadora •</div>
         <div class="copy" id="b">Somzera e Imagem pro Relax — TV Marataízes ao vivo • Brasil • Mundo • Espírito Santo • Marataízes: cidade de praia e gente batalhadora •</div>
@@ -59,7 +95,27 @@
   </div>
 
 <script>
-  // Parâmetros: ?msg=...  | ?size=44  | ?color=ffffff  | ?slug=NEWS  | ?speed=35
+  /* ===== Relógio ===== */
+  function pad2(n){ return String(n).padStart(2,'0'); }
+  function updClock(){
+    const now = new Date();
+    const hh = pad2(now.getHours());
+    const mm = pad2(now.getMinutes());
+    const dd = pad2(now.getDate());
+    const mo = pad2(now.getMonth()+1);
+    const yyyy = now.getFullYear();
+    document.getElementById('clockTime').textContent = `${hh}:${mm}`;
+    document.getElementById('clockDate').textContent = `${dd}/${mo}/${yyyy}`;
+  }
+  updClock(); setInterval(updClock, 1000);
+
+  /* ===== Parâmetros por URL =====
+     ?msg=texto%20aqui      (texto do letreiro)
+     ?size=44               (px da fonte)
+     ?color=ffffff          (cor do texto)
+     ?slug=NEWS             (pílula)
+     ?speed=30              (segundos por ciclo — maior = mais devagar)
+  */
   const qs = new URLSearchParams(location.search);
   const rail = document.getElementById('rail');
   const a    = document.getElementById('a');
@@ -82,7 +138,7 @@
     const content = text.endsWith('•') ? text : text + ' •';
     a.textContent = content;
     b.textContent = content;
-    // Reinicia animação (OBS às vezes precisa)
+    // reinicia animação no OBS
     rail.style.animation='none'; rail.offsetHeight; rail.style.animation='';
   }
 </script>
