@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TV Marataízes — ao vivo</title>
+  <title>TV Marataízes — live FB</title>
   <meta name="description" content="TV Marataízes ao vivo — programação local." />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
@@ -11,73 +11,68 @@
   <meta name="theme-color" content="#C4170C" />
   <style>
     :root{
-      --gn-red:#C4170C;      /* faixa da legenda do site */
+      --gn-red:#C4170C;
       --text:#fff;
-      --ticker-h:86px;       /* altura da legenda */
-      --ticker-fs:32px;      /* tamanho da fonte da legenda */
+      --ticker-h:86px;
+      --ticker-fs:32px;
     }
-
     html,body{margin:0;height:100%;background:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text)}
-
-    /* PLAYER ocupa a tela até antes da legenda */
-    .stage{
-      min-height:calc(100vh - var(--ticker-h));
-      display:flex; align-items:center; justify-content:center; padding:16px;
-    }
-    .player-box{
-      width:min(100%,1200px); aspect-ratio:16/9; background:#000;
-      border-radius:12px; overflow:hidden; box-shadow:0 6px 24px rgba(0,0,0,.25);
-    }
-    .player-box > *{width:100%; height:100%; border:0; display:block}
-
-    /* LEGENDA DO SITE (parada) */
-    .ticker{
-      position:fixed; left:0; right:0; bottom:0; height:var(--ticker-h);
-      background:var(--gn-red); display:flex; align-items:center; gap:18px;
-      border-top:4px solid rgba(0,0,0,.15); box-shadow:0 -10px 28px rgba(0,0,0,.35);
-      padding-inline:16px; z-index:10;
-    }
-    .pill{
-      padding:10px 14px; border-radius:10px; background:#000; color:#fff; font-weight:900;
-      letter-spacing:.3px; text-transform:uppercase; white-space:nowrap;
-    }
-    .ticker-text{
-      flex:1; font-weight:900; font-size:var(--ticker-fs); line-height:1.1;
-      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-    }
-
-    @media (max-width:900px){
-      :root{ --ticker-h:72px; --ticker-fs:28px }
-      .stage{ padding:10px }
-      .player-box{ border-radius:8px }
-    }
+    .stage{min-height:calc(100vh - var(--ticker-h));display:flex;align-items:center;justify-content:center;padding:16px}
+    .player-box{width:min(100%,1200px);aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.25);position:relative}
+    .player-box > *{width:100%;height:100%;border:0;display:block}
+    .fallback{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:#000}
+    .fallback a{display:inline-block;background:#1877f2;color:#fff;text-decoration:none;font-weight:800;padding:14px 20px;border-radius:10px}
+    .ticker{position:fixed;left:0;right:0;bottom:0;height:var(--ticker-h);background:var(--gn-red);display:flex;align-items:center;gap:18px;border-top:4px solid rgba(0,0,0,.15);box-shadow:0 -10px 28px rgba(0,0,0,.35);padding-inline:16px;z-index:10}
+    .pill{padding:10px 14px;border-radius:10px;background:#000;color:#fff;font-weight:900;letter-spacing:.3px;text-transform:uppercase;white-space:nowrap}
+    .ticker-text{flex:1;font-weight:900;font-size:var(--ticker-fs);line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    @media (max-width:900px){:root{--ticker-h:72px;--ticker-fs:28px}.stage{padding:10px}.player-box{border-radius:8px}}
   </style>
 </head>
 <body>
 
-  <!-- PLAYER FACEBOOK -->
+  <!-- PLAYER FACEBOOK com fallback para mobile -->
   <section class="stage">
     <div class="player-box">
-      <!-- Troque o href abaixo se a URL da live mudar -->
-      <iframe
+      <!-- EMBED FB -->
+      <iframe id="fb-embed"
         src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2F1105127682%2Fvideos%2F1302220354954734&show_text=false&autoplay=true&mute=true"
         title="TV Marataízes ao vivo"
-        style="width:100%;height:100%;border:0;overflow:hidden"
         scrolling="no" frameborder="0" allowfullscreen="true"
         allow="autoplay; encrypted-media; picture-in-picture; clipboard-write; web-share">
       </iframe>
+
+      <!-- FALLBACK (abre no app/aba do Facebook) -->
+      <div id="fb-fallback" class="fallback">
+        <a id="fb-link" href="https://www.facebook.com/watch/?v=1302220354954734" target="_blank" rel="noopener">
+          ▶ Abrir no Facebook
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- LEGENDA DO SITE (PARADA) – edite o texto abaixo -->
   <footer class="ticker" aria-label="Legenda do site">
     <div class="pill">AO VIVO</div>
-    <div class="ticker-text">
-      <!-- 🔧 ALTERE APENAS ESTA LINHA -->
-      Início às 18h • Apoio: Comércio Local
-      <!-- 🔧 FIM -->
-    </div>
+    <div class="ticker-text">Início às 18h • Apoio: Comércio Local</div>
   </footer>
+
+  <script>
+    (function(){
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      const iframe = document.getElementById('fb-embed');
+      const fbFallback = document.getElementById('fb-fallback');
+
+      // Em muitos celulares (especialmente iOS/Safari), o embed de perfil pode falhar:
+      // mostra o botão de fallback se não carregar em 3s.
+      let loaded = false;
+      iframe.addEventListener('load', () => { loaded = true; });
+      setTimeout(() => {
+        if (isMobile && !loaded) {
+          iframe.style.display = 'none';
+          fbFallback.style.display = 'flex';
+        }
+      }, 3000);
+    })();
+  </script>
 
 </body>
 </html>
