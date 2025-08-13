@@ -1,56 +1,80 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TV Marataízes</title>
-<style>
-  body {
-    margin: 0;
-    background: black;
-    overflow: hidden;
-  }
-  iframe {
-    width: 100vw;
-    height: 100vh;
-    border: none;
-  }
-  #ticker {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: rgba(0,0,0,0.7);
-    color: white;
-    font-family: Arial, sans-serif;
-    font-size: 20px;
-    white-space: nowrap;
-    overflow: hidden;
-    box-sizing: border-box;
-  }
-  #ticker span {
-    display: inline-block;
-    padding-left: 100%;
-    animation: ticker 30s linear infinite;
-  }
-  @keyframes ticker {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-100%); }
-  }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TV Marataízes — ao vivo</title>
+  <meta name="description" content="TV Marataízes ao vivo — programação local." />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="theme-color" content="#C4170C" />
+  <style>
+    :root{
+      --gn-red:#C4170C;      /* faixa da legenda do site */
+      --text:#fff;
+      --ticker-h:86px;       /* altura da legenda */
+      --ticker-fs:32px;      /* tamanho da fonte da legenda */
+    }
+
+    html,body{margin:0;height:100%;background:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text)}
+
+    /* PLAYER ocupa a tela até antes da legenda */
+    .stage{
+      min-height:calc(100vh - var(--ticker-h));
+      display:flex; align-items:center; justify-content:center; padding:16px;
+    }
+    .player-box{
+      width:min(100%,1200px); aspect-ratio:16/9; background:#000;
+      border-radius:12px; overflow:hidden; box-shadow:0 6px 24px rgba(0,0,0,.25);
+    }
+    .player-box > *{width:100%; height:100%; border:0; display:block}
+
+    /* LEGENDA DO SITE (parada) */
+    .ticker{
+      position:fixed; left:0; right:0; bottom:0; height:var(--ticker-h);
+      background:var(--gn-red); display:flex; align-items:center; gap:18px;
+      border-top:4px solid rgba(0,0,0,.15); box-shadow:0 -10px 28px rgba(0,0,0,.35);
+      padding-inline:16px; z-index:10;
+    }
+    .pill{
+      padding:10px 14px; border-radius:10px; background:#000; color:#fff; font-weight:900;
+      letter-spacing:.3px; text-transform:uppercase; white-space:nowrap;
+    }
+    .ticker-text{
+      flex:1; font-weight:900; font-size:var(--ticker-fs); line-height:1.1;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+
+    @media (max-width:900px){
+      :root{ --ticker-h:72px; --ticker-fs:28px }
+      .stage{ padding:10px }
+      .player-box{ border-radius:8px }
+    }
+  </style>
 </head>
 <body>
 
-<!-- Player do YouTube -->
-<iframe 
-  src="https://www.youtube.com/embed/8vgKFPHkIHk?autoplay=1&mute=1&loop=1&playlist=8vgKFPHkIHk"
-  allow="autoplay; encrypted-media"
-  allowfullscreen>
-</iframe>
+  <!-- PLAYER YOUTUBE -->
+  <section class="stage">
+    <div class="player-box">
+      <iframe
+        src="https://www.youtube.com/embed/8vgKFPHkIHk?autoplay=1&mute=1&loop=1&playlist=8vgKFPHkIHk&rel=0&modestbranding=1"
+        title="TV Marataízes ao vivo"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
 
-<!-- Ticker -->
-<div id="ticker">
-  <span>📺 TV Marataízes — Agora 24 horas no ar! • Previsão de 16 Graus essa noite em Marataízes • Você conhece a juçara? Árvore da Mata Atlântica produz fruto semelhante ao açaí e palmito • Fruto tem impulsionado a economia de Rio Novo do Sul.</span>
-</div>
+  <!-- LEGENDA DO SITE (PARADA) – texto trocado -->
+  <footer class="ticker" aria-label="Legenda do site">
+    <div class="pill">AO VIVO</div>
+    <div class="ticker-text">
+      24 horas no ar
+    </div>
+  </footer>
 
 </body>
 </html>
