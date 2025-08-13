@@ -8,92 +8,55 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<meta name="theme-color" content="#C4170C" />
+<meta name="theme-color" content="#000" />
 <style>
-  :root{
-    --gn-red:#C4170C; --text:#fff;
-    --ticker-h:86px; --ticker-fs:32px; --radius:12px;
-  }
   *{box-sizing:border-box}
-  html,body{margin:0;height:100%;background:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text)}
-  .stage{min-height:calc(100dvh - var(--ticker-h));display:flex;align-items:center;justify-content:center;padding:16px;background:#fff}
-  .player-wrap{width:min(100%,1200px);aspect-ratio:16/9;position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.25);background:#000;isolation:isolate}
-  #twitch-embed, .player-iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-  .overlay-status{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;color:#fff;text-align:center;background:linear-gradient(0deg, rgba(0,0,0,.65), rgba(0,0,0,.35));font-size:clamp(18px, 2.5vw, 34px);font-weight:800;letter-spacing:.2px;z-index:2;pointer-events:none}
+  html,body{margin:0;height:100%;background:#000;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#fff}
+  .stage{min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:0}
+  .player-wrap{width:100%;aspect-ratio:16/9;position:relative;background:#000}
+  #twitch-embed,.player-iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .overlay-status{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;color:#fff;text-align:center;background:rgba(0,0,0,.5);font-size:clamp(18px, 2.5vw, 34px);font-weight:800;letter-spacing:.2px;z-index:2;pointer-events:none}
   .overlay-status.hidden{display:none}
   .tap-btn{position:absolute;left:50%;transform:translateX(-50%);bottom:12%;width:min(88%,380px);border:0;border-radius:999px;padding:14px 22px;background:#ff3355;color:#fff;font-weight:900;font-size:clamp(16px,2vw,22px);box-shadow:0 10px 24px rgba(0,0,0,.35);z-index:3;display:none;cursor:pointer}
   .tap-btn.show{display:block}
-  .wv-warning{position:absolute;left:50%;transform:translateX(-50%);top:12px;z-index:4;background:#222;color:#fff;padding:10px 14px;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,.4);display:none;font-weight:700}
-  .wv-warning.show{display:flex;gap:10px;align-items:center}
-  .wv-warning a{background:#0B84FF;color:#fff;text-decoration:none;padding:8px 12px;border-radius:999px;font-weight:900}
-  .ticker{position:fixed;left:0;right:0;bottom:0;height:var(--ticker-h);background:var(--gn-red);display:flex;align-items:center;gap:18px;border-top:4px solid rgba(0,0,0,.15);box-shadow:0 -10px 28px rgba(0,0,0,.35);padding-inline:16px;padding-bottom:max(12px, env(safe-area-inset-bottom));z-index:10}
-  .pill{padding:10px 14px;border-radius:10px;background:#000;color:#fff;font-weight:900;letter-spacing:.3px;text-transform:uppercase;white-space:nowrap;box-shadow:0 2px 0 rgba(255,255,255,.2) inset}
-  .ticker-text{flex:1;font-weight:900;font-size:var(--ticker-fs);line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 0 rgba(0,0,0,.25)}
-  @media (max-width:900px){:root{--ticker-h:72px;--ticker-fs:28px;--radius:8px} .stage{padding:10px} .tap-btn{bottom:14%}}
 </style>
 </head>
 <body>
   <section class="stage" aria-label="Player ao vivo">
     <div class="player-wrap">
-      <div id="wvWarn" class="wv-warning">Abrir no navegador para assistir melhor <a id="openExtern" href="#" rel="noopener">Abrir</a></div>
       <div id="status" class="overlay-status">Voltamos às 18h com nossa programação ao vivo</div>
       <button id="tapBtn" class="tap-btn" aria-label="Tocar ou desmutar">▶️ Tocar / Desmutar</button>
       <div id="twitch-embed" role="region" aria-label="Player Twitch"></div>
     </div>
   </section>
 
-  <footer class="ticker" aria-label="Legenda do site">
-    <div class="pill" id="pill">AO VIVO</div>
-    <div class="ticker-text" id="tickerText">TV Marataízes — programação local</div>
-  </footer>
-
   <script src="https://player.twitch.tv/js/embed/v1.js"></script>
   <script>
-    // ========= CONFIG =========
-    const DEFAULT_CHANNEL = "tvmarataizes";  // troque se seu @ na Twitch for outro
+    // Canal fixo
+    const TWITCH_CHANNEL = "marataizestv";
     const OFF_MSG = "Voltamos às 18h com nossa programação ao vivo";
-    // Query params (permite ?ch=, ?pill=, ?text=)
-    const qs = new URLSearchParams(location.search);
-    const TWITCH_CHANNEL = (qs.get("ch") || DEFAULT_CHANNEL).trim();
-    // ==========================
 
     const statusEl = document.getElementById("status");
     const tapBtn   = document.getElementById("tapBtn");
-    const wvWarn   = document.getElementById("wvWarn");
-    const openExtern = document.getElementById("openExtern");
     statusEl.textContent = OFF_MSG;
 
-    // Tarja via querystring
-    if (qs.get("pill"))  document.getElementById("pill").textContent = qs.get("pill");
-    if (qs.get("text"))  document.getElementById("tickerText").textContent = qs.get("text");
-
-    // Domínios permitidos
+    // Lista de domínios permitidos
     const host = location.hostname || "tvmarataizes.com.br";
     const PARENTS = Array.from(new Set([
       host,
       "tvmarataizes.com.br",
       "www.tvmarataizes.com.br",
-      "tvmarataize.com.br", "www.tvmarataize.com.br", // variação
+      "tvmarataize.com.br", "www.tvmarataize.com.br",
       "raulgrecco.github.io", "github.io",
       "localhost","127.0.0.1"
     ]));
 
-    // Detecta WebView de apps
+    // Detecta WebView de apps e redireciona
     const ua = navigator.userAgent || "";
-    const isInsta = /\bInstagram\b/i.test(ua);
-    const isFB    = /\bFBAN|FBAV|FB_IAB\b/i.test(ua);
-    const isTT    = /\bTikTok\b/i.test(ua);
-    const inApp   = isInsta || isFB || isTT;
-
+    const inApp = /\bInstagram\b/i.test(ua) || /\bFBAN|FBAV|FB_IAB\b/i.test(ua) || /\bTikTok\b/i.test(ua);
     if (inApp) {
-      // Mostra aviso e link que tenta abrir fora do app
-      wvWarn.classList.add("show");
-      const cleanURL = location.href.replace(location.search, "");
-      openExtern.href = cleanURL;            // 1º tentamos normal (muitos apps já abrem externo em _blank)
-      openExtern.addEventListener("click", (e) => {
-        e.preventDefault();
-        window.open(cleanURL, "_blank", "noopener"); // força abrir em aba externa
-      });
+      const cleanURL = location.href;
+      window.open(cleanURL, "_blank", "noopener");
     }
 
     function hideStatus(){ statusEl.classList.add("hidden"); }
@@ -106,7 +69,6 @@
       if (isMuted) tapBtn.classList.add("show");
     }
 
-    // 1) Tenta via API oficial
     let player;
     try {
       player = new Twitch.Player("twitch-embed", {
@@ -131,10 +93,9 @@
       player.addEventListener(Twitch.Player.PLAY,    () => { hideStatus(); tapBtn.classList.remove("show"); });
       player.addEventListener(Twitch.Player.OFFLINE, () => { statusEl.textContent = OFF_MSG; showStatus(); maybeShowTap(); });
     } catch (err) {
-      fallbackIframe(); // se a API quebrar por causa do WebView, usa iframe
+      fallbackIframe();
     }
 
-    // 2) Fallback para <iframe> com todos os parent= na URL
     function fallbackIframe(){
       const parents = PARENTS.map(p => "parent="+encodeURIComponent(p)).join("&");
       const src = `https://player.twitch.tv/?channel=${encodeURIComponent(TWITCH_CHANNEL)}&muted=true&autoplay=true&${parents}`;
@@ -146,11 +107,9 @@
       ifr.setAttribute("playsinline","true");
       ifr.src = src;
       wrap.appendChild(ifr);
-      // sem eventos do SDK, ocultamos a mensagem após o load do iframe
       ifr.addEventListener("load", () => { hideStatus(); maybeShowTap(); });
     }
 
-    // Botão manual (iOS exige interação pra som)
     function manualStart(){
       try {
         if (player && player.setMuted) { player.setMuted(false); player.play(); }
@@ -162,7 +121,6 @@
       if (tapBtn.classList.contains("show")) manualStart();
     }, { passive:true });
 
-    // Segurança: se o SDK não inicializar em 2s (WebView), cai no fallback
     setTimeout(() => {
       const iframe = document.querySelector("#twitch-embed iframe");
       if (!iframe) fallbackIframe();
@@ -170,5 +128,3 @@
   </script>
 </body>
 </html>
-
-
