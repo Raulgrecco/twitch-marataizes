@@ -32,7 +32,6 @@
 
   <script src="https://player.twitch.tv/js/embed/v1.js"></script>
   <script>
-    // Canal fixo
     const TWITCH_CHANNEL = "marataizestv";
     const OFF_MSG = "Voltamos às 18h com nossa programação ao vivo";
 
@@ -51,12 +50,11 @@
       "localhost","127.0.0.1"
     ]));
 
-    // Detecta WebView de apps e redireciona
+    // Detecta WebView e redireciona pro navegador
     const ua = navigator.userAgent || "";
     const inApp = /\bInstagram\b/i.test(ua) || /\bFBAN|FBAV|FB_IAB\b/i.test(ua) || /\bTikTok\b/i.test(ua);
     if (inApp) {
-      const cleanURL = location.href;
-      window.open(cleanURL, "_blank", "noopener");
+      window.location.replace(`https://twitch.tv/${TWITCH_CHANNEL}`);
     }
 
     function hideStatus(){ statusEl.classList.add("hidden"); }
