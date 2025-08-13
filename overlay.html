@@ -15,7 +15,7 @@
     --white:#fff;
     --bar-h:92px;
     --fs:40px;
-    --speed:48s; /* <-- mais lento por padrão */
+    --speed:35s; /* velocidade intermediária por padrão */
   }
   html,body{margin:0;height:100%;background:transparent;color:var(--white);
     font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
@@ -59,8 +59,7 @@
   </div>
 
 <script>
-  // Parâmetros pela URL:
-  // ?msg=...  | ?size=44  | ?color=ffffff  | ?slug=NEWS  | ?speed=60
+  // Parâmetros: ?msg=...  | ?size=44  | ?color=ffffff  | ?slug=NEWS  | ?speed=35
   const qs = new URLSearchParams(location.search);
   const rail = document.getElementById('rail');
   const a    = document.getElementById('a');
