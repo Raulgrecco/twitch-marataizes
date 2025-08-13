@@ -15,7 +15,7 @@
     --white:#fff;
     --bar-h:92px;
     --fs:40px;
-    --speed:32s;
+    --speed:48s; /* <-- mais lento por padrão */
   }
   html,body{margin:0;height:100%;background:transparent;color:var(--white);
     font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
@@ -34,7 +34,6 @@
     white-space:nowrap;font-weight:900;font-size:var(--fs);line-height:1.1;color:#fff;
     text-shadow:0 2px 0 rgba(0,0,0,.25);will-change:transform;animation:scroll var(--speed) linear infinite}
   @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  /* cada metade do texto duplicado p/ loop contínuo */
   .copy{display:inline-block;padding-right:64px}
   @media (max-width:900px){:root{--bar-h:74px;--fs:30px}.topbar{height:52px}.topbar iframe{height:32px}}
 </style>
@@ -51,7 +50,7 @@
   <div class="gnbar" aria-label="Rodapé de notícias">
     <div class="slug" id="slug">NEWS</div>
     <div class="track">
-      <!-- Fallback: texto padrão já no HTML (aparece mesmo sem JS) -->
+      <!-- Fallback: texto padrão (aparece mesmo sem JS) -->
       <div class="rail" id="rail">
         <div class="copy" id="a">Somzera e Imagem pro Relax — TV Marataízes ao vivo • Brasil • Mundo • Espírito Santo • Marataízes: cidade de praia e gente batalhadora •</div>
         <div class="copy" id="b">Somzera e Imagem pro Relax — TV Marataízes ao vivo • Brasil • Mundo • Espírito Santo • Marataízes: cidade de praia e gente batalhadora •</div>
@@ -60,30 +59,33 @@
   </div>
 
 <script>
-  // Parâmetros opcionais
+  // Parâmetros pela URL:
+  // ?msg=...  | ?size=44  | ?color=ffffff  | ?slug=NEWS  | ?speed=60
   const qs = new URLSearchParams(location.search);
+  const rail = document.getElementById('rail');
+  const a    = document.getElementById('a');
+  const b    = document.getElementById('b');
+  const slug = document.getElementById('slug');
+
   const size  = parseInt(qs.get('size')||'',10);
   const color = (qs.get('color')||'').replace('#','').trim();
-  const slug  = (qs.get('slug') || 'NEWS').trim();
+  const tag   = (qs.get('slug') || 'NEWS').trim();
   const msg   = qs.get('msg');
   const speed = parseInt(qs.get('speed')||'',10);
 
   if(!Number.isNaN(size)&&size>12) document.documentElement.style.setProperty('--fs', size+'px');
   if(!Number.isNaN(speed)&&speed>4) document.documentElement.style.setProperty('--speed', speed+'s');
-  if(color) document.getElementById('rail').style.color = '#'+color;
-  document.getElementById('slug').textContent = slug || 'NEWS';
+  if(color) rail.style.color = '#'+color;
+  slug.textContent = tag || 'NEWS';
 
-  // Se tiver msg=, troca o texto das duas cópias
   if (msg){
-    const text = decodeURIComponent(msg).trim().replace(/\s+\u2022\s*$/,'');
+    const text = decodeURIComponent(msg).trim();
     const content = text.endsWith('•') ? text : text + ' •';
-    document.getElementById('a').textContent = content;
-    document.getElementById('b').textContent = content;
+    a.textContent = content;
+    b.textContent = content;
     // Reinicia animação (OBS às vezes precisa)
-    const rail = document.getElementById('rail');
     rail.style.animation='none'; rail.offsetHeight; rail.style.animation='';
   }
 </script>
 </body>
 </html>
-
