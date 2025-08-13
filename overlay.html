@@ -5,76 +5,73 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Overlay TV Marataízes</title>
 
-<!-- anti-cache -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
 
 <style>
   :root{
-    --gn-red:#C4170C;       /* vermelho GloboNews */
-    --slug-dark:#B3130B;    /* pílula mais escura */
-    --top-bg:#0a1628;       /* barra de clima (topo) */
+    --gn-red:#C4170C;          /* vermelho GloboNews */
+    --slug-dark:#B3130B;       /* pílula mais escura */
+    --top-bg:#0a1628;          /* barra do clima */
     --white:#fff;
-    --ticker-h:92px;        /* altura do rodapé */
-    --ticker-fs:40px;       /* fonte do rodapé (pode mudar via ?size=) */
-    --speed:38s;            /* calculada via JS */
+
+    --bar-h:92px;              /* altura da tarja */
+    --fs:40px;                 /* fonte do rodapé (ajustada via ?size=) */
+    --speed:32s;               /* duração da animação (ajustada via ?speed=) */
   }
 
   html,body{
     margin:0;height:100%;
-    background:transparent;          /* importante pro OBS */
+    background:transparent; /* importante pro OBS */
     color:var(--white);
     font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
   }
 
-  /* ===== TOPO: CLIMA ===== */
+  /* TOPO: CLIMA */
   .topbar{
     position:fixed; top:0; left:0; right:0; height:56px;
     background:var(--top-bg);
     display:flex; align-items:center; padding:0 16px;
     box-shadow:0 6px 16px rgba(0,0,0,.25);
     pointer-events:none;
+    z-index:2;
   }
   .topbar iframe{
     width:100%; height:36px; border:0; background:transparent; pointer-events:none;
   }
 
-  /* ===== RODAPÉ: GNEWS ===== */
+  /* RODAPÉ: tarja GN */
   .gnbar{
-    position:fixed; left:0; right:0; bottom:0; height:var(--ticker-h);
+    position:fixed; left:0; right:0; bottom:0; height:var(--bar-h);
     background:var(--gn-red);
     display:flex; align-items:center; gap:18px;
     border-top:4px solid rgba(0,0,0,.18);
     box-shadow:0 -10px 28px rgba(0,0,0,.35);
     overflow:hidden; pointer-events:none;
+    z-index:3;
   }
-
-  /* pílula (slug) à esquerda */
   .slug{
     margin-left:16px;
     background:var(--slug-dark);
-    padding:12px 18px;
-    border-radius:12px;
-    font-weight:900; letter-spacing:.4px;
-    text-transform:uppercase; color:#fff;
-    white-space:nowrap; pointer-events:auto;
+    padding:12px 18px; border-radius:12px;
+    font-weight:900; letter-spacing:.4px; text-transform:uppercase;
+    color:#fff; white-space:nowrap; pointer-events:auto;
   }
 
-  /* trilho + linha rolante */
   .track{ position:relative; flex:1; height:100%; overflow:hidden }
   .lane{
     position:absolute; top:0; left:0; height:100%;
     display:inline-flex; align-items:center; gap:42px; white-space:nowrap;
-    font-weight:900; font-size:var(--ticker-fs); line-height:1.1;
-    color:var(--white);
+    font-weight:900; font-size:var(--fs); line-height:1.1;
+    color:var(--white); text-shadow:0 2px 0 rgba(0,0,0,.25);
     will-change:transform; animation:scroll var(--speed) linear infinite;
+    z-index:4;
   }
   @keyframes scroll{ from{transform:translateX(100%)} to{transform:translateX(-100%)} }
 
-  /* responsivo */
   @media (max-width: 900px){
-    :root{ --ticker-h:74px; --ticker-fs:30px }
+    :root{ --bar-h:74px; --fs:30px }
     .topbar{height:52px} .topbar iframe{height:32px}
   }
 </style>
@@ -97,99 +94,43 @@
   </div>
 
 <script>
-  const lane   = document.getElementById('lane');
-  const slugEl = document.getElementById('slug');
-  const qs     = new URLSearchParams(location.search);
+  const qs    = new URLSearchParams(location.search);
+  const lane  = document.getElementById('lane');
+  const slug  = document.getElementById('slug');
 
-  /* ===== Parâmetros =====
-     ?msg=texto%20aqui
-     ?size=42          (px)
-     ?color=ffffff     (hex, sem #) – cor do texto
-     ?slug=NEWS        (texto da pílula)
-     ?scroll=0|1       (padrão 1)
-  */
-  const paramMsg   = qs.get('msg');
-  const paramSize  = parseInt(qs.get('size') || '', 10);
-  const paramColor = (qs.get('color') || '').replace('#','').trim();
-  const paramSlug  = (qs.get('slug')  || 'NEWS').trim();
-  const paramScroll= qs.get('scroll');
+  // parâmetros
+  const txt   = qs.get('msg');
+  const size  = parseInt(qs.get('size') || '', 10);
+  const color = (qs.get('color') || '').replace('#','').trim();
+  const tag   = (qs.get('slug')  || 'NEWS').trim();
+  const speed = parseInt(qs.get('speed') || '', 10); // segundos
 
-  // Fallback para uso local: se abrir como file:// e quiser buscar do GitHub, cole a RAW aqui
-  const RAW_TICKER_URL = ""; // ex.: "https://raw.githubusercontent.com/SEUUSER/SEUREPO/main/ticker.txt"
+  // aplica visuais
+  slug.textContent = tag || 'NEWS';
+  if (!Number.isNaN(size)  && size > 12) document.documentElement.style.setProperty('--fs', size+'px');
+  if (!Number.isNaN(speed) && speed > 4) document.documentElement.style.setProperty('--speed', speed+'s');
+  if (color) lane.style.color = '#'+color;
 
-  const DEFAULT_MSG =
-    'Somzera e Imagem pro Relax — siga @maratheizeTV • ' +
-    'Brasil • Mundo • Espírito Santo • ' +
-    'Marataízes: cidade de praia, comércio forte e gente batalhadora.';
+  const DEFAULT =
+    'Somzera e Imagem pro Relax — TV Marataízes ao vivo • Brasil • Mundo • Espírito Santo • Marataízes: cidade de praia e gente batalhadora';
 
-  function basePath(){
-    const p = location.pathname.replace(/[^/]+$/, '');
-    return p.endsWith('/') ? p : p + '/';
-  }
-
-  function restartAnimation(){
-    // desliga e religa para garantir no Browser Source do OBS
-    lane.style.animation = 'none';
-    // força reflow:
-    // eslint-disable-next-line no-unused-expressions
-    lane.offsetHeight;
-    if (paramScroll !== '0') lane.style.animation = 'scroll var(--speed, 38s) linear infinite';
-  }
-
-  function autoSpeed(){
-    const w = lane.scrollWidth || 2000;
-    const pxPerSec = Math.max(50, Math.min(110, window.innerWidth/10));
-    const dur = Math.max(20, Math.round(w / pxPerSec));
-    document.documentElement.style.setProperty('--speed', dur + 's');
-  }
-
-  function setMessage(msg){
-    const base = (msg || '').trim();
+  function setMarquee(message){
+    const base = (message || DEFAULT).trim();
     lane.innerHTML = '';
-    for (let i=0; i<10; i++){
+    // repete pra formar um loop longo
+    for(let i=0;i<12;i++){
       const s = document.createElement('span');
-      s.textContent = (base || ' ') + ' • ';
+      s.textContent = base + ' • ';
       lane.appendChild(s);
     }
-    autoSpeed();
-    restartAnimation();
+    // força reiniciar animação no OBS
+    lane.style.animation = 'none';
+    // reflow
+    lane.offsetHeight;
+    lane.style.animation = `scroll var(--speed) linear infinite`;
   }
 
-  async function loadTicker(){
-    // prioriza ?msg=
-    if (paramMsg){ setMessage(decodeURIComponent(paramMsg)); return; }
-
-    // tenta ler ticker.txt no mesmo diretório
-    try{
-      const isLocal = location.protocol === 'file:';
-      const url = isLocal && RAW_TICKER_URL
-        ? RAW_TICKER_URL + '?ts=' + Date.now()
-        : basePath() + 'ticker.txt?ts=' + Date.now();
-      const res = await fetch(url, { cache:'no-store' });
-      const txt = res.ok ? (await res.text()).trim().replace(/\n+/g,' • ') : '';
-      setMessage(txt || DEFAULT_MSG);
-    }catch{
-      setMessage(DEFAULT_MSG);
-    }
-  }
-
-  // aplica parâmetros visuais
-  slugEl.textContent = paramSlug || 'NEWS';
-  if (!Number.isNaN(paramSize) && paramSize > 12){
-    document.documentElement.style.setProperty('--ticker-fs', paramSize + 'px');
-  }
-  if (paramColor){
-    lane.style.color = '#' + paramColor;
-  }
-  if (paramScroll === '0'){
-    lane.style.animation = 'none';   // sem rolagem
-  }
-
-  // inicializa
-  setMessage('Carregando…');
-  loadTicker();
-  setInterval(loadTicker, 10_000);
-  window.addEventListener('resize', autoSpeed);
+  setMarquee(txt ? decodeURIComponent(txt) : null);
 </script>
 </body>
 </html>
