@@ -19,21 +19,24 @@
       --radius:12px;
     }
 
+    *{ box-sizing:border-box }
     html,body{
       margin:0;
       height:100%;
       background:#fff;
       font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-      color:var(--text)
+      color:var(--text);
+      overflow-x:hidden;
     }
 
-    /* Área do player ocupa a tela até antes da legenda */
+    /* Área do player ocupa a tela até antes da legenda (usa viewport dinâmico no mobile) */
     .stage{
-      min-height:calc(100vh - var(--ticker-h));
+      min-height:calc(100dvh - var(--ticker-h));
       display:flex;
       align-items:center;
       justify-content:center;
       padding:16px;
+      background:#fff;
     }
     .player-wrap{
       width:min(100%,1200px);
@@ -43,6 +46,7 @@
       overflow:hidden;
       box-shadow:0 6px 24px rgba(0,0,0,.25);
       background:#000;
+      isolation:isolate;
     }
     #twitch-embed,
     .player-iframe{
@@ -77,7 +81,7 @@
       position:absolute;
       left:50%; transform:translateX(-50%);
       bottom:12%;
-      width:min(80%,360px);
+      width:min(88%,380px);
       border:0; border-radius:999px;
       padding:14px 22px;
       background:#ff3355; color:#fff;
@@ -85,10 +89,11 @@
       box-shadow:0 10px 24px rgba(0,0,0,.35);
       z-index:3;
       display:none;         /* escondido por padrão (desktop) */
+      cursor:pointer;
     }
     .tap-btn.show{ display:block; }
 
-    /* Legenda fixa do site (parada) */
+    /* Tarja fixa estilo GN (parada) */
     .ticker{
       position:fixed;
       left:0; right:0; bottom:0;
@@ -98,6 +103,7 @@
       border-top:4px solid rgba(0,0,0,.15);
       box-shadow:0 -10px 28px rgba(0,0,0,.35);
       padding-inline:16px;
+      padding-bottom:max(12px, env(safe-area-inset-bottom));
       z-index:10;
     }
     .pill{
@@ -106,6 +112,7 @@
       background:#000; color:#fff;
       font-weight:900; letter-spacing:.3px;
       text-transform:uppercase; white-space:nowrap;
+      box-shadow:0 2px 0 rgba(255,255,255,.2) inset;
     }
     .ticker-text{
       flex:1;
@@ -115,6 +122,7 @@
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
+      text-shadow:0 2px 0 rgba(0,0,0,.25);
     }
 
     @media (max-width:900px){
@@ -127,7 +135,7 @@
 <body>
 
   <!-- ÁREA DO PLAYER -->
-  <section class="stage">
+  <section class="stage" aria-label="Player ao vivo">
     <div class="player-wrap">
       <!-- Overlay de status (mostra até o player subir/entrar online) -->
       <div id="status" class="overlay-status">
@@ -135,18 +143,18 @@
       </div>
 
       <!-- Botão de tocar/desmutar (só mobile quando necessário) -->
-      <button id="tapBtn" class="tap-btn">▶️ Tocar / Desmutar</button>
+      <button id="tapBtn" class="tap-btn" aria-label="Tocar ou desmutar">▶️ Tocar / Desmutar</button>
 
       <!-- Aqui o Twitch monta o player -->
-      <div id="twitch-embed" role="region" aria-label="Player ao vivo"></div>
+      <div id="twitch-embed" role="region" aria-label="Player Twitch"></div>
     </div>
   </section>
 
-  <!-- LEGENDA DO SITE (fixa) -->
+  <!-- TARJA ESTILO GLOBONEWS (fixa) -->
   <footer class="ticker" aria-label="Legenda do site">
-    <div class="pill" id="pill">EM BREVE</div>
+    <div class="pill" id="pill">AO VIVO</div>
     <div class="ticker-text" id="tickerText">
-      Início da programação às 18h
+      TV Marataízes — programação local
     </div>
   </footer>
 
@@ -154,7 +162,7 @@
   <script src="https://player.twitch.tv/js/embed/v1.js"></script>
   <script>
     // ========= CONFIGURE AQUI =========
-    const TWITCH_CHANNEL = "marataizestv"; // nome do canal
+    const TWITCH_CHANNEL = "tvmarataizes"; // ← troque se o username for outro
     const OFF_MSG = "Voltamos às 18h com nossa programação ao vivo";
     // ==================================
 
@@ -162,12 +170,18 @@
     const tapBtn   = document.getElementById("tapBtn");
     statusEl.textContent = OFF_MSG;
 
-    // parent precisa bater com o domínio atual (com/sem www, subdomínios, etc.)
+    // Liste TODOS os domínios onde o player pode aparecer
     const host = location.hostname || "tvmarataizes.com.br";
     const PARENT_DOMAINS = Array.from(new Set([
+      host,
       "tvmarataizes.com.br",
       "www.tvmarataizes.com.br",
-      host
+      "tvmarataize.com.br",        // variação sem "s"
+      "www.tvmarataize.com.br",
+      "raulgrecco.github.io",      // GitHub Pages
+      "github.io",
+      "localhost",
+      "127.0.0.1"
     ]));
 
     // Monta o player (MOBILE: iniciar muted permite autoplay)
@@ -176,7 +190,7 @@
       width: "100%",
       height: "100%",
       autoplay: true,
-      muted: true,                 // ← importante pra iOS/Android permitir autoplay
+      muted: true,                 // necessário pra iOS/Android permitir autoplay
       parent: PARENT_DOMAINS
     });
 
@@ -197,23 +211,26 @@
     function hideStatus(){ statusEl.classList.add("hidden"); }
     function showStatus(){ statusEl.classList.remove("hidden"); }
 
-    // Mostrar botão em mobile quando estiver muted/offline
+    // Detecta mobile
     function isMobile(){
       return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
+
+    // Mostrar botão em mobile quando estiver muted/offline
     function maybeShowTap(){
-      if (isMobile()) {
-        // se estiver mutado ou offline, mostra o botão
-        if (player.getMuted() || player.getPlaybackStats?.().online === false) {
-          tapBtn.classList.add("show");
-        }
-      }
+      if (!isMobile()) return;
+      let isMuted = true;
+      try { isMuted = player.getMuted(); } catch(e){}
+      // getPlaybackStats pode não existir em alguns ambientes
+      let offline = false;
+      try { offline = player.getPlaybackStats && player.getPlaybackStats().online === false; } catch(e){}
+      if (isMuted || offline) tapBtn.classList.add("show");
     }
 
     // Eventos do player
-    player.addEventListener(Twitch.Player.ONLINE, () => { hideStatus(); tapBtn.classList.remove("show"); });
-    player.addEventListener(Twitch.Player.PLAY,   () => { hideStatus(); tapBtn.classList.remove("show"); });
-    player.addEventListener(Twitch.Player.OFFLINE,() => { statusEl.textContent = OFF_MSG; showStatus(); maybeShowTap(); });
+    player.addEventListener(Twitch.Player.ONLINE,  () => { hideStatus(); tapBtn.classList.remove("show"); });
+    player.addEventListener(Twitch.Player.PLAY,    () => { hideStatus(); tapBtn.classList.remove("show"); });
+    player.addEventListener(Twitch.Player.OFFLINE, () => { statusEl.textContent = OFF_MSG; showStatus(); maybeShowTap(); });
 
     // Botão manual para mobile: desmuta e dá play
     function manualStart(){
@@ -232,10 +249,11 @@
       if (tapBtn.classList.contains("show")) manualStart();
     }, { passive:true });
 
-    // Query params simples para alterar legenda do site sem editar o HTML:
+    // Query params simples para alterar a tarja sem editar o HTML:
     const qs = new URLSearchParams(location.search);
     if (qs.get("pill")) document.getElementById("pill").textContent = qs.get("pill");
     if (qs.get("text")) document.getElementById("tickerText").textContent = qs.get("text");
   </script>
 </body>
 </html>
+
