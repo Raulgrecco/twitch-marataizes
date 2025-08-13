@@ -11,7 +11,8 @@
   <meta name="theme-color" content="#C4170C" />
   <style>
     :root{
-      --gn-red:#C4170C;      /* faixa da legenda do site */
+      --gn-red:#C4170C;      /* cor da faixa da legenda */
+      --pill-color:#ffcc00;  /* cor da pill pré-evento */
       --text:#fff;
       --ticker-h:86px;       /* altura da legenda */
       --ticker-fs:32px;      /* tamanho da fonte da legenda */
@@ -25,7 +26,6 @@
       color:var(--text)
     }
 
-    /* PLAYER ocupa a tela até antes da legenda */
     .stage{
       min-height:calc(100vh - var(--ticker-h));
       display:flex; 
@@ -48,7 +48,6 @@
       display:block
     }
 
-    /* LEGENDA DO SITE (parada) */
     .ticker{
       position:fixed; 
       left:0; 
@@ -67,8 +66,8 @@
     .pill{
       padding:10px 14px; 
       border-radius:10px; 
-      background:#000; 
-      color:#fff; 
+      background:var(--pill-color); 
+      color:#000; 
       font-weight:900;
       letter-spacing:.3px; 
       text-transform:uppercase; 
@@ -106,11 +105,11 @@
     </div>
   </section>
 
-  <!-- LEGENDA DO SITE (PARADA) -->
+  <!-- LEGENDA DO SITE (PRÉ-EVENTO) -->
   <footer class="ticker" aria-label="Legenda do site">
-    <div class="pill">AO VIVO</div>
+    <div class="pill">HOJE</div>
     <div class="ticker-text">
-      24 horas no ar
+      Início da programação às 18h — TV Marataízes
     </div>
   </footer>
 
