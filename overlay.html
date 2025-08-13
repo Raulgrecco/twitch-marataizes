@@ -12,13 +12,11 @@
 
 <style>
   :root{
-    /* ====== AJUSTES RÁPIDOS ====== */
-    --ticker-h: 88px;         /* altura do rodapé */
-    --ticker-fs: 34px;        /* fonte do rodapé */
-    --speed: 38s;             /* ajustado via JS */
-    /* Cores */
-    --gn-red: #C4170C;        /* vermelho estilo GloboNews */
-    --top-bg: #0a1628;        /* faixa do topo (clima) */
+    --ticker-h: 88px;         
+    --ticker-fs: 34px;        
+    --speed: 38s;             
+    --gn-red: #C4170C;        
+    --top-bg: #0a1628;        
     --text:   #ffffff;
   }
 
@@ -28,17 +26,16 @@
     color:var(--text)
   }
 
-  /* ===== TOPO: Clima ===== */
+  /* TOPO: Clima */
   .topbar{
-    display:none; /* padrão: oculto; use [data-show="1"] para exibir */
+    display:flex;
     position:fixed; top:0; left:0; right:0; height:56px;
     background:var(--top-bg); align-items:center; padding:0 16px;
     box-shadow:0 6px 16px rgba(0,0,0,.25); pointer-events:none
   }
-  .topbar[data-show="1"]{ display:flex; }
-  .topbar iframe{ width:100%; height:36px; border:0; background:transparent; pointer-events:none }
+  .topbar iframe{width:100%;height:36px;border:0;background:transparent;pointer-events:none}
 
-  /* ===== RODAPÉ: Ticker ===== */
+  /* RODAPÉ: Ticker */
   .ticker{
     position:fixed; left:0; right:0; bottom:0; height:var(--ticker-h);
     background:var(--gn-red); display:flex; align-items:center; gap:18px;
@@ -59,7 +56,6 @@
   }
   @keyframes scroll{ from{transform:translateX(100%)} to{transform:translateX(-100%)} }
 
-  /* ===== Responsivo ===== */
   @media (max-width: 900px){
     :root{ --ticker-h:72px; --ticker-fs:28px }
     .topbar{ height:52px }
@@ -69,8 +65,8 @@
 </head>
 <body>
 
-  <!-- TOPO: Clima | mude data-show="1" (mostrar) ou "0" (ocultar) -->
-  <div class="topbar" data-show="1" aria-label="Clima agora">
+  <!-- TOPO: Clima -->
+  <div class="topbar" aria-label="Clima agora">
     <iframe
       src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=0&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=0&pictoicon=1&maxtemperature=1&mintemperature=1"
       scrolling="no" allowtransparency="true"
@@ -85,18 +81,15 @@
   </div>
 
 <script>
-  // ===== Rótulo da pílula (troque aqui sem mexer no HTML) =====
-  document.getElementById('pillLabel').textContent = 'AO VIVO'; // ex.: 'EM BREVE', 'ESPECIAL'
+  document.getElementById('pillLabel').textContent = 'AO VIVO';
 
   const lane = document.getElementById('laneA');
 
-  // Mensagem fallback
   const DEFAULT_MSG =
-    'Somzera e Imagem pro Relax — Siga @maratheizeTV • ' +
-    'Programação com blocos do Brasil, Mundo e Espírito Santo • ' +
-    'Marataízes: gente batalhadora, comércio local e muita cultura.';
+    'Somzera e Imagem pro Relax — Siga @maratheizetv • ' +
+    'Blocos do Brasil, Mundo e Espírito Santo • ' +
+    'Marataízes: cidade de praia e gente batalhadora.';
 
-  // Base path para GitHub Pages (resolve /repo/)
   function basePath(){
     const p = location.pathname.replace(/[^/]+$/, '');
     return p.endsWith('/') ? p : p + '/';
@@ -115,12 +108,11 @@
 
   function autoSpeed(){
     const width = lane.scrollWidth || 2000;
-    const pxPerSec = Math.max(50, Math.min(110, window.innerWidth/10)); // adapta à tela
+    const pxPerSec = Math.max(50, Math.min(110, window.innerWidth/10));
     const dur = Math.max(20, Math.round(width / pxPerSec));
     document.documentElement.style.setProperty('--speed', dur + 's');
   }
 
-  // Busca ticker.txt a cada 10s; se não achar, usa DEFAULT_MSG
   async function pull() {
     try {
       const url = basePath() + 'ticker.txt?ts=' + Date.now();
@@ -133,8 +125,8 @@
   }
 
   setMessage('Carregando…');
-  pull();                   // ao abrir
-  setInterval(pull, 10_000); // atualiza periodicamente
+  pull();
+  setInterval(pull, 10_000);
   window.addEventListener('resize', autoSpeed);
 </script>
 </body>
