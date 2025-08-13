@@ -4,133 +4,86 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Overlay TV Marataízes</title>
-
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-
 <style>
   :root{
-    --gn-red:#C4170C;          /* vermelho GloboNews */
-    --slug-dark:#B3130B;       /* pílula mais escura */
-    --top-bg:#0a1628;          /* barra do clima */
+    --gn-red:#C4170C;
+    --slug-dark:#B3130B;
+    --top-bg:#0a1628;
     --white:#fff;
-
-    --bar-h:92px;              /* altura da tarja */
-    --fs:40px;                 /* fonte do rodapé (ajustada via ?size=) */
-    --speed:32s;               /* duração da animação (ajustada via ?speed=) */
+    --bar-h:92px;
+    --fs:40px;
+    --speed:32s;
   }
-
-  html,body{
-    margin:0;height:100%;
-    background:transparent; /* importante pro OBS */
-    color:var(--white);
-    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-  }
-
-  /* TOPO: CLIMA */
-  .topbar{
-    position:fixed; top:0; left:0; right:0; height:56px;
-    background:var(--top-bg);
-    display:flex; align-items:center; padding:0 16px;
-    box-shadow:0 6px 16px rgba(0,0,0,.25);
-    pointer-events:none;
-    z-index:2;
-  }
-  .topbar iframe{
-    width:100%; height:36px; border:0; background:transparent; pointer-events:none;
-  }
-
-  /* RODAPÉ: tarja GN */
-  .gnbar{
-    position:fixed; left:0; right:0; bottom:0; height:var(--bar-h);
-    background:var(--gn-red);
-    display:flex; align-items:center; gap:18px;
-    border-top:4px solid rgba(0,0,0,.18);
-    box-shadow:0 -10px 28px rgba(0,0,0,.35);
-    overflow:hidden; pointer-events:none;
-    z-index:3;
-  }
-  .slug{
-    margin-left:16px;
-    background:var(--slug-dark);
-    padding:12px 18px; border-radius:12px;
-    font-weight:900; letter-spacing:.4px; text-transform:uppercase;
-    color:#fff; white-space:nowrap; pointer-events:auto;
-  }
-
-  .track{ position:relative; flex:1; height:100%; overflow:hidden }
-  .lane{
-    position:absolute; top:0; left:0; height:100%;
-    display:inline-flex; align-items:center; gap:42px; white-space:nowrap;
-    font-weight:900; font-size:var(--fs); line-height:1.1;
-    color:var(--white); text-shadow:0 2px 0 rgba(0,0,0,.25);
-    will-change:transform; animation:scroll var(--speed) linear infinite;
-    z-index:4;
-  }
-  @keyframes scroll{ from{transform:translateX(100%)} to{transform:translateX(-100%)} }
-
-  @media (max-width: 900px){
-    :root{ --bar-h:74px; --fs:30px }
-    .topbar{height:52px} .topbar iframe{height:32px}
-  }
+  html,body{margin:0;height:100%;background:transparent;color:var(--white);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+  /* topo clima */
+  .topbar{position:fixed;top:0;left:0;right:0;height:56px;background:var(--top-bg);
+    display:flex;align-items:center;padding:0 16px;box-shadow:0 6px 16px rgba(0,0,0,.25);pointer-events:none;z-index:2}
+  .topbar iframe{width:100%;height:36px;border:0;background:transparent;pointer-events:none}
+  /* rodapé */
+  .gnbar{position:fixed;left:0;right:0;bottom:0;height:var(--bar-h);background:var(--gn-red);
+    display:flex;align-items:center;gap:18px;border-top:4px solid rgba(0,0,0,.18);
+    box-shadow:0 -10px 28px rgba(0,0,0,.35);overflow:hidden;pointer-events:none;z-index:3}
+  .slug{margin-left:16px;background:var(--slug-dark);padding:12px 18px;border-radius:12px;
+    font-weight:900;letter-spacing:.4px;text-transform:uppercase;color:#fff;white-space:nowrap}
+  .track{position:relative;flex:1;height:100%;overflow:hidden}
+  .rail{position:absolute;top:0;left:0;height:100%;display:flex;align-items:center;gap:42px;
+    white-space:nowrap;font-weight:900;font-size:var(--fs);line-height:1.1;color:#fff;
+    text-shadow:0 2px 0 rgba(0,0,0,.25);will-change:transform;animation:scroll var(--speed) linear infinite}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  /* cada metade do texto duplicado p/ loop contínuo */
+  .copy{display:inline-block;padding-right:64px}
+  @media (max-width:900px){:root{--bar-h:74px;--fs:30px}.topbar{height:52px}.topbar iframe{height:32px}}
 </style>
 </head>
 <body>
-
   <!-- TOPO -->
-  <div class="topbar" aria-label="Clima em Marataízes">
-    <iframe
-      src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=0&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=0&pictoicon=1&maxtemperature=1&mintemperature=1"
+  <div class="topbar">
+    <iframe src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=0&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=0&pictoicon=1&maxtemperature=1&mintemperature=1"
       scrolling="no" allowtransparency="true"
-      sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox">
-    </iframe>
+      sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>
   </div>
 
   <!-- RODAPÉ -->
-  <div class="gnbar" role="marquee" aria-label="Rodapé de notícias">
+  <div class="gnbar" aria-label="Rodapé de notícias">
     <div class="slug" id="slug">NEWS</div>
-    <div class="track"><div class="lane" id="lane"></div></div>
+    <div class="track">
+      <!-- Fallback: texto padrão já no HTML (aparece mesmo sem JS) -->
+      <div class="rail" id="rail">
+        <div class="copy" id="a">Somzera e Imagem pro Relax — TV Marataízes ao vivo • Brasil • Mundo • Espírito Santo • Marataízes: cidade de praia e gente batalhadora •</div>
+        <div class="copy" id="b">Somzera e Imagem pro Relax — TV Marataízes ao vivo • Brasil • Mundo • Espírito Santo • Marataízes: cidade de praia e gente batalhadora •</div>
+      </div>
+    </div>
   </div>
 
 <script>
-  const qs    = new URLSearchParams(location.search);
-  const lane  = document.getElementById('lane');
-  const slug  = document.getElementById('slug');
+  // Parâmetros opcionais
+  const qs = new URLSearchParams(location.search);
+  const size  = parseInt(qs.get('size')||'',10);
+  const color = (qs.get('color')||'').replace('#','').trim();
+  const slug  = (qs.get('slug') || 'NEWS').trim();
+  const msg   = qs.get('msg');
+  const speed = parseInt(qs.get('speed')||'',10);
 
-  // parâmetros
-  const txt   = qs.get('msg');
-  const size  = parseInt(qs.get('size') || '', 10);
-  const color = (qs.get('color') || '').replace('#','').trim();
-  const tag   = (qs.get('slug')  || 'NEWS').trim();
-  const speed = parseInt(qs.get('speed') || '', 10); // segundos
+  if(!Number.isNaN(size)&&size>12) document.documentElement.style.setProperty('--fs', size+'px');
+  if(!Number.isNaN(speed)&&speed>4) document.documentElement.style.setProperty('--speed', speed+'s');
+  if(color) document.getElementById('rail').style.color = '#'+color;
+  document.getElementById('slug').textContent = slug || 'NEWS';
 
-  // aplica visuais
-  slug.textContent = tag || 'NEWS';
-  if (!Number.isNaN(size)  && size > 12) document.documentElement.style.setProperty('--fs', size+'px');
-  if (!Number.isNaN(speed) && speed > 4) document.documentElement.style.setProperty('--speed', speed+'s');
-  if (color) lane.style.color = '#'+color;
-
-  const DEFAULT =
-    'Somzera e Imagem pro Relax — TV Marataízes ao vivo • Brasil • Mundo • Espírito Santo • Marataízes: cidade de praia e gente batalhadora';
-
-  function setMarquee(message){
-    const base = (message || DEFAULT).trim();
-    lane.innerHTML = '';
-    // repete pra formar um loop longo
-    for(let i=0;i<12;i++){
-      const s = document.createElement('span');
-      s.textContent = base + ' • ';
-      lane.appendChild(s);
-    }
-    // força reiniciar animação no OBS
-    lane.style.animation = 'none';
-    // reflow
-    lane.offsetHeight;
-    lane.style.animation = `scroll var(--speed) linear infinite`;
+  // Se tiver msg=, troca o texto das duas cópias
+  if (msg){
+    const text = decodeURIComponent(msg).trim().replace(/\s+\u2022\s*$/,'');
+    const content = text.endsWith('•') ? text : text + ' •';
+    document.getElementById('a').textContent = content;
+    document.getElementById('b').textContent = content;
+    // Reinicia animação (OBS às vezes precisa)
+    const rail = document.getElementById('rail');
+    rail.style.animation='none'; rail.offsetHeight; rail.style.animation='';
   }
-
-  setMarquee(txt ? decodeURIComponent(txt) : null);
 </script>
 </body>
 </html>
+
