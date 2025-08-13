@@ -1,42 +1,148 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Overlay TV Marataízes</title>
+
+<!-- anti-cache -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        background-color: transparent;
-        overflow: hidden;
-    }
-    .marquee {
-        width: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-        box-sizing: border-box;
-        font-size: 28px; /* tamanho da fonte maior */
-        font-weight: bold;
-        color: #ffffff; /* cor do texto */
-        background-color: #C4170C; /* vermelho estilo GloboNews */
-        font-family: Arial, sans-serif;
-        padding: 8px 0;
-    }
-    .marquee span {
-        display: inline-block;
-        padding-left: 100%;
-        animation: scroll 20s linear infinite;
-    }
-    @keyframes scroll {
-        0% { transform: translateX(0%); }
-        100% { transform: translateX(-100%); }
-    }
+  :root{
+    --ticker-h: 88px;              /* altura do rodapé */
+    --ticker-fs: 34px;             /* fonte do rodapé */
+    --speed: 38s;                  /* recalculada via JS */
+    --gn-red: #C4170C;             /* vermelho GloboNews */
+    --top-bg: #0a1628;             /* faixa do topo */
+    --white:  #fff;
+  }
+
+  /* fundo transparente pro OBS */
+  html,body{ margin:0; height:100%; background:transparent; font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; color:var(--white)}
+
+  /* ===== TOPO (clima) ===== */
+  .topbar{
+    position:fixed; top:0; left:0; right:0; height:56px;
+    background:var(--top-bg); display:flex; align-items:center; padding:0 16px;
+    box-shadow:0 6px 16px rgba(0,0,0,.25); pointer-events:none
+  }
+  .topbar iframe{ width:100%; height:36px; border:0; background:transparent; pointer-events:none }
+
+  /* ===== RODAPÉ (ticker GN) ===== */
+  .ticker{
+    position:fixed; left:0; right:0; bottom:0; height:var(--ticker-h);
+    background:var(--gn-red); display:flex; align-items:center; gap:18px;
+    overflow:hidden; border-top:4px solid rgba(0,0,0,.15);
+    box-shadow:0 -10px 28px rgba(0,0,0,.35); pointer-events:none
+  }
+  .pill{
+    margin-left:16px; padding:10px 14px; border-radius:10px; background:#000; color:#fff;
+    font-weight:900; letter-spacing:.3px; text-transform:uppercase; white-space:nowrap; pointer-events:auto;
+    box-shadow:0 2px 0 rgba(255,255,255,.1) inset;
+  }
+  .track{ position:relative; flex:1; height:100%; overflow:hidden }
+  .lane{
+    position:absolute; top:0; left:0; height:100%;
+    display:inline-flex; align-items:center; gap:36px; white-space:nowrap;
+    font-weight:900; font-size:var(--ticker-fs);
+    will-change:transform; animation:scroll var(--speed) linear infinite
+  }
+  @keyframes scroll{ from{transform:translateX(100%)} to{transform:translateX(-100%)} }
+
+  @media (max-width: 900px){
+    :root{ --ticker-h:72px; --ticker-fs:28px }
+    .topbar{ height:52px } .topbar iframe{ height:32px }
+  }
 </style>
 </head>
 <body>
-    <div class="marquee">
-        <span>🔴 Somzera e Imagem pro Relax • Notícias de Marataízes • Eventos • Cultura • Esportes • </span>
-    </div>
+
+  <!-- TOPO: CLIMA -->
+  <div class="topbar" aria-label="Clima">
+    <iframe
+      src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=0&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=0&pictoicon=1&maxtemperature=1&mintemperature=1"
+      scrolling="no" allowtransparency="true"
+      sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox">
+    </iframe>
+  </div>
+
+  <!-- RODAPÉ: TICKER GN -->
+  <div class="ticker" role="marquee" aria-label="Rodapé">
+    <div class="pill" id="pill">AO VIVO</div>
+    <div class="track"><div class="lane" id="lane"></div></div>
+  </div>
+
+<script>
+  // ===== Config rápido =====
+  document.getElementById('pill').textContent = 'AO VIVO'; // pode trocar para 'EM BREVE', 'ESPECIAL', etc.
+
+  const lane = document.getElementById('lane');
+  const params = new URLSearchParams(location.search);
+
+  // Caso use ARQUIVO LOCAL no OBS: coloque aqui a URL RAW do ticker.txt
+  const RAW_TICKER_URL = ""; // ex.: "https://raw.githubusercontent.com/SEUUSER/SEUREPO/main/ticker.txt"
+
+  const DEFAULT_MSG =
+    'Somzera e Imagem pro Relax — siga @maratheizetv • ' +
+    'Blocos do Brasil, Mundo e Espírito Santo • ' +
+    'Marataízes: cidade de praia e gente batalhadora.';
+
+  function basePath(){
+    const p = location.pathname.replace(/[^/]+$/, '');
+    return p.endsWith('/') ? p : p + '/';
+  }
+
+  function restartAnimation(){
+    lane.style.animation = 'none';
+    lane.offsetHeight; // reflow
+    lane.style.animation = 'scroll var(--speed, 38s) linear infinite';
+  }
+
+  function autoSpeed(){
+    const width = lane.scrollWidth || 2000;
+    const pxPerSec = Math.max(50, Math.min(110, window.innerWidth/10)); // adapta à tela
+    const dur = Math.max(20, Math.round(width / pxPerSec));
+    document.documentElement.style.setProperty('--speed', dur + 's');
+  }
+
+  function setMessage(msg){
+    const base = (msg || '').trim();
+    lane.innerHTML = '';
+    for(let i=0;i<10;i++){
+      const s = document.createElement('span');
+      s.textContent = (base || ' ') + ' • ';
+      lane.appendChild(s);
+    }
+    autoSpeed();
+    restartAnimation();
+  }
+
+  async function loadTicker(){
+    // 1) Se tiver ?msg= na URL, usa isso
+    const m = params.get('msg');
+    if (m){ setMessage(decodeURIComponent(m)); return; }
+
+    // 2) Senão, tenta ler ticker.txt (mesmo diretório)
+    try{
+      const isLocal = location.protocol === 'file:';
+      const url = isLocal && RAW_TICKER_URL
+        ? RAW_TICKER_URL + '?ts=' + Date.now()
+        : basePath() + 'ticker.txt?ts=' + Date.now();
+      const res = await fetch(url, { cache: 'no-store' });
+      const txt = res.ok ? (await res.text()).trim().replace(/\n+/g,' • ') : '';
+      setMessage(txt || DEFAULT_MSG);
+    }catch(e){
+      setMessage(DEFAULT_MSG);
+    }
+  }
+
+  setMessage('Carregando…');
+  loadTicker();
+  setInterval(loadTicker, 10_000);
+  window.addEventListener('resize', autoSpeed);
+</script>
 </body>
 </html>
-
