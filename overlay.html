@@ -5,26 +5,25 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Overlay TV Marataízes</title>
 
-<!-- Anti-cache -->
+<!-- anti-cache -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
 
 <style>
   :root{
-    --gn-red:#C4170C;          /* vermelho GloboNews */
-    --top-bg:#0a1628;          /* faixa do topo (clima) */
+    --gn-red:#C4170C;       /* vermelho GloboNews */
+    --slug-dark:#B3130B;    /* pílula mais escura */
+    --top-bg:#0a1628;       /* barra de clima (topo) */
     --white:#fff;
-
-    --ticker-h:92px;           /* altura do rodapé */
-    --ticker-fs:40px;          /* tamanho da legenda */
-    --speed:38s;               /* será recalculado via JS */
+    --ticker-h:92px;        /* altura do rodapé */
+    --ticker-fs:40px;       /* fonte do rodapé (pode mudar via ?size=) */
+    --speed:38s;            /* calculada via JS */
   }
 
-  /* fundo transparente pro OBS */
   html,body{
     margin:0;height:100%;
-    background:transparent;
+    background:transparent;          /* importante pro OBS */
     color:var(--white);
     font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
   }
@@ -50,25 +49,25 @@
     box-shadow:0 -10px 28px rgba(0,0,0,.35);
     overflow:hidden; pointer-events:none;
   }
-  /* pílula “NEWS” à esquerda */
+
+  /* pílula (slug) à esquerda */
   .slug{
     margin-left:16px;
-    background:#b3130b;                 /* tom mais escuro p/ contraste */
+    background:var(--slug-dark);
     padding:12px 18px;
     border-radius:12px;
     font-weight:900; letter-spacing:.4px;
-    text-transform:uppercase;
-    color:#fff; white-space:nowrap;
-    pointer-events:auto;
+    text-transform:uppercase; color:#fff;
+    white-space:nowrap; pointer-events:auto;
   }
 
-  /* trilho da legenda */
+  /* trilho + linha rolante */
   .track{ position:relative; flex:1; height:100%; overflow:hidden }
   .lane{
     position:absolute; top:0; left:0; height:100%;
     display:inline-flex; align-items:center; gap:42px; white-space:nowrap;
     font-weight:900; font-size:var(--ticker-fs); line-height:1.1;
-    color:#fff;
+    color:var(--white);
     will-change:transform; animation:scroll var(--speed) linear infinite;
   }
   @keyframes scroll{ from{transform:translateX(100%)} to{transform:translateX(-100%)} }
@@ -76,15 +75,14 @@
   /* responsivo */
   @media (max-width: 900px){
     :root{ --ticker-h:74px; --ticker-fs:30px }
-    .topbar{height:52px}
-    .topbar iframe{height:32px}
+    .topbar{height:52px} .topbar iframe{height:32px}
   }
 </style>
 </head>
 <body>
 
-  <!-- TOPO: CLIMA -->
-  <div class="topbar" aria-label="Clima">
+  <!-- TOPO -->
+  <div class="topbar" aria-label="Clima em Marataízes">
     <iframe
       src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=0&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=0&pictoicon=1&maxtemperature=1&mintemperature=1"
       scrolling="no" allowtransparency="true"
@@ -92,21 +90,31 @@
     </iframe>
   </div>
 
-  <!-- RODAPÉ: NEWS + LEGENDA ROLANDO -->
+  <!-- RODAPÉ -->
   <div class="gnbar" role="marquee" aria-label="Rodapé de notícias">
     <div class="slug" id="slug">NEWS</div>
     <div class="track"><div class="lane" id="lane"></div></div>
   </div>
 
 <script>
-  // ===== Config rápido =====
-  // Troque para 'EM BREVE', 'AO VIVO' etc. se quiser
-  document.getElementById('slug').textContent = 'NEWS';
-
   const lane   = document.getElementById('lane');
-  const params = new URLSearchParams(location.search);
+  const slugEl = document.getElementById('slug');
+  const qs     = new URLSearchParams(location.search);
 
-  // Se for usar ARQUIVO LOCAL no OBS, cole aqui a URL RAW do ticker.txt:
+  /* ===== Parâmetros =====
+     ?msg=texto%20aqui
+     ?size=42          (px)
+     ?color=ffffff     (hex, sem #) – cor do texto
+     ?slug=NEWS        (texto da pílula)
+     ?scroll=0|1       (padrão 1)
+  */
+  const paramMsg   = qs.get('msg');
+  const paramSize  = parseInt(qs.get('size') || '', 10);
+  const paramColor = (qs.get('color') || '').replace('#','').trim();
+  const paramSlug  = (qs.get('slug')  || 'NEWS').trim();
+  const paramScroll= qs.get('scroll');
+
+  // Fallback para uso local: se abrir como file:// e quiser buscar do GitHub, cole a RAW aqui
   const RAW_TICKER_URL = ""; // ex.: "https://raw.githubusercontent.com/SEUUSER/SEUREPO/main/ticker.txt"
 
   const DEFAULT_MSG =
@@ -120,11 +128,12 @@
   }
 
   function restartAnimation(){
+    // desliga e religa para garantir no Browser Source do OBS
     lane.style.animation = 'none';
-    // força reflow
+    // força reflow:
     // eslint-disable-next-line no-unused-expressions
     lane.offsetHeight;
-    lane.style.animation = 'scroll var(--speed, 38s) linear infinite';
+    if (paramScroll !== '0') lane.style.animation = 'scroll var(--speed, 38s) linear infinite';
   }
 
   function autoSpeed(){
@@ -137,7 +146,7 @@
   function setMessage(msg){
     const base = (msg || '').trim();
     lane.innerHTML = '';
-    for(let i=0;i<10;i++){
+    for (let i=0; i<10; i++){
       const s = document.createElement('span');
       s.textContent = (base || ' ') + ' • ';
       lane.appendChild(s);
@@ -147,30 +156,40 @@
   }
 
   async function loadTicker(){
-    // 1) Prioriza ?msg= na URL (teste rápido pelo OBS)
-    const m = params.get('msg');
-    if (m){ setMessage(decodeURIComponent(m)); return; }
+    // prioriza ?msg=
+    if (paramMsg){ setMessage(decodeURIComponent(paramMsg)); return; }
 
-    // 2) Senão, tenta ler ticker.txt no mesmo diretório
+    // tenta ler ticker.txt no mesmo diretório
     try{
       const isLocal = location.protocol === 'file:';
       const url = isLocal && RAW_TICKER_URL
         ? RAW_TICKER_URL + '?ts=' + Date.now()
         : basePath() + 'ticker.txt?ts=' + Date.now();
-      const res = await fetch(url, {cache:'no-store'});
+      const res = await fetch(url, { cache:'no-store' });
       const txt = res.ok ? (await res.text()).trim().replace(/\n+/g,' • ') : '';
       setMessage(txt || DEFAULT_MSG);
-    }catch(e){
+    }catch{
       setMessage(DEFAULT_MSG);
     }
   }
 
+  // aplica parâmetros visuais
+  slugEl.textContent = paramSlug || 'NEWS';
+  if (!Number.isNaN(paramSize) && paramSize > 12){
+    document.documentElement.style.setProperty('--ticker-fs', paramSize + 'px');
+  }
+  if (paramColor){
+    lane.style.color = '#' + paramColor;
+  }
+  if (paramScroll === '0'){
+    lane.style.animation = 'none';   // sem rolagem
+  }
+
+  // inicializa
   setMessage('Carregando…');
   loadTicker();
   setInterval(loadTicker, 10_000);
   window.addEventListener('resize', autoSpeed);
 </script>
 </body>
-</html>
-
 </html>
