@@ -1,105 +1,37 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Overlay TV Marataízes</title>
+
+<!-- Evita cache -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
 <style>
-  body {
-    margin: 0;
-    overflow: hidden;
-    background: transparent;
-  }
-  .overlay {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    font-family: Arial, sans-serif;
-    font-size: 32px;
-    font-weight: bold;
-    color: #000;
-  }
-  .label {
-    background: #FFD230;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-  }
-  .label img {
-    height: 60px;
-    margin-right: 10px;
-  }
-  .ticker {
-    background: #FFD230;
-    overflow: hidden;
-    flex-grow: 1;
-    position: relative;
-  }
-  .lane {
-    display: inline-block;
-    white-space: nowrap;
-    animation: scroll var(--speed, 38s) linear infinite;
-  }
-  .lane span {
-    display: inline-block;
-    padding: 0 2rem;
-  }
-  @keyframes scroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-</style>
-</head>
-<body>
-
-<div class="overlay">
-  <div class="label">
-    <img src="https://tvmarataizes.com.br/abacaxi.png" alt="Abacaxi">
-  </div>
-  <div class="ticker">
-    <div id="lane" class="lane"></div>
-  </div>
-</div>
-
-<script>
-  const lane = document.getElementById('lane');
-
-  function autoSpeed() {
-    const totalWidth = lane.scrollWidth;
-    const visibleWidth = lane.parentElement.offsetWidth;
-    const pxPerSec = 100; // velocidade
-    const duration = (totalWidth + visibleWidth) / pxPerSec;
-    lane.style.setProperty('--speed', duration + 's');
+  :root{
+    --ticker-h: 88px;          /* altura do rodapé */
+    --ticker-fs: 34px;         /* fonte do rodapé */
+    --speed: 38s;              /* ajustado via JS */
+    --gn-red: #C4170C;         /* vermelho estilo GloboNews */
+    --top-bg: #0a1628;         /* faixa do topo (clima) */
+    --text:   #ffffff;
   }
 
-  function restartAnimation() {
-    lane.style.animation = 'none';
-    lane.offsetHeight; // força reflow
-    lane.style.animation = `scroll var(--speed, 38s) linear infinite`;
+  html,body{
+    margin:0;height:100%;background:transparent;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    color:var(--text)
   }
 
-  function setMessage(msg) {
-    const base = (msg || '').trim();
-    lane.innerHTML = '';
-    for (let i = 0; i < 10; i++) {
-      const s = document.createElement('span');
-      s.textContent = (base || ' ') + ' • ';
-      lane.appendChild(s);
-    }
-    autoSpeed();
-    restartAnimation();
+  /* ===== TOPO: Clima ===== */
+  .topbar{
+    position:fixed; top:0; left:0; right:0; height:56px;
+    background:var(--top-bg); display:flex; align-items:center; padding:0 16px;
+    box-shadow:0 6px 16px rgba(0,0,0,.25); pointer-events:none
   }
+  .topbar iframe{
+    width:1
 
-  // Pega mensagem via query string (?msg=)
-  const params = new URLSearchParams(window.location.search);
-  const mensagem = params.get('msg') || 'Somzera e Imagem pro Relax';
-  setMessage(mensagem);
-</script>
-
-</body>
-</html>
