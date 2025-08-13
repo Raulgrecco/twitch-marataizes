@@ -12,11 +12,11 @@
 
 <style>
   :root{
-    --ticker-h: 88px;         
-    --ticker-fs: 34px;        
-    --speed: 38s;             
-    --gn-red: #C4170C;        
-    --top-bg: #0a1628;        
+    --ticker-h: 88px;          /* altura do rodapé */
+    --ticker-fs: 34px;         /* fonte do rodapé */
+    --speed: 38s;              /* ajustado via JS */
+    --gn-red: #C4170C;         /* vermelho estilo GloboNews */
+    --top-bg: #0a1628;         /* faixa do topo (clima) */
     --text:   #ffffff;
   }
 
@@ -26,16 +26,17 @@
     color:var(--text)
   }
 
-  /* TOPO: Clima */
+  /* ===== TOPO: Clima ===== */
   .topbar{
-    display:flex;
-    position:fixed; top:0; left:0; right:0; height:56px;
+    display:flex; position:fixed; top:0; left:0; right:0; height:56px;
     background:var(--top-bg); align-items:center; padding:0 16px;
     box-shadow:0 6px 16px rgba(0,0,0,.25); pointer-events:none
   }
-  .topbar iframe{width:100%;height:36px;border:0;background:transparent;pointer-events:none}
+  .topbar iframe{
+    width:100%; height:36px; border:0; background:transparent; pointer-events:none
+  }
 
-  /* RODAPÉ: Ticker */
+  /* ===== RODAPÉ: Ticker ===== */
   .ticker{
     position:fixed; left:0; right:0; bottom:0; height:var(--ticker-h);
     background:var(--gn-red); display:flex; align-items:center; gap:18px;
@@ -56,6 +57,7 @@
   }
   @keyframes scroll{ from{transform:translateX(100%)} to{transform:translateX(-100%)} }
 
+  /* ===== Responsivo ===== */
   @media (max-width: 900px){
     :root{ --ticker-h:72px; --ticker-fs:28px }
     .topbar{ height:52px }
@@ -81,15 +83,18 @@
   </div>
 
 <script>
+  // Rótulo à esquerda (troque aqui: 'AO VIVO', 'EM BREVE', 'ESPECIAL'…)
   document.getElementById('pillLabel').textContent = 'AO VIVO';
 
   const lane = document.getElementById('laneA');
 
+  // Texto padrão caso o ticker.txt não carregue
   const DEFAULT_MSG =
-    'Somzera e Imagem pro Relax — Siga @maratheizetv • ' +
+    'Somzera e Imagem pro Relax — siga @maratheizetv • ' +
     'Blocos do Brasil, Mundo e Espírito Santo • ' +
     'Marataízes: cidade de praia e gente batalhadora.';
 
+  // Caminho base (funciona em GitHub Pages mesmo em subpasta)
   function basePath(){
     const p = location.pathname.replace(/[^/]+$/, '');
     return p.endsWith('/') ? p : p + '/';
@@ -98,6 +103,7 @@
   function setMessage(msg) {
     const base = (msg || '').trim();
     lane.innerHTML = '';
+    // Repete o conteúdo para o loop ficar contínuo
     for (let i = 0; i < 10; i++) {
       const s = document.createElement('span');
       s.textContent = (base || ' ') + ' • ';
@@ -113,9 +119,16 @@
     document.documentElement.style.setProperty('--speed', dur + 's');
   }
 
+  // Lê ticker.txt (mesma pasta). Se abrir via file://, use a RAW URL.
+  const RAW_TICKER_URL = ""; // opcional: preencha se for usar arquivo local no OBS
+
   async function pull() {
     try {
-      const url = basePath() + 'ticker.txt?ts=' + Date.now();
+      const isLocal = location.protocol === 'file:';
+      const url = isLocal && RAW_TICKER_URL
+        ? RAW_TICKER_URL + '?ts=' + Date.now()
+        : basePath() + 'ticker.txt?ts=' + Date.now();
+
       const res = await fetch(url, { cache: 'no-store' });
       const txt = res.ok ? (await res.text()).trim().replace(/\n+/g,' • ') : '';
       setMessage(txt || DEFAULT_MSG);
