@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>TV Marataízes — ao vivo</title>
   <meta name="description" content="TV Marataízes ao vivo — programação local." />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
@@ -44,7 +44,6 @@
       box-shadow:0 6px 24px rgba(0,0,0,.25);
       background:#000;
     }
-    /* Contêiner onde o Twitch vai montar o player */
     #twitch-embed,
     .player-iframe{
       position:absolute;
@@ -72,6 +71,22 @@
       pointer-events:none;
     }
     .overlay-status.hidden{ display:none; }
+
+    /* Botão mobile (só aparece quando preciso) */
+    .tap-btn{
+      position:absolute;
+      left:50%; transform:translateX(-50%);
+      bottom:12%;
+      width:min(80%,360px);
+      border:0; border-radius:999px;
+      padding:14px 22px;
+      background:#ff3355; color:#fff;
+      font-weight:900; font-size:clamp(16px,2vw,22px);
+      box-shadow:0 10px 24px rgba(0,0,0,.35);
+      z-index:3;
+      display:none;         /* escondido por padrão (desktop) */
+    }
+    .tap-btn.show{ display:block; }
 
     /* Legenda fixa do site (parada) */
     .ticker{
@@ -105,6 +120,7 @@
     @media (max-width:900px){
       :root{ --ticker-h:72px; --ticker-fs:28px; --radius:8px }
       .stage{ padding:10px }
+      .tap-btn{ bottom:14% }
     }
   </style>
 </head>
@@ -117,6 +133,9 @@
       <div id="status" class="overlay-status">
         Voltamos às 18h com nossa programação ao vivo
       </div>
+
+      <!-- Botão de tocar/desmutar (só mobile quando necessário) -->
+      <button id="tapBtn" class="tap-btn">▶️ Tocar / Desmutar</button>
 
       <!-- Aqui o Twitch monta o player -->
       <div id="twitch-embed" role="region" aria-label="Player ao vivo"></div>
@@ -136,44 +155,82 @@
   <script>
     // ========= CONFIGURE AQUI =========
     const TWITCH_CHANNEL = "marataizestv"; // nome do canal
-    // Coloque todos os domínios onde a página será aberta:
-    const PARENT_DOMAINS = ["tvmarataizes.com.br","www.tvmarataizes.com.br","localhost"];
-    // Texto quando offline:
     const OFF_MSG = "Voltamos às 18h com nossa programação ao vivo";
     // ==================================
 
     const statusEl = document.getElementById("status");
+    const tapBtn   = document.getElementById("tapBtn");
     statusEl.textContent = OFF_MSG;
 
-    // Monta o player
+    // parent precisa bater com o domínio atual (com/sem www, subdomínios, etc.)
+    const host = location.hostname || "tvmarataizes.com.br";
+    const PARENT_DOMAINS = Array.from(new Set([
+      "tvmarataizes.com.br",
+      "www.tvmarataizes.com.br",
+      host
+    ]));
+
+    // Monta o player (MOBILE: iniciar muted permite autoplay)
     const player = new Twitch.Player("twitch-embed", {
       channel: TWITCH_CHANNEL,
       width: "100%",
       height: "100%",
-      muted: false,
       autoplay: true,
-      // Para funcionar, a URL do site precisa estar listada em parent:
-      parent: PARENT_DOMAINS,
+      muted: true,                 // ← importante pra iOS/Android permitir autoplay
+      parent: PARENT_DOMAINS
     });
 
-    // Esconde a mensagem quando o player ficar online/rodando
+    // Força playsinline + permissões no iframe
+    player.addEventListener(Twitch.Player.READY, () => {
+      const iframe = document.querySelector("#twitch-embed iframe");
+      if (iframe) {
+        iframe.setAttribute("playsinline", "true");
+        const allow = iframe.getAttribute("allow") || "";
+        iframe.setAttribute("allow", (allow + "; autoplay; fullscreen; picture-in-picture").trim());
+      }
+      // tenta tocar (alguns browsers só tocam muted automaticamente)
+      try { player.play(); } catch(e) {}
+      maybeShowTap(); // decide se mostra o botão
+    });
+
+    // Helpers de status
     function hideStatus(){ statusEl.classList.add("hidden"); }
     function showStatus(){ statusEl.classList.remove("hidden"); }
 
-    player.addEventListener(Twitch.Player.READY, () => {
-      // tentamos tocar (alguns navegadores exigem interação)
-      try { player.play(); } catch(e){}
-    });
+    // Mostrar botão em mobile quando estiver muted/offline
+    function isMobile(){
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+    function maybeShowTap(){
+      if (isMobile()) {
+        // se estiver mutado ou offline, mostra o botão
+        if (player.getMuted() || player.getPlaybackStats?.().online === false) {
+          tapBtn.classList.add("show");
+        }
+      }
+    }
 
-    // ONLINE / OFFLINE (o SDK emite esses eventos)
-    player.addEventListener(Twitch.Player.ONLINE, () => hideStatus());
-    player.addEventListener(Twitch.Player.OFFLINE, () => {
-      statusEl.textContent = OFF_MSG;
-      showStatus();
-    });
+    // Eventos do player
+    player.addEventListener(Twitch.Player.ONLINE, () => { hideStatus(); tapBtn.classList.remove("show"); });
+    player.addEventListener(Twitch.Player.PLAY,   () => { hideStatus(); tapBtn.classList.remove("show"); });
+    player.addEventListener(Twitch.Player.OFFLINE,() => { statusEl.textContent = OFF_MSG; showStatus(); maybeShowTap(); });
 
-    // Se começar a tocar, também escondemos
-    player.addEventListener(Twitch.Player.PLAY, () => hideStatus());
+    // Botão manual para mobile: desmuta e dá play
+    function manualStart(){
+      try {
+        player.setMuted(false);
+        player.play();
+        tapBtn.classList.remove("show");
+        hideStatus();
+      } catch(e) {
+        // se falhar, mantém o botão visível
+      }
+    }
+    tapBtn.addEventListener("click", manualStart);
+    // toque em qualquer lugar do player também tenta iniciar
+    document.querySelector(".player-wrap").addEventListener("click", () => {
+      if (tapBtn.classList.contains("show")) manualStart();
+    }, { passive:true });
 
     // Query params simples para alterar legenda do site sem editar o HTML:
     const qs = new URLSearchParams(location.search);
