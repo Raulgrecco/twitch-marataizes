@@ -91,13 +91,153 @@
 
 <script>
   /* ====== CONFIG RÁPIDA ====== */
-  const TOP_TEXT = "JORNAL 19H ÀS 20H";
+
+  // === PONTO 1 — TEXTO EM CIMA (FAIXA BRANCA) ===
+  // Raul: troque o texto dentro das aspas abaixo para mudar o topo
+  const TOP_TEXT = "RAUL — TEXTO EM CIMA: troque aqui";  // <<<<<< ALTERE AQUI
+
+  // Rótulo da pílula da tarja vermelha (se quiser mudar "NEWS")
   const SLUG_TX  = "NEWS";
+
+  // === PONTO 2 — TEXTOS EMBAIXO (TARJA VERMELHA CORRENDO) ===
+  // Raul: cada item é uma frase do rodapé; adicione/remova/edite à vontade
   const TICKER_ITEMS = [
-    "NOTÍCIAS ENVIE WHATSAPP  28 99903-6141",
+    "RAUL — TEXTO EMBAIXO: troque aqui",        // <<<<<< ALTERE AQUI
     "TVMARATAIZES.COM.BR",
     "Siga: @tvmarataizes"
   ];
+
+  /* =========================== */
+
+  // Topo
+  document.getElementById("topTitle").textContent = TOP_TEXT;
+
+  // Ticker
+  document.getElementById("slug").textContent = SLUG_TX;
+  const text = TICKER_ITEMS.join("  •  ");
+  document.getElementById("a").textContent = text;
+  document.getElementById("b").textContent = text;
+
+  // Relógio
+  function pad2(n){ return String(n).padStart(2,'0'); }
+  function updClock(){
+    const now = new Date();
+    document.getElementById('clockTime').textContent = `${pad2(now.getHours())}:${pad2(now.getMinutes())}`;
+    document.getElementById('clockDate').textContent = `${pad2(now.getDate())}/${pad2(now.getMonth()+1)}/${now.getFullYear()}`;
+  }
+  updClock(); setInterval(updClock, 1000);
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Overlay • Barra + Ticker</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<style>
+  :root{
+    --primary:#d7262b;  /* vermelho do ticker */
+    --slug:#111;        /* tarja "NEWS" */
+    --barMinH:64px;     /* altura mínima da barra superior */
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background:transparent;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+    overflow:hidden;
+  }
+
+  /* ===== Barra branca no topo ===== */
+  .bar{
+    position:fixed; top:0; left:0; right:0; z-index:3200;
+    background:#fff; box-shadow:0 3px 18px rgba(0,0,0,.22);
+    display:flex; align-items:center; gap:14px; padding:10px 22px; min-height:var(--barMinH);
+  }
+  .dot{ width:12px; height:12px; border-radius:50%; background:#ff3b3b; }
+  .title{
+    font-weight:900; font-size:34px; line-height:1.1;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+
+  /* Relógio (sempre visível) */
+  .clock{
+    position:fixed; top:8px; right:16px; z-index:3400;
+    display:flex; gap:8px; align-items:center;
+    background:rgba(0,0,0,.85); color:#fff;
+    padding:6px 10px; border-radius:10px; font-weight:800; letter-spacing:.3px; font-size:16px;
+    box-shadow:0 3px 10px rgba(0,0,0,.25);
+  }
+  .clock .date{opacity:.9; font-weight:700}
+
+  /* ===== Ticker (rodapé) ===== */
+  .gnbar{
+    position:fixed; left:0; right:0; bottom:0; height:72px; z-index:2500;
+    background:var(--primary); color:#fff; display:flex; align-items:center; overflow:hidden;
+    border-top:3px solid rgba(0,0,0,.25);
+  }
+  .slug{
+    background:var(--slug); color:#fff; font-weight:900; font-size:20px; letter-spacing:.9px;
+    padding:10px 18px; margin-left:10px; border-radius:8px; text-transform:uppercase; flex:0 0 auto;
+  }
+  .track{ position:relative; flex:1 1 auto; height:100%; overflow:hidden; }
+  .rail{
+    position:absolute; inset:0; display:flex; align-items:center; gap:90px;
+    white-space:nowrap; padding-left:30px; will-change:transform;
+    animation:scroll 8s linear infinite;          /* velocidade do ticker */
+    font-size:28px; font-weight:900; line-height:72px;
+  }
+  .copy{flex:0 0 auto;}
+  @keyframes scroll{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+</style>
+</head>
+<body>
+
+  <!-- Barra branca topo -->
+  <div class="bar">
+    <div class="dot" aria-hidden="true"></div>
+    <div class="title" id="topTitle">JORNAL 19H ÀS 20H</div>
+  </div>
+
+  <!-- Relógio -->
+  <div class="clock">
+    <div id="clockTime">--:--</div>
+    <div class="date" id="clockDate">--/--/----</div>
+  </div>
+
+  <!-- Ticker -->
+  <div class="gnbar" role="marquee" aria-label="Rodapé de notícias">
+    <div class="slug" id="slug">NEWS</div>
+    <div class="track">
+      <div class="rail">
+        <div class="copy" id="a"></div>
+        <div class="copy" id="b"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  /* ====== CONFIG RÁPIDA ====== */
+
+  // === PONTO 1 — TEXTO EM CIMA (FAIXA BRANCA) ===
+  // Raul: troque o texto dentro das aspas abaixo para mudar o topo
+  const TOP_TEXT = "RAUL — TEXTO EM CIMA: troque aqui";  // <<<<<< ALTERE AQUI
+
+  // Rótulo da pílula da tarja vermelha (se quiser mudar "NEWS")
+  const SLUG_TX  = "NEWS";
+
+  // === PONTO 2 — TEXTOS EMBAIXO (TARJA VERMELHA CORRENDO) ===
+  // Raul: cada item é uma frase do rodapé; adicione/remova/edite à vontade
+  const TICKER_ITEMS = [
+    "RAUL — TEXTO EMBAIXO: troque aqui",        // <<<<<< ALTERE AQUI
+    "TVMARATAIZES.COM.BR",
+    "Siga: @tvmarataizes"
+  ];
+
   /* =========================== */
 
   // Topo
