@@ -10,33 +10,42 @@
 <style>
   :root{
     --white:#fff; --black:#111; --muted:#666;
-    --primary:#d7262b;   /* vermelho do ticker */
+    --primary:#d7262b;   /* vermelho ticker */
     --slug:#111;         /* tarja NEWS */
-    --cardTopPx: 16px;   /* distância do topo */
+    --cardTopPx: 88px;   /* card desce pra não bater na faixa */
     --cardLeftPx: 24px;  /* distância da borda esquerda */
+    --cardWidthPx: 980px;/* largura fixa do card à esquerda */
   }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0; background:transparent; color:var(--black);
-    font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
-    overflow:hidden;
-  }
+  *{box-sizing:border-box} html,body{height:100%}
+  body{ margin:0; background:transparent; color:var(--black);
+        font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+        overflow:hidden; }
 
-  /* relógio */
+  /* ===== Faixa branca de PROMO no topo ===== */
+  .promo{
+    position:fixed; top:0; left:0; right:0; height:60px; z-index:3200;
+    background:#fff; box-shadow:0 3px 18px rgba(0,0,0,.22);
+    display:flex; align-items:center; gap:14px; padding:0 20px;
+  }
+  .promo .dot{ width:10px; height:10px; border-radius:50%; background:#ff3b3b; }
+  .promo .label{ font-weight:900; font-size:14px; letter-spacing:.6px; text-transform:uppercase; color:#888 }
+  .promo .msg{ font-weight:800; font-size:20px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  /* ======================================== */
+
+  /* Relógio */
   .clock{
-    position:fixed; top:16px; right:16px; z-index:3000;
+    position:fixed; top:12px; right:16px; z-index:3300;
     display:flex; gap:8px; align-items:center;
     background:rgba(0,0,0,.65); color:#fff;
-    padding:8px 12px; border-radius:10px; font-weight:700; letter-spacing:.3px; font-size:20px;
+    padding:6px 10px; border-radius:10px; font-weight:700; letter-spacing:.3px; font-size:18px;
     box-shadow:0 3px 10px rgba(0,0,0,.25);
   }
   .clock .date{opacity:.9; font-weight:600}
 
-  /* CARD – canto ESQUERDO, topo */
+  /* Card – canto ESQUERDO com largura fixa */
   .card-wrap{
     position:fixed; left:var(--cardLeftPx); top:var(--cardTopPx); z-index:2000;
-    width:min(1120px, 60vw);  /* ajuste fino do tamanho do bloco à esquerda */
+    width:var(--cardWidthPx);
   }
   .card-head{display:flex; align-items:center; gap:12px; margin:0 0 10px 0;}
   .pill{
@@ -46,16 +55,16 @@
   .pill .live{color:#ff4b4b; margin-right:6px}
   .since{color:#999; font-size:14px; font-weight:700}
   .card{
-    background:var(--white); border-radius:16px; padding:28px 30px;
+    background:#fff; border-radius:16px; padding:28px 30px;
     box-shadow:0 12px 28px rgba(0,0,0,.28);
   }
   .headline{ margin:0 0 10px 0; font-weight:900; line-height:1.05; font-size:46px; }
   .subline{  margin:0 0 14px 0; font-weight:600; line-height:1.32; font-size:22px; color:#2b2b2b; }
   .caption{  margin-top:8px; font-size:14px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:#444 }
 
-  /* TICKER – grande e rápido */
+  /* Ticker – GRANDE + RÁPIDO */
   .gnbar{
-    position:fixed; left:0; right:0; bottom:0; height:70px; z-index:2500;
+    position:fixed; left:0; right:0; bottom:0; height:72px; z-index:2500;
     background:var(--primary); color:#fff; display:flex; align-items:center; overflow:hidden;
     border-top:3px solid rgba(0,0,0,.25);
   }
@@ -65,10 +74,10 @@
   }
   .track{ position:relative; flex:1 1 auto; height:100%; overflow:hidden; }
   .rail{
-    position:absolute; inset:0; display:flex; align-items:center; gap:80px;
+    position:absolute; inset:0; display:flex; align-items:center; gap:90px;
     white-space:nowrap; padding-left:30px; will-change:transform;
-    animation:scroll 10s linear infinite;   /* ← velocidade alta (reduza para 9s/8s se quiser ainda mais rápido) */
-    font-size:26px; font-weight:900; line-height:70px;  /* texto grande e central na faixa */
+    animation:scroll 8s linear infinite;     /* << velocidade */
+    font-size:28px; font-weight:900; line-height:72px;
   }
   .copy{flex:0 0 auto;}
   @keyframes scroll{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
@@ -76,13 +85,20 @@
 </head>
 <body>
 
+  <!-- PROMO BAR (topo) -->
+  <div class="promo" role="region" aria-label="Faixa de chamadas/promos">
+    <div class="dot" aria-hidden="true"></div>
+    <div class="label">AGORA</div>
+    <div class="msg" id="promoMsg">Somzera e imagens pra relax — 16h às 18h • Hoje 19h: Giro de Notícias • Amanhã 10h: Rebrincar</div>
+  </div>
+
   <!-- RELÓGIO -->
   <div class="clock" aria-hidden="true">
     <div id="clockTime">--:--</div>
     <div class="date" id="clockDate">--/--/----</div>
   </div>
 
-  <!-- CARD -->
+  <!-- CARD (notícia) -->
   <div class="card-wrap" role="region" aria-label="Noticiário Marataízes TV">
     <div class="card-head">
       <div class="pill"><span class="live">●</span> Noticiário Marataízes TV</div>
@@ -108,10 +124,11 @@
 
 <script>
   /* ===== CONFIG RÁPIDA ===== */
-  const HEADLINE = "DÓLAR COMERCIAL FECHA A R$ 5,40";
-  const SUBLINE  = "Leve alta em relação a ontem. Indicador que impacta preços e a economia.";
-  const SINCE_TX = "últimas 24 horas";
-  const SLUG_TX  = "NEWS";
+  const PROMO_TEXT = "Somzera e imagens pra relax — 16h às 18h • Hoje 19h: Giro de Notícias • Amanhã 10h: Rebrincar";
+  const HEADLINE    = "DÓLAR COMERCIAL FECHA A R$ 5,40";
+  const SUBLINE     = "Leve alta em relação a ontem. Indicador que impacta preços e a economia.";
+  const SINCE_TX    = "últimas 24 horas";
+  const SLUG_TX     = "NEWS";
   const TICKER_ITEMS = [
     "Marataízes TV ao vivo • 19h: o que rolou e o que vai rolar na região",
     "Campanha de doação de sangue segue nesta semana",
@@ -119,7 +136,10 @@
     "Praia Limpa: mutirão sábado",
     "Esporte: semifinais do amador"
   ];
-  /* ========================= */
+  /* ========================================= */
+
+  // Promo bar
+  document.getElementById("promoMsg").textContent = PROMO_TEXT;
 
   // Card
   document.getElementById("headline").textContent = HEADLINE;
@@ -145,3 +165,4 @@
 </script>
 </body>
 </html>
+
