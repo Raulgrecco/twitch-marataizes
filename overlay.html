@@ -10,9 +10,9 @@
 <style>
   :root{
     --white:#fff; --black:#111; --muted:#666;
-    --primary:#d7262b;   /* vermelho rodapé */
-    --slug:#111;         /* tarja NEWS */
-    --safeX: 24px;       /* margem de segurança lateral */
+    --primary:#d7262b;  /* vermelho ticker */
+    --slug:#111;        /* tarja NEWS */
+    --cardTopPx: 40px;  /* ↑ POSIÇÃO ABSOLUTA DO CARD */
   }
   *{box-sizing:border-box}
   html,body{height:100%}
@@ -22,21 +22,20 @@
     overflow:hidden;
   }
 
-  /* RELÓGIO (hora + data) */
+  /* RELÓGIO */
   .clock{
-    position:fixed; top:16px; right:16px; z-index:2000;
+    position:fixed; top:16px; right:16px; z-index:3000;
     display:flex; gap:8px; align-items:center;
     background:rgba(0,0,0,.65); color:#fff;
     padding:8px 12px; border-radius:10px; font-weight:700; letter-spacing:.3px;
-    font-size:20px;
-    box-shadow:0 3px 10px rgba(0,0,0,.25);
+    font-size:20px; box-shadow:0 3px 10px rgba(0,0,0,.25);
   }
   .clock .date{opacity:.9; font-weight:600}
 
-  /* CARD – topo da tela, centralizado na horizontal */
+  /* CARD – FIXO NO TOPO POR PX */
   .card-wrap{
-    position:fixed; left:50%; top:8%; transform:translateX(-50%);
-    width:min(1120px, 92vw); z-index:1000;
+    position:fixed; left:50%; top:var(--cardTopPx); transform:translateX(-50%);
+    width:min(1200px, 92vw); z-index:2000;
   }
   .card-head{display:flex; align-items:center; gap:12px; margin:0 0 10px 0;}
   .pill{
@@ -46,35 +45,32 @@
   .pill .live{color:#ff4b4b; margin-right:6px}
   .since{color:#999; font-size:14px; font-weight:700}
   .card{
-    background:var(--white); border-radius:16px; padding:26px 28px;
+    background:var(--white); border-radius:16px; padding:28px 30px;
     box-shadow:0 12px 28px rgba(0,0,0,.28);
   }
-  .headline{ margin:0 0 10px 0; font-weight:900; line-height:1.08; font-size:42px; }
-  .subline{  margin:0 0 14px 0; font-weight:600; line-height:1.32; font-size:20px; color:#2b2b2b; }
+  .headline{ margin:0 0 10px 0; font-weight:900; line-height:1.05; font-size:46px; }
+  .subline{  margin:0 0 14px 0; font-weight:600; line-height:1.32; font-size:22px; color:#2b2b2b; }
   .caption{  margin-top:8px; font-size:14px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:#444 }
 
-  /* RODAPÉ VERMELHO (ticker) */
+  /* TICKER – MAIOR E MAIS RÁPIDO */
   .gnbar{
-    position:fixed; left:0; right:0; bottom:0; height:56px; z-index:9999;
+    position:fixed; left:0; right:0; bottom:0; height:64px; z-index:2500;
     background:var(--primary); color:#fff; display:flex; align-items:center; overflow:hidden;
     border-top:3px solid rgba(0,0,0,.25);
   }
   .slug{
-    background:var(--slug); color:#fff; font-weight:900; font-size:16px; letter-spacing:.9px;
-    padding:8px 14px; margin-left:10px; border-radius:8px; text-transform:uppercase; flex:0 0 auto;
+    background:var(--slug); color:#fff; font-weight:900; font-size:18px; letter-spacing:.9px;
+    padding:9px 16px; margin-left:10px; border-radius:8px; text-transform:uppercase; flex:0 0 auto;
   }
   .track{ position:relative; flex:1 1 auto; height:100%; overflow:hidden; }
   .rail{
-    position:absolute; inset:0; display:flex; align-items:center; gap:60px;
+    position:absolute; inset:0; display:flex; align-items:center; gap:70px;
     white-space:nowrap; padding-left:30px; will-change:transform;
-    animation:scroll 25s linear infinite;   /* ← mais rápido (antes 45s) */
-    font-size:20px; font-weight:800;
+    animation:scroll 14s linear infinite;   /* ← velocidade do GloboNews */
+    font-size:22px; font-weight:800;
   }
   .copy{flex:0 0 auto;}
   @keyframes scroll{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-
-  /* opcional: reduzir animação pra acessibilidade */
-  @media (prefers-reduced-motion: reduce){ .rail{animation-duration:90s} }
 </style>
 </head>
 <body>
@@ -124,28 +120,25 @@
   ];
   /* ========================= */
 
-  // Preenche textos do card
+  // Card
   document.getElementById("headline").textContent = HEADLINE;
   document.getElementById("subline").textContent  = SUBLINE;
   document.getElementById("since").textContent    = SINCE_TX;
   document.getElementById("slug").textContent     = SLUG_TX;
 
-  // Ticker duplicado para loop contínuo
+  // Ticker
   const text = TICKER_ITEMS.join("  •  ");
   document.getElementById("a").textContent = text;
   document.getElementById("b").textContent = text;
 
-  // Relógio (hora + data) – sempre visível
+  // Relógio
   function pad2(n){ return String(n).padStart(2,'0'); }
   function updClock(){
     const now = new Date();
-    const hh = pad2(now.getHours());
-    const mm = pad2(now.getMinutes());
-    const dd = pad2(now.getDate());
-    const mo = pad2(now.getMonth()+1);
-    const yyyy = now.getFullYear();
-    document.getElementById('clockTime').textContent = `${hh}:${mm}`;
-    document.getElementById('clockDate').textContent = `${dd}/${mo}/${yyyy}`;
+    document.getElementById('clockTime').textContent =
+      `${pad2(now.getHours())}:${pad2(now.getMinutes())}`;
+    document.getElementById('clockDate').textContent =
+      `${pad2(now.getDate())}/${pad2(now.getMonth()+1)}/${now.getFullYear()}`;
   }
   updClock(); setInterval(updClock, 1000);
 </script>
