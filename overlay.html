@@ -1,123 +1,126 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Overlay TV Marataízes</title>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="Expires" content="0" />
-<style>
-  :root{
-    --gn-red:#C4170C;
-    --slug-dark:#B3130B;
-    --top-bg:#2c2c2c; /* cinza topo */
-    --white:#fff;
-    --bar-h:92px;
-    --fs:40px;
-    --speed:30s;
-  }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Overlay • Marataízes TV</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <style>
+    :root{
+      --bg: transparent;             /* fundo transparente p/ ficar por cima do vídeo no OBS */
+      --white: #ffffff;
+      --black: #111;
+      --muted: #666;
+      --primary: #d7262b;            /* vermelho do rodapé */
+      --slug: #111;                   /* cor da tarja "NEWS" */
+      --cardWidth: 960px;
+      --cardPad: 28px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: var(--bg);
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+      color: var(--black);
+      overflow:hidden; /* evita scroll no overlay */
+    }
 
-  html,body{
-    margin:0;
-    height:100%;
-    background:transparent;
-    color:var(--white);
-    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-  }
+    /* HEADER / RELÓGIO (opcional) */
+    .clock{
+      position: fixed; top:16px; right:24px;
+      font-weight:600; letter-spacing:.5px; font-size:18px;
+      background: rgba(255,255,255,.9); padding:6px 10px; border-radius:8px;
+      display:flex; gap:8px;
+    }
+    .clock .date{color:var(--muted); font-weight:500}
 
-  /* TOPO */
-  .topbar{
-    position:fixed;
-    top:0; left:0; right:0;
-    height:56px;
-    background:var(--top-bg);
-    display:flex;
-    align-items:center;
-    gap:16px;
-    padding:0 16px;
-    box-shadow:0 6px 16px rgba(0,0,0,.25);
-    z-index:3;
-    pointer-events:none;
-  }
-  .topbar iframe{
-    flex:1;
-    height:36px;
-    border:0;
-    background:transparent;
-  }
-  .clock{
-    flex:0 0 auto;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-weight:700;
-    letter-spacing:.2px;
-    color:#e9f2ff;
-    text-shadow:0 1px 0 rgba(0,0,0,.35);
-  }
-  .clock .time{ font-size:18px }
-  .clock .date{ font-size:14px; opacity:.9 }
+    /* CARD DE NOTÍCIA */
+    .card-wrap{
+      position: fixed; left:50%; top:14%;
+      transform: translateX(-50%);
+      width: min(var(--cardWidth), 92vw);
+    }
+    .card-head{
+      display:flex; align-items:center; gap:10px; margin-bottom:10px;
+    }
+    .pill{
+      background:#111; color:#fff; padding:6px 10px; border-radius:8px;
+      font-weight:700; font-size:14px; letter-spacing:.6px; text-transform:uppercase;
+    }
+    .pill .live{color:#ff4444; margin-right:6px}
+    .since{color:#999; font-size:13px; font-weight:600}
+    .card{
+      background: var(--white);
+      border-radius:14px;
+      padding: var(--cardPad);
+      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+    }
+    .headline{
+      font-size:32px; line-height:1.12; font-weight:900; margin:0 0 10px 0;
+    }
+    .subline{
+      font-size:18px; line-height:1.35; color:#333; margin:0 0 16px 0; font-weight:600;
+    }
+    .caption{
+      margin-top:10px; color:#444; font-size:15px; font-weight:700; text-transform:uppercase;
+      letter-spacing:.4px;
+    }
 
-  /* RODAPÉ */
-  .gnbar{
-    position:fixed;
-    left:0; right:0; bottom:0;
-    height:var(--bar-h);
-    background:var(--gn-red);
-    display:flex;
-    align-items:center;
-    gap:18px;
-    border-top:4px solid rgba(0,0,0,.18);
-    box-shadow:0 -10px 28px rgba(0,0,0,.35);
-    overflow:hidden;
-    pointer-events:none;
-    z-index:4;
-  }
-  .slug{
-    margin-left:16px;
-    background:var(--slug-dark);
-    padding:12px 18px;
-    border-radius:12px;
-    font-weight:900;
-    letter-spacing:.4px;
-    text-transform:uppercase;
-    white-space:nowrap;
-  }
-  .track{ position:relative; flex:1; height:100%; overflow:hidden }
-  .rail{
-    position:absolute; top:0; left:0; height:100%;
-    display:flex; align-items:center; gap:42px;
-    white-space:nowrap;
-    font-weight:900; font-size:var(--fs); line-height:1.1;
-    color:#fff;
-    text-shadow:0 2px 0 rgba(0,0,0,.25);
-    will-change:transform;
-    animation:scroll var(--speed) linear infinite;
-  }
-  @keyframes scroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
-  .copy{ display:inline-block; padding-right:64px }
+    /* RODAPÉ VERMELHO (MANTIDO) */
+    .gnbar{
+      position: fixed; left:0; right:0; bottom:0; height:54px;
+      background: var(--primary); color:#fff; display:flex; align-items:center;
+      overflow:hidden; z-index:9999;
+      border-top: 3px solid rgba(0,0,0,.25);
+    }
+    .slug{
+      background: var(--slug); color:#fff;
+      font-weight:800; font-size:16px; letter-spacing:.9px;
+      padding:8px 14px; margin-left:10px; border-radius:8px;
+      text-transform:uppercase; flex:0 0 auto;
+    }
+    .track{ position: relative; flex:1 1 auto; height:100%; overflow:hidden; }
+    .rail{
+      position:absolute; inset:0; display:flex; align-items:center; gap:60px;
+      animation: scroll 45s linear infinite;
+      will-change: transform;
+      padding-left:30px;
+      white-space: nowrap;
+      font-size:18px; font-weight:700;
+    }
+    .copy{ flex:0 0 auto; }
+    @keyframes scroll{
+      0%{ transform: translateX(0) }
+      100%{ transform: translateX(-50%) }
+    }
 
-  @media (max-width:900px){
-    :root{ --bar-h:74px; --fs:30px }
-    .topbar{ height:52px }
-    .topbar iframe{ height:32px }
-    .clock .time{ font-size:16px }
-    .clock .date{ font-size:12px }
-  }
-</style>
+    /* acessibilidade */
+    @media (prefers-reduced-motion: reduce){
+      .rail{ animation-duration:120s }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- TOPO -->
-  <div class="topbar" aria-label="Clima e hora">
-    <iframe src="https://www.meteoblue.com/en/weather/widget/daily/marataizes_brazil_3457819?geoloc=fixed&days=0&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=0&pictoicon=1&maxtemperature=1&mintemperature=1"
-      frameborder="0" scrolling="no" allowtransparency="true"
-      sandbox="allow-same-origin allow-scripts allow-popups allow-forms">
-    </iframe>
-    <div class="clock" aria-label="Relógio">
-      <span class="time" id="clockTime">--:--</span>
-      <span class="date" id="clockDate">--/--/----</span>
+  <!-- Relógio -->
+  <div class="clock" aria-hidden="true">
+    <div id="clockTime">--:--</div>
+    <div class="date" id="clockDate">--/--/----</div>
+  </div>
+
+  <!-- CARD -->
+  <div class="card-wrap" role="region" aria-label="Noticiário Marataízes TV">
+    <div class="card-head">
+      <div class="pill"><span class="live">●</span> Noticiário Marataízes TV</div>
+      <div class="since" id="since">últimas 24 horas</div>
+    </div>
+    <div class="card">
+      <h1 class="headline" id="headline">DÓLAR COMERCIAL FECHA A R$ 5,40</h1>
+      <p class="subline" id="subline">Leve alta em relação a ontem. Indicador que impacta preços e a economia.</p>
+      <div class="caption">Informação que conecta nossa cidade.</div>
     </div>
   </div>
 
@@ -126,47 +129,56 @@
     <div class="slug" id="slug">NEWS</div>
     <div class="track">
       <div class="rail" id="rail">
-        <div class="copy" id="a">TV Marataízes ao vivo • Marataízes registra crescimento de 47,4% no número de empresas ativas - A Macuca Produções, sediada em Marataízes, é a 1ª a conquistar 3 projetos aprovados pela Lei Rouanet em cidades com menos de 100 mil habitantes no ES •</div>
-        <div class="copy" id="b">TV Marataízes ao vivo • Marataízes registra crescimento de 47,4% no número de empresas ativas - A Macuca Produções, sediada em Marataízes, é a 1ª a conquistar 3 projetos aprovados pela Lei Rouanet em cidades com menos de 100 mil habitantes no ES •</div>
+        <div class="copy" id="a"></div>
+        <div class="copy" id="b"></div>
       </div>
     </div>
   </div>
 
-<script>
-  /* Relógio */
-  function pad2(n){ return String(n).padStart(2,'0'); }
-  function updClock(){
-    const now = new Date();
-    document.getElementById('clockTime').textContent = `${pad2(now.getHours())}:${pad2(now.getMinutes())}`;
-    document.getElementById('clockDate').textContent = `${pad2(now.getDate())}/${pad2(now.getMonth()+1)}/${now.getFullYear()}`;
-  }
-  updClock(); setInterval(updClock, 1000);
+  <script>
+    /* ====== CONFIG RÁPIDA (só edite aqui) ====== */
+    const HEADLINE = "DÓLAR COMERCIAL FECHA A R$ 5,40";
+    const SUBLINE  = "Leve alta em relação a ontem. Indicador que impacta preços e a economia.";
+    const SINCE_TX = "últimas 24 horas";        // mude se quiser
+    const SLUG_TX  = "NEWS";                    // texto da tarja preta
+    const TICKER_ITEMS = [
+      "Marataízes TV ao vivo • 19h: o que rolou e o que vai rolar na região",
+      "Campanha de doação de sangue segue nesta semana",
+      "Trânsito: obra na Barra altera fluxo",
+      "Praia Limpa: mutirão sábado",
+      "Esporte: semifinais do amador"
+    ];
+    /* ========================================== */
 
-  /* Parâmetros por URL */
-  const qs = new URLSearchParams(location.search);
-  const rail = document.getElementById('rail');
-  const a    = document.getElementById('a');
-  const b    = document.getElementById('b');
-  const slug = document.getElementById('slug');
+    // Headline / Subline / Since
+    document.getElementById("headline").textContent = HEADLINE;
+    document.getElementById("subline").textContent  = SUBLINE;
+    document.getElementById("since").textContent    = SINCE_TX;
+    document.getElementById("slug").textContent     = SLUG_TX;
 
-  const size  = parseInt(qs.get('size')||'',10);
-  const color = (qs.get('color')||'').replace('#','').trim();
-  const tag   = (qs.get('slug') || 'NEWS').trim();
-  const msg   = qs.get('msg');
-  const speed = parseInt(qs.get('speed')||'',10);
+    // Ticker: duplica o texto para loop contínuo
+    const text = TICKER_ITEMS.join("  •  ");
+    document.getElementById("a").textContent = text;
+    document.getElementById("b").textContent = text;
 
-  if(!Number.isNaN(size)&&size>12) document.documentElement.style.setProperty('--fs', size+'px');
-  if(!Number.isNaN(speed)&&speed>4) document.documentElement.style.setProperty('--speed', speed+'s');
-  if(color) rail.style.color = '#'+color;
-  slug.textContent = tag || 'NEWS';
+    // Relógio
+    function pad2(n){ return String(n).padStart(2,'0'); }
+    function updClock(){
+      const now = new Date();
+      document.getElementById('clockTime').textContent =
+        `${pad2(now.getHours())}:${pad2(now.getMinutes())}`;
+      document.getElementById('clockDate').textContent =
+        `${pad2(now.getDate())}/${pad2(now.getMonth()+1)}/${now.getFullYear()}`;
+    }
+    updClock(); setInterval(updClock, 1000);
 
-  if (msg){
-    const text = decodeURIComponent(msg).trim();
-    const content = text.endsWith('•') ? text : text + ' •';
-    a.textContent = content;
-    b.textContent = content;
-    rail.style.animation='none'; rail.offsetHeight; rail.style.animation='';
-  }
-</script>
+    // Cache-buster visual: se tiver ?v= na URL, não cacheia no OBS
+    (function(){
+      const url = new URL(window.location.href);
+      if(!url.searchParams.get("v")){
+        // nada; você pode passar ?v=YYYYMMDD-HHMM pela URL do OBS
+      }
+    })();
+  </script>
 </body>
 </html>
