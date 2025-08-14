@@ -1,111 +1,85 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Overlay • Marataízes TV</title>
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
-  <style>
-    :root{
-      --bg: transparent;             /* fundo transparente p/ ficar por cima do vídeo no OBS */
-      --white: #ffffff;
-      --black: #111;
-      --muted: #666;
-      --primary: #d7262b;            /* vermelho do rodapé */
-      --slug: #111;                   /* cor da tarja "NEWS" */
-      --cardWidth: 960px;
-      --cardPad: 28px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      background: var(--bg);
-      font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
-      color: var(--black);
-      overflow:hidden; /* evita scroll no overlay */
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Overlay • Marataízes TV</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<style>
+  :root{
+    --white:#fff; --black:#111; --muted:#666;
+    --primary:#d7262b;   /* vermelho rodapé */
+    --slug:#111;         /* tarja NEWS */
+    --safeX: 24px;       /* margem de segurança lateral */
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background:transparent; color:var(--black);
+    font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+    overflow:hidden;
+  }
 
-    /* HEADER / RELÓGIO (opcional) */
-    .clock{
-      position: fixed; top:16px; right:24px;
-      font-weight:600; letter-spacing:.5px; font-size:18px;
-      background: rgba(255,255,255,.9); padding:6px 10px; border-radius:8px;
-      display:flex; gap:8px;
-    }
-    .clock .date{color:var(--muted); font-weight:500}
+  /* RELÓGIO (hora + data) */
+  .clock{
+    position:fixed; top:16px; right:16px; z-index:2000;
+    display:flex; gap:8px; align-items:center;
+    background:rgba(0,0,0,.65); color:#fff;
+    padding:8px 12px; border-radius:10px; font-weight:700; letter-spacing:.3px;
+    font-size:20px;
+    box-shadow:0 3px 10px rgba(0,0,0,.25);
+  }
+  .clock .date{opacity:.9; font-weight:600}
 
-    /* CARD DE NOTÍCIA */
-    .card-wrap{
-      position: fixed; left:50%; top:14%;
-      transform: translateX(-50%);
-      width: min(var(--cardWidth), 92vw);
-    }
-    .card-head{
-      display:flex; align-items:center; gap:10px; margin-bottom:10px;
-    }
-    .pill{
-      background:#111; color:#fff; padding:6px 10px; border-radius:8px;
-      font-weight:700; font-size:14px; letter-spacing:.6px; text-transform:uppercase;
-    }
-    .pill .live{color:#ff4444; margin-right:6px}
-    .since{color:#999; font-size:13px; font-weight:600}
-    .card{
-      background: var(--white);
-      border-radius:14px;
-      padding: var(--cardPad);
-      box-shadow: 0 10px 24px rgba(0,0,0,.25);
-    }
-    .headline{
-      font-size:32px; line-height:1.12; font-weight:900; margin:0 0 10px 0;
-    }
-    .subline{
-      font-size:18px; line-height:1.35; color:#333; margin:0 0 16px 0; font-weight:600;
-    }
-    .caption{
-      margin-top:10px; color:#444; font-size:15px; font-weight:700; text-transform:uppercase;
-      letter-spacing:.4px;
-    }
+  /* CARD – topo da tela, centralizado na horizontal */
+  .card-wrap{
+    position:fixed; left:50%; top:8%; transform:translateX(-50%);
+    width:min(1120px, 92vw); z-index:1000;
+  }
+  .card-head{display:flex; align-items:center; gap:12px; margin:0 0 10px 0;}
+  .pill{
+    background:#111; color:#fff; padding:7px 12px; border-radius:10px;
+    font-weight:800; font-size:15px; text-transform:uppercase; letter-spacing:.6px;
+  }
+  .pill .live{color:#ff4b4b; margin-right:6px}
+  .since{color:#999; font-size:14px; font-weight:700}
+  .card{
+    background:var(--white); border-radius:16px; padding:26px 28px;
+    box-shadow:0 12px 28px rgba(0,0,0,.28);
+  }
+  .headline{ margin:0 0 10px 0; font-weight:900; line-height:1.08; font-size:42px; }
+  .subline{  margin:0 0 14px 0; font-weight:600; line-height:1.32; font-size:20px; color:#2b2b2b; }
+  .caption{  margin-top:8px; font-size:14px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:#444 }
 
-    /* RODAPÉ VERMELHO (MANTIDO) */
-    .gnbar{
-      position: fixed; left:0; right:0; bottom:0; height:54px;
-      background: var(--primary); color:#fff; display:flex; align-items:center;
-      overflow:hidden; z-index:9999;
-      border-top: 3px solid rgba(0,0,0,.25);
-    }
-    .slug{
-      background: var(--slug); color:#fff;
-      font-weight:800; font-size:16px; letter-spacing:.9px;
-      padding:8px 14px; margin-left:10px; border-radius:8px;
-      text-transform:uppercase; flex:0 0 auto;
-    }
-    .track{ position: relative; flex:1 1 auto; height:100%; overflow:hidden; }
-    .rail{
-      position:absolute; inset:0; display:flex; align-items:center; gap:60px;
-      animation: scroll 45s linear infinite;
-      will-change: transform;
-      padding-left:30px;
-      white-space: nowrap;
-      font-size:18px; font-weight:700;
-    }
-    .copy{ flex:0 0 auto; }
-    @keyframes scroll{
-      0%{ transform: translateX(0) }
-      100%{ transform: translateX(-50%) }
-    }
+  /* RODAPÉ VERMELHO (ticker) */
+  .gnbar{
+    position:fixed; left:0; right:0; bottom:0; height:56px; z-index:9999;
+    background:var(--primary); color:#fff; display:flex; align-items:center; overflow:hidden;
+    border-top:3px solid rgba(0,0,0,.25);
+  }
+  .slug{
+    background:var(--slug); color:#fff; font-weight:900; font-size:16px; letter-spacing:.9px;
+    padding:8px 14px; margin-left:10px; border-radius:8px; text-transform:uppercase; flex:0 0 auto;
+  }
+  .track{ position:relative; flex:1 1 auto; height:100%; overflow:hidden; }
+  .rail{
+    position:absolute; inset:0; display:flex; align-items:center; gap:60px;
+    white-space:nowrap; padding-left:30px; will-change:transform;
+    animation:scroll 25s linear infinite;   /* ← mais rápido (antes 45s) */
+    font-size:20px; font-weight:800;
+  }
+  .copy{flex:0 0 auto;}
+  @keyframes scroll{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
-    /* acessibilidade */
-    @media (prefers-reduced-motion: reduce){
-      .rail{ animation-duration:120s }
-    }
-  </style>
+  /* opcional: reduzir animação pra acessibilidade */
+  @media (prefers-reduced-motion: reduce){ .rail{animation-duration:90s} }
+</style>
 </head>
 <body>
 
-  <!-- Relógio -->
+  <!-- RELÓGIO -->
   <div class="clock" aria-hidden="true">
     <div id="clockTime">--:--</div>
     <div class="date" id="clockDate">--/--/----</div>
@@ -120,11 +94,11 @@
     <div class="card">
       <h1 class="headline" id="headline">DÓLAR COMERCIAL FECHA A R$ 5,40</h1>
       <p class="subline" id="subline">Leve alta em relação a ontem. Indicador que impacta preços e a economia.</p>
-      <div class="caption">Informação que conecta nossa cidade.</div>
+      <div class="caption">INFORMAÇÃO QUE CONECTA NOSSA CIDADE.</div>
     </div>
   </div>
 
-  <!-- RODAPÉ -->
+  <!-- TICKER -->
   <div class="gnbar" role="marquee" aria-label="Rodapé de notícias">
     <div class="slug" id="slug">NEWS</div>
     <div class="track">
@@ -135,50 +109,45 @@
     </div>
   </div>
 
-  <script>
-    /* ====== CONFIG RÁPIDA (só edite aqui) ====== */
-    const HEADLINE = "DÓLAR COMERCIAL FECHA A R$ 5,40";
-    const SUBLINE  = "Leve alta em relação a ontem. Indicador que impacta preços e a economia.";
-    const SINCE_TX = "últimas 24 horas";        // mude se quiser
-    const SLUG_TX  = "NEWS";                    // texto da tarja preta
-    const TICKER_ITEMS = [
-      "Marataízes TV ao vivo • 19h: o que rolou e o que vai rolar na região",
-      "Campanha de doação de sangue segue nesta semana",
-      "Trânsito: obra na Barra altera fluxo",
-      "Praia Limpa: mutirão sábado",
-      "Esporte: semifinais do amador"
-    ];
-    /* ========================================== */
+<script>
+  /* ===== CONFIG RÁPIDA ===== */
+  const HEADLINE = "DÓLAR COMERCIAL FECHA A R$ 5,40";
+  const SUBLINE  = "Leve alta em relação a ontem. Indicador que impacta preços e a economia.";
+  const SINCE_TX = "últimas 24 horas";
+  const SLUG_TX  = "NEWS";
+  const TICKER_ITEMS = [
+    "Marataízes TV ao vivo • 19h: o que rolou e o que vai rolar na região",
+    "Campanha de doação de sangue segue nesta semana",
+    "Trânsito: obra na Barra altera fluxo",
+    "Praia Limpa: mutirão sábado",
+    "Esporte: semifinais do amador"
+  ];
+  /* ========================= */
 
-    // Headline / Subline / Since
-    document.getElementById("headline").textContent = HEADLINE;
-    document.getElementById("subline").textContent  = SUBLINE;
-    document.getElementById("since").textContent    = SINCE_TX;
-    document.getElementById("slug").textContent     = SLUG_TX;
+  // Preenche textos do card
+  document.getElementById("headline").textContent = HEADLINE;
+  document.getElementById("subline").textContent  = SUBLINE;
+  document.getElementById("since").textContent    = SINCE_TX;
+  document.getElementById("slug").textContent     = SLUG_TX;
 
-    // Ticker: duplica o texto para loop contínuo
-    const text = TICKER_ITEMS.join("  •  ");
-    document.getElementById("a").textContent = text;
-    document.getElementById("b").textContent = text;
+  // Ticker duplicado para loop contínuo
+  const text = TICKER_ITEMS.join("  •  ");
+  document.getElementById("a").textContent = text;
+  document.getElementById("b").textContent = text;
 
-    // Relógio
-    function pad2(n){ return String(n).padStart(2,'0'); }
-    function updClock(){
-      const now = new Date();
-      document.getElementById('clockTime').textContent =
-        `${pad2(now.getHours())}:${pad2(now.getMinutes())}`;
-      document.getElementById('clockDate').textContent =
-        `${pad2(now.getDate())}/${pad2(now.getMonth()+1)}/${now.getFullYear()}`;
-    }
-    updClock(); setInterval(updClock, 1000);
-
-    // Cache-buster visual: se tiver ?v= na URL, não cacheia no OBS
-    (function(){
-      const url = new URL(window.location.href);
-      if(!url.searchParams.get("v")){
-        // nada; você pode passar ?v=YYYYMMDD-HHMM pela URL do OBS
-      }
-    })();
-  </script>
+  // Relógio (hora + data) – sempre visível
+  function pad2(n){ return String(n).padStart(2,'0'); }
+  function updClock(){
+    const now = new Date();
+    const hh = pad2(now.getHours());
+    const mm = pad2(now.getMinutes());
+    const dd = pad2(now.getDate());
+    const mo = pad2(now.getMonth()+1);
+    const yyyy = now.getFullYear();
+    document.getElementById('clockTime').textContent = `${hh}:${mm}`;
+    document.getElementById('clockDate').textContent = `${dd}/${mo}/${yyyy}`;
+  }
+  updClock(); setInterval(updClock, 1000);
+</script>
 </body>
 </html>
