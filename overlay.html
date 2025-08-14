@@ -3,72 +3,57 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Overlay • Marataízes TV</title>
+<title>Overlay • Faixa + Ticker</title>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
 <style>
   :root{
-    --white:#fff; --black:#111; --muted:#666;
     --primary:#d7262b;   /* vermelho ticker */
     --slug:#111;         /* tarja NEWS */
-    --barTop:12px;       /* posição da faixa branca */
-    --barLeft:12px;
-    --barWidth: 920px;   /* largura da faixa branca (ajuste se quiser) */
   }
   *{box-sizing:border-box}
   html,body{height:100%}
-  body{
-    margin:0; background:transparent; color:var(--black);
-    font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
-    overflow:hidden;
-  }
+  body{ margin:0; background:transparent;
+        font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+        overflow:hidden; }
 
-  /* relógio */
+  /* ===== Faixa branca no topo ===== */
+  .promo{
+    position:fixed; top:0; left:0; right:0; height:42px; z-index:3200;
+    background:#fff; box-shadow:0 3px 18px rgba(0,0,0,.22);
+    display:flex; align-items:center; gap:14px; padding:0 20px;
+  }
+  .promo .dot{ width:10px; height:10px; border-radius:50%; background:#ff3b3b; }
+  .promo .label{ font-weight:900; font-size:12px; letter-spacing:.6px; text-transform:uppercase; color:#888 }
+  .promo .msg{ font-weight:800; font-size:18px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+  /* Relógio no canto direito */
   .clock{
-    position:fixed; top:12px; right:16px; z-index:3000;
+    position:fixed; top:6px; right:16px; z-index:3300;
     display:flex; gap:8px; align-items:center;
     background:rgba(0,0,0,.65); color:#fff;
-    padding:6px 10px; border-radius:10px; font-weight:700; letter-spacing:.3px; font-size:18px;
+    padding:4px 8px; border-radius:8px; font-weight:700; letter-spacing:.3px; font-size:14px;
     box-shadow:0 3px 10px rgba(0,0,0,.25);
   }
   .clock .date{opacity:.9; font-weight:600}
 
-  /* ===== Faixa branca: INFORME PUBLICITÁRIO ===== */
-  .adbar{
-    position:fixed; top:var(--barTop); left:var(--barLeft); z-index:2200;
-    width:min(var(--barWidth), 88vw);
-    background:#fff; border-radius:14px;
-    padding:14px 18px; /* fininha */
-    box-shadow:0 10px 24px rgba(0,0,0,.22);
-  }
-  .adhead{
-    display:flex; align-items:center; gap:10px; margin-bottom:6px;
-  }
-  .pill{
-    background:#111; color:#fff; padding:5px 10px; border-radius:9px;
-    font-weight:900; font-size:12px; letter-spacing:.7px; text-transform:uppercase;
-  }
-  .title{ margin:0; font-weight:900; font-size:34px; line-height:1.05; }
-  .small{ margin:4px 0 0 0; font-size:14px; font-weight:700; color:#444; letter-spacing:.2px; }
-  /* ============================================= */
-
-  /* TICKER – grande e rápido */
+  /* Ticker – grande e rápido */
   .gnbar{
-    position:fixed; left:0; right:0; bottom:0; height:72px; z-index:2500;
+    position:fixed; left:0; right:0; bottom:0; height:64px; z-index:2500;
     background:var(--primary); color:#fff; display:flex; align-items:center; overflow:hidden;
     border-top:3px solid rgba(0,0,0,.25);
   }
   .slug{
-    background:var(--slug); color:#fff; font-weight:900; font-size:20px; letter-spacing:.9px;
-    padding:10px 18px; margin-left:10px; border-radius:8px; text-transform:uppercase; flex:0 0 auto;
+    background:var(--slug); color:#fff; font-weight:900; font-size:18px; letter-spacing:.9px;
+    padding:10px 16px; margin-left:10px; border-radius:8px; text-transform:uppercase; flex:0 0 auto;
   }
   .track{ position:relative; flex:1 1 auto; height:100%; overflow:hidden; }
   .rail{
-    position:absolute; inset:0; display:flex; align-items:center; gap:90px;
+    position:absolute; inset:0; display:flex; align-items:center; gap:80px;
     white-space:nowrap; padding-left:30px; will-change:transform;
-    animation:scroll 8s linear infinite;      /* velocidade */
-    font-size:28px; font-weight:900; line-height:72px;
+    animation:scroll 8s linear infinite;   /* velocidade */
+    font-size:26px; font-weight:900; line-height:64px;
   }
   .copy{flex:0 0 auto;}
   @keyframes scroll{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
@@ -76,20 +61,18 @@
 </head>
 <body>
 
+  <!-- FAIXA BRANCA -->
+  <div class="promo" role="region" aria-label="Faixa de chamadas/promos">
+    <div class="dot" aria-hidden="true"></div>
+    <div class="label">AGORA</div>
+    <div class="msg" id="promoMsg">Somzera e imagens pra relax — 16h às 18h • Hoje 19h: Giro de Notícias • Amanhã 10h: Rebrincar</div>
+  </div>
+
   <!-- RELÓGIO -->
   <div class="clock" aria-hidden="true">
     <div id="clockTime">--:--</div>
     <div class="date" id="clockDate">--/--/----</div>
   </div>
-
-  <!-- FAIXA BRANCA (INFORME) -->
-  <section class="adbar" role="region" aria-label="Informe publicitário">
-    <div class="adhead">
-      <div class="pill">INFORME PUBLICITÁRIO</div>
-    </div>
-    <h1 class="title" id="adTitle">Amor dentro do cone — R$ 10,00 a unidade</h1>
-    <p class="small" id="adSmall">Promoção válida hoje até 21h • Pague no Pix ou cartão • Retire na Barra</p>
-  </section>
 
   <!-- TICKER -->
   <div class="gnbar" role="marquee" aria-label="Rodapé de notícias">
@@ -104,9 +87,7 @@
 
 <script>
   /* ===== CONFIG RÁPIDA ===== */
-  const AD_TITLE = "Amor dentro do cone — R$ 10,00 a unidade";
-  const AD_SMALL = "Promoção válida hoje até 21h • Pague no Pix ou cartão • Retire na Barra";
-
+  const PROMO_TEXT = "Somzera e imagens pra relax — 16h às 18h • Hoje 19h: Giro de Notícias • Amanhã 10h: Rebrincar";
   const SLUG_TX = "NEWS";
   const TICKER_ITEMS = [
     "Marataízes TV ao vivo • 19h: o que rolou e o que vai rolar na região",
@@ -117,9 +98,8 @@
   ];
   /* ========================================= */
 
-  // preenche informe
-  document.getElementById("adTitle").textContent = AD_TITLE;
-  document.getElementById("adSmall").textContent = AD_SMALL;
+  // promo bar
+  document.getElementById("promoMsg").textContent = PROMO_TEXT;
 
   // ticker
   document.getElementById("slug").textContent = SLUG_TX;
