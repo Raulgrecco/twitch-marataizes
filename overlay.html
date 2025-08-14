@@ -3,62 +3,65 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Overlay • Faixa + Ticker (Unificado)</title>
+<title>Overlay • Top Bar + Ticker</title>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
 <style>
   :root{
-    --primary:#d7262b;   /* vermelho ticker */
-    --slug:#111;         /* tarja NEWS */
+    --primary:#d7262b;  /* vermelho do ticker */
+    --slug:#111;        /* tarja "NEWS" */
+    --barMinH:58px;     /* altura mínima da barra branca */
   }
   *{box-sizing:border-box}
   html,body{height:100%}
-  body{ margin:0; background:transparent;
-        font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
-        overflow:hidden; }
+  body{
+    margin:0; background:transparent;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+    overflow:hidden;
+  }
 
-  /* ===== Faixa branca no topo ===== */
+  /* ===== Barra branca no topo ===== */
   .bar{
     position:fixed; top:0; left:0; right:0; z-index:3200;
     background:#fff; box-shadow:0 3px 18px rgba(0,0,0,.22);
-    display:flex; align-items:center; gap:14px; padding:8px 20px; min-height:42px;
+    display:flex; align-items:center; gap:14px; padding:10px 20px; min-height:var(--barMinH);
   }
-  .dot{ width:10px; height:10px; border-radius:50%; background:#ff3b3b; }
+  .dot{ width:12px; height:12px; border-radius:50%; background:#ff3b3b; }
   .pill{
-    background:#111; color:#fff; padding:4px 10px; border-radius:9px;
-    font-weight:900; font-size:12px; letter-spacing:.7px; text-transform:uppercase;
+    background:#111; color:#fff; padding:6px 12px; border-radius:10px;
+    font-weight:900; font-size:13px; letter-spacing:.7px; text-transform:uppercase;
   }
-  .single{ font-weight:800; font-size:18px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .title { margin:0; font-weight:900; font-size:22px; line-height:1.1; }
-  .small { margin:0; font-size:13px; font-weight:700; color:#444; opacity:.95; }
+  .single{ font-weight:900; font-size:24px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .title { margin:0; font-weight:900; font-size:32px; line-height:1.12; }
+  .small { margin:2px 0 0 0; font-size:16px; font-weight:700; color:#444; opacity:.95; }
 
-  /* Relógio no canto direito */
+  /* Relógio (por cima da barra) */
   .clock{
-    position:fixed; top:6px; right:16px; z-index:3300;
+    position:fixed; top:8px; right:16px; z-index:3400;
     display:flex; gap:8px; align-items:center;
-    background:rgba(0,0,0,.65); color:#fff;
-    padding:4px 8px; border-radius:8px; font-weight:700; letter-spacing:.3px; font-size:14px;
+    background:rgba(0,0,0,.8); color:#fff;
+    padding:6px 10px; border-radius:10px; font-weight:800; letter-spacing:.3px; font-size:16px;
     box-shadow:0 3px 10px rgba(0,0,0,.25);
   }
-  .clock .date{opacity:.9; font-weight:600}
+  .clock .date{opacity:.9; font-weight:700}
 
-  /* Ticker – grande e rápido */
+  /* ===== Ticker ===== */
   .gnbar{
-    position:fixed; left:0; right:0; bottom:0; height:64px; z-index:2500;
+    position:fixed; left:0; right:0; bottom:0; height:72px; z-index:2500;
     background:var(--primary); color:#fff; display:flex; align-items:center; overflow:hidden;
     border-top:3px solid rgba(0,0,0,.25);
   }
   .slug{
-    background:var(--slug); color:#fff; font-weight:900; font-size:18px; letter-spacing:.9px;
-    padding:10px 16px; margin-left:10px; border-radius:8px; text-transform:uppercase; flex:0 0 auto;
+    background:var(--slug); color:#fff; font-weight:900; font-size:20px; letter-spacing:.9px;
+    padding:10px 18px; margin-left:10px; border-radius:8px; text-transform:uppercase; flex:0 0 auto;
   }
   .track{ position:relative; flex:1 1 auto; height:100%; overflow:hidden; }
   .rail{
-    position:absolute; inset:0; display:flex; align-items:center; gap:80px;
+    position:absolute; inset:0; display:flex; align-items:center; gap:90px;
     white-space:nowrap; padding-left:30px; will-change:transform;
-    animation:scroll 8s linear infinite;   /* velocidade */
-    font-size:26px; font-weight:900; line-height:64px;
+    animation:scroll 8s linear infinite;   /* velocidade do ticker */
+    font-size:28px; font-weight:900; line-height:72px;
   }
   .copy{flex:0 0 auto;}
   @keyframes scroll{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
@@ -66,23 +69,22 @@
 </head>
 <body>
 
-  <!-- FAIXA BRANCA (modo variável) -->
+  <!-- Barra branca -->
   <div class="bar" id="bar">
-    <div class="dot" aria-hidden="true"></div>
-    <!-- conteúdo será renderizado via JS conforme MODE -->
+    <!-- conteúdo é injetado via JS conforme MODE -->
   </div>
 
-  <!-- RELÓGIO -->
-  <div class="clock" aria-hidden="true">
+  <!-- Relógio -->
+  <div class="clock" id="clock">
     <div id="clockTime">--:--</div>
     <div class="date" id="clockDate">--/--/----</div>
   </div>
 
-  <!-- TICKER -->
+  <!-- Ticker -->
   <div class="gnbar" role="marquee" aria-label="Rodapé de notícias">
     <div class="slug" id="slug">NEWS</div>
     <div class="track">
-      <div class="rail">
+      <div class="rail" id="rail">
         <div class="copy" id="a"></div>
         <div class="copy" id="b"></div>
       </div>
@@ -90,18 +92,19 @@
   </div>
 
 <script>
-  /* ========= CONFIG RÁPIDA =========
-     MODE: "ad"  -> Informe Publicitário (título + linha menor)
-           "single" -> Linha única (programação etc.)
-  =================================== */
+  /* ======== CONFIG RÁPIDA ========
+     MODE: "ad"      → Informe Publicitário (título + linha menor)
+           "single"  → Linha única (programação)
+  ================================= */
   const MODE = "ad"; // mude para "single" se quiser uma linha só
 
   // Textos do modo "ad"
-  const AD_PILL   = "INFORME PUBLICITÁRIO";        // rótulo da pílula
+  const AD_PILL   = "INFORME PUBLICITÁRIO";
   const AD_TITLE  = "Amor dentro do cone — R$ 10,00 a unidade";
   const AD_SMALL  = "Promoção válida hoje até 21h • Pague no Pix ou cartão • Retire na Barra";
 
   // Texto do modo "single"
+  const SINGLE_PILL = "AGORA";
   const SINGLE_TEXT = "Somzera e imagens pra relax — 16h às 18h • Hoje 19h: Giro de Notícias • Amanhã 10h: Rebrincar";
 
   // Ticker
@@ -113,179 +116,28 @@
     "Praia Limpa: mutirão sábado",
     "Esporte: semifinais do amador"
   ];
-  /* ================================= */
+  /* ============================== */
 
-  // Render da barra de topo
+  // Render da barra
   const bar = document.getElementById("bar");
   if (MODE === "ad") {
     bar.innerHTML = `
       <div class="dot" aria-hidden="true"></div>
       <div class="pill">${AD_PILL}</div>
-      <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
+      <div style="display:flex; flex-direction:column; gap:2px; min-width:0; overflow:hidden;">
         <p class="title">${AD_TITLE}</p>
         <p class="small">${AD_SMALL}</p>
       </div>`;
   } else {
     bar.innerHTML = `
       <div class="dot" aria-hidden="true"></div>
-      <div class="pill">AGORA</div>
+      <div class="pill">${SINGLE_PILL}</div>
       <div class="single">${SINGLE_TEXT}</div>`;
   }
 
   // Ticker
   document.getElementById("slug").textContent = SLUG_TX;
-  const text = TICKER_ITEMS.join("  •  ");
-  document.getElementById("a").textContent = text;
-  document.getElementById("b").textContent = text;
-
-  // Relógio
-  function pad2(n){ return String(n).padStart(2,'0'); }
-  function updClock(){
-    const now = new Date();
-    document.getElementById('clockTime').textContent = `${pad2(now.getHours())}:${pad2(now.getMinutes())}`;
-    document.getElementById('clockDate').textContent = `${pad2(now.getDate())}/${pad2(now.getMonth()+1)}/${now.getFullYear()}`;
-  }
-  updClock(); setInterval(updClock, 1000);
-</script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Overlay • Faixa + Ticker (Unificado)</title>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="Expires" content="0" />
-<style>
-  :root{
-    --primary:#d7262b;   /* vermelho ticker */
-    --slug:#111;         /* tarja NEWS */
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{ margin:0; background:transparent;
-        font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
-        overflow:hidden; }
-
-  /* ===== Faixa branca no topo ===== */
-  .bar{
-    position:fixed; top:0; left:0; right:0; z-index:3200;
-    background:#fff; box-shadow:0 3px 18px rgba(0,0,0,.22);
-    display:flex; align-items:center; gap:14px; padding:8px 20px; min-height:42px;
-  }
-  .dot{ width:10px; height:10px; border-radius:50%; background:#ff3b3b; }
-  .pill{
-    background:#111; color:#fff; padding:4px 10px; border-radius:9px;
-    font-weight:900; font-size:12px; letter-spacing:.7px; text-transform:uppercase;
-  }
-  .single{ font-weight:800; font-size:18px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .title { margin:0; font-weight:900; font-size:22px; line-height:1.1; }
-  .small { margin:0; font-size:13px; font-weight:700; color:#444; opacity:.95; }
-
-  /* Relógio no canto direito */
-  .clock{
-    position:fixed; top:6px; right:16px; z-index:3300;
-    display:flex; gap:8px; align-items:center;
-    background:rgba(0,0,0,.65); color:#fff;
-    padding:4px 8px; border-radius:8px; font-weight:700; letter-spacing:.3px; font-size:14px;
-    box-shadow:0 3px 10px rgba(0,0,0,.25);
-  }
-  .clock .date{opacity:.9; font-weight:600}
-
-  /* Ticker – grande e rápido */
-  .gnbar{
-    position:fixed; left:0; right:0; bottom:0; height:64px; z-index:2500;
-    background:var(--primary); color:#fff; display:flex; align-items:center; overflow:hidden;
-    border-top:3px solid rgba(0,0,0,.25);
-  }
-  .slug{
-    background:var(--slug); color:#fff; font-weight:900; font-size:18px; letter-spacing:.9px;
-    padding:10px 16px; margin-left:10px; border-radius:8px; text-transform:uppercase; flex:0 0 auto;
-  }
-  .track{ position:relative; flex:1 1 auto; height:100%; overflow:hidden; }
-  .rail{
-    position:absolute; inset:0; display:flex; align-items:center; gap:80px;
-    white-space:nowrap; padding-left:30px; will-change:transform;
-    animation:scroll 8s linear infinite;   /* velocidade */
-    font-size:26px; font-weight:900; line-height:64px;
-  }
-  .copy{flex:0 0 auto;}
-  @keyframes scroll{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-</style>
-</head>
-<body>
-
-  <!-- FAIXA BRANCA (modo variável) -->
-  <div class="bar" id="bar">
-    <div class="dot" aria-hidden="true"></div>
-    <!-- conteúdo será renderizado via JS conforme MODE -->
-  </div>
-
-  <!-- RELÓGIO -->
-  <div class="clock" aria-hidden="true">
-    <div id="clockTime">--:--</div>
-    <div class="date" id="clockDate">--/--/----</div>
-  </div>
-
-  <!-- TICKER -->
-  <div class="gnbar" role="marquee" aria-label="Rodapé de notícias">
-    <div class="slug" id="slug">NEWS</div>
-    <div class="track">
-      <div class="rail">
-        <div class="copy" id="a"></div>
-        <div class="copy" id="b"></div>
-      </div>
-    </div>
-  </div>
-
-<script>
-  /* ========= CONFIG RÁPIDA =========
-     MODE: "ad"  -> Informe Publicitário (título + linha menor)
-           "single" -> Linha única (programação etc.)
-  =================================== */
-  const MODE = "ad"; // mude para "single" se quiser uma linha só
-
-  // Textos do modo "ad"
-  const AD_PILL   = "INFORME PUBLICITÁRIO";        // rótulo da pílula
-  const AD_TITLE  = "Amor dentro do cone — R$ 10,00 a unidade";
-  const AD_SMALL  = "Promoção válida hoje até 21h • Pague no Pix ou cartão • Retire na Barra";
-
-  // Texto do modo "single"
-  const SINGLE_TEXT = "Somzera e imagens pra relax — 16h às 18h • Hoje 19h: Giro de Notícias • Amanhã 10h: Rebrincar";
-
-  // Ticker
-  const SLUG_TX = "NEWS";
-  const TICKER_ITEMS = [
-    "Marataízes TV ao vivo • 19h: o que rolou e o que vai rolar na região",
-    "Campanha de doação de sangue segue nesta semana",
-    "Trânsito: obra na Barra altera fluxo",
-    "Praia Limpa: mutirão sábado",
-    "Esporte: semifinais do amador"
-  ];
-  /* ================================= */
-
-  // Render da barra de topo
-  const bar = document.getElementById("bar");
-  if (MODE === "ad") {
-    bar.innerHTML = `
-      <div class="dot" aria-hidden="true"></div>
-      <div class="pill">${AD_PILL}</div>
-      <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-        <p class="title">${AD_TITLE}</p>
-        <p class="small">${AD_SMALL}</p>
-      </div>`;
-  } else {
-    bar.innerHTML = `
-      <div class="dot" aria-hidden="true"></div>
-      <div class="pill">AGORA</div>
-      <div class="single">${SINGLE_TEXT}</div>`;
-  }
-
-  // Ticker
-  document.getElementById("slug").textContent = SLUG_TX;
-  const text = TICKER_ITEMS.join("  •  ");
+  const text = (TICKER_ITEMS && TICKER_ITEMS.length ? TICKER_ITEMS : ["TV Marataízes ao vivo"]).join("  •  ");
   document.getElementById("a").textContent = text;
   document.getElementById("b").textContent = text;
 
