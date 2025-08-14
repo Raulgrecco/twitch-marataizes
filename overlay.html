@@ -10,9 +10,10 @@
 <style>
   :root{
     --white:#fff; --black:#111; --muted:#666;
-    --primary:#d7262b;  /* vermelho ticker */
-    --slug:#111;        /* tarja NEWS */
-    --cardTopPx: 40px;  /* ↑ POSIÇÃO ABSOLUTA DO CARD */
+    --primary:#d7262b;   /* vermelho do ticker */
+    --slug:#111;         /* tarja NEWS */
+    --cardTopPx: 16px;   /* distância do topo */
+    --cardLeftPx: 24px;  /* distância da borda esquerda */
   }
   *{box-sizing:border-box}
   html,body{height:100%}
@@ -22,20 +23,20 @@
     overflow:hidden;
   }
 
-  /* RELÓGIO */
+  /* relógio */
   .clock{
     position:fixed; top:16px; right:16px; z-index:3000;
     display:flex; gap:8px; align-items:center;
     background:rgba(0,0,0,.65); color:#fff;
-    padding:8px 12px; border-radius:10px; font-weight:700; letter-spacing:.3px;
-    font-size:20px; box-shadow:0 3px 10px rgba(0,0,0,.25);
+    padding:8px 12px; border-radius:10px; font-weight:700; letter-spacing:.3px; font-size:20px;
+    box-shadow:0 3px 10px rgba(0,0,0,.25);
   }
   .clock .date{opacity:.9; font-weight:600}
 
-  /* CARD – FIXO NO TOPO POR PX */
+  /* CARD – canto ESQUERDO, topo */
   .card-wrap{
-    position:fixed; left:50%; top:var(--cardTopPx); transform:translateX(-50%);
-    width:min(1200px, 92vw); z-index:2000;
+    position:fixed; left:var(--cardLeftPx); top:var(--cardTopPx); z-index:2000;
+    width:min(1120px, 60vw);  /* ajuste fino do tamanho do bloco à esquerda */
   }
   .card-head{display:flex; align-items:center; gap:12px; margin:0 0 10px 0;}
   .pill{
@@ -52,22 +53,22 @@
   .subline{  margin:0 0 14px 0; font-weight:600; line-height:1.32; font-size:22px; color:#2b2b2b; }
   .caption{  margin-top:8px; font-size:14px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:#444 }
 
-  /* TICKER – MAIOR E MAIS RÁPIDO */
+  /* TICKER – grande e rápido */
   .gnbar{
-    position:fixed; left:0; right:0; bottom:0; height:64px; z-index:2500;
+    position:fixed; left:0; right:0; bottom:0; height:70px; z-index:2500;
     background:var(--primary); color:#fff; display:flex; align-items:center; overflow:hidden;
     border-top:3px solid rgba(0,0,0,.25);
   }
   .slug{
-    background:var(--slug); color:#fff; font-weight:900; font-size:18px; letter-spacing:.9px;
-    padding:9px 16px; margin-left:10px; border-radius:8px; text-transform:uppercase; flex:0 0 auto;
+    background:var(--slug); color:#fff; font-weight:900; font-size:20px; letter-spacing:.9px;
+    padding:10px 18px; margin-left:10px; border-radius:8px; text-transform:uppercase; flex:0 0 auto;
   }
   .track{ position:relative; flex:1 1 auto; height:100%; overflow:hidden; }
   .rail{
-    position:absolute; inset:0; display:flex; align-items:center; gap:70px;
+    position:absolute; inset:0; display:flex; align-items:center; gap:80px;
     white-space:nowrap; padding-left:30px; will-change:transform;
-    animation:scroll 14s linear infinite;   /* ← velocidade do GloboNews */
-    font-size:22px; font-weight:800;
+    animation:scroll 10s linear infinite;   /* ← velocidade alta (reduza para 9s/8s se quiser ainda mais rápido) */
+    font-size:26px; font-weight:900; line-height:70px;  /* texto grande e central na faixa */
   }
   .copy{flex:0 0 auto;}
   @keyframes scroll{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
