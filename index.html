@@ -31,7 +31,7 @@
   .overlay .card{pointer-events:auto;background:rgba(0,0,0,.55);backdrop-filter:blur(3px);padding:20px;border-radius:14px;font-weight:700;font-size:clamp(16px,2.2vw,22px)}
   .cta{position:absolute;left:50%;transform:translateX(-50%);bottom:10%;width:min(92%,420px);border:0;border-radius:999px;padding:14px 22px;background:#ff3355;color:#fff;font-weight:900;font-size:clamp(16px,2vw,22px);box-shadow:0 10px 24px rgba(0,0,0,.35);z-index:3;display:none;cursor:pointer}
   .cta.show{display:block}
-  /* Botões do topo: por padrão ficam ocultos; só mostramos no Instagram/FB/TikTok */
+  /* Botões do topo: ocultos por padrão; só mostram no in-app se o player falhar */
   .top-right{position:absolute;right:10px;top:10px;z-index:3;display:none;gap:8px;flex-wrap:wrap}
   .top-right.show{display:flex}
   .btn{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.18);padding:8px 12px;border-radius:10px;font-weight:700;text-decoration:none}
@@ -51,7 +51,7 @@
         <div class="card" id="statusMsg">Carregando o player…</div>
       </div>
 
-      <!-- Estes botões só aparecem NO IN-APP (Instagram/FB/TikTok). Fora disso ficam ocultos. -->
+      <!-- Só aparece no in-app SE o player não renderizar -->
       <div id="actionsTop" class="top-right" aria-hidden="true">
         <a id="openTwitch" class="btn" href="https://twitch.tv/marataizestv" target="_blank" rel="noopener">Abrir no Twitch</a>
         <a class="btn" href="/" id="openSiteRoot">Página inicial</a>
@@ -62,7 +62,7 @@
     </div>
   </section>
 
-  <!-- Bloco "Sobre" (aqui ficam CTAs fora do vídeo) -->
+  <!-- Bloco "Sobre" -->
   <section aria-label="Sobre a TV Marataízes" style="max-width:980px;margin:24px auto 40px;padding:0 16px;line-height:1.55;">
     <h1 style="margin:0 0 8px;font-size:clamp(20px,3.5vw,28px);font-weight:900;">
       TV Marataízes — streaming local
@@ -94,9 +94,9 @@
     const OFF_MSG = "Voltamos às 18h com nossa programação ao vivo ✨";
     // ====================
 
-    const statusEl  = document.getElementById("status");
-    const statusMsg = document.getElementById("statusMsg");
-    const tapBtn    = document.getElementById("tapBtn");
+    const statusEl   = document.getElementById("status");
+    const statusMsg  = document.getElementById("statusMsg");
+    const tapBtn     = document.getElementById("tapBtn");
     const actionsTop = document.getElementById("actionsTop");
 
     // Domínios autorizados (parent) para o embed do Twitch
@@ -112,28 +112,31 @@
     function hideStatus(){ statusEl.classList.add("hidden"); }
     function showStatus(msg){ if (msg) statusMsg.innerHTML = msg; statusEl.classList.remove("hidden"); }
 
-    // --- Fluxo especial p/ Instagram/FB/TikTok ---
+    // ===== Fluxo IN-APP: tenta EMBED (iframe) primeiro =====
     if (inApp) {
-      // Mostra os botões do topo APENAS no in-app
-      actionsTop.classList.add("show");
-
-      // Mensagem fixa com instrução
-      showStatus('Para assistir, toque nos ⋯ (três pontinhos) e escolha <strong>Abrir no navegador</strong>.<br/>Ou use o botão acima para abrir no Twitch.');
-
-      // Troca o botão de desmute por um CTA "Abrir no navegador"
-      const openBrowser = document.createElement('a');
-      openBrowser.textContent = 'Abrir no navegador';
-      openBrowser.href = location.href;
-      openBrowser.target = '_blank';
-      openBrowser.rel = 'noopener';
-      openBrowser.className = 'cta show';
-      tapBtn.replaceWith(openBrowser);
-
-      // Não carregamos o player aqui para evitar tela preta no in-app do iOS.
+      fallbackIframe(true); // tenta embutir já
+      setTimeout(() => {
+        const iframe = document.querySelector("#twitch-embed iframe");
+        const loaded = iframe && iframe.contentWindow; // heurística simples
+        if (loaded) {
+          hideStatus(); // deu certo — nada de botões sobre o vídeo
+        } else {
+          // não carregou: mostra instruções + botões no topo
+          actionsTop.classList.add("show");
+          showStatus('Se o vídeo não aparecer, toque nos ⋯ (três pontinhos) e escolha <strong>Abrir no navegador</strong>.<br/>Ou use os botões acima para abrir no Twitch.');
+          // botão grande "Abrir no navegador" no lugar do tapBtn
+          const openBrowser = document.createElement('a');
+          openBrowser.textContent = 'Abrir no navegador';
+          openBrowser.href = location.href;
+          openBrowser.target = '_blank';
+          openBrowser.rel = 'noopener';
+          openBrowser.className = 'cta show';
+          tapBtn.replaceWith(openBrowser);
+        }
+      }, 3000);
     } else {
-      // --- Fluxo normal (fora do in-app): player embutido e SEM botões sobre o vídeo ---
+      // ===== Fluxo NORMAL: SDK com fallback =====
       initSdkPlayer();
-      // Garantia de fallback para iframe se o SDK falhar
       setTimeout(() => {
         const iframe = document.querySelector("#twitch-embed iframe");
         if (!iframe) fallbackIframe(false);
@@ -196,7 +199,7 @@
       ifr.setAttribute("playsinline","true");
       ifr.src = src;
       wrap.appendChild(ifr);
-      showStatus(fromInApp ? 'Se não conseguir assistir aqui, toque nos ⋯ e escolha "Abrir no navegador".' : 'Carregando transmissão…');
+      showStatus(fromInApp ? 'Tentando carregar o vídeo…' : 'Carregando transmissão…');
       ifr.addEventListener("load", () => { hideStatus(); });
     }
   </script>
