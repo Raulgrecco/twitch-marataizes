@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Programação — TV Marataízes</title>
+<meta name="theme-color" content="#000" />
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#000;color:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+  .wrap{max-width:980px;margin:0 auto;padding:20px 14px 40px}
+  a{color:#fff;text-decoration:none}
+  .brand{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .dot{width:10px;height:10px;border-radius:999px;background:#ff3355}
+  h1{margin:8px 0 18px;font-size:clamp(20px,3.6vw,28px)}
+  .grid{display:grid;gap:10px;grid-template-columns:1fr}
+  .card{background:#111;border:1px solid #222;border-radius:12px;padding:12px 14px}
+  .time{opacity:.8;font-weight:700}
+  .title{font-weight:900;margin-top:4px}
+  .back{display:inline-block;margin-top:14px;padding:10px 14px;border-radius:10px;background:#ff3355;font-weight:900}
+  @media(min-width:700px){ .grid{grid-template-columns:1fr 1fr} }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span><a href="index.html"><strong>TV Marataízes</strong></a></div>
+    <h1>Programação de hoje</h1>
+
+    <div class="grid">
+      <div class="card"><div class="time">08:00</div><div class="title">Manhã de Notícias</div></div>
+      <div class="card"><div class="time">12:00</div><div class="title">Horário do Almoço</div></div>
+      <div class="card"><div class="time">15:00</div><div class="title">3 Minutos de Respiro (pílulas)</div></div>
+      <div class="card"><div class="time">18:00</div><div class="title">Ao vivo — Estúdio TV Marataízes</div></div>
+      <div class="card"><div class="time">21:00</div><div class="title">Cultura & Mar</div></div>
+    </div>
+
+    <a class="back" href="index.html">⬅ Voltar ao ao vivo</a>
+  </div>
+</body>
+</html>
