@@ -9,64 +9,118 @@
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
 <meta name="theme-color" content="#000" />
+
+<!-- Open Graph / Preview -->
+<meta property="og:title" content="TV Marataízes — ao vivo" />
+<meta property="og:description" content="Canal de streaming local de Marataízes e região. Programação ao vivo, quadros especiais e cultura capixaba." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://tvmarataizes.com.br" />
+<meta property="og:image" content="https://tvmarataizes.com.br/clima/cover.jpg" />
+
 <style>
   *{box-sizing:border-box}
   html,body{margin:0;height:100%;background:#000;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#fff}
-  .stage{min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:0}
-  .player-wrap{width:100%;aspect-ratio:16/9;position:relative;background:#000}
+  header{display:flex;align-items:center;gap:12px;justify-content:center;padding:14px}
+  .logo{font-weight:900;letter-spacing:.3px;font-size:clamp(18px,2.2vw,24px)}
+  .live-dot{width:10px;height:10px;border-radius:999px;background:#ff3355;display:inline-block;margin-right:8px}
+  .stage{min-height:calc(100dvh - 60px);display:flex;align-items:center;justify-content:center;padding:0}
+  .player-wrap{width:100%;max-width:1200px;aspect-ratio:16/9;position:relative;background:#000}
   #twitch-embed,.player-iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-  .overlay-status{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;color:#fff;text-align:center;background:rgba(0,0,0,.5);font-size:clamp(18px, 2.5vw, 34px);font-weight:800;letter-spacing:.2px;z-index:2;pointer-events:none}
-  .overlay-status.hidden{display:none}
-  .tap-btn{position:absolute;left:50%;transform:translateX(-50%);bottom:12%;width:min(88%,380px);border:0;border-radius:999px;padding:14px 22px;background:#ff3355;color:#fff;font-weight:900;font-size:clamp(16px,2vw,22px);box-shadow:0 10px 24px rgba(0,0,0,.35);z-index:3;display:none;cursor:pointer}
-  .tap-btn.show{display:block}
+  .overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;color:#fff;text-align:center;z-index:2;pointer-events:none}
+  .overlay.hidden{display:none}
+  .overlay .card{pointer-events:auto;background:rgba(0,0,0,.55);backdrop-filter:blur(3px);padding:20px;border-radius:14px;font-weight:700;font-size:clamp(16px,2.2vw,22px)}
+  .cta{position:absolute;left:50%;transform:translateX(-50%);bottom:10%;width:min(92%,420px);border:0;border-radius:999px;padding:14px 22px;background:#ff3355;color:#fff;font-weight:900;font-size:clamp(16px,2vw,22px);box-shadow:0 10px 24px rgba(0,0,0,.35);z-index:3;display:none;cursor:pointer}
+  .cta.show{display:block}
+  .top-right{position:absolute;right:10px;top:10px;z-index:3;display:flex;gap:8px;flex-wrap:wrap}
+  .btn{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.18);padding:8px 12px;border-radius:10px;font-weight:700;text-decoration:none}
+  .btn:hover{background:rgba(255,255,255,.15)}
+  /* utilidade: esconder texto apenas para leitores de tela */
+  .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 </style>
 </head>
 <body>
+  <header aria-label="Topo">
+    <span class="live-dot" aria-hidden="true"></span>
+    <div class="logo">TV Marataízes — Ao Vivo</div>
+  </header>
+
   <section class="stage" aria-label="Player ao vivo">
     <div class="player-wrap">
-      <div id="status" class="overlay-status">Voltamos às 18h com nossa programação ao vivo</div>
-      <button id="tapBtn" class="tap-btn" aria-label="Tocar ou desmutar">▶️ Tocar / Desmutar</button>
+      <div id="status" class="overlay">
+        <div class="card" id="statusMsg">Carregando o player…</div>
+      </div>
+
+      <div class="top-right">
+        <a id="openTwitch" class="btn" href="https://twitch.tv/marataizestv" target="_blank" rel="noopener">Abrir no Twitch</a>
+        <a class="btn" href="/" id="openSiteRoot">Página inicial</a>
+      </div>
+
+      <button id="tapBtn" class="cta" aria-label="Tocar ou desmutar">▶️ Tocar / Desmutar</button>
       <div id="twitch-embed" role="region" aria-label="Player Twitch"></div>
+    </div>
+  </section>
+
+  <!-- Bloco "Sobre" -->
+  <section aria-label="Sobre a TV Marataízes" style="max-width:980px;margin:24px auto 40px;padding:0 16px;line-height:1.55;">
+    <h1 style="margin:0 0 8px;font-size:clamp(20px,3.5vw,28px);font-weight:900;">
+      TV Marataízes — streaming local
+    </h1>
+    <p style="margin:0 0 14px;font-size:clamp(14px,2.4vw,18px);opacity:.9;">
+      Somos a TV Marataízes: um canal de <strong>streaming ao vivo</strong> com programação local,
+      quadros originais e cobertura cultural da nossa região. Assista aqui pelo site
+      ou, se preferir, abra no Twitch com um toque.
+    </p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <a href="/" class="btn" style="background:#fff1; border:1px solid #fff3; padding:10px 14px; border-radius:10px; text-decoration:none; color:#fff; font-weight:700;">
+        📺 Programação
+      </a>
+      <a href="https://twitch.tv/marataizestv" target="_blank" rel="noopener" class="btn"
+         style="background:#ff3355; border:0; padding:10px 14px; border-radius:10px; text-decoration:none; color:#fff; font-weight:900;">
+        ▶ Abrir no Twitch
+      </a>
+      <a href="https://instagram.com/tvmarataizes" target="_blank" rel="noopener" class="btn"
+         style="background:#fff1; border:1px solid #fff3; padding:10px 14px; border-radius:10px; text-decoration:none; color:#fff; font-weight:700;">
+        📷 Instagram
+      </a>
     </div>
   </section>
 
   <script src="https://player.twitch.tv/js/embed/v1.js"></script>
   <script>
-    const TWITCH_CHANNEL = "marataizestv";
-    const OFF_MSG = "Voltamos às 18h com nossa programação ao vivo";
+    // ====== CONFIG ======
+    const TWITCH_CHANNEL = "marataizestv"; // troque aqui se mudar o canal
+    const OFF_MSG = "Voltamos às 18h com nossa programação ao vivo ✨";
+    // ====================
 
-    const statusEl = document.getElementById("status");
-    const tapBtn   = document.getElementById("tapBtn");
-    statusEl.textContent = OFF_MSG;
+    const statusEl  = document.getElementById("status");
+    const statusMsg = document.getElementById("statusMsg");
+    const tapBtn    = document.getElementById("tapBtn");
 
-    // Lista de domínios permitidos
+    // Domínios autorizados (parent) para o embed do Twitch
     const host = location.hostname || "tvmarataizes.com.br";
     const PARENTS = Array.from(new Set([
       host,
-      "tvmarataizes.com.br",
-      "www.tvmarataizes.com.br",
-      "tvmarataize.com.br", "www.tvmarataize.com.br",
-      "raulgrecco.github.io", "github.io",
+      "tvmarataizes.com.br","www.tvmarataizes.com.br",
+      "raulgrecco.github.io","github.io",
       "localhost","127.0.0.1"
     ]));
 
-    // Detecta WebView e redireciona pro navegador
-    const ua = navigator.userAgent || "";
-    const inApp = /\bInstagram\b/i.test(ua) || /\bFBAN|FBAV|FB_IAB\b/i.test(ua) || /\bTikTok\b/i.test(ua);
-    if (inApp) {
-      window.location.replace(`https://twitch.tv/${TWITCH_CHANNEL}`);
+    function hideStatus(){ statusEl.classList.add("hidden"); }
+    function showStatus(msg){ if (msg) statusMsg.textContent = msg; statusEl.classList.remove("hidden"); }
+
+    function isMobile(){
+      const ua = navigator.userAgent || "";
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
     }
 
-    function hideStatus(){ statusEl.classList.add("hidden"); }
-    function showStatus(){ statusEl.classList.remove("hidden"); }
-    function isMobile(){ return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua); }
-    function maybeShowTap(){
+    function maybeShowTap(player){
       if (!isMobile()) return;
       let isMuted = true;
       try { isMuted = player.getMuted(); } catch(e){}
       if (isMuted) tapBtn.classList.add("show");
     }
 
+    // SEM REDIRECIONAMENTO — sempre fica no site
     let player;
     try {
       player = new Twitch.Player("twitch-embed", {
@@ -77,6 +131,7 @@
         muted: true,
         parent: PARENTS
       });
+
       player.addEventListener(Twitch.Player.READY, () => {
         const iframe = document.querySelector("#twitch-embed iframe");
         if (iframe) {
@@ -84,12 +139,15 @@
           const allow = iframe.getAttribute("allow") || "";
           iframe.setAttribute("allow",(allow+"; autoplay; fullscreen; picture-in-picture; encrypted-media").trim());
         }
+        showStatus("Carregando transmissão…");
         try { player.play(); } catch(e){}
-        maybeShowTap();
+        maybeShowTap(player);
       });
+
       player.addEventListener(Twitch.Player.ONLINE,  () => { hideStatus(); tapBtn.classList.remove("show"); });
       player.addEventListener(Twitch.Player.PLAY,    () => { hideStatus(); tapBtn.classList.remove("show"); });
-      player.addEventListener(Twitch.Player.OFFLINE, () => { statusEl.textContent = OFF_MSG; showStatus(); maybeShowTap(); });
+      player.addEventListener(Twitch.Player.PAUSE,   () => { showStatus("Pausado"); maybeShowTap(player); });
+      player.addEventListener(Twitch.Player.OFFLINE, () => { showStatus(OFF_MSG); maybeShowTap(player); });
     } catch (err) {
       fallbackIframe();
     }
@@ -105,7 +163,8 @@
       ifr.setAttribute("playsinline","true");
       ifr.src = src;
       wrap.appendChild(ifr);
-      ifr.addEventListener("load", () => { hideStatus(); maybeShowTap(); });
+      showStatus("Carregando transmissão…");
+      ifr.addEventListener("load", () => { hideStatus(); });
     }
 
     function manualStart(){
@@ -119,6 +178,7 @@
       if (tapBtn.classList.contains("show")) manualStart();
     }, { passive:true });
 
+    // Garantia de fallback se o SDK não injetar o iframe
     setTimeout(() => {
       const iframe = document.querySelector("#twitch-embed iframe");
       if (!iframe) fallbackIframe();
