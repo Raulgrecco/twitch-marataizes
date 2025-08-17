@@ -99,60 +99,83 @@
     // Domínios autorizados (parent) para o embed do Twitch
     const host = location.hostname || "tvmarataizes.com.br";
     const PARENTS = Array.from(new Set([
-      host,
-      "tvmarataizes.com.br","www.tvmarataizes.com.br",
-      "raulgrecco.github.io","github.io",
-      "localhost","127.0.0.1"
+      host,"tvmarataizes.com.br","www.tvmarataizes.com.br",
+      "raulgrecco.github.io","github.io","localhost","127.0.0.1"
     ]));
+
+    const ua = navigator.userAgent || "";
+    const inApp = /Instagram|FBAN|FBAV|FB_IAB|TikTok/i.test(ua);
 
     function hideStatus(){ statusEl.classList.add("hidden"); }
     function showStatus(msg){ if (msg) statusMsg.textContent = msg; statusEl.classList.remove("hidden"); }
 
-    function isMobile(){
-      const ua = navigator.userAgent || "";
-      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+    // 1) No Instagram/FB/TikTok, usar IFRAME direto (mais estável)
+    if (inApp) {
+      fallbackIframe(true); // força iframe imediatamente
+      // Se mesmo assim não renderizar, oferecer "Abrir no navegador"
+      setTimeout(() => {
+        const iframe = document.querySelector("#twitch-embed iframe");
+        if (!iframe || !iframe.contentWindow) {
+          showOpenInBrowserCTA();
+        }
+      }, 2500);
+    } else {
+      // Fora do in-app, usar o SDK normalmente
+      initSdkPlayer();
+      // Garantia de fallback
+      setTimeout(() => {
+        const iframe = document.querySelector("#twitch-embed iframe");
+        if (!iframe) fallbackIframe(false);
+      }, 2000);
+    }
+
+    function initSdkPlayer(){
+      let player;
+      try {
+        player = new Twitch.Player("twitch-embed", {
+          channel: TWITCH_CHANNEL,
+          width: "100%", height: "100%",
+          autoplay: true, muted: true, parent: PARENTS
+        });
+        player.addEventListener(Twitch.Player.READY, () => {
+          const iframe = document.querySelector("#twitch-embed iframe");
+          if (iframe) {
+            iframe.setAttribute("playsinline","true");
+            const allow = iframe.getAttribute("allow") || "";
+            iframe.setAttribute("allow",(allow+"; autoplay; fullscreen; picture-in-picture; encrypted-media").trim());
+          }
+          showStatus("Carregando transmissão…");
+          try { player.play(); } catch(e){}
+          maybeShowTap(player);
+        });
+        player.addEventListener(Twitch.Player.ONLINE,  () => { hideStatus(); tapBtn.classList.remove("show"); });
+        player.addEventListener(Twitch.Player.PLAY,    () => { hideStatus(); tapBtn.classList.remove("show"); });
+        player.addEventListener(Twitch.Player.PAUSE,   () => { showStatus("Pausado"); maybeShowTap(player); });
+        player.addEventListener(Twitch.Player.OFFLINE, () => { showStatus(OFF_MSG); maybeShowTap(player); });
+
+        tapBtn.addEventListener("click", () => {
+          try { player.setMuted(false); player.play(); } catch(e){}
+          tapBtn.classList.remove("show"); hideStatus();
+        });
+        document.querySelector(".player-wrap").addEventListener("click", () => {
+          if (tapBtn.classList.contains("show")) {
+            try { player.setMuted(false); player.play(); } catch(e){}
+            tapBtn.classList.remove("show"); hideStatus();
+          }
+        }, { passive:true });
+      } catch(e) {
+        fallbackIframe(false);
+      }
     }
 
     function maybeShowTap(player){
-      if (!isMobile()) return;
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
       let isMuted = true;
       try { isMuted = player.getMuted(); } catch(e){}
-      if (isMuted) tapBtn.classList.add("show");
+      if (isMobile && isMuted) tapBtn.classList.add("show");
     }
 
-    // SEM REDIRECIONAMENTO — sempre fica no site
-    let player;
-    try {
-      player = new Twitch.Player("twitch-embed", {
-        channel: TWITCH_CHANNEL,
-        width: "100%",
-        height: "100%",
-        autoplay: true,
-        muted: true,
-        parent: PARENTS
-      });
-
-      player.addEventListener(Twitch.Player.READY, () => {
-        const iframe = document.querySelector("#twitch-embed iframe");
-        if (iframe) {
-          iframe.setAttribute("playsinline","true");
-          const allow = iframe.getAttribute("allow") || "";
-          iframe.setAttribute("allow",(allow+"; autoplay; fullscreen; picture-in-picture; encrypted-media").trim());
-        }
-        showStatus("Carregando transmissão…");
-        try { player.play(); } catch(e){}
-        maybeShowTap(player);
-      });
-
-      player.addEventListener(Twitch.Player.ONLINE,  () => { hideStatus(); tapBtn.classList.remove("show"); });
-      player.addEventListener(Twitch.Player.PLAY,    () => { hideStatus(); tapBtn.classList.remove("show"); });
-      player.addEventListener(Twitch.Player.PAUSE,   () => { showStatus("Pausado"); maybeShowTap(player); });
-      player.addEventListener(Twitch.Player.OFFLINE, () => { showStatus(OFF_MSG); maybeShowTap(player); });
-    } catch (err) {
-      fallbackIframe();
-    }
-
-    function fallbackIframe(){
+    function fallbackIframe(fromInApp){
       const parents = PARENTS.map(p => "parent="+encodeURIComponent(p)).join("&");
       const src = `https://player.twitch.tv/?channel=${encodeURIComponent(TWITCH_CHANNEL)}&muted=true&autoplay=true&${parents}`;
       const wrap = document.getElementById("twitch-embed");
@@ -163,26 +186,19 @@
       ifr.setAttribute("playsinline","true");
       ifr.src = src;
       wrap.appendChild(ifr);
-      showStatus("Carregando transmissão…");
+      showStatus(fromInApp ? "Se o player não aparecer, toque em “Abrir no navegador” ou “Abrir no Twitch”." : "Carregando transmissão…");
       ifr.addEventListener("load", () => { hideStatus(); });
     }
 
-    function manualStart(){
-      try {
-        if (player && player.setMuted) { player.setMuted(false); player.play(); }
-        tapBtn.classList.remove("show"); hideStatus();
-      } catch(e) {}
+    function showOpenInBrowserCTA(){
+      showStatus('Para melhor experiência, toque em “Abrir no navegador”.');
+      const btn = document.createElement('a');
+      btn.textContent = 'Abrir no navegador';
+      btn.href = location.href; btn.target = '_blank'; btn.rel = 'noopener';
+      btn.className = 'cta show';
+      const old = document.getElementById('tapBtn');
+      old.replaceWith(btn);
     }
-    tapBtn.addEventListener("click", manualStart);
-    document.querySelector(".player-wrap").addEventListener("click", () => {
-      if (tapBtn.classList.contains("show")) manualStart();
-    }, { passive:true });
-
-    // Garantia de fallback se o SDK não injetar o iframe
-    setTimeout(() => {
-      const iframe = document.querySelector("#twitch-embed iframe");
-      if (!iframe) fallbackIframe();
-    }, 2000);
   </script>
 </body>
 </html>
