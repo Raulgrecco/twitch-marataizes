@@ -9,14 +9,11 @@
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
 <meta name="theme-color" content="#000" />
-
-<!-- Open Graph -->
 <meta property="og:title" content="TV Marataízes — ao vivo" />
 <meta property="og:description" content="Canal de streaming local de Marataízes e região. Programação ao vivo, quadros especiais e cultura capixaba." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://tvmarataizes.com.br" />
 <meta property="og:image" content="https://tvmarataizes.com.br/clima/cover.jpg" />
-
 <style>
   *{box-sizing:border-box}
   html,body{margin:0;background:#000;color:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
@@ -45,6 +42,7 @@
     <!-- PLAYER EMBUTIDO (IFRAME) -->
     <div class="player" aria-label="Player ao vivo">
       <iframe
+        id="twitchPlayer"
         title="Twitch Player"
         allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
         allowfullscreen
@@ -62,25 +60,36 @@
         ou, se preferir, abra no Twitch com um toque.
       </p>
       <div class="actions">
-        <a class="btn" href="/">📺 Programação</a>
+        <a class="btn" href="programacao.html">📺 Programação</a>
         <a class="btn primary" href="https://twitch.tv/marataizestv" target="_blank" rel="noopener">▶ Abrir no Twitch</a>
         <a class="btn" href="https://instagram.com/tvmarataizes" target="_blank" rel="noopener">📷 Instagram</a>
       </div>
-      <p class="tip">Se você abriu este link dentro do Instagram e o vídeo não aparecer, toque nos ⋯ (três pontinhos) e escolha <strong>Abrir no navegador</strong>.</p>
+      <p class="tip" id="igTip" style="display:none">Se abriu pelo Instagram e o vídeo não aparecer, toque nos ⋯ (três pontinhos) e escolha <strong>Abrir no navegador</strong>.</p>
     </section>
   </main>
 
-  <!-- Fallback simples: se o iframe não montar em 2s (caso de webview do Instagram), mostramos a dica com destaque -->
   <script>
-    setTimeout(() => {
-      const ifr = document.querySelector('.player iframe');
-      try {
-        if (!ifr || !ifr.contentWindow) {
-          document.querySelector('.tip').style.opacity = 1;
-        }
-      } catch(e){}
-    }, 2000);
+    // Redireciona automaticamente para o Twitch quando aberto DENTRO do Instagram/FB/TikTok,
+    // porque o webview deles quebra o player em vários iPhones.
+    // Use ?stay=1 para DESATIVAR o redirecionamento (útil para testes).
+    (function(){
+      const ua = navigator.userAgent || "";
+      const inApp = /Instagram|FBAN|FBAV|FB_IAB|TikTok/i.test(ua);
+      const params = new URLSearchParams(location.search);
+      const stay = params.has("stay");
+      if (inApp && !stay) {
+        location.replace("https://twitch.tv/marataizestv");
+      } else if (inApp && stay) {
+        // Mostra uma dica caso o iframe não renderize
+        document.getElementById('igTip').style.display = 'block';
+        setTimeout(() => {
+          const ifr = document.getElementById('twitchPlayer');
+          try{
+            if (!ifr || !ifr.contentWindow) document.getElementById('igTip').style.opacity = 1;
+          }catch(e){}
+        }, 2000);
+      }
+    })();
   </script>
 </body>
 </html>
-
