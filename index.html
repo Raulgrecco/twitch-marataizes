@@ -10,7 +10,7 @@
 <meta http-equiv="Expires" content="0" />
 <meta name="theme-color" content="#000" />
 
-<!-- Open Graph / Preview -->
+<!-- Open Graph -->
 <meta property="og:title" content="TV Marataízes — ao vivo" />
 <meta property="og:description" content="Canal de streaming local de Marataízes e região. Programação ao vivo, quadros especiais e cultura capixaba." />
 <meta property="og:type" content="website" />
@@ -19,172 +19,68 @@
 
 <style>
   *{box-sizing:border-box}
-  html,body{margin:0;height:100%;background:#000;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#fff}
-  header{display:flex;align-items:center;gap:12px;justify-content:center;padding:14px}
-  .logo{font-weight:900;letter-spacing:.3px;font-size:clamp(18px,2.2vw,24px)}
-  .live-dot{width:10px;height:10px;border-radius:999px;background:#ff3355;display:inline-block;margin-right:8px}
-
-  .stage{min-height:calc(100dvh - 60px);display:flex;align-items:center;justify-content:center;padding:0}
-  .player-wrap{width:100%;max-width:1200px;aspect-ratio:16/9;position:relative;background:#000}
-  #twitch-embed,.player-iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-
-  /* Overlay de status: compacto e responsivo */
-  .overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:12px;color:#fff;text-align:center;z-index:2;pointer-events:none}
-  .overlay.hidden{display:none}
-  .overlay .card{
-    pointer-events:auto;background:rgba(0,0,0,.55);backdrop-filter:blur(2px);
-    padding:14px 16px;border-radius:14px;font-weight:700;
-    font-size:clamp(14px,2.6vw,18px);line-height:1.35;max-width:min(90%,520px)
-  }
-
-  /* Botão de ação único — menor no mobile */
-  .cta{
-    position:absolute;left:50%;transform:translateX(-50%);bottom:12%;
-    width:min(90%,320px);border:0;border-radius:999px;padding:12px 18px;
-    background:#ff3355;color:#fff;font-weight:900;
-    font-size:clamp(15px,2.2vw,18px);box-shadow:0 10px 24px rgba(0,0,0,.35);
-    z-index:3;display:none;cursor:pointer
-  }
-  .cta.show{display:block}
-
-  /* Não usamos mais botões no topo dentro do vídeo */
-  .top-right{display:none}
-
-  .btn{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.18);padding:10px 14px;border-radius:10px;font-weight:700;text-decoration:none}
-  .btn:hover{background:rgba(255,255,255,.15)}
+  html,body{margin:0;background:#000;color:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+  header{display:flex;justify-content:center;align-items:center;gap:10px;padding:14px}
+  .dot{width:10px;height:10px;border-radius:999px;background:#ff3355}
+  .brand{font-weight:900;font-size:clamp(18px,2.4vw,24px)}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 12px 28px}
+  .player{position:relative;width:100%;aspect-ratio:16/9;background:#000;border:0;overflow:hidden;border-radius:12px}
+  .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .about{max-width:980px;margin:18px auto 40px;line-height:1.6}
+  .about h1{margin:0 0 10px;font-size:clamp(20px,3.6vw,28px);font-weight:900}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+  .btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;text-decoration:none;
+       padding:10px 14px;border-radius:10px;font-weight:700}
+  .btn.primary{background:#ff3355;border:0;font-weight:900}
+  .tip{margin-top:10px;font-size:clamp(12px,2.6vw,14px);opacity:.7}
 </style>
 </head>
 <body>
-  <header aria-label="Topo">
-    <span class="live-dot" aria-hidden="true"></span>
-    <div class="logo">TV Marataízes — Ao Vivo</div>
+  <header>
+    <span class="dot" aria-hidden="true"></span>
+    <div class="brand">TV Marataízes — Ao Vivo</div>
   </header>
 
-  <section class="stage" aria-label="Player ao vivo">
-    <div class="player-wrap">
-      <div id="status" class="overlay">
-        <div class="card" id="statusMsg">Carregando o player…</div>
+  <main class="wrap">
+    <!-- PLAYER EMBUTIDO (IFRAME) -->
+    <div class="player" aria-label="Player ao vivo">
+      <iframe
+        title="Twitch Player"
+        allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+        allowfullscreen
+        playsinline
+        src="https://player.twitch.tv/?channel=marataizestv&parent=tvmarataizes.com.br&parent=www.tvmarataizes.com.br&parent=raulgrecco.github.io&parent=github.io&parent=localhost&parent=127.0.0.1&muted=true&autoplay=true">
+      </iframe>
+    </div>
+
+    <!-- TEXTO ABAIXO DO VÍDEO -->
+    <section class="about" aria-label="Sobre a TV Marataízes">
+      <h1>TV Marataízes — streaming local</h1>
+      <p>
+        Somos a TV Marataízes: um canal de <strong>streaming ao vivo</strong> com programação local,
+        quadros originais e cobertura cultural da nossa região. Assista aqui pelo site
+        ou, se preferir, abra no Twitch com um toque.
+      </p>
+      <div class="actions">
+        <a class="btn" href="/">📺 Programação</a>
+        <a class="btn primary" href="https://twitch.tv/marataizestv" target="_blank" rel="noopener">▶ Abrir no Twitch</a>
+        <a class="btn" href="https://instagram.com/tvmarataizes" target="_blank" rel="noopener">📷 Instagram</a>
       </div>
+      <p class="tip">Se você abriu este link dentro do Instagram e o vídeo não aparecer, toque nos ⋯ (três pontinhos) e escolha <strong>Abrir no navegador</strong>.</p>
+    </section>
+  </main>
 
-      <!-- Botão grande aparece só quando necessário (in-app sem player) -->
-      <button id="tapBtn" class="cta" aria-label="Tocar ou desmutar">Abrir no navegador</button>
-
-      <div id="twitch-embed" role="region" aria-label="Player Twitch"></div>
-    </div>
-  </section>
-
-  <!-- Bloco "Sobre" (CTAs fora do vídeo) -->
-  <section aria-label="Sobre a TV Marataízes" style="max-width:980px;margin:24px auto 40px;padding:0 16px;line-height:1.55;">
-    <h1 style="margin:0 0 8px;font-size:clamp(20px,3.5vw,28px);font-weight:900;">
-      TV Marataízes — streaming local
-    </h1>
-    <p style="margin:0 0 14px;font-size:clamp(14px,2.4vw,18px);opacity:.9;">
-      Somos a TV Marataízes: um canal de <strong>streaming ao vivo</strong> com programação local,
-      quadros originais e cobertura cultural da nossa região. Assista aqui pelo site
-      ou, se preferir, abra no Twitch com um toque.
-    </p>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;">
-      <a href="/" class="btn">📺 Programação</a>
-      <a href="https://twitch.tv/marataizestv" target="_blank" rel="noopener" class="btn" style="background:#ff3355;border:0;font-weight:900;">▶ Abrir no Twitch</a>
-      <a href="https://instagram.com/tvmarataizes" target="_blank" rel="noopener" class="btn">📷 Instagram</a>
-    </div>
-  </section>
-
-  <script src="https://player.twitch.tv/js/embed/v1.js"></script>
+  <!-- Fallback simples: se o iframe não montar em 2s (caso de webview do Instagram), mostramos a dica com destaque -->
   <script>
-    // ====== CONFIG ======
-    const TWITCH_CHANNEL = "marataizestv";
-    const OFF_MSG = "Voltamos às 18h com nossa programação ao vivo ✨";
-
-    const statusEl  = document.getElementById("status");
-    const statusMsg = document.getElementById("statusMsg");
-    const tapBtn    = document.getElementById("tapBtn");
-
-    const host = location.hostname || "tvmarataizes.com.br";
-    const PARENTS = Array.from(new Set([
-      host,"tvmarataizes.com.br","www.tvmarataizes.com.br",
-      "raulgrecco.github.io","github.io","localhost","127.0.0.1"
-    ]));
-
-    const ua = navigator.userAgent || "";
-    const inApp = /Instagram|FBAN|FBAV|FB_IAB|TikTok/i.test(ua);
-
-    function hideStatus(){ statusEl.classList.add("hidden"); }
-    function showStatus(msg){ if (msg) statusMsg.innerHTML = msg; statusEl.classList.remove("hidden"); }
-
-    // No Instagram/FB/TikTok: tenta EMBED (iframe). Se falhar, mostra CTA "Abrir no navegador".
-    if (inApp) {
-      tapBtn.onclick = () => { window.open(location.href, "_blank", "noopener"); };
-      fallbackIframe(true);
-      setTimeout(() => {
-        const iframe = document.querySelector("#twitch-embed iframe");
-        const loaded = iframe && iframe.contentWindow;
-        if (loaded) {
-          hideStatus();
-          tapBtn.classList.remove("show"); // player OK, não precisamos do CTA
-        } else {
-          showStatus('Se o vídeo não aparecer, toque nos ⋯ (três pontinhos) e escolha <strong>Abrir no navegador</strong> ou use o botão abaixo.');
-          tapBtn.classList.add("show");
-        }
-      }, 2800);
-    } else {
-      // Fora do in-app: SDK com fallback e botão de "desmutar" quando necessário
-      initSdkPlayer();
-      setTimeout(() => {
-        const iframe = document.querySelector("#twitch-embed iframe");
-        if (!iframe) fallbackIframe(false);
-      }, 2000);
-    }
-
-    function initSdkPlayer(){
-      let player;
+    setTimeout(() => {
+      const ifr = document.querySelector('.player iframe');
       try {
-        player = new Twitch.Player("twitch-embed", {
-          channel: TWITCH_CHANNEL, width: "100%", height: "100%",
-          autoplay: true, muted: true, parent: PARENTS
-        });
-        player.addEventListener(Twitch.Player.READY, () => {
-          const iframe = document.querySelector("#twitch-embed iframe");
-          if (iframe) {
-            iframe.setAttribute("playsinline","true");
-            const allow = iframe.getAttribute("allow") || "";
-            iframe.setAttribute("allow",(allow+"; autoplay; fullscreen; picture-in-picture; encrypted-media").trim());
-          }
-          showStatus("Carregando transmissão…");
-          try { player.play(); } catch(e){}
-          maybeShowTap(player);
-        });
-        player.addEventListener(Twitch.Player.ONLINE,  () => { hideStatus(); tapBtn.classList.remove("show"); tapBtn.textContent='▶️ Tocar / Desmutar'; });
-        player.addEventListener(Twitch.Player.PLAY,    () => { hideStatus(); tapBtn.classList.remove("show"); });
-        player.addEventListener(Twitch.Player.PAUSE,   () => { showStatus("Pausado"); maybeShowTap(player); });
-        player.addEventListener(Twitch.Player.OFFLINE, () => { showStatus(OFF_MSG); tapBtn.classList.remove("show"); });
-        tapBtn.onclick = () => { try { player.setMuted(false); player.play(); } catch(e){} tapBtn.classList.remove("show"); hideStatus(); };
-        document.querySelector(".player-wrap").addEventListener("click", () => {
-          if (tapBtn.classList.contains("show")) tapBtn.onclick();
-        }, { passive:true });
-      } catch(e) { fallbackIframe(false); }
-    }
-
-    function maybeShowTap(player){
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
-      let isMuted = true; try { isMuted = player.getMuted(); } catch(e){}
-      if (isMobile && isMuted) { tapBtn.textContent='▶️ Tocar / Desmutar'; tapBtn.classList.add("show"); }
-    }
-
-    function fallbackIframe(fromInApp){
-      const parents = PARENTS.map(p => "parent="+encodeURIComponent(p)).join("&");
-      const src = `https://player.twitch.tv/?channel=${encodeURIComponent(TWITCH_CHANNEL)}&muted=true&autoplay=true&${parents}`;
-      const wrap = document.getElementById("twitch-embed");
-      wrap.innerHTML = "";
-      const ifr = document.createElement("iframe");
-      ifr.className = "player-iframe";
-      ifr.allow = "autoplay; fullscreen; picture-in-picture; encrypted-media";
-      ifr.setAttribute("playsinline","true");
-      ifr.src = src;
-      wrap.appendChild(ifr);
-      showStatus(fromInApp ? 'Tentando carregar o vídeo…' : 'Carregando transmissão…');
-      ifr.addEventListener("load", () => { hideStatus(); });
-    }
+        if (!ifr || !ifr.contentWindow) {
+          document.querySelector('.tip').style.opacity = 1;
+        }
+      } catch(e){}
+    }, 2000);
   </script>
 </body>
 </html>
+
