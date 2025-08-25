@@ -1,36 +1,36 @@
-ele tá assim pq nao rodava no celular vindo do instagram lembra? <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>TV Marataízes — ao vivo</title>
-<meta name="description" content="TV Marataízes ao vivo — programação local." />
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="Expires" content="0" />
-<meta name="theme-color" content="#000" />
-<meta property="og:title" content="TV Marataízes — ao vivo" />
-<meta property="og:description" content="Canal de streaming local de Marataízes e região. Programação ao vivo, quadros especiais e cultura capixaba." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://tvmarataizes.com.br" />
-<meta property="og:image" content="https://tvmarataizes.com.br/clima/cover.jpg" />
-<style>
-  *{box-sizing:border-box}
-  html,body{margin:0;background:#000;color:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-  header{display:flex;justify-content:center;align-items:center;gap:10px;padding:14px}
-  .dot{width:10px;height:10px;border-radius:999px;background:#ff3355}
-  .brand{font-weight:900;font-size:clamp(18px,2.4vw,24px)}
-  .wrap{max-width:1200px;margin:0 auto;padding:0 12px 28px}
-  .player{position:relative;width:100%;aspect-ratio:16/9;background:#000;border:0;overflow:hidden;border-radius:12px}
-  .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-  .about{max-width:980px;margin:18px auto 40px;line-height:1.6}
-  .about h1{margin:0 0 10px;font-size:clamp(20px,3.6vw,28px);font-weight:900}
-  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-  .btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;text-decoration:none;
-       padding:10px 14px;border-radius:10px;font-weight:700}
-  .btn.primary{background:#ff3355;border:0;font-weight:900}
-  .tip{margin-top:10px;font-size:clamp(12px,2.6vw,14px);opacity:.7}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>TV Marataízes — ao vivo</title>
+  <meta name="description" content="TV Marataízes ao vivo — programação local." />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="theme-color" content="#000" />
+  <meta property="og:title" content="TV Marataízes — ao vivo" />
+  <meta property="og:description" content="Canal de streaming local de Marataízes e região. Programação ao vivo, quadros especiais e cultura capixaba." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tvmarataizes.com.br" />
+  <meta property="og:image" content="https://tvmarataizes.com.br/clima/cover.jpg" />
+  <style>
+    *{box-sizing:border-box}
+    :root{--bg:#000;--fg:#fff;--accent:#ff3355;--glass:rgba(255,255,255,.08);--glass-b:#ffffff26;}
+    html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+    header{display:flex;justify-content:center;align-items:center;gap:10px;padding:14px}
+    .dot{width:10px;height:10px;border-radius:999px;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+    .brand{font-weight:900;font-size:clamp(18px,2.4vw,24px)}
+    .wrap{max-width:1200px;margin:0 auto;padding:0 12px 28px}
+    .player{position:relative;width:100%;aspect-ratio:16/9;background:#000;border:0;overflow:hidden;border-radius:12px}
+    .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+    .about{max-width:980px;margin:18px auto 40px;line-height:1.6}
+    .about h1{margin:0 0 10px;font-size:clamp(20px,3.6vw,28px);font-weight:900}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .btn{background:var(--glass);border:1px solid var(--glass-b);color:#fff;text-decoration:none;padding:10px 14px;border-radius:10px;font-weight:700}
+    .btn.primary{background:var(--accent);border:0;font-weight:900}
+    noscript{display:block;margin:16px 0 0;opacity:.8}
+  </style>
 </head>
 <body>
   <header>
@@ -39,56 +39,50 @@ ele tá assim pq nao rodava no celular vindo do instagram lembra? <!DOCTYPE html
   </header>
 
   <main class="wrap">
-    <!-- PLAYER EMBUTIDO (IFRAME) -->
+    <!-- PLAYER (navegadores normais) -->
     <div class="player" aria-label="Player ao vivo">
       <iframe
         id="twitchPlayer"
-        title="Twitch Player"
+        title="Player ao vivo"
         allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
         allowfullscreen
         playsinline
-        src="https://player.twitch.tv/?channel=marataizestv&parent=tvmarataizes.com.br&parent=www.tvmarataizes.com.br&parent=raulgrecco.github.io&parent=github.io&parent=localhost&parent=127.0.0.1&muted=true&autoplay=true">
+        webkit-playsinline
+        src="https://player.twitch.tv/?channel=marataizestv&parent=tvmarataizes.com.br&parent=www.tvmarataizes.com.br&muted=true&autoplay=true">
       </iframe>
+      <noscript>
+        Para assistir, ative o JavaScript. Link direto do player:
+        <a class="btn" href="https://player.twitch.tv/?channel=marataizestv" rel="noopener">Abrir player</a>
+      </noscript>
     </div>
 
-    <!-- TEXTO ABAIXO DO VÍDEO -->
     <section class="about" aria-label="Sobre a TV Marataízes">
       <h1>TV Marataízes — streaming local</h1>
       <p>
-        Somos a TV Marataízes: um canal de <strong>streaming ao vivo</strong> com programação local,
-        quadros originais e cobertura cultural da nossa região. Assista aqui pelo site
-        ou, se preferir, abra no Twitch com um toque.
+        Canal de <strong>streaming ao vivo</strong> com programação local, quadros originais e cobertura cultural da nossa região.
+        Assista aqui no site em tela cheia e volte sempre para conferir as novidades.
       </p>
       <div class="actions">
-        <a class="btn" href="programacao.html">📺 Programação</a>
-        <a class="btn primary" href="https://twitch.tv/marataizestv" target="_blank" rel="noopener">▶ Abrir no Twitch</a>
+        <a class="btn" href="/programacao.html">📺 Programação</a>
         <a class="btn" href="https://instagram.com/tvmarataizes" target="_blank" rel="noopener">📷 Instagram</a>
       </div>
-      <p class="tip" id="igTip" style="display:none">Se abriu pelo Instagram e o vídeo não aparecer, toque nos ⋯ (três pontinhos) e escolha <strong>Abrir no navegador</strong>.</p>
     </section>
   </main>
 
   <script>
-    // Redireciona automaticamente para o Twitch quando aberto DENTRO do Instagram/FB/TikTok,
-    // porque o webview deles quebra o player em vários iPhones.
-    // Use ?stay=1 para DESATIVAR o redirecionamento (útil para testes).
     (function(){
       const ua = navigator.userAgent || "";
       const inApp = /Instagram|FBAN|FBAV|FB_IAB|TikTok/i.test(ua);
       const params = new URLSearchParams(location.search);
-      const stay = params.has("stay");
+      const stay = params.has("stay"); // use ?stay=1 para testar sem redirecionar
+
+      // Em webview (IG/FB/TikTok) redireciona para o POP-OUT do player (sem chat/contador)
       if (inApp && !stay) {
-        location.replace("https://twitch.tv/marataizestv");
-      } else if (inApp && stay) {
-        // Mostra uma dica caso o iframe não renderize
-        document.getElementById('igTip').style.display = 'block';
-        setTimeout(() => {
-          const ifr = document.getElementById('twitchPlayer');
-          try{
-            if (!ifr || !ifr.contentWindow) document.getElementById('igTip').style.opacity = 1;
-          }catch(e){}
-        }, 2000);
+        location.replace("https://player.twitch.tv/?channel=marataizestv");
       }
+
+      // Opcional: se você for testar em outro domínio, adicione mais parents:
+      // document.getElementById('twitchPlayer').src += "&parent=SEU_OUTRO_DOMINIO.com";
     })();
   </script>
 </body>
