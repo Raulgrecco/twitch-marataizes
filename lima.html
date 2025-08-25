@@ -3,41 +3,33 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Falar no WhatsApp – Lima Veículos</title>
-  <!-- Meta refresh como segundo fallback -->
+  <title>WhatsApp – Lima Veículos</title>
   <meta http-equiv="refresh" content="3;url=https://api.whatsapp.com/send?phone=5528992543494&text=Mandei%20mensagem%20pela%20TV%20Marata%C3%ADzes%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20carros" />
   <style>
-    body{margin:0;display:flex;align-items:center;justify-content:center;height:100svh;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#000;color:#fff}
+    body{margin:0;display:flex;align-items:center;justify-content:center;height:100svh;
+         font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#000;color:#fff}
     .card{max-width:560px;padding:24px;text-align:center;border:1px solid #333;border-radius:14px;background:#0b0b0b}
-    h1{font-size:clamp(20px,3vw,28px);margin:0 0 10px}
-    p{opacity:.85;margin:0 0 18px;line-height:1.5}
-    a.btn{display:inline-block;padding:14px 18px;border-radius:10px;border:1px solid #333;text-decoration:none;color:#fff}
+    a.btn{display:inline-block;padding:14px 18px;border-radius:10px;border:1px solid #333;
+          text-decoration:none;color:#fff}
   </style>
 </head>
 <body>
   <div class="card">
-    <h1>Abrindo WhatsApp do Lima Veículos…</h1>
-    <p>Se não abrir sozinho em 1–2 segundos, toque no botão abaixo:</p>
-    <p>
-      <a class="btn" id="whatsBtn" href="https://api.whatsapp.com/send?phone=5528992543494&text=Mandei%20mensagem%20pela%20TV%20Marata%C3%ADzes%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20carros" rel="noopener">Abrir no WhatsApp</a>
-    </p>
+    <h1>Abrindo o WhatsApp do Lima Veículos…</h1>
+    <p>Se não abrir sozinho, toque abaixo:</p>
+    <p><a class="btn" id="whatsBtn"
+      href="https://api.whatsapp.com/send?phone=5528992543494&text=Mandei%20mensagem%20pela%20TV%20Marata%C3%ADzes%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20carros"
+      rel="noopener">Abrir no WhatsApp</a></p>
   </div>
-
   <script>
-    // Tenta primeiro via API oficial; se falhar, cai pro wa.me
-    const msg = "Mandei mensagem pela TV Marataízes e gostaria de mais informações sobre os carros";
-    const encoded = encodeURIComponent(msg);
-    const apiUrl = `https://api.whatsapp.com/send?phone=5528992543494&text=${encoded}`;
-    const waUrl  = `https://wa.me/5528992543494?text=${encoded}`;
-
-    // Redireciona já no carregamento
+    const msg = encodeURIComponent("Mandei mensagem pela TV Marataízes e gostaria de mais informações sobre os carros");
+    const apiUrl = `https://api.whatsapp.com/send?phone=5528992543494&text=${msg}`;
+    const waUrl  = `https://wa.me/5528992543494?text=${msg}`;
     try {
-      window.location.replace(apiUrl);
-      // Se em 1200ms não sair da página, tenta o wa.me
-      setTimeout(() => { window.location.href = waUrl; }, 1200);
-    } catch (e) {
-      // Último recurso: link do botão já está setado
-      document.getElementById('whatsBtn').setAttribute('href', waUrl);
+      location.replace(apiUrl);
+      setTimeout(()=>{ location.href = waUrl; }, 1200);
+    } catch(e){
+      document.getElementById('whatsBtn').href = waUrl;
     }
   </script>
 </body>
