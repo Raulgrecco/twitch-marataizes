@@ -8,11 +8,58 @@
   <style>
     html,body{height:100%;margin:0;background:#000;color:#fff;
       font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      display:flex;align-items:center;justify-content:center}
-    a{color:#25D366;text-decoration:none}
+      display:flex;align-items:center;justify-content:center;padding:20px}
+    .box{max-width:680px;text-align:center}
+    .btn{display:inline-block;margin-top:10px;padding:12px 16px;border-radius:10px;
+      background:#25D366;color:#000;text-decoration:none;font-weight:900}
+    .hint{color:#bdbdbd;font-size:14px;margin-top:10px}
   </style>
 </head>
 <body>
-  <div>
-    <p>Abrindo o WhatsApp da <strong>Lima Veículos</strong>…</p>
-    <p>Se não abrir, toque: <a i
+  <main class="box">
+    <h1>Abrindo o WhatsApp da <strong>Lima Veículos</strong>…</h1>
+    <p>Se não abrir sozinho com a mensagem preenchida, toque no botão abaixo.</p>
+    <p><a id="btn" class="btn" href="#" rel="noopener">Abrir no WhatsApp</a></p>
+    <p class="hint">Dica: no Instagram, toque em <em>“Abrir no navegador”</em>.</p>
+  </main>
+
+  <script>
+    (function () {
+      const phone = "5528992543494";
+      const rawMsg = "Vim pela TV Marataízes";
+      const encoded = encodeURIComponent(rawMsg);
+
+      const deepLink = `whatsapp://send?phone=${phone}&text=${encoded}`; // abre app direto
+      const apiLink  = `https://api.whatsapp.com/send?phone=${phone}&text=${encoded}`;
+      const waLink   = `https://wa.me/${phone}?text=${encoded}`;
+
+      // botão de fallback
+      document.getElementById("btn").href = apiLink;
+
+      // copia a mensagem (caso o app bloqueie o preenchimento)
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(rawMsg).catch(()=>{});
+      }
+
+      // Sequência de abertura: app -> api -> wa.me
+      // Muitos webviews bloqueiam esquemas "whatsapp://", por isso os fallbacks.
+      function tryOpen() {
+        // 1) tenta o app
+        window.location.href = deepLink;
+
+        // 2) se a aba continuar visível após 800ms, tenta a API
+        setTimeout(() => {
+          if (!document.hidden) window.location.href = apiLink;
+        }, 800);
+
+        // 3) se ainda continuar visível após 2s, força wa.me
+        setTimeout(() => {
+          if (!document.hidden) window.location.href = waLink;
+        }, 2000);
+      }
+
+      tryOpen();
+    })();
+  </script>
+</body>
+</html>
