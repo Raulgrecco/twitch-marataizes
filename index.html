@@ -5,106 +5,147 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 
-  <title>Lima Veículos — Atendimento via WhatsApp | TV Marataízes</title>
-  <meta name="description" content="Fale agora com a Lima Veículos pelo WhatsApp via TV Marataízes. Atendimento rápido e transparente." />
+  <!-- Títulos serão ajustados via JS conforme a rota -->
+  <title>TV Marataízes — ao vivo</title>
+  <meta name="description" content="TV Marataízes: canal digital do sul do Espírito Santo. Programação ao vivo, quadros originais e cobertura regional." />
   <meta name="theme-color" content="#000000" />
   <meta name="format-detection" content="telephone=no" />
 
-  <!-- Cache control (mantém comportamento do seu site) -->
+  <!-- Cache control -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
 
-  <!-- Canonical e OG/Twitter -->
-  <link rel="canonical" href="https://tvmarataizes.digital/lima.html" />
-  <meta property="og:title" content="Lima Veículos — Atendimento no WhatsApp" />
-  <meta property="og:description" content="Clique para abrir o WhatsApp e falar agora com a Lima Veículos." />
+  <!-- OG/Twitter básicos (domínio novo .digital) -->
+  <link rel="canonical" href="https://tvmarataizes.digital/" />
+  <meta property="og:title" content="TV Marataízes — ao vivo" />
+  <meta property="og:description" content="Canal de streaming local de Marataízes e região." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://tvmarataizes.digital/lima.html" />
+  <meta property="og:url" content="https://tvmarataizes.digital/" />
   <meta property="og:image" content="https://tvmarataizes.digital/assets/og/tv-marataizes.jpg" />
   <meta property="og:locale" content="pt_BR" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Lima Veículos — WhatsApp" />
-  <meta name="twitter:description" content="Atendimento imediato via WhatsApp." />
+  <meta name="twitter:title" content="TV Marataízes — ao vivo" />
+  <meta name="twitter:description" content="Programação ao vivo e conteúdos originais." />
   <meta name="twitter:image" content="https://tvmarataizes.digital/assets/og/tv-marataizes.jpg" />
 
-  <!-- Prefetch/Preconnect (mantém performance e evita bloqueio em webviews) -->
+  <!-- Prefetch/Preconnect -->
   <link rel="dns-prefetch" href="//api.whatsapp.com" />
   <link rel="preconnect" href="https://api.whatsapp.com" crossorigin />
   <link rel="dns-prefetch" href="//fonts.gstatic.com" />
   <link rel="dns-prefetch" href="//fonts.googleapis.com" />
 
-  <!-- Ícones / Manifest (ajuste os caminhos conforme seu site) -->
+  <!-- Ícones / Manifest (ajuste os caminhos se preciso) -->
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
 
-  <!-- Seus estilos/JS globais (use os mesmos do index) -->
-  <link rel="stylesheet" href="/css/styles.css" />
-  <script defer src="/js/main.js"></script>
-
-  <!-- Estilo local isolado pra esta página (não conflita com seu tema) -->
+  <!-- Estilo mínimo (não conflita com tema externo) -->
   <style>
-    #lima-page { min-height: 100dvh; background:#0b0b0b; color:#f4f4f4; display:flex; flex-direction:column; }
-    #lima-page .container { width:min(1100px, 100%); margin-inline:auto; padding:24px; }
-    #lima-page header, #lima-page footer { border-color:#1f1f1f; }
-    #lima-page header { border-bottom:1px solid; }
-    #lima-page footer { border-top:1px solid; color:#9aa0a6; font-size:13px; }
-    #lima-page .brand { display:flex; gap:10px; align-items:center; font-weight:700; letter-spacing:.2px; }
-    #lima-page .brand small { opacity:.7; font-weight:500; }
-    #lima-page main { flex:1; display:grid; place-items:center; padding:32px 24px; }
-    #lima-page .card {
-      width:min(760px,100%); background:#121212; border:1px solid #1f1f1f;
-      border-radius:16px; padding:28px; box-shadow:0 6px 24px rgba(0,0,0,.35);
+    :root { --bg:#0b0b0b; --card:#151515; --line:#1f1f1f; --fg:#f4f4f4; --muted:#c7c7c7; --muted2:#9aa0a6; --brand:#25D366; }
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu}
+    header{position:sticky;top:0;background:#0d0d0d;border-bottom:1px solid var(--line);z-index:10}
+    .container{width:min(1200px,100%);margin-inline:auto;padding:14px 20px}
+    .brand{display:flex;gap:10px;align-items:center;font-weight:800}
+    .brand small{opacity:.8;font-weight:600}
+    main{padding:40px 20px}
+    .center{display:grid;place-items:center}
+    .card{
+      width:min(820px,100%);background:var(--card);border:1px solid var(--line);
+      border-radius:18px;padding:28px;box-shadow:0 10px 30px rgba(0,0,0,.35)
     }
-    #lima-page h1 { margin:0 0 8px; font-size:24px; line-height:1.25; }
-    #lima-page p.lead { margin:0 0 16px; color:#c7c7c7; }
-    #lima-page .cta {
-      display:inline-block; padding:14px 18px; border-radius:12px; background:#25D366; color:#000;
-      font-weight:800; text-decoration:none; transition:transform .05s ease-in;
-    }
-    #lima-page .cta:active { transform:translateY(1px) }
-    #lima-page .alt { display:block; margin-top:12px; font-size:14px; color:#9aa0a6; }
-    #lima-page .meta { margin-top:16px; font-size:12px; color:#9aa0a6; }
-    #lima-page .meta code { background:#0f0f0f; border:1px solid #1c1c1c; padding:2px 6px; border-radius:6px }
+    h1{margin:0 0 8px;font-size:26px;line-height:1.25}
+    p.lead{margin:0 0 18px;color:var(--muted)}
+    a.cta{display:inline-block;padding:14px 18px;border-radius:12px;background:var(--brand);color:#000;
+          font-weight:900;text-decoration:none}
+    a.cta:active{transform:translateY(1px)}
+    a.alt{display:block;margin-top:12px;font-size:14px;color:var(--muted2)}
+    .meta{margin-top:12px;font-size:12px;color:var(--muted2)}
+    .meta code{background:#0f0f0f;border:1px solid #1c1c1c;padding:2px 6px;border-radius:6px}
+
+    /* se quiser, esconda a home quando estiver usando só a rota /lima */
+    #homeWrap{display:block}
+    #limaWrap{display:none}
   </style>
-
-  <!-- JSON-LD simples (ajuda a manter padrão SEO do site) -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"WebPage",
-    "name":"Lima Veículos — Atendimento via WhatsApp",
-    "url":"https://tvmarataizes.digital/lima.html",
-    "isPartOf":{"@type":"WebSite","name":"TV Marataízes","url":"https://tvmarataizes.digital"}
-  }
-  </script>
 </head>
-<body class="is-lima">
-  <div id="lima-page">
-    <!-- Cabeçalho: se você tiver um header global, pode manter este bloco ou substituí-lo pelo seu -->
-    <header>
-      <div class="container">
-        <div class="brand">📺 TV Marataízes <small>• 🚗 Lima Veículos</small></div>
-      </div>
-    </header>
+<body>
+  <header>
+    <div class="container brand">📺 TV Marataízes <small id="routeTag"></small></div>
+  </header>
 
-    <main>
+  <!-- HOME (genérica) -->
+  <main id="homeWrap">
+    <div class="container">
       <div class="card">
-        <h1>Fale agora com a <strong>Lima Veículos</strong> no WhatsApp</h1>
-        <p class="lead">Atendimento rápido. Tire dúvidas, consulte estoque e condições.</p>
+        <h1>TV Marataízes — ao vivo</h1>
+        <p class="lead">Programação local, quadros originais e cobertura da região.</p>
+        <p class="meta">Dica: acesse <code>tvmarataizes.digital/lima</code> para a página de WhatsApp da Lima Veículos.</p>
+      </div>
+    </div>
+  </main>
 
-        <!-- Botão principal: o href é preenchido via JS mantendo UTMs -->
-        <a id="whatsapp-cta" class="cta" href="#" target="_blank" rel="noopener">Abrir no WhatsApp</a>
+  <!-- LIMA PAGE (aparece quando a rota for /lima) -->
+  <main id="limaWrap" class="center">
+    <div class="card">
+      <h1>Fale agora com a <strong>Lima Veículos</strong> no WhatsApp</h1>
+      <p class="lead">Atendimento rápido. Tire dúvidas, consulte estoque e condições.</p>
 
-        <!-- Links alternativos/fallback -->
-        <a class="alt" href="tel:+5528992543494">ou ligue para (28) 99254-3494</a>
+      <a id="wa" class="cta" href="#" target="_blank" rel="noopener">Abrir no WhatsApp</a>
+      <a class="alt" href="tel:+5528992543494">ou ligue para (28) 99254-3494</a>
 
-        <div class="meta">
-          Dica: se o app não abrir dentro do Instagram, toque em <em>“Abrir no navegador”</em> e tente novamente.
-          <br />Este link preserva <code>utm_*</code> / <code>ad_id</code> / <code>campaign_id</code> da campanha.
-        </div>
+      <div class="meta">
+        Dica: se o app não abrir dentro do Instagram, toque em <em>“Abrir no navegador”</em> e tente novamente.
+        <br/>Este link preserva <code>utm_*</code> / <code>ad_id</code> / <code>campaign_id</code> da campanha.
+      </div>
 
-        <!-- Fallback para navegadores sem JS -->
-        <noscript>
-          <p><a class="cta" href="
+      <noscript>
+        <p><a class="cta" href="https://api.whatsapp.com/send?phone=5528992543494&text=Mandei%20mensagem%20pela%20TV%20Marata%C3%ADzes%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20carros.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Abrir no WhatsApp</a></p>
+      </noscript>
+    </div>
+  </main>
+
+  <script>
+  (function() {
+    // detecta se a rota é /lima (aceita com e sem barra final)
+    var isLima = /(^|\/)lima\/?$/.test(location.pathname);
+
+    var home = document.getElementById('homeWrap');
+    var lima = document.getElementById('limaWrap');
+    var tag  = document.getElementById('routeTag');
+
+    if (isLima) {
+      // mostra LIMA e ajusta títulos/OG básicos
+      home.style.display = 'none';
+      lima.style.display = 'block';
+      document.title = 'Lima Veículos — WhatsApp | TV Marataízes';
+      if (tag) tag.textContent = '• 🚗 Lima Veículos';
+
+      // monta mensagem do WhatsApp preservando UTMs/ad_ids
+      var params = new URLSearchParams(location.search);
+      var keep = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','ad_id','adset_id','campaign_id'];
+      var tags = keep.filter(function(k){ return params.get(k); })
+                     .map(function(k){ return k + '=' + params.get(k); })
+                     .join(' | ');
+
+      var baseMsg = 'Mandei mensagem pela TV Marataízes e gostaria de mais informações sobre os carros. Pode me atender?';
+      var msg = tags ? (baseMsg + ' (' + tags + ')') : baseMsg;
+
+      var phone = '5528992543494';
+      var url = 'https://api.whatsapp.com/send?phone=' + phone + '&text=' + encodeURIComponent(msg);
+
+      var a = document.getElementById('wa');
+      if (a) a.href = url;
+
+      // autoabrir se ?auto=1
+      if (params.get('auto') === '1') {
+        setTimeout(function(){ location.href = url; }, 1200);
+      }
+    } else {
+      // estamos na home
+      if (tag) tag.textContent = '';
+    }
+  })();
+  </script>
+</body>
+</html>
