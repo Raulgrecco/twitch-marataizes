@@ -4,37 +4,16 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-
   <title>TV Marataízes — ao vivo</title>
   <meta name="description" content="TV Marataízes: canal digital do sul do Espírito Santo. Programação ao vivo, quadros originais e cobertura regional." />
   <meta name="theme-color" content="#000000" />
-  <meta name="format-detection" content="telephone=no" />
-
-  <!-- anti-cache -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-
-  <!-- SEO/OG -->
   <link rel="canonical" href="https://tvmarataizes.digital/" />
-  <meta property="og:title" content="TV Marataízes — ao vivo" />
-  <meta property="og:description" content="Canal de streaming local de Marataízes e região." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://tvmarataizes.digital/" />
-  <meta property="og:image" content="https://tvmarataizes.digital/assets/og/tv-marataizes.jpg" />
-  <meta property="og:locale" content="pt_BR" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="TV Marataízes — ao vivo" />
-  <meta name="twitter:description" content="Programação ao vivo e conteúdos originais." />
-  <meta name="twitter:image" content="https://tvmarataizes.digital/assets/og/tv-marataizes.jpg" />
-
   <style>
-    :root{
-      --bg:#0b0b0b; --panel:#111; --line:#1f1f1f; --fg:#f4f4f4; --muted:#c7c7c7; --soft:#9aa0a6;
-      --cta:#16a34a;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    :root{--bg:#0b0b0b;--panel:#111;--line:#1f1f1f;--fg:#f4f4f4;--muted:#c7c7c7;--soft:#9aa0a6;--cta:#16a34a}
+    *{box-sizing:border-box} html,body{height:100%}
     body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu}
     a{color:inherit}
     header{position:sticky;top:0;background:#0e0e0e;border-bottom:1px solid var(--line);z-index:10}
@@ -43,14 +22,13 @@
     .brand small{opacity:.85;font-weight:600}
     main{padding:28px 18px}
     .grid{display:grid;grid-template-columns:1fr;gap:18px}
-    @media(min-width:900px){ .grid{grid-template-columns:2fr 1fr} }
+    @media(min-width:900px){.grid{grid-template-columns:2fr 1fr}}
     .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 28px rgba(0,0,0,.35)}
-    .playerWrap{aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000;position:relative}
+    .playerWrap{aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000}
     .pad{padding:18px}
     h1{margin:0 0 6px;font-size:24px;line-height:1.2}
     p.lead{margin:0 0 12px;color:var(--muted)}
-    .btn{display:inline-block;background:var(--cta);color:#000;border-radius:12px;padding:12px 16px;
-         text-decoration:none;font-weight:900}
+    .btn{display:inline-block;background:var(--cta);color:#000;border-radius:12px;padding:12px 16px;text-decoration:none;font-weight:900}
     .btn:active{transform:translateY(1px)}
     .note{font-size:13px;color:var(--soft);margin-top:10px}
     .list{display:grid;gap:10px;margin:0;padding:0;list-style:none}
@@ -65,26 +43,27 @@
 
   <main>
     <div class="container grid">
-      <!-- PLAYER -->
+      <!-- PLAYER AO VIVO (CASTR) -->
       <section class="panel pad">
         <h1>Ao vivo agora</h1>
         <p class="lead">Programação local, quadros originais e cobertura regional.</p>
 
-        <div class="playerWrap" id="playerWrap">
-          <!-- iFrame do Castr -->
+        <div class="playerWrap">
+          <!-- USE SEMPRE O EMBED URL DO CASTR (não use castr.com/app/...) -->
           <iframe
-            id="castrPlayer"
             src="https://player.castr.com/dynamic/68ad1f2a9b564e2927edc970"
             allow="autoplay; fullscreen; picture-in-picture"
             allowfullscreen
             frameborder="0"
             scrolling="no"
-            style="width:100%;height:100%;">
+            loading="lazy"
+            style="width:100%;height:100%">
           </iframe>
         </div>
 
-        <div class="note" id="playerNote">
-          Se o vídeo não carregar, toque em <strong>“Abrir no navegador”</strong> e tente novamente.
+        <div class="note">
+          Se o vídeo não carregar, toque em <strong>“Abrir no navegador”</strong>. <br/>
+          Se aparecer aviso de plano/stream desabilitado, ative o stream no painel do Castr.
         </div>
       </section>
 
@@ -102,14 +81,11 @@
             <div class="note">Abre o WhatsApp do anunciante.</div>
           </li>
           <li class="item">
-            <a class="btn" href="https://www.instagram.com/tvmarataizes/" target="_blank" rel="noopener"
-               style="display:block;text-align:center">Instagram oficial</a>
+            <a class="btn" href="https://www.instagram.com/tvmarataizes/" target="_blank" rel="noopener" style="display:block;text-align:center">Instagram oficial</a>
           </li>
         </ul>
 
-        <div class="note" style="margin-top:14px">
-          Produção: Macuca Produções • Marataízes/ES
-        </div>
+        <div class="note" style="margin-top:14px">Produção: Macuca Produções • Marataízes/ES</div>
       </aside>
     </div>
 
@@ -118,21 +94,6 @@
     </footer>
   </main>
 
-  <script>
-    // Ano no rodapé
-    document.getElementById('y').textContent = new Date().getFullYear();
-
-    // Aviso explícito se o embed do Castr estiver com plano inativo
-    // (não há API pública; mostramos uma dica se a origem não carregar em 4s)
-    setTimeout(function(){
-      var frame = document.getElementById('castrPlayer');
-      try {
-        // se não conseguir acessar window (cross-origin), apenas mostra a dica extra
-        document.getElementById('playerNote').innerHTML =
-          'Se aparecer mensagem de plano/erro no player, é necessário reativar o Castr. ' +
-          'Enquanto isso, poste vídeos gravados ou use um fallback.';
-      } catch(e){}
-    }, 4000);
-  </script>
+  <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
 </body>
 </html>
