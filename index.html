@@ -28,13 +28,10 @@
     .lead{color:var(--muted);font-size:clamp(14px,2.4vw,17px);line-height:1.7;margin:0}
     .copy{margin-top:14px;color:var(--fg);font-size:clamp(15px,2.6vw,18px);line-height:1.75}
     .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-    .btn{background:var(--card);border:1px solid var(--stroke);color:var(--fg);text-decoration:none;padding:11px 16px;border-radius:10px;font-weight:700;display:inline-flex;align-items:center;gap:.5rem}
+    .btn{background:var(--card);border:1px solid var(--stroke);color:var(--fg);text-decoration:none; padding:11px 16px;border-radius:10px;font-weight:700;display:inline-flex;align-items:center;gap:.5rem}
     .btn.primary{background:var(--accent);border:0;font-weight:900}
     .tip{margin-top:10px;font-size:clamp(12px,2.6vw,14px);opacity:.7;display:none}
-    @media (max-width:420px){
-      .about{margin-top:12px}
-      .player{border-radius:10px}
-    }
+    @media (max-width:420px){ .about{margin-top:12px} .player{border-radius:10px} }
   </style>
 </head>
 <body>
@@ -57,7 +54,7 @@
       </iframe>
     </div>
 
-    <!-- TEXTO PROFISSIONAL -->
+    <!-- TEXTO -->
     <section class="about" aria-label="Sobre a TV Marataízes">
       <h1>TV Marataízes — a TV digital do Sul do Espírito Santo</h1>
       <p class="lead">
@@ -85,4 +82,11 @@
   </main>
 
   <script>
-    // mostra a dica em webviews (Instagram/FB/TikTok), sem
+    // mostra a dica em webviews (Instagram/FB/TikTok), sem redirecionar
+    (function(){
+      const inApp = /Instagram|FBAN|FBAV|FB_IAB|TikTok/i.test(navigator.userAgent||"");
+      if (inApp) document.getElementById('igTip').style.display = 'block';
+    })();
+  </script>
+</body>
+</html>
