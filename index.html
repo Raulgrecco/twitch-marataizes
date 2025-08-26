@@ -5,18 +5,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 
-  <!-- Títulos serão ajustados via JS conforme a rota -->
   <title>TV Marataízes — ao vivo</title>
   <meta name="description" content="TV Marataízes: canal digital do sul do Espírito Santo. Programação ao vivo, quadros originais e cobertura regional." />
   <meta name="theme-color" content="#000000" />
   <meta name="format-detection" content="telephone=no" />
 
-  <!-- Cache control -->
+  <!-- anti-cache -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
 
-  <!-- OG/Twitter básicos (domínio novo .digital) -->
+  <!-- SEO/OG -->
   <link rel="canonical" href="https://tvmarataizes.digital/" />
   <meta property="og:title" content="TV Marataízes — ao vivo" />
   <meta property="og:description" content="Canal de streaming local de Marataízes e região." />
@@ -29,123 +28,111 @@
   <meta name="twitter:description" content="Programação ao vivo e conteúdos originais." />
   <meta name="twitter:image" content="https://tvmarataizes.digital/assets/og/tv-marataizes.jpg" />
 
-  <!-- Prefetch/Preconnect -->
-  <link rel="dns-prefetch" href="//api.whatsapp.com" />
-  <link rel="preconnect" href="https://api.whatsapp.com" crossorigin />
-  <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-
-  <!-- Ícones / Manifest (ajuste os caminhos se preciso) -->
-  <link rel="icon" href="/favicon.ico" sizes="any" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <link rel="manifest" href="/site.webmanifest" />
-
-  <!-- Estilo mínimo (não conflita com tema externo) -->
   <style>
-    :root { --bg:#0b0b0b; --card:#151515; --line:#1f1f1f; --fg:#f4f4f4; --muted:#c7c7c7; --muted2:#9aa0a6; --brand:#25D366; }
-    html,body{height:100%}
-    body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu}
-    header{position:sticky;top:0;background:#0d0d0d;border-bottom:1px solid var(--line);z-index:10}
-    .container{width:min(1200px,100%);margin-inline:auto;padding:14px 20px}
-    .brand{display:flex;gap:10px;align-items:center;font-weight:800}
-    .brand small{opacity:.8;font-weight:600}
-    main{padding:40px 20px}
-    .center{display:grid;place-items:center}
-    .card{
-      width:min(820px,100%);background:var(--card);border:1px solid var(--line);
-      border-radius:18px;padding:28px;box-shadow:0 10px 30px rgba(0,0,0,.35)
+    :root{
+      --bg:#0b0b0b; --panel:#111; --line:#1f1f1f; --fg:#f4f4f4; --muted:#c7c7c7; --soft:#9aa0a6;
+      --cta:#16a34a;
     }
-    h1{margin:0 0 8px;font-size:26px;line-height:1.25}
-    p.lead{margin:0 0 18px;color:var(--muted)}
-    a.cta{display:inline-block;padding:14px 18px;border-radius:12px;background:var(--brand);color:#000;
-          font-weight:900;text-decoration:none}
-    a.cta:active{transform:translateY(1px)}
-    a.alt{display:block;margin-top:12px;font-size:14px;color:var(--muted2)}
-    .meta{margin-top:12px;font-size:12px;color:var(--muted2)}
-    .meta code{background:#0f0f0f;border:1px solid #1c1c1c;padding:2px 6px;border-radius:6px}
-
-    /* se quiser, esconda a home quando estiver usando só a rota /lima */
-    #homeWrap{display:block}
-    #limaWrap{display:none}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu}
+    a{color:inherit}
+    header{position:sticky;top:0;background:#0e0e0e;border-bottom:1px solid var(--line);z-index:10}
+    .container{width:min(1140px,100%);margin-inline:auto;padding:14px 18px}
+    .brand{display:flex;gap:10px;align-items:center;font-weight:900;letter-spacing:.2px}
+    .brand small{opacity:.85;font-weight:600}
+    main{padding:28px 18px}
+    .grid{display:grid;grid-template-columns:1fr;gap:18px}
+    @media(min-width:900px){ .grid{grid-template-columns:2fr 1fr} }
+    .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 28px rgba(0,0,0,.35)}
+    .playerWrap{aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000;position:relative}
+    .pad{padding:18px}
+    h1{margin:0 0 6px;font-size:24px;line-height:1.2}
+    p.lead{margin:0 0 12px;color:var(--muted)}
+    .btn{display:inline-block;background:var(--cta);color:#000;border-radius:12px;padding:12px 16px;
+         text-decoration:none;font-weight:900}
+    .btn:active{transform:translateY(1px)}
+    .note{font-size:13px;color:var(--soft);margin-top:10px}
+    .list{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+    .item{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#0f0f0f}
+    footer{border-top:1px solid var(--line);margin-top:24px}
   </style>
 </head>
 <body>
   <header>
-    <div class="container brand">📺 TV Marataízes <small id="routeTag"></small></div>
+    <div class="container brand">📺 TV Marataízes <small>Canal digital</small></div>
   </header>
 
-  <!-- HOME (genérica) -->
-  <main id="homeWrap">
-    <div class="container">
-      <div class="card">
-        <h1>TV Marataízes — ao vivo</h1>
-        <p class="lead">Programação local, quadros originais e cobertura da região.</p>
-        <p class="meta">Dica: acesse <code>tvmarataizes.digital/lima</code> para a página de WhatsApp da Lima Veículos.</p>
-      </div>
+  <main>
+    <div class="container grid">
+      <!-- PLAYER -->
+      <section class="panel pad">
+        <h1>Ao vivo agora</h1>
+        <p class="lead">Programação local, quadros originais e cobertura regional.</p>
+
+        <div class="playerWrap" id="playerWrap">
+          <!-- iFrame do Castr -->
+          <iframe
+            id="castrPlayer"
+            src="https://player.castr.com/dynamic/68ad1f2a9b564e2927edc970"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowfullscreen
+            frameborder="0"
+            scrolling="no"
+            style="width:100%;height:100%;">
+          </iframe>
+        </div>
+
+        <div class="note" id="playerNote">
+          Se o vídeo não carregar, toque em <strong>“Abrir no navegador”</strong> e tente novamente.
+        </div>
+      </section>
+
+      <!-- LATERAL -->
+      <aside class="panel pad">
+        <h2 style="margin:0 0 8px;font-size:18px">Sobre</h2>
+        <p class="lead" style="font-size:15px">
+          A TV Marataízes é um canal de TV digital independente do sul do Espírito Santo.
+          Conteúdo local de verdade, feito por quem vive a região.
+        </p>
+
+        <ul class="list" style="margin-top:12px">
+          <li class="item">
+            <a class="btn" href="/lima/" style="display:block;text-align:center">Falar com a Lima Veículos</a>
+            <div class="note">Abre o WhatsApp do anunciante.</div>
+          </li>
+          <li class="item">
+            <a class="btn" href="https://www.instagram.com/tvmarataizes/" target="_blank" rel="noopener"
+               style="display:block;text-align:center">Instagram oficial</a>
+          </li>
+        </ul>
+
+        <div class="note" style="margin-top:14px">
+          Produção: Macuca Produções • Marataízes/ES
+        </div>
+      </aside>
     </div>
-  </main>
 
-  <!-- LIMA PAGE (aparece quando a rota for /lima) -->
-  <main id="limaWrap" class="center">
-    <div class="card">
-      <h1>Fale agora com a <strong>Lima Veículos</strong> no WhatsApp</h1>
-      <p class="lead">Atendimento rápido. Tire dúvidas, consulte estoque e condições.</p>
-
-      <a id="wa" class="cta" href="#" target="_blank" rel="noopener">Abrir no WhatsApp</a>
-      <a class="alt" href="tel:+5528992543494">ou ligue para (28) 99254-3494</a>
-
-      <div class="meta">
-        Dica: se o app não abrir dentro do Instagram, toque em <em>“Abrir no navegador”</em> e tente novamente.
-        <br/>Este link preserva <code>utm_*</code> / <code>ad_id</code> / <code>campaign_id</code> da campanha.
-      </div>
-
-      <noscript>
-        <p><a class="cta" href="https://api.whatsapp.com/send?phone=5528992543494&text=Mandei%20mensagem%20pela%20TV%20Marata%C3%ADzes%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20carros.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Abrir no WhatsApp</a></p>
-      </noscript>
-    </div>
+    <footer class="container note" style="padding:18px">
+      © <span id="y"></span> TV Marataízes — Todos os direitos reservados.
+    </footer>
   </main>
 
   <script>
-  (function() {
-    // detecta se a rota é /lima (aceita com e sem barra final)
-    var isLima = /(^|\/)lima\/?$/.test(location.pathname);
+    // Ano no rodapé
+    document.getElementById('y').textContent = new Date().getFullYear();
 
-    var home = document.getElementById('homeWrap');
-    var lima = document.getElementById('limaWrap');
-    var tag  = document.getElementById('routeTag');
-
-    if (isLima) {
-      // mostra LIMA e ajusta títulos/OG básicos
-      home.style.display = 'none';
-      lima.style.display = 'block';
-      document.title = 'Lima Veículos — WhatsApp | TV Marataízes';
-      if (tag) tag.textContent = '• 🚗 Lima Veículos';
-
-      // monta mensagem do WhatsApp preservando UTMs/ad_ids
-      var params = new URLSearchParams(location.search);
-      var keep = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','ad_id','adset_id','campaign_id'];
-      var tags = keep.filter(function(k){ return params.get(k); })
-                     .map(function(k){ return k + '=' + params.get(k); })
-                     .join(' | ');
-
-      var baseMsg = 'Mandei mensagem pela TV Marataízes e gostaria de mais informações sobre os carros. Pode me atender?';
-      var msg = tags ? (baseMsg + ' (' + tags + ')') : baseMsg;
-
-      var phone = '5528992543494';
-      var url = 'https://api.whatsapp.com/send?phone=' + phone + '&text=' + encodeURIComponent(msg);
-
-      var a = document.getElementById('wa');
-      if (a) a.href = url;
-
-      // autoabrir se ?auto=1
-      if (params.get('auto') === '1') {
-        setTimeout(function(){ location.href = url; }, 1200);
-      }
-    } else {
-      // estamos na home
-      if (tag) tag.textContent = '';
-    }
-  })();
+    // Aviso explícito se o embed do Castr estiver com plano inativo
+    // (não há API pública; mostramos uma dica se a origem não carregar em 4s)
+    setTimeout(function(){
+      var frame = document.getElementById('castrPlayer');
+      try {
+        // se não conseguir acessar window (cross-origin), apenas mostra a dica extra
+        document.getElementById('playerNote').innerHTML =
+          'Se aparecer mensagem de plano/erro no player, é necessário reativar o Castr. ' +
+          'Enquanto isso, poste vídeos gravados ou use um fallback.';
+      } catch(e){}
+    }, 4000);
   </script>
 </body>
 </html>
