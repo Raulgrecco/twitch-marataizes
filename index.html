@@ -29,7 +29,7 @@
   .btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;text-decoration:none;
        padding:10px 14px;border-radius:10px;font-weight:700}
   .btn.primary{background:#ff3355;border:0;font-weight:900}
-  .tip{margin-top:10px;font-size:clamp(12px,2.6vw,14px);opacity:.7}
+  .tip{margin-top:10px;font-size:clamp(12px,2.6vw,14px);opacity:.7;display:none}
 </style>
 </head>
 <body>
@@ -39,19 +39,19 @@
   </header>
 
   <main class="wrap">
-    <!-- PLAYER EMBUTIDO (IFRAME) -->
+    <!-- PLAYER CASTR -->
     <div class="player" aria-label="Player ao vivo">
       <iframe
-        id="twitchPlayer"
-        title="Twitch Player"
+        id="castrPlayer"
+        title="TV Marataízes — ao vivo"
+        src="https://player.castr.com/d_5b610b20822611f08c4837226ec045ea?autoplay=1&mute=1"
         allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
         allowfullscreen
         playsinline
-        src="https://player.twitch.tv/?channel=marataizestv&parent=tvmarataizes.com.br&parent=www.tvmarataizes.com.br&parent=raulgrecco.github.io&parent=github.io&parent=localhost&parent=127.0.0.1&muted=true&autoplay=true">
-      </iframe>
+        referrerpolicy="origin"
+      ></iframe>
     </div>
 
-    <!-- TEXTO ABAIXO DO VÍDEO -->
     <section class="about" aria-label="Sobre a TV Marataízes">
       <h1>TV Marataízes — streaming local</h1>
       <p>
@@ -64,31 +64,15 @@
         <a class="btn primary" href="https://twitch.tv/marataizestv" target="_blank" rel="noopener">▶ Abrir no Twitch</a>
         <a class="btn" href="https://instagram.com/tvmarataizes" target="_blank" rel="noopener">📷 Instagram</a>
       </div>
-      <p class="tip" id="igTip" style="display:none">Se abriu pelo Instagram e o vídeo não aparecer, toque nos ⋯ (três pontinhos) e escolha <strong>Abrir no navegador</strong>.</p>
+      <p class="tip" id="igTip">Se abriu pelo Instagram e o vídeo não aparecer, toque nos ⋯ e escolha <strong>Abrir no navegador</strong>.</p>
     </section>
   </main>
 
   <script>
-    // Redireciona automaticamente para o Twitch quando aberto DENTRO do Instagram/FB/TikTok,
-    // porque o webview deles quebra o player em vários iPhones.
-    // Use ?stay=1 para DESATIVAR o redirecionamento (útil para testes).
+    // Mostra a dica em webviews (Instagram/FB/TikTok), sem redirecionar.
     (function(){
-      const ua = navigator.userAgent || "";
-      const inApp = /Instagram|FBAN|FBAV|FB_IAB|TikTok/i.test(ua);
-      const params = new URLSearchParams(location.search);
-      const stay = params.has("stay");
-      if (inApp && !stay) {
-        location.replace("https://twitch.tv/marataizestv");
-      } else if (inApp && stay) {
-        // Mostra uma dica caso o iframe não renderize
-        document.getElementById('igTip').style.display = 'block';
-        setTimeout(() => {
-          const ifr = document.getElementById('twitchPlayer');
-          try{
-            if (!ifr || !ifr.contentWindow) document.getElementById('igTip').style.opacity = 1;
-          }catch(e){}
-        }, 2000);
-      }
+      const inApp = /Instagram|FBAN|FBAV|FB_IAB|TikTok/i.test(navigator.userAgent||"");
+      if (inApp) document.getElementById('igTip').style.display = 'block';
     })();
   </script>
 </body>
