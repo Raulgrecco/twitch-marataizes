@@ -1,38 +1,42 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>TV Marataízes — ao vivo</title>
-  <meta name="description" content="TV Marataízes: canal de TV digital do Sul do Espírito Santo. Programação ao vivo, quadros originais e cobertura regional." />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
-  <meta name="theme-color" content="#000" />
-  <link rel="canonical" href="https://tvmarataizes.digital/" />
-  <style>
-    :root{
-      --bg:#000; --fg:#fff; --muted:rgba(255,255,255,.72);
-      --accent:#ff3355; --card:rgba(255,255,255,.08); --stroke:rgba(255,255,255,.18);
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-    header{display:flex;justify-content:center;align-items:center;gap:.6rem;padding:14px}
-    .dot{width:10px;height:10px;border-radius:999px;background:var(--accent)}
-    .brand{font-weight:900;font-size:clamp(18px,2.4vw,24px)}
-    .wrap{max-width:1200px;margin:0 auto;padding:0 12px 28px}
-    .player{position:relative;width:100%;aspect-ratio:16/9;background:#000;border:0;overflow:hidden;border-radius:12px}
-    .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-    .about{max-width:980px;margin:18px auto 40px}
-    .about h1{margin:0 0 12px;font-size:clamp(20px,3.6vw,30px);font-weight:900}
-    .lead{color:var(--muted);font-size:clamp(14px,2.4vw,17px);line-height:1.7;margin:0}
-    .copy{margin-top:14px;color:var(--fg);font-size:clamp(15px,2.6vw,18px);line-height:1.75}
-    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-    .btn{background:var(--card);border:1px solid var(--stroke);color:var(--fg);text-decoration:none; padding:11px 16px;border-radius:10px;font-weight:700;display:inline-flex;align-items:center;gap:.5rem}
-    .btn.primary{background:var(--accent);border:0;font-weight:900}
-    .tip{margin-top:10px;font-size:clamp(12px,2.6vw,14px);opacity:.7;display:none}
-    @media (max-width:420px){ .about{margin-top:12px} .player{border-radius:10px} }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>TV Marataízes — ao vivo</title>
+<meta name="description" content="TV Marataízes: canal de TV digital do Sul do Espírito Santo. Programação ao vivo, quadros originais e cobertura regional." />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<meta name="theme-color" content="#000" />
+<style>
+  :root{
+    --bg:#000; --fg:#fff; --muted:rgba(255,255,255,.72);
+    --accent:#ff3355; --card:rgba(255,255,255,.08); --stroke:rgba(255,255,255,.18);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+  header{display:flex;justify-content:center;align-items:center;gap:.6rem;padding:14px}
+  .dot{width:10px;height:10px;border-radius:999px;background:var(--accent)}
+  .brand{font-weight:900;font-size:clamp(18px,2.4vw,24px)}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 12px 28px}
+  .player{position:relative;width:100%;aspect-ratio:16/9;background:#000;border:0;overflow:hidden;border-radius:12px}
+  .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .about{max-width:980px;margin:18px auto 40px}
+  .about h1{margin:0 0 12px;font-size:clamp(20px,3.6vw,30px);font-weight:900}
+  .lead{color:var(--muted);font-size:clamp(14px,2.4vw,17px);line-height:1.7;margin:0}
+  .copy{margin-top:14px;color:var(--fg);font-size:clamp(15px,2.6vw,18px);line-height:1.75}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .btn{background:var(--card);border:1px solid var(--stroke);color:var(--fg);text-decoration:none;
+       padding:11px 16px;border-radius:10px;font-weight:700;display:inline-flex;align-items:center;gap:.5rem}
+  .btn.primary{background:var(--accent);border:0;font-weight:900}
+  .tip{margin-top:10px;font-size:clamp(12px,2.6vw,14px);opacity:.7;display:none}
+  /* melhora leitura em telas muito pequenas */
+  @media (max-width:420px){
+    .about{margin-top:12px}
+    .player{border-radius:10px}
+  }
+</style>
 </head>
 <body>
   <header>
@@ -46,31 +50,36 @@
       <iframe
         id="castrPlayer"
         title="TV Marataízes — ao vivo"
-        src="https://player.castr.com/dynamic/68ad1f2a9b564e2927edc970?autoplay=1&mute=1"
+        src="https://player.castr.com/d_5b610b20822611f08c4837226ec045ea?autoplay=1&mute=1"
         allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
         allowfullscreen
         playsinline
-        referrerpolicy="origin">
-      </iframe>
+        referrerpolicy="origin"
+      ></iframe>
     </div>
 
-    <!-- TEXTO -->
+    <!-- TEXTO PROFISSIONAL -->
     <section class="about" aria-label="Sobre a TV Marataízes">
       <h1>TV Marataízes — a TV digital do Sul do Espírito Santo</h1>
+
       <p class="lead">
         A TV Marataízes nasce como um projeto inovador de <strong>TV digital e multiplataforma</strong>,
         levando programação ao vivo e conteúdos exclusivos para todo o Sul do Espírito Santo.
       </p>
+
       <p class="copy">
-        Nosso propósito é <strong>valorizar a cultura regional</strong>, destacar os talentos locais e
-        oferecer uma experiência de entretenimento próxima do público. Para os nossos parceiros,
+        Nosso propósito é <strong>valorizar a cultura regional</strong>, destacar os talentos locais
+        e oferecer uma experiência de entretenimento próxima do público. Para os nossos parceiros,
         garantimos <strong>retorno real</strong>, unindo a força da nossa plataforma ao alcance do Instagram.
       </p>
+
       <p class="copy">
         Com <strong>quadros originais</strong>, transmissões especiais e cobertura dos principais
         acontecimentos da região, somos um canal feito para <strong>conectar pessoas, cidades e histórias</strong>.
-        Assista de qualquer lugar — pelo site, celular ou Smart TV — e faça parte dessa nova forma de viver a comunicação local.
+        Assista de qualquer lugar — pelo site, celular ou Smart TV — e faça parte dessa nova forma
+        de viver a comunicação local.
       </p>
+
       <p class="copy"><strong>TV Marataízes — mais do que transmissão, uma janela da nossa região para o mundo.</strong></p>
 
       <div class="actions">
