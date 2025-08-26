@@ -2,115 +2,109 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>TV Marataízes — ao vivo</title>
-  <meta name="description" content="TV Marataízes: canal de TV digital do Sul do Espírito Santo. Programação ao vivo, quadros originais e cobertura regional." />
 
-  <!-- SEO & canônico -->
-  <link rel="canonical" href="https://tvmarataizes.digital/">
-  <meta property="og:title" content="TV Marataízes — ao vivo">
-  <meta property="og:description" content="Assista ao vivo à TV Marataízes — a TV digital do Sul do Espírito Santo.">
-  <meta property="og:url" content="https://tvmarataizes.digital/">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
+  <title>Lima Veículos — Atendimento via WhatsApp | TV Marataízes</title>
+  <meta name="description" content="Fale agora com a Lima Veículos pelo WhatsApp via TV Marataízes. Atendimento rápido e transparente." />
+  <meta name="theme-color" content="#000000" />
+  <meta name="format-detection" content="telephone=no" />
 
-  <!-- Cache off (você já usava) -->
+  <!-- Cache control (mantém comportamento do seu site) -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
 
-  <!-- UX -->
-  <meta name="theme-color" content="#000" />
+  <!-- Canonical e OG/Twitter -->
+  <link rel="canonical" href="https://tvmarataizes.digital/lima.html" />
+  <meta property="og:title" content="Lima Veículos — Atendimento no WhatsApp" />
+  <meta property="og:description" content="Clique para abrir o WhatsApp e falar agora com a Lima Veículos." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tvmarataizes.digital/lima.html" />
+  <meta property="og:image" content="https://tvmarataizes.digital/assets/og/tv-marataizes.jpg" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Lima Veículos — WhatsApp" />
+  <meta name="twitter:description" content="Atendimento imediato via WhatsApp." />
+  <meta name="twitter:image" content="https://tvmarataizes.digital/assets/og/tv-marataizes.jpg" />
 
-  <!-- performance para o player -->
-  <link rel="preconnect" href="https://player.castr.com" crossorigin>
+  <!-- Prefetch/Preconnect (mantém performance e evita bloqueio em webviews) -->
+  <link rel="dns-prefetch" href="//api.whatsapp.com" />
+  <link rel="preconnect" href="https://api.whatsapp.com" crossorigin />
+  <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
 
+  <!-- Ícones / Manifest (ajuste os caminhos conforme seu site) -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- Seus estilos/JS globais (use os mesmos do index) -->
+  <link rel="stylesheet" href="/css/styles.css" />
+  <script defer src="/js/main.js"></script>
+
+  <!-- Estilo local isolado pra esta página (não conflita com seu tema) -->
   <style>
-    :root{
-      --bg:#000; --fg:#fff; --muted:rgba(255,255,255,.72);
-      --accent:#ff3355; --card:rgba(255,255,255,.08); --stroke:rgba(255,255,255,.18);
+    #lima-page { min-height: 100dvh; background:#0b0b0b; color:#f4f4f4; display:flex; flex-direction:column; }
+    #lima-page .container { width:min(1100px, 100%); margin-inline:auto; padding:24px; }
+    #lima-page header, #lima-page footer { border-color:#1f1f1f; }
+    #lima-page header { border-bottom:1px solid; }
+    #lima-page footer { border-top:1px solid; color:#9aa0a6; font-size:13px; }
+    #lima-page .brand { display:flex; gap:10px; align-items:center; font-weight:700; letter-spacing:.2px; }
+    #lima-page .brand small { opacity:.7; font-weight:500; }
+    #lima-page main { flex:1; display:grid; place-items:center; padding:32px 24px; }
+    #lima-page .card {
+      width:min(760px,100%); background:#121212; border:1px solid #1f1f1f;
+      border-radius:16px; padding:28px; box-shadow:0 6px 24px rgba(0,0,0,.35);
     }
-    *{box-sizing:border-box}
-    html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-    header{display:flex;justify-content:center;align-items:center;gap:.6rem;padding:14px}
-    .dot{width:10px;height:10px;border-radius:999px;background:var(--accent)}
-    .brand{font-weight:900;font-size:clamp(18px,2.4vw,24px)}
-    .wrap{max-width:1200px;margin:0 auto;padding:0 12px 28px}
-    .player{position:relative;width:100%;aspect-ratio:16/9;background:#000;border:0;overflow:hidden;border-radius:12px}
-    .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-    .about{max-width:980px;margin:18px auto 40px}
-    .about h1{margin:0 0 12px;font-size:clamp(20px,3.6vw,30px);font-weight:900}
-    .lead{color:var(--muted);font-size:clamp(14px,2.4vw,17px);line-height:1.7;margin:0}
-    .copy{margin-top:14px;color:var(--fg);font-size:clamp(15px,2.6vw,18px);line-height:1.75}
-    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-    .btn{background:var(--card);border:1px solid var(--stroke);color:var(--fg);text-decoration:none;
-        padding:11px 16px;border-radius:10px;font-weight:700;display:inline-flex;align-items:center;gap:.5rem}
-    .btn.primary{background:var(--accent);border:0;font-weight:900}
-    .tip{margin-top:10px;font-size:clamp(12px,2.6vw,14px);opacity:.7;display:none}
-    @media (max-width:420px){
-      .about{margin-top:12px}
-      .player{border-radius:10px}
+    #lima-page h1 { margin:0 0 8px; font-size:24px; line-height:1.25; }
+    #lima-page p.lead { margin:0 0 16px; color:#c7c7c7; }
+    #lima-page .cta {
+      display:inline-block; padding:14px 18px; border-radius:12px; background:#25D366; color:#000;
+      font-weight:800; text-decoration:none; transition:transform .05s ease-in;
     }
+    #lima-page .cta:active { transform:translateY(1px) }
+    #lima-page .alt { display:block; margin-top:12px; font-size:14px; color:#9aa0a6; }
+    #lima-page .meta { margin-top:16px; font-size:12px; color:#9aa0a6; }
+    #lima-page .meta code { background:#0f0f0f; border:1px solid #1c1c1c; padding:2px 6px; border-radius:6px }
   </style>
-</head>
-<body>
-  <header>
-    <span class="dot" aria-hidden="true"></span>
-    <div class="brand">TV Marataízes — Ao Vivo</div>
-  </header>
 
-  <main class="wrap">
-    <!-- PLAYER (Castr) -->
-    <div class="player" aria-label="Player ao vivo">
-      <iframe
-        id="castrPlayer"
-        title="TV Marataízes — ao vivo"
-        src="https://player.castr.com/d_5b610b20822611f08c4837226ec045ea?autoplay=1&mute=1"
-        allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
-        allowfullscreen
-        playsinline
-        referrerpolicy="origin"
-      ></iframe>
-    </div>
-
-    <!-- TEXTO PROFISSIONAL -->
-    <section class="about" aria-label="Sobre a TV Marataízes">
-      <h1>TV Marataízes — a TV digital do Sul do Espírito Santo</h1>
-
-      <p class="lead">
-        A TV Marataízes nasce como um projeto inovador de <strong>TV digital e multiplataforma</strong>,
-        levando programação ao vivo e conteúdos exclusivos para todo o Sul do Espírito Santo.
-      </p>
-
-      <p class="copy">
-        Nosso propósito é <strong>valorizar a cultura regional</strong>, destacar os talentos locais
-        e oferecer uma experiência de entretenimento próxima do público. Para os nossos parceiros,
-        garantimos <strong>retorno real</strong>, unindo a força da nossa plataforma ao alcance do Instagram.
-      </p>
-
-      <p class="copy">
-        Com <strong>quadros originais</strong>, transmissões especiais e cobertura dos principais
-        acontecimentos da região, somos um canal feito para <strong>conectar pessoas, cidades e histórias</strong>.
-        Assista de qualquer lugar — pelo site, celular ou Smart TV — e faça parte dessa nova forma
-        de viver a comunicação local.
-      </p>
-
-      <p class="copy"><strong>TV Marataízes — mais do que transmissão, uma janela da nossa região para o mundo.</strong></p>
-
-      <div class="actions">
-        <a class="btn" href="https://instagram.com/tvmarataizes" target="_blank" rel="noopener">📷 Instagram</a>
-      </div>
-
-      <p class="tip" id="igTip">Se abriu pelo Instagram e o vídeo não aparecer, toque nos ⋯ e escolha <strong>Abrir no navegador</strong>.</p>
-    </section>
-  </main>
-
-  <script>
-    // Mostra a dica em webviews (Instagram/FB/TikTok), sem redirecionar
-    (function(){
-      const inApp = /Instagram|FBAN|FBAV|FB_IAB|TikTok/i.test(navigator.userAgent||"");
-      if (inApp) document.getElementById('igTip').style.display = 'block';
-    })();
+  <!-- JSON-LD simples (ajuda a manter padrão SEO do site) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebPage",
+    "name":"Lima Veículos — Atendimento via WhatsApp",
+    "url":"https://tvmarataizes.digital/lima.html",
+    "isPartOf":{"@type":"WebSite","name":"TV Marataízes","url":"https://tvmarataizes.digital"}
+  }
   </script>
-</body>
-</html>
+</head>
+<body class="is-lima">
+  <div id="lima-page">
+    <!-- Cabeçalho: se você tiver um header global, pode manter este bloco ou substituí-lo pelo seu -->
+    <header>
+      <div class="container">
+        <div class="brand">📺 TV Marataízes <small>• 🚗 Lima Veículos</small></div>
+      </div>
+    </header>
+
+    <main>
+      <div class="card">
+        <h1>Fale agora com a <strong>Lima Veículos</strong> no WhatsApp</h1>
+        <p class="lead">Atendimento rápido. Tire dúvidas, consulte estoque e condições.</p>
+
+        <!-- Botão principal: o href é preenchido via JS mantendo UTMs -->
+        <a id="whatsapp-cta" class="cta" href="#" target="_blank" rel="noopener">Abrir no WhatsApp</a>
+
+        <!-- Links alternativos/fallback -->
+        <a class="alt" href="tel:+5528992543494">ou ligue para (28) 99254-3494</a>
+
+        <div class="meta">
+          Dica: se o app não abrir dentro do Instagram, toque em <em>“Abrir no navegador”</em> e tente novamente.
+          <br />Este link preserva <code>utm_*</code> / <code>ad_id</code> / <code>campaign_id</code> da campanha.
+        </div>
+
+        <!-- Fallback para navegadores sem JS -->
+        <noscript>
+          <p><a class="cta" href="
