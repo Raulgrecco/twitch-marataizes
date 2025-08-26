@@ -2,35 +2,17 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>WhatsApp – Lima Veículos</title>
-  <meta http-equiv="refresh" content="3;url=https://api.whatsapp.com/send?phone=5528992543494&text=Mandei%20mensagem%20pela%20TV%20Marata%C3%ADzes%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20carros" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Abrindo WhatsApp – Lima Veículos</title>
+  <meta name="robots" content="noindex" />
   <style>
-    body{margin:0;display:flex;align-items:center;justify-content:center;height:100svh;
-         font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#000;color:#fff}
-    .card{max-width:560px;padding:24px;text-align:center;border:1px solid #333;border-radius:14px;background:#0b0b0b}
-    a.btn{display:inline-block;padding:14px 18px;border-radius:10px;border:1px solid #333;
-          text-decoration:none;color:#fff}
+    html,body{height:100%;margin:0;background:#000;color:#fff;
+      font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      display:flex;align-items:center;justify-content:center}
+    a{color:#25D366;text-decoration:none}
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Abrindo o WhatsApp do Lima Veículos…</h1>
-    <p>Se não abrir sozinho, toque abaixo:</p>
-    <p><a class="btn" id="whatsBtn"
-      href="https://api.whatsapp.com/send?phone=5528992543494&text=Mandei%20mensagem%20pela%20TV%20Marata%C3%ADzes%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20carros"
-      rel="noopener">Abrir no WhatsApp</a></p>
-  </div>
-  <script>
-    const msg = encodeURIComponent("Mandei mensagem pela TV Marataízes e gostaria de mais informações sobre os carros");
-    const apiUrl = `https://api.whatsapp.com/send?phone=5528992543494&text=${msg}`;
-    const waUrl  = `https://wa.me/5528992543494?text=${msg}`;
-    try {
-      location.replace(apiUrl);
-      setTimeout(()=>{ location.href = waUrl; }, 1200);
-    } catch(e){
-      document.getElementById('whatsBtn').href = waUrl;
-    }
-  </script>
-</body>
-</html>
+  <div>
+    <p>Abrindo o WhatsApp da <strong>Lima Veículos</strong>…</p>
+    <p>Se não abrir, toque: <a i
