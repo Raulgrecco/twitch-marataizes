@@ -12,12 +12,9 @@
   <link rel="canonical" href="https://tvmarataizes.digital/" />
   <style>
     :root{
-      --bg:#000;
-      --fg:#fff;
-      --muted:rgba(255,255,255,.72);
-      --accent:#ff3355;
+      --bg:#000; --fg:#fff; --muted:rgba(255,255,255,.72); --accent:#ff3355;
       --tile:rgba(255,255,255,.85);   /* branco opaco translúcido p/ exclusivos */
-      --chip:rgba(255,255,255,.65);   /* branco mais discreto p/ apoios */
+      --chip:rgba(255,255,255,.65);   /* branco discreto p/ apoios */
     }
     *{box-sizing:border-box}
     html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
@@ -31,32 +28,20 @@
     .player{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;border-radius:12px}
     .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
-    /* FAIXA EXCLUSIVOS (slim) */
+    /* EXCLUSIVOS */
     .sponsors{max-width:1100px;margin:14px auto 10px}
     .sponsors h2{margin:8px 4px 10px;font:700 clamp(16px,2.6vw,20px)/1.2 system-ui}
-    .tiles{
-      display:grid; grid-template-columns: repeat(5, 1fr); gap:10px;
-    }
+    .tiles{display:grid; grid-template-columns: repeat(5, 1fr); gap:10px;}
     .tile{
-      background:var(--tile);
-      backdrop-filter:saturate(120%) blur(2px);
-      border:1px solid rgba(255,255,255,.25);
-      border-radius:12px;
-      min-height:56px;                 /* SLIM */
-      padding:6px 10px;
-      display:flex;flex-direction:column;justify-content:center;align-items:center;
-      text-align:center;
+      background:var(--tile); backdrop-filter:saturate(120%) blur(2px);
+      border:1px solid rgba(255,255,255,.25); border-radius:12px;
+      min-height:56px; padding:6px 10px;
+      display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
       box-shadow:0 2px 6px rgba(0,0,0,.15);
     }
     .tile .name{font-weight:800;font-size:clamp(13px,2.2vw,15px)}
-    .tile .cta{
-      margin-top:4px;
-      font-size:13px;
-      background:rgba(0,0,0,.15);
-      border-radius:8px;
-      padding:3px 8px;
-    }
-    .tile .cta a{ text-decoration:none; }
+    .tile .cta{margin-top:4px;font-size:13px;background:rgba(0,0,0,.15);border-radius:8px;padding:3px 8px;}
+    .tile .cta a{text-decoration:none}
     .placeholder{opacity:.75}
 
     /* TEXTO */
@@ -66,32 +51,22 @@
     .copy{margin-top:14px;color:var(--fg);font-size:clamp(15px,2.6vw,18px);line-height:1.75}
     .tip{margin-top:10px;font-size:clamp(12px,2.6vw,14px);opacity:.7;display:none}
 
-    /* APOIOS (tarjinhas) */
+    /* APOIOS */
     .supports{max-width:1100px;margin:20px auto 0}
     .supports h3{margin:6px 4px 8px;font:700 clamp(15px,2.4vw,18px)/1.2 system-ui;opacity:.9}
-    .chips{ display:flex;gap:8px;flex-wrap:wrap; }
+    .chips{display:flex;gap:8px;flex-wrap:wrap;}
     .chip{
-      background:var(--chip);
-      border:1px solid rgba(255,255,255,.25);
-      border-radius:999px;
-      height:30px;                     /* TARJINHA BAIXA */
-      padding:4px 8px;
-      display:flex;align-items:center;gap:10px;
-      box-shadow:0 1px 4px rgba(0,0,0,.12);
-      white-space:nowrap;
+      background:var(--chip); border:1px solid rgba(255,255,255,.25); border-radius:999px;
+      height:30px; padding:4px 8px; display:flex;align-items:center;gap:10px;
+      box-shadow:0 1px 4px rgba(0,0,0,.12); white-space:nowrap;
     }
     .chip .n{font-weight:700;font-size:13px}
-    .chip .w a{
-      text-decoration:none;
-      background:rgba(0,0,0,.18);
-      padding:3px 7px;border-radius:8px;font-size:12px;
-    }
+    .chip .w a{text-decoration:none;background:rgba(0,0,0,.18);padding:3px 7px;border-radius:8px;font-size:12px;}
 
-    /* MOBILE/TABLET: grid 2x2 + 1 até 1200px */
-    @media (max-width: 1200px){
-      .tiles{ grid-template-columns: repeat(2, 1fr); }
-      .tiles .tile{ min-width: 0; }
-      .tiles .tile:nth-child(5){ grid-column: 1 / span 2; } /* "Em breve" ocupa a linha toda */
+    /* MOBILE/TABLET: 2x2 + 1 até 1200px */
+    @media (max-width:1200px){
+      .tiles{grid-template-columns:repeat(2,1fr)}
+      .tiles .tile:nth-child(5){grid-column:1/span 2} /* “Em breve” ocupa a linha toda */
     }
     @media (max-width:420px){
       .about{margin-top:12px}
@@ -111,7 +86,7 @@
       <iframe
         id="castrPlayer"
         title="TV Marataízes — ao vivo"
-        src="https://player.castr.com/d_5b610b20822611f08c4837226ec045ea?autoplay=1&mute=1"
+        src="https://player.castr.com/REPLACE_WITH_V2_PLAYER_ID?autoplay=on&muted=on"
         allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
         allowfullscreen
         playsinline
@@ -123,43 +98,17 @@
     <section class="sponsors" aria-label="Patrocinadores exclusivos">
       <h2>Patrocinadores exclusivos</h2>
       <div class="tiles">
-        <!-- 1: LIMA VEÍCULOS -->
         <div class="tile">
           <div class="name">Lima Veículos</div>
-          <div class="cta">
-            <a href="https://tvmarataizes.digital/lima" target="_blank" rel="noopener" aria-label="Lima Veículos — WhatsApp">
-              WhatsApp
-            </a>
-          </div>
+          <div class="cta"><a href="https://tvmarataizes.digital/lima" target="_blank" rel="noopener" aria-label="Lima Veículos — WhatsApp">WhatsApp</a></div>
         </div>
-
-        <!-- 2: MACUCA PRODUÇÕES -->
         <div class="tile">
           <div class="name">Macuca Produções</div>
-          <div class="cta">
-            <a href="https://wa.me/5528999036141?text=Ol%C3%A1%2C%20vi%20voc%C3%AAs%20na%20TV%20Marata%C3%ADzes%20e%20quero%20conversar%20no%20WhatsApp." target="_blank" rel="noopener" aria-label="Macuca Produções — WhatsApp">
-              WhatsApp
-            </a>
-          </div>
+          <div class="cta"><a href="https://wa.me/5528999036141?text=Ol%C3%A1%2C%20vi%20voc%C3%AAs%20na%20TV%20Marata%C3%ADzes%20e%20quero%20conversar%20no%20WhatsApp." target="_blank" rel="noopener" aria-label="Macuca Produções — WhatsApp">WhatsApp</a></div>
         </div>
-
-        <!-- 3: PLACEHOLDER -->
-        <div class="tile placeholder">
-          <div class="name">Sua marca aqui</div>
-          <div class="cta">WhatsApp</div>
-        </div>
-
-        <!-- 4: PLACEHOLDER -->
-        <div class="tile placeholder">
-          <div class="name">Sua marca aqui</div>
-          <div class="cta">WhatsApp</div>
-        </div>
-
-        <!-- 5: EM BREVE -->
-        <div class="tile placeholder">
-          <div class="name">Em breve</div>
-          <div class="cta">WhatsApp</div>
-        </div>
+        <div class="tile placeholder"><div class="name">Sua marca aqui</div><div class="cta">WhatsApp</div></div>
+        <div class="tile placeholder"><div class="name">Sua marca aqui</div><div class="cta">WhatsApp</div></div>
+        <div class="tile placeholder"><div class="name">Em breve</div><div class="cta">WhatsApp</div></div>
       </div>
     </section>
 
@@ -179,17 +128,11 @@
       <div class="chips">
         <div class="chip">
           <span class="n">Amor de Cone</span>
-          <span class="w">
-            <a href="https://wa.me/5521982165333?text=Ol%C3%A1%2C%20vi%20o%20Amor%20de%20Cone%20na%20TV%20Marata%C3%ADzes%20%F0%9F%8D%8D" 
-               target="_blank" rel="noopener" aria-label="Amor de Cone — WhatsApp">WhatsApp</a>
-          </span>
+          <span class="w"><a href="https://wa.me/5521982165333?text=Ol%C3%A1%2C%20vi%20o%20Amor%20de%20Cone%20na%20TV%20Marata%C3%ADzes%20%F0%9F%8D%8D" target="_blank" rel="noopener" aria-label="Amor de Cone — WhatsApp">WhatsApp</a></span>
         </div>
         <div class="chip">
-          <span class="n">Marcenaria Família na Estrada</span>
-          <span class="w">
-            <a href="https://wa.me/5528999048337?text=Ol%C3%A1%2C%20vi%20a%20Marcenaria%20P%C3%A9%20na%20Estrada%20na%20TV%20Marata%C3%ADzes%20%F0%9F%9A%97" 
-               target="_blank" rel="noopener" aria-label="Marcenaria Pé na Estrada — WhatsApp">WhatsApp</a>
-          </span>
+          <span class="n">Marcenaria Pé na Estrada</span>
+          <span class="w"><a href="https://wa.me/5528999048337?text=Ol%C3%A1%2C%20vi%20a%20Marcenaria%20P%C3%A9%20na%20Estrada%20na%20TV%20Marata%C3%ADzes%20%F0%9F%9A%97" target="_blank" rel="noopener" aria-label="Marcenaria Pé na Estrada — WhatsApp">WhatsApp</a></span>
         </div>
       </div>
     </section>
