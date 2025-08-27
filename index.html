@@ -11,21 +11,101 @@
   <meta name="theme-color" content="#000" />
   <link rel="canonical" href="https://tvmarataizes.digital/" />
   <style>
-    :root{ --bg:#000; --fg:#fff; --muted:rgba(255,255,255,.72); --accent:#ff3355; --card:rgba(255,255,255,.08); --stroke:rgba(255,255,255,.18); }
+    :root{
+      --bg:#000;
+      --fg:#fff;
+      --muted:rgba(255,255,255,.72);
+      --accent:#ff3355;
+      --card:rgba(255,255,255,.08);
+      --stroke:rgba(255,255,255,.18);
+      --tile:rgba(255,255,255,.85);   /* branco opaco translúcido p/ exclusivos */
+      --chip:rgba(255,255,255,.65);   /* branco mais discreto p/ apoios */
+    }
     *{box-sizing:border-box}
     html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+    a{color:inherit}
     header{display:flex;justify-content:center;align-items:center;gap:.6rem;padding:14px}
     .dot{width:10px;height:10px;border-radius:999px;background:var(--accent)}
     .brand{font-weight:900;font-size:clamp(18px,2.4vw,24px)}
     .wrap{max-width:1200px;margin:0 auto;padding:0 12px 28px}
+
+    /* PLAYER */
     .player{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;border-radius:12px}
     .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-    .about{max-width:980px;margin:18px auto 40px}
+
+    /* FAIXA EXCLUSIVOS (slim) */
+    .sponsors{max-width:1100px;margin:14px auto 10px}
+    .sponsors h2{margin:8px 4px 10px;font:700 clamp(16px,2.6vw,20px)/1.2 system-ui}
+    .tiles{
+      display:grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap:10px;
+    }
+    .tile{
+      background:var(--tile);
+      backdrop-filter:saturate(120%) blur(2px);
+      border:1px solid rgba(255,255,255,.25);
+      border-radius:12px;
+      min-height:64px;                 /* SLIM */
+      padding:8px 12px;
+      display:flex;flex-direction:column;justify-content:center;align-items:center;
+      text-align:center;
+      box-shadow:0 2px 6px rgba(0,0,0,.15);
+    }
+    .tile .name{font-weight:800;font-size:clamp(14px,2.4vw,16px)}
+    .tile .cta{
+      margin-top:4px;
+      font-size:14px;
+      background:rgba(0,0,0,.15);
+      border-radius:8px;
+      padding:4px 10px;
+    }
+    .tile .cta a{ text-decoration:none; }
+    .placeholder{opacity:.75}
+
+    /* TEXTO */
+    .about{max-width:980px;margin:16px auto 32px}
     .about h1{margin:0 0 12px;font-size:clamp(20px,3.6vw,30px);font-weight:900}
     .lead{color:var(--muted);font-size:clamp(14px,2.4vw,17px);line-height:1.7;margin:0}
     .copy{margin-top:14px;color:var(--fg);font-size:clamp(15px,2.6vw,18px);line-height:1.75}
     .tip{margin-top:10px;font-size:clamp(12px,2.6vw,14px);opacity:.7;display:none}
-    @media (max-width:420px){ .about{margin-top:12px} .player{border-radius:10px} }
+
+    /* APOIOS (tarjinhas) */
+    .supports{max-width:1100px;margin:20px auto 0}
+    .supports h3{margin:6px 4px 8px;font:700 clamp(15px,2.4vw,18px)/1.2 system-ui;opacity:.9}
+    .chips{
+      display:flex;gap:8px;flex-wrap:wrap;
+    }
+    .chip{
+      background:var(--chip);
+      border:1px solid rgba(255,255,255,.25);
+      border-radius:999px;
+      height:36px;                     /* TARJINHA BAIXA */
+      padding:6px 10px;
+      display:flex;align-items:center;gap:10px;
+      box-shadow:0 1px 4px rgba(0,0,0,.12);
+      white-space:nowrap;
+    }
+    .chip .n{font-weight:700;font-size:14px}
+    .chip .w a{
+      text-decoration:none;
+      background:rgba(0,0,0,.18);
+      padding:4px 8px;border-radius:8px;font-size:13px;
+    }
+
+    /* MOBILE: carrossel horizontal para exclusivos */
+    @media (max-width: 900px){
+      .tiles{ grid-template-columns: repeat(5, minmax(180px, 1fr)); overflow-x:auto; padding-bottom:4px; }
+      .tiles{ scroll-snap-type: x mandatory; }
+      .tile{ scroll-snap-align: start; min-width:180px; }
+    }
+
+    @media (max-width:420px){
+      .about{margin-top:12px}
+      .player{border-radius:10px}
+      .tile{min-height:58px}
+      .chip{height:34px}
+    }
   </style>
 </head>
 <body>
@@ -35,7 +115,7 @@
   </header>
 
   <main class="wrap">
-    <!-- PLAYER (Castr) -->
+    <!-- PLAYER -->
     <div class="player" aria-label="Player ao vivo">
       <iframe
         id="castrPlayer"
@@ -48,6 +128,50 @@
       </iframe>
     </div>
 
+    <!-- PATROCINADORES EXCLUSIVOS (SLIM) -->
+    <section class="sponsors" aria-label="Patrocinadores exclusivos">
+      <h2>Patrocinadores exclusivos</h2>
+      <div class="tiles">
+        <!-- 1: LIMA VEÍCULOS -->
+        <div class="tile">
+          <div class="name">Lima Veículos</div>
+          <div class="cta">
+            <a href="https://tvmarataizes.digital/lima" target="_blank" rel="noopener" aria-label="Lima Veículos — WhatsApp">
+              WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <!-- 2: MACUCA PRODUÇÕES -->
+        <div class="tile">
+          <div class="name">Macuca Produções</div>
+          <div class="cta">
+            <a href="https://wa.me/5528999036141?text=Ol%C3%A1%2C%20vi%20voc%C3%AAs%20na%20TV%20Marata%C3%ADzes%20e%20quero%20conversar%20no%20WhatsApp." target="_blank" rel="noopener" aria-label="Macuca Produções — WhatsApp">
+              WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <!-- 3: PLACEHOLDER -->
+        <div class="tile placeholder">
+          <div class="name">Sua marca aqui</div>
+          <div class="cta">WhatsApp</div>
+        </div>
+
+        <!-- 4: PLACEHOLDER -->
+        <div class="tile placeholder">
+          <div class="name">Sua marca aqui</div>
+          <div class="cta">WhatsApp</div>
+        </div>
+
+        <!-- 5: EM BREVE -->
+        <div class="tile placeholder">
+          <div class="name">Em breve</div>
+          <div class="cta">WhatsApp</div>
+        </div>
+      </div>
+    </section>
+
     <!-- TEXTO -->
     <section class="about" aria-label="Sobre a TV Marataízes">
       <h1>TV Marataízes — a TV digital do Sul do Espírito Santo</h1>
@@ -57,10 +181,34 @@
       <p class="copy"><strong>TV Marataízes — mais do que transmissão, uma janela da nossa região para o mundo.</strong></p>
       <p class="tip" id="igTip">Se abriu pelo Instagram e o vídeo não aparecer, toque nos ⋯ e escolha <strong>Abrir no navegador</strong>.</p>
     </section>
+
+    <!-- APOIOS (TARJINHAS) -->
+    <section class="supports" aria-label="Apoiadores">
+      <h3>Apoio</h3>
+      <div class="chips">
+        <div class="chip">
+          <span class="n">Amor de Cone</span>
+          <span class="w">
+            <a href="https://wa.me/5521982165333?text=Ol%C3%A1%2C%20vi%20voc%C3%AAs%20na%20TV%20Marata%C3%ADzes%20%F0%9F%8D%8D" target="_blank" rel="noopener" aria-label="Amor de Cone — WhatsApp">WhatsApp</a>
+          </span>
+        </div>
+        <div class="chip">
+          <span class="n">Marcenaria Pé na Estrada</span>
+          <span class="w">
+            <a href="https://wa.me/5528999048337?text=Ol%C3%A1%2C%20vi%20voc%C3%AAs%20na%20TV%20Marata%C3%ADzes%20%F0%9F%9A%97" target="_blank" rel="noopener" aria-label="Marcenaria Pé na Estrada — WhatsApp">WhatsApp</a>
+          </span>
+        </div>
+      </div>
+    </section>
   </main>
 
   <script>
-    (function(){ const inApp=/Instagram|FBAN|FBAV|FB_IAB|TikTok/i.test(navigator.userAgent||""); if(inApp) document.getElementById('igTip').style.display='block'; })();
+    (function(){
+      const inApp=/Instagram|FBAN|FBAV|FB_IAB|TikTok/i.test(navigator.userAgent||"");
+      if(inApp) document.getElementById('igTip').style.display='block';
+    })();
   </script>
 </body>
+</html>
+
 </html>
