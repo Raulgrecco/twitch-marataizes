@@ -35,7 +35,9 @@
     .sponsors{max-width:1100px;margin:14px auto 10px}
     .sponsors h2{margin:8px 4px 10px;font:700 clamp(16px,2.6vw,20px)/1.2 system-ui}
     .tiles{
-      display:grid; grid-template-columns: repeat(5, 1fr); gap:10px;
+      display:grid; 
+      grid-template-columns: repeat(5, 1fr); 
+      gap:10px;
     }
     .tile{
       background:var(--tile);
@@ -87,11 +89,14 @@
       padding:3px 7px;border-radius:8px;font-size:12px;
     }
 
-    /* MOBILE: carrossel horizontal para exclusivos */
+    /* MOBILE: grid 2x2 + 1 */
     @media (max-width: 900px){
-      .tiles{ grid-template-columns: repeat(5, minmax(180px, 1fr)); overflow-x:auto; padding-bottom:4px; }
-      .tiles{ scroll-snap-type: x mandatory; }
-      .tile{ scroll-snap-align: start; min-width:180px; }
+      .tiles{ 
+        grid-template-columns: repeat(2, 1fr); 
+      }
+      .tiles .tile:last-child{
+        grid-column: 1 / span 2; /* ocupa 2 colunas o último (Em breve) */
+      }
     }
     @media (max-width:420px){
       .about{margin-top:12px}
@@ -119,7 +124,7 @@
       </iframe>
     </div>
 
-    <!-- PATROCINADORES EXCLUSIVOS (SLIM) -->
+    <!-- PATROCINADORES EXCLUSIVOS -->
     <section class="sponsors" aria-label="Patrocinadores exclusivos">
       <h2>Patrocinadores exclusivos</h2>
       <div class="tiles">
@@ -173,20 +178,22 @@
       <p class="tip" id="igTip">Se abriu pelo Instagram e o vídeo não aparecer, toque nos ⋯ e escolha <strong>Abrir no navegador</strong>.</p>
     </section>
 
-    <!-- APOIOS (TARJINHAS) -->
+    <!-- APOIOS -->
     <section class="supports" aria-label="Apoiadores">
       <h3>Apoio</h3>
       <div class="chips">
         <div class="chip">
           <span class="n">Amor de Cone</span>
           <span class="w">
-            <a href="https://wa.me/5521982165333?text=Ol%C3%A1%2C%20vi%20voc%C3%AAs%20na%20TV%20Marata%C3%ADzes%20%F0%9F%8D%8D" target="_blank" rel="noopener" aria-label="Amor de Cone — WhatsApp">WhatsApp</a>
+            <a href="https://wa.me/5521982165333?text=Ol%C3%A1%2C%20vi%20o%20Amor%20de%20Cone%20na%20TV%20Marata%C3%ADzes%20%F0%9F%8D%8D" 
+               target="_blank" rel="noopener" aria-label="Amor de Cone — WhatsApp">WhatsApp</a>
           </span>
         </div>
         <div class="chip">
           <span class="n">Marcenaria Pé na Estrada</span>
           <span class="w">
-            <a href="https://wa.me/5528999048337?text=Ol%C3%A1%2C%20vi%20voc%C3%AAs%20na%20TV%20Marata%C3%ADzes%20%F0%9F%9A%97" target="_blank" rel="noopener" aria-label="Marcenaria Pé na Estrada — WhatsApp">WhatsApp</a>
+            <a href="https://wa.me/5528999048337?text=Ol%C3%A1%2C%20vi%20a%20Marcenaria%20P%C3%A9%20na%20Estrada%20na%20TV%20Marata%C3%ADzes%20%F0%9F%9A%97" 
+               target="_blank" rel="noopener" aria-label="Marcenaria Pé na Estrada — WhatsApp">WhatsApp</a>
           </span>
         </div>
       </div>
