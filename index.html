@@ -35,9 +35,7 @@
     .sponsors{max-width:1100px;margin:14px auto 10px}
     .sponsors h2{margin:8px 4px 10px;font:700 clamp(16px,2.6vw,20px)/1.2 system-ui}
     .tiles{
-      display:grid; 
-      grid-template-columns: repeat(5, 1fr); 
-      gap:10px;
+      display:grid; grid-template-columns: repeat(5, 1fr); gap:10px;
     }
     .tile{
       background:var(--tile);
@@ -89,14 +87,11 @@
       padding:3px 7px;border-radius:8px;font-size:12px;
     }
 
-    /* MOBILE: grid 2x2 + 1 */
-    @media (max-width: 900px){
-      .tiles{ 
-        grid-template-columns: repeat(2, 1fr); 
-      }
-      .tiles .tile:last-child{
-        grid-column: 1 / span 2; /* ocupa 2 colunas o último (Em breve) */
-      }
+    /* MOBILE/TABLET: grid 2x2 + 1 até 1200px */
+    @media (max-width: 1200px){
+      .tiles{ grid-template-columns: repeat(2, 1fr); }
+      .tiles .tile{ min-width: 0; }
+      .tiles .tile:nth-child(5){ grid-column: 1 / span 2; } /* "Em breve" ocupa a linha toda */
     }
     @media (max-width:420px){
       .about{margin-top:12px}
