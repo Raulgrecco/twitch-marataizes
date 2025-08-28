@@ -20,8 +20,41 @@
     .dot{width:10px;height:10px;border-radius:999px;background:var(--accent)}
     .brand{font-weight:900;font-size:clamp(18px,2.4vw,24px)}
     .wrap{max-width:1200px;margin:0 auto;padding:0 12px 28px}
+
+    /* PLAYER */
     .player{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;border-radius:12px}
     .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+    /* OVERLAY: hora/clima no topo do player */
+    .tvm-topbar{
+      position:absolute; top:8px; left:8px; right:8px;
+      display:flex; justify-content:space-between; gap:8px; pointer-events:none;
+    }
+    .tvm-pill{
+      pointer-events:auto; background:rgba(0,0,0,.55); color:#fff;
+      padding:6px 10px; border-radius:999px;
+      font:600 12px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      border:1px solid rgba(255,255,255,.15)
+    }
+
+    /* TARJA Agora / A seguir (abaixo do vídeo) */
+    .tvm-epgbar{
+      margin:12px 0 16px; padding:10px 12px; border-radius:14px; background:#0b0b0b; border:1px solid #222;
+      display:flex; align-items:center; gap:24px; flex-wrap:wrap;
+    }
+    .tvm-col{min-width:240px}
+    .tvm-epgtitle{color:#fff; font:800 20px/1.1 system-ui, -apple-system, Segoe UI, Roboto, Arial}
+    .tvm-epgsub{color:#d2d2d2; font:500 16px/1.25 system-ui, -apple-system, Segoe UI, Roboto, Arial; margin-top:2px}
+
+    .tvm-install{
+      margin-left:auto; padding:10px 16px; border-radius:999px; border:0;
+      font:700 14px system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background:#fff; color:#000; cursor:default; /* cenográfico */
+      white-space:nowrap;
+    }
+    @media (max-width:520px){ .tvm-epgbar{gap:12px} .tvm-install{margin-left:0} }
+
+    /* PATROCINADORES */
     .sponsors{max-width:1100px;margin:14px auto 10px}
     .sponsors h2{margin:8px 4px 10px;font:700 clamp(16px,2.6vw,20px)/1.2 system-ui}
     .tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
@@ -32,11 +65,15 @@
     .tile .cta{margin-top:4px;font-size:13px;background:rgba(0,0,0,.15);border-radius:8px;padding:3px 8px}
     .tile .cta a{text-decoration:none}
     .placeholder{opacity:.75}
+
+    /* TEXTO */
     .about{max-width:980px;margin:16px auto 32px}
     .about h1{margin:0 0 12px;font-size:clamp(20px,3.6vw,30px);font-weight:900}
     .lead{color:var(--muted);font-size:clamp(14px,2.4vw,17px);line-height:1.7;margin:0}
     .copy{margin-top:14px;color:var(--fg);font-size:clamp(15px,2.6vw,18px);line-height:1.75}
     .tip{margin-top:10px;font-size:clamp(12px,2.6vw,14px);opacity:.7;display:none}
+
+    /* APOIOS */
     .supports{max-width:1100px;margin:20px auto 0}
     .supports h3{margin:6px 4px 8px;font:700 clamp(15px,2.4vw,18px)/1.2 system-ui;opacity:.9}
     .chips{display:flex;gap:8px;flex-wrap:wrap}
@@ -44,7 +81,11 @@
           display:flex;align-items:center;gap:10px;box-shadow:0 1px 4px rgba(0,0,0,.12);white-space:nowrap}
     .chip .n{font-weight:700;font-size:13px}
     .chip .w a{text-decoration:none;background:rgba(0,0,0,.18);padding:3px 7px;border-radius:8px;font-size:12px}
-    @media (max-width:1200px){ .tiles{grid-template-columns:repeat(2,1fr)} .tiles .tile:nth-child(5){grid-column:1/span 2} }
+
+    @media (max-width:1200px){
+      .tiles{grid-template-columns:repeat(2,1fr)}
+      .tiles .tile:nth-child(5){grid-column:1/span 2}
+    }
     @media (max-width:420px){ .about{margin-top:12px} .player{border-radius:10px} }
   </style>
 </head>
@@ -66,12 +107,32 @@
         playsinline
         referrerpolicy="origin">
       </iframe>
+
+      <!-- OVERLAY: hora/clima -->
+      <div class="tvm-topbar">
+        <span class="tvm-pill">Marataízes ⛅ <span id="tvm-weather">25°C</span></span>
+        <span class="tvm-pill" id="tvm-clock">--:--</span>
+      </div>
     </div>
+
+    <!-- TARJA Agora / A seguir (cenográfica, sem horário) -->
+    <div class="tvm-epgbar" aria-label="Barra de programação">
+      <div class="tvm-col">
+        <div class="tvm-epgtitle">Agora</div>
+        <div class="tvm-epgsub">Marataízes — ao vivo</div>
+      </div>
+      <div class="tvm-col">
+        <div class="tvm-epgtitle">A seguir</div>
+        <div class="tvm-epgsub">Itapemirim — ao vivo</div>
+      </div>
+      <button class="tvm-install" type="button" aria-disabled="true">Instalar TV Marataízes</button>
+    </div>
+
     <p id="fallback" style="display:none;color:#fff;opacity:.85;margin:10px 2px;">
       Se o player não carregar, <a href="https://player.castr.com/live_b7693b10837311f0b25d15867f2a1ebb" target="_blank" rel="noopener">clique aqui para abrir o player direto</a>.
     </p>
 
-    <!-- PATROCINADORES EXCLUSIVOS -->
+    <!-- PATROCINADORES EXCLUSIVOS (mantidos) -->
     <section class="sponsors" aria-label="Patrocinadores exclusivos">
       <h2>Patrocinadores exclusivos</h2>
       <div class="tiles">
@@ -115,7 +176,6 @@
         <div class="chip">
           <span class="n">Amor de Cone</span>
           <span class="w">
-            <!-- mantém o zap: +55 21 98316-5333 -->
             <a href="https://wa.me/5521983165333?text=Ol%C3%A1%2C%20vi%20o%20Amor%20de%20Cone%20na%20TV%20Marata%C3%ADzes"
                target="_blank" rel="noopener" aria-label="Amor de Cone — WhatsApp">WhatsApp</a>
           </span>
@@ -133,15 +193,25 @@
 
   <script>
     (function(){
-      // mostra dica pra quem abre in-app
+      // Mostrar dica para quem abre dentro do app do Instagram/Facebook/TikTok
       const inApp=/Instagram|FBAN|FBAV|FB_IAB|TikTok/i.test(navigator.userAgent||"");
       if(inApp) document.getElementById('igTip').style.display='block';
-      // fallback se o iframe não carregar
+
+      // Fallback se o iframe não carregar
       const el = document.getElementById('fallback');
       const to = setTimeout(()=> el.style.display='block', 6000);
       document.getElementById('castrPlayer')?.addEventListener('load', ()=> clearTimeout(to), { once:true });
+
+      // Relógio do topo do player
+      function two(n){return n<10?'0'+n:n}
+      function tick(){
+        const d=new Date(), hh=two(d.getHours()), mm=two(d.getMinutes());
+        const elClock=document.getElementById('tvm-clock'); if (elClock) elClock.textContent = `${hh}:${mm}`;
+      }
+      tick(); setInterval(tick, 15000);
     })();
   </script>
+
   <noscript><p style="color:#fff;opacity:.8">Ative o JavaScript para assistir ao vivo.</p></noscript>
 </body>
 </html>
