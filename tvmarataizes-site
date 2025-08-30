@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TV Marataízes — Mídia que vende</title>
+  <meta name="description" content="TV Marataízes: plataforma de mídia integrada (TV + Instagram + Facebook + WhatsApp) com exclusividade por segmento e resultados reais." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0b0b0f; --card:#101218; --muted:#c9d1d9; --text:#f5f7fb; --brand:#6ee7b7; --accent:#22d3ee; --cta:#10b981;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--text);background:linear-gradient(180deg,#0b0b0f 0%,#0e1117 60%,#0b0b0f 100%);}  
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    header{position:sticky;top:0;backdrop-filter:saturate(180%) blur(6px);background:rgba(11,11,15,.6);border-bottom:1px solid rgba(255,255,255,.06);z-index:50}
+    nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .logo{display:flex;gap:10px;align-items:center;font-weight:700;letter-spacing:.3px}
+    .logo span{display:inline-block;width:10px;height:10px;border-radius:2px;background:linear-gradient(135deg,var(--brand),var(--accent));box-shadow:0 0 18px rgba(34,211,238,.5)}
+    .navlinks{display:flex;gap:20px;font-weight:600;font-size:14px;opacity:.9}
+    .btn{display:inline-flex;gap:10px;align-items:center;background:linear-gradient(135deg,var(--cta),var(--accent));color:#082b1f;border:0;padding:12px 18px;border-radius:14px;font-weight:800;box-shadow:0 10px 30px rgba(16,185,129,.25);transition:transform .15s ease, box-shadow .15s ease}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(34,211,238,.25)}
+    .hero{padding:70px 0 40px;position:relative;overflow:hidden}
+    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:36px}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid rgba(255,255,255,.08);border-radius:999px;font-size:12px;opacity:.9}
+    h1{font-size:44px;line-height:1.1;margin:14px 0 12px}
+    p.lead{font-size:18px;opacity:.9;margin:0 0 22px}
+    .stats{display:flex;gap:20px;flex-wrap:wrap;margin:28px 0}
+    .stat{background:var(--card);padding:14px 18px;border-radius:16px;border:1px solid rgba(255,255,255,.06)}
+    .stat b{font-size:22px;display:block}
+    .card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:24px}
+    section{padding:64px 0}
+    h2{font-size:28px;margin:0 0 14px}
+    .plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+    .plan h3{margin:0 0 10px}
+    .plan ul{margin:10px 0 0;padding-left:18px;opacity:.9}
+    .muted{opacity:.75}
+    .pill{display:inline-block;margin-top:8px;padding:6px 10px;border:1px solid rgba(255,255,255,.08);border-radius:999px;font-size:12px}
+    .compare{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+    .compare .item{background:var(--card);padding:16px;border:1px solid rgba(255,255,255,.06);border-radius:14px}
+    .case{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    footer{padding:30px 0;border-top:1px solid rgba(255,255,255,.06);opacity:.8}
+    .ctaBar{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px}
+    .ghost{padding:12px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.14)}
+    @media (max-width:900px){.grid,.plans,.case,.compare{grid-template-columns:1fr}.hero{padding-top:40px}h1{font-size:34px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo"><span></span> TV Marataízes</div>
+        <div class="navlinks">
+          <a href="#resultados">Resultados</a>
+          <a href="#planos">Planos</a>
+          <a href="#porque">Por que nós</a>
+          <a href="#cases">Cases</a>
+          <a href="#contato">Contato</a>
+        </div>
+        <a class="btn" href="https://wa.me/5528999036141" target="_blank" rel="noopener">Falar no WhatsApp</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container grid">
+        <div>
+          <div class="badge">TV Digital • Streaming • Sul do ES</div>
+          <h1>Mídia que <span style="background:linear-gradient(135deg,var(--brand),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent">vende</span> — e dá exclusividade à sua marca.</h1>
+          <p class="lead">Não somos só um espaço publicitário. Somos sua <b>agência integrada</b>: TV + Instagram + Facebook + WhatsApp, com <b>exclusividade por segmento</b> e métricas claras.</p>
+          <div class="stats">
+            <div class="stat"><b>200,1 mil</b><span class="muted">visualizações</span></div>
+            <div class="stat"><b>4,9 mil</b><span class="muted">interações</span></div>
+            <div class="stat"><b>2.907</b><span class="muted">novos seguidores</span></div>
+          </div>
+          <div class="ctaBar">
+            <a class="btn" href="https://wa.me/5528999036141" target="_blank" rel="noopener">Quero ser parceiro</a>
+            <a class="ghost" href="#planos">Ver planos</a>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">Manifesto</h3>
+          <p class="muted">Mais do que mídia, somos um motor de vendas local. Conteúdo próprio, presença em eventos, e campanhas que chegam no bolso do cliente. Exclusividade de segmento e resultado em até 60 dias.</p>
+          <p class="pill">Abacaxi da TV • Boi da Cara Preta • Cultura em Foco • Tal Mãe, Tal Filha</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="resultados">
+      <div class="container">
+        <h2>Resultados Reais</h2>
+        <div class="case">
+          <div class="card">
+            <h3>Case Lima Veículos</h3>
+            <p class="muted">Stories com objetivo WhatsApp: <b>R$ 0,55 por visita</b>. Em 1 dia: <b>40 acessos diretos</b> ao contato, +6,5 mil visualizações. Baixo custo e alto volume.</p>
+            <ul class="muted">
+              <li>Campanha em Marataízes/ES (geo local)</li>
+              <li>Foco em leads quentes via WhatsApp</li>
+              <li>Conteúdo criativo + mídia paga otimizada</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>TV Marataízes (Institucional)</h3>
+            <p class="muted">Campanha de seguidores: 24h com <b>76% de conversão</b> (43 visitas → 33 follows). Custo por visita ao perfil: <b>R$ 0,70</b>.</p>
+            <ul class="muted">
+              <li>Top of mind local com funil para o canal</li>
+              <li>Integração redes + programação própria</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="planos">
+      <div class="container">
+        <h2>Planos de Mídia</h2>
+        <div class="plans">
+          <div class="plan card">
+            <h3>Plano Top — R$ 5.000/mês</h3>
+            <p class="muted">Exclusividade completa por segmento. Você domina seu mercado.</p>
+            <ul>
+              <li>7 stories/semana (28/mês) + inserções na TV</li>
+              <li>Presença em coberturas e eventos</li>
+              <li>Relatórios de ROI e consultoria contínua</li>
+              <li>Impulsionamento integrado: TV + IG + FB + WhatsApp</li>
+            </ul>
+          </div>
+          <div class="plan card">
+            <h3>Plano Destaque — R$ 3.750/mês</h3>
+            <p class="muted">Visibilidade premium com limite de 2 marcas por segmento.</p>
+            <ul>
+              <li>5 stories/semana (20/mês)</li>
+              <li>Ações promocionais + institucionais</li>
+              <li>Monitoramento de alcance e leads</li>
+              <li>Consultoria para otimizar resultados</li>
+            </ul>
+          </div>
+        </div>
+        <p class="muted" style="margin-top:12px">Planos menores sob consulta (ações pontuais, testes e ativações específicas).</p>
+      </div>
+    </section>
+
+    <section id="porque">
+      <div class="container">
+        <h2>Por que a TV Marataízes?</h2>
+        <div class="compare">
+          <div class="item"><b>TV Marataízes</b><br><span class="muted">Comunicação integrada, conteúdo próprio e exclusividade de segmento. Métricas e leads reais.</span></div>
+          <div class="item"><b>Rádio</b><br><span class="muted">Spots curtos, pouca personalização, sem prova de resultado.</span></div>
+          <div class="item"><b>Outdoor</b><br><span class="muted">Visibilidade estática, sem interação ou mensuração.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cases">
+      <div class="container">
+        <h2>Quem já confia</h2>
+        <div class="card">
+          <p class="muted">Parceiros e casos em andamento no Sul do ES. Destaque atual: <b>Lima Veículos</b> (segmento automotivo).</p>
+          <p class="muted">Quer exclusividade no seu setor? Fale com a gente e reserve sua região (Marataízes, Itapemirim, Piúma, Presidente Kennedy).</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato">
+      <div class="container">
+        <h2>Fale com a gente</h2>
+        <div class="card">
+          <p class="muted">Pronto para crescer com mídia que vende? Chame no WhatsApp ou envie um e‑mail.</p>
+          <div class="ctaBar">
+            <a class="btn" href="https://wa.me/5528999036141" target="_blank" rel="noopener">WhatsApp (28) 99903‑6141</a>
+            <a class="ghost" href="mailto:contato@tvmarataizes.com.br">contato@tvmarataizes.com.br</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> TV Marataízes • Macuca Produções — Marataízes, ES
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent=new Date().getFullYear()</script>
+</body>
+</html>
