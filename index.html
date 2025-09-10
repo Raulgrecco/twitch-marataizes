@@ -10,48 +10,83 @@
   <meta http-equiv="Expires" content="0" />
   <meta name="theme-color" content="#0B0B0B" />
   <link rel="canonical" href="https://tvmarataizes.digital/" />
-  <!-- AB_TEST: variant=B | single-main-only -->
+  <!-- AB_TEST: variant=B | Palette: Orange + Deep Purple + Gold -->
   <style>
-    :root{ --bg:#0B0B0B; --fg:#fff; --muted:rgba(255,255,255,.72);
-      --accent:#FF6F00; --accent2:#5A189A; --accent3:#FFB000; --tile:rgba(255,255,255,.88); }
-    *{box-sizing:border-box}
-    html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-    a{color:inherit}
-    header{display:flex;justify-content:center;align-items:center;gap:.6rem;padding:14px}
-    .dot{width:10px;height:10px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent2))}
-    .brand{font-weight:900;font-size:clamp(18px,2.4vw,24px)}
-    .wrap{max-width:1200px;margin:0 auto;padding:0 12px 28px}
-    .player{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;border-radius:12px}
-    .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-    .tvm-topbar{position:absolute; top:8px; left:8px; right:8px; display:flex; justify-content:space-between; gap:8px; pointer-events:none;}
-    .tvm-pill{pointer-events:auto; background:rgba(0,0,0,.55); color:#fff; padding:6px 10px; border-radius:999px; font:600 12px/1.2 system-ui; border:1px solid rgba(255,255,255,.15); box-shadow:0 0 0 1px rgba(255,111,0,.18);}
-    .tvm-epgbar{margin:12px 0 16px; padding:10px 12px; border-radius:14px; background:#101010; border:1px solid #222; display:flex; align-items:center; gap:24px; flex-wrap:wrap;}
-    .tvm-col{min-width:240px}
-    .tvm-epgtitle{color:var(--accent3); font:800 20px/1.1 system-ui}
-    .tvm-epgsub{color:#EDEDED; font:500 16px/1.25 system-ui; margin-top:2px}
-    .tvm-install{margin-left:auto; padding:10px 16px; border-radius:999px; font:800 14px system-ui; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; text-decoration:none; white-space:nowrap; box-shadow:0 6px 18px rgba(90,24,154,.28); transition:.15s ease;}
-    .tvm-install:hover{filter:brightness(1.05); transform:translateY(-1px)}
-    @media (max-width:520px){ .tvm-epgbar{gap:12px} .tvm-install{margin-left:0} .tvm-epgsub{white-space:normal} }
-    .sponsors{max-width:1100px;margin:14px auto 10px}
-    .sponsors h2{margin:8px 4px 10px; font:900 clamp(16px,2.6vw,20px)/1.2 system-ui; background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent;}
-    .tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-    .tile{background:var(--tile); border:1px solid rgba(255,255,255,.25); border-radius:12px; min-height:56px; padding:6px 10px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; box-shadow:0 2px 6px rgba(0,0,0,.15)}
-    .tile .name{font-weight:800;font-size:clamp(13px,2.2vw,15px)}
-    .tile .cta{margin-top:4px;font-size:13px;background:rgba(0,0,0,.15);border-radius:8px;padding:3px 8px}
-    .tile .cta a{text-decoration:none;color:#111;font-weight:700}
-    .tile--highlight{color:#111; background:linear-gradient(135deg, rgba(255,111,0,.97), rgba(90,24,154,.92)); border:1px solid rgba(255,255,255,.28); box-shadow:0 8px 22px rgba(90,24,154,.20)}
-    .placeholder{opacity:.75}
-    .about{max-width:980px;margin:16px auto 18px}
-    .about h1{margin:0 0 12px;font-size:clamp(20px,3.6vw,30px);font-weight:900; background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent;}
-    .lead{color:var(--muted);font-size:clamp(14px,2.4vw,17px);line-height:1.7;margin:0}
-    .copy{margin-top:14px;color:var(--fg);font-size:clamp(15px,2.6vw,18px);line-height:1.75}
-    .advert-cta{max-width:980px;margin:10px auto 32px;padding:12px 14px;border-radius:14px; background:linear-gradient(135deg, rgba(255,111,0,.10), rgba(90,24,154,.08)); border:1px solid rgba(255,255,255,.10); display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-    .advert-cta .txt{font-weight:600; color:#EEE}
-    .advert-cta .btn{margin-left:auto; padding:10px 14px; border-radius:999px; font:800 14px system-ui; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; text-decoration:none; white-space:nowrap; box-shadow:0 6px 18px rgba(90,24,154,.22)}
-    @media (max-width:560px){ .advert-cta .btn{ margin-left:0; width:100%; text-align:center } }
+    :root {
+      --bg: #0B0B0B;
+      --fg: #fff;
+      --muted: rgba(255,255,255,.72);
+      --accent: #FF6F00;
+      --accent2: #5A189A;
+      --accent3: #FFB000;
+      --tile: rgba(255,255,255,.88);
+    }
+    * { box-sizing: border-box; }
+    html,body { margin:0; background:var(--bg); color:var(--fg); font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+    a { color: inherit; }
+    header { display:flex; justify-content:center; align-items:center; gap:.6rem; padding:14px; }
+    .dot { width:10px; height:10px; border-radius:999px; background: linear-gradient(135deg, var(--accent), var(--accent2)); }
+    .brand { font-weight:900; font-size:clamp(18px, 2.4vw, 24px); }
+    .wrap { max-width:1200px; margin:0 auto; padding:0 12px 28px; }
+
+    /* Player */
+    .player { position:relative; width:100%; aspect-ratio:16/9; background:#000; overflow:hidden; border-radius:12px; }
+    .player iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+    /* Topbar (clock + weather) */
+    .tvm-topbar { position:absolute; top:8px; left:8px; right:8px; display:flex; justify-content:space-between; gap:8px; pointer-events:none; }
+    .tvm-pill { pointer-events:auto; background:rgba(0,0,0,.55); color:#fff; padding:6px 10px; border-radius:999px; font:600 12px/1.2 system-ui; border:1px solid rgba(255,255,255,.15); box-shadow:0 0 0 1px rgba(255,111,0,.18); }
+
+    /* EpG Bar */
+    .tvm-epgbar { margin:12px 0 16px; padding:10px 12px; border-radius:14px; background:#101010; border:1px solid #222; display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
+    .tvm-col { min-width:240px; }
+    .tvm-epgtitle { color:var(--accent3); font:800 20px/1.1 system-ui; }
+    .tvm-epgsub { color:#EDEDED; font:500 16px/1.25 system-ui; margin-top:2px; }
+
+    .tvm-install { margin-left:auto; padding:10px 16px; border-radius:999px; font:800 14px system-ui; background:linear-gradient(135deg, var(--accent), var(--accent2)); color:#fff; text-decoration:none; white-space:nowrap; box-shadow:0 6px 18px rgba(90,24,154,.28); transition:.15s ease; }
+    .tvm-install:hover { filter:brightness(1.05); transform:translateY(-1px); }
+
+    @media (max-width:520px) {
+      .tvm-epgbar { gap:12px; }
+      .tvm-install { margin-left:0; }
+      .tvm-epgsub { white-space:normal; }
+    }
+
+    /* Sponsors */
+
+    .sponsors { max-width:1100px; margin:14px auto 10px; }
+    .sponsors h2 { margin:8px 4px 10px; font:900 clamp(16px,2.6vw,20px)/1.2 system-ui; background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+    .tiles { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
+    .tile { background:var(--tile); border:1px solid rgba(255,255,255,.25); border-radius:12px; min-height:56px; padding:6px 10px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; box-shadow:0 2px 6px rgba(0,0,0,.15); }
+    .tile .name { font-weight:800; font-size:clamp(13px,2.2vw,15px); }
+    .tile .cta { margin-top:4px; font-size:13px; background:rgba(0,0,0,.15); border-radius:8px; padding:3px 8px; }
+    .tile .cta a { text-decoration:none; color:#111; font-weight:700; }
+
+    .tile--highlight { color:#111; background:linear-gradient(135deg, rgba(255,111,0,.97), rgba(90,24,154,.92)); border:1px solid rgba(255,255,255,.28); box-shadow:0 8px 22px rgba(90,24,154,.20); }
+    .placeholder { opacity:.75; }
+
+    /* About Text */
+
+    .about { max-width:980px; margin:16px auto 18px; }
+    .about h1 { margin:0 0 12px; font-size:clamp(20px,3.6vw,30px); font-weight:900; background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+    .lead { color:var(--muted); font-size:clamp(14px,2.4vw,17px); line-height:1.7; margin:0; }
+    .copy { margin-top:14px; color:var(--fg); font-size:clamp(15px,2.6vw,18px); line-height:1.75; }
+
+    /* Final CTA */
+
+    .advert-cta { max-width:980px; margin:10px auto 32px; padding:12px 14px; border-radius:14px; background:linear-gradient(135deg, rgba(255,111,0,.10), rgba(90,24,154,.08)); border:1px solid rgba(255,255,255,.10); display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    .advert-cta .txt { font-weight:600; color:#EEE; }
+    .advert-cta .btn { margin-left:auto; padding:10px 14px; border-radius:999px; font:800 14px system-ui; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; text-decoration:none; white-space:nowrap; box-shadow:0 6px 18px rgba(90,24,154,.22); }
+
+    @media (max-width:560px) {
+      .advert-cta .btn { margin-left:0; width:100%; text-align:center; }
+    }
   </style>
 </head>
 <body>
+
   <header>
     <span class="dot" aria-hidden="true"></span>
     <div class="brand">TV Marataízes — Ao Vivo</div>
@@ -94,7 +129,7 @@
       </div>
     </section>
 
-    <!-- TEXTO -->
+    <!-- SOBRE -->
     <section class="about" aria-label="Sobre a TV Marataízes">
       <h1>TV Marataízes — a 1ª TV Digital do Sul do Espírito Santo</h1>
       <p class="lead">A TV Marataízes nasceu como um projeto inovador de <strong>TV digital e multiplataforma</strong>, levando programação ao vivo e conteúdos exclusivos para todo o Sul Capixaba.</p>
@@ -103,11 +138,53 @@
       <p class="copy"><strong>TV Marataízes — mais do que transmissão, a vitrine digital do Sul do Espírito Santo para o mundo.</strong></p>
     </section>
 
-    <!-- CTA final -->
+    <!-- CTA FINAL -->
     <section class="advert-cta" aria-label="Anuncie na TV Marataízes">
       <span class="txt">Sua marca pode estar ao vivo para milhares de pessoas no Sul Capixaba.</span>
       <a class="btn" href="https://wa.me/5528999036141?text=Ol%C3%A1%2C%20quero%20anunciar%20na%20TV%20Marata%C3%ADzes" target="_blank" rel="noopener">Falar com comercial</a>
     </section>
   </main>
+
+  <!-- Script para relógio e clima -->
+  <script>
+    (function(){
+      function two(n){ return n < 10 ? '0'+n : n; }
+      function tickClock(){
+        var d = new Date();
+        var hh = two(d.getHours()), mm = two(d.getMinutes());
+        var el = document.getElementById('tvm-clock');
+        if(el) el.textContent = hh + ':' + mm;
+      }
+      tickClock();
+      setInterval(tickClock,15000);
+
+      var TVM_LAT = -21.04, TVM_LON = -40.83;
+      function weatherIcon(code){
+        var map = {0:"☀️",1:"🌤️",2:"⛅",3:"☁️",45:"🌫️",48:"🌫️",
+                   51:"🌦️",53:"🌦️",55:"🌧️",56:"🌧️",57:"🌧️",
+                   61:"🌧️",63:"🌧️",65:"🌧️",66:"🌧️",67:"🌧️",
+                   71:"❄️",73:"❄️",75:"❄️",77:"❄️",
+                   80:"🌧️",81:"🌧️",82:"⛈️",95:"⛈️",96:"⛈️",99:"⛈️"};
+        return map[code]||"⛅";
+      }
+      async function updateWeather(){
+        try{
+          var resp = await fetch(
+            "https://api.open-meteo.com/v1/forecast?latitude="+TVM_LAT+
+            "&longitude="+TVM_LON+
+            "&current=temperature_2m,weather_code&timezone=auto",{cache:"no-store"});
+          var data = await resp.json();
+          var t = Math.round(data.current.temperature_2m);
+          var ic = weatherIcon(data.current.weather_code);
+          var pill = document.getElementById('tvm-weather-pill');
+          if(pill && Number.isFinite(t)){
+            pill.innerHTML = "Marataízes " + ic + " <span id='tvm-weather'>" + t + "°C</span>";
+          }
+        } catch(e){}
+      }
+      updateWeather();
+      setInterval(updateWeather,10*60*1000);
+    })();
+  </script>
 </body>
 </html>
