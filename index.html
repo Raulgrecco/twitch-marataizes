@@ -97,7 +97,7 @@
     .placeholder{opacity:.75}
 
     /* TEXTO */
-    .about{max-width:980px;margin:16px auto 32px}
+    .about{max-width:980px;margin:16px auto 18px}
     .about h1{
       margin:0 0 12px;font-size:clamp(20px,3.6vw,30px);font-weight:900;
       background:linear-gradient(135deg,var(--accent),var(--accent2));
@@ -105,24 +105,24 @@
     }
     .lead{color:var(--muted);font-size:clamp(14px,2.4vw,17px);line-height:1.7;margin:0}
     .copy{margin-top:14px;color:var(--fg);font-size:clamp(15px,2.6vw,18px);line-height:1.75}
-    .tip{margin-top:10px;font-size:clamp(12px,2.6vw,14px);opacity:.7;display:none}
 
-    /* APOIOS */
-    .supports{max-width:1100px;margin:20px auto 0}
-    .supports h3{margin:6px 4px 8px;font:700 clamp(15px,2.4vw,18px)/1.2 system-ui;opacity:.9}
-    .chips{display:flex;gap:8px;flex-wrap:wrap}
-    .chip{
-      background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:999px;height:30px;
-      padding:4px 8px;display:flex;align-items:center;gap:10px;box-shadow:0 1px 4px rgba(0,0,0,.12);white-space:nowrap
+    /* CTA ANUNCIANTES */
+    .advert-cta{
+      max-width:980px;margin:10px auto 32px;padding:12px 14px;border-radius:14px;
+      background:linear-gradient(135deg, rgba(255,158,27,.16), rgba(217,58,229,.12));
+      border:1px solid rgba(255,255,255,.14);
+      display:flex;gap:12px;align-items:center;flex-wrap:wrap
     }
-    .chip .n{font-weight:700;font-size:13px}
-    .chip .w a{ text-decoration:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#111;padding:3px 7px;border-radius:8px;font-size:12px }
-
-    @media (max-width:1200px){
-      .tiles{grid-template-columns:repeat(2,1fr)}
-      .tiles .tile:nth-child(5){grid-column:1/span 2}
+    .advert-cta .txt{font-weight:700}
+    .advert-cta .btn{
+      margin-left:auto; padding:10px 14px; border-radius:999px; border:0; cursor:pointer;
+      font:800 14px system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#111;
+      text-decoration:none; white-space:nowrap; box-shadow:0 6px 18px rgba(217,58,229,.20)
     }
-    @media (max-width:420px){ .about{margin-top:12px} .player{border-radius:10px} }
+    @media (max-width:560px){
+      .advert-cta .btn{ margin-left:0; width:100%; text-align:center }
+    }
   </style>
 </head>
 <body>
@@ -188,7 +188,7 @@
           </div>
         </div>
 
-        <!-- 3. Macuca Produções -->
+        <!-- 3. Macuca Produções (agora com cor) -->
         <div class="tile tile--highlight">
           <div class="name">Macuca Produções</div>
           <div class="cta">
@@ -198,20 +198,266 @@
         </div>
 
         <!-- 4. Placeholder -->
-        <div class="tile placeholder"><div class="name">Sua marca aqui</div><div class="cta">WhatsApp</div></div>
+        <div class="tile placeholder">
+          <div class="name">Sua marca aqui</div>
+          <div class="cta">WhatsApp</div>
+        </div>
 
         <!-- 5. Placeholder -->
-        <div class="tile placeholder"><div class="name">Em breve</div><div class="cta">WhatsApp</div></div>
+        <div class="tile placeholder">
+          <div class="name">Em breve</div>
+          <div class="cta">WhatsApp</div>
+        </div>
       </div>
     </section>
 
     <!-- TEXTO -->
-    <section class="about">
+    <section class="about" aria-label="Sobre a TV Marataízes">
       <h1>TV Marataízes — a 1ª TV Digital do Sul do Espírito Santo</h1>
       <p class="lead">A TV Marataízes nasceu como um projeto inovador de <strong>TV digital e multiplataforma</strong>, levando programação ao vivo e conteúdos exclusivos para todo o Sul Capixaba.</p>
       <p class="copy">Nosso propósito é <strong>valorizar a cultura regional</strong>, destacar os talentos locais e entregar uma experiência de entretenimento que fala a língua do público. Para nossos parceiros, garantimos <strong>retorno real</strong>: visibilidade diária, credibilidade e conexão direta com quem importa.</p>
       <p class="copy">Com <strong>quadros originais</strong>, transmissões especiais e cobertura dos principais acontecimentos da região, somos um canal criado para <strong>conectar pessoas, cidades e histórias</strong>. Assista de qualquer lugar — pelo site, celular ou Smart TV — e faça parte dessa nova forma de viver a comunicação local.</p>
       <p class="copy"><strong>TV Marataízes — mais do que transmissão, a vitrine digital do Sul do Espírito Santo para o mundo.</strong></p>
+    </section>
+
+    <!-- CTA ANUNCIANTES -->
+    <section class="advert-cta" aria-label="Anuncie na TV Marataízes">
+      <span class="txt">Quer anunciar? Fale direto com a nossa equipe comercial — <strong>WhatsApp (28) 99903-6141</strong>.</span>
+      <a class="btn" href="https://wa.me/5528999036141?text=Ol%C3%A1%2C%20quero%20anunciar%20na%20TV%20Marata%C3%ADzes" target="_blank" rel="noopener" aria-label="Abrir WhatsApp para anunciar">
+        Anunciar no WhatsApp
+      </a>
+    </section>
+  </main>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>TV Marataízes — ao vivo</title>
+  <meta name="description" content="TV Marataízes: canal de TV digital do Sul do Espírito Santo. Programação ao vivo, quadros originais e cobertura regional." />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="theme-color" content="#0B0B0B" />
+  <link rel="canonical" href="https://tvmarataizes.digital/" />
+  <style>
+    :root{
+      --bg:#0B0B0B; --fg:#fff; --muted:rgba(255,255,255,.72);
+      --accent:#FF9E1B;      /* âmbar */
+      --accent2:#D93AE5;     /* magenta */
+      --accent3:#FFB000;     /* dourado */
+      --tile:rgba(255,255,255,.88);
+      --chip:rgba(255,255,255,.65);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+    a{color:inherit}
+    header{display:flex;justify-content:center;align-items:center;gap:.6rem;padding:14px}
+    .dot{width:10px;height:10px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent2))}
+    .brand{font-weight:900;font-size:clamp(18px,2.4vw,24px)}
+    .wrap{max-width:1200px;margin:0 auto;padding:0 12px 28px}
+
+    /* PLAYER */
+    .player{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;border-radius:12px}
+    .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+    /* OVERLAY topo do player */
+    .tvm-topbar{
+      position:absolute; top:8px; left:8px; right:8px;
+      display:flex; justify-content:space-between; gap:8px; pointer-events:none;
+    }
+    .tvm-pill{
+      pointer-events:auto; background:rgba(0,0,0,.55); color:#fff;
+      padding:6px 10px; border-radius:999px;
+      font:600 12px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      border:1px solid rgba(255,255,255,.15);
+      box-shadow:0 0 0 1px rgba(255,158,27,.15);
+    }
+
+    /* TARJA */
+    .tvm-epgbar{
+      margin:12px 0 16px; padding:10px 12px; border-radius:14px; background:#101010; border:1px solid #222;
+      display:flex; align-items:center; gap:24px; flex-wrap:wrap;
+    }
+    .tvm-col{min-width:240px}
+    .tvm-epgtitle{color:var(--accent3); font:800 20px/1.1 system-ui, -apple-system, Segoe UI, Roboto, Arial}
+    .tvm-epgsub{color:#EDEDED; font:500 16px/1.25 system-ui, -apple-system, Segoe UI, Roboto, Arial; margin-top:2px}
+
+    /* CTA principal */
+    .tvm-install{
+      margin-left:auto; padding:10px 16px; border-radius:999px; border:0;
+      font:700 14px system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:#111; cursor:default; white-space:nowrap;
+      box-shadow:0 6px 18px rgba(217,58,229,.25);
+      transition:.15s ease;
+    }
+    .tvm-install:hover{ filter:brightness(1.05); transform:translateY(-1px); }
+    @media (max-width:520px){
+      .tvm-epgbar{gap:12px}
+      .tvm-install{margin-left:0}
+      .tvm-epgsub{white-space:normal}
+    }
+
+    /* PATROCINADORES */
+    .sponsors{max-width:1100px;margin:14px auto 10px}
+    .sponsors h2{
+      margin:8px 4px 10px;
+      font:900 clamp(16px,2.6vw,20px)/1.2 system-ui;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+    .tile{
+      background:var(--tile);backdrop-filter:saturate(120%) blur(2px);border:1px solid rgba(255,255,255,.25);
+      border-radius:12px;min-height:56px;padding:6px 10px;display:flex;flex-direction:column;justify-content:center;
+      align-items:center;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.15)
+    }
+    .tile .name{font-weight:800;font-size:clamp(13px,2.2vw,15px)}
+    .tile .cta{margin-top:4px;font-size:13px;background:rgba(0,0,0,.15);border-radius:8px;padding:3px 8px}
+    .tile .cta a{text-decoration:none;color:#111;font-weight:700}
+
+    /* Tiles destaque */
+    .tile--highlight{
+      color:#111;
+      background:linear-gradient(135deg, rgba(255,158,27,.97), rgba(217,58,229,.92));
+      border:1px solid rgba(255,255,255,.28);
+      box-shadow:0 8px 22px rgba(217,58,229,.20);
+    }
+    .placeholder{opacity:.75}
+
+    /* TEXTO */
+    .about{max-width:980px;margin:16px auto 18px}
+    .about h1{
+      margin:0 0 12px;font-size:clamp(20px,3.6vw,30px);font-weight:900;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .lead{color:var(--muted);font-size:clamp(14px,2.4vw,17px);line-height:1.7;margin:0}
+    .copy{margin-top:14px;color:var(--fg);font-size:clamp(15px,2.6vw,18px);line-height:1.75}
+
+    /* CTA ANUNCIANTES */
+    .advert-cta{
+      max-width:980px;margin:10px auto 32px;padding:12px 14px;border-radius:14px;
+      background:linear-gradient(135deg, rgba(255,158,27,.16), rgba(217,58,229,.12));
+      border:1px solid rgba(255,255,255,.14);
+      display:flex;gap:12px;align-items:center;flex-wrap:wrap
+    }
+    .advert-cta .txt{font-weight:700}
+    .advert-cta .btn{
+      margin-left:auto; padding:10px 14px; border-radius:999px; border:0; cursor:pointer;
+      font:800 14px system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#111;
+      text-decoration:none; white-space:nowrap; box-shadow:0 6px 18px rgba(217,58,229,.20)
+    }
+    @media (max-width:560px){
+      .advert-cta .btn{ margin-left:0; width:100%; text-align:center }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="dot" aria-hidden="true"></span>
+    <div class="brand">TV Marataízes — Ao Vivo</div>
+  </header>
+
+  <main class="wrap">
+    <!-- PLAYER -->
+    <div class="player" aria-label="Player ao vivo">
+      <iframe
+        id="castrPlayer"
+        title="TV Marataízes — ao vivo"
+        src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
+        allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+        allowfullscreen
+        playsinline
+        referrerpolicy="origin">
+      </iframe>
+
+      <!-- OVERLAY -->
+      <div class="tvm-topbar">
+        <span class="tvm-pill" id="tvm-weather-pill">
+          Marataízes ⛅ <span id="tvm-weather">--°C</span>
+        </span>
+        <span class="tvm-pill" id="tvm-clock">--:--</span>
+      </div>
+    </div>
+
+    <!-- TARJA -->
+    <div class="tvm-epgbar" aria-label="Barra de programação">
+      <div class="tvm-col">
+        <div class="tvm-epgtitle">Agora</div>
+        <div class="tvm-epgsub">Marataízes — ao vivo</div>
+      </div>
+      <div class="tvm-col">
+        <div class="tvm-epgtitle">Conectando o Sul do ES</div>
+        <div class="tvm-epgsub">
+          Itapemirim • Piúma • Presidente Kennedy • Cachoeiro • Vargem Alta • Domingos Martins • Alfredo Chaves • Rio Novo do Sul
+        </div>
+      </div>
+      <button class="tvm-install" type="button" aria-disabled="true">Instalar TV Marataízes</button>
+    </div>
+
+    <!-- PATROCINADORES -->
+    <section class="sponsors" aria-label="Patrocinadores exclusivos">
+      <h2>Patrocinadores exclusivos</h2>
+      <div class="tiles">
+        <!-- 1. Lima Veículos -->
+        <div class="tile tile--highlight">
+          <div class="name">Lima Veículos</div>
+          <div class="cta">
+            <a href="https://tvmarataizes.digital/lima" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+        </div>
+
+        <!-- 2. Piraquê -->
+        <div class="tile tile--highlight">
+          <div class="name">Piraquê</div>
+          <div class="cta">
+            <a href="https://piraque.com.br/" target="_blank" rel="noopener">Visitar site</a>
+          </div>
+        </div>
+
+        <!-- 3. Macuca Produções (agora com cor) -->
+        <div class="tile tile--highlight">
+          <div class="name">Macuca Produções</div>
+          <div class="cta">
+            <a href="https://wa.me/5528999036141?text=Ol%C3%A1%2C%20vi%20voc%C3%AAs%20na%20TV%20Marata%C3%ADzes"
+               target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+        </div>
+
+        <!-- 4. Placeholder -->
+        <div class="tile placeholder">
+          <div class="name">Sua marca aqui</div>
+          <div class="cta">WhatsApp</div>
+        </div>
+
+        <!-- 5. Placeholder -->
+        <div class="tile placeholder">
+          <div class="name">Em breve</div>
+          <div class="cta">WhatsApp</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEXTO -->
+    <section class="about" aria-label="Sobre a TV Marataízes">
+      <h1>TV Marataízes — a 1ª TV Digital do Sul do Espírito Santo</h1>
+      <p class="lead">A TV Marataízes nasceu como um projeto inovador de <strong>TV digital e multiplataforma</strong>, levando programação ao vivo e conteúdos exclusivos para todo o Sul Capixaba.</p>
+      <p class="copy">Nosso propósito é <strong>valorizar a cultura regional</strong>, destacar os talentos locais e entregar uma experiência de entretenimento que fala a língua do público. Para nossos parceiros, garantimos <strong>retorno real</strong>: visibilidade diária, credibilidade e conexão direta com quem importa.</p>
+      <p class="copy">Com <strong>quadros originais</strong>, transmissões especiais e cobertura dos principais acontecimentos da região, somos um canal criado para <strong>conectar pessoas, cidades e histórias</strong>. Assista de qualquer lugar — pelo site, celular ou Smart TV — e faça parte dessa nova forma de viver a comunicação local.</p>
+      <p class="copy"><strong>TV Marataízes — mais do que transmissão, a vitrine digital do Sul do Espírito Santo para o mundo.</strong></p>
+    </section>
+
+    <!-- CTA ANUNCIANTES -->
+    <section class="advert-cta" aria-label="Anuncie na TV Marataízes">
+      <span class="txt">Quer anunciar? Fale direto com a nossa equipe comercial — <strong>WhatsApp (28) 99903-6141</strong>.</span>
+      <a class="btn" href="https://wa.me/5528999036141?text=Ol%C3%A1%2C%20quero%20anunciar%20na%20TV%20Marata%C3%ADzes" target="_blank" rel="noopener" aria-label="Abrir WhatsApp para anunciar">
+        Anunciar no WhatsApp
+      </a>
     </section>
   </main>
 </body>
