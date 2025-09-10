@@ -87,7 +87,7 @@
     .tile .cta{margin-top:4px;font-size:13px;background:rgba(0,0,0,.15);border-radius:8px;padding:3px 8px}
     .tile .cta a{text-decoration:none;color:#111;font-weight:700}
 
-    /* Destaque para 1º e 2º tiles */
+    /* Tiles destaque */
     .tile--highlight{
       color:#111;
       background:linear-gradient(135deg, rgba(255,158,27,.97), rgba(217,58,229,.92));
@@ -168,136 +168,51 @@
       <button class="tvm-install" type="button" aria-disabled="true">Instalar TV Marataízes</button>
     </div>
 
-    <!-- FALLBACK -->
-    <p id="fallback" style="display:none;color:#fff;opacity:.85;margin:10px 2px;">
-      Se o player não carregar,
-      <a href="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4" target="_blank" rel="noopener">clique aqui para abrir o player direto</a>.
-    </p>
-
     <!-- PATROCINADORES -->
     <section class="sponsors" aria-label="Patrocinadores exclusivos">
       <h2>Patrocinadores exclusivos</h2>
       <div class="tiles">
-        <!-- 1. Lima Veículos (destaque) -->
+        <!-- 1. Lima Veículos -->
         <div class="tile tile--highlight">
           <div class="name">Lima Veículos</div>
           <div class="cta">
-            <a href="https://tvmarataizes.digital/lima" target="_blank" rel="noopener" aria-label="Lima Veículos — WhatsApp">
-              WhatsApp
-            </a>
+            <a href="https://tvmarataizes.digital/lima" target="_blank" rel="noopener">WhatsApp</a>
           </div>
         </div>
 
-        <!-- 2. Piraquê (destaque) -->
+        <!-- 2. Piraquê -->
         <div class="tile tile--highlight">
           <div class="name">Piraquê</div>
           <div class="cta">
-            <a href="https://piraque.com.br/" target="_blank" rel="noopener" aria-label="Piraquê — Visitar site">
-              Visitar site
-            </a>
+            <a href="https://piraque.com.br/" target="_blank" rel="noopener">Visitar site</a>
           </div>
         </div>
 
         <!-- 3. Macuca Produções -->
-        <div class="tile">
+        <div class="tile tile--highlight">
           <div class="name">Macuca Produções</div>
           <div class="cta">
-            <a href="https://wa.me/5528999036141?text=Ol%C3%A1%2C%20vi%20voc%C3%AAs%20na%20TV%20Marata%C3%ADzes%20e%20quero%20conversar%20no%20WhatsApp."
-               target="_blank" rel="noopener" aria-label="Macuca Produções — WhatsApp">
-              WhatsApp
-            </a>
+            <a href="https://wa.me/5528999036141?text=Ol%C3%A1%2C%20vi%20voc%C3%AAs%20na%20TV%20Marata%C3%ADzes"
+               target="_blank" rel="noopener">WhatsApp</a>
           </div>
         </div>
 
         <!-- 4. Placeholder -->
-        <div class="tile placeholder">
-          <div class="name">Sua marca aqui</div>
-          <div class="cta">WhatsApp</div>
-        </div>
+        <div class="tile placeholder"><div class="name">Sua marca aqui</div><div class="cta">WhatsApp</div></div>
 
         <!-- 5. Placeholder -->
-        <div class="tile placeholder">
-          <div class="name">Em breve</div>
-          <div class="cta">WhatsApp</div>
-        </div>
+        <div class="tile placeholder"><div class="name">Em breve</div><div class="cta">WhatsApp</div></div>
       </div>
     </section>
 
     <!-- TEXTO -->
-    <section class="about" aria-label="Sobre a TV Marataízes">
+    <section class="about">
       <h1>TV Marataízes — a 1ª TV Digital do Sul do Espírito Santo</h1>
       <p class="lead">A TV Marataízes nasceu como um projeto inovador de <strong>TV digital e multiplataforma</strong>, levando programação ao vivo e conteúdos exclusivos para todo o Sul Capixaba.</p>
       <p class="copy">Nosso propósito é <strong>valorizar a cultura regional</strong>, destacar os talentos locais e entregar uma experiência de entretenimento que fala a língua do público. Para nossos parceiros, garantimos <strong>retorno real</strong>: visibilidade diária, credibilidade e conexão direta com quem importa.</p>
       <p class="copy">Com <strong>quadros originais</strong>, transmissões especiais e cobertura dos principais acontecimentos da região, somos um canal criado para <strong>conectar pessoas, cidades e histórias</strong>. Assista de qualquer lugar — pelo site, celular ou Smart TV — e faça parte dessa nova forma de viver a comunicação local.</p>
       <p class="copy"><strong>TV Marataízes — mais do que transmissão, a vitrine digital do Sul do Espírito Santo para o mundo.</strong></p>
-      <p class="tip" id="igTip">Se abriu pelo Instagram e o vídeo não aparecer, toque nos ⋯ e escolha <strong>Abrir no navegador</strong>.</p>
-    </section>
-
-    <!-- APOIOS -->
-    <section class="supports" aria-label="Apoiadores">
-      <h3>Apoio</h3>
-      <div class="chips">
-        <div class="chip">
-          <span class="n">Amor de Cone</span>
-          <span class="w">
-            <a href="https://wa.me/5521983165333?text=Ol%C3%A1%2C%20vi%20o%20Amor%20de%20Cone%20na%20TV%20Marata%C3%ADzes"
-               target="_blank" rel="noopener" aria-label="Amor de Cone — WhatsApp">WhatsApp</a>
-          </span>
-        </div>
-        <div class="chip">
-          <span class="n">Marcenaria Família na Estrada</span>
-          <span class="w">
-            <a href="https://wa.me/5528999048337?text=Ol%C3%A1%2C%20vi%20a%20Marcenaria%20Fam%C3%ADlia%20na%20Estrada%20na%20TV%20Marata%C3%ADzes"
-               target="_blank" rel="noopener" aria-label="Marcenaria Família na Estrada — WhatsApp">WhatsApp</a>
-          </span>
-        </div>
-      </div>
     </section>
   </main>
-
-  <script>
-    (function(){
-      const inApp = /Instagram|FBAN|FBAV|FB_IAB|TikTok/i.test(navigator.userAgent || "");
-      if (inApp) document.getElementById('igTip').style.display = 'block';
-
-      const el = document.getElementById('fallback');
-      const to = setTimeout(() => el.style.display = 'block', 6000);
-      document.getElementById('castrPlayer')?.addEventListener('load', () => clearTimeout(to), { once:true });
-
-      function two(n){ return n < 10 ? '0'+n : n }
-      function tick(){
-        const d = new Date(), hh = two(d.getHours()), mm = two(d.getMinutes());
-        const elClock = document.getElementById('tvm-clock');
-        if (elClock) elClock.textContent = `${hh}:${mm}`;
-      }
-      tick(); setInterval(tick, 15000);
-
-      const TVM_LAT = -21.04, TVM_LON = -40.83;
-      function weatherIcon(code){
-        const map = {0:"☀️",1:"🌤️",2:"⛅",3:"☁️",45:"🌫️",48:"🌫️",51:"🌦️",53:"🌦️",55:"🌧️",
-                     56:"🌧️",57:"🌧️",61:"🌧️",63:"🌧️",65:"🌧️",66:"🌧️",67:"🌧️",
-                     71:"❄️",73:"❄️",75:"❄️",77:"❄️",80:"🌧️",81:"🌧️",82:"⛈️",
-                     95:"⛈️",96:"⛈️",99:"⛈️"};
-        return map[code] || "⛅";
-      }
-      async function updateWeather(){
-        try{
-          const url = `https://api.open-meteo.com/v1/forecast?latitude=${TVM_LAT}&longitude=${TVM_LON}&current=temperature_2m,weather_code&timezone=auto`;
-          const res = await fetch(url, { cache: "no-store" });
-          const data = await res.json();
-          const t = Math.round(data?.current?.temperature_2m ?? NaN);
-          const icon = weatherIcon(data?.current?.weather_code);
-          const pill = document.getElementById('tvm-weather-pill');
-          if (pill && Number.isFinite(t)){
-            pill.innerHTML = `Marataízes ${icon} <span id="tvm-weather">${t}°C</span>`;
-          }
-        } catch(e){}
-      }
-      updateWeather();
-      setInterval(updateWeather, 10 * 60 * 1000);
-    })();
-  </script>
-
-  <noscript><p style="color:#fff;opacity:.8">Ative o JavaScript para assistir ao vivo.</p></noscript>
 </body>
 </html>
