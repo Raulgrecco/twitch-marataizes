@@ -8,16 +8,22 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <meta name="theme-color" content="#000" />
+  <meta name="theme-color" content="#0B0B0B" />
   <link rel="canonical" href="https://tvmarataizes.digital/" />
   <style>
-    :root{ --bg:#000; --fg:#fff; --muted:rgba(255,255,255,.72); --accent:#ff3355;
-           --tile:rgba(255,255,255,.85); --chip:rgba(255,255,255,.65); }
+    :root{
+      --bg:#0B0B0B; --fg:#fff; --muted:rgba(255,255,255,.72);
+      --accent:#FF9E1B;      /* âmbar */
+      --accent2:#D93AE5;     /* magenta */
+      --accent3:#FFB000;     /* dourado */
+      --tile:rgba(255,255,255,.88);
+      --chip:rgba(255,255,255,.65);
+    }
     *{box-sizing:border-box}
     html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
     a{color:inherit}
     header{display:flex;justify-content:center;align-items:center;gap:.6rem;padding:14px}
-    .dot{width:10px;height:10px;border-radius:999px;background:var(--accent)}
+    .dot{width:10px;height:10px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent2))}
     .brand{font-weight:900;font-size:clamp(18px,2.4vw,24px)}
     .wrap{max-width:1200px;margin:0 auto;padding:0 12px 28px}
 
@@ -25,7 +31,7 @@
     .player{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;border-radius:12px}
     .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
-    /* OVERLAY: hora/clima no topo do player */
+    /* OVERLAY topo do player */
     .tvm-topbar{
       position:absolute; top:8px; left:8px; right:8px;
       display:flex; justify-content:space-between; gap:8px; pointer-events:none;
@@ -34,24 +40,29 @@
       pointer-events:auto; background:rgba(0,0,0,.55); color:#fff;
       padding:6px 10px; border-radius:999px;
       font:600 12px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      border:1px solid rgba(255,255,255,.15)
+      border:1px solid rgba(255,255,255,.15);
+      box-shadow:0 0 0 1px rgba(255,158,27,.15);
     }
 
-    /* TARJA Agora / Conectando o Sul do ES */
+    /* TARJA */
     .tvm-epgbar{
-      margin:12px 0 16px; padding:10px 12px; border-radius:14px; background:#0b0b0b; border:1px solid #222;
+      margin:12px 0 16px; padding:10px 12px; border-radius:14px; background:#101010; border:1px solid #222;
       display:flex; align-items:center; gap:24px; flex-wrap:wrap;
     }
     .tvm-col{min-width:240px}
-    .tvm-epgtitle{color:#fff; font:800 20px/1.1 system-ui, -apple-system, Segoe UI, Roboto, Arial}
-    .tvm-epgsub{color:#d2d2d2; font:500 16px/1.25 system-ui, -apple-system, Segoe UI, Roboto, Arial; margin-top:2px}
+    .tvm-epgtitle{color:var(--accent3); font:800 20px/1.1 system-ui, -apple-system, Segoe UI, Roboto, Arial}
+    .tvm-epgsub{color:#EDEDED; font:500 16px/1.25 system-ui, -apple-system, Segoe UI, Roboto, Arial; margin-top:2px}
 
+    /* CTA principal */
     .tvm-install{
       margin-left:auto; padding:10px 16px; border-radius:999px; border:0;
       font:700 14px system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      background:#fff; color:#000; cursor:default;
-      white-space:nowrap;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:#111; cursor:default; white-space:nowrap;
+      box-shadow:0 6px 18px rgba(217,58,229,.25);
+      transition:.15s ease;
     }
+    .tvm-install:hover{ filter:brightness(1.05); transform:translateY(-1px); }
     @media (max-width:520px){
       .tvm-epgbar{gap:12px}
       .tvm-install{margin-left:0}
@@ -60,19 +71,38 @@
 
     /* PATROCINADORES */
     .sponsors{max-width:1100px;margin:14px auto 10px}
-    .sponsors h2{margin:8px 4px 10px;font:700 clamp(16px,2.6vw,20px)/1.2 system-ui}
+    .sponsors h2{
+      margin:8px 4px 10px;
+      font:900 clamp(16px,2.6vw,20px)/1.2 system-ui;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
     .tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-    .tile{background:var(--tile);backdrop-filter:saturate(120%) blur(2px);border:1px solid rgba(255,255,255,.25);
-          border-radius:12px;min-height:56px;padding:6px 10px;display:flex;flex-direction:column;justify-content:center;
-          align-items:center;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+    .tile{
+      background:var(--tile);backdrop-filter:saturate(120%) blur(2px);border:1px solid rgba(255,255,255,.25);
+      border-radius:12px;min-height:56px;padding:6px 10px;display:flex;flex-direction:column;justify-content:center;
+      align-items:center;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.15)
+    }
     .tile .name{font-weight:800;font-size:clamp(13px,2.2vw,15px)}
     .tile .cta{margin-top:4px;font-size:13px;background:rgba(0,0,0,.15);border-radius:8px;padding:3px 8px}
-    .tile .cta a{text-decoration:none}
+    .tile .cta a{text-decoration:none;color:#111;font-weight:700}
+
+    /* Destaque para 1º e 2º tiles */
+    .tile--highlight{
+      color:#111;
+      background:linear-gradient(135deg, rgba(255,158,27,.97), rgba(217,58,229,.92));
+      border:1px solid rgba(255,255,255,.28);
+      box-shadow:0 8px 22px rgba(217,58,229,.20);
+    }
     .placeholder{opacity:.75}
 
     /* TEXTO */
     .about{max-width:980px;margin:16px auto 32px}
-    .about h1{margin:0 0 12px;font-size:clamp(20px,3.6vw,30px);font-weight:900}
+    .about h1{
+      margin:0 0 12px;font-size:clamp(20px,3.6vw,30px);font-weight:900;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
     .lead{color:var(--muted);font-size:clamp(14px,2.4vw,17px);line-height:1.7;margin:0}
     .copy{margin-top:14px;color:var(--fg);font-size:clamp(15px,2.6vw,18px);line-height:1.75}
     .tip{margin-top:10px;font-size:clamp(12px,2.6vw,14px);opacity:.7;display:none}
@@ -81,10 +111,12 @@
     .supports{max-width:1100px;margin:20px auto 0}
     .supports h3{margin:6px 4px 8px;font:700 clamp(15px,2.4vw,18px)/1.2 system-ui;opacity:.9}
     .chips{display:flex;gap:8px;flex-wrap:wrap}
-    .chip{background:var(--chip);border:1px solid rgba(255,255,255,.25);border-radius:999px;height:30px;padding:4px 8px;
-          display:flex;align-items:center;gap:10px;box-shadow:0 1px 4px rgba(0,0,0,.12);white-space:nowrap}
+    .chip{
+      background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:999px;height:30px;
+      padding:4px 8px;display:flex;align-items:center;gap:10px;box-shadow:0 1px 4px rgba(0,0,0,.12);white-space:nowrap
+    }
     .chip .n{font-weight:700;font-size:13px}
-    .chip .w a{text-decoration:none;background:rgba(0,0,0,.18);padding:3px 7px;border-radius:8px;font-size:12px}
+    .chip .w a{ text-decoration:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#111;padding:3px 7px;border-radius:8px;font-size:12px }
 
     @media (max-width:1200px){
       .tiles{grid-template-columns:repeat(2,1fr)}
@@ -112,7 +144,7 @@
         referrerpolicy="origin">
       </iframe>
 
-      <!-- OVERLAY: hora/clima -->
+      <!-- OVERLAY -->
       <div class="tvm-topbar">
         <span class="tvm-pill" id="tvm-weather-pill">
           Marataízes ⛅ <span id="tvm-weather">--°C</span>
@@ -121,7 +153,7 @@
       </div>
     </div>
 
-    <!-- TARJA Agora / Conectando o Sul do ES -->
+    <!-- TARJA -->
     <div class="tvm-epgbar" aria-label="Barra de programação">
       <div class="tvm-col">
         <div class="tvm-epgtitle">Agora</div>
@@ -146,8 +178,8 @@
     <section class="sponsors" aria-label="Patrocinadores exclusivos">
       <h2>Patrocinadores exclusivos</h2>
       <div class="tiles">
-        <!-- 1. Lima Veículos -->
-        <div class="tile">
+        <!-- 1. Lima Veículos (destaque) -->
+        <div class="tile tile--highlight">
           <div class="name">Lima Veículos</div>
           <div class="cta">
             <a href="https://tvmarataizes.digital/lima" target="_blank" rel="noopener" aria-label="Lima Veículos — WhatsApp">
@@ -156,8 +188,8 @@
           </div>
         </div>
 
-        <!-- 2. Piraquê -->
-        <div class="tile">
+        <!-- 2. Piraquê (destaque) -->
+        <div class="tile tile--highlight">
           <div class="name">Piraquê</div>
           <div class="cta">
             <a href="https://piraque.com.br/" target="_blank" rel="noopener" aria-label="Piraquê — Visitar site">
