@@ -37,7 +37,7 @@
       border:1px solid rgba(255,255,255,.15)
     }
 
-    /* TARJA Agora / A seguir (abaixo do vídeo) */
+    /* TARJA Agora / Conectando o Sul do ES */
     .tvm-epgbar{
       margin:12px 0 16px; padding:10px 12px; border-radius:14px; background:#0b0b0b; border:1px solid #222;
       display:flex; align-items:center; gap:24px; flex-wrap:wrap;
@@ -49,10 +49,14 @@
     .tvm-install{
       margin-left:auto; padding:10px 16px; border-radius:999px; border:0;
       font:700 14px system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      background:#fff; color:#000; cursor:default; /* cenográfico */
+      background:#fff; color:#000; cursor:default;
       white-space:nowrap;
     }
-    @media (max-width:520px){ .tvm-epgbar{gap:12px} .tvm-install{margin-left:0} }
+    @media (max-width:520px){
+      .tvm-epgbar{gap:12px}
+      .tvm-install{margin-left:0}
+      .tvm-epgsub{white-space:normal} /* quebra texto no celular */
+    }
 
     /* PATROCINADORES */
     .sponsors{max-width:1100px;margin:14px auto 10px}
@@ -108,7 +112,7 @@
         referrerpolicy="origin">
       </iframe>
 
-      <!-- OVERLAY: hora/clima (temperatura real via JS) -->
+      <!-- OVERLAY: hora/clima -->
       <div class="tvm-topbar">
         <span class="tvm-pill" id="tvm-weather-pill">
           Marataízes ⛅ <span id="tvm-weather">--°C</span>
@@ -117,15 +121,17 @@
       </div>
     </div>
 
-    <!-- TARJA Agora / A seguir (cenográfica) -->
+    <!-- TARJA Agora / Conectando o Sul do ES -->
     <div class="tvm-epgbar" aria-label="Barra de programação">
       <div class="tvm-col">
         <div class="tvm-epgtitle">Agora</div>
         <div class="tvm-epgsub">Marataízes — ao vivo</div>
       </div>
       <div class="tvm-col">
-        <div class="tvm-epgtitle">A seguir</div>
-        <div class="tvm-epgsub">Itapemirim — ao vivo</div>
+        <div class="tvm-epgtitle">Conectando o Sul do ES</div>
+        <div class="tvm-epgsub">
+          Itapemirim • Piúma • Presidente Kennedy • Cachoeiro • Vargem Alta • Domingos Martins • Alfredo Chaves • Rio Novo do Sul
+        </div>
       </div>
       <button class="tvm-install" type="button" aria-disabled="true">Instalar TV Marataízes</button>
     </div>
@@ -136,7 +142,7 @@
       <a href="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4" target="_blank" rel="noopener">clique aqui para abrir o player direto</a>.
     </p>
 
-    <!-- PATROCINADORES EXCLUSIVOS -->
+    <!-- PATROCINADORES -->
     <section class="sponsors" aria-label="Patrocinadores exclusivos">
       <h2>Patrocinadores exclusivos</h2>
       <div class="tiles">
@@ -197,16 +203,13 @@
 
   <script>
     (function(){
-      // Mostrar dica para quem abre dentro do app do Instagram/Facebook/TikTok
       const inApp = /Instagram|FBAN|FBAV|FB_IAB|TikTok/i.test(navigator.userAgent || "");
       if (inApp) document.getElementById('igTip').style.display = 'block';
 
-      // Fallback se o iframe não carregar
       const el = document.getElementById('fallback');
       const to = setTimeout(() => el.style.display = 'block', 6000);
       document.getElementById('castrPlayer')?.addEventListener('load', () => clearTimeout(to), { once:true });
 
-      // Relógio do topo do player
       function two(n){ return n < 10 ? '0'+n : n }
       function tick(){
         const d = new Date(), hh = two(d.getHours()), mm = two(d.getMinutes());
@@ -215,8 +218,7 @@
       }
       tick(); setInterval(tick, 15000);
 
-      // ===== Clima em tempo real (Open-Meteo) =====
-      const TVM_LAT = -21.04, TVM_LON = -40.83; // aprox. Marataízes/ES
+      const TVM_LAT = -21.04, TVM_LON = -40.83;
       function weatherIcon(code){
         const map = {0:"☀️",1:"🌤️",2:"⛅",3:"☁️",45:"🌫️",48:"🌫️",51:"🌦️",53:"🌦️",55:"🌧️",
                      56:"🌧️",57:"🌧️",61:"🌧️",63:"🌧️",65:"🌧️",66:"🌧️",67:"🌧️",
@@ -235,17 +237,13 @@
           if (pill && Number.isFinite(t)){
             pill.innerHTML = `Marataízes ${icon} <span id="tvm-weather">${t}°C</span>`;
           }
-        } catch(e){
-          /* silencioso */
-        }
+        } catch(e){}
       }
       updateWeather();
       setInterval(updateWeather, 10 * 60 * 1000);
-      // ============================================
     })();
   </script>
 
   <noscript><p style="color:#fff;opacity:.8">Ative o JavaScript para assistir ao vivo.</p></noscript>
 </body>
 </html>
-
