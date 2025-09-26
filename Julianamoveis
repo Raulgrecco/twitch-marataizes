@@ -2,78 +2,27 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Abrindo WhatsApp – Juliana Móveis</title>
   <meta name="robots" content="noindex" />
+  <meta http-equiv="refresh"
+        content="0; url='https://wa.me/5528999732882?text=Quero%20garantir%20minha%20oferta%20agora!'" />
   <style>
-    :root{color-scheme:dark}
     html,body{
       height:100%;margin:0;background:#000;color:#fff;
-      font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      font:16px/1.5 system-ui, -apple-system, Roboto, sans-serif;
       display:flex;align-items:center;justify-content:center;padding:20px
     }
-    .box{max-width:720px;text-align:center}
-    h1{font-weight:800;margin:0 0 8px}
-    .sub{color:#cfcfcf;margin:0 0 16px}
-    .btn{
-      display:inline-block;margin-top:10px;padding:14px 18px;border-radius:12px;
-      background:#25D366;color:#000;text-decoration:none;font-weight:900
-    }
-    .hint{color:#9a9a9a;font-size:14px;margin-top:12px}
+    .msg{max-width:600px;text-align:center}
+    h1{font-weight:700;margin-bottom:12px}
+    p{color:#aaa}
+    a{color:#25d366;text-decoration:none;font-weight:bold}
   </style>
 </head>
 <body>
-  <main class="box">
-    <h1>Abrindo o WhatsApp da <strong>Juliana Móveis</strong>…</h1>
-    <p class="sub">Se não abrir sozinho com a mensagem preenchida, toque no botão abaixo.</p>
-    <p><a id="btn" class="btn" href="#" rel="noopener">Abrir no WhatsApp</a></p>
-    <p class="hint">Dica: no Instagram, toque em <em>“Abrir no navegador”</em>.</p>
-  </main>
-
-  <script>
-    (function () {
-      // Telefone no formato internacional (sem +, só dígitos)
-      const phone  = "5528999732882"; // (28) 99973-2882
-
-      // Mensagem/gancho pensada pra conversão
-      // Troque o texto abaixo se quiser outro CTA
-      const rawMsg = "Quero saber as promoções de hoje da Juliana Móveis 🛋️✨";
-      // Sugestões alternativas:
-      // const rawMsg = "Quero minha condição especial agora! Como faço pra aproveitar? 🔥";
-      // const rawMsg = "Quero montar minha casa com vocês. Quais as ofertas do dia? 🏡";
-
-      const encoded  = encodeURIComponent(rawMsg);
-
-      // Prioriza abrir o app; se não der, cai para a web
-      const deepLink = `whatsapp://send?phone=${phone}&text=${encoded}`;
-      const apiLink  = `https://api.whatsapp.com/send?phone=${phone}&text=${encoded}`;
-      const waLink   = `https://wa.me/${phone}?text=${encoded}`;
-
-      // Botão de fallback visível
-      document.getElementById("btn").href = apiLink;
-
-      // Copia a mensagem (caso o app bloqueie o preenchimento)
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(rawMsg).catch(()=>{});
-      }
-
-      // Sequência de abertura: app -> api -> wa.me
-      function tryOpen() {
-        // tenta app
-        window.location.href = deepLink;
-        // se a aba não perde o foco, tenta web API
-        setTimeout(() => {
-          if (!document.hidden) window.location.href = apiLink;
-        }, 800);
-        // último fallback
-        setTimeout(() => {
-          if (!document.hidden) window.location.href = waLink;
-        }, 2000);
-      }
-
-      tryOpen();
-    })();
-  </script>
+  <div class="msg">
+    <h1>Redirecionando para o WhatsApp…</h1>
+    <p>Se não abrir automaticamente, <a href="https://wa.me/5528999732882?text=Quero%20garantir%20minha%20oferta%20agora!">clique aqui</a>.</p>
+  </div>
 </body>
 </html>
-
