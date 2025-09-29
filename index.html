@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>TV Marataízes — ao vivo</title>
-  <meta name="description" content="TV Marataízes: 1ª TV do Sul do Espírito Santo com transmissão nacional pela Soul TV. Programação ao vivo, quadros originais e cobertura cultural e regional." />
+  <meta name="description" content="TV Marataízes: 1ª TV do Sul do ES com transmissão nacional pela Soul TV (200+ canais gratuitos). Assista ao vivo, quadros originais e cobertura regional." />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
@@ -34,55 +34,55 @@
 
     /* Topbar (clock + weather) */
     .tvm-topbar { position:absolute; top:8px; left:8px; right:8px; display:flex; justify-content:space-between; gap:8px; pointer-events:none; }
-    .tvm-pill { pointer-events:auto; background:rgba(0,0,0,.55); color:#fff; padding:6px 10px; border-radius:999px; font:600 12px/1.2 system-ui; border:1px solid rgba(255,255,255,.15); box-shadow:0 0 0 1px rgba(255,111,0,.18); }
+    .tvm-pill { pointer-events:auto; background:rgba(0,0,0,.55); color:#fff; padding:6px 10px; border-radius:999px; font:600 12px/1.2; border:1px solid rgba(255,255,255,.15); box-shadow:0 0 0 1px rgba(255,111,0,.18); }
 
-    /* EpG Bar */
-    .tvm-epgbar { margin:12px 0 16px; padding:10px 12px; border-radius:14px; background:#101010; border:1px solid #222; display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
+    /* EPG / buttons */
+    .tvm-epgbar { margin:12px 0 10px; padding:10px 12px; border-radius:14px; background:#101010; border:1px solid #222; display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
     .tvm-col { min-width:240px; }
     .tvm-epgtitle { color:var(--accent3); font:800 20px/1.1 system-ui; }
     .tvm-epgsub { color:#EDEDED; font:500 16px/1.25 system-ui; margin-top:2px; }
+    .btn-grad { margin-left:auto; padding:10px 16px; border-radius:999px; font:800 14px; background:linear-gradient(135deg, var(--accent), var(--accent2)); color:#fff; text-decoration:none; white-space:nowrap; box-shadow:0 6px 18px rgba(90,24,154,.28); transition:.15s ease; }
+    .btn-grad:hover { filter:brightness(1.05); transform:translateY(-1px); }
 
-    .tvm-install { margin-left:auto; padding:10px 16px; border-radius:999px; font:800 14px system-ui; background:linear-gradient(135deg, var(--accent), var(--accent2)); color:#fff; text-decoration:none; white-space:nowrap; box-shadow:0 6px 18px rgba(90,24,154,.28); transition:.15s ease; }
-    .tvm-install:hover { filter:brightness(1.05); transform:translateY(-1px); }
+    /* Soul TV CTA bar */
+    .soul-cta { margin:12px 0 16px; padding:12px; border-radius:14px; background:linear-gradient(135deg, rgba(255,111,0,.12), rgba(90,24,154,.10)); border:1px solid rgba(255,255,255,.12); display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    .soul-cta .headline { font:900 clamp(15px,2.8vw,18px)/1.25 system-ui; }
+    .soul-cta .sub { color:#EDEDED; font-weight:600; }
+    .soul-cta .actions { margin-left:auto; display:flex; gap:8px; flex-wrap:wrap; }
+    .soul-cta .actions a { padding:10px 14px; border-radius:999px; font:800 14px; text-decoration:none; background:#1f1f1f; border:1px solid #333; }
+    .soul-cta .actions a.primary { background:linear-gradient(135deg, var(--accent), var(--accent2)); color:#fff; border:none; }
 
-    @media (max-width:520px) {
-      .tvm-epgbar { gap:12px; }
-      .tvm-install { margin-left:0; }
-      .tvm-epgsub { white-space:normal; }
+    @media (max-width:560px) {
+      .btn-grad { margin-left:0; }
+      .soul-cta .actions { margin-left:0; width:100%; }
+      .soul-cta .actions a { flex:1; text-align:center; }
     }
 
     /* Sponsors */
     .sponsors { max-width:1100px; margin:14px auto 10px; }
-    .sponsors h2 { margin:8px 4px 10px; font:900 clamp(16px,2.6vw,20px)/1.2 system-ui; background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
-
+    .sponsors h2 { margin:8px 4px 10px; font:900 clamp(16px,2.6vw,20px)/1.2; background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
     .tiles { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
     .tile { background:var(--tile); border:1px solid rgba(255,255,255,.25); border-radius:12px; min-height:56px; padding:6px 10px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; box-shadow:0 2px 6px rgba(0,0,0,.15); }
     .tile .name { font-weight:800; font-size:clamp(13px,2.2vw,15px); }
     .tile .cta { margin-top:4px; font-size:13px; background:rgba(0,0,0,.15); border-radius:8px; padding:3px 8px; }
     .tile .cta a { text-decoration:none; color:#111; font-weight:700; }
-
     .tile--highlight { color:#111; background:linear-gradient(135deg, rgba(255,111,0,.97), rgba(90,24,154,.92)); border:1px solid rgba(255,255,255,.28); box-shadow:0 8px 22px rgba(90,24,154,.20); }
     .placeholder { opacity:.75; }
 
-    /* About Text */
+    /* About */
     .about { max-width:980px; margin:16px auto 18px; }
     .about h1 { margin:0 0 12px; font-size:clamp(20px,3.6vw,30px); font-weight:900; background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
-
     .lead { color:var(--muted); font-size:clamp(14px,2.4vw,17px); line-height:1.7; margin:0; }
     .copy { margin-top:14px; color:var(--fg); font-size:clamp(15px,2.6vw,18px); line-height:1.75; }
 
     /* Final CTA */
     .advert-cta { max-width:980px; margin:10px auto 32px; padding:12px 14px; border-radius:14px; background:linear-gradient(135deg, rgba(255,111,0,.10), rgba(90,24,154,.08)); border:1px solid rgba(255,255,255,.10); display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
     .advert-cta .txt { font-weight:600; color:#EEE; }
-    .advert-cta .btn { margin-left:auto; padding:10px 14px; border-radius:999px; font:800 14px system-ui; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; text-decoration:none; white-space:nowrap; box-shadow:0 6px 18px rgba(90,24,154,.22); }
-
-    @media (max-width:560px) {
-      .advert-cta .btn { margin-left:0; width:100%; text-align:center; }
-    }
+    .advert-cta .btn { margin-left:auto; padding:10px 14px; border-radius:999px; font:800 14px; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; text-decoration:none; white-space:nowrap; box-shadow:0 6px 18px rgba(90,24,154,.22); }
+    @media (max-width:560px) { .advert-cta .btn { margin-left:0; width:100%; text-align:center; } }
   </style>
 </head>
 <body>
-
   <header>
     <span class="dot" aria-hidden="true"></span>
     <div class="brand">TV Marataízes — Ao Vivo</div>
@@ -100,7 +100,7 @@
       </div>
     </div>
 
-    <!-- TARJA -->
+    <!-- INFO + WHATSAPP -->
     <div class="tvm-epgbar" aria-label="Barra de programação">
       <div class="tvm-col">
         <div class="tvm-epgtitle">Agora</div>
@@ -110,7 +110,19 @@
         <div class="tvm-epgtitle">Conectando o Sul do ES</div>
         <div class="tvm-epgsub">Itapemirim • Piúma • Presidente Kennedy • Cachoeiro • Vargem Alta • Domingos Martins • Alfredo Chaves • Rio Novo do Sul</div>
       </div>
-      <a class="tvm-install" href="https://wa.me/5528999036141?text=Ol%C3%A1%2C%20quero%20anunciar%20na%20TV%20Marata%C3%ADzes" target="_blank" rel="noopener">Anuncie no WhatsApp</a>
+      <a class="btn-grad" href="https://wa.me/5528999036141?text=Ol%C3%A1%2C%20quero%20anunciar%20na%20TV%20Marata%C3%ADzes" target="_blank" rel="noopener">Anuncie no WhatsApp</a>
+    </div>
+
+    <!-- CTA SOUL TV -->
+    <div class="soul-cta" aria-label="Assista na Soul TV">
+      <div>
+        <div class="headline">Estamos na <strong>Soul TV</strong> — transmissão nacional</div>
+        <div class="sub">Plataforma com <strong>200+ canais gratuitos</strong>. Assista na sua Smart TV ou no celular.</div>
+      </div>
+      <div class="actions">
+        <a class="primary" href="https://soultv.com.br/" target="_blank" rel="noopener">Baixar Soul TV</a>
+        <a href="https://soultv.com.br/onde-assistir" target="_blank" rel="noopener">Como assistir</a>
+      </div>
     </div>
 
     <!-- PATROCINADORES -->
@@ -137,19 +149,20 @@
     <!-- SOBRE -->
     <section class="about" aria-label="Sobre a TV Marataízes">
       <h1>TV Marataízes — a 1ª TV do Sul do ES com transmissão nacional pela Soul TV</h1>
-      <p class="lead">A TV Marataízes nasceu como um projeto inovador de <strong>TV digital e multiplataforma</strong>. Hoje conecta o Sul Capixaba a todo o Brasil pela <strong>Soul TV</strong>, presente nos principais modelos de Smart TV e aplicativos para celular.</p>
-      <p class="copy">Nosso propósito é <strong>valorizar a cultura regional</strong>, destacar os talentos locais e entregar uma experiência de entretenimento que fala a língua do público. Para nossos parceiros, garantimos <strong>retorno real</strong>: visibilidade diária, credibilidade e conexão direta com quem importa.</p>
-      <p class="copy">Com <strong>quadros originais</strong>, transmissões especiais e cobertura dos principais acontecimentos da região, a TV Marataízes conecta <strong>pessoas, cidades e histórias</strong>. Agora, o que nasce no Sul do Espírito Santo é visto também em lares de todo o Brasil pela Soul TV.</p>
+      <p class="lead">A TV Marataízes nasceu como um projeto inovador de <strong>TV digital e multiplataforma</strong>. Hoje conecta o Sul Capixaba a todo o Brasil pela <strong>Soul TV</strong>, presente nas principais Smart TVs e também no celular.</p>
+      <p class="copy">Nosso propósito é <strong>valorizar a cultura regional</strong>, destacar os talentos locais e entregar entretenimento que fala a língua do público. Para nossos parceiros, garantimos <strong>retorno real</strong>: visibilidade diária, credibilidade e conexão direta com quem importa.</p>
+      <p class="copy">Com <strong>quadros originais</strong>, transmissões especiais e cobertura dos principais acontecimentos da região, a TV Marataízes conecta <strong>pessoas, cidades e histórias</strong>. Agora, o que nasce no Sul do Espírito Santo é visto também em lares de todo o Brasil — dentro de um ecossistema com <strong>200+ canais gratuitos</strong> na Soul TV.</p>
       <p class="copy"><strong>TV Marataízes — do local para o nacional, levando a voz do Sul do ES para a tela de milhões.</strong></p>
     </section>
 
     <!-- CTA FINAL -->
     <section class="advert-cta" aria-label="Anuncie na TV Marataízes">
-      <span class="txt">Sua marca pode estar ao vivo para milhares de pessoas no Sul do ES e em todo o Brasil pela Soul TV.</span>
+      <span class="txt">Sua marca ao vivo no Sul do ES e em todo o Brasil pela Soul TV.</span>
       <a class="btn" href="https://wa.me/5528999036141?text=Ol%C3%A1%2C%20quero%20anunciar%20na%20TV%20Marata%C3%ADzes" target="_blank" rel="noopener">Falar com comercial</a>
     </section>
   </main>
 
+  <!-- Relógio e clima -->
   <script>
     (function(){
       function two(n){ return n < 10 ? '0'+n : n; }
