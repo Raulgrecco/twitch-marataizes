@@ -24,7 +24,7 @@
     .brand{font-weight:900;font-size:clamp(18px,2.4vw,24px)}
     .wrap{max-width:1200px;margin:0 auto;padding:0 12px 28px}
 
-    /* 🔒 Garantir que qualquer [hidden] fique realmente oculto */
+    /* Garante esconder [hidden] */
     [hidden]{display:none !important;}
 
     /* Player */
@@ -34,10 +34,10 @@
     .tvm-pill{pointer-events:auto;background:rgba(0,0,0,.55);color:#fff;padding:6px 10px;border-radius:999px;font:600 12px/1.2;border:1px solid rgba(255,255,255,.15);box-shadow:0 0 0 1px rgba(255,111,0,.18)}
 
     /* EPG / buttons */
-    .tvm-epgbar{margin:12px 0 10px;padding:10px 12px;border-radius:14px;background:#101010;border:1px solid #222;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
-    .tvm-col{min-width:240px}
-    .tvm-epgtitle{color:var(--accent3);font:800 20px/1.1 system-ui}
-    .tvm-epgsub{color:#EDEDED;font:500 16px/1.25 system-ui;margin-top:2px}
+    .tvm-epgbar{margin:10px 0 8px;padding:10px 12px;border-radius:14px;background:#101010;border:1px solid #222;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+    .tvm-col{min-width:200px}
+    .tvm-epgtitle{color:var(--accent3);font:800 18px/1.1 system-ui}
+    .tvm-epgsub{color:#EDEDED;font:500 15px/1.25 system-ui;margin-top:2px}
     .btn-grad{margin-left:auto;padding:10px 16px;border-radius:999px;font:800 14px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;white-space:nowrap;box-shadow:0 6px 18px rgba(90,24,154,.28);transition:.15s ease}
     .btn-grad:hover{filter:brightness(1.05);transform:translateY(-1px)}
 
@@ -95,6 +95,11 @@
     .advert-cta{max-width:980px;margin:10px auto 32px;padding:12px 14px;border-radius:14px;background:linear-gradient(135deg,rgba(255,111,0,.10),rgba(90,24,154,.08));border:1px solid rgba(255,255,255,.10);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
     .advert-cta .txt{font-weight:600;color:#EEE}
     .advert-cta .btn{margin-left:auto;padding:10px 14px;border-radius:999px;font:800 14px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;white-space:nowrap;box-shadow:0 6px 18px rgba(90,24,154,.22)}
+
+    /* Faixa das regiões (novo no rodapé) */
+    .regions-band{max-width:980px;margin:0 auto 26px;padding:12px 14px;border-radius:14px;background:#101010;border:1px solid #222}
+    .regions-title{color:var(--accent3);font:900 18px/1.2 system-ui;margin:0 0 6px}
+    .regions-sub{color:#EDEDED;font:600 15px/1.5 system-ui;margin:0}
   </style>
 </head>
 <body>
@@ -115,15 +120,11 @@
       </div>
     </div>
 
-    <!-- INFO + WHATSAPP -->
+    <!-- INFO + WHATSAPP (sem "Conectando..." aqui) -->
     <div class="tvm-epgbar">
       <div class="tvm-col">
         <div class="tvm-epgtitle">Agora</div>
         <div class="tvm-epgsub">Marataízes — ao vivo</div>
-      </div>
-      <div class="tvm-col">
-        <div class="tvm-epgtitle">Conectando o Sul do ES</div>
-        <div class="tvm-epgsub">Itapemirim • Piúma • Presidente Kennedy • Cachoeiro • Vargem Alta • Domingos Martins • Alfredo Chaves • Rio Novo do Sul</div>
       </div>
       <a class="btn-grad" href="https://wa.me/5528999036141?text=Ol%C3%A1%2C%20quero%20anunciar%20na%20TV%20Marata%C3%ADzes" target="_blank" rel="noopener">Anuncie no WhatsApp</a>
     </div>
@@ -231,6 +232,12 @@
       <span class="txt">Sua marca ao vivo no Sul do ES e em todo o Brasil pela Soul TV.</span>
       <a class="btn" href="https://wa.me/5528999036141?text=Ol%C3%A1%2C%20quero%20anunciar%20na%20TV%20Marata%C3%ADzes" target="_blank" rel="noopener">Falar com comercial</a>
     </section>
+
+    <!-- 🔻 BLOCO MOVIDO PARA O FINAL -->
+    <section class="regions-band" aria-label="Conectando o Sul do ES">
+      <h3 class="regions-title">Conectando o Sul do Espírito Santo</h3>
+      <p class="regions-sub">Itapemirim • Piúma • Presidente Kennedy • Cachoeiro • Vargem Alta • Domingos Martins • Alfredo Chaves • Rio Novo do Sul</p>
+    </section>
   </main>
 
   <!-- Relógio, clima e toggle do Guia -->
@@ -265,7 +272,6 @@
       const btn  = document.getElementById('btn-marataizes');
       const grid = document.getElementById('guia-marataizes');
 
-      // garante estado inicial fechado
       band.setAttribute('data-state','collapsed');
       btn.classList.remove('active');
       btn.setAttribute('aria-expanded','false');
