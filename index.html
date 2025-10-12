@@ -5,92 +5,77 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>TV Marataízes — ao vivo</title>
   <meta name="description" content="TV Marataízes: 1ª TV do Sul do ES com transmissão nacional pela Soul TV (200+ canais gratuitos). Assista ao vivo, quadros originais e cobertura regional." />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
   <meta name="theme-color" content="#0B0B0B" />
-  <link rel="canonical" href="https://tvmarataizes.digital/" />
   <style>
-    :root {
-      --bg: #0B0B0B;
-      --fg: #fff;
-      --muted: rgba(255,255,255,.72);
-      --accent: #FF6F00;
-      --accent2: #5A189A;
-      --accent3: #FFB000;
-      --tile: rgba(255,255,255,.88);
+    :root{
+      --bg:#0b0d12; --fg:#fff; --muted:rgba(255,255,255,.72);
+      --gold:#F2B705; --grad1:#FF6F00; --grad2:#5A189A;
+      --tile:#ffffff; --sand:#f5f5f5;
     }
-    * { box-sizing: border-box; }
-    html,body { margin:0; background:var(--bg); color:var(--fg); font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
-    a { color: inherit; }
-    header { display:flex; justify-content:center; align-items:center; gap:.6rem; padding:14px; }
-    .dot { width:10px; height:10px; border-radius:999px; background: linear-gradient(135deg, var(--accent), var(--accent2)); }
-    .brand { font-weight:900; font-size:clamp(18px, 2.4vw, 24px); }
-    .wrap { max-width:1200px; margin:0 auto; padding:0 12px 28px; }
+    *{box-sizing:border-box}
+    html,body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg)}
+    a{color:inherit;text-decoration:none}
 
-    /* Player */
-    .player { position:relative; width:100%; aspect-ratio:16/9; background:#000; overflow:hidden; border-radius:12px; }
-    .player iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+    header{display:flex;justify-content:center;gap:.6rem;padding:14px}
+    .dot{width:10px;height:10px;border-radius:999px;background:linear-gradient(135deg,var(--grad1),var(--grad2))}
+    .brand{font-weight:900;font-size:clamp(18px,2.4vw,24px)}
 
-    /* Topbar (clock + weather) */
-    .tvm-topbar { position:absolute; top:8px; left:8px; right:8px; display:flex; justify-content:space-between; gap:8px; pointer-events:none; }
-    .tvm-pill { pointer-events:auto; background:rgba(0,0,0,.55); color:#fff; padding:6px 10px; border-radius:999px; font:600 12px/1.2; border:1px solid rgba(255,255,255,.15); box-shadow:0 0 0 1px rgba(255,111,0,.18); }
+    .wrap{max-width:1200px;margin:0 auto;padding:0 14px 28px}
 
-    /* EPG / buttons */
-    .tvm-epgbar { margin:12px 0 10px; padding:10px 12px; border-radius:14px; background:#101010; border:1px solid #222; display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
-    .tvm-col { min-width:240px; }
-    .tvm-epgtitle { color:var(--accent3); font:800 20px/1.1 system-ui; }
-    .tvm-epgsub { color:#EDEDED; font:500 16px/1.25 system-ui; margin-top:2px; }
-    .btn-grad { margin-left:auto; padding:10px 16px; border-radius:999px; font:800 14px; background:linear-gradient(135deg, var(--accent), var(--accent2)); color:#fff; text-decoration:none; white-space:nowrap; box-shadow:0 6px 18px rgba(90,24,154,.28); transition:.15s ease; }
-    .btn-grad:hover { filter:brightness(1.05); transform:translateY(-1px); }
+    /* PLAYER */
+    .player{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden}
+    .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+    .tvm-topbar{position:absolute;top:8px;left:8px;right:8px;display:flex;justify-content:space-between;pointer-events:none}
+    .pill{pointer-events:auto;background:rgba(0,0,0,.55);color:#fff;border:1px solid rgba(255,255,255,.18);
+      padding:6px 10px;border-radius:999px;font:600 12px/1.1 system-ui}
 
-    /* Soul TV CTA bar */
-    .soul-cta { margin:12px 0 16px; padding:12px; border-radius:14px; background:linear-gradient(135deg, rgba(255,111,0,.12), rgba(90,24,154,.10)); border:1px solid rgba(255,255,255,.12); display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
-    .soul-cta .headline { font:900 clamp(15px,2.8vw,18px)/1.25 system-ui; }
-    .soul-cta .sub { color:#EDEDED; font-weight:600; }
-    .soul-cta .actions { margin-left:auto; display:flex; gap:8px; flex-wrap:wrap; }
-    .soul-cta .actions a { padding:10px 14px; border-radius:999px; font:800 14px; text-decoration:none; background:#1f1f1f; border:1px solid #333; }
-    .soul-cta .actions a.primary { background:linear-gradient(135deg, var(--accent), var(--accent2)); color:#fff; border:none; }
+    /* PATROCINADORES */
+    .sponsors{max-width:1100px;margin:16px auto 0}
+    .sponsors h2{margin:10px 4px;font:900 clamp(16px,2.6vw,20px)/1.2;background:linear-gradient(135deg,var(--grad1),var(--grad2));
+      -webkit-background-clip:text;background-clip:text;color:transparent}
+    .tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+    .tile{background:linear-gradient(135deg, rgba(255,255,255,.96), rgba(255,255,255,.92));
+      color:#111;border:1px solid rgba(255,255,255,.28);border-radius:12px;min-height:64px;padding:8px 10px;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+      box-shadow:0 8px 22px rgba(0,0,0,.20)}
+    .tile .name{font-weight:800;font-size:clamp(13px,2.2vw,15px)}
+    .tile .cta{margin-top:6px;font-weight:800;background:rgba(0,0,0,.08);padding:4px 10px;border-radius:8px}
+    .tile.placeholder{opacity:.75}
 
-    @media (max-width:560px) {
-      .btn-grad { margin-left:0; }
-      .soul-cta .actions { margin-left:0; width:100%; }
-      .soul-cta .actions a { flex:1; text-align:center; }
-    }
+    /* TRANSITION */
+    .transition{height:56px;background:linear-gradient(180deg, var(--bg), var(--sand));}
 
-    /* Sponsors */
-    .sponsors { max-width:1100px; margin:14px auto 10px; }
-    .sponsors h2 { margin:8px 4px 10px; font:900 clamp(16px,2.6vw,20px)/1.2; background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
-    .tiles { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
-    .tile { background:var(--tile); border:1px solid rgba(255,255,255,.25); border-radius:12px; min-height:56px; padding:6px 10px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; box-shadow:0 2px 6px rgba(0,0,0,.15); }
-    .tile .name { font-weight:800; font-size:clamp(13px,2.2vw,15px); }
-    .tile .cta { margin-top:4px; font-size:13px; background:rgba(0,0,0,.15); border-radius:8px; padding:3px 8px; }
-    .tile .cta a { text-decoration:none; color:#111; font-weight:700; }
-    .tile--highlight { color:#111; background:linear-gradient(135deg, rgba(255,111,0,.97), rgba(90,24,154,.92)); border:1px solid rgba(255,255,255,.28); box-shadow:0 8px 22px rgba(90,24,154,.20); }
-    .placeholder { opacity:.75; }
+    /* GUIA (fundo claro) */
+    .guide-band{background:var(--sand);color:#111;padding:36px 0}
+    .guide{max-width:1100px;margin:0 auto;padding:0 14px}
+    .guide h2{margin:0 0 6px;font:900 clamp(16px,2.6vw,20px)/1.2;color:#111}
+    .guide .sub{color:#444;margin-bottom:16px;font-weight:600}
+    .cities{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+    .chip{padding:10px 18px;border-radius:999px;border:2px solid #ddd;background:#fff;color:#111;font-weight:800}
+    .chip.active{background:#111;color:#fff;border-color:#111}
+    .chip.muted{opacity:.6}
+    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .card{background:#fff;border:1px solid #e7e7e7;border-radius:12px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+    .card .name{font-weight:900;margin-bottom:4px}
+    .card .line{font-size:14px;color:#222;margin-top:2px}
+    .badge{display:inline-block;margin-top:6px;font-size:12px;font-weight:800;color:#fff;background:#0d4c92;padding:4px 8px;border-radius:8px}
 
-    /* Guia de Fornecedores */
-    .guide { max-width:1100px; margin:40px auto; }
-    .guide h2 { margin:8px 4px 10px; font:900 clamp(16px,2.6vw,20px)/1.2; background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
-    .cards { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:20px; }
-    .card { background:var(--tile); border-radius:12px; padding:16px; text-align:center; box-shadow:0 2px 6px rgba(0,0,0,.1); }
-    .card .name { font-weight:800; color:#111; margin-bottom:4px; }
-    .card .cta { margin-top:4px; font-size:13px; color:#333; }
-    .card .cta a { color:#111; text-decoration:none; font-weight:700; }
+    @media (max-width:900px){ .tiles{grid-template-columns:repeat(3,1fr)} .cards{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:520px){ .tiles{grid-template-columns:repeat(2,1fr)} .cards{grid-template-columns:1fr} }
 
-    @media (max-width:768px){
-      .tiles { grid-template-columns:repeat(2,1fr); }
-      .cards { grid-template-columns:repeat(2,1fr); }
-    }
-
-    /* About + CTA */
-    .about { max-width:980px; margin:40px auto 18px; }
-    .about h1 { margin:0 0 12px; font-size:clamp(20px,3.6vw,30px); font-weight:900; background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
-    .lead { color:var(--muted); font-size:clamp(14px,2.4vw,17px); line-height:1.7; margin:0; }
-    .copy { margin-top:14px; color:var(--fg); font-size:clamp(15px,2.6vw,18px); line-height:1.75; }
-    .advert-cta { max-width:980px; margin:10px auto 32px; padding:12px 14px; border-radius:14px; background:linear-gradient(135deg, rgba(255,111,0,.10), rgba(90,24,154,.08)); border:1px solid rgba(255,255,255,.10); display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
-    .advert-cta .txt { font-weight:600; color:#EEE; }
-    .advert-cta .btn { margin-left:auto; padding:10px 14px; border-radius:999px; font:800 14px; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; text-decoration:none; white-space:nowrap; box-shadow:0 6px 18px rgba(90,24,154,.22); }
+    /* ABOUT + CTA (volta pro escuro) */
+    .about-wrap{background:var(--bg)}
+    .about{max-width:980px;margin:26px auto 18px;padding:0 14px}
+    .about h1{margin:0 0 12px;font-size:clamp(20px,3.6vw,30px);font-weight:900;
+      background:linear-gradient(135deg,var(--grad1),var(--grad2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{color:var(--muted);line-height:1.7;margin:0}
+    .copy{margin-top:12px;color:#fff;line-height:1.75}
+    .advert-cta{max-width:980px;margin:14px auto 40px;padding:12px 14px;border-radius:14px;
+      background:linear-gradient(135deg, rgba(255,111,0,.12), rgba(90,24,154,.10));border:1px solid rgba(255,255,255,.12);
+      display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .advert-cta .btn{margin-left:auto;padding:10px 14px;border-radius:999px;font:800 14px;
+      background:linear-gradient(135deg,var(--grad1),var(--grad2));color:#fff;white-space:nowrap}
+    @media (max-width:560px){.advert-cta .btn{margin-left:0;width:100%;text-align:center}}
   </style>
 </head>
 <body>
@@ -101,76 +86,105 @@
 
   <main class="wrap">
     <!-- PLAYER -->
-    <div class="player">
+    <div class="player" aria-label="Player ao vivo">
       <iframe title="TV Marataízes — ao vivo"
         src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
         allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen></iframe>
       <div class="tvm-topbar">
-        <span class="tvm-pill" id="tvm-weather-pill">Marataízes ⛅ <span id="tvm-weather">--°C</span></span>
-        <span class="tvm-pill" id="tvm-clock">--:--</span>
+        <span class="pill" id="tvm-weather-pill">Marataízes ⛅ <span id="tvm-weather">--°C</span></span>
+        <span class="pill" id="tvm-clock">--:--</span>
       </div>
     </div>
 
     <!-- PATROCINADORES -->
-    <section class="sponsors">
+    <section class="sponsors" aria-label="Patrocinadores Exclusivos">
       <h2>Patrocinadores Exclusivos</h2>
       <div class="tiles">
-        <div class="tile tile--highlight"><div class="name">Juliana Móveis</div><div class="cta"><a href="#">WhatsApp</a></div></div>
-        <div class="tile tile--highlight"><div class="name">Drogarias Pacheco</div><div class="cta"><a href="#">Visitar site</a></div></div>
-        <div class="tile tile--highlight"><div class="name">Piraquê</div><div class="cta"><a href="#">Visitar site</a></div></div>
+        <div class="tile"><div class="name">Juliana Móveis</div><div class="cta"><a href="#">WhatsApp</a></div></div>
+        <div class="tile"><div class="name">Drogarias Pacheco</div><div class="cta"><a href="#">Visitar site</a></div></div>
+        <div class="tile"><div class="name">Pirajá</div><div class="cta"><a href="#">Visitar site</a></div></div>
         <div class="tile placeholder"><div class="name">Sua marca aqui</div><div class="cta">WhatsApp</div></div>
         <div class="tile placeholder"><div class="name">Em breve</div><div class="cta">WhatsApp</div></div>
       </div>
     </section>
-
-    <!-- GUIA -->
-    <section class="guide">
-      <h2>Guia de Fornecedores — Região Sul do Espírito Santo</h2>
-      <div class="cards">
-        <div class="card">
-          <div class="name">Amor Dentro do Cone</div>
-          <div class="cta">📞 <a href="https://wa.me/5521983165333" target="_blank">(21) 98316-5333</a></div>
-          <div class="cta">📸 <a href="https://www.instagram.com/amordentrodocone" target="_blank">@amordentrodocone</a></div>
-          <div class="cta"><strong>Apoiador da TV Marataízes</strong></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SOBRE -->
-    <section class="about">
-      <h1>TV Marataízes — a 1ª TV do Sul do ES com transmissão nacional pela Soul TV</h1>
-      <p class="lead">A TV Marataízes nasceu como um projeto inovador de <strong>TV digital e multiplataforma</strong>. Hoje conecta o Sul Capixaba a todo o Brasil pela <strong>Soul TV</strong>.</p>
-      <p class="copy">Com <strong>quadros originais</strong>, transmissões especiais e cobertura dos principais acontecimentos da região, a TV Marataízes conecta <strong>pessoas, cidades e histórias</strong>.</p>
-    </section>
-
-    <!-- CTA FINAL -->
-    <section class="advert-cta">
-      <span class="txt">Sua marca ao vivo no Sul do ES e em todo o Brasil pela Soul TV.</span>
-      <a class="btn" href="https://wa.me/5528999036141?text=Ol%C3%A1%2C%20quero%20anunciar%20na%20TV%20Marata%C3%ADzes" target="_blank">Falar com comercial</a>
-    </section>
   </main>
 
+  <!-- TRANSIÇÃO ESCURO → AREIA -->
+  <div class="transition" aria-hidden="true"></div>
+
+  <!-- GUIA (FUNDO CLARO) -->
+  <section class="guide-band" aria-label="Guia de Fornecedores">
+    <div class="guide">
+      <h2>Guia de Fornecedores da TV Marataízes — Região Sul do Espírito Santo</h2>
+      <div class="sub">Empreendedores locais que o Siri Ventania achou pra você 🦀</div>
+
+      <div class="cities" role="tablist" aria-label="Cidades">
+        <span class="chip active" role="tab" aria-selected="true">Marataízes</span>
+        <span class="chip muted" role="tab" aria-disabled="true">Itapemirim (em breve)</span>
+        <span class="chip muted" role="tab" aria-disabled="true">Piúma (em breve)</span>
+        <span class="chip muted" role="tab" aria-disabled="true">Presidente Kennedy (em breve)</span>
+      </div>
+
+      <div class="cards">
+        <!-- CARD 1 -->
+        <article class="card">
+          <div class="name">Amor Dentro do Cone</div>
+          <div class="line">📞 <a href="https://wa.me/5521983165333" target="_blank" rel="noopener">(21) 98316-5333</a></div>
+          <div class="line">📸 <a href="https://www.instagram.com/amordentrodocone" target="_blank" rel="noopener">@amordentrodocone</a></div>
+          <span class="badge">Apoiador da TV Marataízes</span>
+        </article>
+
+        <!-- EXEMPLOS FUTUROS (placeholders visuais) -->
+        <article class="card">
+          <div class="name">Oficina do Som</div>
+          <div class="line">📞 (28) 98888-8888</div>
+          <span class="badge">Apoiador da TV Marataízes</span>
+        </article>
+        <article class="card">
+          <div class="name">Brechó da Praia</div>
+          <div class="line">📞 (28) 97777-7777</div>
+          <span class="badge">Apoiador da TV Marataízes</span>
+        </article>
+        <article class="card">
+          <div class="name">Padaria da Barra</div>
+          <div class="line">📞 (28) 96666-6666</div>
+          <span class="badge">Apoiador da TV Marataízes</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOLTA PRO ESCURO: SOBRE + CTA -->
+  <section class="about-wrap">
+    <div class="about" aria-label="Sobre a TV Marataízes">
+      <h1>TV Marataízes — a 1ª TV do Sul do ES com transmissão nacional pela Soul TV</h1>
+      <p class="lead">Projeto de <strong>TV digital e multiplataforma</strong> que conecta o Sul Capixaba ao Brasil pela <strong>Soul TV</strong>.</p>
+      <p class="copy">Com <strong>quadros originais</strong>, transmissões especiais e cobertura dos principais acontecimentos da região, a TV Marataízes conecta <strong>pessoas, cidades e histórias</strong>.</p>
+    </div>
+
+    <div class="advert-cta" aria-label="Anuncie">
+      <span class="txt">Sua marca ao vivo no Sul do ES e em todo o Brasil pela Soul TV.</span>
+      <a class="btn" href="https://wa.me/5528999036141?text=Ol%C3%A1%2C%20quero%20anunciar%20na%20TV%20Marata%C3%ADzes" target="_blank" rel="noopener">Falar com comercial</a>
+    </div>
+  </section>
+
+  <!-- Relógio + clima -->
   <script>
     (function(){
-      function two(n){return n<10?'0'+n:n;}
-      function tickClock(){
-        var d=new Date();
-        document.getElementById('tvm-clock').textContent=two(d.getHours())+':'+two(d.getMinutes());
-      }
-      tickClock();setInterval(tickClock,15000);
-
-      var TVM_LAT=-21.04,TVM_LON=-40.83;
-      function weatherIcon(c){var m={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',61:'🌧️',80:'🌧️',95:'⛈️'};return m[c]||'⛅';}
-      async function updateWeather(){
+      const two=n=>n<10?'0'+n:n;
+      function tick(){const d=new Date();document.getElementById('tvm-clock').textContent=two(d.getHours())+':'+two(d.getMinutes())}
+      tick();setInterval(tick,15000);
+      const LAT=-21.04,LON=-40.83;
+      const icon=c=>({0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',61:'🌧️',80:'🌧️',95:'⛈️'})[c]||'⛅';
+      async function weather(){
         try{
-          var r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${TVM_LAT}&longitude=${TVM_LON}&current=temperature_2m,weather_code&timezone=auto`);
-          var j=await r.json();
-          var t=Math.round(j.current.temperature_2m);
-          var ic=weatherIcon(j.current.weather_code);
+          const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m,weather_code&timezone=auto`,{cache:'no-store'});
+          const j=await r.json();
+          const t=Math.round(j.current.temperature_2m), ic=icon(j.current.weather_code);
           document.getElementById('tvm-weather-pill').innerHTML=`Marataízes ${ic} <span id='tvm-weather'>${t}°C</span>`;
         }catch(e){}
       }
-      updateWeather();setInterval(updateWeather,600000);
+      weather();setInterval(weather,600000);
     })();
   </script>
 </body>
