@@ -176,8 +176,8 @@
   <!-- TRANSIÇÃO -->
   <div class="transition" aria-hidden="true"></div>
 
-  <!-- GUIA (colapsável) -->
-  <section class="guide-band" data-state="collapsed" id="guia" aria-label="Guia de Fornecedores">
+  <!-- GUIA (colapsável; começa fechado) -->
+  <section class="guide-band" id="guia" data-state="collapsed" aria-label="Guia de Fornecedores">
     <div class="guide">
       <h2>Guia de Fornecedores da TV Marataízes — Região Sul do Espírito Santo</h2>
       <div class="sub">Empreendedores locais que o Siri Ventania achou pra você 🦀</div>
@@ -189,6 +189,7 @@
         <span class="chip muted" role="tab" aria-disabled="true">Presidente Kennedy (em breve)</span>
       </div>
 
+      <!-- Cards ficam ocultos até clicar -->
       <div id="guia-marataizes" class="cards" hidden>
         <article class="card">
           <div class="name">Amor Dentro do Cone</div>
@@ -196,8 +197,7 @@
           <div class="line">📸 <a href="https://www.instagram.com/amordentrodocone" target="_blank" rel="noopener">@amordentrodocone</a></div>
           <span class="badge">Apoiador da TV Marataízes</span>
         </article>
-
-        <!-- exemplos (pode apagar depois) -->
+        <!-- Exemplo de placeholders; pode remover -->
         <article class="card">
           <div class="name">Oficina do Som</div>
           <div class="line">📞 (28) 98888-8888</div>
@@ -258,35 +258,32 @@
       }
       weather(); setInterval(weather, 10*60*1000);
 
-      // toggle Guia
+      // toggle Guia (começa FECHADO)
       const band = document.querySelector('.guide-band');
       const btn  = document.getElementById('btn-marataizes');
       const grid = document.getElementById('guia-marataizes');
 
-      function openGuide(){
-        band.setAttribute('data-state','expanded');
-        btn.classList.add('active');
-        btn.setAttribute('aria-expanded','true');
-        grid.hidden = false;
-        band.scrollIntoView({behavior:'smooth', block:'start'});
-      }
-      function closeGuide(){
-        band.setAttribute('data-state','collapsed');
-        btn.classList.remove('active');
-        btn.setAttribute('aria-expanded','false');
-        grid.hidden = true;
-      }
-
-      // inicia fechado
-      closeGuide();
+      // garante estado inicial fechado
+      band.setAttribute('data-state','collapsed');
+      btn.classList.remove('active');
+      btn.setAttribute('aria-expanded','false');
+      grid.setAttribute('hidden','');
 
       btn.addEventListener('click', () => {
-        const isCollapsed = band.getAttribute('data-state') !== 'expanded';
-        isCollapsed ? openGuide() : closeGuide();
+        const expanded = band.getAttribute('data-state') === 'expanded';
+        if (expanded) {
+          band.setAttribute('data-state','collapsed');
+          btn.classList.remove('active');
+          btn.setAttribute('aria-expanded','false');
+          grid.setAttribute('hidden','');
+        } else {
+          band.setAttribute('data-state','expanded');
+          btn.classList.add('active');
+          btn.setAttribute('aria-expanded','true');
+          grid.removeAttribute('hidden');
+          band.scrollIntoView({behavior:'smooth', block:'start'});
+        }
       });
-
-      // opcional: abrir direto via âncora #guia
-      if (location.hash === '#guia') openGuide();
     })();
   </script>
 </body>
