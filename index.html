@@ -63,8 +63,7 @@
       .tiles .tile-link:nth-child(-n+2) .name{font-size:16px}
     }
     .transition{height:28px;background:linear-gradient(180deg,var(--bg),var(--sand))}
-    .guide-band{background:var(--sand);color:#111;padding:16px 0 18px;transition:padding .18s ease}
-    .guide-band[data-state="expanded"]{padding:28px 0 36px;}
+    .guide-band{background:var(--sand);color:#111;padding:28px 0 36px;transition:padding .18s ease}
     .guide{max-width:1100px;margin:0 auto;padding:0 12px}
     .guide h2{margin:0 0 6px;font:900 clamp(16px,2.6vw,20px)/1.2;color:#111}
     .guide .sub{color:#444;margin-bottom:10px;font-weight:600}
@@ -167,16 +166,16 @@
 
   <div class="transition" aria-hidden="true"></div>
 
-  <section class="guide-band" id="guia" data-state="expanded" aria-label="Guia de Fornecedores">
+  <section class="guide-band" id="guia" aria-label="Guia de Fornecedores">
     <div class="guide">
       <h2>Guia de Fornecedores da TV Marataízes — Região Sul do Espírito Santo</h2>
       <div class="sub">Empreendedores locais que o Siri Ventania achou pra você 🦀</div>
 
       <div class="cities" role="tablist" aria-label="Cidades">
-        <button class="chip active" role="tab" aria-controls="guia-marataizes" aria-selected="true">Marataízes</button>
-        <button class="chip" role="tab" aria-controls="guia-itapemirim" aria-selected="false">Itapemirim</button>
-        <button class="chip" role="tab" aria-controls="guia-piuma" aria-selected="false">Piúma</button>
-        <button class="chip" role="tab" aria-controls="guia-presidente-kennedy" aria-selected="false">Presidente Kennedy</button>
+        <button class="chip active" role="tab" aria-controls="guia-marataizes" aria-selected="true" type="button">Marataízes</button>
+        <button class="chip" role="tab" aria-controls="guia-itapemirim" aria-selected="false" type="button">Itapemirim</button>
+        <button class="chip" role="tab" aria-controls="guia-piuma" aria-selected="false" type="button">Piúma</button>
+        <button class="chip" role="tab" aria-controls="guia-presidente-kennedy" aria-selected="false" type="button">Presidente Kennedy</button>
       </div>
 
       <div class="guide-cta">
@@ -241,33 +240,60 @@
       weather(); setInterval(weather, 10*60*1000);
     })();
 
-    /* Guia – tabs + API de cards */
-    (function(){
+    /* ===== GUIA: abas + API de cards (versão robusta com delegação) ===== */
+    (function () {
+      function $ (sel, root=document) { return root.querySelector(sel); }
+      function $$ (sel, root=document) { return Array.from(root.querySelectorAll(sel)); }
+
       const band = document.getElementById('guia');
-      const tabs = band.querySelectorAll('[role="tab"]');
-      const panels = band.querySelectorAll('.cards[data-city]');
+      if (!band) return;
 
-      function selectTab(btn){
-        tabs.forEach(t => {
-          const selected = t === btn;
-          t.classList.toggle('active', selected);
-          t.setAttribute('aria-selected', selected ? 'true' : 'false');
-        });
-        panels.forEach(p => {
-          p.hidden = (p.id !== btn.getAttribute('aria-controls'));
-        });
-        band.setAttribute('data-state','expanded');
-        band.scrollIntoView({behavior:'smooth', block:'start'});
-      }
+      const cityBar = $('.cities', band);
+      const panels = $$('.cards[data-city]', band);
 
-      tabs.forEach(btn => {
-        btn.addEventListener('click', () => selectTab(btn));
-        btn.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectTab(btn); }
-        });
+      // Acessibilidade básica nos botões
+      $$('.cities [role="tab"]', band).forEach(btn => {
+        btn.setAttribute('type','button');
+        btn.setAttribute('tabindex','0');
       });
 
-      function createCard({name, phone, tag, extra}){
+      function selectPanel(controlId) {
+        const target = document.getElementById(controlId);
+        if (!target) return;
+
+        // Toggle visual e ARIA das abas
+        $$('.cities [role="tab"]', band).forEach(btn => {
+          const on = btn.getAttribute('aria-controls') === controlId;
+          btn.classList.toggle('active', on);
+          btn.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+
+        // Mostrar/ocultar painéis
+        panels.forEach(p => { p.hidden = (p !== target); });
+
+        // Mantém banda aberta e rola até ela
+        band.setAttribute('data-state', 'expanded');
+        band.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      // Delegação de eventos para cliques e teclado
+      cityBar.addEventListener('click', (e) => {
+        const btn = e.target.closest('[role="tab"]');
+        if (!btn) return;
+        const ctrl = btn.getAttribute('aria-controls');
+        if (ctrl) selectPanel(ctrl);
+      });
+      cityBar.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        const btn = e.target.closest('[role="tab"]');
+        if (!btn) return;
+        e.preventDefault();
+        const ctrl = btn.getAttribute('aria-controls');
+        if (ctrl) selectPanel(ctrl);
+      });
+
+      // Helpers de card
+      function createCard({ name, phone, tag, extra }) {
         const el = document.createElement('article');
         el.className = 'card';
         el.innerHTML = `
@@ -280,18 +306,27 @@
       }
 
       window.TVM_GUIDE = {
-        add(city, items){
+        add(city, items) {
           const grid = band.querySelector(\`.cards[data-city="\${city}"]\`);
           if (!grid) return;
           items.forEach(it => grid.appendChild(createCard(it)));
         },
-        clear(city){
+        clear(city) {
           const grid = band.querySelector(\`.cards[data-city="\${city}"]\`);
           if (grid) grid.innerHTML = '';
         }
       };
 
-      /* —— Dados iniciais (Marataízes) — amostra baseada no índice enviado —— */
+      // Inicialização segura: garante painel visível na primeira carga
+      const firstBtn = $('.cities [role="tab"].active', band) || $('.cities [role="tab"]', band);
+      const firstCtrl = firstBtn && firstBtn.getAttribute('aria-controls');
+      if (firstCtrl) {
+        panels.forEach(p => p.hidden = (p.id !== firstCtrl));
+        firstBtn.setAttribute('aria-selected', 'true');
+        band.setAttribute('data-state','expanded');
+      }
+
+      /* —— Dados iniciais (Marataízes) — amostra do índice —— */
       TVM_GUIDE.add('marataizes', [
         // Destaque topo
         {name:'Amor Dentro do Cone', phone:'(21) 98316-5333', tag:'Destaque'},
@@ -374,15 +409,9 @@
       ]);
 
       /* —— Espaços prontos para Itapemirim, Piúma e Presidente Kennedy —— */
-      TVM_GUIDE.add('itapemirim', [
-        // {name:'Empresa Exemplo', phone:'(28) 9xxxx-xxxx'}
-      ]);
-      TVM_GUIDE.add('piuma', [
-        // {name:'Empresa Exemplo', phone:'(28) 9xxxx-xxxx'}
-      ]);
-      TVM_GUIDE.add('presidente-kennedy', [
-        // {name:'Empresa Exemplo', phone:'(28) 9xxxx-xxxx'}
-      ]);
+      // TVM_GUIDE.add('itapemirim', [ {name:'Empresa', phone:'(28) 9xxxx-xxxx'} ]);
+      // TVM_GUIDE.add('piuma', [ {name:'Empresa', phone:'(28) 9xxxx-xxxx'} ]);
+      // TVM_GUIDE.add('presidente-kennedy', [ {name:'Empresa', phone:'(28) 9xxxx-xxxx'} ]);
     })();
   </script>
 </body>
