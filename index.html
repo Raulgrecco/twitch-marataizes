@@ -19,25 +19,17 @@
     .dot{width:10px;height:10px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent2))}
     .brand{font-weight:900;font-size:clamp(18px,2.4vw,24px)}
     .wrap{max-width:1200px;margin:0 auto;padding:0 12px 28px}
-
-    /* Garante ocultar qualquer [hidden] */
     [hidden]{display:none !important;}
-
-    /* Player */
     .player{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;border-radius:12px}
     .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
     .tvm-topbar{position:absolute;top:8px;left:8px;right:8px;display:flex;justify-content:space-between;gap:8px;pointer-events:none}
     .tvm-pill{pointer-events:auto;background:rgba(0,0,0,.55);color:#fff;padding:6px 10px;border-radius:999px;font:600 12px/1.2;border:1px solid rgba(255,255,255,.15);box-shadow:0 0 0 1px rgba(255,111,0,.18)}
-
-    /* EPG / buttons (compacto) */
     .tvm-epgbar{margin:10px 0 8px;padding:10px 12px;border-radius:14px;background:#101010;border:1px solid #222;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
     .tvm-col{min-width:200px}
     .tvm-epgtitle{color:var(--accent3);font:800 18px/1.1 system-ui}
     .tvm-epgsub{color:#EDEDED;font:500 15px/1.25 system-ui;margin-top:2px}
     .btn-grad{margin-left:auto;padding:10px 16px;border-radius:999px;font:800 14px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;white-space:nowrap;box-shadow:0 6px 18px rgba(90,24,154,.28);transition:.15s ease}
     .btn-grad:hover{filter:brightness(1.05);transform:translateY(-1px)}
-
-    /* Soul TV CTA */
     .soul-cta{margin:12px 0 16px;padding:12px;border-radius:14px;background:linear-gradient(135deg,rgba(255,111,0,.12),rgba(90,24,154,.10));border:1px solid rgba(255,255,255,.12);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
     .soul-cta .headline{font:900 clamp(15px,2.8vw,18px)/1.25 system-ui}
     .soul-cta .sub{color:#EDEDED;font-weight:600}
@@ -49,8 +41,6 @@
       .soul-cta .actions{margin-left:0;width:100%}
       .soul-cta .actions a{flex:1;text-align:center}
     }
-
-    /* Sponsors — FAIXA DESTACADA */
     .sponsors{max-width:1100px;margin:16px auto 12px;padding:14px;border-radius:16px;background:#0e0e0e;border:1px solid #232323}
     .sponsors h2{margin:0 0 12px;font:900 clamp(18px,3vw,22px)/1.2 system-ui;letter-spacing:.2px;background:linear-gradient(135deg,#FFB000,#FF6F00);-webkit-background-clip:text;background-clip:text;color:transparent}
     .tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
@@ -61,57 +51,26 @@
     .tile .cta{margin-top:4px;font-size:13px;background:rgba(0,0,0,.15);border-radius:8px;padding:3px 8px;color:#111;font-weight:700}
     .tile--highlight{background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(255,255,255,.92))}
     .placeholder{opacity:.75}
-
-    /* Cartão VIP “fora do card” (chama atenção e não cobre o nome) */
-    .tile--vip{
-      padding-top:26px; /* espaço pro nome/cta abaixo da ribbon */
-      background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,255,255,.94));
-      border:1px solid rgba(255,255,255,.35);
-      box-shadow:0 10px 28px rgba(255,111,0,.18), inset 0 0 0 2px rgba(255,176,0,.18);
-    }
-    .tile--vip::before{
-      content:""; position:absolute; inset:-2px; border-radius:14px;
-      background:linear-gradient(135deg,rgba(255,111,0,.55),rgba(90,24,154,.55));
-      z-index:-1; filter:blur(14px); opacity:.45;
-    }
-    .ribbon{
-      position:absolute; top:-12px; left:10px;
-      background:linear-gradient(135deg,#FF6F00,#5A189A);
-      color:#fff; font:800 10px/1 system-ui; padding:6px 10px 6px 14px;
-      border-top-right-radius:8px; border-bottom-right-radius:8px;
-      box-shadow:0 4px 10px rgba(0,0,0,.25);
-    }
+    .tile--vip{padding-top:26px;background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,255,255,.94));border:1px solid rgba(255,255,255,.35);box-shadow:0 10px 28px rgba(255,111,0,.18), inset 0 0 0 2px rgba(255,176,0,.18)}
+    .tile--vip::before{content:""; position:absolute; inset:-2px; border-radius:14px;background:linear-gradient(135deg,rgba(255,111,0,.55),rgba(90,24,154,.55)); z-index:-1; filter:blur(14px); opacity:.45;}
+    .ribbon{position:absolute; top:-12px; left:10px; background:linear-gradient(135deg,#FF6F00,#5A189A); color:#fff; font:800 10px/1 system-ui; padding:6px 10px 6px 14px; border-top-right-radius:8px; border-bottom-right-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,.25)}
     .tile--vip .name{font-size:clamp(14px,2.4vw,16px)}
     .tile--vip .cta{background:#111;color:#fff}
-
-    /* MOBILE: primeiros 2 maiores */
     @media (max-width:900px){.tiles{grid-template-columns:repeat(3,1fr)}}
     @media (max-width:560px){
       .tiles{grid-template-columns:1fr 1fr}
-      .tiles .tile-link:nth-child(-n+2) .tile{
-        min-height:86px; transform:translateY(0)!important;
-        box-shadow:0 10px 26px rgba(0,0,0,.28);
-      }
+      .tiles .tile-link:nth-child(-n+2) .tile{min-height:86px; transform:translateY(0)!important; box-shadow:0 10px 26px rgba(0,0,0,.28)}
       .tiles .tile-link:nth-child(-n+2) .name{font-size:16px}
     }
-
-    /* Transition */
     .transition{height:28px;background:linear-gradient(180deg,var(--bg),var(--sand))}
-
-    /* Guia */
     .guide-band{background:var(--sand);color:#111;padding:16px 0 18px;transition:padding .18s ease}
     .guide-band[data-state="expanded"]{padding:28px 0 36px;}
     .guide{max-width:1100px;margin:0 auto;padding:0 12px}
     .guide h2{margin:0 0 6px;font:900 clamp(16px,2.6vw,20px)/1.2;color:#111}
     .guide .sub{color:#444;margin-bottom:10px;font-weight:600}
-
     .guide-cta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0 16px}
     .guide-cta .hint{color:#333;font-weight:700}
-    .guide-cta .whats{
-      padding:8px 12px;border-radius:999px;font:800 13px/1 system-ui;
-      background:#0BD36A;color:#0a2e12;border:1px solid #07b95b;
-    }
-
+    .guide-cta .whats{padding:8px 12px;border-radius:999px;font:800 13px/1 system-ui;background:#0BD36A;color:#0a2e12;border:1px solid #07b95b}
     .cities{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
     .chip{padding:10px 18px;border-radius:999px;border:2px solid #ddd;background:#fff;color:#111;font-weight:800;cursor:pointer}
     .chip.muted{opacity:.6;cursor:not-allowed}
@@ -123,8 +82,6 @@
     .badge{display:inline-block;margin-top:6px;font-size:12px;font-weight:800;color:#fff;background:#0d4c92;padding:4px 8px;border-radius:8px}
     @media (max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}}
     @media (max-width:520px){.cards{grid-template-columns:1fr}}
-
-    /* About / CTA */
     .about{max-width:980px;margin:16px auto 18px}
     .about h1{margin:0 0 12px;font-size:clamp(20px,3.6vw,30px);font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
     .lead{color:var(--muted);font-size:clamp(14px,2.4vw,17px);line-height:1.7;margin:0}
@@ -132,11 +89,11 @@
     .advert-cta{max-width:980px;margin:10px auto 32px;padding:12px 14px;border-radius:14px;background:linear-gradient(135deg,rgba(255,111,0,.10),rgba(90,24,154,.08));border:1px solid rgba(255,255,255,.10);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
     .advert-cta .txt{font-weight:600;color:#EEE}
     .advert-cta .btn{margin-left:auto;padding:10px 14px;border-radius:999px;font:800 14px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;white-space:nowrap;box-shadow:0 6px 18px rgba(90,24,154,.22)}
-
-    /* Regiões — no rodapé */
     .regions-band{max-width:980px;margin:0 auto 26px;padding:12px 14px;border-radius:14px;background:#101010;border:1px solid #222}
     .regions-title{color:var(--accent3);font:900 18px/1.2 system-ui;margin:0 0 6px}
     .regions-sub{color:#EDEDED;font:600 15px/1.5 system-ui;margin:0}
+    /* Subtítulo de categoria dentro do grid */
+    .cat{grid-column:1 / -1;background:#f7f7f7;border:1px solid #ececec;border-radius:10px;padding:10px 12px;font-weight:900;color:#111}
   </style>
 </head>
 <body>
@@ -233,7 +190,6 @@
         <span class="chip muted" role="tab" aria-disabled="true">Presidente Kennedy (em breve)</span>
       </div>
 
-      <!-- Convite POS-cidades (evita confusão) -->
       <div class="guide-cta">
         <span class="hint">Quer fazer parte do Guia da TV?</span>
         <a class="whats" href="https://wa.me/5528999036141?text=Quero%20entrar%20no%20Guia%20da%20TV%20Marata%C3%ADzes" target="_blank" rel="noopener">
@@ -241,29 +197,71 @@
         </a>
       </div>
 
-      <!-- Cards ficam ocultos até clicar -->
+      <!-- CARDS POR CATEGORIA -->
       <div id="guia-marataizes" class="cards" hidden>
+
+        <!-- Destaque topo -->
         <article class="card">
           <div class="name">Amor Dentro do Cone</div>
-          <div class="line">📞 <a href="https://wa.me/5521983165333" target="_blank" rel="noopener">(21) 98316-5333</a></div>
-          <div class="line">📸 <a href="https://www.instagram.com/amordentrodocone" target="_blank" rel="noopener">@amordentrodocone</a></div>
-          <span class="badge">Apoiador da TV Marataízes</span>
+          <div class="line">📞 (21) 98316-5333</div>
+          <div class="line">📸 @amordentrodocone</div>
+          <span class="badge">Destaque</span>
         </article>
-        <article class="card">
-          <div class="name">Oficina do Som</div>
-          <div class="line">📞 (28) 98888-8888</div>
-          <span class="badge">Apoiador da TV Marataízes</span>
-        </article>
-        <article class="card">
-          <div class="name">Brechó da Praia</div>
-          <div class="line">📞 (28) 97777-7777</div>
-          <span class="badge">Apoiador da TV Marataízes</span>
-        </article>
-        <article class="card">
-          <div class="name">Padaria da Barra</div>
-          <div class="line">📞 (28) 96666-6666</div>
-          <span class="badge">Apoiador da TV Marataízes</span>
-        </article>
+
+        <!-- ====================== ALIMENTAÇÃO & BEBIDAS ====================== -->
+        <div class="cat">🍽️ Alimentação & Bebidas</div>
+        <article class="card"><div class="name">Açaí do Cris</div><div class="line">📞 (28) 99920-4220</div><span class="badge">Apoiador da TV Marataízes</span></article>
+        <article class="card"><div class="name">Açaí do PC</div><div class="line">📞 (28) 99958-0509</div><span class="badge">Apoiador da TV Marataízes</span></article>
+        <article class="card"><div class="name">Bubbles</div><div class="line">📞 (28) 99963-2102</div><span class="badge">Apoiador da TV Marataízes</span></article>
+        <article class="card"><div class="name">Bunnies</div><div class="line">📞 (28) 99973-6063</div><span class="badge">Apoiador da TV Marataízes</span></article>
+        <article class="card"><div class="name">Restaurante Feijão de Corda</div><div class="line">📞 (28) 99953-2713</div><span class="badge">Apoiador da TV Marataízes</span></article>
+        <article class="card"><div class="name">Pizzaria Patinhas</div><div class="line">📞 (28) 99945-0126</div><span class="badge">Apoiador da TV Marataízes</span></article>
+        <article class="card"><div class="name">Hortifruti Bom Preço</div><div class="line">📞 (28) 99270-2883</div><span class="badge">Apoiador da TV Marataízes</span></article>
+
+        <!-- ====================== AUTOMOTIVO ====================== -->
+        <div class="cat">🚗 Automotivo</div>
+        <article class="card"><div class="name">AMCAR Auto Center</div><div class="line">📞 (28) 99948-2302</div><span class="badge">Apoiador da TV Marataízes</span></article>
+        <article class="card"><div class="name">Auto Escola Vanguarda</div><div class="line">📞 (28) 99918-5262</div><span class="badge">Apoiador da TV Marataízes</span></article>
+        <article class="card"><div class="name">Lima Veículos</div><div class="line">📞 (28) 99939-4828</div><span class="badge">Apoiador da TV Marataízes</span></article>
+
+        <!-- ====================== CONSTRUÇÃO & LAR ====================== -->
+        <div class="cat">🏗️ Construção & Lar</div>
+        <article class="card"><div class="name">Casa Mix Revestimentos</div><div class="line">📞 (28) 99967-4051</div><span class="badge">Apoiador da TV Marataízes</span></article>
+        <article class="card"><div class="name">Construtora Menezes</div><div class="line">📞 (28) 99925-1334</div><span class="badge">Apoiador da TV Marataízes</span></article>
+        <article class="card"><div class="name">Tofoli Madeiras</div><div class="line">📞 (27) 99866-9381</div><span class="badge">Apoiador da TV Marataízes</span></article>
+        <article class="card"><div class="name">Oficina das Tintas</div><div class="line">📞 (28) 99905-2930</div><span class="badge">Apoiador da TV Marataízes</span></article>
+
+        <!-- ====================== SAÚDE & BEM-ESTAR ====================== -->
+        <div class="cat">💚 Saúde & Bem-estar</div>
+        <article class="card"><div class="name">Drogaria Mendonça</div><div class="line">📞 (28) 99912-7388</div><span class="badge">Apoiador da TV Marataízes</span></article>
+        <article class="card"><div class="name">Freire Odontologia</div><div class="line">📞 (28) 99884-5196</div><span class="badge">Apoiador da TV Marataízes</span></article>
+        <article class="card"><div class="name">Oraldents</div><div class="line">📞 (28) 99942-6279</div><span class="badge">Apoiador da TV Marataízes</span></article>
+        <article class="card"><div class="name">Natusvida</div><div class="line">📞 (28) 99977-2658</div><span class="badge">Apoiador da TV Marataízes</span></article>
+
+        <!-- ====================== MODA, BELEZA & VARIEDADES ====================== -->
+        <div class="cat">👗 Moda, Beleza & Variedades</div>
+        <article class="card"><div class="name">A Brasileira Magazin</div><div class="line">📞 (28) 3532-4149</div><span class="badge">Apoiador da TV Marataízes</span></article>
+        <article class="card"><div class="name">Pe Na Fama</div><div class="line">📞 (28) 99944-9426</div><span class="badge">Apoiador da TV Marataízes</span></article>
+        <article class="card"><div class="name">Mymi Store</div><div class="line">📞 (28) 99886-5797</div><span class="badge">Apoiador da TV Marataízes</span></article>
+
+        <!-- ====================== SERVIÇOS & NEGÓCIOS ====================== -->
+        <div class="cat">🧩 Serviços & Negócios</div>
+        <article class="card"><div class="name">AP Savana Letreiros</div><div class="line">📞 (27) 99639-1608</div><span class="badge">Apoiador da TV Marataízes</span></article>
+        <article class="card"><div class="name">Complaca Comunicação</div><div class="line">📞 (28) 99978-6108</div><span class="badge">Apoiador da TV Marataízes</span></article>
+        <article class="card"><div class="name">Consórcio Viana RH</div><div class="line">📞 (28) 99926-3334</div><span class="badge">Apoiador da TV Marataízes</span></article>
+        <article class="card"><div class="name">JM Distribuidora & Serviços</div><div class="line">📞 (28) 99917-0563</div><span class="badge">Apoiador da TV Marataízes</span></article>
+        <article class="card"><div class="name">W.S.C. Serviços</div><div class="line">📞 (28) 99935-0878</div><span class="badge">Apoiador da TV Marataízes</span></article>
+
+        <!-- ====================== TECNOLOGIA & TELECOM ====================== -->
+        <div class="cat">🌐 Tecnologia & Telecom</div>
+        <article class="card"><div class="name">Windx Networks</div><div class="line">📞 (28) 99915-3924</div><span class="badge">Apoiador da TV Marataízes</span></article>
+
+        <!-- ====================== LAR & ELETRO ====================== -->
+        <div class="cat">🏠 Lar & Eletro</div>
+        <article class="card"><div class="name">Zema</div><div class="line">📞 (28) 99986-0779</div><span class="badge">Apoiador da TV Marataízes</span></article>
+
+        <!-- (Você pode continuar adicionando itens abaixo seguindo o mesmo padrão de categoria + cards) -->
+
       </div>
     </div>
   </section>
@@ -281,26 +279,18 @@
       <a class="btn" href="https://wa.me/5528999036141?text=Ol%C3%A1%2C%20quero%20anunciar%20na%20TV%20Marata%C3%ADzes" target="_blank" rel="noopener">Falar com comercial</a>
     </section>
 
-    <!-- Regiões - rodapé -->
     <section class="regions-band" aria-label="Conectando o Sul do ES">
       <h3 class="regions-title">Conectando o Sul do Espírito Santo</h3>
       <p class="regions-sub">Itapemirim • Piúma • Presidente Kennedy • Cachoeiro • Vargem Alta • Domingos Martins • Alfredo Chaves • Rio Novo do Sul</p>
     </section>
   </main>
 
-  <!-- Relógio, clima e toggle do Guia -->
   <script>
     (function(){
-      // relógio
       const two = n => n < 10 ? '0'+n : n;
-      function tick(){
-        const d = new Date();
-        const el = document.getElementById('tvm-clock');
-        if(el) el.textContent = two(d.getHours()) + ':' + two(d.getMinutes());
-      }
+      function tick(){ const d = new Date(); const el = document.getElementById('tvm-clock'); if(el) el.textContent = two(d.getHours()) + ':' + two(d.getMinutes()); }
       tick(); setInterval(tick, 15000);
 
-      // clima (Open-Meteo)
       const LAT=-21.04, LON=-40.83;
       const icon = c => ({0:"☀️",1:"🌤️",2:"⛅",3:"☁️",45:"🌫️",61:"🌧️",80:"🌧️",95:"⛈️"})[c] || "⛅";
       async function weather(){
@@ -315,7 +305,6 @@
       }
       weather(); setInterval(weather, 10*60*1000);
 
-      // toggle Guia (começa FECHADO)
       const band = document.querySelector('.guide-band');
       const btn  = document.getElementById('btn-marataizes');
       const grid = document.getElementById('guia-marataizes');
