@@ -73,7 +73,6 @@
     .guide-cta .whats{padding:8px 12px;border-radius:999px;font:800 13px/1 system-ui;background:#0BD36A;color:#0a2e12;border:1px solid #07b95b}
     .cities{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
     .chip{padding:10px 18px;border-radius:999px;border:2px solid #ddd;background:#fff;color:#111;font-weight:800;cursor:pointer}
-    .chip.muted{opacity:.6;cursor:not-allowed}
     .chip.active{background:#111;color:#fff;border-color:#111}
     .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
     .card{background:#fff;border:1px solid #e7e7e7;border-radius:12px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
@@ -92,7 +91,6 @@
     .regions-band{max-width:980px;margin:0 auto 26px;padding:12px 14px;border-radius:14px;background:#101010;border:1px solid #222}
     .regions-title{color:var(--accent3);font:900 18px/1.2 system-ui;margin:0 0 6px}
     .regions-sub{color:#EDEDED;font:600 15px/1.5 system-ui;margin:0}
-    .cat{grid-column:1 / -1;background:#f7f7f7;border:1px solid #ececec;border-radius:10px;padding:10px 12px;font-weight:900;color:#111}
   </style>
 </head>
 <body>
@@ -169,16 +167,16 @@
 
   <div class="transition" aria-hidden="true"></div>
 
-  <section class="guide-band" id="guia" data-state="collapsed" aria-label="Guia de Fornecedores">
+  <section class="guide-band" id="guia" data-state="expanded" aria-label="Guia de Fornecedores">
     <div class="guide">
       <h2>Guia de Fornecedores da TV Marataízes — Região Sul do Espírito Santo</h2>
       <div class="sub">Empreendedores locais que o Siri Ventania achou pra você 🦀</div>
 
       <div class="cities" role="tablist" aria-label="Cidades">
-        <button id="btn-marataizes" class="chip" role="tab" aria-controls="guia-marataizes" aria-expanded="false">Marataízes</button>
-        <span class="chip muted" role="tab" aria-disabled="true">Itapemirim (em breve)</span>
-        <span class="chip muted" role="tab" aria-disabled="true">Piúma (em breve)</span>
-        <span class="chip muted" role="tab" aria-disabled="true">Presidente Kennedy (em breve)</span>
+        <button class="chip active" role="tab" aria-controls="guia-marataizes" aria-selected="true">Marataízes</button>
+        <button class="chip" role="tab" aria-controls="guia-itapemirim" aria-selected="false">Itapemirim</button>
+        <button class="chip" role="tab" aria-controls="guia-piuma" aria-selected="false">Piúma</button>
+        <button class="chip" role="tab" aria-controls="guia-presidente-kennedy" aria-selected="false">Presidente Kennedy</button>
       </div>
 
       <div class="guide-cta">
@@ -188,106 +186,11 @@
         </a>
       </div>
 
-      <div id="guia-marataizes" class="cards" hidden>
-
-        <!-- Destaque topo -->
-        <article class="card">
-          <div class="name">Amor Dentro do Cone</div>
-          <div class="line">📞 (21) 98316-5333</div>
-          <div class="line">📸 @amordentrodocone</div>
-          <span class="badge">Destaque</span>
-        </article>
-
-        <!-- 🍽️ Alimentação & Bebidas -->
-        <div class="cat">🍽️ Alimentação & Bebidas</div>
-        <article class="card"><div class="name">Açaí Do Cris Qdocris</div><div class="line">📞 (28) 99920-4220</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Açai Do Pc</div><div class="line">📞 (28) 99958-0509</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Armazem Da Cachaça Petersenmiqueias</div><div class="line">📞 (28) 99886-5305</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Atomic Sound</div><div class="line">📞 (28) 99278-0897</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Bubbles</div><div class="line">📞 (28) 99963-2102</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Bunnies</div><div class="line">📞 (28) 99973-6063</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Casa Do Biscoito</div><div class="line">📞 (28) 98824-3019</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Emanuel Hortifruti Mercado E Açougue</div><div class="line">📞 (28) 99981-8571</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Emporio Saudavel Natuserpnaturais</div><div class="line">📞 (27) 99801-4607</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Farol De Ouro</div><div class="line">📞 (28) 99957-4684</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Guloseimas Distribuidora Rodrigo.Lunz</div><div class="line">📞 (28) 99994-7200</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Hortifruti Bom Preço</div><div class="line">📞 (28) 99270-2883</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Pizzaria Patinhas</div><div class="line">📞 (28) 99945-0126</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Restaurante Feijão De Corda</div><div class="line">📞 (28) 99953-2713</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Tropeiro Gaucho</div><div class="line">📞 (28) 99925-3503</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <!-- (outros itens de alimentação listados na base entram aqui; já estão no download) -->
-
-        <!-- 🚗 Automotivo -->
-        <div class="cat">🚗 Automotivo</div>
-        <article class="card"><div class="name">Amcar Auto Center Amcar.Amcar</div><div class="line">📞 (28) 99948-2302</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Auto Escola Vanguarda</div><div class="line">📞 (28) 99918-5262</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Gs Auto Center Gsmarataizes</div><div class="line">📞 (28) 99973-6629</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Lima Veículos</div><div class="line">📞 (28) 99939-4828</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-
-        <!-- 🏗️ Construção & Lar -->
-        <div class="cat">🏗️ Construção & Lar</div>
-        <article class="card"><div class="name">Casa Mix Revestimentos Casamisacab</div><div class="line">📞 (28) 99967-4051</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Construtora Menezes</div><div class="line">📞 (28) 99925-1334</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Oficina Das Tintas Marataizes</div><div class="line">📞 (28) 99905-2930</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Tofoli Madeiras Gerentemacanaiba</div><div class="line">📞 (27) 99866-9381</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Unitintas E Ferramentas</div><div class="line">📞 (28) 99927-3393</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Vidracaria Rei Dos Reis Vandesgomes649</div><div class="line">📞 (28) 99906-2347</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Vale Do Sol Gás</div><div class="line">📞 (28) 99915-1565</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-
-        <!-- 💚 Saúde & Bem-estar -->
-        <div class="cat">💚 Saúde & Bem-estar</div>
-        <article class="card"><div class="name">Drogaria Mendonça</div><div class="line">📞 (28) 99912-7388</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Drogaria Saúde Drogrisaudefv</div><div class="line">📞 (28) 99995-5995</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Freire Odontologia</div><div class="line">📞 (28) 99884-5196</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Instituto Capixaba De Saúde</div><div class="line">📞 (28) 99976-3482</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Natusvida</div><div class="line">📞 (28) 99977-2658</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Oraldents</div><div class="line">📞 (28) 99942-6279</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-
-        <!-- 👗 Moda, Beleza & Variedades -->
-        <div class="cat">👗 Moda, Beleza & Variedades</div>
-        <article class="card"><div class="name">A Brasileira Magazin</div><div class="line">📞 (28) 3532-4149</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">João Batom Marataizes Cosméticos Ltda</div><div class="line">📞 (28) 99985-1846</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Loja Nicolini</div><div class="line">📞 (28) 99971-1681</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Moda Infantil Marataizes Ltda</div><div class="line">📞 (28) 3532-4999</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Mymi Store</div><div class="line">📞 (28) 99886-5797</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Pe Na Fama</div><div class="line">📞 (28) 99944-9426</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Pe Na Fama Kids</div><div class="line">📞 (28) 99930-9813</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-
-        <!-- 🏠 Lar & Eletro / Supermercados -->
-        <div class="cat">🏠 Lar & Eletro / Supermercados</div>
-        <article class="card"><div class="name">Hcm Comércio E Serviços</div><div class="line">📞 (28) 3532-9464</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Supermercados Bh</div><div class="line">📞 (28) 99255-5812</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Supermercados Perim</div><div class="line">📞 (28) 2101-9767</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Zema</div><div class="line">📞 (28) 99986-0779</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-
-        <!-- 🌐 Tecnologia & Telecom -->
-        <div class="cat">🌐 Tecnologia & Telecom</div>
-        <article class="card"><div class="name">Windx Networks</div><div class="line">📞 (28) 99915-3924</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-
-        <!-- 🐾 Pet & Agro -->
-        <div class="cat">🐾 Pet & Agro</div>
-        <article class="card"><div class="name">Pet Paradise Marataizes</div><div class="line">📞 (28) 99884-4850</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-
-        <!-- 🛎️ Hospedagem & Turismo -->
-        <div class="cat">🛎️ Hospedagem & Turismo</div>
-        <article class="card"><div class="name">Pousada Miramar</div><div class="line">📞 (28) 99979-0855</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Hospedaria Rosa Dos Ventos</div><div class="line">📞 (27) 99982-5434</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-
-        <!-- 🕊️ Funerária -->
-        <div class="cat">🕊️ Funerária</div>
-        <article class="card"><div class="name">Funeraria Luz Eterna</div><div class="line">📞 (28) 3532-4435</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-
-        <!-- 🧩 Serviços & Negócios -->
-        <div class="cat">🧩 Serviços & Negócios</div>
-        <article class="card"><div class="name">Ap Savana Letreiros E Toldos</div><div class="line">📞 (27) 99639-1608</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Cdl Gerencia</div><div class="line">📞 (28) 3532-1400</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Comercial Do Porto</div><div class="line">📞 (28) 3532-4106</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Complaca Comunicação Visual</div><div class="line">📞 (28) 99978-6108</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Consórcio Viana Rh</div><div class="line">📞 (28) 99926-3334</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">J M Distribuidora E Serviços</div><div class="line">📞 (28) 99917-0563</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <!-- (demais serviços da base seguem — já no arquivo para download) -->
-
-      </div>
+      <!-- Grids por cidade (preenchidos via JS) -->
+      <div id="guia-marataizes" class="cards" data-city="marataizes"></div>
+      <div id="guia-itapemirim" class="cards" data-city="itapemirim" hidden></div>
+      <div id="guia-piuma" class="cards" data-city="piuma" hidden></div>
+      <div id="guia-presidente-kennedy" class="cards" data-city="presidente-kennedy" hidden></div>
     </div>
   </section>
 
@@ -310,11 +213,19 @@
   </main>
 
   <script>
+    /* Relógio */
     (function(){
-      const two = n => n < 10 ? '0'+n : n;
-      function tick(){ const d = new Date(); const el = document.getElementById('tvm-clock'); if(el) el.textContent = two(d.getHours()) + ':' + two(d.getMinutes()); }
+      const two = n => n < 10 ? '0'+n : ''+n;
+      function tick(){
+        const d = new Date();
+        const el = document.getElementById('tvm-clock');
+        if(el) el.textContent = two(d.getHours()) + ':' + two(d.getMinutes());
+      }
       tick(); setInterval(tick, 15000);
+    })();
 
+    /* Clima - Open-Meteo */
+    (function(){
       const LAT=-21.04, LON=-40.83;
       const icon = c => ({0:"☀️",1:"🌤️",2:"⛅",3:"☁️",45:"🌫️",61:"🌧️",80:"🌧️",95:"⛈️"})[c] || "⛅";
       async function weather(){
@@ -328,36 +239,151 @@
         }catch(e){}
       }
       weather(); setInterval(weather, 10*60*1000);
-
-      const band = document.querySelector('.guide-band');
-      const btn  = document.getElementById('btn-marataizes');
-      const grid = document.getElementById('guia-marataizes');
-
-      band.setAttribute('data-state','collapsed');
-      btn.classList.remove('active');
-      btn.setAttribute('aria-expanded','false');
-      grid.setAttribute('hidden','');
-
-      btn.addEventListener('click', () => {
-        const expanded = band.getAttribute('data-state') === 'expanded';
-        if (expanded) {
-          band.setAttribute('data-state','collapsed');
-          btn.classList.remove('active');
-          btn.setAttribute('aria-expanded','false');
-          grid.setAttribute('hidden','');
-        } else {
-          band.setAttribute('data-state','expanded');
-          btn.classList.add('active');
-          btn.setAttribute('aria-expanded','true');
-          grid.removeAttribute('hidden');
-          band.scrollIntoView({behavior:'smooth', block:'start'});
-        }
-      });
     })();
-  </script>
-</body>
-</html>
 
+    /* Guia – tabs + API de cards */
+    (function(){
+      const band = document.getElementById('guia');
+      const tabs = band.querySelectorAll('[role="tab"]');
+      const panels = band.querySelectorAll('.cards[data-city]');
+
+      function selectTab(btn){
+        tabs.forEach(t => {
+          const selected = t === btn;
+          t.classList.toggle('active', selected);
+          t.setAttribute('aria-selected', selected ? 'true' : 'false');
+        });
+        panels.forEach(p => {
+          p.hidden = (p.id !== btn.getAttribute('aria-controls'));
+        });
+        band.setAttribute('data-state','expanded');
+        band.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+
+      tabs.forEach(btn => {
+        btn.addEventListener('click', () => selectTab(btn));
+        btn.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectTab(btn); }
+        });
+      });
+
+      function createCard({name, phone, tag, extra}){
+        const el = document.createElement('article');
+        el.className = 'card';
+        el.innerHTML = `
+          <div class="name">${name}</div>
+          <div class="line">📞 ${phone}</div>
+          ${extra ? `<div class="line">${extra}</div>` : ''}
+          <span class="badge">${tag || 'TV Marataízes apoia o comércio local'}</span>
+        `;
+        return el;
+      }
+
+      window.TVM_GUIDE = {
+        add(city, items){
+          const grid = band.querySelector(\`.cards[data-city="\${city}"]\`);
+          if (!grid) return;
+          items.forEach(it => grid.appendChild(createCard(it)));
+        },
+        clear(city){
+          const grid = band.querySelector(\`.cards[data-city="\${city}"]\`);
+          if (grid) grid.innerHTML = '';
+        }
+      };
+
+      /* —— Dados iniciais (Marataízes) — amostra baseada no índice enviado —— */
+      TVM_GUIDE.add('marataizes', [
+        // Destaque topo
+        {name:'Amor Dentro do Cone', phone:'(21) 98316-5333', tag:'Destaque'},
+
+        // 🍽️ Alimentação & Bebidas
+        {name:'Açaí Do Cris Qdocris', phone:'(28) 99920-4220'},
+        {name:'Açai Do Pc', phone:'(28) 99958-0509'},
+        {name:'Armazem Da Cachaça Petersenmiqueias', phone:'(28) 99886-5305'},
+        {name:'Atomic Sound', phone:'(28) 99278-0897'},
+        {name:'Bubbles', phone:'(28) 99963-2102'},
+        {name:'Bunnies', phone:'(28) 99973-6063'},
+        {name:'Casa Do Biscoito', phone:'(28) 98824-3019'},
+        {name:'Emanuel Hortifruti Mercado E Açougue', phone:'(28) 99981-8571'},
+        {name:'Emporio Saudavel Natuserpnaturais', phone:'(27) 99801-4607'},
+        {name:'Farol De Ouro', phone:'(28) 99957-4684'},
+        {name:'Guloseimas Distribuidora Rodrigo.Lunz', phone:'(28) 99994-7200'},
+        {name:'Hortifruti Bom Preço', phone:'(28) 99270-2883'},
+        {name:'Pizzaria Patinhas', phone:'(28) 99945-0126'},
+        {name:'Restaurante Feijão De Corda', phone:'(28) 99953-2713'},
+        {name:'Tropeiro Gaucho', phone:'(28) 99925-3503'},
+
+        // 🚗 Automotivo
+        {name:'Amcar Auto Center Amcar.Amcar', phone:'(28) 99948-2302'},
+        {name:'Auto Escola Vanguarda', phone:'(28) 99918-5262'},
+        {name:'Gs Auto Center Gsmarataizes', phone:'(28) 99973-6629'},
+        {name:'Lima Veículos', phone:'(28) 99939-4828'},
+
+        // 🏗️ Construção & Lar
+        {name:'Casa Mix Revestimentos Casamisacab', phone:'(28) 99967-4051'},
+        {name:'Construtora Menezes', phone:'(28) 99925-1334'},
+        {name:'Oficina Das Tintas Marataizes', phone:'(28) 99905-2930'},
+        {name:'Tofoli Madeiras Gerentemacanaiba', phone:'(27) 99866-9381'},
+        {name:'Unitintas E Ferramentas', phone:'(28) 99927-3393'},
+        {name:'Vidracaria Rei Dos Reis Vandesgomes649', phone:'(28) 99906-2347'},
+        {name:'Vale Do Sol Gás', phone:'(28) 99915-1565'},
+
+        // 💚 Saúde & Bem-estar
+        {name:'Drogaria Mendonça', phone:'(28) 99912-7388'},
+        {name:'Drogaria Saúde Drogrisaudefv', phone:'(28) 99995-5995'},
+        {name:'Freire Odontologia', phone:'(28) 99884-5196'},
+        {name:'Instituto Capixaba De Saúde', phone:'(28) 99976-3482'},
+        {name:'Natusvida', phone:'(28) 99977-2658'},
+        {name:'Oraldents', phone:'(28) 99942-6279'},
+
+        // 👗 Moda, Beleza & Variedades
+        {name:'A Brasileira Magazin', phone:'(28) 3532-4149'},
+        {name:'João Batom Marataizes Cosméticos Ltda', phone:'(28) 99985-1846'},
+        {name:'Loja Nicolini', phone:'(28) 99971-1681'},
+        {name:'Moda Infantil Marataizes Ltda', phone:'(28) 3532-4999'},
+        {name:'Mymi Store', phone:'(28) 99886-5797'},
+        {name:'Pe Na Fama', phone:'(28) 99944-9426'},
+        {name:'Pe Na Fama Kids', phone:'(28) 99930-9813'},
+
+        // 🏠 Lar & Eletro / Supermercados
+        {name:'Hcm Comércio E Serviços', phone:'(28) 3532-9464'},
+        {name:'Supermercados Bh', phone:'(28) 99255-5812'},
+        {name:'Supermercados Perim', phone:'(28) 2101-9767'},
+        {name:'Zema', phone:'(28) 99986-0779'},
+
+        // 🌐 Tecnologia & Telecom
+        {name:'Windx Networks', phone:'(28) 99915-3924'},
+
+        // 🐾 Pet & Agro
+        {name:'Pet Paradise Marataizes', phone:'(28) 99884-4850'},
+
+        // 🛎️ Hospedagem & Turismo
+        {name:'Pousada Miramar', phone:'(28) 99979-0855'},
+        {name:'Hospedaria Rosa Dos Ventos', phone:'(27) 99982-5434'},
+
+        // 🕊️ Funerária
+        {name:'Funeraria Luz Eterna', phone:'(28) 3532-4435'},
+
+        // 🧩 Serviços & Negócios
+        {name:'Ap Savana Letreiros E Toldos', phone:'(27) 99639-1608'},
+        {name:'Cdl Gerencia', phone:'(28) 3532-1400'},
+        {name:'Comercial Do Porto', phone:'(28) 3532-4106'},
+        {name:'Complaca Comunicação Visual', phone:'(28) 99978-6108'},
+        {name:'Consórcio Viana Rh', phone:'(28) 99926-3334'},
+        {name:'J M Distribuidora E Serviços', phone:'(28) 99917-0563'}
+      ]);
+
+      /* —— Espaços prontos para Itapemirim, Piúma e Presidente Kennedy —— */
+      TVM_GUIDE.add('itapemirim', [
+        // {name:'Empresa Exemplo', phone:'(28) 9xxxx-xxxx'}
+      ]);
+      TVM_GUIDE.add('piuma', [
+        // {name:'Empresa Exemplo', phone:'(28) 9xxxx-xxxx'}
+      ]);
+      TVM_GUIDE.add('presidente-kennedy', [
+        // {name:'Empresa Exemplo', phone:'(28) 9xxxx-xxxx'}
+      ]);
+    })();
   </script>
 </body>
 </html>
