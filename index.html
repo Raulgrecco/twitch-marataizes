@@ -85,7 +85,7 @@
     @media (max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}}
     @media (max-width:520px){.cards{grid-template-columns:1fr}}
 
-    /* ===== ESTILO DO DESTAQUE (pago) ===== */
+    /* ===== Destaque (pago) ===== */
     .card.destaque{
       border:2px solid #FFC107;
       background:linear-gradient(180deg,#ffffff,#fff7db);
@@ -98,14 +98,12 @@
       background:#FFC107; color:#111; font-weight:900; font-size:11px;
       padding:6px 10px; border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,.15);
     }
-    /* card inteiro clicável quando for pago */
-    .card a.cover-link{
-      position:absolute; inset:0; border-radius:12px; z-index:5;
-    }
+    .card a.cover-link{position:absolute; inset:0; border-radius:12px; z-index:5;}
     .card a.btn-mini{
       display:inline-block; margin-top:8px; padding:7px 10px; border-radius:10px;
       font-weight:800; font-size:12px; background:#25D366; color:#111; text-decoration:none;
     }
+
     .about{max-width:980px;margin:16px auto 18px}
     .about h1{margin:0 0 12px;font-size:clamp(20px,3.6vw,30px);font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
     .lead{color:var(--muted);font-size:clamp(14px,2.4vw,17px);line-height:1.7;margin:0}
@@ -217,7 +215,6 @@
         <!-- 🍽️ Alimentação & Bebidas -->
         <div class="cat">🍽️ Alimentação & Bebidas</div>
 
-        <!-- Amor Dentro do Cone (agora na categoria correta) -->
         <article class="card" id="forn-amor-cone">
           <div class="name">Amor Dentro do Cone</div>
           <div class="line">📞 (21) 98316-5333</div>
@@ -225,10 +222,11 @@
           <span class="badge">TV Marataízes apoia o comércio local</span>
         </article>
 
+        <article class="card" id="forn-pizzaria-patinhas"><div class="name">Pizzaria Patinhas</div><div class="line">📞 (28) 99945-0126</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Açaí Do Cris Qdocris</div><div class="line">📞 (28) 99920-4220</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Açai Do Pc</div><div class="line">📞 (28) 99958-0509</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Armazem Da Cachaça Petersenmiqueias</div><div class="line">📞 (28) 99886-5305</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Atomic Sound</div><div class="line">📞 (28) 99278-0897</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <!-- Atomic Sound REMOVIDO daqui -->
         <article class="card"><div class="name">Bubbles</div><div class="line">📞 (28) 99963-2102</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Bunnies</div><div class="line">📞 (28) 99973-6063</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Casa Do Biscoito</div><div class="line">📞 (28) 98824-3019</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
@@ -237,23 +235,23 @@
         <article class="card"><div class="name">Farol De Ouro</div><div class="line">📞 (28) 99957-4684</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Guloseimas Distribuidora Rodrigo.Lunz</div><div class="line">📞 (28) 99994-7200</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Hortifruti Bom Preço</div><div class="line">📞 (28) 99270-2883</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Pizzaria Patinhas</div><div class="line">📞 (28) 99945-0126</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card" id="forn-tropeiro-gaucho"><div class="name">Tropeiro Gaucho</div><div class="line">📞 (28) 99925-3503</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Restaurante Feijão De Corda</div><div class="line">📞 (28) 99953-2713</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Tropeiro Gaucho</div><div class="line">📞 (28) 99925-3503</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
 
         <!-- 🚗 Automotivo -->
         <div class="cat">🚗 Automotivo</div>
         <article class="card"><div class="name">Amcar Auto Center Amcar.Amcar</div><div class="line">📞 (28) 99948-2302</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Auto Escola Vanguarda</div><div class="line">📞 (28) 99918-5262</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Gs Auto Center Gsmarataizes</div><div class="line">📞 (28) 99973-6629</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Lima Veículos</div><div class="line">📞 (28) 99939-4828</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <!-- Lima Veículos removido; entrou Atomic Sound no lugar -->
+        <article class="card" id="forn-atomic-sound"><div class="name">Atomic Sound</div><div class="line">📞 (28) 99278-0897</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
 
         <!-- 🏗️ Construção & Lar -->
         <div class="cat">🏗️ Construção & Lar</div>
         <article class="card"><div class="name">Casa Mix Revestimentos Casamisacab</div><div class="line">📞 (28) 99967-4051</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Construtora Menezes</div><div class="line">📞 (28) 99925-1334</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Oficina Das Tintas Marataizes</div><div class="line">📞 (28) 99905-2930</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <article class="card"><div class="name">Tofoli Madeiras Gerentemacanaiba</div><div class="line">📞 (27) 99866-9381</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card" id="forn-tofoli-madeiras"><div class="name">Tofoli Madeiras Gerentemacanaiba</div><div class="line">📞 (27) 99866-9381</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Unitintas E Ferramentas</div><div class="line">📞 (28) 99927-3393</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Vidracaria Rei Dos Reis Vandesgomes649</div><div class="line">📞 (28) 99906-2347</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Vale Do Sol Gás</div><div class="line">📞 (28) 99915-1565</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
@@ -294,7 +292,7 @@
 
         <!-- 🛎️ Hospedagem & Turismo -->
         <div class="cat">🛎️ Hospedagem & Turismo</div>
-        <article class="card"><div class="name">Pousada Miramar</div><div class="line">📞 (28) 99979-0855</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card" id="forn-pousada-miramar"><div class="name">Pousada Miramar</div><div class="line">📞 (28) 99979-0855</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Hospedaria Rosa Dos Ventos</div><div class="line">📞 (27) 99982-5434</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
 
         <!-- 🕊️ Funerária -->
@@ -356,7 +354,7 @@
       }
       weather(); setInterval(weather, 10*60*1000);
 
-      // ===== Abrir/fechar guia (Marataízes) =====
+      // Abrir/fechar guia (Marataízes)
       const band = document.querySelector('.guide-band');
       const btn  = document.getElementById('btn-marataizes');
       const grid = document.getElementById('guia-marataizes');
@@ -382,29 +380,19 @@
         }
       });
 
-      // ===== Funções de Destaque (pago) =====
+      // ===== Destaques utilitários =====
       function setDestaque(cardId, url){
         const el = document.getElementById(cardId);
         if(!el) return;
         el.classList.add('destaque');
-
-        // evita duplicar
-        const old = el.querySelector('a.cover-link');
-        if(old) old.remove();
-
+        const old = el.querySelector('a.cover-link'); if(old) old.remove();
         const a = document.createElement('a');
-        a.className = 'cover-link';
-        a.href = url;
-        a.target = '_blank';
-        a.rel = 'noopener';
+        a.className = 'cover-link'; a.href = url; a.target = '_blank'; a.rel = 'noopener';
         el.appendChild(a);
-
         if(!el.querySelector('.btn-mini')){
           const btn = document.createElement('a');
-          btn.className = 'btn-mini';
-          btn.href = url; btn.target = '_blank'; btn.rel = 'noopener';
-          btn.textContent = 'Visitar';
-          el.appendChild(btn);
+          btn.className = 'btn-mini'; btn.href = url; btn.target = '_blank'; btn.rel = 'noopener';
+          btn.textContent = 'Visitar'; el.appendChild(btn);
         }
       }
       function unsetDestaque(cardId){
@@ -414,9 +402,14 @@
         el.querySelectorAll('a.cover-link, a.btn-mini').forEach(n=>n.remove());
       }
 
-      // ===== Aplicação: Amor Dentro do Cone como Destaque (pago) =====
-      // Defina o link do pagante (WhatsApp/site/Instagram)
-      setDestaque('forn-amor-cone', 'https://wa.me/5521983165333');
+      // ===== Aplique os destaques aqui =====
+      const DESTAQUES = [
+        { id: 'forn-pizzaria-patinhas', link: 'https://wa.me/5528999450126' },
+        { id: 'forn-tropeiro-gaucho',   link: 'https://wa.me/5528999253503' },
+        { id: 'forn-tofoli-madeiras',   link: 'https://wa.me/5527998669381' },
+        { id: 'forn-pousada-miramar',   link: 'https://wa.me/5528999790855' },
+      ];
+      DESTAQUES.forEach(d => setDestaque(d.id, d.link));
     })();
   </script>
 </body>
