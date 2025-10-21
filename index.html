@@ -85,7 +85,7 @@
     @media (max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}}
     @media (max-width:520px){.cards{grid-template-columns:1fr}}
 
-    /* ===== Destaque (pago) ===== */
+    /* ===== ESTILO DO DESTAQUE (pago) ===== */
     .card.destaque{
       border:2px solid #FFC107;
       background:linear-gradient(180deg,#ffffff,#fff7db);
@@ -226,7 +226,7 @@
         <article class="card"><div class="name">Açaí Do Cris Qdocris</div><div class="line">📞 (28) 99920-4220</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Açai Do Pc</div><div class="line">📞 (28) 99958-0509</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Armazem Da Cachaça Petersenmiqueias</div><div class="line">📞 (28) 99886-5305</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <!-- Atomic Sound REMOVIDO daqui -->
+        <!-- Atomic Sound REMOVIDO desta categoria -->
         <article class="card"><div class="name">Bubbles</div><div class="line">📞 (28) 99963-2102</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Bunnies</div><div class="line">📞 (28) 99973-6063</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Casa Do Biscoito</div><div class="line">📞 (28) 98824-3019</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
@@ -243,7 +243,7 @@
         <article class="card"><div class="name">Amcar Auto Center Amcar.Amcar</div><div class="line">📞 (28) 99948-2302</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Auto Escola Vanguarda</div><div class="line">📞 (28) 99918-5262</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Gs Auto Center Gsmarataizes</div><div class="line">📞 (28) 99973-6629</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <!-- Lima Veículos removido; entrou Atomic Sound no lugar -->
+        <!-- Lima Veículos REMOVIDO; entrou Atomic Sound -->
         <article class="card" id="forn-atomic-sound"><div class="name">Atomic Sound</div><div class="line">📞 (28) 99278-0897</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
 
         <!-- 🏗️ Construção & Lar -->
@@ -354,7 +354,7 @@
       }
       weather(); setInterval(weather, 10*60*1000);
 
-      // Abrir/fechar guia (Marataízes)
+      // ===== Abrir/fechar guia (Marataízes) =====
       const band = document.querySelector('.guide-band');
       const btn  = document.getElementById('btn-marataizes');
       const grid = document.getElementById('guia-marataizes');
@@ -380,19 +380,27 @@
         }
       });
 
-      // ===== Destaques utilitários =====
+      // ===== Funções de Destaque (pago) =====
       function setDestaque(cardId, url){
         const el = document.getElementById(cardId);
         if(!el) return;
         el.classList.add('destaque');
-        const old = el.querySelector('a.cover-link'); if(old) old.remove();
+
+        // evita duplicar
+        const old = el.querySelector('a.cover-link');
+        if(old) old.remove();
+
         const a = document.createElement('a');
-        a.className = 'cover-link'; a.href = url; a.target = '_blank'; a.rel = 'noopener';
+        a.className = 'cover-link';
+        a.href = url; a.target = '_blank'; a.rel = 'noopener';
         el.appendChild(a);
+
         if(!el.querySelector('.btn-mini')){
           const btn = document.createElement('a');
-          btn.className = 'btn-mini'; btn.href = url; btn.target = '_blank'; btn.rel = 'noopener';
-          btn.textContent = 'Visitar'; el.appendChild(btn);
+          btn.className = 'btn-mini';
+          btn.href = url; btn.target = '_blank'; btn.rel = 'noopener';
+          btn.textContent = 'Visitar';
+          el.appendChild(btn);
         }
       }
       function unsetDestaque(cardId){
@@ -402,7 +410,7 @@
         el.querySelectorAll('a.cover-link, a.btn-mini').forEach(n=>n.remove());
       }
 
-      // ===== Aplique os destaques aqui =====
+      // ===== APLICAÇÃO DOS DESTAQUES (edite os links como preferir) =====
       const DESTAQUES = [
         { id: 'forn-pizzaria-patinhas', link: 'https://wa.me/5528999450126' },
         { id: 'forn-tropeiro-gaucho',   link: 'https://wa.me/5528999253503' },
