@@ -41,6 +41,7 @@
       .soul-cta .actions{margin-left:0;width:100%}
       .soul-cta .actions a{flex:1;text-align:center}
     }
+
     .sponsors{max-width:1100px;margin:16px auto 12px;padding:14px;border-radius:16px;background:#0e0e0e;border:1px solid #232323}
     .sponsors h2{margin:0 0 12px;font:900 clamp(18px,3vw,22px)/1.2 system-ui;letter-spacing:.2px;background:linear-gradient(135deg,#FFB000,#FF6F00);-webkit-background-clip:text;background-clip:text;color:transparent}
     .tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
@@ -62,6 +63,7 @@
       .tiles .tile-link:nth-child(-n+2) .tile{min-height:86px; transform:translateY(0)!important; box-shadow:0 10px 26px rgba(0,0,0,.28)}
       .tiles .tile-link:nth-child(-n+2) .name{font-size:16px}
     }
+
     .transition{height:28px;background:linear-gradient(180deg,var(--bg),var(--sand))}
     .guide-band{background:var(--sand);color:#111;padding:16px 0 18px;transition:padding .18s ease}
     .guide-band[data-state="expanded"]{padding:28px 0 36px;}
@@ -76,12 +78,34 @@
     .chip.muted{opacity:.6;cursor:not-allowed}
     .chip.active{background:#111;color:#fff;border-color:#111}
     .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-    .card{background:#fff;border:1px solid #e7e7e7;border-radius:12px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+    .card{position:relative;background:#fff;border:1px solid #e7e7e7;border-radius:12px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
     .card .name{font-weight:900;margin-bottom:4px}
     .card .line{font-size:14px;color:#222;margin-top:2px}
     .badge{display:inline-block;margin-top:6px;font-size:12px;font-weight:800;color:#fff;background:#0d4c92;padding:4px 8px;border-radius:8px}
     @media (max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}}
     @media (max-width:520px){.cards{grid-template-columns:1fr}}
+
+    /* ===== ESTILO DO DESTAQUE (pago) ===== */
+    .card.destaque{
+      border:2px solid #FFC107;
+      background:linear-gradient(180deg,#ffffff,#fff7db);
+      box-shadow:0 6px 18px rgba(255,193,7,.25);
+    }
+    .card.destaque .badge{background:#111;color:#FFC107}
+    .card.destaque::after{
+      content:"DESTAQUE";
+      position:absolute; top:-10px; right:-12px;
+      background:#FFC107; color:#111; font-weight:900; font-size:11px;
+      padding:6px 10px; border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,.15);
+    }
+    /* card inteiro clicável quando for pago */
+    .card a.cover-link{
+      position:absolute; inset:0; border-radius:12px; z-index:5;
+    }
+    .card a.btn-mini{
+      display:inline-block; margin-top:8px; padding:7px 10px; border-radius:10px;
+      font-weight:800; font-size:12px; background:#25D366; color:#111; text-decoration:none;
+    }
     .about{max-width:980px;margin:16px auto 18px}
     .about h1{margin:0 0 12px;font-size:clamp(20px,3.6vw,30px);font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
     .lead{color:var(--muted);font-size:clamp(14px,2.4vw,17px);line-height:1.7;margin:0}
@@ -190,16 +214,17 @@
 
       <div id="guia-marataizes" class="cards" hidden>
 
-        <!-- Destaque topo -->
-        <article class="card">
+        <!-- 🍽️ Alimentação & Bebidas -->
+        <div class="cat">🍽️ Alimentação & Bebidas</div>
+
+        <!-- Amor Dentro do Cone (agora na categoria correta) -->
+        <article class="card" id="forn-amor-cone">
           <div class="name">Amor Dentro do Cone</div>
           <div class="line">📞 (21) 98316-5333</div>
           <div class="line">📸 @amordentrodocone</div>
-          <span class="badge">Destaque</span>
+          <span class="badge">TV Marataízes apoia o comércio local</span>
         </article>
 
-        <!-- 🍽️ Alimentação & Bebidas -->
-        <div class="cat">🍽️ Alimentação & Bebidas</div>
         <article class="card"><div class="name">Açaí Do Cris Qdocris</div><div class="line">📞 (28) 99920-4220</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Açai Do Pc</div><div class="line">📞 (28) 99958-0509</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Armazem Da Cachaça Petersenmiqueias</div><div class="line">📞 (28) 99886-5305</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
@@ -215,7 +240,6 @@
         <article class="card"><div class="name">Pizzaria Patinhas</div><div class="line">📞 (28) 99945-0126</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Restaurante Feijão De Corda</div><div class="line">📞 (28) 99953-2713</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Tropeiro Gaucho</div><div class="line">📞 (28) 99925-3503</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <!-- (outros itens de alimentação listados na base entram aqui; já estão no download) -->
 
         <!-- 🚗 Automotivo -->
         <div class="cat">🚗 Automotivo</div>
@@ -285,7 +309,6 @@
         <article class="card"><div class="name">Complaca Comunicação Visual</div><div class="line">📞 (28) 99978-6108</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">Consórcio Viana Rh</div><div class="line">📞 (28) 99926-3334</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
         <article class="card"><div class="name">J M Distribuidora E Serviços</div><div class="line">📞 (28) 99917-0563</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
-        <!-- (demais serviços da base seguem — já no arquivo para download) -->
 
       </div>
     </div>
@@ -312,7 +335,11 @@
   <script>
     (function(){
       const two = n => n < 10 ? '0'+n : n;
-      function tick(){ const d = new Date(); const el = document.getElementById('tvm-clock'); if(el) el.textContent = two(d.getHours()) + ':' + two(d.getMinutes()); }
+      function tick(){
+        const d = new Date();
+        const el = document.getElementById('tvm-clock');
+        if(el) el.textContent = two(d.getHours()) + ':' + two(d.getMinutes());
+      }
       tick(); setInterval(tick, 15000);
 
       const LAT=-21.04, LON=-40.83;
@@ -329,6 +356,7 @@
       }
       weather(); setInterval(weather, 10*60*1000);
 
+      // ===== Abrir/fechar guia (Marataízes) =====
       const band = document.querySelector('.guide-band');
       const btn  = document.getElementById('btn-marataizes');
       const grid = document.getElementById('guia-marataizes');
@@ -353,11 +381,43 @@
           band.scrollIntoView({behavior:'smooth', block:'start'});
         }
       });
-    })();
-  </script>
-</body>
-</html>
 
+      // ===== Funções de Destaque (pago) =====
+      function setDestaque(cardId, url){
+        const el = document.getElementById(cardId);
+        if(!el) return;
+        el.classList.add('destaque');
+
+        // evita duplicar
+        const old = el.querySelector('a.cover-link');
+        if(old) old.remove();
+
+        const a = document.createElement('a');
+        a.className = 'cover-link';
+        a.href = url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        el.appendChild(a);
+
+        if(!el.querySelector('.btn-mini')){
+          const btn = document.createElement('a');
+          btn.className = 'btn-mini';
+          btn.href = url; btn.target = '_blank'; btn.rel = 'noopener';
+          btn.textContent = 'Visitar';
+          el.appendChild(btn);
+        }
+      }
+      function unsetDestaque(cardId){
+        const el = document.getElementById(cardId);
+        if(!el) return;
+        el.classList.remove('destaque');
+        el.querySelectorAll('a.cover-link, a.btn-mini').forEach(n=>n.remove());
+      }
+
+      // ===== Aplicação: Amor Dentro do Cone como Destaque (pago) =====
+      // Defina o link do pagante (WhatsApp/site/Instagram)
+      setDestaque('forn-amor-cone', 'https://wa.me/5521983165333');
+    })();
   </script>
 </body>
 </html>
