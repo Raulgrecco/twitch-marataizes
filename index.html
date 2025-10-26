@@ -11,13 +11,7 @@
   <meta name="theme-color" content="#0B0B0B" />
   <link rel="canonical" href="https://tvmarataizes.digital/" />
   <style>
-    :root{
-      --bg:#0B0B0B;--fg:#fff;--muted:rgba(255,255,255,.72);
-      --accent:#FF6F00;--accent2:#5A189A;--accent3:#FFB000;
-      --tile:rgba(255,255,255,.88);--sand:#f5f5f5;
-      --card:#101010;--stroke:#222;--bug:#0a0a0a;
-      --brand:#FF6F00;--brand2:#5A189A
-    }
+    :root{--bg:#0B0B0B;--fg:#fff;--muted:rgba(255,255,255,.72);--accent:#FF6F00;--accent2:#5A189A;--accent3:#FFB000;--tile:rgba(255,255,255,.88);--sand:#f5f5f5}
     *{box-sizing:border-box}
     html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
     a{color:inherit;text-decoration:none}
@@ -26,32 +20,16 @@
     .brand{font-weight:900;font-size:clamp(18px,2.4vw,24px)}
     .wrap{max-width:1200px;margin:0 auto;padding:0 12px 28px}
     [hidden]{display:none !important;}
-
-    /* ============ PLAYER ============ */
     .player{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;border-radius:12px}
     .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
     .tvm-topbar{position:absolute;top:8px;left:8px;right:8px;display:flex;justify-content:space-between;gap:8px;pointer-events:none}
     .tvm-pill{pointer-events:auto;background:rgba(0,0,0,.55);color:#fff;padding:6px 10px;border-radius:999px;font:600 12px/1.2;border:1px solid rgba(255,255,255,.15);box-shadow:0 0 0 1px rgba(255,111,0,.18)}
-    /* Logo fixa estilo BBC */
-    .logo-bug{
-      position:absolute;top:10px;left:10px;z-index:4;
-      display:inline-flex;align-items:center;gap:8px;
-      padding:6px 10px;border-radius:999px;
-      background:rgba(0,0,0,.55);backdrop-filter:saturate(140%) blur(2px);
-      border:1px solid rgba(255,255,255,.18); pointer-events:none;
-      font:800 12px/1 system-ui; letter-spacing:.2px
-    }
-    .logo-bug .dot{width:8px;height:8px}
-    .logo-bug img{height:16px;width:auto;display:block}
-
     .tvm-epgbar{margin:10px 0 8px;padding:10px 12px;border-radius:14px;background:#101010;border:1px solid #222;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
     .tvm-col{min-width:200px}
     .tvm-epgtitle{color:var(--accent3);font:800 18px/1.1 system-ui}
     .tvm-epgsub{color:#EDEDED;font:500 15px/1.25 system-ui;margin-top:2px}
     .btn-grad{margin-left:auto;padding:10px 16px;border-radius:999px;font:800 14px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;white-space:nowrap;box-shadow:0 6px 18px rgba(90,24,154,.28);transition:.15s ease}
     .btn-grad:hover{filter:brightness(1.05);transform:translateY(-1px)}
-
-    /* ============ SOUL TV CTA ============ */
     .soul-cta{margin:12px 0 16px;padding:12px;border-radius:14px;background:linear-gradient(135deg,rgba(255,111,0,.12),rgba(90,24,154,.10));border:1px solid rgba(255,255,255,.12);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
     .soul-cta .headline{font:900 clamp(15px,2.8vw,18px)/1.25 system-ui}
     .soul-cta .sub{color:#EDEDED;font-weight:600}
@@ -64,39 +42,6 @@
       .soul-cta .actions a{flex:1;text-align:center}
     }
 
-    /* ============ PROGRAMAS (NOVA SEÇÃO) ============ */
-    .section-title{margin:12px 0 10px;font:900 clamp(18px,3vw,22px)/1.2 system-ui;letter-spacing:.2px;background:linear-gradient(135deg,#FFB000,#FF6F00);-webkit-background-clip:text;background-clip:text;color:transparent}
-    .prog-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
-    @media (max-width:1024px){.prog-grid{grid-template-columns:repeat(4,1fr)}}
-    @media (max-width:820px){.prog-grid{grid-template-columns:repeat(3,1fr)}}
-    @media (max-width:560px){.prog-grid{grid-template-columns:repeat(2,1fr)}}
-
-    .prog{
-      position:relative;background:var(--card);border:1px solid var(--stroke);
-      border-radius:14px;overflow:hidden;isolation:isolate;min-height:120px;
-      display:flex;align-items:flex-end;justify-content:center;padding:10px;
-      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease, filter .18s ease;
-    }
-    .prog::before{
-      /* moldura padrão da TV Marataízes */
-      content:""; position:absolute; inset:0; border-radius:14px;
-      box-shadow:inset 0 0 0 3px rgba(255,255,255,.06), inset 0 0 0 1px rgba(0,0,0,.6);
-      pointer-events:none;
-    }
-    .prog .thumb{
-      position:absolute; inset:0; background:#0e0e0e center/cover no-repeat; opacity:.94; filter:saturate(1) contrast(1.02);
-    }
-    .prog .veil{position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.0) 30%, rgba(0,0,0,.55) 100%);}
-    .prog .name{position:relative; z-index:2; font:800 14px/1.2 system-ui; text-align:center}
-    /* Hover 3: escala + borda iluminada */
-    .prog:hover{
-      transform:translateY(-2px) scale(1.03);
-      box-shadow:0 10px 26px rgba(0,0,0,.32), 0 0 0 2px rgba(90,24,154,.35), 0 0 0 5px rgba(255,111,0,.18);
-      border-color:rgba(255,255,255,.35);
-      filter:brightness(1.02);
-    }
-
-    /* ============ PATROCINADORES (mantidos) ============ */
     .sponsors{max-width:1100px;margin:16px auto 12px;padding:14px;border-radius:16px;background:#0e0e0e;border:1px solid #232323}
     .sponsors h2{margin:0 0 12px;font:900 clamp(18px,3vw,22px)/1.2 system-ui;letter-spacing:.2px;background:linear-gradient(135deg,#FFB000,#FF6F00);-webkit-background-clip:text;background-clip:text;color:transparent}
     .tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
@@ -140,6 +85,25 @@
     @media (max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}}
     @media (max-width:520px){.cards{grid-template-columns:1fr}}
 
+    /* ===== ESTILO DO DESTAQUE (pago) ===== */
+    .card.destaque{
+      border:2px solid #FFC107;
+      background:linear-gradient(180deg,#ffffff,#fff7db);
+      box-shadow:0 6px 18px rgba(255,193,7,.25);
+    }
+    .card.destaque .badge{background:#111;color:#FFC107}
+    .card.destaque::after{
+      content:"DESTAQUE";
+      position:absolute; top:-10px; right:-12px;
+      background:#FFC107; color:#111; font-weight:900; font-size:11px;
+      padding:6px 10px; border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,.15);
+    }
+    .card a.cover-link{position:absolute; inset:0; border-radius:12px; z-index:5;}
+    .card a.btn-mini{
+      display:inline-block; margin-top:8px; padding:7px 10px; border-radius:10px;
+      font-weight:800; font-size:12px; background:#25D366; color:#111; text-decoration:none;
+    }
+
     .about{max-width:980px;margin:16px auto 18px}
     .about h1{margin:0 0 12px;font-size:clamp(20px,3.6vw,30px);font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
     .lead{color:var(--muted);font-size:clamp(14px,2.4vw,17px);line-height:1.7;margin:0}
@@ -160,17 +124,10 @@
   </header>
 
   <main class="wrap">
-    <!-- PLAYER -->
     <div class="player" aria-label="Player ao vivo">
-      <!-- Logo fixa estilo BBC (se tiver arquivo, troque pelo <img src="...">) -->
-      <div class="logo-bug">
-        <span class="dot" aria-hidden="true"></span> TV Marataízes
-      </div>
-
       <iframe id="castrPlayer" title="TV Marataízes — ao vivo"
         src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
         allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen playsinline referrerpolicy="origin"></iframe>
-
       <div class="tvm-topbar">
         <span class="tvm-pill" id="tvm-weather-pill">Marataízes ⛅ <span id="tvm-weather">--°C</span></span>
         <span class="tvm-pill" id="tvm-clock">--:--</span>
@@ -185,7 +142,6 @@
       <a class="btn-grad" href="https://wa.me/5528999036141?text=Ol%C3%A1%2C%20quero%20anunciar%20na%20TV%20Marata%C3%ADzes" target="_blank" rel="noopener">Anuncie no WhatsApp</a>
     </div>
 
-    <!-- SOUL TV CTA -->
     <div class="soul-cta">
       <div>
         <div class="headline">Estamos na <strong>Soul TV</strong> — transmissão nacional</div>
@@ -197,105 +153,6 @@
       </div>
     </div>
 
-    <!-- ===================== GRADE DE PROGRAMAS (13 confirmados) ===================== -->
-    <section aria-label="Programas da TV Marataízes">
-      <h2 class="section-title">Programas</h2>
-      <div class="prog-grid">
-
-        <!-- Troque a URL da thumb para o arquivo real quando quiser -->
-        <article class="prog">
-          <div class="thumb" style="background-image:url('assets/programas/dicas-de-filmes.jpg');"></div>
-          <div class="veil"></div>
-          <div class="name">Dicas de Filmes</div>
-        </article>
-
-        <article class="prog">
-          <div class="thumb" style="background-image:url('assets/programas/jornal-do-moroca.jpg');"></div>
-          <div class="veil"></div>
-          <div class="name">Jornal do Moroca</div>
-        </article>
-
-        <article class="prog">
-          <div class="thumb" style="background-image:url('assets/programas/historias-de-amor-em-cena.jpg');"></div>
-          <div class="veil"></div>
-          <div class="name">Histórias de Amor em Cena</div>
-        </article>
-
-        <article class="prog">
-          <div class="thumb" style="background-image:url('assets/programas/caindo-na-tela.jpg');"></div>
-          <div class="veil"></div>
-          <div class="name">Caindo na Tela</div>
-        </article>
-
-        <article class="prog">
-          <div class="thumb" style="background-image:url('assets/programas/nao-saimos-da-5a-serie.jpg');"></div>
-          <div class="veil"></div>
-          <div class="name">Não Saímos da 5ª Série</div>
-        </article>
-
-        <article class="prog">
-          <div class="thumb" style="background-image:url('assets/programas/claudia-rayallar.jpg');"></div>
-          <div class="veil"></div>
-          <div class="name">Programa Cláudia Rayallar</div>
-        </article>
-
-        <article class="prog">
-          <div class="thumb" style="background-image:url('assets/programas/fala-marataizes.jpg');"></div>
-          <div class="veil"></div>
-          <div class="name">Fala Marataízes</div>
-        </article>
-
-        <article class="prog">
-          <div class="thumb" style="background-image:url('assets/programas/rota-300.jpg');"></div>
-          <div class="veil"></div>
-          <div class="name">Rota 300</div>
-        </article>
-
-        <article class="prog">
-          <div class="thumb" style="background-image:url('assets/programas/heranca-da-terra.jpg');"></div>
-          <div class="veil"></div>
-          <div class="name">Herança da Terra</div>
-        </article>
-
-        <article class="prog">
-          <div class="thumb" style="background-image:url('assets/programas/tal-mae-tal-filha.jpg');"></div>
-          <div class="veil"></div>
-          <div class="name">Tal Mãe Tal Filha</div>
-        </article>
-
-        <article class="prog">
-          <div class="thumb" style="background-image:url('assets/programas/saude-mental.jpg');"></div>
-          <div class="veil"></div>
-          <div class="name">Saúde Mental</div>
-        </article>
-
-        <article class="prog">
-          <div class="thumb" style="background-image:url('assets/programas/classicos-da-tela.jpg');"></div>
-          <div class="veil"></div>
-          <div class="name">Clássicos da Tela</div>
-        </article>
-
-        <article class="prog">
-          <div class="thumb" style="background-image:url('assets/programas/sessao-livre.jpg');"></div>
-          <div class="veil"></div>
-          <div class="name">Sessão Livre</div>
-        </article>
-
-        <!-- ====== LUGARES RESERVADOS (quando você mandar os nomes corretos) ======
-        Copie e cole mais blocos <article class="prog"> trocando:
-          - o path da imagem
-          - o texto do .name
-        Exemplo:
-        <article class="prog">
-          <div class="thumb" style="background-image:url('assets/programas/NOVO-PROGRAMA.jpg');"></div>
-          <div class="veil"></div>
-          <div class="name">NOME DO NOVO PROGRAMA</div>
-        </article>
-        ======================================================================== -->
-      </div>
-    </section>
-
-    <!-- PATROCINADORES (mantidos) -->
     <section class="sponsors" aria-label="Patrocinadores exclusivos">
       <h2>Patrocinadores exclusivos</h2>
       <div class="tiles">
@@ -334,7 +191,6 @@
 
   <div class="transition" aria-hidden="true"></div>
 
-  <!-- GUIA — mantido como no seu index -->
   <section class="guide-band" id="guia" data-state="collapsed" aria-label="Guia de Fornecedores">
     <div class="guide">
       <h2>Guia de Fornecedores da TV Marataízes — Região Sul do Espírito Santo</h2>
@@ -354,35 +210,134 @@
         </a>
       </div>
 
-      <!-- ========== GRIDS DO GUIA (mantidos do seu arquivo) ========== -->
-      <!-- (Cole aqui exatamente os blocos do seu index atual — não alterei) -->
-      <!-- Para encurtar, mantive sua versão original abaixo sem mudanças. -->
-
       <!-- ===================== MARATAÍZES ===================== -->
       <div id="guia-marataizes" class="cards" hidden>
-        <!-- (todos os cards que você já tinha) -->
+        <div class="cat">🍽️ Alimentação & Bebidas</div>
+        <article class="card" id="forn-amor-cone">
+          <div class="name">Amor Dentro do Cone</div>
+          <div class="line">📞 (21) 98316-5333</div>
+          <div class="line">📸 @amordentrodocone</div>
+          <span class="badge">TV Marataízes apoia o comércio local</span>
+        </article>
+        <article class="card" id="forn-pizzaria-patinhas"><div class="name">Pizzaria Patinhas</div><div class="line">📞 (28) 99945-0126</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Açaí Do Cris Qdocris</div><div class="line">📞 (28) 99920-4220</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Açai Do Pc</div><div class="line">📞 (28) 99958-0509</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Armazem Da Cachaça Petersenmiqueias</div><div class="line">📞 (28) 99886-5305</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Bubbles</div><div class="line">📞 (28) 99963-2102</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Bunnies</div><div class="line">📞 (28) 99973-6063</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Casa Do Biscoito</div><div class="line">📞 (28) 98824-3019</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Emanuel Hortifruti Mercado E Açougue</div><div class="line">📞 (28) 99981-8571</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Emporio Saudavel Natuserpnaturais</div><div class="line">📞 (27) 99801-4607</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Farol De Ouro</div><div class="line">📞 (28) 99957-4684</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Guloseimas Distribuidora Rodrigo.Lunz</div><div class="line">📞 (28) 99994-7200</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Hortifruti Bom Preço</div><div class="line">📞 (28) 99270-2883</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card" id="forn-tropeiro-gaucho"><div class="name">Tropeiro Gaucho</div><div class="line">📞 (28) 99925-3503</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Restaurante Feijão De Corda</div><div class="line">📞 (28) 99953-2713</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <!-- Novos (Marataízes) -->
+        <article class="card"><div class="name">Horti Supermercado</div><div class="line">📞 (28) 99944-0798</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Açougue e Supermercado Boi nos Aires</div><div class="line">📞 (28) 99940-6707</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Supermercado Navio</div><div class="line">📞 (28) 9999-14597</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Econômico Supermercado</div><div class="line">📞 (28) 99961-2350</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Supermercado Panta</div><div class="line">📞 (28) 99969-1600</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Supermercado Bom Sabor</div><div class="line">📞 (28) 99943-7963</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Milk-shake Mix Marataízes</div><div class="line">📞 (28) 99973-8740</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Sorveteria Magali</div><div class="line">📞 (28) 99964-5974</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Padoca Gourmet</div><div class="line">📞 (28) 99950-0321</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+
+        <div class="cat">🚗 Automotivo</div>
+        <article class="card"><div class="name">Amcar Auto Center Amcar.Amcar</div><div class="line">📞 (28) 99948-2302</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Auto Escola Vanguarda</div><div class="line">📞 (28) 99918-5262</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Gs Auto Center Gsmarataizes</div><div class="line">📞 (28) 99973-6629</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card" id="forn-atomic-sound"><div class="name">Atomic Sound</div><div class="line">📞 (28) 99278-0897</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+
+        <div class="cat">🏗️ Construção & Lar</div>
+        <article class="card"><div class="name">Casa Mix Revestimentos Casamisacab</div><div class="line">📞 (28) 99967-4051</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Construtora Menezes</div><div class="line">📞 (28) 99925-1334</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Oficina Das Tintas Marataizes</div><div class="line">📞 (28) 99905-2930</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card" id="forn-tofoli-madeiras"><div class="name">Tofoli Madeiras Gerentemacanaiba</div><div class="line">📞 (27) 99866-9381</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Unitintas E Ferramentas</div><div class="line">📞 (28) 99927-3393</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Vidracaria Rei Dos Reis Vandesgomes649</div><div class="line">📞 (28) 99906-2347</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Vale Do Sol Gás</div><div class="line">📞 (28) 99915-1565</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <!-- Novo (Marataízes) -->
+        <article class="card"><div class="name">Vidraçaria Malini</div><div class="line">📞 (28) 99882-9034</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+
+        <div class="cat">💚 Saúde & Bem-estar</div>
+        <article class="card"><div class="name">Drogaria Mendonça</div><div class="line">📞 (28) 99912-7388</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Drogaria Saúde Drogrisaudefv</div><div class="line">📞 (28) 99995-5995</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Freire Odontologia</div><div class="line">📞 (28) 99884-5196</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Instituto Capixaba De Saúde</div><div class="line">📞 (28) 99976-3482</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Natusvida</div><div class="line">📞 (28) 99977-2658</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Oraldents</div><div class="line">📞 (28) 99942-6279</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <!-- Novo (Marataízes) -->
+        <article class="card"><div class="name">Animália Clínica Veterinária</div><div class="line">📞 (28) 99918-0371</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+
+        <div class="cat">👗 Moda, Beleza & Variedades</div>
+        <article class="card"><div class="name">A Brasileira Magazin</div><div class="line">📞 (28) 3532-4149</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">João Batom Marataizes Cosméticos Ltda</div><div class="line">📞 (28) 99985-1846</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Loja Nicolini</div><div class="line">📞 (28) 99971-1681</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Moda Infantil Marataizes Ltda</div><div class="line">📞 (28) 3532-4999</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Mymi Store</div><div class="line">📞 (28) 99886-5797</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Pe Na Fama</div><div class="line">📞 (28) 99944-9426</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Pe Na Fama Kids</div><div class="line">📞 (28) 99930-9813</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+
+        <div class="cat">🏠 Lar & Eletro / Supermercados</div>
+        <article class="card"><div class="name">Hcm Comércio E Serviços</div><div class="line">📞 (28) 3532-9464</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Supermercados Bh</div><div class="line">📞 (28) 99255-5812</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Supermercados Perim</div><div class="line">📞 (28) 2101-9767</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Zema</div><div class="line">📞 (28) 99986-0779</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+
+        <div class="cat">🌐 Tecnologia & Telecom</div>
+        <article class="card"><div class="name">Windx Networks</div><div class="line">📞 (28) 99915-3924</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+
+        <div class="cat">🐾 Pet & Agro</div>
+        <article class="card"><div class="name">Pet Paradise Marataizes</div><div class="line">📞 (28) 99884-4850</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+
+        <div class="cat">🛎️ Hospedagem & Turismo</div>
+        <article class="card" id="forn-pousada-miramar"><div class="name">Pousada Miramar</div><div class="line">📞 (28) 99979-0855</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Hospedaria Rosa Dos Ventos</div><div class="line">📞 (27) 99982-5434</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+
+        <div class="cat">🕊️ Funerária</div>
+        <article class="card"><div class="name">Funeraria Luz Eterna</div><div class="line">📞 (28) 3532-4435</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+
+        <div class="cat">🧩 Serviços & Negócios</div>
+        <article class="card"><div class="name">Ap Savana Letreiros E Toldos</div><div class="line">📞 (27) 99639-1608</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Cdl Gerencia</div><div class="line">📞 (28) 3532-1400</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Comercial Do Porto</div><div class="line">📞 (28) 3532-4106</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Complaca Comunicação Visual</div><div class="line">📞 (28) 99978-6108</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">Consórcio Viana Rh</div><div class="line">📞 (28) 99926-3334</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card"><div class="name">J M Distribuidora E Serviços</div><div class="line">📞 (28) 99917-0563</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
       </div>
 
       <!-- ===================== ITAPEMIRIM ===================== -->
       <div id="guia-itapemirim" class="cards" hidden>
-        <!-- (todos os cards que você já tinha) -->
+        <div class="cat">🏗️ Construção & Lar</div>
+        <article class="card" id="forn-vidracaria-almeida"><div class="name">Vidraçaria Almeida</div><div class="line">📞 (28) 99905-1580</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+
+        <div class="cat">🚗 Automotivo</div>
+        <article class="card" id="forn-pastorzinho-motos"><div class="name">Pastorzinho Motos e Veículos</div><div class="line">📞 (28) 99985-6698</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+
+        <div class="cat">🏠 Supermercados</div>
+        <article class="card" id="forn-nossa-rede-itaipava"><div class="name">Supermercado Nossa Rede (Itaipava)</div><div class="line">📞 (28) 99984-0133</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card" id="forn-embalar-itapemirim"><div class="name">Embalar Supermercado</div><div class="line">📞 (28) 99942-0739</div><div class="line">Kennedy e Itapemirim</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
       </div>
 
       <!-- ===================== PRESIDENTE KENNEDY ===================== -->
       <div id="guia-kennedy" class="cards" hidden>
-        <!-- (todos os cards que você já tinha) -->
+        <div class="cat">🏠 Supermercados</div>
+        <article class="card" id="forn-emerson-kennedy"><div class="name">Supermercado Emerson</div><div class="line">📞 (28) 99883-4573</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card" id="forn-irmaos-jj"><div class="name">Supermercado Irmãos JJ</div><div class="line">📞 (28) 99957-6928</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
+        <article class="card" id="forn-embalar-kennedy"><div class="name">Embalar Supermercado</div><div class="line">📞 (28) 99942-0739</div><div class="line">Kennedy e Itapemirim</div><span class="badge">TV Marataízes apoia o comércio local</span></article>
       </div>
 
       <!-- ===================== PIÚMA ===================== -->
       <div id="guia-piuma" class="cards" hidden>
-        <!-- (todos os cards que você já tinha) -->
+        <article class="card"><div class="name">Em breve</div><div class="line">📞 —</div><span class="badge">Cadastre seu negócio no WhatsApp</span></article>
       </div>
 
     </div>
   </section>
 
   <main class="wrap">
-    <!-- SOBRE / COMERCIAL / REGIÕES (mantidos) -->
     <section class="about" aria-label="Sobre a TV Marataízes">
       <h1>TV Marataízes — a 1ª TV do Sul do ES com transmissão nacional pela Soul TV</h1>
       <p class="lead">A TV Marataízes nasceu como um projeto inovador de <strong>TV digital e multiplataforma</strong>. Hoje conecta o Sul Capixaba a todo o Brasil pela <strong>Soul TV</strong>, presente nas principais Smart TVs e também no celular.</p>
@@ -432,6 +387,7 @@
         {btn: 'btn-kennedy', grid: 'guia-kennedy'},
         {btn: 'btn-piuma', grid: 'guia-piuma'},
       ];
+
       function showGrid(targetId){
         band.setAttribute('data-state','expanded');
         chips.forEach(({btn,grid})=>{
@@ -449,14 +405,52 @@
         });
         band.scrollIntoView({behavior:'smooth', block:'start'});
       }
+
       chips.forEach(({btn,grid})=>{
-        const el=document.getElementById(btn);
-        if(el) el.addEventListener('click',()=>showGrid(grid));
+        document.getElementById(btn).addEventListener('click',()=>showGrid(grid));
       });
+
+      // inicia fechado
       band.setAttribute('data-state','collapsed');
       chips.forEach(({btn})=>{
-        const b=document.getElementById(btn); if(b){b.classList.remove('active'); b.setAttribute('aria-expanded','false');}
+        const b=document.getElementById(btn); b.classList.remove('active'); b.setAttribute('aria-expanded','false');
       });
+
+      // ===== Funções de Destaque (pago) =====
+      function setDestaque(cardId, url){
+        const el = document.getElementById(cardId);
+        if(!el) return;
+        el.classList.add('destaque');
+        const old = el.querySelector('a.cover-link');
+        if(old) old.remove();
+        const a = document.createElement('a');
+        a.className = 'cover-link';
+        a.href = url; a.target = '_blank'; a.rel = 'noopener';
+        el.appendChild(a);
+        if(!el.querySelector('.btn-mini')){
+          const btn = document.createElement('a');
+          btn.className = 'btn-mini';
+          btn.href = url; btn.target = '_blank'; btn.rel = 'noopener';
+          btn.textContent = 'Visitar';
+          el.appendChild(btn);
+        }
+      }
+      function unsetDestaque(cardId){
+        const el = document.getElementById(cardId);
+        if(!el) return;
+        el.classList.remove('destaque');
+        el.querySelectorAll('a.cover-link, a.btn-mini').forEach(n=>n.remove());
+      }
+
+      // Mantém "Amor Dentro do Cone" e outros no destaque
+      const DESTAQUES = [
+        { id: 'forn-amor-cone',         link: 'https://wa.me/5521983165333' },
+        { id: 'forn-pizzaria-patinhas', link: 'https://wa.me/5528999450126' },
+        { id: 'forn-tropeiro-gaucho',   link: 'https://wa.me/5528999253503' },
+        { id: 'forn-tofoli-madeiras',   link: 'https://wa.me/5527998669381' },
+        { id: 'forn-pousada-miramar',   link: 'https://wa.me/5528999790855' },
+      ];
+      DESTAQUES.forEach(d => setDestaque(d.id, d.link));
     })();
   </script>
 </body>
