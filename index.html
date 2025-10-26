@@ -1,124 +1,168 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>TV Marataízes — ao vivo</title>
-  <meta name="description" content="TV Marataízes: 1ª TV do Sul do ES com transmissão nacional pela Soul TV. Assista ao vivo, quadros originais e cobertura regional." />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
-  <meta name="theme-color" content="#0B0B0B" />
-  <link rel="canonical" href="https://twitch-marataizes.github.io/" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>TV Marataízes — ao vivo</title>
+
+<meta name="description" content="TV Marataízes: 1ª TV do Sul do ES com transmissão pela Soul TV (200+ canais gratuitos). Assista ao vivo, quadros originais e cobertura regional." />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<meta name="theme-color" content="#000" />
 
 <style>
-  body {
-    background:#000;
-    color:#fff;
-    font-family:Arial, sans-serif;
-    margin:0;
-    padding:0;
-    text-align:center;
-  }
+:root{
+ --bg:#000; --fg:#fff;
+ --muted:rgba(255,255,255,.75);
+ --card:#101010; --line:#2a2a2a;
+ --max:1320px;
+}
 
-  h2 {
-    font-size:22px;
-    margin:25px auto 10px;
-    font-weight:700;
-  }
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,Arial,sans-serif}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
 
-  /* PLAYER AO VIVO */
-  .player-wrapper {
-    width:100%;
-    max-width:1300px;
-    margin:0 auto;
-    display:flex;
-    justify-content:center;
-  }
-  iframe {
-    width:100%;
-    height:360px;
-    border:none;
-  }
+header{padding:16px;font-size:20px;font-weight:700;text-align:center;background:#000}
 
-  .patrocinadores, .programas {
-    width:100%;
-    max-width:1300px;
-    margin:25px auto;
-  }
+.wrap{max-width:var(--max);margin:0 auto;padding:0 14px}
 
-  .patrocinadores-grid, .programas-grid {
-    display:grid;
-    grid-template-columns: repeat(auto-fill,minmax(180px,1fr));
-    gap:15px;
-    justify-items:center;
-  }
+/* PLAYER */
+.player{
+ width:100%;max-width:var(--max);
+ aspect-ratio:16/9;
+ border-radius:12px;
+ overflow:hidden;
+ margin:0 auto;
+ position:relative;
+ background:#000;
+}
+.player iframe{
+ width:100%;height:100%;border:0;
+}
+.tvm-topbar{
+ position:absolute;top:12px;left:12px;right:12px;
+ display:flex;justify-content:space-between;
+ pointer-events:none;
+}
+.tvm-pill{
+ pointer-events:auto;background:rgba(0,0,0,.55);
+ padding:6px 12px;border-radius:999px;
+ font-weight:700;font-size:13px;
+ backdrop-filter:blur(6px);
+}
 
-  .patrocinadores-grid img,
-  .programas-grid img {
-    width:100%;
-    height:auto;
-    border-radius:6px;
-    background:#111;
-    object-fit:cover;
-  }
+/* TITLES */
+section h2{
+ text-align:left;font-size:22px;margin:28px 0 14px;
+ font-weight:700;
+}
 
-  a { cursor:pointer; text-decoration:none; }
+/* PROGRAMAS */
+.grid{
+ display:grid;gap:18px;
+ grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+}
+.thumb{
+ background:var(--card);
+ border:1px solid var(--line);
+ border-radius:10px;
+ aspect-ratio:16/9;
+ overflow:hidden;
+ display:flex;align-items:center;justify-content:center;
+ transition:.15s;
+}
+.thumb:hover{
+ transform:translateY(-3px);
+ box-shadow:0 10px 26px rgba(0,0,0,.4);
+}
+.thumb img{width:100%;height:100%;object-fit:cover}
+
+/* COMO ASSISTIR */
+.howto{text-align:center;font-size:16px;color:var(--muted);margin:32px 0}
 </style>
-
 </head>
+
 <body>
 
-<!-- ▬▬▬▬▬▬▬ AO VIVO ▬▬▬▬▬▬▬ -->
-<section class="player-wrapper">
-  <iframe src="https://player.castr.com/live_1a905f9a795611efa3abf1dc28ac0616?autoplay=true" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-</section>
+<header>AO VIVO - TV Marataízes</header>
 
-<!-- ▬▬▬▬▬▬▬ PATROCINADORES ▬▬▬▬▬▬▬ -->
-<section class="patrocinadores">
-  <h2>Patrocinadores Exclusivos</h2>
-  <div class="patrocinadores-grid">
-    <img src="clima/julianamoveis.png" alt="Juliana Móveis">
-    <img src="clima/piraque.png" alt="Piraquê">
-    <img src="clima/pacheco.png" alt="Pacheco">
-  </div>
-</section>
+<!-- PLAYER -->
+<div class="wrap">
+ <div class="player">
+   <iframe
+     src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
+     allow="autoplay; fullscreen; encrypted-media"
+     allowfullscreen
+     playsinline></iframe>
 
-<!-- ▬▬▬▬▬▬▬ PROGRAMAS ▬▬▬▬▬▬▬ -->
-<section class="programas">
-  <h2>Programas da TV Marataízes</h2>
+   <div class="tvm-topbar">
+     <span class="tvm-pill" id="tvm-weather-pill">--°C</span>
+     <span class="tvm-pill" id="tvm-clock">--:--</span>
+   </div>
+ </div>
+</div>
 
-  <div class="programas-grid">
+<!-- PATROCINADORES -->
+<div class="wrap">
+ <h2>Patrocinadores Exclusivos</h2>
+ <div class="grid">
+   <a class="thumb" href="#"><img src="clima/Julianamoveis.png"></a>
+   <a class="thumb" href="#"><img src="clima/piraque.png"></a>
+   <a class="thumb" href="#"><img src="clima/pacheco.png"></a>
+ </div>
+</div>
 
-    <img src="clima/dicasdefilmes.png" alt="Programa Dicas de Filmes">
-    <img src="clima/moroca.png" alt="Moroca">
-    <img src="clima/historias_de_amor_na_cena.png" alt="Histórias de Amor NA Cena">
-    <img src="clima/berincar.png" alt="Berincar">
-    <img src="clima/caindonatela.png" alt="Caindo na Tela">
+<!-- PROGRAMAS -->
+<div class="wrap">
+ <h2>Programas da TV Marataízes</h2>
+ <div class="grid">
+   <div class="thumb"><img src="clima/dicasdefilmes.png"></div>
+   <div class="thumb"><img src="clima/morocanoticiasdiarias.png"></div>
+   <div class="thumb"><img src="clima/historiasdeamoremcena.png"></div>
+   <div class="thumb"><img src="clima/rebrincar.png"></div>
+   <div class="thumb"><img src="clima/caindonatela.png"></div>
+   <div class="thumb"><img src="clima/naosaimosda5serie.png"></div>
+   <div class="thumb"><img src="clima/claudiarayallar.png"></div>
+   <div class="thumb"><img src="clima/fala_marataizes.png"></div>
+   <div class="thumb"><img src="clima/rota_300.png"></div>
+   <div class="thumb"><img src="clima/RAULjuremavaiok.png"></div>
+   <div class="thumb"><img src="clima/tal_mae_tal_filha.png"></div>
+   <div class="thumb"><img src="clima/saude_mental.png"></div>
+   <div class="thumb"><img src="clima/classicos_da_tela.png"></div>
+   <div class="thumb"><img src="clima/eeee.png"></div>
+   <div class="thumb"><img src="clima/mostra_de_curtas.png"></div>
+ </div>
+</div>
 
-    <img src="clima/progressao_tia.png" alt="Progressão Tia da 5ª série">
-    <img src="clima/claudiaravailar.png" alt="Claudia Ravailar">
-    <img src="clima/fala_marataizes.png" alt="Fala Marataízes">
-    <img src="clima/boto300.png" alt="Boto 300">
+<!-- COMO ASSISTIR -->
+<div class="wrap howto">
+ <p><strong>Como assistir:</strong><br>
+ Smart TV — Buscar Soul TV e sintonizar Canal 300<br>
+ iPhone — App Store<br>
+ Android — Google Play
+ </p>
+</div>
 
-    <!-- HERANÇA DA TERRA FUNCIONANDO ✅ -->
-    <img src="clima/raulteimosoheranca.png" alt="Herança da Terra">
+<script>
+// Relógio
+setInterval(()=>{
+ const d=new Date();
+ document.getElementById('tvm-clock').innerHTML =
+   d.getHours().toString().padStart(2,'0')+':'+
+   d.getMinutes().toString().padStart(2,'0');
+},1000);
 
-    <img src="clima/talmaetalfilha.png" alt="Tal Mãe Tal Filha">
-    <img src="clima/programa_mental.png" alt="Programa Mental">
-    <img src="clima/classicos_na_tela.png" alt="Clássicos na Tela">
-    <img src="clima/programa_sessao_livre.png" alt="Sessão Livre">
-    <img src="clima/mostra_de_curtas.png" alt="Mostra de Curtas TV Marataízes">
-  </div>
-</section>
-
-<!-- ▬▬▬▬▬▬▬ COMO ASSISTIR ▬▬▬▬▬▬▬ -->
-<section style="font-size:12px;margin:40px auto;opacity:.7;">
-  Como assistir:<br>
-  Smart TV — Buscar Soul TV e sintonizar Canal 300<br>
-  iPhone — App Store<br>
-  Android — Google Play
-</section>
+// Clima Marataízes
+async function weather(){
+ const LAT=-21.04,LON=-40.83;
+ const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m&timezone=auto`);
+ const j = await r.json();
+ document.getElementById('tvm-weather-pill').innerHTML = `${Math.round(j.current.temperature_2m)}°C`;
+}
+weather(); setInterval(weather,600000);
+</script>
 
 </body>
 </html>
