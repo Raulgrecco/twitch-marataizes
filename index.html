@@ -24,7 +24,13 @@ html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,Ar
 img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
 
-header{padding:16px;font-size:20px;font-weight:700;text-align:center;background:#000}
+header{
+ padding:16px;
+ font-size:20px;
+ font-weight:700;
+ text-align:center;
+ background:#000;
+}
 
 .wrap{max-width:var(--max);margin:0 auto;padding:0 14px}
 
@@ -78,7 +84,12 @@ section h2{
 .thumb img{width:100%;height:100%;object-fit:cover}
 
 /* COMO ASSISTIR */
-.howto{ text-align:center;font-size:16px;color:var(--muted);margin:32px 0 }
+.howto{
+ text-align:center;
+ font-size:16px;
+ color:var(--muted);
+ margin:32px 0;
+}
 </style>
 </head>
 
@@ -121,194 +132,19 @@ section h2{
    <div class="thumb"><img src="clima/historiasdeamoremcena.png" alt="Histórias de Amor em Cena"></div>
    <div class="thumb"><img src="clima/rebrincar.png" alt="Rebrincar"></div>
    <div class="thumb"><img src="clima/caindonatela.png" alt="Caindo na Tela"></div>
-
    <div class="thumb"><img src="clima/naosaimosda5serie.png" alt="Não Saímos da 5ª Série"></div>
    <div class="thumb"><img src="clima/claudiarayallar.png" alt="Programa Cláudia Rayallar"></div>
    <div class="thumb"><img src="clima/fala_marataizes.png" alt="Fala Marataízes"></div>
    <div class="thumb"><img src="clima/rota_300.png" alt="Rota 300"></div>
 
-   <!-- Herança da Terra — com cache-buster para forçar atualização -->
-   <div class="thumb"><img src="clima/heranca_da_terra.png?v=2" alt="Herança da Terra" onerror="this.onerror=null; this.src='clima/heranca_da_terra.png?v=3';"></div>
+   <!-- ✅ HERANÇA DA TERRA ATUALIZADO -->
+   <div class="thumb"><img src="clima/herancaok.png" alt="Herança da Terra"></div>
 
    <div class="thumb"><img src="clima/tal_mae_tal_filha.png" alt="Tal Mãe Tal Filha"></div>
    <div class="thumb"><img src="clima/saude_mental.png" alt="Saúde Mental"></div>
    <div class="thumb"><img src="clima/classicos_da_tela.png" alt="Clássicos da Tela"></div>
    <div class="thumb"><img src="clima/eeee.png" alt="Sessão Livre"></div>
-   <div class="thumb"><img src="clima/mostra_de_curtas.png" alt="Mostra de Curtas"></div>
- </div>
-</div>
-
-<!-- COMO ASSISTIR -->
-<div class="wrap howto">
- <p><strong>Como assistir:</strong><br>
- Smart TV — Buscar Soul TV e sintonizar Canal 300<br>
- iPhone — App Store<br>
- Android — Google Play
- </p>
-</div>
-
-<script>
-// Relógio
-setInterval(()=>{
- const d=new Date();
- const el=document.getElementById('tvm-clock');
- if(el){ el.textContent =
-   d.getHours().toString().padStart(2,'0')+':' +
-   d.getMinutes().toString().padStart(2,'0'); }
-},15000);
-
-// Clima Marataízes
-async function weather(){
- try{
-   const LAT=-21.04,LON=-40.83;
-   const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m&timezone=auto`,{cache:'no-store'});
-   const j = await r.json();
-   const pill=document.getElementById('tvm-weather-pill');
-   if(pill && j && j.current){ pill.textContent = `${Math.round(j.current.temperature_2m)}°C`; }
- }catch(e){}
-}
-weather(); setInterval(weather,600000);
-</script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>TV Marataízes — ao vivo</title>
-
-<meta name="description" content="TV Marataízes: 1ª TV do Sul do ES com transmissão pela Soul TV (200+ canais gratuitos). Assista ao vivo, quadros originais e cobertura regional." />
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="Expires" content="0" />
-<meta name="theme-color" content="#000" />
-
-<style>
-:root{
- --bg:#000; --fg:#fff;
- --muted:rgba(255,255,255,.75);
- --card:#101010; --line:#2a2a2a;
- --max:1320px;
-}
-
-*{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,Arial,sans-serif}
-img{max-width:100%;display:block}
-a{text-decoration:none;color:inherit}
-
-header{padding:16px;font-size:20px;font-weight:700;text-align:center;background:#000}
-
-.wrap{max-width:var(--max);margin:0 auto;padding:0 14px}
-
-/* PLAYER */
-.player{
- width:100%;max-width:var(--max);
- aspect-ratio:16/9;
- border-radius:12px;
- overflow:hidden;
- margin:0 auto;
- position:relative;
- background:#000;
-}
-.player iframe{width:100%;height:100%;border:0}
-.tvm-topbar{
- position:absolute;top:12px;left:12px;right:12px;
- display:flex;justify-content:space-between;
- pointer-events:none;
-}
-.tvm-pill{
- pointer-events:auto;background:rgba(0,0,0,.55);
- padding:6px 12px;border-radius:999px;
- font-weight:700;font-size:13px;
- backdrop-filter:blur(6px);
-}
-
-/* TITLES */
-section h2{
- text-align:left;font-size:22px;margin:28px 0 14px;
- font-weight:700;
-}
-
-/* GRIDS */
-.grid{
- display:grid;gap:18px;
- grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-}
-.thumb{
- background:var(--card);
- border:1px solid var(--line);
- border-radius:10px;
- aspect-ratio:16/9;
- overflow:hidden;
- display:flex;align-items:center;justify-content:center;
- transition:.15s;
-}
-.thumb:hover{
- transform:translateY(-3px);
- box-shadow:0 10px 26px rgba(0,0,0,.4);
-}
-.thumb img{width:100%;height:100%;object-fit:cover}
-
-/* COMO ASSISTIR */
-.howto{ text-align:center;font-size:16px;color:var(--muted);margin:32px 0 }
-</style>
-</head>
-
-<body>
-
-<header>AO VIVO - TV Marataízes</header>
-
-<!-- PLAYER -->
-<div class="wrap">
- <div class="player">
-   <iframe
-     src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
-     allow="autoplay; fullscreen; encrypted-media"
-     allowfullscreen
-     playsinline></iframe>
-
-   <div class="tvm-topbar">
-     <span class="tvm-pill" id="tvm-weather-pill">--°C</span>
-     <span class="tvm-pill" id="tvm-clock">--:--</span>
-   </div>
- </div>
-</div>
-
-<!-- PATROCINADORES -->
-<div class="wrap">
- <h2>Patrocinadores Exclusivos</h2>
- <div class="grid">
-   <a class="thumb" href="#"><img src="clima/Julianamoveis.png" alt="Juliana Móveis"></a>
-   <a class="thumb" href="#"><img src="clima/piraque.png" alt="Biscoitos Piraquê"></a>
-   <a class="thumb" href="#"><img src="clima/pacheco.png" alt="Drogarias Pacheco"></a>
- </div>
-</div>
-
-<!-- PROGRAMAS -->
-<div class="wrap">
- <h2>Programas da TV Marataízes</h2>
- <div class="grid">
-   <div class="thumb"><img src="clima/dicasdefilmes.png" alt="Dicas de Filmes"></div>
-   <div class="thumb"><img src="clima/morocanoticiasdiarias.png" alt="Moroca Notícias Diárias"></div>
-   <div class="thumb"><img src="clima/historiasdeamoremcena.png" alt="Histórias de Amor em Cena"></div>
-   <div class="thumb"><img src="clima/rebrincar.png" alt="Rebrincar"></div>
-   <div class="thumb"><img src="clima/caindonatela.png" alt="Caindo na Tela"></div>
-
-   <div class="thumb"><img src="clima/naosaimosda5serie.png" alt="Não Saímos da 5ª Série"></div>
-   <div class="thumb"><img src="clima/claudiarayallar.png" alt="Programa Cláudia Rayallar"></div>
-   <div class="thumb"><img src="clima/fala_marataizes.png" alt="Fala Marataízes"></div>
-   <div class="thumb"><img src="clima/rota_300.png" alt="Rota 300"></div>
-
-   <!-- Herança da Terra — com cache-buster para forçar atualização -->
-   <div class="thumb"><img src="clima/heranca_da_terra.png?v=2" alt="Herança da Terra" onerror="this.onerror=null; this.src='clima/heranca_da_terra.png?v=3';"></div>
-
-   <div class="thumb"><img src="clima/tal_mae_tal_filha.png" alt="Tal Mãe Tal Filha"></div>
-   <div class="thumb"><img src="clima/saude_mental.png" alt="Saúde Mental"></div>
-   <div class="thumb"><img src="clima/classicos_da_tela.png" alt="Clássicos da Tela"></div>
-   <div class="thumb"><img src="clima/eeee.png" alt="Sessão Livre"></div>
-   <div class="thumb"><img src="clima/mostra_de_curtas.png" alt="Mostra de Curtas"></div>
+   <div class="thumb"><img src="clima/mostra_de_curtas.png" alt="Mostra de Curtas TV Marataízes"></div>
  </div>
 </div>
 
