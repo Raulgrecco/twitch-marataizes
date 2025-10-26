@@ -4,141 +4,118 @@
 <meta charset="UTF-8">
 <title>TV Marataízes — Ao Vivo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
 
+<style>
 body {
-  background: #000;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  margin: 0;
+    background: #000;
+    margin: 0;
+    text-align: center;
+    color: #fff;
+    font-family: Arial, sans-serif;
 }
 
-/* PLAYER */
+/* PLAYER DESTACADO */
 .player {
-  width: 95%;
-  max-width: 1400px;
-  margin: 20px auto 40px;
-  aspect-ratio: 16/9;
-  border: 2px solid #fff;
+    width: 90%;
+    max-width: 1600px;
+    margin: 40px auto;
+    aspect-ratio: 16/9;
+    border: 3px solid #fff;
 }
 iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
-/* SEÇÕES */
-section {
-  margin: 40px 0;
-}
+/* TÍTULOS */
 h2 {
-  font-size: 22px;
-  margin-bottom: 30px;
+    margin: 40px 0 20px;
+    font-size: 26px;
 }
 
-/* GRID DE PATROCINADORES E PROGRAMAS */
+/* GRID FLEX */
 .area {
-  width: 98%;
-  max-width: 1600px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 25px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    width: 95%;
+    margin: 0 auto;
 }
 
-.card {
-  background: #111;
-  border-radius: 6px;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Patrocinadores */
+/* PATROCINADORES */
 .card.patro {
-  width: 220px;
-  height: 120px;
-  border: 1px solid #444;
+    width: 260px;
+    height: 140px;
+    background: #111;
+    border-radius: 8px;
+    border: 2px solid #444;
 }
 
-/* Programas */
+/* PROGRAMAS */
 .card.programa {
-  width: 200px;
-  height: 120px;
-  border: 1px solid #333;
+    width: 240px;
+    height: 140px;
+    background: #111;
+    border-radius: 6px;
+    border: 2px solid #333;
 }
 
 .card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
-
-/* RODAPÉ */
 footer {
-  font-size: 14px;
-  margin: 60px auto;
-  width: 90%;
-  color: #bfbfbf;
-  line-height: 1.6;
+    margin: 60px 0;
+    font-size: 15px;
+    color: #cfcfcf;
 }
-
 </style>
+
 </head>
 <body>
 
-<h1>AO VIVO - TV Marataízes (Player Real)</h1>
+<h1>AO VIVO — TV Marataízes</h1>
 
 <div class="player">
 <iframe allow="autoplay" allowfullscreen
-src="https://player.castr.com/live_e786dbc6021a11ecb7bbc34c53aa6f52?autoplay=1&controls=1">
-</iframe>
+src="https://player.castr.com/live_e786dbc6021a11ecb7bbc34c53aa6f52?autoplay=1&controls=1"></iframe>
 </div>
 
-<!-- PATROCINADORES -->
-<section>
 <h2>Patrocinadores Exclusivos</h2>
 <div class="area">
-
-<div class="card patro"><img src="clima/Julianamoveis.png"></div>
-<div class="card patro"><img src="clima/piraque.png"></div>
-<div class="card patro"><img src="clima/pacheco.png"></div>
-
+    <div class="card patro"><img src="clima/Julianamoveis.png"></div>
+    <div class="card patro"><img src="clima/piraque.png"></div>
+    <div class="card patro"><img src="clima/pacheco.png"></div>
 </div>
-</section>
 
-<!-- PROGRAMAS -->
-<section>
 <h2>Programas da TV Marataízes</h2>
 <div class="area">
 
-<div class="card programa"><img src="clima/dicasdefilmes.png"></div>
-<div class="card programa"><img src="clima/morocanoticiasdiarias.png"></div>
-<div class="card programa"><img src="clima/historiasdeamorencena.png"></div>
-<div class="card programa"><img src="clima/caindonatela.png"></div>
-<div class="card programa"><img src="clima/naosaimosda5serie.png"></div>
-<div class="card programa"><img src="clima/claudiarayallar.png"></div>
-<div class="card programa"><img src="clima/fala_marataizes.png"></div>
-<div class="card programa"><img src="clima/rota_300.png"></div>
-<div class="card programa"><img src="clima/heranca_da_terra.png"></div>
-<div class="card programa"><img src="clima/tal_mae_tal_filha.png"></div>
-<div class="card programa"><img src="clima/saude_mental.png"></div>
-<div class="card programa"><img src="clima/classicos_da_tela.png"></div>
-<div class="card programa"><img src="clima/eeee.png"></div>
+    <div class="card programa"><img src="clima/dicasdefilmes.png"></div>
+    <div class="card programa"><img src="clima/morocanoticiasdiarias.png"></div>
+    <div class="card programa"><img src="clima/historiasdeamorencena.png"></div>
+    <div class="card programa"><img src="clima/caindonatela.png"></div>
+    <div class="card programa"><img src="clima/naosaimosda5serie.png"></div>
+    <div class="card programa"><img src="clima/claudiarayallar.png"></div>
+    <div class="card programa"><img src="clima/fala_marataizes.png"></div>
+    <div class="card programa"><img src="clima/rota_300.png"></div>
+    <div class="card programa"><img src="clima/heranca_da_terra.png"></div>
+    <div class="card programa"><img src="clima/tal_mae_tal_filha.png"></div>
+    <div class="card programa"><img src="clima/saude_mental.png"></div>
+    <div class="card programa"><img src="clima/classicos_da_tela.png"></div>
+    <div class="card programa"><img src="clima/eeee.png"></div>
 
 </div>
-</section>
 
 <footer>
-Como assistir:<br>
-• Smart TV — Buscar Soul TV e sintonizar Canal 300<br>
-• iPhone — App Store<br>
-• Android — Google Play
+Como assistir:<br><br>
+• Smart TV → Buscar Soul TV e sintonizar Canal 300<br>
+• iPhone → App Store<br>
+• Android → Google Play
 </footer>
 
 </body>
 </html>
-
