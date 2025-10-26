@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TV Marataízes — Ao Vivo</title>
+<meta name="description" content="TV Marataízes: 1ª TV do Sul do Espírito Santo com transmissão nacional pela Soul TV. Assista ao vivo e conheça nossos programas.">
 <style>
   body {
     margin: 0;
@@ -15,8 +16,8 @@
 
   .player-container {
     width: 90%;
-    max-width: 900px;
-    margin: 20px auto;
+    max-width: 950px;
+    margin: 30px auto;
     position: relative;
   }
 
@@ -25,47 +26,69 @@
     aspect-ratio: 16/9;
     border: none;
     background: #000;
+    border-radius: 8px;
   }
 
   #clock-weather {
     position: absolute;
     top: 8px;
-    right: 8px;
+    right: 12px;
     background: rgba(0,0,0,0.6);
     padding: 4px 10px;
     border-radius: 8px;
     font-size: 14px;
-    pointer-events: none;
   }
 
-  h3 { font-size: 20px; margin-top: 30px; }
+  h3 {
+    font-size: 22px;
+    margin-top: 35px;
+    margin-bottom: 15px;
+  }
 
-  .sponsors, .programs {
+  .sponsors {
     display: flex;
     justify-content: center;
-    align-items: center;
     gap: 40px;
     flex-wrap: wrap;
-    margin-top: 20px;
+    margin-bottom: 30px;
   }
 
-  .sponsors img, .programs img {
+  .sponsors img {
     width: 180px;
     height: auto;
-    transition: .2s;
-    cursor: pointer;
+    border-radius: 8px;
+    transition: transform .2s;
   }
 
-  .sponsors img:hover, .programs img:hover {
+  .sponsors img:hover {
     transform: scale(1.05);
   }
 
-  footer {
-    margin-top: 40px;
-    font-size: 14px;
-    opacity: .7;
+  .programs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto 50px auto;
   }
 
+  .programs img {
+    width: 100%;
+    border-radius: 8px;
+    transition: transform .2s;
+  }
+
+  .programs img:hover {
+    transform: scale(1.04);
+  }
+
+  footer {
+    margin-bottom: 40px;
+    font-size: 15px;
+    line-height: 1.6;
+    opacity: 0.8;
+  }
 </style>
 </head>
 <body>
@@ -79,39 +102,48 @@
 <h3>Patrocinadores Exclusivos</h3>
 <div class="sponsors">
   <a href="https://wa.me/5528999732882" target="_blank">
-    <img src="clima/juliana.png">
+    <img src="clima/juliana.png" alt="Juliana Móveis">
   </a>
   <a href="https://piraque.com.br/" target="_blank">
-    <img src="clima/piraque.png">
+    <img src="clima/piraque.png" alt="Piraquê">
   </a>
   <a href="https://www.drogariaspacheco.com.br/" target="_blank">
-    <img src="clima/pacheco.png">
+    <img src="clima/pacheco.png" alt="Drogarias Pacheco">
   </a>
 </div>
 
 <h3>Programas da TV Marataízes</h3>
 <div class="programs">
-  <img src="clima/moroca.png">
-  <img src="clima/amor-em-cena.png">
-  <img src="clima/bem-estar.png">
-  <img src="clima/babado.png">
-  <img src="clima/som-na-ilha.png">
-  <img src="clima/prosa.png">
-  <img src="clima/classicos.png">
+  <img src="clima/dicasdefilmes.png" alt="Dicas de Filmes">
+  <img src="clima/morocanoti...sdiarias.png" alt="Jornal do Moroca">
+  <img src="clima/historiasde...emcena.png" alt="Histórias de Amor em Cena">
+  <img src="clima/rebrincar.png" alt="Rebrincar">
+  <img src="clima/caindonatela.png" alt="Caindo na Tela">
+  <img src="clima/naosaimosda5serie.png" alt="Não Saímos da 5ª Série">
+  <img src="clima/claudiarayallar.png" alt="Programa Cláudia Rayallar">
+  <img src="clima/fala_marataizes.png" alt="Fala Marataízes">
+  <img src="clima/rota_300.png" alt="Rota 300">
+  <img src="clima/heranca_da_terra.png" alt="Herança da Terra">
+  <img src="clima/tal_mae_tal_filha.png" alt="Tal Mãe Tal Filha">
+  <img src="clima/saude_mental.png" alt="Saúde Mental">
+  <img src="clima/classicos_da_tela.png" alt="Clássicos da Tela">
+  <img src="clima/eeee.png" alt="Sessão Livre">
+  <img src="clima/mostra_de_curtas.png" alt="Mostra de Curtas">
 </div>
 
 <footer>
-Como assistir:<br>
-Smart TVs — Soul TV Canal 300 · iPhone — App Store · Android — Google Play
+  Como assistir:<br>
+  Smart TV — Buscar Soul TV e sintonizar Canal 300<br>
+  iPhone — App Store · Android — Google Play
 </footer>
 
 <script>
-// Relógio
-function updateClockWeather(){
+// Relógio simples
+function updateClockWeather() {
   const d = new Date();
-  const hh = d.getHours().toString().padStart(2,'0');
-  const mm = d.getMinutes().toString().padStart(2,'0');
-  document.getElementById('clock-weather').innerHTML = `${hh}:${mm} ⛅ --°C`;
+  const hh = d.getHours().toString().padStart(2, '0');
+  const mm = d.getMinutes().toString().padStart(2, '0');
+  document.getElementById("clock-weather").innerText = `${hh}:${mm} ⛅ 27°C`;
 }
 updateClockWeather();
 setInterval(updateClockWeather, 15000);
@@ -119,3 +151,157 @@ setInterval(updateClockWeather, 15000);
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TV Marataízes — Ao Vivo</title>
+<meta name="description" content="TV Marataízes: 1ª TV do Sul do Espírito Santo com transmissão nacional pela Soul TV. Assista ao vivo e conheça nossos programas.">
+<style>
+  body {
+    margin: 0;
+    background: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+
+  .player-container {
+    width: 90%;
+    max-width: 950px;
+    margin: 30px auto;
+    position: relative;
+  }
+
+  iframe {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border: none;
+    background: #000;
+    border-radius: 8px;
+  }
+
+  #clock-weather {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: rgba(0,0,0,0.6);
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+
+  h3 {
+    font-size: 22px;
+    margin-top: 35px;
+    margin-bottom: 15px;
+  }
+
+  .sponsors {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+  }
+
+  .sponsors img {
+    width: 180px;
+    height: auto;
+    border-radius: 8px;
+    transition: transform .2s;
+  }
+
+  .sponsors img:hover {
+    transform: scale(1.05);
+  }
+
+  .programs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto 50px auto;
+  }
+
+  .programs img {
+    width: 100%;
+    border-radius: 8px;
+    transition: transform .2s;
+  }
+
+  .programs img:hover {
+    transform: scale(1.04);
+  }
+
+  footer {
+    margin-bottom: 40px;
+    font-size: 15px;
+    line-height: 1.6;
+    opacity: 0.8;
+  }
+</style>
+</head>
+<body>
+
+<div class="player-container">
+  <iframe src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
+          allow="autoplay; fullscreen"></iframe>
+  <div id="clock-weather">--:-- ⛅ --°C</div>
+</div>
+
+<h3>Patrocinadores Exclusivos</h3>
+<div class="sponsors">
+  <a href="https://wa.me/5528999732882" target="_blank">
+    <img src="clima/juliana.png" alt="Juliana Móveis">
+  </a>
+  <a href="https://piraque.com.br/" target="_blank">
+    <img src="clima/piraque.png" alt="Piraquê">
+  </a>
+  <a href="https://www.drogariaspacheco.com.br/" target="_blank">
+    <img src="clima/pacheco.png" alt="Drogarias Pacheco">
+  </a>
+</div>
+
+<h3>Programas da TV Marataízes</h3>
+<div class="programs">
+  <img src="clima/dicasdefilmes.png" alt="Dicas de Filmes">
+  <img src="clima/morocanoti...sdiarias.png" alt="Jornal do Moroca">
+  <img src="clima/historiasde...emcena.png" alt="Histórias de Amor em Cena">
+  <img src="clima/rebrincar.png" alt="Rebrincar">
+  <img src="clima/caindonatela.png" alt="Caindo na Tela">
+  <img src="clima/naosaimosda5serie.png" alt="Não Saímos da 5ª Série">
+  <img src="clima/claudiarayallar.png" alt="Programa Cláudia Rayallar">
+  <img src="clima/fala_marataizes.png" alt="Fala Marataízes">
+  <img src="clima/rota_300.png" alt="Rota 300">
+  <img src="clima/heranca_da_terra.png" alt="Herança da Terra">
+  <img src="clima/tal_mae_tal_filha.png" alt="Tal Mãe Tal Filha">
+  <img src="clima/saude_mental.png" alt="Saúde Mental">
+  <img src="clima/classicos_da_tela.png" alt="Clássicos da Tela">
+  <img src="clima/eeee.png" alt="Sessão Livre">
+  <img src="clima/mostra_de_curtas.png" alt="Mostra de Curtas">
+</div>
+
+<footer>
+  Como assistir:<br>
+  Smart TV — Buscar Soul TV e sintonizar Canal 300<br>
+  iPhone — App Store · Android — Google Play
+</footer>
+
+<script>
+// Relógio simples
+function updateClockWeather() {
+  const d = new Date();
+  const hh = d.getHours().toString().padStart(2, '0');
+  const mm = d.getMinutes().toString().padStart(2, '0');
+  document.getElementById("clock-weather").innerText = `${hh}:${mm} ⛅ 27°C`;
+}
+updateClockWeather();
+setInterval(updateClockWeather, 15000);
+</script>
+
+</body>
+</html>
+
