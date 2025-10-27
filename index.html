@@ -22,17 +22,13 @@ html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,Ar
 img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
 
-/* ✅ NOVO CABEÇALHO COM LOGO */
+/* Cabeçalho */
 header{
- display:flex;align-items:center;justify-content:center;
- gap:10px;
- padding:16px;
+ display:flex;align-items:center;justify-content:center;gap:10px;
+ padding:16px;text-align:center;
  font-size:20px;font-weight:800;
 }
-header img{
- height:32px;
- opacity:.95;
-}
+header img{height:34px;width:auto}
 
 /* PLAYER */
 .player-outer{
@@ -48,11 +44,10 @@ header img{
  width:100%;height:100%;border:0;
 }
 
-/* CLIMA + HORA */
+/* CLIMA + HORA — B: TEMP à ESQ, RELÓGIO à DIR */
 .tvm-topbar{
  position:absolute;top:8px;left:8px;right:8px;
- display:flex;justify-content:flex-end;
- align-items:center;gap:8px;
+ display:flex;justify-content:space-between;
  pointer-events:none;
 }
 .tvm-pill{
@@ -63,20 +58,11 @@ header img{
 }
 
 /* SEÇÕES */
-section{
- max-width:var(--max);
- margin:14px auto;
- padding:0 14px;
-}
-h2{
- text-align:center;margin:16px 0 12px;
- font-size:22px;font-weight:900;
-}
+section{max-width:var(--max);margin:14px auto;padding:0 14px}
+h2{text-align:center;margin:16px 0 12px;font-size:22px;font-weight:900}
 
 /* PATROCINADORES */
-.sponsors{
- display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
-}
+.sponsors{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .sponsor{
  background:var(--card);border-radius:10px;
  padding:10px;border:1px solid var(--line);
@@ -84,45 +70,38 @@ h2{
 }
 .sponsor img{object-fit:contain;width:100%;height:auto}
 
-/* PROGRAMAS - 2x2 no mobile / 4x4 no desktop */
+/* PROGRAMAS */
 .grid{
  display:grid;
  gap:14px;
- grid-template-columns:repeat(2,1fr);
+ grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
 }
-@media(min-width:992px){
- .grid{grid-template-columns:repeat(4,1fr);}
-}
-
-/* CARDS COM HOVER */
 .thumb{
- background:var(--card);
- border:1px solid var(--line);
- border-radius:12px;
- padding:8px;
+ background:var(--card);border:1px solid var(--line);
+ border-radius:12px;padding:8px;
  display:flex;align-items:center;justify-content:center;
- overflow:hidden;
- aspect-ratio:16/9;
- transition:transform .18s ease, box-shadow .18s ease;
-}
-.thumb:hover{
- transform:translateY(-3px);
- box-shadow:0 8px 24px rgba(0,0,0,.55);
+ overflow:hidden;aspect-ratio:16/9;
 }
 .thumb img{width:100%;height:100%;object-fit:cover}
 
 /* BOTÃO FIXO WHATSAPP */
 .floating-cta{
- position:fixed;
- bottom:20px;right:20px;
- background:#25d366;
- color:#fff;
- padding:12px 18px;
- border-radius:40px;
- font-weight:700;
+ position:fixed;bottom:20px;right:20px;
+ background:var(--accent);color:#fff;
+ padding:12px 18px;border-radius:40px;
+ font-weight:700;font-size:14px;
  box-shadow:0 0 16px rgba(0,0,0,.6);
- font-size:14px;
  z-index:999;
+}
+
+/* FOOTER */
+footer{
+ text-align:left;color:#fff;
+ font-size:14px;padding:40px 20px 20px;
+ line-height:1.45;
+}
+@media(max-width:600px){
+ footer{font-size:12px}
 }
 </style>
 </head>
@@ -130,9 +109,8 @@ h2{
 <body>
 
 <header>
-  <!-- ✅ LOGO FORA DO PLAYER / DO LADO DO NOME -->
-  <img src="clima/logo.png" alt="TV Marataízes">
-  TV MARATAÍZES — AO VIVO
+ <img src="clima/logo.png" alt="Logo TV Marataízes">
+ <span>TV MARATAÍZES — AO VIVO</span>
 </header>
 
 <div class="player-outer">
@@ -141,8 +119,8 @@ h2{
   allow="autoplay; fullscreen; encrypted-media" allowfullscreen playsinline></iframe>
 
   <div class="tvm-topbar">
-     <span class="tvm-pill" id="weather">--°C</span>
-     <span class="tvm-pill" id="clock">--:--</span>
+   <span class="tvm-pill" id="weather">--°C</span>
+   <span class="tvm-pill" id="clock">--:--</span>
   </div>
  </div>
 </div>
@@ -182,16 +160,14 @@ h2{
 
 <a class="floating-cta" href="https://wa.me/5528999036141">COMERCIAL — Fale com a TV</a>
 
-<footer style="text-align:left; font-size:14px; padding:40px 20px 20px;">
-  <div style="color:#fff; line-height:1.45;">
-    <strong>Como assistir:</strong><br>
-    Smart TV — Soul TV — Canal 300<br>
-    iPhone — App Store (Baixe Soul TV)<br>
-    Android — Google Play (Baixe Soul TV)<br>
-    + de 200 canais gratuitos<br>
-    Na mesma grade da CNN Brasil,<br>
-    Times Brasil, TV UOL, Record News e muito mais
-  </div>
+<footer>
+ <strong>Como assistir:</strong><br>
+ Smart TV — Soul TV — Canal 300<br>
+ iPhone — App Store (Baixe Soul TV)<br>
+ Android — Google Play (Baixe Soul TV)<br>
+ + de 200 canais gratuitos<br>
+ Na mesma grade da CNN Brasil, Times Brasil, TV UOL,<br>
+ Record News e muito mais.
 </footer>
 
 <script>
@@ -214,3 +190,4 @@ weather(); setInterval(weather, 600000);
 
 </body>
 </html>
+
