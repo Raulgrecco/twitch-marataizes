@@ -77,32 +77,34 @@ h2{
 }
 .sponsor img{object-fit:contain;width:100%;height:auto}
 
-/* PROGRAMAS */
+/* PROGRAMAS - RESPONSIVO AJUSTADO */
 .grid{
  display:grid;
  gap:14px;
- grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+ grid-template-columns:repeat(2,1fr); /* padrão celular */
 }
+
+@media (min-width: 992px){
+ .grid{
+   grid-template-columns:repeat(4,1fr); /* desktop */
+ }
+}
+
 .thumb{
  background:var(--card);
  border:1px solid var(--line);
  border-radius:12px;
  padding:8px;
- display:flex;
- align-items:center;
- justify-content:center;
- overflow:hidden;
- aspect-ratio:16/9;
+ display:flex;align-items:center;justify-content:center;
+ overflow:hidden;aspect-ratio:16/9;
 }
-.thumb img{
- width:100%;height:100%;object-fit:cover;
-}
+.thumb img{width:100%;height:100%;object-fit:cover}
 
 /* BOTÃO FIXO WHATSAPP */
 .floating-cta{
  position:fixed;
  bottom:20px;right:20px;
- background:#FF6F00;
+ background:#25d366;
  color:#fff;
  padding:12px 18px;
  border-radius:40px;
@@ -133,9 +135,9 @@ h2{
 <section>
  <h2>Patrocinadores Exclusivos</h2>
  <div class="sponsors">
-  <div class="sponsor"><a href="https://wa.me/5528999732882"><img src="clima/Julianamoveis.png"></a></div>
-  <div class="sponsor"><a href="https://www.piraque.com.br/"><img src="clima/piraque.png"></a></div>
-  <div class="sponsor"><a href="https://www.drogariaspacheco.com.br/"><img src="clima/pacheco.png"></a></div>
+  <div class="sponsor"><a href="https://wa.me/5528999732882" target="_blank"><img src="clima/Julianamoveis.png"></a></div>
+  <div class="sponsor"><a href="https://www.piraque.com.br/" target="_blank"><img src="clima/piraque.png"></a></div>
+  <div class="sponsor"><a href="https://www.drogariaspacheco.com.br/" target="_blank"><img src="clima/pacheco.png"></a></div>
  </div>
 </section>
 
@@ -143,31 +145,30 @@ h2{
  <h2>Programas da TV Marataízes</h2>
  <div class="grid">
 
-  <div class="thumb"><img src="clima/dicasdefilmes.png"></div>
-  <div class="thumb"><img src="clima/morocanoticiasdiarias.png"></div>
-  <div class="thumb"><img src="clima/historiasdeamoremcena.png"></div>
-  <div class="thumb"><img src="clima/rebrincar.png"></div>
-  <div class="thumb"><img src="clima/caindonatela.png"></div>
-  <div class="thumb"><img src="clima/naosaimosda5serie.png"></div>
-  <div class="thumb"><img src="clima/claudiarayallar.png"></div>
-  <div class="thumb"><img src="clima/fala_marataizes.png"></div>
-  <div class="thumb"><img src="clima/rota_300.png"></div>
+  <div class="thumb"><img src="clima/dicasdefilmes.png" alt=""></div>
+  <div class="thumb"><img src="clima/morocanoticiasdiarias.png" alt=""></div>
+  <div class="thumb"><img src="clima/historiasdeamoremcena.png" alt=""></div>
+  <div class="thumb"><img src="clima/rebrincar.png" alt=""></div>
 
-  <div class="thumb"><img src="clima/RAULjuremavaiok.png"></div>
+  <div class="thumb"><img src="clima/caindonatela.png" alt=""></div>
+  <div class="thumb"><img src="clima/naosaimosda5serie.png" alt=""></div>
+  <div class="thumb"><img src="clima/claudiarayallar.png" alt=""></div>
+  <div class="thumb"><img src="clima/fala_marataizes.png" alt=""></div>
 
-  <div class="thumb"><img src="clima/tal_mae_tal_filha.png"></div>
-  <div class="thumb"><img src="clima/saude_mental.png"></div>
-  <div class="thumb"><img src="clima/classicos_da_tela.png"></div>
-  <div class="thumb"><img src="clima/eeee.png"></div>
-  <div class="thumb"><img src="clima/GOODTIMES.png"></div>
+  <div class="thumb"><img src="clima/rota_300.png" alt=""></div>
+  <div class="thumb"><img src="clima/RAULjuremavaiok.png" alt=""></div>
+  <div class="thumb"><img src="clima/tal_mae_tal_filha.png" alt=""></div>
+  <div class="thumb"><img src="clima/saude_mental.png" alt=""></div>
 
-  <!-- ✅ AGORA SIM: PERGUNTA TORTA É O ÚLTIMO -->
-  <div class="thumb"><img src="clima/perguntatorta.png"></div>
+  <div class="thumb"><img src="clima/classicos_da_tela.png" alt=""></div>
+  <div class="thumb"><img src="clima/eeee.png" alt=""></div>
+  <div class="thumb"><img src="clima/GOODTIMES.png" alt=""></div>
+  <div class="thumb"><img src="clima/perguntatorta.png" alt=""></div>
 
  </div>
 </section>
 
-<a class="floating-cta" href="https://wa.me/5528999036141">COMERCIAL — Fale com a TV</a>
+<a class="floating-cta" href="https://wa.me/5528999036141" target="_blank">COMERCIAL — Fale com a TV</a>
 
 <footer>
  Como assistir:<br>
