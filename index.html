@@ -22,10 +22,16 @@ html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,Ar
 img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
 
-/* Cabeçalho */
+/* ✅ NOVO CABEÇALHO COM LOGO */
 header{
- padding:16px;text-align:center;
+ display:flex;align-items:center;justify-content:center;
+ gap:10px;
+ padding:16px;
  font-size:20px;font-weight:800;
+}
+header img{
+ height:32px;
+ opacity:.95;
 }
 
 /* PLAYER */
@@ -42,20 +48,12 @@ header{
  width:100%;height:100%;border:0;
 }
 
-/* CLIMA + HORA + LOGO */
+/* CLIMA + HORA */
 .tvm-topbar{
  position:absolute;top:8px;left:8px;right:8px;
- display:flex;justify-content:space-between;
- align-items:center;
+ display:flex;justify-content:flex-end;
+ align-items:center;gap:8px;
  pointer-events:none;
-}
-.tvm-left{
- display:flex;align-items:center;gap:6px;
- pointer-events:auto;
-}
-.tvm-logo{
- height:28px; /* ✅ Tamanho ideal */
- opacity:.92;
 }
 .tvm-pill{
  pointer-events:auto;
@@ -86,7 +84,7 @@ h2{
 }
 .sponsor img{object-fit:contain;width:100%;height:auto}
 
-/* PROGRAMAS - GRID AJUSTADO */
+/* PROGRAMAS - 2x2 no mobile / 4x4 no desktop */
 .grid{
  display:grid;
  gap:14px;
@@ -96,7 +94,7 @@ h2{
  .grid{grid-template-columns:repeat(4,1fr);}
 }
 
-/* THUMBS COM SOMBRA PROFISSIONAL */
+/* CARDS COM HOVER */
 .thumb{
  background:var(--card);
  border:1px solid var(--line);
@@ -106,7 +104,6 @@ h2{
  overflow:hidden;
  aspect-ratio:16/9;
  transition:transform .18s ease, box-shadow .18s ease;
- box-shadow:0 0 0 rgba(0,0,0,0);
 }
 .thumb:hover{
  transform:translateY(-3px);
@@ -132,7 +129,11 @@ h2{
 
 <body>
 
-<header>TV MARATAÍZES — AO VIVO</header>
+<header>
+  <!-- ✅ LOGO FORA DO PLAYER / DO LADO DO NOME -->
+  <img src="clima/logo.png" alt="TV Marataízes">
+  TV MARATAÍZES — AO VIVO
+</header>
 
 <div class="player-outer">
  <div class="player">
@@ -140,32 +141,25 @@ h2{
   allow="autoplay; fullscreen; encrypted-media" allowfullscreen playsinline></iframe>
 
   <div class="tvm-topbar">
-    <div class="tvm-left">
-      <!-- ✅ LOGO AQUI -->
-      <img class="tvm-logo" src="clima/logo.png">
-    </div>
-
-   <div class="tvm-left" style="gap:10px;">
      <span class="tvm-pill" id="weather">--°C</span>
      <span class="tvm-pill" id="clock">--:--</span>
-   </div>
   </div>
-
  </div>
 </div>
 
 <section>
  <h2>Patrocinadores Exclusivos</h2>
  <div class="sponsors">
-  <div class="sponsor"><a href="https://wa.me/5528999732882" target="_blank"><img src="clima/Julianamoveis.png"></a></div>
-  <div class="sponsor"><a href="https://www.piraque.com.br/" target="_blank"><img src="clima/piraque.png"></a></div>
-  <div class="sponsor"><a href="https://www.drogariaspacheco.com.br/" target="_blank"><img src="clima/pacheco.png"></a></div>
+  <div class="sponsor"><a href="https://wa.me/5528999732882"><img src="clima/Julianamoveis.png"></a></div>
+  <div class="sponsor"><a href="https://www.piraque.com.br/"><img src="clima/piraque.png"></a></div>
+  <div class="sponsor"><a href="https://www.drogariaspacheco.com.br/"><img src="clima/pacheco.png"></a></div>
  </div>
 </section>
 
 <section>
  <h2>Programas da TV Marataízes</h2>
  <div class="grid">
+
   <div class="thumb"><img src="clima/dicasdefilmes.png"></div>
   <div class="thumb"><img src="clima/morocanoticiasdiarias.png"></div>
   <div class="thumb"><img src="clima/historiasdeamoremcena.png"></div>
@@ -182,10 +176,11 @@ h2{
   <div class="thumb"><img src="clima/eeee.png"></div>
   <div class="thumb"><img src="clima/GOODTIMES.png"></div>
   <div class="thumb"><img src="clima/perguntatorta.png"></div>
+
  </div>
 </section>
 
-<a class="floating-cta" href="https://wa.me/5528999036141" target="_blank">COMERCIAL — Fale com a TV</a>
+<a class="floating-cta" href="https://wa.me/5528999036141">COMERCIAL — Fale com a TV</a>
 
 <footer style="text-align:left; font-size:14px; padding:40px 20px 20px;">
   <div style="color:#fff; line-height:1.45;">
@@ -198,12 +193,6 @@ h2{
     Times Brasil, TV UOL, Record News e muito mais
   </div>
 </footer>
-
-<style>
-@media(max-width:600px){
-  footer{ font-size:12px !important; }
-}
-</style>
 
 <script>
 function tick() {
