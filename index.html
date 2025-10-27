@@ -1,180 +1,127 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>TV Marataízes — ao vivo</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>TV Marataízes — ao vivo</title>
+  <meta name="description" content="TV Marataízes: 1ª TV do Sul do ES com transmissão nacional pela Soul TV (200+ canais gratuitos). Assista ao vivo, quadros originais e cobertura regional." />
+  <meta name="theme-color" content="#0B0B0B" />
+  <link rel="canonical" href="https://tvmarataizes.digital/" />
 
-<meta name="description" content="TV Marataízes: 1ª TV do Sul do ES com transmissão nacional pela Soul TV. Assista ao vivo, programas originais, notícias e cultura." />
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="Expires" content="0" />
-<meta name="theme-color" content="#000" />
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      text-align: center;
+    }
+    img {
+      width: 100%;
+      display: block;
+      border-radius: 8px;
+    }
+    .grid {
+      display: grid;
+      gap: 16px;
+      width: 90%;
+      max-width: 1600px;
+      margin: 20px auto 60px auto;
+    }
+    /* ✅ Responsividade OPÇÃO C */
+    @media(min-width:1200px){
+      .grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    @media(max-width:1199px){
+      .grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media(max-width:768px){
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
 
-<style>
-:root{
- --bg:#000; --fg:#fff; --muted:rgba(255,255,255,.7);
- --card:#0e0e0e; --line:#222;
- --max:1320px; --accent:#FF6F00;
-}
-*{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,Arial,sans-serif}
-img{max-width:100%;display:block}
-a{text-decoration:none;color:inherit}
+    h2 {
+      font-size: 26px;
+      margin: 50px 0 20px 0;
+      font-weight: bold;
+    }
 
-/* Cabeçalho */
-header{padding:16px;text-align:center;font-size:20px;font-weight:800}
+    /* ✅ Botão Comercial */
+    #comercial {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #f4a01c;
+      padding: 12px 22px;
+      border-radius: 25px;
+      font-size: 14px;
+      color: #000;
+      font-weight: bold;
+      text-decoration: none;
+      z-index: 999;
+      box-shadow: 0 0 14px rgba(255,255,255,0.25);
+      transition: 0.2s;
+    }
+    #comercial:hover {
+      background: #ffd249;
+      transform: scale(1.05);
+    }
+  </style>
 
-/* PLAYER FIXO NO TOPO */
-.player-outer{
- width:100%;max-width:var(--max);margin:0 auto;
- padding:0 14px;
-}
-.player{
- width:100%;aspect-ratio:16/9;
- background:#000;border-radius:14px;
- overflow:hidden;position:relative;
-}
-.player iframe{width:100%;height:100%;border:0}
-
-/* CLIMA + HORA */
-.tvm-topbar{
- position:absolute;top:8px;left:8px;right:8px;
- display:flex;justify-content:space-between;
- pointer-events:none
-}
-.tvm-pill{
- pointer-events:auto;
- background:rgba(0,0,0,.65);
- padding:5px 12px;border-radius:999px;
- font-weight:700;font-size:12px;
-}
-
-/* CONTAINERS */
-section{max-width:var(--max);margin:14px auto;padding:0 14px}
-h2{text-align:center;margin:16px 0 12px;font-size:22px;font-weight:900}
-
-/* PATROCINADORES */
-.sponsors{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.sponsor{
- background:var(--card);border-radius:10px;padding:10px;
- border:1px solid var(--line);
- width:min(260px,28vw)
-}
-.sponsor img{object-fit:contain;width:100%;height:auto}
-
-/* PROGRAMAS */
-.grid{
- display:grid;gap:14px;
- grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-}
-.thumb{
- background:var(--card);border:1px solid var(--line);
- border-radius:12px;padding:8px;
- display:flex;align-items:center;justify-content:center;
- overflow:hidden;aspect-ratio:16/9;
-}
-.thumb img{width:100%;height:100%;object-fit:cover}
-
-/* FOOTER */
-footer{text-align:center;color:var(--muted);font-size:14px;padding:20px 0}
-
-/* BOTÃO COMERCIAL */
-.com-btn{
- position:fixed;right:18px;bottom:18px;
- background:var(--accent);
- color:#000;font-weight:800;
- padding:10px 18px;border-radius:999px;
- font-size:14px;cursor:pointer;
- border:0;box-shadow:0 0 12px rgba(255,111,0,.5);
- z-index:99999;white-space:nowrap;
-}
-@media(max-width:680px){
- .com-btn{font-size:12px;padding:8px 14px;right:8px;bottom:8px;}
-}
-</style>
 </head>
-
 <body>
 
-<header>TV MARATAÍZES — AO VIVO</header>
+<!-- PLAYER AO VIVO -->
+<video width="100%" controls autoplay muted playsinline>
+  <source src="https://srv2.zcast.com.br/tvmarataizes/tvmarataizes.stream/playlist.m3u8" type="application/x-mpegURL" />
+  Seu navegador não suporta vídeo ao vivo.
+</video>
 
-<div class="player-outer">
- <div class="player">
-  <iframe src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
-  allow="autoplay; fullscreen; encrypted-media" allowfullscreen playsinline></iframe>
+<h2>Patrocinadores Exclusivos</h2>
 
-  <div class="tvm-topbar">
-   <span class="tvm-pill" id="weather">--°C</span>
-   <span class="tvm-pill" id="clock">--:--</span>
-  </div>
- </div>
+<div class="grid" style="margin-bottom:40px;">
+  <a href="https://wa.me/5528999732882" target="_blank"><img src="Julianamoveis.png"></a>
+  <a href="https://www.piraque.com.br" target="_blank"><img src="piraque.png"></a>
+  <a href="https://www.drogariaspacheco.com.br" target="_blank"><img src="pacheco.png"></a>
 </div>
 
-<section>
- <h2>Patrocinadores Exclusivos</h2>
- <div class="sponsors">
-  <a class="sponsor" href="https://wa.me/5528999732882" target="_blank"><img src="clima/Julianamoveis.png"></a>
-  <a class="sponsor" href="https://www.piraque.com.br" target="_blank"><img src="clima/piraque.png"></a>
-  <a class="sponsor" href="https://www.drogariaspacheco.com.br" target="_blank"><img src="clima/pacheco.png"></a>
- </div>
-</section>
+<h2>Programas da TV Marataízes</h2>
 
-<section>
- <h2>Programas da TV Marataízes</h2>
- <div class="grid">
+<div class="grid">
 
-  <div class="thumb"><img src="clima/dicasdefilmes.png"></div>
-  <div class="thumb"><img src="clima/morocanoticiasdiarias.png"></div>
-  <div class="thumb"><img src="clima/historiasdeamoremcena.png"></div>
-  <div class="thumb"><img src="clima/rebrincar.png"></div>
+  <img src="dicasdefilmes.png">
+  <img src="morocanoticiasdiarias.png">
+  <img src="historiasdeamoremcena.png">
+  <img src="rebrincar.png">
 
-  <div class="thumb"><img src="clima/caindonatela.png"></div>
-  <div class="thumb"><img src="clima/naosaimosda5serie.png"></div>
-  <div class="thumb"><img src="clima/claudiarayallar.png"></div>
-  <div class="thumb"><img src="clima/fala_marataizes.png"></div>
+  <img src="caindonatela.png">
+  <img src="naosaimosda5serie.png">
+  <img src="claudiarayallar.png">
+  <img src="falamarataizes.png">
 
-  <div class="thumb"><img src="clima/rota_300.png"></div>
-  <div class="thumb"><img src="clima/RAULjuremavaiok.png"></div>
-  <div class="thumb"><img src="clima/tal_mae_tal_filha.png"></div>
-  <div class="thumb"><img src="clima/saude_mental.png"></div>
+  <img src="rota_300.png">
+  <img src="herancaterra.png">
+  <img src="talmaetalfilha.png">
+  <img src="saude_mental.png">
 
-  <div class="thumb"><img src="clima/classicos_da_tela.png"></div>
-  <div class="thumb"><img src="clima/eeee.png"></div>
-  <div class="thumb"><img src="clima/mostra_de_curtas.png"></div>
-  <div class="thumb"><img src="clima/perguntatorta.png"></div>
+  <img src="classicos_da_tela.png">
+  <img src="sesao_livre.png">
+  <img src="mostra_de_curtas.png">
+  <img src="perguntatorta.png">
 
- </div>
-</section>
+</div>
 
-<footer>
- Como assistir:<br>
- Smart TV — Soul TV — Canal 300<br>
- iPhone — App Store<br>
- Android — Google Play
-</footer>
+<br><br>
 
-<a class="com-btn" href="https://wa.me/5528999036141" target="_blank">
- COMERCIAL — Fale com a TV
+<p style="font-size:14px;opacity:.7;margin-bottom:80px;">
+  Como assistir:<br>
+  Smart TV — Soul TV — Canal 300<br>
+  iPhone — App Store | Android — Google Play
+</p>
+
+<!-- ✅ BOTÃO COMERCIAL FIXO -->
+<a id="comercial" href="https://wa.me/5528999036141" target="_blank">
+  COMERCIAL — Fale com a TV
 </a>
-
-<script>
-function tick() {
- const d = new Date();
- document.getElementById('clock').textContent =
-  String(d.getHours()).padStart(2,'0') + ":" +
-  String(d.getMinutes()).padStart(2,'0');
-}
-setInterval(tick, 10000); tick();
-
-async function weather(){
- const LAT=-21.04, LON=-40.83;
- const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m&timezone=auto`);
- const j = await r.json();
- if(j.current) document.getElementById('weather').innerHTML = j.current.temperature_2m + "°C";
-}
-weather(); setInterval(weather, 600000);
-</script>
 
 </body>
 </html>
