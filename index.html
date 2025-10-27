@@ -42,11 +42,20 @@ header{
  width:100%;height:100%;border:0;
 }
 
-/* CLIMA + HORA */
+/* CLIMA + HORA + LOGO */
 .tvm-topbar{
  position:absolute;top:8px;left:8px;right:8px;
  display:flex;justify-content:space-between;
+ align-items:center;
  pointer-events:none;
+}
+.tvm-left{
+ display:flex;align-items:center;gap:6px;
+ pointer-events:auto;
+}
+.tvm-logo{
+ height:28px; /* ✅ Tamanho ideal */
+ opacity:.92;
 }
 .tvm-pill{
  pointer-events:auto;
@@ -83,7 +92,6 @@ h2{
  gap:14px;
  grid-template-columns:repeat(2,1fr);
 }
-
 @media(min-width:992px){
  .grid{grid-template-columns:repeat(4,1fr);}
 }
@@ -132,9 +140,17 @@ h2{
   allow="autoplay; fullscreen; encrypted-media" allowfullscreen playsinline></iframe>
 
   <div class="tvm-topbar">
-   <span class="tvm-pill" id="weather">--°C</span>
-   <span class="tvm-pill" id="clock">--:--</span>
+    <div class="tvm-left">
+      <!-- ✅ LOGO AQUI -->
+      <img class="tvm-logo" src="clima/logo.png">
+    </div>
+
+   <div class="tvm-left" style="gap:10px;">
+     <span class="tvm-pill" id="weather">--°C</span>
+     <span class="tvm-pill" id="clock">--:--</span>
+   </div>
   </div>
+
  </div>
 </div>
 
@@ -150,27 +166,22 @@ h2{
 <section>
  <h2>Programas da TV Marataízes</h2>
  <div class="grid">
-
-  <div class="thumb"><img src="clima/dicasdefilmes.png" alt=""></div>
-  <div class="thumb"><img src="clima/morocanoticiasdiarias.png" alt=""></div>
-  <div class="thumb"><img src="clima/historiasdeamoremcena.png" alt=""></div>
-  <div class="thumb"><img src="clima/rebrincar.png" alt=""></div>
-
-  <div class="thumb"><img src="clima/caindonatela.png" alt=""></div>
-  <div class="thumb"><img src="clima/naosaimosda5serie.png" alt=""></div>
-  <div class="thumb"><img src="clima/claudiarayallar.png" alt=""></div>
-  <div class="thumb"><img src="clima/fala_marataizes.png" alt=""></div>
-
-  <div class="thumb"><img src="clima/rota_300.png" alt=""></div>
-  <div class="thumb"><img src="clima/RAULjuremavaiok.png" alt=""></div>
-  <div class="thumb"><img src="clima/tal_mae_tal_filha.png" alt=""></div>
-  <div class="thumb"><img src="clima/saude_mental.png" alt=""></div>
-
-  <div class="thumb"><img src="clima/classicos_da_tela.png" alt=""></div>
-  <div class="thumb"><img src="clima/eeee.png" alt=""></div>
-  <div class="thumb"><img src="clima/GOODTIMES.png" alt=""></div>
-  <div class="thumb"><img src="clima/perguntatorta.png" alt=""></div>
-
+  <div class="thumb"><img src="clima/dicasdefilmes.png"></div>
+  <div class="thumb"><img src="clima/morocanoticiasdiarias.png"></div>
+  <div class="thumb"><img src="clima/historiasdeamoremcena.png"></div>
+  <div class="thumb"><img src="clima/rebrincar.png"></div>
+  <div class="thumb"><img src="clima/caindonatela.png"></div>
+  <div class="thumb"><img src="clima/naosaimosda5serie.png"></div>
+  <div class="thumb"><img src="clima/claudiarayallar.png"></div>
+  <div class="thumb"><img src="clima/fala_marataizes.png"></div>
+  <div class="thumb"><img src="clima/rota_300.png"></div>
+  <div class="thumb"><img src="clima/RAULjuremavaiok.png"></div>
+  <div class="thumb"><img src="clima/tal_mae_tal_filha.png"></div>
+  <div class="thumb"><img src="clima/saude_mental.png"></div>
+  <div class="thumb"><img src="clima/classicos_da_tela.png"></div>
+  <div class="thumb"><img src="clima/eeee.png"></div>
+  <div class="thumb"><img src="clima/GOODTIMES.png"></div>
+  <div class="thumb"><img src="clima/perguntatorta.png"></div>
  </div>
 </section>
 
