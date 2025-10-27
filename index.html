@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>TV Marataízes — ao vivo</title>
 
-<meta name="description" content="TV Marataízes: 1ª TV do Sul do ES com transmissão nacional pela Soul TV. Assista ao vivo, programas originais, notícias e cultura.">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-<meta name="theme-color" content="#000">
+<meta name="description" content="TV Marataízes: 1ª TV do Sul do ES com transmissão nacional pela Soul TV. Assista ao vivo, programas originais, notícias e cultura." />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<meta name="theme-color" content="#000" />
 
 <style>
 :root{
@@ -25,10 +24,8 @@ a{text-decoration:none;color:inherit}
 
 /* Cabeçalho */
 header{
- text-align:center;
- font-size:20px;
- font-weight:800;
- padding:16px;
+ padding:16px;text-align:center;
+ font-size:20px;font-weight:800;
 }
 
 /* PLAYER */
@@ -41,7 +38,9 @@ header{
  background:#000;border-radius:14px;
  overflow:hidden;position:relative;
 }
-.player iframe{width:100%;height:100%;border:0}
+.player iframe{
+ width:100%;height:100%;border:0;
+}
 
 /* CLIMA + HORA */
 .tvm-topbar{
@@ -59,42 +58,36 @@ header{
 /* SEÇÕES */
 section{
  max-width:var(--max);
- margin:18px auto;
+ margin:14px auto;
  padding:0 14px;
 }
-h2{text-align:center;font-size:22px;font-weight:900;margin-bottom:16px}
+h2{
+ text-align:center;margin:16px 0 12px;
+ font-size:22px;font-weight:900;
+}
 
 /* PATROCINADORES */
 .sponsors{
- display:flex;flex-wrap:wrap;
- justify-content:center;gap:14px;
+ display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
 }
 .sponsor{
- background:var(--card);
- border:1px solid var(--line);
- border-radius:12px;
- padding:10px;
- width:min(260px,27vw);
+ background:var(--card);border-radius:10px;
+ padding:10px;border:1px solid var(--line);
+ width:min(260px,28vw);
 }
 .sponsor img{object-fit:contain;width:100%;height:auto}
 
 /* PROGRAMAS */
 .grid{
  display:grid;
- gap:16px;
- grid-template-columns:repeat(4,1fr);
-}
-@media(max-width:1080px){
- .grid{grid-template-columns:repeat(3,1fr);}
-}
-@media(max-width:720px){
- .grid{grid-template-columns:repeat(2,1fr);}
+ gap:14px;
+ grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
 }
 .thumb{
  background:var(--card);
  border:1px solid var(--line);
  border-radius:12px;
- padding:6px;
+ padding:8px;
  display:flex;
  align-items:center;
  justify-content:center;
@@ -102,30 +95,21 @@ h2{text-align:center;font-size:22px;font-weight:900;margin-bottom:16px}
  aspect-ratio:16/9;
 }
 .thumb img{
- width:100%;height:100%;
- object-fit:cover;
+ width:100%;height:100%;object-fit:cover;
 }
 
-/* BOTÃO FLUTUANTE */
-.floatzap{
+/* BOTÃO FIXO WHATSAPP */
+.floating-cta{
  position:fixed;
- bottom:18px;right:18px;
- background:#25D366;
- padding:14px 18px;
- border-radius:50px;
- color:#fff;font-size:14px;
- font-weight:bold;
- display:flex;gap:8px;
- align-items:center;
- z-index:9999;
- box-shadow:0 0 12px rgba(0,255,0,.35);
-}
-.floatzap:hover{background:#1ebd59}
-
-/* FOOTER */
-footer{
- text-align:center;color:var(--muted);
- font-size:14px;padding:28px 0;
+ bottom:20px;right:20px;
+ background:#FF6F00;
+ color:#fff;
+ padding:12px 18px;
+ border-radius:40px;
+ font-weight:700;
+ box-shadow:0 0 16px rgba(0,0,0,.6);
+ font-size:14px;
+ z-index:999;
 }
 </style>
 </head>
@@ -135,87 +119,79 @@ footer{
 <header>TV MARATAÍZES — AO VIVO</header>
 
 <div class="player-outer">
-<div class="player">
-<iframe src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on" allow="autoplay; fullscreen; encrypted-media" allowfullscreen playsinline></iframe>
+ <div class="player">
+  <iframe src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
+  allow="autoplay; fullscreen; encrypted-media" allowfullscreen playsinline></iframe>
 
-<div class="tvm-topbar">
-<span class="tvm-pill" id="weather">--°C</span>
-<span class="tvm-pill" id="clock">--:--</span>
-</div>
-
-</div>
+  <div class="tvm-topbar">
+   <span class="tvm-pill" id="weather">--°C</span>
+   <span class="tvm-pill" id="clock">--:--</span>
+  </div>
+ </div>
 </div>
 
 <section>
-<h2>Patrocinadores Exclusivos</h2>
-<div class="sponsors">
-
-<a href="https://wa.me/5528999732882" target="_blank">
-<div class="sponsor"><img src="clima/Julianamoveis.png"></div>
-</a>
-
-<a href="https://www.piraque.com.br" target="_blank">
-<div class="sponsor"><img src="clima/piraque.png"></div>
-</a>
-
-<a href="https://www.drogariaspacheco.com.br" target="_blank">
-<div class="sponsor"><img src="clima/pacheco.png"></div>
-</a>
-
-</div>
+ <h2>Patrocinadores Exclusivos</h2>
+ <div class="sponsors">
+  <div class="sponsor"><a href="https://wa.me/5528999732882"><img src="clima/Julianamoveis.png"></a></div>
+  <div class="sponsor"><a href="https://www.piraque.com.br/"><img src="clima/piraque.png"></a></div>
+  <div class="sponsor"><a href="https://www.drogariaspacheco.com.br/"><img src="clima/pacheco.png"></a></div>
+ </div>
 </section>
 
 <section>
-<h2>Programas da TV Marataízes</h2>
+ <h2>Programas da TV Marataízes</h2>
+ <div class="grid">
 
-<div class="grid">
+  <div class="thumb"><img src="clima/dicasdefilmes.png"></div>
+  <div class="thumb"><img src="clima/morocanoticiasdiarias.png"></div>
+  <div class="thumb"><img src="clima/historiasdeamoremcena.png"></div>
+  <div class="thumb"><img src="clima/rebrincar.png"></div>
+  <div class="thumb"><img src="clima/caindonatela.png"></div>
+  <div class="thumb"><img src="clima/naosaimosda5serie.png"></div>
+  <div class="thumb"><img src="clima/claudiarayallar.png"></div>
+  <div class="thumb"><img src="clima/fala_marataizes.png"></div>
+  <div class="thumb"><img src="clima/rota_300.png"></div>
 
-<div class="thumb"><img src="clima/dicasdefilmes.png"></div>
-<div class="thumb"><img src="clima/morocanoticiasdiarias.png"></div>
-<div class="thumb"><img src="clima/historiasdeamoremcena.png"></div>
-<div class="thumb"><img src="clima/rebrincar.png"></div>
-<div class="thumb"><img src="clima/caindonatela.png"></div>
-<div class="thumb"><img src="clima/naosaimosda5serie.png"></div>
-<div class="thumb"><img src="clima/claudiarayallar.png"></div>
-<div class="thumb"><img src="clima/fala_marataizes.png"></div>
-<div class="thumb"><img src="clima/rota_300.png"></div>
-<div class="thumb"><img src="clima/RAULjuremavaiok.png"></div>
-<div class="thumb"><img src="clima/tal_mae_tal_filha.png"></div>
-<div class="thumb"><img src="clima/saude_mental.png"></div>
-<div class="thumb"><img src="clima/classicos_da_tela.png"></div>
-<div class="thumb"><img src="clima/eeee.png"></div>
-<div class="thumb"><img src="clima/GOODTIMES.png"></div>
+  <div class="thumb"><img src="clima/RAULjuremavaiok.png"></div>
 
-</div>
+  <div class="thumb"><img src="clima/tal_mae_tal_filha.png"></div>
+  <div class="thumb"><img src="clima/saude_mental.png"></div>
+  <div class="thumb"><img src="clima/classicos_da_tela.png"></div>
+  <div class="thumb"><img src="clima/eeee.png"></div>
+  <div class="thumb"><img src="clima/GOODTIMES.png"></div>
+
+  <!-- ✅ AGORA SIM: PERGUNTA TORTA É O ÚLTIMO -->
+  <div class="thumb"><img src="clima/perguntatorta.png"></div>
+
+ </div>
 </section>
+
+<a class="floating-cta" href="https://wa.me/5528999036141">COMERCIAL — Fale com a TV</a>
 
 <footer>
-Como assistir:<br>
-Smart TV — Soul TV — Canal 300<br>
-iPhone — App Store<br>
-Android — Google Play
+ Como assistir:<br>
+ Smart TV — Soul TV — Canal 300<br>
+ iPhone — App Store<br>
+ Android — Google Play
 </footer>
 
-<a class="floatzap" href="https://wa.me/5528999036141" target="_blank">
-📺 Comercial — Fale com a TV
-</a>
-
 <script>
-function tick(){
- const d=new Date()
- document.getElementById('clock').textContent=
-  String(d.getHours()).padStart(2,'0')+":"+
-  String(d.getMinutes()).padStart(2,'0')
+function tick() {
+ const d = new Date();
+ document.getElementById('clock').textContent =
+  String(d.getHours()).padStart(2,'0') + ":" +
+  String(d.getMinutes()).padStart(2,'0');
 }
-setInterval(tick,10000);tick()
+setInterval(tick, 10000); tick();
 
 async function weather(){
- const LAT=-21.04,LON=-40.83
- const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m&timezone=auto`);
- const j=await r.json()
- if(j.current) document.getElementById('weather').innerHTML=j.current.temperature_2m+"°C"
+ const LAT=-21.04, LON=-40.83;
+ const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m&timezone=auto`);
+ const j = await r.json();
+ if(j.current) document.getElementById('weather').innerHTML = j.current.temperature_2m + "°C";
 }
-weather();setInterval(weather,600000)
+weather(); setInterval(weather, 600000);
 </script>
 
 </body>
