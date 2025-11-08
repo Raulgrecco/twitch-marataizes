@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tvmarataizes.digital/sitemap.xml
+
+# Política geral
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: FacebookExternalHit
+Allow: /
+
+# Bloqueio de diretórios inexistentes
+Disallow: /clima/temp/
+Disallow: /private/
