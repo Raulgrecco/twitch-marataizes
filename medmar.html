@@ -1,7 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-    <meta http-equiv="refresh" content="0; url='https://wa.me/5528999883113?text=Oi!%20Vim%20pela%20TV%20Marataízes%20e%20queria%20mais%20informações.'" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!-- redireciona automaticamente após 2 segundos -->
+  <meta http-equiv="refresh" content="2; url='https://wa.me/5528999883113?text=Oi!%20Vim%20pela%20TV%20Marata%C3%ADzes%20e%20queria%20mais%20informações.'" />
+  <title>TV Marataízes — Redirecionando...</title>
+  <style>
+    /* estilo simples e grande para visual rápido em celular */
+    html,body{height:100%;margin:0;font-family:system-ui,Arial,Helvetica,sans-serif;background:#0b1220;color:#fff;display:flex;align-items:center;justify-content:center}
+    .card{max-width:780px;width:92%;text-align:center;padding:28px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));box-shadow:0 6px 24px rgba(2,6,23,0.6)}
+    h1{margin:0 0 10px;font-size:20px;line-height:1.1}
+    p{margin:0 0 18px;color:#dfe7ffcc}
+    .btn{display:inline-block;padding:12px 18px;border-radius:10px;background:#00a884;color:#fff;text-decoration:none;font-weight:600}
+    .small{margin-top:12px;color:#97a6c6;font-size:13px}
+  </style>
 </head>
-<body></body>
+<body>
+  <div class="card" role="main" aria-live="polite">
+    <h1>Oi! 👋</h1>
+    <p>Vim pela <strong>TV Marataízes</strong> e queria mais informações.</p>
+
+    <!-- Link direto pro WhatsApp (sempre funciona no webview) -->
+    <a class="btn" id="waBtn" href="https://wa.me/5528999883113?text=Oi!%20Vim%20pela%20TV%20Marata%C3%ADzes%20e%20queria%20mais%20informações.">Abrir WhatsApp</a>
+
+    <div class="small">Se não for redirecionado automaticamente, clique no botão acima.</div>
+  </div>
+
+  <noscript>
+    <!-- para quem tem JS desativado: mostra o link direto -->
+    <div style="position:fixed;left:12px;right:12px;bottom:12px;text-align:center">
+      <a style="padding:10px 14px;background:#00a884;color:#fff;border-radius:8px;text-decoration:none;font-weight:600" href="https://wa.me/5528999883113?text=Oi!%20Vim%20pela%20TV%20Marata%C3%ADzes%20e%20queria%20mais%20informações.">Abrir WhatsApp</a>
+    </div>
+  </noscript>
+
+  <script>
+    // Redirecionamento rápido via JS (opcional, mas aumenta compatibilidade)
+    // A meta-refresh está com 2s. Aqui tentamos forçar em 1000ms para dar ao usuário uma piscada do texto.
+    setTimeout(function(){
+      try {
+        window.location.href = "https://wa.me/5528999883113?text=Oi!%20Vim%20pela%20TV%20Marata%C3%ADzes%20e%20queria%20mais%20informações.";
+      } catch(e) {
+        // se falhar, deixa o botão disponível
+      }
+    }, 1000);
+  </script>
+</body>
 </html>
+
