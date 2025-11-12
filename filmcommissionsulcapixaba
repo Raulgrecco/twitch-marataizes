@@ -8,7 +8,11 @@
   <meta property="og:title" content="Film Commission Sul Capixaba">
   <meta property="og:description" content="Turismo • Cultura • Audiovisual — TV Marataízes 24h no ar">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tvmarataizes.digital/filmcommissionsulcapixaba.html">
+  <meta property="og:image" content="https://tvmarataizes.digital/imagens/filmcommission.jpg">
   <meta name="theme-color" content="#000000">
+  <link rel="icon" href="https://tvmarataizes.digital/imagens/favicon.png" type="image/png">
+
   <style>
     :root { --bg:#0a0a0a; --fg:#f2f2f2; --muted:#bdbdbd; --accent:#23c6ff; }
     *{box-sizing:border-box}
@@ -35,6 +39,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="wrap">
     <header>
@@ -44,9 +49,9 @@
 
     <section class="hero">
       <div class="player">
-        <!-- Player 24h (usa seu Pages da TV). Troque pelo embed do Dacast/Castr quando quiser. -->
+        <!-- Player ao vivo da TV Marataízes -->
         <iframe
-          src="https://raulgrecco.github.io/twitch-marataizes/index.html"
+          src="https://tvmarataizes.digital"
           title="TV Marataízes 24h"
           allow="autoplay; encrypted-media; picture-in-picture"
           allowfullscreen
@@ -55,7 +60,7 @@
 
       <div class="card">
         <h2>Seja membro fundador</h2>
-        <p>Organizamos e promovemos hotéis, pousadas, artesãos, restaurantes e locações audiovisuais do Sul do ES.</p>
+        <p>Conectamos hotéis, pousadas, artesãos, restaurantes e locações audiovisuais do Sul do Espírito Santo.</p>
         <div class="cta">
           <a class="btn" href="https://wa.me/5521979234333?text=Quero%20entrar%20no%20Clube%20dos%2010%20(hot%C3%A9is)%20da%20Film%20Commission%20Sul%20Capixaba">Clube dos 10 — Hotéis</a>
           <a class="btn" href="https://wa.me/5521979234333?text=Quero%20entrar%20no%20Clube%20dos%2030%20(artes%C3%A3os)%20da%20Film%20Commission%20Sul%20Capixaba">Clube dos 30 — Artesãos</a>
