@@ -48,12 +48,22 @@
       padding: 0 16px;
     }
 
-    iframe {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      border: none;
-      border-radius: 6px;
+    /* Player responsivo e blindado */
+    .player-responsive {
+      position: relative;
+      padding-top: 56.25%; /* 16:9 */
       background: #000;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .player-responsive iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
     }
 
     .section {
@@ -124,12 +134,15 @@
 </header>
 
 <div class="player-wrap">
-  <!-- PLAYER VOD CASTR (FUNCIONA 24H) -->
-  <iframe 
-    src="https://player.castr.com/vod/dX0ReNVaTpnnjTSu"
-    allow="autoplay; fullscreen"
-    allowfullscreen>
-  </iframe>
+  <!-- PLAYER VOD CASTR (EMBED SEGURO) -->
+  <div class="player-responsive">
+    <iframe
+      src="https://player.castr.com/embed/vod/dX0ReNVaTpnnjTSu"
+      loading="lazy"
+      allow="autoplay; fullscreen"
+      allowfullscreen>
+    </iframe>
+  </div>
 </div>
 
 <section class="section">
@@ -176,4 +189,3 @@
 
 </body>
 </html>
-
