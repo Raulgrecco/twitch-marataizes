@@ -2,79 +2,175 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>TV Marataízes — ao vivo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>TV Marataízes — Ao Vivo</title>
 
-<!-- SEO PRINCIPAL -->
-<meta name="description" content="TV Marataízes é a maior emissora independente do Espírito Santo, transmitida pela Soul TV (canal 300) ao lado de CNN Brasil, Times Brasil, TV UOL e Record News." />
-<meta name="keywords" content="TV Marataízes, Soul TV, canal 300, televisão capixaba, Raul Grecco, Macuca Produções" />
-<meta name="robots" content="index, follow" />
+<meta name="description" content="TV Marataízes — emissora independente do Espírito Santo. Programação ao vivo 24h, jornalismo, cultura e entretenimento capixaba. Canal 300 Soul TV." />
 <meta name="theme-color" content="#000" />
 <link rel="canonical" href="https://tvmarataizes.digital/" />
 
-<!-- OPEN GRAPH -->
-<meta property="og:title" content="TV Marataízes — A maior TV independente do Espírito Santo" />
-<meta property="og:description" content="Programação ao vivo 24h pela Soul TV (canal 300) e pela web." />
-<meta property="og:url" content="https://tvmarataizes.digital/" />
-<meta property="og:image" content="https://tvmarataizes.digital/clima/logo.png" />
-<meta property="og:type" content="website" />
-
 <style>
-:root{--bg:#000;--fg:#fff;--muted:rgba(255,255,255,.7);--card:#0e0e0e;--line:#222;--max:1320px;--accent:#FF6F00;}
+:root{
+  --bg:#000;
+  --fg:#fff;
+  --muted:#aaa;
+  --card:#0e0e0e;
+  --line:#222;
+  --accent:#FF6F00;
+  --max:1200px;
+}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,Arial,sans-serif}
-img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
 
-header{display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;font-size:20px;font-weight:800;}
-header img{height:34px}
+/* HEADER */
+header{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  padding:18px;
+  font-size:20px;
+  font-weight:800;
+}
+header img{height:36px}
 
-.player-outer{max-width:var(--max);margin:0 auto;padding:0 14px;}
-.player{aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden;position:relative;}
-.player iframe{width:100%;height:100%;border:0;}
-
-.tvm-topbar{position:absolute;top:8px;left:8px;right:8px;display:flex;justify-content:space-between;pointer-events:none;}
-.tvm-pill{pointer-events:auto;background:rgba(0,0,0,.65);padding:5px 12px;border-radius:999px;font-weight:700;font-size:12px;}
-
-section{max-width:var(--max);margin:32px auto;padding:0 14px}
-h2{text-align:center;margin-bottom:16px;font-size:24px;font-weight:900}
-
-/* BLOCO VITRINE (ESTILO STREAMING) */
-.vitrine-card{
-  display:grid;
-  grid-template-columns:1.2fr 1fr;
-  gap:24px;
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:18px;
+/* PLAYER AO VIVO */
+.player-wrap{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:0 16px;
+}
+.player{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  background:#000;
+  border-radius:14px;
   overflow:hidden;
 }
-.vitrine-card img{width:100%;height:100%;object-fit:cover}
-.vitrine-content{padding:32px;display:flex;flex-direction:column;justify-content:center}
-.vitrine-content p{color:var(--muted);font-size:16px;line-height:1.5}
-.vitrine-content a{
-  margin-top:20px;
-  background:var(--accent);
-  color:#000;
-  padding:12px 22px;
-  border-radius:30px;
-  font-weight:800;
-  align-self:flex-start;
+.player iframe{
+  width:100%;
+  height:100%;
+  border:0;
 }
-@media(max-width:900px){
+
+/* SEÇÕES */
+section{
+  max-width:var(--max);
+  margin:40px auto;
+  padding:0 16px;
+}
+h2{
+  margin:0 0 12px;
+  font-size:26px;
+  font-weight:900;
+}
+p{
+  color:var(--muted);
+  line-height:1.6;
+  max-width:800px;
+}
+
+/* VITRINE CARD */
+.vitrine-card{
+  margin-top:24px;
+  display:grid;
+  grid-template-columns:1.3fr 1fr;
+  gap:20px;
+}
+@media(max-width:800px){
   .vitrine-card{grid-template-columns:1fr}
 }
+.vitrine-media{
+  position:relative;
+  aspect-ratio:16/9;
+  background:#000;
+  border-radius:14px;
+  overflow:hidden;
+  cursor:pointer;
+}
+.vitrine-media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:.85;
+}
+.vitrine-play{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.25);
+}
+.vitrine-play span{
+  background:#fff;
+  color:#000;
+  padding:12px 20px;
+  border-radius:40px;
+  font-weight:800;
+}
+.vitrine-info{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.vitrine-info strong{
+  font-size:22px;
+}
+.vitrine-info a{
+  margin-top:16px;
+  align-self:flex-start;
+  background:var(--accent);
+  color:#fff;
+  padding:10px 18px;
+  border-radius:30px;
+  font-weight:700;
+}
 
-.grid{display:grid;gap:14px;grid-template-columns:repeat(4,1fr);}
-.thumb{background:var(--card);border:1px solid var(--line);border-radius:12px;aspect-ratio:16/9;overflow:hidden}
-.thumb img{width:100%;height:100%;object-fit:cover}
+/* PROGRAMAS GRID */
+.grid{
+  margin-top:24px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
 @media(max-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr)}}
+.thumb{
+  background:var(--card);
+  border-radius:12px;
+  overflow:hidden;
+  aspect-ratio:16/9;
+}
+.thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
 
-.floating-cta{position:fixed;bottom:20px;right:20px;background:var(--accent);padding:12px 18px;border-radius:40px;font-weight:700;z-index:999;}
+/* CTA */
+.cta{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:var(--accent);
+  color:#fff;
+  padding:14px 20px;
+  border-radius:40px;
+  font-weight:800;
+  z-index:999;
+}
 
-footer{padding:40px 20px;font-size:14px;line-height:1.45}
-footer small{display:block;margin-top:20px;font-size:11px;color:rgba(255,255,255,.5)}
+/* FOOTER */
+footer{
+  margin-top:60px;
+  padding:40px 20px;
+  color:#aaa;
+  font-size:13px;
+}
 </style>
 </head>
 
@@ -82,62 +178,71 @@ footer small{display:block;margin-top:20px;font-size:11px;color:rgba(255,255,255
 
 <header>
   <img src="clima/logo.png" alt="TV Marataízes">
-  <span>TV MARATAÍZES — AO VIVO</span>
+  TV MARATAÍZES — AO VIVO
 </header>
 
-<div class="player-outer">
+<!-- PLAYER AO VIVO -->
+<div class="player-wrap">
   <div class="player">
-    <iframe src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
-      allow="autoplay; fullscreen" allowfullscreen playsinline></iframe>
-    <div class="tvm-topbar">
-      <span class="tvm-pill" id="weather">--°C</span>
-      <span class="tvm-pill" id="clock">--:--</span>
-    </div>
+    <iframe 
+      src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
+      allow="autoplay; fullscreen"
+      allowfullscreen
+      playsinline>
+    </iframe>
   </div>
 </div>
 
+<!-- VITRINE MARATAÍZES -->
 <section>
-  <h2>Destaque da Semana</h2>
+  <h2>Vitrine Marataízes</h2>
+  <p>
+    A Vitrine Marataízes é um espaço dedicado a contar histórias do comércio local,
+    apresentar empreendedores, serviços e produtos que movimentam a cidade.
+    Um programa com olhar humano, ritmo leve e identidade capixaba.
+  </p>
+
   <div class="vitrine-card">
-    <img src="clima/vitrine-thumb.jpg" alt="Vitrine Marataízes">
-    <div class="vitrine-content">
-      <h3>Vitrine Marataízes</h3>
+    <a href="/vitrine-marataizes.html" class="vitrine-media">
+      <img src="clima/vitrine-capa.jpg" alt="Vitrine Marataízes">
+      <div class="vitrine-play">
+        <span>▶ Assistir episódio</span>
+      </div>
+    </a>
+
+    <div class="vitrine-info">
+      <strong>Episódio mais recente</strong>
       <p>
-        O espaço onde o comércio local, as histórias da cidade e
-        as promoções da semana ganham destaque na TV Marataízes.
+        Entrevistas, bastidores e o comércio que faz Marataízes girar.
+        Clique para assistir o episódio completo.
       </p>
-      <a href="programas/vitrine-marataizes.html">▶ Assistir episódio</a>
+      <a href="/vitrine-marataizes.html">Assistir agora</a>
     </div>
   </div>
 </section>
 
+<!-- PROGRAMAS -->
 <section>
   <h2>Programas da TV Marataízes</h2>
   <div class="grid">
+    <div class="thumb"><img src="clima/dicasdefilmes.png"></div>
+    <div class="thumb"><img src="clima/morocanoticiasdiarias.png"></div>
     <div class="thumb"><img src="clima/rebrincar.png"></div>
-    <div class="thumb"><img src="clima/fala_marataizes.png"></div>
     <div class="thumb"><img src="clima/rota_300.png"></div>
+    <div class="thumb"><img src="clima/raulejurema.png"></div>
+    <div class="thumb"><img src="clima/tal_mae_tal_filha.png"></div>
     <div class="thumb"><img src="clima/saude_mental.png"></div>
+    <div class="thumb"><img src="clima/classicos_da_tela.png"></div>
   </div>
 </section>
 
-<a class="floating-cta" href="https://wa.me/5528999036141">COMERCIAL — Fale com a TV</a>
+<a class="cta" href="https://wa.me/5528999036141">COMERCIAL</a>
 
 <footer>
-  <strong>Como assistir:</strong><br>
   Smart TV — Soul TV — Canal 300<br>
-  iPhone — App Store (Soul TV)<br>
-  Android — Google Play (Soul TV)
-  <small>Emissora integrante da Soul TV</small>
+  iOS e Android — App Soul TV<br><br>
+  TV Marataízes — conteúdo exibido diariamente na programação ao vivo.
 </footer>
-
-<script>
-function tick(){
-  const d=new Date();
-  clock.textContent=String(d.getHours()).padStart(2,'0')+":"+String(d.getMinutes()).padStart(2,'0');
-}
-setInterval(tick,10000);tick();
-</script>
 
 </body>
 </html>
