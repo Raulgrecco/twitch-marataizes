@@ -6,96 +6,70 @@
 <title>TV Marataízes — Ao Vivo</title>
 
 <style>
-:root{
-  --bg:#000;
-  --fg:#fff;
-  --card:#0e0e0e;
-  --accent:#ff6f00;
-  --max:1320px;
-}
+:root{--bg:#000;--fg:#fff;--accent:#ff6f00;--card:#111}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,Arial,sans-serif}
-img{max-width:100%;display:block}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui}
 a{text-decoration:none;color:inherit}
+header{text-align:center;padding:18px;font-weight:900;font-size:18px}
 
-header{
-  text-align:center;
-  padding:18px;
-  font-weight:900;
-  font-size:20px;
-}
+section{max-width:1200px;margin:40px auto;padding:0 16px}
 
-/* AO VIVO */
-.live{
-  max-width:var(--max);
-  margin:0 auto;
-  padding:0 14px;
-}
-.live iframe{
+.player iframe{
   width:100%;
   aspect-ratio:16/9;
-  border-radius:16px;
   border:0;
+  border-radius:16px;
 }
 
-/* SEÇÕES */
-section{
-  max-width:var(--max);
-  margin:50px auto;
-  padding:0 14px;
-}
-
-/* VITRINE */
 .vitrine{
   display:grid;
   grid-template-columns:2fr 1fr;
   gap:24px;
-  align-items:center;
+  margin-top:20px;
 }
-.vitrine-cover{
+
+.cover{
   position:relative;
   border-radius:16px;
   overflow:hidden;
-  background:#111;
 }
-.vitrine-cover img{
-  width:100%;
-  aspect-ratio:16/9;
-  object-fit:cover;
-}
-.vitrine-cover .play{
+.cover img{width:100%;display:block}
+.cover::after{
+  content:"▶";
   position:absolute;
   inset:0;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:64px;
+  font-size:72px;
   background:rgba(0,0,0,.45);
 }
 
-/* BOTÃO */
 .btn{
   display:inline-block;
-  background:var(--accent);
+  margin-top:14px;
   padding:12px 22px;
+  background:var(--accent);
   border-radius:30px;
   font-weight:700;
-  margin-top:12px;
 }
 
-/* PROGRAMAS */
 .grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:14px;
+  margin-top:20px;
 }
 .thumb{
   background:var(--card);
   border-radius:12px;
   overflow:hidden;
-  aspect-ratio:16/9;
 }
-.thumb img{width:100%;height:100%;object-fit:cover}
+.thumb img{
+  width:100%;
+  aspect-ratio:16/9;
+  object-fit:cover;
+}
 
 @media(max-width:900px){
   .vitrine{grid-template-columns:1fr}
@@ -108,51 +82,46 @@ section{
 
 <header>TV MARATAÍZES — AO VIVO</header>
 
-<!-- PLAYER AO VIVO -->
-<div class="live">
-  <iframe
-    src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
-    allow="autoplay; fullscreen"
-    allowfullscreen>
-  </iframe>
-</div>
-
-<!-- VITRINE (SEM PLAYER) -->
-<section>
-  <h2>Vitrine Marataízes</h2>
-
-  <div class="vitrine">
-    <a class="vitrine-cover" href="vitrine.html">
-      <img src="/clima/vitrine-capa.jpg" alt="Vitrine Marataízes">
-      <div class="play">▶</div>
-    </a>
-
-    <div>
-      <p>
-        Histórias do comércio local, empreendedores, serviços e produtos
-        que movimentam Marataízes. Um programa com olhar humano e identidade
-        capixaba.
-      </p>
-      <a class="btn" href="vitrine.html">Assistir episódio</a>
-    </div>
-  </div>
+<section class="player">
+<iframe 
+src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
+allow="autoplay; fullscreen" allowfullscreen>
+</iframe>
 </section>
 
-<!-- PROGRAMAS -->
 <section>
-  <h2>Programas da TV Marataízes</h2>
-  <div class="grid">
-    <div class="thumb"><img src="/clima/dicasdefilmes.png"></div>
-    <div class="thumb"><img src="/clima/morocanoticiasdiarias.png"></div>
-    <div class="thumb"><img src="/clima/historiasdeamoremcena.png"></div>
-    <div class="thumb"><img src="/clima/rebrincar.png"></div>
-    <div class="thumb"><img src="/clima/rota_300.png"></div>
-    <div class="thumb"><img src="/clima/caindonatela.png"></div>
-    <div class="thumb"><img src="/clima/tal_mae_tal_filha.png"></div>
-    <div class="thumb"><img src="/clima/classicos_da_tela.png"></div>
-    <div class="thumb"><img src="/clima/GOODTIMES.png"></div>
-    <div class="thumb"><img src="/clima/perguntatorta.png"></div>
+<h2>Vitrine Marataízes</h2>
+
+<div class="vitrine">
+  <a class="cover" href="/vitrine-marataizes.html">
+    <img src="/clima/vitrine-capa.jpg" alt="Vitrine Marataízes">
+  </a>
+
+  <div>
+    <p>
+      Histórias do comércio local, empreendedores e serviços
+      que movimentam Marataízes.
+    </p>
+    <a class="btn" href="/vitrine-marataizes.html">
+      Assistir episódio
+    </a>
   </div>
+</div>
+</section>
+
+<section>
+<h2>Programas da TV Marataízes</h2>
+
+<div class="grid">
+  <div class="thumb"><img src="clima/dicasdefilmes.png"></div>
+  <div class="thumb"><img src="clima/morocanoticiasdiarias.png"></div>
+  <div class="thumb"><img src="clima/rebrincar.png"></div>
+  <div class="thumb"><img src="clima/historiasdeamoremcena.png"></div>
+  <div class="thumb"><img src="clima/caindonatela.png"></div>
+  <div class="thumb"><img src="clima/naosaimosda5serie.png"></div>
+  <div class="thumb"><img src="clima/tal_mae_tal_filha.png"></div>
+  <div class="thumb"><img src="clima/classicos_da_tela.png"></div>
+</div>
 </section>
 
 </body>
