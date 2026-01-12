@@ -17,7 +17,6 @@
   --accent:#FF6F00;
   --max:1320px;
 }
-
 *{box-sizing:border-box}
 html,body{
   margin:0;
@@ -25,7 +24,6 @@ html,body{
   color:var(--fg);
   font-family:system-ui,Arial,sans-serif;
 }
-
 img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
 
@@ -52,7 +50,7 @@ section{
   padding:0 14px;
 }
 
-/* PLAYER / CAPA */
+/* HERO / PLAYER */
 .hero{
   position:relative;
   border-radius:16px;
@@ -60,20 +58,17 @@ section{
   aspect-ratio:16/9;
   background:#000;
 }
-
 .hero img{
   width:100%;
   height:100%;
   object-fit:cover;
 }
-
 .hero::after{
   content:"";
   position:absolute;
   inset:0;
   background:rgba(0,0,0,.45);
 }
-
 .hero button{
   position:absolute;
   inset:0;
@@ -142,7 +137,7 @@ footer{
 
   <!-- CAPA / PLAYER -->
   <div class="hero" id="hero">
-    <img src="clima/vitrine-thumb.png" alt="Vitrine Marataízes">
+    <img src="/clima/vitrine-thumb.png" alt="Vitrine Marataízes">
     <button id="playBtn">▶ Assistir episódio</button>
   </div>
 
