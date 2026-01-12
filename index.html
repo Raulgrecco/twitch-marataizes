@@ -1,132 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TV Marataízes — Ao Vivo</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>TV Marataízes — ao vivo</title>
+
+<meta name="description" content="TV Marataízes é a maior emissora independente do Espírito Santo, transmitida pela Soul TV (canal 300)." />
+<meta name="theme-color" content="#000" />
 
 <style>
-:root{
-  --bg:#000;
-  --card:#0e0e0e;
-  --line:#222;
-  --accent:#ff6f00;
-  --text:#fff;
-  --muted:#bbb;
-  --max:1280px;
-}
+:root{--bg:#000;--fg:#fff;--muted:rgba(255,255,255,.7);--card:#0e0e0e;--line:#222;--max:1320px;--accent:#FF6F00;}
 *{box-sizing:border-box}
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:system-ui,Arial,sans-serif;
-}
-img{width:100%;display:block;border-radius:10px}
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,Arial,sans-serif}
+img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
-
-header{
-  text-align:center;
-  padding:14px;
-  font-weight:800;
-}
-
-/* PLAYER AO VIVO */
-.player-wrap{
-  max-width:var(--max);
-  margin:0 auto;
-  padding:0 14px;
-}
-.player{
-  aspect-ratio:16/9;
-  background:#000;
-  border-radius:14px;
-  overflow:hidden;
-}
-.player iframe{
-  width:100%;
-  height:100%;
-  border:0;
-}
-
-/* VITRINE */
-.vitrine{
-  max-width:var(--max);
-  margin:30px auto;
-  padding:0 14px;
-  display:grid;
-  grid-template-columns:1.4fr 1fr;
-  gap:30px;
-}
-@media(max-width:900px){
-  .vitrine{grid-template-columns:1fr}
-}
-.vitrine-thumb{
-  position:relative;
-  aspect-ratio:16/9;
-}
-.vitrine-thumb::after{
-  content:"▶";
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:64px;
-  background:rgba(0,0,0,.35);
-}
-.vitrine-info h2{margin:0 0 10px}
-.vitrine-info p{color:var(--muted);line-height:1.5}
-.btn{
-  display:inline-block;
-  background:var(--accent);
-  padding:10px 18px;
-  border-radius:999px;
-  font-weight:700;
-  margin-top:14px;
-}
-
-/* PROGRAMAS */
-section{
-  max-width:var(--max);
-  margin:40px auto;
-  padding:0 14px;
-}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
-}
+header{display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;font-size:20px;font-weight:800;}
+.player-outer{max-width:var(--max);margin:0 auto;padding:0 14px;}
+.player{aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden}
+.player iframe{width:100%;height:100%;border:0}
+section{max-width:var(--max);margin:14px auto;padding:0 14px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(4,1fr)}
+.thumb{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px;aspect-ratio:16/9}
+.thumb img{width:100%;height:100%;object-fit:cover}
 @media(max-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr)}}
-
-.card{
-  background:var(--card);
-  border:1px solid var(--line);
-  padding:8px;
-  border-radius:12px;
-}
-
-/* FAIXA FINAL */
-.footer-bar{
-  border-top:1px solid var(--line);
-  padding:24px 14px;
-  text-align:center;
-  color:var(--muted);
-  font-size:14px;
-}
-
-/* WHATS */
-.whats{
-  position:fixed;
-  right:18px;
-  bottom:18px;
-  background:#25d366;
-  color:#000;
-  padding:12px 18px;
-  border-radius:40px;
-  font-weight:800;
-}
+.floating-cta{position:fixed;bottom:20px;right:20px;background:var(--accent);padding:12px 18px;border-radius:40px;font-weight:700}
+footer{text-align:center;padding:30px 14px;color:var(--muted);font-size:14px}
 </style>
 </head>
 
@@ -134,72 +33,48 @@ section{
 
 <header>TV MARATAÍZES — AO VIVO</header>
 
-<!-- AO VIVO -->
-<div class="player-wrap">
+<div class="player-outer">
   <div class="player">
-    <iframe
-      src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
-      allow="autoplay; fullscreen"
-      allowfullscreen
-      playsinline>
-    </iframe>
+    <iframe src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
+      allow="autoplay; fullscreen" allowfullscreen></iframe>
   </div>
 </div>
 
-<!-- VITRINE -->
-<div class="vitrine">
-  <a href="https://tvmarataizes.digital/vitrine-marataizes.html" class="vitrine-thumb">
-    <img src="clima/vitrine-thumb.png" alt="Vitrine Marataízes">
-  </a>
-  <div class="vitrine-info">
-    <h2>Vitrine Marataízes</h2>
-    <p>
-      A vitrine onde a população encontra promoções, novidades,
-      histórias e oportunidades do comércio local de Marataízes.
-    </p>
-    <a class="btn" href="https://tvmarataizes.digital/vitrine-marataizes.html">
-      Assistir episódios
-    </a>
-  </div>
-</div>
-
-<!-- PROGRAMAS -->
 <section>
-<h3>Programas da TV Marataízes</h3>
+<h2>Programas da TV Marataízes</h2>
 <div class="grid">
 
-<div class="card"><img src="clima/dicasdefilmes.png"></div>
-<div class="card"><img src="clima/morocanoticiasdiarias.png"></div>
-<div class="card"><img src="clima/historiasdeamoremcena.png"></div>
-<div class="card"><img src="clima/rebrincar.png"></div>
+<div class="thumb"><img src="clima/dicasdefilmes.png"></div>
+<div class="thumb"><img src="clima/morocanoticiasdiarias.png"></div>
+<div class="thumb"><img src="clima/historiasdeamoremcena.png"></div>
+<div class="thumb"><img src="clima/rebrincar.png"></div>
 
-<div class="card"><img src="clima/caindonatela.png"></div>
-<div class="card"><img src="clima/naosaimosda5serie.png"></div>
-<div class="card"><img src="clima/claudiarayallar.png"></div>
-<div class="card"><img src="clima/fala_marataizes.png"></div>
+<div class="thumb"><img src="clima/caindonatela.png"></div>
+<div class="thumb"><img src="clima/naosaimosda5serie.png"></div>
+<div class="thumb"><img src="clima/claudiarayallar.png"></div>
+<div class="thumb"><img src="clima/fala_marataizes.png"></div>
 
-<div class="card"><img src="clima/rota_300.png"></div>
-<div class="card"><img src="clima/HERANCA_DA_TERRA.png"></div>
-<div class="card"><img src="clima/tal_mae_tal_filha.png"></div>
-<div class="card"><img src="clima/saude_mental.png"></div>
+<div class="thumb"><img src="clima/rota_300.png"></div>
+<div class="thumb"><img src="clima/RAULJUREMAVAIOK.png"></div>
+<div class="thumb"><img src="clima/tal_mae_tal_filha.png"></div>
+<div class="thumb"><img src="clima/saude_mental.png"></div>
 
-<div class="card"><img src="clima/classicos_da_tela.png"></div>
-<div class="card"><img src="clima/SESSAO_LIVRE.png"></div>
-<div class="card"><img src="clima/GOODTIMES.png"></div>
-<div class="card"><img src="clima/perguntatorta.png"></div>
+<div class="thumb"><img src="clima/classicos_da_tela.png"></div>
+<div class="thumb"><img src="clima/EEEE.png"></div>
+<div class="thumb"><img src="clima/GOODTIMES.png"></div>
+<div class="thumb"><img src="clima/perguntatorta.png"></div>
 
 </div>
 </section>
 
-<!-- FAIXA SOUL -->
-<div class="footer-bar">
-<strong>TV Marataízes também está na Soul TV</strong><br>
+<a class="floating-cta" href="https://wa.me/5528999036141">COMERCIAL</a>
+
+<footer>
+TV Marataízes também está na Soul TV<br>
 Assista gratuitamente pelo aplicativo Soul TV — Canal 300<br>
 Disponível para Smart TVs, Android e iOS.<br>
 📺 Mais de 200 canais gratuitos.
-</div>
-
-<a class="whats" href="https://wa.me/5528999036141">Comercial</a>
+</footer>
 
 </body>
 </html>
