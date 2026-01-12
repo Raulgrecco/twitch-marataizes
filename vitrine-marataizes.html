@@ -12,72 +12,85 @@
 :root{
   --bg:#000;
   --fg:#fff;
-  --card:#0e0e0e;
-  --line:#222;
   --accent:#FF6F00;
   --max:1320px;
 }
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,Arial,sans-serif}
+html,body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:system-ui,Arial,sans-serif;
+}
 img{max-width:100%;display:block}
-a{text-decoration:none;color:inherit}
 
 /* HEADER */
-header{
-  text-align:center;
-  padding:18px 14px 6px;
-}
-header h1{
-  margin:0;
-  font-size:26px;
-  font-weight:800;
-}
-header p{
-  margin:6px 0 0;
-  font-size:14px;
-  color:#aaa;
-}
+header{text-align:center;padding:18px 14px 6px}
+header h1{margin:0;font-size:26px;font-weight:800}
+header p{margin:6px 0 0;font-size:14px;color:#aaa}
 
-/* PLAYER */
-.player-outer{
-  max-width:var(--max);
-  margin:30px auto 10px;
-  padding:0 14px;
-}
-.player{
-  aspect-ratio:16/9;
-  background:#000;
+/* SECTION */
+section{max-width:var(--max);margin:30px auto;padding:0 14px}
+
+/* HERO / PLAYER */
+.hero{
+  position:relative;
   border-radius:16px;
   overflow:hidden;
+  aspect-ratio:16/9;
+  background:#000;
 }
-.player iframe{
+.hero img{
   width:100%;
   height:100%;
-  border:0;
+  object-fit:cover;
+}
+
+/* 🔴 OVERLAY CORRIGIDO */
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  pointer-events:none; /* <<< ISSO RESOLVE O IPHONE */
+}
+
+.hero iframe{
+  position:relative;
+  z-index:1;
+}
+
+.hero button{
+  position:absolute;
+  inset:0;
+  margin:auto;
+  width:max-content;
+  height:max-content;
+  z-index:2;
+  background:transparent;
+  border:1px solid #fff;
+  color:#fff;
+  padding:14px 30px;
+  border-radius:40px;
+  font-size:15px;
+  cursor:pointer;
+  font-weight:700;
 }
 
 /* MANIFESTO */
 .manifesto{
-  max-width:900px;
-  margin:18px auto 0;
-  padding:0 14px;
   text-align:center;
+  margin:18px auto 0;
   font-size:15px;
   line-height:1.5;
   color:#ddd;
+  max-width:900px;
 }
 .manifesto strong{color:#fff}
 
 /* CTA */
-.cta-tv{
-  text-align:center;
-  margin:40px auto 0;
-}
-.cta-tv p{
-  font-size:14px;
-  color:#aaa;
-  margin-bottom:10px;
-}
+.cta-tv{text-align:center;margin-top:40px}
+.cta-tv p{font-size:14px;color:#aaa;margin-bottom:10px}
 .cta-tv a{
   display:inline-block;
   background:var(--accent);
@@ -85,15 +98,11 @@ header p{
   padding:14px 22px;
   border-radius:40px;
   font-weight:800;
+  text-decoration:none;
 }
 
 /* FOOTER */
-footer{
-  text-align:center;
-  padding:40px 20px;
-  font-size:13px;
-  color:#777;
-}
+footer{text-align:center;padding:40px 20px;font-size:13px;color:#777}
 </style>
 </head>
 
@@ -104,28 +113,30 @@ footer{
   <p>Promoções, entrevistas e o comércio local em destaque</p>
 </header>
 
-<!-- PLAYER (MESMO PADRÃO DO INDEX) -->
-<div class="player-outer">
-  <div class="player">
+<section>
+
+  <div class="hero">
     <iframe
       src="https://player.castr.com/vod/LfAJp2XCGJtD8aCI?controls=on"
       allow="fullscreen; picture-in-picture"
       allowfullscreen
-      playsinline>
+      playsinline
+      style="width:100%;height:100%;border:0">
     </iframe>
   </div>
-</div>
 
-<div class="manifesto">
-  <strong>Isso não é um programa isolado.</strong><br>
-  É um movimento contínuo que conecta marcas, pessoas e oportunidades,
-  todos os dias às 20h, na <strong>TV Marataízes</strong>, na <strong>Soul TV</strong>.
-</div>
+  <div class="manifesto">
+    <strong>Isso não é um programa isolado.</strong><br>
+    É um movimento contínuo que conecta marcas, pessoas e oportunidades,
+    todos os dias às 20h, na <strong>TV Marataízes</strong>, na <strong>Soul TV</strong>.
+  </div>
 
-<div class="cta-tv">
+</section>
+
+<section class="cta-tv">
   <p>Quer assistir a programação completa da TV Marataízes ao vivo?</p>
   <a href="https://tvmarataizes.digital">▶ Assistir TV ao vivo</a>
-</div>
+</section>
 
 <footer>
   Vitrine Marataízes — conteúdo exibido diariamente na programação da TV Marataízes.
