@@ -3,46 +3,46 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>TV Marataízes — Ao vivo</title>
+<title>TV Marataízes — Ao Vivo</title>
 
 <style>
 :root{
   --bg:#000;
-  --fg:#fff;
-  --card:#111;
+  --card:#0e0e0e;
   --line:#222;
-  --accent:#FF6F00;
-  --max:1320px;
+  --accent:#ff6f00;
+  --text:#fff;
+  --muted:#bbb;
+  --max:1280px;
 }
-
 *{box-sizing:border-box}
 body{
   margin:0;
   background:var(--bg);
-  color:var(--fg);
+  color:var(--text);
   font-family:system-ui,Arial,sans-serif;
 }
-
-img{max-width:100%;display:block;border-radius:14px}
+img{width:100%;display:block;border-radius:10px}
 a{text-decoration:none;color:inherit}
 
+/* HEADER */
 header{
   text-align:center;
-  padding:16px;
-  font-weight:900;
+  padding:14px;
+  font-weight:800;
 }
 
 /* PLAYER AO VIVO */
 .player-wrap{
   max-width:var(--max);
   margin:0 auto;
-  padding:0 16px;
+  padding:0 14px;
 }
 .player{
+  position:relative;
   aspect-ratio:16/9;
   background:#000;
-  border-radius:18px;
+  border-radius:14px;
   overflow:hidden;
 }
 .player iframe{
@@ -51,103 +51,91 @@ header{
   border:0;
 }
 
-/* SEÇÕES */
-section{
-  max-width:var(--max);
-  margin:40px auto;
-  padding:0 16px;
-}
-
 /* VITRINE */
 .vitrine{
+  max-width:var(--max);
+  margin:30px auto;
+  padding:0 14px;
   display:grid;
-  grid-template-columns:1.2fr .8fr;
-  gap:24px;
-  align-items:center;
+  grid-template-columns:1.4fr 1fr;
+  gap:30px;
+}
+@media(max-width:900px){
+  .vitrine{grid-template-columns:1fr}
 }
 .vitrine-thumb{
   position:relative;
+  aspect-ratio:16/9;
 }
-.vitrine-thumb img{
-  width:100%;
-}
-.play-btn{
+.vitrine-thumb::after{
+  content:"▶";
   position:absolute;
   inset:0;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:60px;
-  color:#fff;
-  background:rgba(0,0,0,.25);
-  border-radius:14px;
+  font-size:64px;
+  background:rgba(0,0,0,.35);
 }
-
-.vitrine h2{
+.vitrine-info h2{
   margin:0 0 10px;
 }
-.vitrine p{
-  color:rgba(255,255,255,.8);
-  line-height:1.6;
+.vitrine-info p{
+  color:var(--muted);
+  line-height:1.5;
 }
 .btn{
   display:inline-block;
-  margin-top:14px;
-  padding:12px 18px;
   background:var(--accent);
-  border-radius:30px;
-  font-weight:800;
+  padding:10px 18px;
+  border-radius:999px;
+  font-weight:700;
+  margin-top:14px;
 }
 
-/* GRID PROGRAMAS */
+/* PROGRAMAS */
+section{
+  max-width:var(--max);
+  margin:40px auto;
+  padding:0 14px;
+}
+section h3{
+  margin-bottom:14px;
+}
 .grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:14px;
 }
-.thumb{
+@media(max-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr)}}
+
+.card{
   background:var(--card);
-  padding:6px;
-  border-radius:14px;
-}
-.thumb img{
-  aspect-ratio:16/9;
-  object-fit:cover;
+  border:1px solid var(--line);
+  padding:8px;
+  border-radius:12px;
 }
 
-@media(max-width:900px){
-  .vitrine{grid-template-columns:1fr}
-  .grid{grid-template-columns:repeat(2,1fr)}
-}
-
-/* FAIXA SOUL TV */
-.soul-band{
+/* FAIXA FINAL */
+.footer-bar{
   border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-  padding:20px;
+  padding:24px 14px;
   text-align:center;
-  font-size:15px;
-  color:rgba(255,255,255,.85);
-}
-.soul-band strong{
-  display:block;
-  color:#fff;
-  font-size:17px;
-  margin-bottom:6px;
+  color:var(--muted);
+  font-size:14px;
 }
 
-/* BOTÃO COMERCIAL */
-.comercial{
+/* CTA WHATS */
+.whats{
   position:fixed;
   right:18px;
   bottom:18px;
-  background:var(--accent);
-  color:#fff;
-  padding:14px 20px;
+  background:#25d366;
+  color:#000;
+  padding:12px 18px;
   border-radius:40px;
-  font-weight:900;
-  box-shadow:0 0 18px rgba(0,0,0,.6);
-  z-index:999;
+  font-weight:800;
 }
 </style>
 </head>
@@ -159,21 +147,22 @@ section{
 <!-- PLAYER AO VIVO -->
 <div class="player-wrap">
   <div class="player">
-    <iframe src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4"
-      allow="autoplay; fullscreen" allowfullscreen></iframe>
+    <iframe
+      src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
+      allow="autoplay; fullscreen"
+      allowfullscreen
+      playsinline>
+    </iframe>
   </div>
 </div>
 
 <!-- VITRINE -->
-<section class="vitrine">
-  <div class="vitrine-thumb">
-    <a href="https://tvmarataizes.digital/vitrine-marataizes.html">
-      <img src="clima/vitrine-thumb.png" alt="Vitrine Marataízes">
-      <div class="play-btn">▶</div>
-    </a>
-  </div>
+<div class="vitrine">
+  <a href="https://tvmarataizes.digital/vitrine-marataizes.html" class="vitrine-thumb">
+    <img src="clima/vitrine-thumb.png" alt="Vitrine Marataízes">
+  </a>
 
-  <div>
+  <div class="vitrine-info">
     <h2>Vitrine Marataízes</h2>
     <p>
       A vitrine onde a população encontra promoções, novidades,
@@ -183,44 +172,47 @@ section{
       Assistir episódios
     </a>
   </div>
-</section>
+</div>
 
 <!-- PROGRAMAS -->
 <section>
-  <h2>Programas da TV Marataízes</h2>
+  <h3>Programas da TV Marataízes</h3>
 
   <div class="grid">
-    <div class="thumb"><img src="clima/dicasdefilmes.png"></div>
-    <div class="thumb"><img src="clima/morocanoticiasdiarias.png"></div>
-    <div class="thumb"><img src="clima/historiasdeamoremcena.png"></div>
-    <div class="thumb"><img src="clima/rebrincar.png"></div>
-    <div class="thumb"><img src="clima/caindonatela.png"></div>
-    <div class="thumb"><img src="clima/naosaimosda5serie.png"></div>
-    <div class="thumb"><img src="clima/claudiarayallar.png"></div>
-    <div class="thumb"><img src="clima/fala_marataizes.png"></div>
-    <div class="thumb"><img src="clima/rota_300.png"></div>
-    <div class="thumb"><img src="clima/RAULjuremavaiok.png"></div>
-    <div class="thumb"><img src="clima/tal_mae_tal_filha.png"></div>
-    <div class="thumb"><img src="clima/saude_mental.png"></div>
-    <div class="thumb"><img src="clima/classicos_da_tela.png"></div>
-    <div class="thumb"><img src="clima/sessao_livre.png"></div>
-    <div class="thumb"><img src="clima/goodtimes.png"></div>
-    <div class="thumb"><img src="clima/perguntatorta.png"></div>
+
+    <!-- OBS: onerror evita imagem quebrada -->
+    <div class="card"><img src="clima/dicasdefilmes.png" onerror="this.src='clima/placeholder.png'"></div>
+    <div class="card"><img src="clima/morocanoticiasdiarias.png" onerror="this.src='clima/placeholder.png'"></div>
+    <div class="card"><img src="clima/historiasdeamoremcena.png" onerror="this.src='clima/placeholder.png'"></div>
+    <div class="card"><img src="clima/rebrincar.png" onerror="this.src='clima/placeholder.png'"></div>
+
+    <div class="card"><img src="clima/caindonatela.png" onerror="this.src='clima/placeholder.png'"></div>
+    <div class="card"><img src="clima/naosaimosda5serie.png" onerror="this.src='clima/placeholder.png'"></div>
+    <div class="card"><img src="clima/claudiarayallar.png" onerror="this.src='clima/placeholder.png'"></div>
+    <div class="card"><img src="clima/fala_marataizes.png" onerror="this.src='clima/placeholder.png'"></div>
+
+    <div class="card"><img src="clima/rota_300.png" onerror="this.src='clima/placeholder.png'"></div>
+    <div class="card"><img src="clima/tal_mae_tal_filha.png" onerror="this.src='clima/placeholder.png'"></div>
+    <div class="card"><img src="clima/saude_mental.png" onerror="this.src='clima/placeholder.png'"></div>
+    <div class="card"><img src="clima/classicos_da_tela.png" onerror="this.src='clima/placeholder.png'"></div>
+
+    <div class="card"><img src="clima/sessao_livre.png" onerror="this.src='clima/placeholder.png'"></div>
+    <div class="card"><img src="clima/goodtimes.png" onerror="this.src='clima/placeholder.png'"></div>
+    <div class="card"><img src="clima/perguntatorta.png" onerror="this.src='clima/placeholder.png'"></div>
+
   </div>
 </section>
 
-<!-- FAIXA SOUL TV -->
-<div class="soul-band">
-  <strong>TV Marataízes também está na Soul TV</strong>
+<!-- FAIXA FINAL -->
+<div class="footer-bar">
+  <strong>TV Marataízes também está na Soul TV</strong><br>
   Assista gratuitamente pelo aplicativo Soul TV — Canal 300<br>
   Disponível para Smart TVs, Android e iOS.<br>
   📺 Mais de 200 canais gratuitos.
 </div>
 
-<!-- BOTÃO COMERCIAL -->
-<a class="comercial" href="https://wa.me/5528999036141" target="_blank">
-  💬 COMERCIAL
-</a>
+<!-- WHATS -->
+<a class="whats" href="https://wa.me/5528999036141">Comercial</a>
 
 </body>
 </html>
