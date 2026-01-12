@@ -5,41 +5,28 @@
   <title>Vitrine Marataízes | TV Marataízes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="description" content="Vitrine Marataízes — promoções da semana, entrevistas e o comércio local em destaque na TV Marataízes.">
-
   <style>
-    :root {
-      --bg: #000000;
-      --bg-soft: #111111;
-      --text: #ffffff;
-      --muted: #b3b3b3;
-      --accent: #f36b21;
-    }
-
-    * { box-sizing: border-box; }
-
     body {
       margin: 0;
-      background: var(--bg);
-      color: var(--text);
+      background: #000;
+      color: #fff;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
     }
 
     header {
-      padding: 28px 16px 12px;
       text-align: center;
+      padding: 24px 16px 12px;
     }
 
     header h1 {
       margin: 0;
       font-size: 26px;
-      font-weight: 600;
     }
 
     header p {
       margin-top: 6px;
       font-size: 14px;
-      color: var(--muted);
+      color: #aaa;
     }
 
     .player-wrap {
@@ -48,10 +35,10 @@
       padding: 0 16px;
     }
 
-    /* Player responsivo (igual Cidade Fala) */
     .player-responsive {
       position: relative;
-      padding-top: 56.25%; /* 16:9 */
+      width: 100%;
+      padding-top: 56.25%;
       background: #000;
       border-radius: 6px;
       overflow: hidden;
@@ -63,56 +50,37 @@
       width: 100%;
       height: 100%;
       border: 0;
+      background: #000;
     }
 
     .section {
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 28px 16px;
       text-align: center;
-    }
-
-    .section h2 {
-      font-size: 18px;
-      margin-bottom: 10px;
-      font-weight: 600;
-    }
-
-    .section p {
+      padding: 24px 16px;
+      color: #aaa;
       font-size: 14px;
-      color: var(--muted);
-      line-height: 1.5;
-      margin: 0;
     }
 
-    .tv-cta {
-      background: var(--bg-soft);
+    .cta {
+      background: #111;
       text-align: center;
-      padding: 32px 16px;
+      padding: 28px 16px;
     }
 
-    .tv-cta p {
-      margin: 0 0 14px;
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    .tv-cta a {
+    .cta a {
       display: inline-block;
+      background: #f36b21;
+      color: #000;
       padding: 12px 28px;
       border-radius: 30px;
-      background: var(--accent);
-      color: #000;
+      font-weight: bold;
       text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
     }
 
     footer {
-      padding: 18px 16px 36px;
       text-align: center;
       font-size: 12px;
-      color: #777;
+      color: #666;
+      padding: 18px 16px 32px;
     }
   </style>
 </head>
@@ -121,38 +89,35 @@
 
 <header>
   <h1>Vitrine Marataízes</h1>
-  <p>Moradores e fornecedores se encontram num só lugar</p>
+  <p>Promoções, entrevistas e o comércio local em destaque</p>
 </header>
 
 <div class="player-wrap">
-  <!-- PLAYER VOD CASTR (URL CORRETA /embed/vod/) -->
   <div class="player-responsive">
     <iframe
       src="https://player.castr.com/embed/vod/LfAJp2XCGJtD8aCI"
       loading="lazy"
-      allow="fullscreen"
+      playsinline
+      webkit-playsinline
+      allow="fullscreen; picture-in-picture"
       allowfullscreen>
     </iframe>
   </div>
 </div>
 
-<section class="section">
-  <h2>Promoções, entrevistas e comércio local</h2>
-  <p>
-    A Vitrine Marataízes apresenta ofertas da semana, histórias dos comerciantes
-    e produtos em destaque — conteúdo exibido diariamente na TV Marataízes.
-  </p>
-</section>
+<div class="section">
+  Estreia da Vitrine Marataízes: um espaço dedicado às promoções da semana,
+  conversas com comerciantes e produtos em evidência na cidade.
+</div>
 
-<div class="tv-cta">
-  <p>Quer assistir a programação completa da TV Marataízes ao vivo?</p>
+<div class="cta">
+  <p style="margin-bottom:14px;">Quer assistir a programação completa da TV Marataízes ao vivo?</p>
   <a href="https://tvmarataizes.digital" target="_blank">▶ Assistir TV ao vivo</a>
 </div>
 
 <footer>
-  Vitrine Marataízes — conteúdo exibido diariamente na TV Marataízes.
+  Vitrine Marataízes — conteúdo exibido diariamente na programação da TV Marataízes.
 </footer>
 
 </body>
 </html>
-
