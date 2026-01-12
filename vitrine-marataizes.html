@@ -5,12 +5,12 @@
   <title>Vitrine Marataízes | TV Marataízes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="description" content="Vitrine Marataízes — promoções da semana, entrevistas e destaques do comércio local.">
+  <meta name="description" content="Vitrine Marataízes — promoções da semana, entrevistas e o comércio local em destaque na TV Marataízes.">
 
   <style>
     :root {
       --bg: #000000;
-      --bg-soft: #0f0f0f;
+      --bg-soft: #111111;
       --text: #ffffff;
       --muted: #b3b3b3;
       --accent: #f36b21;
@@ -26,7 +26,7 @@
     }
 
     header {
-      padding: 28px 16px 16px;
+      padding: 28px 16px 12px;
       text-align: center;
     }
 
@@ -43,11 +43,12 @@
     }
 
     .player-wrap {
-      max-width: 980px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 0 16px;
     }
 
+    /* Player responsivo (igual Cidade Fala) */
     .player-responsive {
       position: relative;
       padding-top: 56.25%; /* 16:9 */
@@ -58,8 +59,7 @@
 
     .player-responsive iframe {
       position: absolute;
-      top: 0;
-      left: 0;
+      inset: 0;
       width: 100%;
       height: 100%;
       border: 0;
@@ -72,10 +72,17 @@
       text-align: center;
     }
 
+    .section h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
     .section p {
-      font-size: 15px;
+      font-size: 14px;
       color: var(--muted);
       line-height: 1.5;
+      margin: 0;
     }
 
     .tv-cta {
@@ -92,7 +99,7 @@
 
     .tv-cta a {
       display: inline-block;
-      padding: 12px 26px;
+      padding: 12px 28px;
       border-radius: 30px;
       background: var(--accent);
       color: #000;
@@ -102,7 +109,7 @@
     }
 
     footer {
-      padding: 20px 16px 40px;
+      padding: 18px 16px 36px;
       text-align: center;
       font-size: 12px;
       color: #777;
@@ -114,13 +121,14 @@
 
 <header>
   <h1>Vitrine Marataízes</h1>
-  <p>Promoções, entrevistas e o comércio local em destaque</p>
+  <p>Moradores e fornecedores se encontram num só lugar</p>
 </header>
 
 <div class="player-wrap">
+  <!-- PLAYER VOD CASTR (URL CORRETA /embed/vod/) -->
   <div class="player-responsive">
     <iframe
-      src="https://player.castr.com/vod/LfAJp2XCGJtD8aCI"
+      src="https://player.castr.com/embed/vod/LfAJp2XCGJtD8aCI"
       loading="lazy"
       allow="fullscreen"
       allowfullscreen>
@@ -129,9 +137,10 @@
 </div>
 
 <section class="section">
+  <h2>Promoções, entrevistas e comércio local</h2>
   <p>
-    Estreia da <strong>Vitrine Marataízes</strong>: um espaço dedicado às promoções da semana,
-    conversas com comerciantes e produtos em evidência na cidade.
+    A Vitrine Marataízes apresenta ofertas da semana, histórias dos comerciantes
+    e produtos em destaque — conteúdo exibido diariamente na TV Marataízes.
   </p>
 </section>
 
@@ -141,7 +150,7 @@
 </div>
 
 <footer>
-  Vitrine Marataízes — conteúdo exibido na programação da TV Marataízes.
+  Vitrine Marataízes — conteúdo exibido diariamente na TV Marataízes.
 </footer>
 
 </body>
