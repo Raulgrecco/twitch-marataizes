@@ -5,13 +5,13 @@
   <title>Vitrine Marataízes | TV Marataízes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="description" content="Vitrine Marataízes — moradores e fornecedores se encontram num só lugar. Promoções, entrevistas e comércio local.">
+  <meta name="description" content="Vitrine Marataízes — promoções da semana, entrevistas e destaques do comércio local.">
 
   <style>
     :root {
-      --bg: #000;
+      --bg: #000000;
       --bg-soft: #0f0f0f;
-      --text: #fff;
+      --text: #ffffff;
       --muted: #b3b3b3;
       --accent: #f36b21;
     }
@@ -43,22 +43,23 @@
     }
 
     .player-wrap {
-      max-width: 1100px;
+      max-width: 980px;
       margin: 0 auto;
       padding: 0 16px;
     }
 
     .player-responsive {
       position: relative;
-      padding-top: 56.25%;
+      padding-top: 56.25%; /* 16:9 */
       background: #000;
-      border-radius: 8px;
+      border-radius: 6px;
       overflow: hidden;
     }
 
     .player-responsive iframe {
       position: absolute;
-      inset: 0;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       border: 0;
@@ -71,14 +72,8 @@
       text-align: center;
     }
 
-    .section h2 {
-      font-size: 18px;
-      margin-bottom: 10px;
-      font-weight: 600;
-    }
-
     .section p {
-      font-size: 14px;
+      font-size: 15px;
       color: var(--muted);
       line-height: 1.5;
     }
@@ -86,19 +81,18 @@
     .tv-cta {
       background: var(--bg-soft);
       text-align: center;
-      padding: 36px 16px;
-      margin-top: 24px;
+      padding: 32px 16px;
     }
 
     .tv-cta p {
-      margin: 0 0 16px;
+      margin: 0 0 14px;
       color: var(--muted);
       font-size: 15px;
     }
 
     .tv-cta a {
       display: inline-block;
-      padding: 14px 30px;
+      padding: 12px 26px;
       border-radius: 30px;
       background: var(--accent);
       color: #000;
@@ -108,7 +102,7 @@
     }
 
     footer {
-      padding: 24px 16px 40px;
+      padding: 20px 16px 40px;
       text-align: center;
       font-size: 12px;
       color: #777;
@@ -120,26 +114,24 @@
 
 <header>
   <h1>Vitrine Marataízes</h1>
-  <p>Moradores e fornecedores se encontram num só lugar</p>
+  <p>Promoções, entrevistas e o comércio local em destaque</p>
 </header>
 
 <div class="player-wrap">
   <div class="player-responsive">
-    <!-- PLAYER CASTR VOD (URL CORRETA) -->
     <iframe
-      src="https://player.castr.com/embed/vod/LfAJp2XCGJtD8aCI"
+      src="https://player.castr.com/vod/LfAJp2XCGJtD8aCI"
       loading="lazy"
-      allow="autoplay; fullscreen; picture-in-picture"
+      allow="fullscreen"
       allowfullscreen>
     </iframe>
   </div>
 </div>
 
 <section class="section">
-  <h2>Promoções, entrevistas e comércio local</h2>
   <p>
-    A Vitrine Marataízes apresenta ofertas da semana, histórias dos comerciantes
-    e produtos em destaque — exibido diariamente na TV Marataízes.
+    Estreia da <strong>Vitrine Marataízes</strong>: um espaço dedicado às promoções da semana,
+    conversas com comerciantes e produtos em evidência na cidade.
   </p>
 </section>
 
@@ -149,8 +141,9 @@
 </div>
 
 <footer>
-  Vitrine Marataízes — conteúdo exibido diariamente na TV Marataízes.
+  Vitrine Marataízes — conteúdo exibido na programação da TV Marataízes.
 </footer>
 
 </body>
 </html>
+
