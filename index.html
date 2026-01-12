@@ -5,27 +5,26 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>TV Marataízes — ao vivo</title>
 
-<meta name="description" content="TV Marataízes é a maior emissora independente do Espírito Santo, transmitida pela Soul TV (canal 300)." />
 <meta name="theme-color" content="#000" />
 
 <style>
-:root{--bg:#000;--fg:#fff;--muted:rgba(255,255,255,.7);--card:#0e0e0e;--line:#222;--max:1320px;--accent:#FF6F00;}
+:root{--bg:#000;--fg:#fff;--card:#0e0e0e;--line:#222;--max:1320px;--accent:#FF6F00;}
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,Arial,sans-serif}
-img{max-width:100%;display:block}
-a{text-decoration:none;color:inherit}
-header{display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;font-size:20px;font-weight:800;}
-.player-outer{max-width:var(--max);margin:0 auto;padding:0 14px;}
-.player{aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,Arial,sans-serif}
+img{width:100%;height:100%;object-fit:cover;display:block}
+header{text-align:center;padding:14px;font-weight:800}
+.player-outer{max-width:var(--max);margin:auto;padding:0 14px}
+.player{aspect-ratio:16/9;border-radius:14px;overflow:hidden}
 .player iframe{width:100%;height:100%;border:0}
-section{max-width:var(--max);margin:14px auto;padding:0 14px}
-.grid{display:grid;gap:14px;grid-template-columns:repeat(4,1fr)}
-.thumb{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px;aspect-ratio:16/9}
-.thumb img{width:100%;height:100%;object-fit:cover}
+section{max-width:var(--max);margin:24px auto;padding:0 14px}
+h2{margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.thumb{background:var(--card);border-radius:12px;overflow:hidden}
 @media(max-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr)}}
-.floating-cta{position:fixed;bottom:20px;right:20px;background:var(--accent);padding:12px 18px;border-radius:40px;font-weight:700}
-footer{text-align:center;padding:30px 14px;color:var(--muted);font-size:14px}
+.floating-cta{position:fixed;bottom:20px;right:20px;background:var(--accent);color:#fff;
+padding:12px 18px;border-radius:40px;font-weight:700;text-decoration:none}
+footer{text-align:center;font-size:14px;padding:30px 16px;border-top:1px solid var(--line)}
 </style>
 </head>
 
@@ -41,33 +40,42 @@ footer{text-align:center;padding:30px 14px;color:var(--muted);font-size:14px}
 </div>
 
 <section>
-<h2>Programas da TV Marataízes</h2>
-<div class="grid">
-
-<div class="thumb"><img src="clima/dicasdefilmes.png"></div>
-<div class="thumb"><img src="clima/morocanoticiasdiarias.png"></div>
-<div class="thumb"><img src="clima/historiasdeamoremcena.png"></div>
-<div class="thumb"><img src="clima/rebrincar.png"></div>
-
-<div class="thumb"><img src="clima/caindonatela.png"></div>
-<div class="thumb"><img src="clima/naosaimosda5serie.png"></div>
-<div class="thumb"><img src="clima/claudiarayallar.png"></div>
-<div class="thumb"><img src="clima/fala_marataizes.png"></div>
-
-<div class="thumb"><img src="clima/rota_300.png"></div>
-<div class="thumb"><img src="clima/RAULJUREMAVAIOK.png"></div>
-<div class="thumb"><img src="clima/tal_mae_tal_filha.png"></div>
-<div class="thumb"><img src="clima/saude_mental.png"></div>
-
-<div class="thumb"><img src="clima/classicos_da_tela.png"></div>
-<div class="thumb"><img src="clima/EEEE.png"></div>
-<div class="thumb"><img src="clima/GOODTIMES.png"></div>
-<div class="thumb"><img src="clima/perguntatorta.png"></div>
-
-</div>
+  <h2>Vitrine Marataízes</h2>
+  <div class="grid">
+    <div class="thumb">
+      <img src="clima/vitrine-thumb.png" alt="Vitrine Marataízes">
+    </div>
+  </div>
 </section>
 
-<a class="floating-cta" href="https://wa.me/5528999036141">COMERCIAL</a>
+<section>
+  <h2>Programas da TV Marataízes</h2>
+  <div class="grid">
+
+    <div class="thumb"><img src="clima/dicasdefilmes.png"></div>
+    <div class="thumb"><img src="clima/morocanoticiasdiarias.png"></div>
+    <div class="thumb"><img src="clima/historiasdeamoremcena.png"></div>
+    <div class="thumb"><img src="clima/rebrincar.png"></div>
+
+    <div class="thumb"><img src="clima/caindonatela.png"></div>
+    <div class="thumb"><img src="clima/naosaimosda5serie.png"></div>
+    <div class="thumb"><img src="clima/claudiarayallar.png"></div>
+    <div class="thumb"><img src="clima/fala_marataizes.png"></div>
+
+    <div class="thumb"><img src="clima/rota_300.png"></div>
+    <div class="thumb"><img src="clima/heranca_da_terra.png"></div>
+    <div class="thumb"><img src="clima/tal_mae_tal_filha.png"></div>
+    <div class="thumb"><img src="clima/saude_mental.png"></div>
+
+    <div class="thumb"><img src="clima/classicos_da_tela.png"></div>
+    <div class="thumb"><img src="clima/eeee.png"></div>
+    <div class="thumb"><img src="clima/GOODTIMES.png"></div>
+    <div class="thumb"><img src="clima/perguntatorta.png"></div>
+
+  </div>
+</section>
+
+<a class="floating-cta" href="https://wa.me/5528999036141">COMERCIAL — WhatsApp</a>
 
 <footer>
 TV Marataízes também está na Soul TV<br>
