@@ -16,7 +16,9 @@
       --accent: #f36b21;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -42,15 +44,18 @@
       color: var(--muted);
     }
 
+    /* CONTAINER DO PLAYER */
     .player-wrap {
-      max-width: 980px;
+      max-width: 1280px;
       margin: 0 auto;
       padding: 0 16px;
     }
 
+    /* PLAYER RESPONSIVO 16:9 */
     .player-responsive {
       position: relative;
-      padding-top: 56.25%;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 */
       background: #000;
       border-radius: 6px;
       overflow: hidden;
@@ -65,11 +70,12 @@
       border: 0;
     }
 
+    /* CTA */
     .tv-cta {
       background: var(--bg-soft);
       text-align: center;
       padding: 32px 16px;
-      margin-top: 24px;
+      margin-top: 28px;
     }
 
     .tv-cta p {
@@ -92,4 +98,39 @@
     footer {
       padding: 20px 16px 40px;
       text-align: center;
-      font-s
+      font-size: 12px;
+      color: #777;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Vitrine Marataízes</h1>
+  <p>Moradores e fornecedores se encontram num só lugar</p>
+</header>
+
+<div class="player-wrap">
+  <div class="player-responsive">
+    <iframe
+      src="https://player.castr.com/embed/vod/LfAJp2XCGJtD8aCI"
+      loading="lazy"
+      allow="autoplay; fullscreen"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+
+<div class="tv-cta">
+  <p>Quer assistir a programação completa da TV Marataízes ao vivo?</p>
+  <a href="https://tvmarataizes.digital" target="_blank">▶ Assistir TV ao vivo</a>
+</div>
+
+<footer>
+  Vitrine Marataízes — conteúdo exibido diariamente na TV Marataízes.
+</footer>
+
+</body>
+</html>
+
