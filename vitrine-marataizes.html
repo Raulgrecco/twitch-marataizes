@@ -5,26 +5,20 @@
   <title>Vitrine Marataízes | TV Marataízes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <meta name="description" content="Vitrine Marataízes — promoções, entrevistas e o comércio local em destaque na TV Marataízes." />
-
   <style>
-    :root {
-      --bg: #000;
-      --bg-soft: #111;
-      --text: #fff;
-      --muted: #aaa;
-      --accent: #f36b21;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
-      background: var(--bg);
-      color: var(--text);
+      background: #000;
+      color: #fff;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    /* ANTI DUPLICAÇÃO */
+    .vitrine-root {
+      display: none;
+    }
+    .vitrine-root.active {
+      display: block;
     }
 
     header {
@@ -41,7 +35,7 @@
     header p {
       margin-top: 6px;
       font-size: 14px;
-      color: var(--muted);
+      color: #aaa;
     }
 
     .container {
@@ -52,10 +46,8 @@
 
     .player-box {
       margin-top: 24px;
-      background: #000;
+      background: #111;
       border-radius: 8px;
-      overflow: hidden;
-      position: relative;
       aspect-ratio: 16 / 9;
       display: flex;
       align-items: center;
@@ -63,58 +55,30 @@
     }
 
     .play-button {
-      appearance: none;
       border: 1px solid #fff;
       background: transparent;
       color: #fff;
       padding: 12px 26px;
       border-radius: 999px;
       font-size: 15px;
-      font-weight: 500;
       cursor: pointer;
-      transition: all .2s ease;
-    }
-
-    .play-button:hover {
-      background: #fff;
-      color: #000;
-    }
-
-    .player-box iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    .description {
-      text-align: center;
-      font-size: 14px;
-      color: var(--muted);
-      margin: 18px 0 0;
     }
 
     .cta {
       margin-top: 36px;
-      background: var(--bg-soft);
+      background: #111;
       padding: 26px 16px;
       text-align: center;
     }
 
-    .cta p {
-      margin: 0 0 14px;
-      font-size: 15px;
-      color: var(--muted);
-    }
-
     .cta a {
       display: inline-block;
-      background: var(--accent);
+      background: #f36b21;
       color: #000;
       padding: 12px 28px;
       border-radius: 999px;
       font-weight: 600;
       text-decoration: none;
-      font-size: 14px;
     }
 
     footer {
@@ -128,23 +92,18 @@
 
 <body>
 
+<!-- ROOT ÚNICO -->
+<div class="vitrine-root" id="vitrineRoot">
+
   <header>
     <h1>Vitrine Marataízes</h1>
     <p>Promoções, entrevistas e o comércio local em destaque</p>
   </header>
 
   <main class="container">
-
-    <!-- PLAYER ÚNICO -->
     <div class="player-box" id="playerBox">
       <button class="play-button" id="playBtn">▶ Assistir episódio</button>
     </div>
-
-    <p class="description">
-      Estreia da Vitrine Marataízes — um espaço dedicado às promoções da semana,
-      conversas com comerciantes e produtos em evidência na cidade.
-    </p>
-
   </main>
 
   <div class="cta">
@@ -156,24 +115,43 @@
     Vitrine Marataízes — conteúdo exibido diariamente na programação da TV Marataízes.
   </footer>
 
-  <!-- SCRIPT LIMPO, SEM DUPLICAÇÃO, SAFARI-SAFE -->
-  <script>
-    (function () {
-      var btn = document.getElementById('playBtn');
-      var box = document.getElementById('playerBox');
+</div>
 
-      btn.addEventListener('click', function () {
-        box.innerHTML = `
-          <iframe
-            src="https://player.castr.com/vod/LfAJp2XCGJtD8aCI"
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowfullscreen
-            playsinline
-          ></iframe>
-        `;
-      });
-    })();
-  </script>
+<script>
+/* ==========
+   ANTI DUPLICAÇÃO HARD
+   ========== */
+(function () {
+  const roots = document.querySelectorAll('#vitrineRoot');
+  if (roots.length > 1) {
+    // remove todas menos a primeira
+    for (let i = 1; i < roots.length; i++) {
+      roots[i].remove();
+    }
+  }
+  roots[0].classList.add('active');
+})();
+
+/* ==========
+   PLAYER ON-DEMAND
+   ========== */
+(function () {
+  const btn = document.getElementById('playBtn');
+  const box = document.getElementById('playerBox');
+
+  btn.addEventListener('click', function () {
+    box.innerHTML = `
+      <iframe
+        src="https://player.castr.com/vod/LfAJp2XCGJtD8aCI"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen
+        playsinline
+        style="width:100%;height:100%;border:0;"
+      ></iframe>
+    `;
+  });
+})();
+</script>
 
 </body>
 </html>
