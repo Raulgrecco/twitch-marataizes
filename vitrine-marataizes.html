@@ -44,31 +44,65 @@
       padding: 0 16px;
     }
 
+    /* PLAYER */
     .player-box {
       margin-top: 24px;
-      background: #111;
+      background: #111 url("https://tvmarataizes.digital/assets/img/vitrine-capa.jpg") center / cover no-repeat;
       border-radius: 8px;
       aspect-ratio: 16 / 9;
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .player-box::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
     }
 
     .play-button {
+      position: relative;
+      z-index: 2;
       border: 1px solid #fff;
       background: transparent;
       color: #fff;
-      padding: 12px 26px;
+      padding: 12px 28px;
       border-radius: 999px;
       font-size: 15px;
       cursor: pointer;
+      backdrop-filter: blur(2px);
     }
 
+    /* TEXTO MOVIMENTO */
+    .manifesto {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 15px;
+      line-height: 1.5;
+      color: #ddd;
+    }
+
+    .manifesto strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* CTA TV AO VIVO */
     .cta {
       margin-top: 36px;
       background: #111;
       padding: 26px 16px;
       text-align: center;
+    }
+
+    .cta p {
+      margin-bottom: 12px;
+      font-size: 14px;
+      color: #aaa;
     }
 
     .cta a {
@@ -92,7 +126,6 @@
 
 <body>
 
-<!-- ROOT ÚNICO -->
 <div class="vitrine-root" id="vitrineRoot">
 
   <header>
@@ -101,9 +134,18 @@
   </header>
 
   <main class="container">
+
     <div class="player-box" id="playerBox">
       <button class="play-button" id="playBtn">▶ Assistir episódio</button>
     </div>
+
+    <div class="manifesto">
+      <strong>Isso não é um programa isolado.</strong><br>
+      É um movimento contínuo que conecta marcas, pessoas e oportunidades,
+      todos os dias às 20h, na <strong>TV Marataízes</strong> — a maior emissora
+      independente do sul do Espírito Santo, na <strong>Soul TV</strong>.
+    </div>
+
   </main>
 
   <div class="cta">
@@ -118,13 +160,10 @@
 </div>
 
 <script>
-/* ==========
-   ANTI DUPLICAÇÃO HARD
-   ========== */
+/* ANTI DUPLICAÇÃO */
 (function () {
   const roots = document.querySelectorAll('#vitrineRoot');
   if (roots.length > 1) {
-    // remove todas menos a primeira
     for (let i = 1; i < roots.length; i++) {
       roots[i].remove();
     }
@@ -132,14 +171,13 @@
   roots[0].classList.add('active');
 })();
 
-/* ==========
-   PLAYER ON-DEMAND
-   ========== */
+/* PLAYER ON-DEMAND */
 (function () {
   const btn = document.getElementById('playBtn');
   const box = document.getElementById('playerBox');
 
   btn.addEventListener('click', function () {
+    box.style.background = "#000";
     box.innerHTML = `
       <iframe
         src="https://player.castr.com/vod/LfAJp2XCGJtD8aCI"
@@ -155,3 +193,4 @@
 
 </body>
 </html>
+
