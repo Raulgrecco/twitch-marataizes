@@ -25,7 +25,6 @@ body{
 img{width:100%;display:block;border-radius:10px}
 a{text-decoration:none;color:inherit}
 
-/* HEADER */
 header{
   text-align:center;
   padding:14px;
@@ -39,7 +38,6 @@ header{
   padding:0 14px;
 }
 .player{
-  position:relative;
   aspect-ratio:16/9;
   background:#000;
   border-radius:14px;
@@ -77,13 +75,8 @@ header{
   font-size:64px;
   background:rgba(0,0,0,.35);
 }
-.vitrine-info h2{
-  margin:0 0 10px;
-}
-.vitrine-info p{
-  color:var(--muted);
-  line-height:1.5;
-}
+.vitrine-info h2{margin:0 0 10px}
+.vitrine-info p{color:var(--muted);line-height:1.5}
 .btn{
   display:inline-block;
   background:var(--accent);
@@ -98,9 +91,6 @@ section{
   max-width:var(--max);
   margin:40px auto;
   padding:0 14px;
-}
-section h3{
-  margin-bottom:14px;
 }
 .grid{
   display:grid;
@@ -126,7 +116,7 @@ section h3{
   font-size:14px;
 }
 
-/* CTA WHATS */
+/* WHATS */
 .whats{
   position:fixed;
   right:18px;
@@ -144,7 +134,7 @@ section h3{
 
 <header>TV MARATAÍZES — AO VIVO</header>
 
-<!-- PLAYER AO VIVO -->
+<!-- AO VIVO -->
 <div class="player-wrap">
   <div class="player">
     <iframe
@@ -161,7 +151,6 @@ section h3{
   <a href="https://tvmarataizes.digital/vitrine-marataizes.html" class="vitrine-thumb">
     <img src="clima/vitrine-thumb.png" alt="Vitrine Marataízes">
   </a>
-
   <div class="vitrine-info">
     <h2>Vitrine Marataízes</h2>
     <p>
@@ -176,42 +165,40 @@ section h3{
 
 <!-- PROGRAMAS -->
 <section>
-  <h3>Programas da TV Marataízes</h3>
+<h3>Programas da TV Marataízes</h3>
+<div class="grid">
 
-  <div class="grid">
+<div class="card"><img src="clima/dicasdefilmes.png"></div>
+<div class="card"><img src="clima/morocanoticiasdiarias.png"></div>
+<div class="card"><img src="clima/historiasdeamoremcena.png"></div>
+<div class="card"><img src="clima/rebrincar.png"></div>
 
-    <!-- OBS: onerror evita imagem quebrada -->
-    <div class="card"><img src="clima/dicasdefilmes.png" onerror="this.src='clima/placeholder.png'"></div>
-    <div class="card"><img src="clima/morocanoticiasdiarias.png" onerror="this.src='clima/placeholder.png'"></div>
-    <div class="card"><img src="clima/historiasdeamoremcena.png" onerror="this.src='clima/placeholder.png'"></div>
-    <div class="card"><img src="clima/rebrincar.png" onerror="this.src='clima/placeholder.png'"></div>
+<div class="card"><img src="clima/caindonatela.png"></div>
+<div class="card"><img src="clima/naosaimosda5serie.png"></div>
+<div class="card"><img src="clima/claudiarayallar.png"></div>
+<div class="card"><img src="clima/fala_marataizes.png"></div>
 
-    <div class="card"><img src="clima/caindonatela.png" onerror="this.src='clima/placeholder.png'"></div>
-    <div class="card"><img src="clima/naosaimosda5serie.png" onerror="this.src='clima/placeholder.png'"></div>
-    <div class="card"><img src="clima/claudiarayallar.png" onerror="this.src='clima/placeholder.png'"></div>
-    <div class="card"><img src="clima/fala_marataizes.png" onerror="this.src='clima/placeholder.png'"></div>
+<div class="card"><img src="clima/rota_300.png"></div>
+<div class="card"><img src="clima/HERANCA_DA_TERRA.png"></div>
+<div class="card"><img src="clima/tal_mae_tal_filha.png"></div>
+<div class="card"><img src="clima/saude_mental.png"></div>
 
-    <div class="card"><img src="clima/rota_300.png" onerror="this.src='clima/placeholder.png'"></div>
-    <div class="card"><img src="clima/tal_mae_tal_filha.png" onerror="this.src='clima/placeholder.png'"></div>
-    <div class="card"><img src="clima/saude_mental.png" onerror="this.src='clima/placeholder.png'"></div>
-    <div class="card"><img src="clima/classicos_da_tela.png" onerror="this.src='clima/placeholder.png'"></div>
+<div class="card"><img src="clima/classicos_da_tela.png"></div>
+<div class="card"><img src="clima/SESSAO_LIVRE.png"></div>
+<div class="card"><img src="clima/GOODTIMES.png"></div>
+<div class="card"><img src="clima/perguntatorta.png"></div>
 
-    <div class="card"><img src="clima/sessao_livre.png" onerror="this.src='clima/placeholder.png'"></div>
-    <div class="card"><img src="clima/goodtimes.png" onerror="this.src='clima/placeholder.png'"></div>
-    <div class="card"><img src="clima/perguntatorta.png" onerror="this.src='clima/placeholder.png'"></div>
-
-  </div>
+</div>
 </section>
 
-<!-- FAIXA FINAL -->
+<!-- FAIXA SOUL -->
 <div class="footer-bar">
-  <strong>TV Marataízes também está na Soul TV</strong><br>
-  Assista gratuitamente pelo aplicativo Soul TV — Canal 300<br>
-  Disponível para Smart TVs, Android e iOS.<br>
-  📺 Mais de 200 canais gratuitos.
+<strong>TV Marataízes também está na Soul TV</strong><br>
+Assista gratuitamente pelo aplicativo Soul TV — Canal 300<br>
+Disponível para Smart TVs, Android e iOS.<br>
+📺 Mais de 200 canais gratuitos.
 </div>
 
-<!-- WHATS -->
 <a class="whats" href="https://wa.me/5528999036141">Comercial</a>
 
 </body>
