@@ -25,29 +25,14 @@ html,body{
 img{max-width:100%;display:block}
 
 /* HEADER */
-header{
-  text-align:center;
-  padding:18px 14px 6px;
-}
-header h1{
-  margin:0;
-  font-size:26px;
-  font-weight:800;
-}
-header p{
-  margin:6px 0 0;
-  font-size:14px;
-  color:#aaa;
-}
+header{text-align:center;padding:18px 14px 6px}
+header h1{margin:0;font-size:26px;font-weight:800}
+header p{margin:6px 0 0;font-size:14px;color:#aaa}
 
 /* SECTION */
-section{
-  max-width:var(--max);
-  margin:30px auto;
-  padding:0 14px;
-}
+section{max-width:var(--max);margin:30px auto;padding:0 14px}
 
-/* HERO / PLAYER */
+/* HERO */
 .hero{
   position:relative;
   border-radius:16px;
@@ -55,11 +40,7 @@ section{
   aspect-ratio:16/9;
   background:#000;
 }
-.hero img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
+.hero img{width:100%;height:100%;object-fit:cover}
 .hero::after{
   content:"";
   position:absolute;
@@ -94,16 +75,9 @@ section{
 }
 .manifesto strong{color:#fff}
 
-/* CTA TV */
-.cta-tv{
-  margin-top:40px;
-  text-align:center;
-}
-.cta-tv p{
-  font-size:14px;
-  color:#aaa;
-  margin-bottom:10px;
-}
+/* CTA */
+.cta-tv{text-align:center;margin-top:40px}
+.cta-tv p{font-size:14px;color:#aaa;margin-bottom:10px}
 .cta-tv a{
   display:inline-block;
   background:var(--accent);
@@ -115,12 +89,7 @@ section{
 }
 
 /* FOOTER */
-footer{
-  text-align:center;
-  padding:40px 20px;
-  font-size:13px;
-  color:#777;
-}
+footer{text-align:center;padding:40px 20px;font-size:13px;color:#777}
 </style>
 </head>
 
@@ -133,13 +102,11 @@ footer{
 
 <section>
 
-  <!-- CAPA / PLAYER -->
   <div class="hero" id="hero">
     <img src="/clima/vitrine-thumb.png" alt="Vitrine Marataízes">
     <button id="playBtn">▶ Assistir episódio</button>
   </div>
 
-  <!-- TEXTO DE MOVIMENTO -->
   <div class="manifesto">
     <strong>Isso não é um programa isolado.</strong><br>
     É um movimento contínuo que conecta marcas, pessoas e oportunidades,
@@ -159,21 +126,35 @@ footer{
 
 <script>
 /*
-  PLAYER ON DEMAND
-  - começa mudo
-  - MOSTRA CONTROLES
-  - usuário pode ativar som
+  PLAYER RESPONSIVO (DESKTOP x iOS)
 */
 document.getElementById("playBtn").onclick = function(){
+
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
   const hero = document.getElementById("hero");
-  hero.innerHTML = `
-    <iframe
-      src="https://player.castr.com/vod/LfAJp2XCGJtD8aCI?autoplay=on&muted=on&controls=on"
-      allow="autoplay; fullscreen; picture-in-picture"
-      allowfullscreen
-      style="width:100%;height:100%;border:0">
-    </iframe>
-  `;
+
+  if (isIOS) {
+    // iOS: SEM autoplay (Apple exige)
+    hero.innerHTML = `
+      <iframe
+        src="https://player.castr.com/vod/LfAJp2XCGJtD8aCI?controls=on"
+        allow="fullscreen; picture-in-picture"
+        allowfullscreen
+        playsinline
+        style="width:100%;height:100%;border:0">
+      </iframe>
+    `;
+  } else {
+    // Desktop: autoplay mudo + controles
+    hero.innerHTML = `
+      <iframe
+        src="https://player.castr.com/vod/LfAJp2XCGJtD8aCI?autoplay=on&muted=on&controls=on"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen
+        style="width:100%;height:100%;border:0">
+      </iframe>
+    `;
+  }
 };
 </script>
 
