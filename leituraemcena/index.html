@@ -19,21 +19,25 @@
 }
 
 *{box-sizing:border-box}
-body{
+
+html,body{
   margin:0;
+  padding:0;
   background:var(--bg);
   color:var(--text);
   font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
 }
 
+/* ===== HEADER (DESKTOP ONLY) ===== */
 header{
   text-align:center;
-  padding:40px 20px 20px;
-  font-size:13px;
+  padding:32px 20px 10px;
+  font-size:12px;
   letter-spacing:2px;
   color:var(--muted);
 }
 
+/* ===== HERO ===== */
 .hero{
   max-width:var(--max);
   margin:0 auto;
@@ -52,7 +56,9 @@ header{
   margin-bottom:30px;
 }
 
+/* ===== PLAYER ===== */
 .player{
+  width:100%;
   aspect-ratio:16/9;
   background:#000;
   border-radius:16px;
@@ -64,8 +70,10 @@ header{
   width:100%;
   height:100%;
   border:0;
+  display:block;
 }
 
+/* ===== SUPPORT ===== */
 .support{
   max-width:var(--max);
   margin:80px auto;
@@ -82,10 +90,6 @@ header{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:40px;
-}
-
-@media(max-width:900px){
-  .cards{grid-template-columns:1fr}
 }
 
 .card{
@@ -130,6 +134,7 @@ header{
   background:var(--accent2);
 }
 
+/* ===== FOOTER ===== */
 footer{
   border-top:1px solid var(--line);
   margin-top:80px;
@@ -138,201 +143,44 @@ footer{
   font-size:13px;
   color:var(--muted);
 }
-</style>
-</head>
 
-<body>
+/* ===== MOBILE FIX (ANTI DUPLICAÇÃO) ===== */
+@media (max-width: 768px){
 
-<header>TV MARATAÍZES · PROJETO EDITORIAL</header>
+  header{
+    display:none;
+  }
 
-<section class="hero">
-  <h1>Leitura em Cena</h1>
-  <p>Programa editorial ao vivo da TV Marataízes</p>
+  .hero h1{
+    font-size:32px;
+  }
 
-  <div class="player">
-    <iframe
-      src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?muted=on"
-      allow="autoplay; fullscreen"
-      allowfullscreen>
-    </iframe>
-  </div>
-</section>
+  .hero p{
+    font-size:14px;
+    margin-bottom:20px;
+  }
 
-<section class="support">
-  <h2>Conheça as formas de apoiar o programa</h2>
+  .support{
+    margin:60px auto;
+  }
 
-  <div class="cards">
+  .support h2{
+    font-size:22px;
+  }
 
-    <!-- PATROCINAR -->
-    <div class="card">
-      <img src="../clima/qr-patrocine-leitura-em-cena.png" alt="QR Code Patrocinar">
-      <h3>Patrocinar o programa</h3>
-      <p>
-        Associe sua marca ao Leitura em Cena, com exposição durante a transmissão
-        e divulgação nos canais da TV Marataízes.
-      </p>
-      <a class="btn" href="https://wa.me/5528999036141">Falar com o comercial</a>
-    </div>
+  .cards{
+    grid-template-columns:1fr;
+    gap:28px;
+  }
 
-    <!-- APOIAR -->
-    <div class="card">
-      <img src="../clima/qr-apoie-leitura-em-cena.png" alt="QR Code Apoiar">
-      <h3>Apoiar o programa</h3>
-      <p>
-        Apoio cultural direto ao conteúdo independente e editorial
-        da TV Marataízes.
-      </p>
-      <a class="btn secondary" href="https://wa.me/5528999036141">Apoiar agora</a>
-    </div>
+  .card{
+    padding:28px 22px;
+  }
 
-  </div>
-</section>
+  .card img{
+    max-width:180px;
+  }
 
-<footer>
-  © TV Marataízes · Conteúdo autoral independente
-</footer>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Leitura em Cena · Apoio e Patrocínio</title>
-
-<style>
-:root{
-  --bg:#000;
-  --card:#111;
-  --line:#222;
-  --text:#fff;
-  --muted:#aaa;
-  --accent:#ff6f00;
-  --accent2:#3b82f6;
-  --max:1200px;
-}
-
-*{box-sizing:border-box}
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-}
-
-header{
-  text-align:center;
-  padding:40px 20px 20px;
-  font-size:13px;
-  letter-spacing:2px;
-  color:var(--muted);
-}
-
-.hero{
-  max-width:var(--max);
-  margin:0 auto;
-  padding:20px;
-}
-
-.hero h1{
-  text-align:center;
-  font-size:46px;
-  margin:10px 0 8px;
-}
-
-.hero p{
-  text-align:center;
-  color:var(--muted);
-  margin-bottom:30px;
-}
-
-.player{
-  aspect-ratio:16/9;
-  background:#000;
-  border-radius:16px;
-  overflow:hidden;
-  border:1px solid var(--line);
-}
-
-.player iframe{
-  width:100%;
-  height:100%;
-  border:0;
-}
-
-.support{
-  max-width:var(--max);
-  margin:80px auto;
-  padding:0 20px;
-}
-
-.support h2{
-  text-align:center;
-  font-size:28px;
-  margin-bottom:50px;
-}
-
-.cards{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:40px;
-}
-
-@media(max-width:900px){
-  .cards{grid-template-columns:1fr}
-}
-
-.card{
-  background:linear-gradient(180deg,#111,#0a0a0a);
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:40px;
-  text-align:center;
-}
-
-.card img{
-  max-width:220px;
-  margin-bottom:24px;
-  background:#fff;
-  padding:14px;
-  border-radius:16px;
-}
-
-.card h3{
-  font-size:22px;
-  margin-bottom:10px;
-}
-
-.card p{
-  font-size:15px;
-  color:var(--muted);
-  line-height:1.6;
-}
-
-.btn{
-  display:inline-block;
-  margin-top:26px;
-  padding:14px 32px;
-  border-radius:40px;
-  font-weight:700;
-  text-decoration:none;
-  color:#fff;
-  background:var(--accent);
-}
-
-.btn.secondary{
-  background:var(--accent2);
-}
-
-footer{
-  border-top:1px solid var(--line);
-  margin-top:80px;
-  padding:40px 20px;
-  text-align:center;
-  font-size:13px;
-  color:var(--muted);
 }
 </style>
 </head>
