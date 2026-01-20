@@ -13,14 +13,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* BASE */
 body {
   font-family: 'Inter', sans-serif;
   background: #0e0e0e;
@@ -58,7 +56,6 @@ body {
 .logo {
   width: 120px;
   margin-bottom: 36px;
-  opacity: 0.95;
 }
 
 .hero h1 {
@@ -66,13 +63,53 @@ body {
   font-size: clamp(3rem, 6vw, 5rem);
   font-weight: 600;
   margin-bottom: 16px;
-  color: #f7f7f7;
 }
 
 .hero .sub {
   font-size: 1.25rem;
   line-height: 1.6;
   color: rgba(255,255,255,0.85);
+}
+
+/* PLAYER */
+.player-section {
+  padding: 100px 6vw;
+  background: #000;
+  text-align: center;
+}
+
+.player-wrapper {
+  max-width: 960px;
+  margin: 0 auto 40px;
+  aspect-ratio: 16 / 9;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.4);
+  font-size: 1rem;
+}
+
+/* BOTÕES */
+.actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.actions a {
+  text-decoration: none;
+  padding: 14px 26px;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.actions a:hover {
+  background: #fff;
+  color: #000;
 }
 
 /* SEÇÕES */
@@ -87,7 +124,6 @@ body {
 .section img {
   max-width: 100%;
   height: auto;
-  display: block;
 }
 
 .section .text {
@@ -97,12 +133,10 @@ body {
   color: rgba(255,255,255,0.85);
 }
 
-/* LEITURA */
 .section.leitura {
   background: #121212;
 }
 
-/* LIVRO */
 .section.livro {
   padding: 0;
 }
@@ -111,7 +145,6 @@ body {
   width: 100%;
 }
 
-/* CANAL */
 .section.canal {
   background: #0b0b0b;
 }
@@ -124,7 +157,6 @@ footer {
   color: rgba(255,255,255,0.5);
 }
 
-/* MOBILE */
 @media (max-width: 900px) {
   .section {
     flex-direction: column;
@@ -145,13 +177,28 @@ footer {
 <section class="hero">
   <div class="hero-content">
     <img src="/clima/imagens/logo_tv_marataizes.png" alt="TV Marataízes" class="logo">
-
     <h1>Leitura em Cena</h1>
-
     <p class="sub">
       Não é sobre ler mais.<br>
       É sobre estar.
     </p>
+  </div>
+</section>
+
+<!-- PLAYER -->
+<section class="player-section">
+  <div class="player-wrapper">
+    PLAYER DO PROGRAMA (temporário)
+  </div>
+
+  <div class="actions">
+    <a href="https://wa.me/5528999036141?text=Quero%20apoiar%20o%20Leitura%20em%20Cena" target="_blank">
+      Quero apoiar o Leitura em Cena
+    </a>
+
+    <a href="https://wa.me/5528999036141?text=Quero%20patrocinar%20o%20Leitura%20em%20Cena" target="_blank">
+      Quero patrocinar o Leitura em Cena
+    </a>
   </div>
 </section>
 
@@ -163,7 +210,6 @@ footer {
       Não é pressa.<br>
       Não é ruído.
     </p>
-
     <p>
       É gesto simples.<br>
       Corpo parado.<br>
@@ -192,7 +238,6 @@ footer {
       Leitura em Cena é um espaço editorial.<br>
       Um lugar onde o tempo desacelera.
     </p>
-
     <p>
       Um projeto da <strong>TV Marataízes</strong><br>
       para quem ainda acredita no silêncio.
@@ -200,7 +245,6 @@ footer {
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <p>© TV Marataízes · Leitura em Cena</p>
 </footer>
