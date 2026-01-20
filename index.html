@@ -34,36 +34,8 @@ header{
   background:#000;
   border-radius:14px;
   overflow:hidden;
-  position:relative;
 }
 .player iframe{width:100%;height:100%;border:0}
-
-/* PLAYER VISUAL (SEM AUTOPLAY) */
-.player-visual{
-  position:relative;
-  cursor:pointer;
-}
-.player-visual img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-.player-visual::after{
-  content:"▶";
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  font-size:80px;
-  color:#fff;
-  background:rgba(0,0,0,.6);
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
 
 section{max-width:var(--max);margin:30px auto;padding:0 14px}
 
@@ -136,27 +108,28 @@ footer{
 <!-- PLAYER AO VIVO -->
 <div class="player-outer">
   <div class="player">
-    <iframe
+    <iframe 
       src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
-      allow="autoplay; fullscreen"
+      allow="autoplay; fullscreen" 
       allowfullscreen>
     </iframe>
   </div>
 </div>
 
+<!-- TÍTULO DA SESSÃO -->
+<section>
+  <h2>Programas da TV Marataízes</h2>
+</section>
+
 <!-- LEITURA EM CENA -->
 <section>
   <div class="vitrine">
-    <a href="https://tvmarataizes.digital/leituraemcena/">
-      <div class="player player-visual">
-        <img src="clima/Leitura.png" alt="Leitura em Cena">
-      </div>
-    </a>
+    <img src="clima/Leitura.png" alt="Leitura em Cena">
     <div>
       <h2>Leitura em Cena</h2>
       <p>
-        Um programa de análise e comentário sobre filmes, músicas e obras culturais,
-        onde linguagem, estética e contexto se cruzam para provocar reflexão.
+        Um programa de análise e comentário que conecta filmes, músicas
+        e obras audiovisuais a contexto, linguagem e pensamento crítico.
       </p>
       <a class="btn" href="https://tvmarataizes.digital/leituraemcena/">
         Assistir episódios
@@ -182,9 +155,8 @@ footer{
   </div>
 </section>
 
-<!-- PROGRAMAS -->
+<!-- THUMBS DOS OUTROS PROGRAMAS -->
 <section>
-  <h2>Programas da TV Marataízes</h2>
   <div class="grid">
     <div class="thumb"><img src="clima/dicasdefilmes.png"></div>
     <div class="thumb"><img src="clima/morocanoticiasdiarias.png"></div>
