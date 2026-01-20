@@ -13,12 +13,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
+/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* BASE */
 body {
   font-family: 'Inter', sans-serif;
   background: #0e0e0e;
@@ -29,7 +31,7 @@ body {
 .hero {
   position: relative;
   min-height: 100vh;
-  background: url("/clima/imagens/fundo_textura.jpg") center / cover no-repeat;
+  background: url("/clima/heranca.jpg") center / cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,7 +44,7 @@ body {
   background: linear-gradient(
     to bottom,
     rgba(0,0,0,0.45),
-    rgba(0,0,0,0.85)
+    rgba(0,0,0,0.9)
   );
 }
 
@@ -56,6 +58,7 @@ body {
 .logo {
   width: 120px;
   margin-bottom: 36px;
+  opacity: 0.95;
 }
 
 .hero h1 {
@@ -90,7 +93,7 @@ body {
   font-size: 1rem;
 }
 
-/* BOTÕES */
+/* AÇÕES */
 .actions {
   display: flex;
   gap: 20px;
@@ -124,6 +127,7 @@ body {
 .section img {
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
 .section .text {
@@ -133,10 +137,12 @@ body {
   color: rgba(255,255,255,0.85);
 }
 
+/* LEITURA */
 .section.leitura {
   background: #121212;
 }
 
+/* LIVRO */
 .section.livro {
   padding: 0;
 }
@@ -145,6 +151,7 @@ body {
   width: 100%;
 }
 
+/* CANAL */
 .section.canal {
   background: #0b0b0b;
 }
@@ -157,6 +164,7 @@ footer {
   color: rgba(255,255,255,0.5);
 }
 
+/* MOBILE */
 @media (max-width: 900px) {
   .section {
     flex-direction: column;
@@ -176,7 +184,7 @@ footer {
 <!-- HERO -->
 <section class="hero">
   <div class="hero-content">
-    <img src="/clima/imagens/logo_tv_marataizes.png" alt="TV Marataízes" class="logo">
+    <img src="/clima/SOULTV.png" alt="TV Marataízes" class="logo">
     <h1>Leitura em Cena</h1>
     <p class="sub">
       Não é sobre ler mais.<br>
@@ -210,6 +218,7 @@ footer {
       Não é pressa.<br>
       Não é ruído.
     </p>
+
     <p>
       É gesto simples.<br>
       Corpo parado.<br>
@@ -218,19 +227,19 @@ footer {
   </div>
 
   <div class="image">
-    <img src="/clima/imagens/leitura_humana.jpg" alt="Leitura em silêncio">
+    <img src="/clima/GOODTIMES.png" alt="Leitura em silêncio">
   </div>
 </section>
 
 <!-- LIVRO -->
 <section class="section livro">
-  <img src="/clima/imagens/livro_aberto.jpg" alt="Livro aberto">
+  <img src="/clima/classicos_da_tela.png" alt="Livro aberto">
 </section>
 
 <!-- CANAL -->
 <section class="section canal">
   <div class="image">
-    <img src="/clima/imagens/tv_canal.jpg" alt="Televisão como cultura">
+    <img src="/clima/caindonatela.png" alt="Televisão como cultura">
   </div>
 
   <div class="text">
@@ -238,6 +247,7 @@ footer {
       Leitura em Cena é um espaço editorial.<br>
       Um lugar onde o tempo desacelera.
     </p>
+
     <p>
       Um projeto da <strong>TV Marataízes</strong><br>
       para quem ainda acredita no silêncio.
