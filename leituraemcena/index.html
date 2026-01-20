@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Leitura em Cena · TV Marataízes</title>
 
-<meta name="description" content="Leitura em Cena é um espaço de presença, silêncio e escuta. Um projeto editorial da TV Marataízes." />
-<meta name="theme-color" content="#000" />
+<meta name="description" content="Leitura em Cena é um projeto editorial da TV Marataízes. Silêncio, presença e escuta." />
 
 <style>
 :root{
   --bg:#000;
-  --fg:#f2f2f2;
+  --fg:#fff;
   --card:#0e0e0e;
   --line:#222;
   --accent:#FF6F00;
@@ -26,40 +25,32 @@ html,body{
   color:var(--fg);
   font-family:system-ui,Arial,sans-serif;
 }
-img{max-width:100%;display:block}
-a{text-decoration:none;color:inherit}
 
 header{
   text-align:center;
-  padding:32px 16px 16px;
-  font-weight:700;
+  padding:24px;
+  font-weight:800;
   letter-spacing:1px;
-  opacity:.85;
 }
 
-/* HERO */
-.hero{
-  max-width:var(--max);
-  margin:40px auto;
-  padding:0 16px;
-  text-align:center;
-}
-.hero h1{
-  font-family:Georgia,serif;
-  font-size:clamp(32px,6vw,56px);
-  margin:0 0 12px;
-}
-.hero p{
-  font-size:18px;
-  opacity:.75;
-}
-
-/* PLAYER */
-.player-wrap{
+section{
   max-width:var(--max);
   margin:60px auto;
   padding:0 16px;
 }
+
+h1{
+  font-family:Georgia,serif;
+  font-size:48px;
+  margin-bottom:16px;
+}
+
+p{
+  font-size:18px;
+  line-height:1.7;
+  color:#ddd;
+}
+
 .player{
   aspect-ratio:16/9;
   background:#000;
@@ -67,59 +58,36 @@ header{
   overflow:hidden;
   border:1px solid var(--line);
 }
+
 .player iframe{
   width:100%;
   height:100%;
   border:0;
 }
 
-/* TEXTO */
-.section{
-  max-width:800px;
-  margin:80px auto;
-  padding:0 16px;
-  font-size:18px;
-  line-height:1.8;
-  opacity:.85;
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+}
+@media(max-width:800px){
+  .grid{grid-template-columns:1fr}
 }
 
-/* IMAGENS */
-.image{
-  max-width:var(--max);
-  margin:60px auto;
-  padding:0 16px;
-}
-.image img{
-  border-radius:16px;
+.grid img{
+  border-radius:14px;
 }
 
-/* APOIO */
-.apoio{
-  max-width:var(--max);
-  margin:100px auto;
-  padding:40px 16px;
-  border-top:1px solid var(--line);
-  text-align:center;
-}
-.apoio h2{
-  font-size:24px;
-  margin-bottom:12px;
-}
-.apoio p{
-  opacity:.75;
-  max-width:600px;
-  margin:0 auto 24px;
-}
 .btn{
   display:inline-block;
   background:var(--accent);
   color:#fff;
-  padding:14px 22px;
+  padding:14px 24px;
   border-radius:40px;
   font-weight:800;
+  margin-top:20px;
 }
 
-/* FOOTER */
 footer{
   text-align:center;
   padding:60px 20px;
@@ -133,67 +101,61 @@ footer{
 
 <header>TV MARATAÍZES · PROJETO EDITORIAL</header>
 
-<!-- HERO -->
-<div class="hero">
+<section style="text-align:center">
   <h1>Leitura em Cena</h1>
   <p>Não é sobre ler mais.<br>É sobre estar.</p>
-</div>
+</section>
 
-<!-- PLAYER (placeholder) -->
-<div class="player-wrap">
+<section>
   <div class="player">
-    <!-- TROCAR ESSE IFRAME PELO CASTR QUANDO SUBIR -->
-    <iframe 
+    <iframe
       src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?muted=on"
       allow="autoplay; fullscreen"
       allowfullscreen>
     </iframe>
   </div>
-</div>
+</section>
 
-<!-- TEXTO -->
-<div class="section">
-  Ler não é performance.<br>
-  Não é pressa.<br>
-  Não é ruído.<br><br>
+<section class="grid">
+  <div>
+    <p>
+      Ler não é performance.<br>
+      Não é pressa.<br>
+      Não é ruído.<br><br>
+      É gesto simples.<br>
+      Corpo parado.<br>
+      Mundo suspenso.
+    </p>
+  </div>
+  <div>
+    <img src="../clima/leitura_humana.jpg" alt="">
+  </div>
+</section>
 
-  É gesto simples.<br>
-  Corpo parado.<br>
-  Mundo suspenso.
-</div>
+<section>
+  <img src="../clima/livro_aberto.jpg" alt="">
+</section>
 
-<!-- IMAGENS -->
-<div class="image">
-  <img src="../clima/leitura_humana.jpg" alt="Leitura humana">
-</div>
+<section class="grid">
+  <div>
+    <img src="../clima/tv_canal.jpg" alt="">
+  </div>
+  <div>
+    <p>
+      Este programa só existe porque alguém decidiu apoiar.<br><br>
+      Televisão é escolha editorial.
+    </p>
 
-<div class="image">
-  <img src="../clima/livro_aberto.jpg" alt="Livro aberto">
-</div>
-
-<div class="image">
-  <img src="../clima/tv_canal.jpg" alt="Televisão como cultura">
-</div>
-
-<!-- APOIO -->
-<div class="apoio">
-  <h2>Este programa só existe porque alguém decidiu apoiar.</h2>
-  <p>
-    A TV Marataízes mantém conteúdos autorais, independentes e editoriais no ar.
-    Se você acredita nesse tipo de projeto, existem formas de apoiar.
-  </p>
-
-  <a class="btn"
-     href="https://wa.me/5528999036141?text=Quero%20apoiar%20o%20programa%20Leitura%20em%20Cena">
-     APOIAR O LEITURA EM CENA
-  </a>
-</div>
+    <a class="btn"
+      href="https://wa.me/5528999036141?text=Quero%20apoiar%20o%20Leitura%20em%20Cena">
+      Apoiar o programa
+    </a>
+  </div>
+</section>
 
 <footer>
-  © TV Marataízes<br>
-  Televisão é escolha editorial.
+  © TV Marataízes
 </footer>
 
 </body>
 </html>
-
