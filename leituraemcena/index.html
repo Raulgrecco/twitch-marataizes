@@ -2,22 +2,26 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
+
 <title>Leitura em Cena · TV Marataízes</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Leitura em Cena é um espaço de silêncio, presença e imaginação. Um projeto da TV Marataízes.">
 
+<!-- FONTES -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
+/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* BASE */
 body {
   font-family: 'Inter', sans-serif;
   background: #0e0e0e;
@@ -25,11 +29,10 @@ body {
 }
 
 /* HERO */
-
 .hero {
   position: relative;
   min-height: 100vh;
-  background: url("../clima/imagens/fundo_textura.jpg") center / cover no-repeat;
+  background: url("/clima/imagens/fundo_textura.jpg") center / cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,13 +42,13 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.65);
+  background: rgba(0, 0, 0, 0.65);
 }
 
 .hero-content {
   position: relative;
   text-align: center;
-  max-width: 800px;
+  max-width: 820px;
   padding: 20px;
 }
 
@@ -69,7 +72,6 @@ body {
 }
 
 /* SEÇÕES */
-
 .section {
   padding: 120px 8vw;
   display: flex;
@@ -91,10 +93,12 @@ body {
   opacity: 0.9;
 }
 
+/* LEITURA */
 .section.leitura {
   background: #121212;
 }
 
+/* LIVRO */
 .section.livro {
   padding: 0;
 }
@@ -103,12 +107,12 @@ body {
   width: 100%;
 }
 
+/* CANAL */
 .section.canal {
   background: #0b0b0b;
 }
 
 /* FOOTER */
-
 footer {
   padding: 60px 20px;
   text-align: center;
@@ -117,7 +121,6 @@ footer {
 }
 
 /* MOBILE */
-
 @media (max-width: 900px) {
   .section {
     flex-direction: column;
@@ -134,9 +137,10 @@ footer {
 
 <body>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-content">
-    <img src="../clima/imagens/logo_tv_marataizes.png" class="logo" alt="TV Marataízes">
+    <img src="/clima/imagens/logo_tv_marataizes.png" alt="TV Marataízes" class="logo">
 
     <h1>Leitura em Cena</h1>
 
@@ -147,6 +151,7 @@ footer {
   </div>
 </section>
 
+<!-- LEITURA HUMANA -->
 <section class="section leitura">
   <div class="text">
     <p>
@@ -163,17 +168,19 @@ footer {
   </div>
 
   <div class="image">
-    <img src="../clima/imagens/leitura_humana.jpg" alt="Leitura em silêncio">
+    <img src="/clima/imagens/leitura_humana.jpg" alt="Leitura em silêncio">
   </div>
 </section>
 
+<!-- LIVRO -->
 <section class="section livro">
-  <img src="../clima/imagens/livro_aberto.jpg" alt="Livro aberto">
+  <img src="/clima/imagens/livro_aberto.jpg" alt="Livro aberto">
 </section>
 
+<!-- CANAL -->
 <section class="section canal">
   <div class="image">
-    <img src="../clima/imagens/tv_canal.jpg" alt="Televisão como cultura">
+    <img src="/clima/imagens/tv_canal.jpg" alt="Televisão como cultura">
   </div>
 
   <div class="text">
@@ -189,10 +196,10 @@ footer {
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <p>© TV Marataízes · Leitura em Cena</p>
 </footer>
 
 </body>
 </html>
-
