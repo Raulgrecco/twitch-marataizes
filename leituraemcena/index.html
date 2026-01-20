@@ -46,7 +46,7 @@ html,body{
   margin-bottom:30px;
 }
 
-/* ===== PLAYER ===== */
+/* ===== PLAYER (IGUAL AO VITRINE) ===== */
 .player{
   width:100%;
   aspect-ratio:16/9;
@@ -177,13 +177,19 @@ footer{
 
 <section class="hero">
   <h1>Leitura em Cena</h1>
-  <p>Programa editorial ao vivo</p>
+  <p>Programa editorial</p>
 
   <div class="player">
+    <!-- PLAYER TROCAD0: NÃO É LIVE, É O VÍDEO QUE VOCÊ SUBIU -->
     <iframe
       src="https://player.castr.com/vod/AyEQrGYWdqk0jMJE"
-      allow="fullscreen"
-      allowfullscreen>
+      frameborder="0"
+      scrolling="no"
+      allowfullscreen
+      webkitallowfullscreen
+      mozallowfullscreen
+      oallowfullscreen
+      msallowfullscreen>
     </iframe>
   </div>
 </section>
@@ -193,7 +199,6 @@ footer{
 
   <div class="cards">
 
-    <!-- PATROCINAR -->
     <div class="card">
       <img src="../clima/qr-patrocine-leitura-em-cena.png" alt="QR Code Patrocinar">
       <h3>Patrocinar o programa</h3>
@@ -204,7 +209,6 @@ footer{
       <a class="btn" href="https://wa.me/5528999036141">Falar com o comercial</a>
     </div>
 
-    <!-- APOIAR -->
     <div class="card">
       <img src="../clima/qr-apoie-leitura-em-cena.png" alt="QR Code Apoiar">
       <h3>Apoiar o programa</h3>
