@@ -1,193 +1,722 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>TV Marataízes — ao vivo</title>
-
-<meta name="description" content="TV Marataízes — emissora independente do Espírito Santo, transmitida pela Soul TV (canal 300). Programação ao vivo, cultura, jornalismo e entretenimento capixaba." />
-<meta name="theme-color" content="#000" />
-
-<style>
-:root{
-  --bg:#000;
-  --fg:#fff;
-  --card:#0e0e0e;
-  --line:#222;
-  --accent:#FF6F00;
-  --max:1320px;
-}
-*{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,Arial,sans-serif}
-img{max-width:100%;display:block}
-a{text-decoration:none;color:inherit}
-
-header{
-  text-align:center;
-  padding:14px;
-  font-weight:800;
-}
-
-.player-outer{max-width:var(--max);margin:0 auto;padding:0 14px;}
-.player{
-  aspect-ratio:16/9;
-  background:#000;
-  border-radius:14px;
-  overflow:hidden;
-}
-.player iframe{width:100%;height:100%;border:0}
-
-section{max-width:var(--max);margin:30px auto;padding:0 14px}
-
-.vitrine{
-  display:grid;
-  grid-template-columns:2fr 1fr;
-  gap:24px;
-  align-items:center;
-}
-@media(max-width:800px){
-  .vitrine{grid-template-columns:1fr}
-}
-
-.vitrine img{
-  border-radius:16px;
-  aspect-ratio:16/9;
-  object-fit:cover;
-}
-
-.btn{
-  display:inline-block;
-  background:var(--accent);
-  color:#fff;
-  padding:12px 18px;
-  border-radius:30px;
-  font-weight:700;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
-}
-@media(max-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr)}}
-
-.thumb{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:12px;
-  overflow:hidden;
-  aspect-ratio:16/9;
-}
-.thumb img{width:100%;height:100%;object-fit:cover}
-
-.cta{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  background:var(--accent);
-  color:#fff;
-  padding:14px 18px;
-  border-radius:40px;
-  font-weight:800;
-}
-
-footer{
-  text-align:center;
-  padding:40px 20px;
-  font-size:14px;
-  color:#ccc;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TV Marataízes - Assista ao vivo 24h. Canal 300 Soul TV. Emissora do Sul do ES.">
+    <meta name="theme-color" content="#0F0F0F">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="TV Marataízes">
+    
+    <title>TV Marataízes - Ao Vivo</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-primary: #0F0F0F;
+            --bg-secondary: #1A1A1A;
+            --bg-card: #252525;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B3B3B3;
+            --accent-primary: #E50914;
+            --accent-secondary: #FF6B35;
+            --border-radius: 8px;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(to bottom, rgba(15, 15, 15, 0.95), transparent);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #E50914, #FF6B35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent-primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .live-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding-top: 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        /* Player Section */
+        .player-section {
+            margin-bottom: 2rem;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            background: var(--bg-secondary);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+        }
+        
+        .player-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+        }
+        
+        .player-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .player-info {
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border-top: 2px solid var(--accent-primary);
+        }
+        
+        .player-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .player-info p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .action-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            text-decoration: none;
+            color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .action-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-secondary);
+            box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
+        }
+        
+        .action-card:active {
+            transform: translateY(-2px);
+        }
+        
+        .action-icon {
+            font-size: 3rem;
+            line-height: 1;
+        }
+        
+        .action-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .action-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .action-card.primary {
+            background: linear-gradient(135deg, var(--accent-primary), #C70000);
+        }
+        
+        .action-card.primary:hover {
+            border-color: var(--accent-primary);
+            box-shadow: 0 8px 24px rgba(229, 9, 20, 0.4);
+        }
+        
+        /* Programs Section */
+        .programs-section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .program-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .program-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.1);
+        }
+        
+        .program-thumbnail {
+            width: 100%;
+            padding-top: 56.25%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .program-thumbnail span {
+            position: absolute;
+            font-size: 4rem;
+        }
+        
+        .program-info {
+            padding: 1rem;
+        }
+        
+        .program-info h4 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .program-info p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            padding: 2rem 1rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent-secondary);
+        }
+        
+        /* Install Prompt */
+        .install-prompt {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, var(--accent-primary), #C70000);
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            z-index: 2000;
+            display: none;
+        }
+        
+        .install-prompt.show {
+            display: block;
+            transform: translateY(0);
+        }
+        
+        .install-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .install-prompt h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .install-prompt p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .install-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+        
+        .btn-install {
+            background: white;
+            color: var(--accent-primary);
+        }
+        
+        .btn-install:hover {
+            transform: scale(1.05);
+        }
+        
+        .btn-dismiss {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-dismiss:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Notification Permission */
+        .notification-prompt {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: none;
+            border-left: 4px solid var(--accent-secondary);
+        }
+        
+        .notification-prompt.show {
+            display: block;
+        }
+        
+        .notification-prompt h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .notification-prompt p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+            
+            .programs-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .install-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
-
 <body>
-
-<header>TV MARATAÍZES — AO VIVO</header>
-<div style="text-align:center; max-width: 980px; margin: 6px auto 0; padding: 0 14px; font-size: 14px; line-height: 1.4; color: #ccc;">
-  TV Marataízes — emissora local multiplataforma e multicanal, com programação ao vivo 24h e atuação em comunicação territorial, cultura e entretenimento. Também disponível na plataforma SOUL TV - Canal 300
-</div>
-
-<!-- PLAYER AO VIVO -->
-<div class="player-outer">
-  <div class="player">
-    <iframe 
-      src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
-      allow="autoplay; fullscreen" 
-      allowfullscreen>
-    </iframe>
-  </div>
-</div>
-
-<!-- TÍTULO DA SESSÃO -->
-<section>
-  <h2>Programas da TV Marataízes</h2>
-</section>
-
-<!-- LEITURA EM CENA -->
-<section>
-  <div class="vitrine">
-    <img src="clima/Leitura.png" alt="Leitura em Cena">
-    <div>
-      <h2>Leitura em Cena</h2>
-      <p>
-        Um programa de análise e comentário que conecta filmes, músicas
-        e obras audiovisuais a contexto, linguagem e pensamento crítico.
-      </p>
-      <a class="btn" href="https://tvmarataizes.digital/leituraemcena/">
-        Assistir episódios
-      </a>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">TV MARATAÍZES</div>
+            <div class="live-badge">AO VIVO 24H</div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Player Section -->
+        <section class="player-section">
+            <div class="player-wrapper">
+                <iframe 
+                    src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4" 
+                    allowfullscreen
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                    frameborder="0"
+                    scrolling="no"
+                ></iframe>
+            </div>
+            <div class="player-info">
+                <h2>📺 Transmissão ao Vivo</h2>
+                <p>Emissora do Sul do Espírito Santo • Canal 300 na Soul TV • Programação 24 horas</p>
+            </div>
+        </section>
+        
+        <!-- Notification Prompt -->
+        <div class="notification-prompt" id="notificationPrompt">
+            <h3>🔔 Ative as Notificações</h3>
+            <p>Receba avisos quando seus programas favoritos forem ao ar e notícias importantes da TV Marataízes!</p>
+            <div class="install-buttons">
+                <button class="btn btn-install" onclick="requestNotificationPermission()">Ativar Notificações</button>
+                <button class="btn btn-dismiss" onclick="dismissNotificationPrompt()">Agora Não</button>
+            </div>
+        </div>
+        
+        <!-- Quick Actions -->
+        <section class="quick-actions">
+            <a href="#player" class="action-card primary">
+                <span class="action-icon">📺</span>
+                <h3>Assistir Ao Vivo</h3>
+                <p>Transmissão 24 horas</p>
+            </a>
+            
+            <a href="#programs" class="action-card">
+                <span class="action-icon">🎬</span>
+                <h3>Programas</h3>
+                <p>Veja nossa grade</p>
+            </a>
+            
+            <a href="https://wa.me/5528999036141" target="_blank" class="action-card">
+                <span class="action-icon">💬</span>
+                <h3>WhatsApp</h3>
+                <p>Fale com a gente</p>
+            </a>
+            
+            <a href="https://soultv.com.br" target="_blank" class="action-card">
+                <span class="action-icon">📡</span>
+                <h3>Soul TV - Canal 300</h3>
+                <p>Assista na plataforma</p>
+            </a>
+        </section>
+        
+        <!-- Programs Section -->
+        <section class="programs-section" id="programs">
+            <h2 class="section-title">Nossos Programas</h2>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <div class="program-thumbnail">
+                        <span>📚</span>
+                    </div>
+                    <div class="program-info">
+                        <h4>Leitura em Cena</h4>
+                        <p>Análise de filmes e audiovisual</p>
+                    </div>
+                </div>
+                
+                <div class="program-card">
+                    <div class="program-thumbnail" style="background: linear-gradient(135deg, #FF6B35, #F7931E);">
+                        <span>🛍️</span>
+                    </div>
+                    <div class="program-info">
+                        <h4>Vitrine Marataízes</h4>
+                        <p>Comércio local</p>
+                    </div>
+                </div>
+                
+                <div class="program-card">
+                    <div class="program-thumbnail" style="background: linear-gradient(135deg, #2ECC71, #27AE60);">
+                        <span>📰</span>
+                    </div>
+                    <div class="program-info">
+                        <h4>Moro Cá Notícias</h4>
+                        <p>Notícias diárias</p>
+                    </div>
+                </div>
+                
+                <div class="program-card">
+                    <div class="program-thumbnail" style="background: linear-gradient(135deg, #E74C3C, #C0392B);">
+                        <span>❤️</span>
+                    </div>
+                    <div class="program-info">
+                        <h4>Histórias de Amor</h4>
+                        <p>Histórias reais</p>
+                    </div>
+                </div>
+                
+                <div class="program-card">
+                    <div class="program-thumbnail" style="background: linear-gradient(135deg, #9B59B6, #8E44AD);">
+                        <span>🎮</span>
+                    </div>
+                    <div class="program-info">
+                        <h4>Rebrincar</h4>
+                        <p>Cultura e diversão</p>
+                    </div>
+                </div>
+                
+                <div class="program-card">
+                    <div class="program-thumbnail" style="background: linear-gradient(135deg, #3498DB, #2980B9);">
+                        <span>🗣️</span>
+                    </div>
+                    <div class="program-info">
+                        <h4>Fala Marataízes</h4>
+                        <p>Voz da comunidade</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p><strong>TV Marataízes</strong> - Emissora do Sul do Espírito Santo</p>
+        <p>📍 Marataízes, ES | 📺 Canal 300 Soul TV | 📱 (28) 99903-6141</p>
+        <div class="social-links">
+            <a href="https://instagram.com/tvmarataizes" target="_blank" aria-label="Instagram">📷</a>
+            <a href="https://tvmarataizes.digital" target="_blank" aria-label="Site">🌐</a>
+            <a href="https://wa.me/5528999036141" target="_blank" aria-label="WhatsApp">💬</a>
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.8rem;">© 2026 TV Marataízes. Todos os direitos reservados.</p>
+    </footer>
+    
+    <!-- Install Prompt -->
+    <div class="install-prompt" id="installPrompt">
+        <div class="install-content">
+            <div>
+                <h3>📱 Instale o App da TV Marataízes</h3>
+                <p>Acesso rápido direto da sua tela inicial!</p>
+            </div>
+            <div class="install-buttons">
+                <button class="btn btn-install" id="installButton">Instalar Agora</button>
+                <button class="btn btn-dismiss" onclick="dismissInstallPrompt()">Mais Tarde</button>
+            </div>
+        </div>
     </div>
-  </div>
-</section>
-
-<!-- VITRINE -->
-<section>
-  <div class="vitrine">
-    <img src="clima/vitrine-thumb.png" alt="Vitrine Marataízes">
-    <div>
-      <h2>Vitrine Marataízes</h2>
-      <p>
-        A vitrine onde a população encontra promoções, novidades,
-        histórias e oportunidades do comércio local de Marataízes.
-      </p>
-      <a class="btn" href="https://tvmarataizes.digital/vitrine-marataizes.html">
-        Assistir episódios
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- THUMBS DOS OUTROS PROGRAMAS -->
-<section>
-  <div class="grid">
-    <div class="thumb"><img src="clima/dicasdefilmes.png"></div>
-    <div class="thumb"><img src="clima/morocanoticiasdiarias.png"></div>
-    <div class="thumb"><img src="clima/historiasdeamoremcena.png"></div>
-    <div class="thumb"><img src="clima/rebrincar.png"></div>
-    <div class="thumb"><img src="clima/caindonatela.png"></div>
-    <div class="thumb"><img src="clima/naosaimosda5serie.png"></div>
-    <div class="thumb"><img src="clima/claudiarayallar.png"></div>
-    <div class="thumb"><img src="clima/fala_marataizes.png"></div>
-    <div class="thumb"><img src="clima/rota_300.png"></div>
-    <div class="thumb"><img src="clima/RAULjuremavaiok.png"></div>
-    <div class="thumb"><img src="clima/tal_mae_tal_filha.png"></div>
-    <div class="thumb"><img src="clima/saude_mental.png"></div>
-    <div class="thumb"><img src="clima/classicos_da_tela.png"></div>
-    <div class="thumb"><img src="clima/eeee.png"></div>
-    <div class="thumb"><img src="clima/GOODTIMES.png"></div>
-    <div class="thumb"><img src="clima/perguntatorta.png"></div>
-  </div>
-</section>
-
-<a class="cta" href="https://wa.me/5528999036141">COMERCIAL — WhatsApp</a>
-
-<footer>
-  TV Marataízes também está na Soul TV<br>
-  Assista gratuitamente pelo aplicativo Soul TV — Canal 300<br>
-  Disponível para Smart TVs, Android e iOS<br>
-  📺 Mais de 200 canais gratuitos
-</footer>
-
+    
+    <script>
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(registration => {
+                        console.log('✅ Service Worker registrado:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('❌ Falha ao registrar Service Worker:', error);
+                    });
+            });
+        }
+        
+        // Install Prompt
+        let deferredPrompt;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Show install prompt after 3 seconds
+            setTimeout(() => {
+                document.getElementById('installPrompt').classList.add('show');
+            }, 3000);
+        });
+        
+        document.getElementById('installButton').addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`User response: ${outcome}`);
+                deferredPrompt = null;
+                dismissInstallPrompt();
+            }
+        });
+        
+        function dismissInstallPrompt() {
+            document.getElementById('installPrompt').classList.remove('show');
+        }
+        
+        // Check if app is installed
+        window.addEventListener('appinstalled', () => {
+            console.log('✅ PWA instalado com sucesso!');
+            dismissInstallPrompt();
+        });
+        
+        // Notification Permission
+        function showNotificationPrompt() {
+            if ('Notification' in window && Notification.permission === 'default') {
+                setTimeout(() => {
+                    document.getElementById('notificationPrompt').classList.add('show');
+                }, 5000);
+            }
+        }
+        
+        async function requestNotificationPermission() {
+            if ('Notification' in window) {
+                const permission = await Notification.requestPermission();
+                
+                if (permission === 'granted') {
+                    console.log('✅ Permissão de notificação concedida!');
+                    
+                    // Subscribe to push notifications
+                    if ('serviceWorker' in navigator) {
+                        const registration = await navigator.serviceWorker.ready;
+                        
+                        // Request push subscription (backend integration needed)
+                        try {
+                            const subscription = await registration.pushManager.subscribe({
+                                userVisibleOnly: true,
+                                applicationServerKey: urlBase64ToUint8Array('YOUR_PUBLIC_VAPID_KEY_HERE')
+                            });
+                            
+                            console.log('✅ Push subscription:', JSON.stringify(subscription));
+                            
+                            // Send subscription to your server
+                            // await fetch('/api/subscribe', {
+                            //     method: 'POST',
+                            //     body: JSON.stringify(subscription),
+                            //     headers: { 'Content-Type': 'application/json' }
+                            // });
+                            
+                            // Show welcome notification
+                            registration.showNotification('TV Marataízes', {
+                                body: 'Notificações ativadas! Você receberá avisos sobre programas e notícias.',
+                                icon: 'icons/icon-192.png',
+                                badge: 'icons/icon-192.png',
+                                vibrate: [200, 100, 200]
+                            });
+                        } catch (error) {
+                            console.log('❌ Erro ao registrar push:', error);
+                        }
+                    }
+                    
+                    dismissNotificationPrompt();
+                } else {
+                    console.log('❌ Permissão de notificação negada');
+                }
+            }
+        }
+        
+        function dismissNotificationPrompt() {
+            document.getElementById('notificationPrompt').classList.remove('show');
+        }
+        
+        // Utility function for VAPID key
+        function urlBase64ToUint8Array(base64String) {
+            const padding = '='.repeat((4 - base64String.length % 4) % 4);
+            const base64 = (base64String + padding)
+                .replace(/\-/g, '+')
+                .replace(/_/g, '/');
+            
+            const rawData = window.atob(base64);
+            const outputArray = new Uint8Array(rawData.length);
+            
+            for (let i = 0; i < rawData.length; ++i) {
+                outputArray[i] = rawData.charCodeAt(i);
+            }
+            return outputArray;
+        }
+        
+        // Show notification prompt on load
+        showNotificationPrompt();
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
