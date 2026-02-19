@@ -93,6 +93,7 @@
   .btn-primary {
     background: var(--orange); color: #000; font-weight: 700; font-size: 0.95rem;
     padding: 14px 32px; border-radius: 8px; text-decoration: none; transition: all .25s; letter-spacing: -0.01em;
+    cursor: pointer;
   }
   .btn-primary:hover { background: #FFB347; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(247,148,29,0.3); }
   .btn-ghost {
@@ -234,7 +235,7 @@
 
 <nav>
   <div class="nav-logo">TV <span>Marataízes</span></div>
-  <a href="#contato" class="nav-cta" onclick="openModal()">Quero Anunciar</a>
+  <a href="#contato" class="nav-cta" onclick="openModal(); return false;">Quero Anunciar</a>
 </nav>
 
 <section class="hero">
@@ -453,7 +454,7 @@
   </div>
   <div class="cta-banner-actions">
     <a href="https://wa.me/5528999036141?text=Olá! Vim pelo site e quero saber mais sobre os planos de mídia da TV Marataízes." target="_blank" class="btn-primary">💬 WhatsApp Agora</a>
-    <button class="btn-ghost" onclick="openModal()">Preencher Formulário</button>
+    <button class="btn-ghost" onclick="openModal(); return false;">Preencher Formulário</button>
   </div>
 </div>
 
@@ -504,9 +505,17 @@
 </div>
 
 <script>
-function openModal(plan=''){document.getElementById('modal').classList.add('open');if(plan)document.getElementById('m-plan').value=plan;}
-function closeModal(){document.getElementById('modal').classList.remove('open');}
-document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+function openModal(plan=''){
+  document.getElementById('modal').classList.add('open');
+  if(plan) document.getElementById('m-plan').value=plan;
+}
+function closeModal(){
+  document.getElementById('modal').classList.remove('open');
+}
+document.getElementById('modal').addEventListener('click',function(e){
+  if(e.target===this) closeModal();
+});
+
 function submitForm(){
   const name=document.getElementById('m-name').value||'não informado';
   const phone=document.getElementById('m-phone').value||'não informado';
@@ -517,17 +526,28 @@ function submitForm(){
   window.open(`https://wa.me/5528999036141?text=${encodeURIComponent(text)}`,'_blank');
   closeModal();
 }
+
 function showPlans(tier,btn){
   document.querySelectorAll('.plan-tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('.plan-card').forEach(card=>{card.style.display=(tier==='all'||card.dataset.tier===tier)?'':'none';});
+  document.querySelectorAll('.plan-card').forEach(card=>{
+    card.style.display=(tier==='all'||card.dataset.tier===tier)?'':'none';
+  });
 }
+
 function filterSegs(cat,btn){
   document.querySelectorAll('.seg-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('.seg-card').forEach(card=>{card.style.display=(cat==='all'||card.dataset.cat===cat)?'':'none';});
+  document.querySelectorAll('.seg-card').forEach(card=>{
+    card.style.display=(cat==='all'||card.dataset.cat===cat)?'':'none';
+  });
 }
-const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
+
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+},{threshold:0.08});
 document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
 </script>
 </body>
