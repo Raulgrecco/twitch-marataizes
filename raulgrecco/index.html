@@ -18,11 +18,9 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
-    background: var(--black);
-    color: var(--white);
+    background: var(--black); color: var(--white);
     font-family: 'Cormorant Garamond', serif;
-    overflow-x: hidden;
-    cursor: none;
+    overflow-x: hidden; cursor: none;
   }
 
   .cursor {
@@ -30,38 +28,35 @@
     background: var(--gold); border-radius: 50%;
     pointer-events: none; z-index: 9999;
     transform: translate(-50%, -50%);
-    transition: transform 0.1s ease, width 0.3s, height 0.3s;
-    mix-blend-mode: difference;
+    transition: transform 0.1s ease; mix-blend-mode: difference;
   }
   .cursor-ring {
     position: fixed; width: 40px; height: 40px;
     border: 1px solid var(--gold); border-radius: 50%;
     pointer-events: none; z-index: 9998;
     transform: translate(-50%, -50%);
-    transition: transform 0.15s ease, width 0.3s, height 0.3s;
-    opacity: 0.6;
+    transition: transform 0.15s ease; opacity: 0.6;
   }
 
   nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 100; padding: 28px 60px;
-    display: flex; justify-content: space-between; align-items: center;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 28px 60px; display: flex;
+    justify-content: space-between; align-items: center;
     background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
   }
   .nav-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.4rem; letter-spacing: 0.15em;
-    color: var(--gold); text-decoration: none;
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+    letter-spacing: 0.15em; color: var(--gold); text-decoration: none;
   }
   .nav-links { display: flex; gap: 40px; list-style: none; }
   .nav-links a {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.68rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--cream);
+    font-family: 'Space Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream);
     text-decoration: none; transition: color 0.3s; opacity: 0.7;
   }
   .nav-links a:hover { color: var(--gold); opacity: 1; }
 
+  /* HERO */
   .hero {
     height: 100vh; display: flex; flex-direction: column;
     justify-content: flex-end; padding: 0 60px 80px;
@@ -74,41 +69,32 @@
       radial-gradient(ellipse at 20% 80%, rgba(192,57,43,0.06) 0%, transparent 50%),
       var(--black);
   }
-  .hero-bg::after {
-    content: ''; position: absolute; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    opacity: 0.5; pointer-events: none;
-  }
   .hero-eyebrow {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem; letter-spacing: 0.3em;
-    text-transform: uppercase; color: var(--gold);
-    margin-bottom: 20px; animation: fadeUp 1s 0.3s both;
+    font-family: 'Space Mono', monospace; font-size: 0.7rem;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 20px; animation: fadeUp 1s 0.3s both; position: relative; z-index: 2;
   }
   .hero-title {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(5rem, 13vw, 14rem);
-    line-height: 0.88; letter-spacing: -0.01em;
-    color: var(--white); animation: fadeUp 1s 0.5s both;
+    line-height: 0.88; color: var(--white);
+    animation: fadeUp 1s 0.5s both; position: relative; z-index: 2;
   }
   .hero-title span { color: var(--gold); display: block; }
   .hero-sub {
-    margin-top: 32px; font-size: 1.25rem;
-    font-style: italic; color: var(--gray);
-    max-width: 480px; line-height: 1.6;
-    animation: fadeUp 1s 0.7s both;
+    margin-top: 32px; font-size: 1.25rem; font-style: italic;
+    color: var(--gray); max-width: 480px; line-height: 1.6;
+    animation: fadeUp 1s 0.7s both; position: relative; z-index: 2;
   }
   .hero-scroll {
-    position: absolute; right: 60px; bottom: 80px;
-    display: flex; flex-direction: column;
-    align-items: center; gap: 12px;
+    position: absolute; right: 60px; bottom: 80px; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
     animation: fadeUp 1s 1s both;
   }
   .hero-scroll span {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem; letter-spacing: 0.25em;
-    text-transform: uppercase; color: var(--gray);
-    writing-mode: vertical-rl;
+    font-family: 'Space Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gray); writing-mode: vertical-rl;
   }
   .scroll-line {
     width: 1px; height: 60px;
@@ -116,12 +102,16 @@
     animation: scrollPulse 2s infinite;
   }
   .hero-strip {
-    position: absolute; top: 0; right: 120px;
-    width: 60px; height: 100%;
-    display: flex; flex-direction: column; opacity: 0.08;
+    position: absolute; top: 0; right: 120px; width: 60px;
+    height: 100%; display: flex; flex-direction: column; opacity: 0.08;
   }
   .strip-frame { flex: 1; border: 1px solid var(--white); border-top: none; }
   .strip-frame:first-child { border-top: 1px solid var(--white); }
+
+  /* CANVAS CINEMATOGRÁFICO */
+  .hero-canvas {
+    position: absolute; inset: 0; z-index: 1;
+  }
 
   .divider {
     width: 100%; height: 1px;
@@ -132,363 +122,154 @@
   section { padding: 120px 60px; }
 
   .section-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem; letter-spacing: 0.35em;
-    text-transform: uppercase; color: var(--gold);
+    font-family: 'Space Mono', monospace; font-size: 0.65rem;
+    letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold);
     margin-bottom: 60px; display: flex; align-items: center; gap: 20px;
   }
   .section-label::before {
     content: ''; display: block; width: 30px; height: 1px; background: var(--gold);
   }
 
-  #about {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 100px; align-items: center;
-  }
+  /* ABOUT */
+  #about { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
   .about-text h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3rem, 5vw, 5rem);
+    font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 5vw, 5rem);
     line-height: 1; margin-bottom: 40px; color: var(--white);
   }
   .about-text p {
-    font-size: 1.15rem; line-height: 1.85;
-    color: var(--cream); opacity: 0.85; margin-bottom: 20px;
+    font-size: 1.15rem; line-height: 1.85; color: var(--cream); opacity: 0.85; margin-bottom: 20px;
   }
-  .about-stats {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 40px; margin-top: 60px;
-  }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 60px; }
   .stat-item { border-left: 2px solid var(--gold); padding-left: 20px; }
-  .stat-number {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3.5rem; color: var(--gold); line-height: 1;
-  }
+  .stat-number { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; color: var(--gold); line-height: 1; }
   .stat-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--gray); margin-top: 6px;
-  }
-  .about-image { position: relative; }
-  .about-image img {
-    width: 100%; aspect-ratio: 4/5;
-    object-fit: cover; filter: grayscale(30%) contrast(1.1);
-  }
-  .about-image::before {
-    content: ''; position: absolute;
-    inset: -15px -15px 15px 15px;
-    border: 1px solid var(--gold); opacity: 0.3; z-index: -1;
-  }
-  .about-image::after {
-    content: 'MACUCA PRODUÇÕES';
-    position: absolute; bottom: -30px; right: 0;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem; letter-spacing: 0.25em;
-    color: var(--gold); opacity: 0.6;
+    font-family: 'Space Mono', monospace; font-size: 0.65rem;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); margin-top: 6px;
   }
 
-  #works { background: linear-gradient(to bottom, var(--black), #0f0f0f); }
-  .works-header {
-    display: flex; justify-content: space-between;
-    align-items: flex-end; margin-bottom: 80px;
+  /* VISUAL ABSTRATO — substituição das fotos */
+  .visual-trio {
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 2px; margin: 0 -60px;
   }
-  .works-header h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3.5rem, 6vw, 6rem);
-    line-height: 1; color: var(--white);
-  }
-  .works-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
-  }
-  .work-item {
+  .visual-panel {
     position: relative; overflow: hidden;
-    aspect-ratio: 16/10; background: #111; cursor: none;
+    aspect-ratio: 16/9; background: #0d0d0d;
   }
+  .visual-panel:first-child { aspect-ratio: 16/10; }
+  .visual-panel canvas { width: 100%; height: 100%; display: block; }
+  .visual-panel-label {
+    position: absolute; bottom: 16px; left: 20px;
+    font-family: 'Space Mono', monospace; font-size: 0.55rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); opacity: 0.7;
+  }
+
+  /* FILMOGRAFIA */
+  #works { background: linear-gradient(to bottom, var(--black), #0f0f0f); }
+  .works-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 80px; }
+  .works-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 6vw, 6rem); line-height: 1; color: var(--white); }
+  .works-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .work-item { position: relative; overflow: hidden; aspect-ratio: 16/10; background: #111; cursor: none; }
   .work-item:nth-child(1) { grid-column: span 2; aspect-ratio: auto; }
   .work-overlay {
     position: absolute; inset: 0;
     background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%);
     opacity: 0; transition: opacity 0.4s;
-    display: flex; flex-direction: column;
-    justify-content: flex-end; padding: 30px;
+    display: flex; flex-direction: column; justify-content: flex-end; padding: 30px;
   }
   .work-item:hover .work-overlay { opacity: 1; }
-  .work-item-content {
-    height: 100%; display: flex;
-    align-items: center; justify-content: center;
-  }
+  .work-item-content { height: 100%; display: flex; align-items: center; justify-content: center; }
   .work-bg-text {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2rem, 4vw, 5rem);
-    color: var(--white); opacity: 0.05;
-    text-align: center; padding: 40px; transition: opacity 0.3s;
+    font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 5rem);
+    color: var(--white); opacity: 0.05; text-align: center; padding: 40px; transition: opacity 0.3s;
   }
   .work-item:hover .work-bg-text { opacity: 0.1; }
-  .work-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem; letter-spacing: 0.25em;
-    text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
-  }
-  .work-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem; font-style: italic; color: var(--white);
-  }
+  .work-label { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .work-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; color: var(--white); }
 
+  /* CAREER */
   #career { background: #0d0d0d; }
   .career-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
-  .career-col h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem; color: var(--gold);
-    margin-bottom: 40px; padding-bottom: 20px;
-    border-bottom: 1px solid rgba(201,168,76,0.2);
-  }
+  .career-col h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--gold); margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid rgba(201,168,76,0.2); }
   .career-list { list-style: none; }
-  .career-list li {
-    padding: 16px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    display: flex; justify-content: space-between;
-    align-items: baseline; gap: 20px;
-  }
-  .career-list li .item-name {
-    font-size: 1.05rem; color: var(--cream); line-height: 1.4;
-  }
-  .career-list li .item-role {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--gold);
-    white-space: nowrap; opacity: 0.7;
-  }
+  .career-list li { padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: baseline; gap: 20px; }
+  .career-list li .item-name { font-size: 1.05rem; color: var(--cream); line-height: 1.4; }
+  .career-list li .item-role { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); white-space: nowrap; opacity: 0.7; }
 
+  /* CINE ARTE RAIZ */
   .raiz-block { margin-top: 80px; }
   .raiz-inner {
-    padding: 60px; border: 1px solid rgba(201,168,76,0.3);
-    position: relative;
+    padding: 60px; border: 1px solid rgba(201,168,76,0.3); position: relative;
     background: linear-gradient(135deg, rgba(201,168,76,0.04) 0%, transparent 60%);
   }
-  .raiz-inner::before {
-    content: ''; position: absolute; top: 0; left: 0;
-    width: 100%; height: 4px;
-    background: linear-gradient(to right, var(--gold), transparent);
-  }
-  .raiz-tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem; letter-spacing: 0.35em;
-    text-transform: uppercase; color: var(--gold);
-    margin-bottom: 24px; display: flex; align-items: center; gap: 14px;
-  }
-  .raiz-tag::before {
-    content: ''; display: block; width: 8px; height: 8px;
-    background: var(--gold); border-radius: 50%;
-  }
-  .raiz-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.8rem, 5vw, 4.5rem);
-    color: var(--white); line-height: 1; margin-bottom: 30px;
-  }
+  .raiz-inner::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(to right, var(--gold), transparent); }
+  .raiz-tag { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; display: flex; align-items: center; gap: 14px; }
+  .raiz-tag::before { content: ''; display: block; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; }
+  .raiz-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.8rem, 5vw, 4.5rem); color: var(--white); line-height: 1; margin-bottom: 30px; }
   .raiz-title span { color: var(--gold); }
-  .raiz-desc {
-    font-size: 1.15rem; color: var(--cream);
-    opacity: 0.8; line-height: 1.85; max-width: 680px; margin-bottom: 50px;
-  }
-  .raiz-municipios {
-    display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 50px;
-  }
-  .raiz-municipio {
-    padding: 10px 24px;
-    border: 1px solid rgba(201,168,76,0.4);
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--gold);
-    transition: background 0.3s, border-color 0.3s;
-  }
-  .raiz-municipio:hover { background: rgba(201,168,76,0.1); border-color: var(--gold); }
-  .raiz-disciplinas {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
-  }
-  .raiz-disc {
-    display: flex; align-items: flex-start; gap: 18px;
-    padding: 24px; background: rgba(255,255,255,0.02);
-    border-left: 2px solid var(--gold);
-  }
-  .raiz-disc-icon {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem; color: var(--gold); line-height: 1; flex-shrink: 0;
-  }
-  .raiz-disc-text h4 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.3rem; color: var(--white); margin-bottom: 6px;
-  }
+  .raiz-desc { font-size: 1.15rem; color: var(--cream); opacity: 0.8; line-height: 1.85; max-width: 680px; margin-bottom: 50px; }
+  .raiz-municipios { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 50px; }
+  .raiz-municipio { padding: 10px 24px; border: 1px solid rgba(201,168,76,0.4); font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); transition: background 0.3s; }
+  .raiz-municipio:hover { background: rgba(201,168,76,0.1); }
+  .raiz-disciplinas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .raiz-disc { display: flex; align-items: flex-start; gap: 18px; padding: 24px; background: rgba(255,255,255,0.02); border-left: 2px solid var(--gold); }
+  .raiz-disc-icon { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--gold); line-height: 1; flex-shrink: 0; }
+  .raiz-disc-text h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--white); margin-bottom: 6px; }
   .raiz-disc-text p { font-size: 0.9rem; color: var(--gray); line-height: 1.6; }
-  .raiz-badge {
-    position: absolute; top: 60px; right: 60px;
-    width: 120px; height: 120px;
-    border: 1px solid rgba(201,168,76,0.3); border-radius: 50%;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center; text-align: center;
-  }
-  .raiz-badge-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.8rem; color: var(--gold); line-height: 1;
-  }
-  .raiz-badge-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.5rem; letter-spacing: 0.15em;
-    text-transform: uppercase; color: var(--gray);
-    margin-top: 4px; line-height: 1.4;
-  }
+  .raiz-badge { position: absolute; top: 60px; right: 60px; width: 120px; height: 120px; border: 1px solid rgba(201,168,76,0.3); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .raiz-badge-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; color: var(--gold); line-height: 1; }
+  .raiz-badge-label { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); margin-top: 4px; line-height: 1.4; }
 
-  #brands { text-align: center; }
-  #brands h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3rem, 5vw, 5rem);
-    color: var(--white); margin-bottom: 20px;
-  }
-  #brands p {
-    font-size: 1.1rem; font-style: italic;
-    color: var(--gray); margin-bottom: 70px;
-  }
-  .brands-marquee-wrap {
-    overflow: hidden; margin: 0 -60px; padding: 30px 0;
-    border-top: 1px solid rgba(255,255,255,0.06);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-  .brands-marquee {
-    display: flex; gap: 60px;
-    animation: marquee 20s linear infinite;
-    white-space: nowrap; width: max-content;
-  }
-  .brand-item {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem; letter-spacing: 0.1em;
-    color: var(--white); opacity: 0.2; transition: opacity 0.3s;
-  }
-  .brand-item:hover { opacity: 0.8; color: var(--gold); }
-
-  .festivals-row {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 40px; margin-top: 80px;
-  }
-  .festival-card {
-    padding: 40px 30px; border: 1px solid rgba(201,168,76,0.15);
-    position: relative; transition: border-color 0.3s;
-  }
+  /* FESTIVALS */
+  .festivals-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-top: 80px; }
+  .festival-card { padding: 40px 30px; border: 1px solid rgba(201,168,76,0.15); position: relative; transition: border-color 0.3s; }
   .festival-card:hover { border-color: var(--gold); }
-  .festival-card::before {
-    content: ''; position: absolute; top: 0; left: 0;
-    width: 0; height: 2px; background: var(--gold); transition: width 0.4s;
-  }
+  .festival-card::before { content: ''; position: absolute; top: 0; left: 0; width: 0; height: 2px; background: var(--gold); transition: width 0.4s; }
   .festival-card:hover::before { width: 100%; }
-  .festival-year {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem; letter-spacing: 0.2em;
-    color: var(--gold); margin-bottom: 16px;
-  }
-  .festival-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.4rem; line-height: 1.2;
-    color: var(--white); margin-bottom: 12px;
-  }
+  .festival-year { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 16px; }
+  .festival-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; line-height: 1.2; color: var(--white); margin-bottom: 12px; }
   .festival-film { font-style: italic; font-size: 0.95rem; color: var(--gray); }
 
-  #music .music-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 40px; margin-top: 40px;
-  }
-  .music-card {
-    padding: 36px; background: rgba(255,255,255,0.02);
-    border-left: 3px solid var(--gold);
-    transition: background 0.3s, transform 0.3s;
-  }
+  /* MUSIC */
+  #music .music-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 40px; }
+  .music-card { padding: 36px; background: rgba(255,255,255,0.02); border-left: 3px solid var(--gold); transition: background 0.3s, transform 0.3s; }
   .music-card:hover { background: rgba(201,168,76,0.05); transform: translateY(-4px); }
-  .music-artist {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem; color: var(--gold); letter-spacing: 0.05em;
-  }
-  .music-title {
-    font-style: italic; font-size: 1rem;
-    color: var(--cream); margin-top: 8px; opacity: 0.8;
-  }
-  .music-role {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem; letter-spacing: 0.15em;
-    text-transform: uppercase; color: var(--gray); margin-top: 12px;
-  }
+  .music-artist { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--gold); letter-spacing: 0.05em; }
+  .music-title { font-style: italic; font-size: 1rem; color: var(--cream); margin-top: 8px; opacity: 0.8; }
+  .music-role { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); margin-top: 12px; }
 
-  footer {
-    background: #050505; padding: 100px 60px 60px;
-    position: relative; overflow: hidden;
-  }
-  footer::before {
-    content: 'RAUL GRECCO';
-    position: absolute; bottom: -60px; left: -20px;
-    font-family: 'Bebas Neue', sans-serif; font-size: 18vw;
-    color: var(--white); opacity: 0.02;
-    pointer-events: none; white-space: nowrap;
-  }
-  .footer-top {
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
-    gap: 80px; margin-bottom: 80px; padding-bottom: 80px;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-  }
-  .footer-brand h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3.5rem; color: var(--gold); line-height: 1; margin-bottom: 16px;
-  }
+  /* BRANDS */
+  #brands { text-align: center; }
+  #brands h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 5vw, 5rem); color: var(--white); margin-bottom: 20px; }
+  #brands p { font-size: 1.1rem; font-style: italic; color: var(--gray); margin-bottom: 70px; }
+  .brands-marquee-wrap { overflow: hidden; margin: 0 -60px; padding: 30px 0; border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .brands-marquee { display: flex; gap: 60px; animation: marquee 20s linear infinite; white-space: nowrap; width: max-content; }
+  .brand-item { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.1em; color: var(--white); opacity: 0.2; transition: opacity 0.3s; }
+  .brand-item:hover { opacity: 0.8; color: var(--gold); }
+
+  /* FOOTER */
+  footer { background: #050505; padding: 100px 60px 60px; position: relative; overflow: hidden; }
+  footer::before { content: 'RAUL GRECCO'; position: absolute; bottom: -60px; left: -20px; font-family: 'Bebas Neue', sans-serif; font-size: 18vw; color: var(--white); opacity: 0.02; pointer-events: none; white-space: nowrap; }
+  .footer-top { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 80px; margin-bottom: 80px; padding-bottom: 80px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .footer-brand h2 { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; color: var(--gold); line-height: 1; margin-bottom: 16px; }
   .footer-brand p { font-style: italic; color: var(--gray); font-size: 0.95rem; line-height: 1.7; }
-  .footer-col h4 {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem; letter-spacing: 0.3em;
-    text-transform: uppercase; color: var(--gold); margin-bottom: 24px;
-  }
+  .footer-col h4 { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
   .footer-col ul { list-style: none; }
-  .footer-col ul li {
-    font-size: 1rem; color: var(--cream);
-    opacity: 0.6; margin-bottom: 12px; transition: opacity 0.3s;
-  }
+  .footer-col ul li { font-size: 1rem; color: var(--cream); opacity: 0.6; margin-bottom: 12px; transition: opacity 0.3s; }
   .footer-col ul li:hover { opacity: 1; }
   .footer-col a { color: inherit; text-decoration: none; }
   .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
-  .footer-bottom p {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem; letter-spacing: 0.2em; color: var(--gray); opacity: 0.5;
-  }
+  .footer-bottom p { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; color: var(--gray); opacity: 0.5; }
   .social-links { display: flex; gap: 30px; }
-  .social-links a {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--gray);
-    text-decoration: none; transition: color 0.3s;
-  }
+  .social-links a { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); text-decoration: none; transition: color 0.3s; }
   .social-links a:hover { color: var(--gold); }
 
-  .photos-strip {
-    display: grid; grid-template-columns: 2fr 1fr 1fr;
-    gap: 2px; margin: 0 -60px;
-  }
-  .photo-item { overflow: hidden; aspect-ratio: 16/9; background: #111; }
-  .photo-item:first-child { aspect-ratio: 16/10; }
-  .photo-item img {
-    width: 100%; height: 100%; object-fit: cover;
-    filter: grayscale(40%) contrast(1.1);
-    transition: filter 0.5s, transform 0.5s;
-  }
-  .photo-item:hover img { filter: grayscale(0%) contrast(1); transform: scale(1.03); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes scrollPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(40px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes scrollPulse {
-    0%, 100% { opacity: 1; } 50% { opacity: 0.2; }
-  }
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  .reveal {
-    opacity: 0; transform: translateY(40px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
   @media (max-width: 900px) {
@@ -503,7 +284,7 @@
     .festivals-row { grid-template-columns: 1fr 1fr; }
     #music .music-grid { grid-template-columns: 1fr; }
     .footer-top { grid-template-columns: 1fr; gap: 50px; }
-    .photos-strip { grid-template-columns: 1fr; }
+    .visual-trio { grid-template-columns: 1fr; margin: 0 -30px; }
     .brands-marquee-wrap { margin: 0 -30px; }
     .raiz-inner { padding: 40px 30px; }
     .raiz-badge { display: none; }
@@ -528,8 +309,10 @@
   </ul>
 </nav>
 
+<!-- HERO com canvas cinematográfico -->
 <section class="hero">
   <div class="hero-bg"></div>
+  <canvas class="hero-canvas" id="heroCanvas"></canvas>
   <div class="hero-strip">
     <div class="strip-frame"></div><div class="strip-frame"></div>
     <div class="strip-frame"></div><div class="strip-frame"></div>
@@ -544,14 +327,12 @@
   <div class="hero-eyebrow">Diretor · Produtor · Curador</div>
   <h1 class="hero-title">Raul<br><span>Grecco</span></h1>
   <p class="hero-sub">Cineasta independente. Fundador da Macuca Produções e da TV Marataízes. Vinte anos entre câmeras, luz e verdade.</p>
-  <div class="hero-scroll">
-    <div class="scroll-line"></div>
-    <span>Scroll</span>
-  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
 </section>
 
 <div class="divider"></div>
 
+<!-- ABOUT -->
 <section id="about">
   <div class="about-text reveal">
     <div class="section-label">Sobre</div>
@@ -559,51 +340,46 @@
     <p>Iniciou na TV Globo em 1998 como câmera do programa "Penadinho" da Turma da Mônica. Por duas décadas, atuou ao lado dos maiores nomes do cinema brasileiro e internacional — como câmera, foquista, assistente, diretor e produtor.</p>
     <p>Fundador da <strong>Macuca Produções</strong> e criador da <strong>TV Marataízes</strong>, Raul leva o olhar apurado de quem conhece todos os lados da câmera para cada projeto que assina no Espírito Santo e no Brasil.</p>
     <div class="about-stats">
-      <div class="stat-item">
-        <div class="stat-number">20+</div>
-        <div class="stat-label">Anos de Carreira</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">600+</div>
-        <div class="stat-label">Comerciais</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">5</div>
-        <div class="stat-label">Municípios Atendidos</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">1</div>
-        <div class="stat-label">Cannes Short Film Corner</div>
-      </div>
+      <div class="stat-item"><div class="stat-number">20+</div><div class="stat-label">Anos de Carreira</div></div>
+      <div class="stat-item"><div class="stat-number">600+</div><div class="stat-label">Comerciais</div></div>
+      <div class="stat-item"><div class="stat-number">5</div><div class="stat-label">Municípios Atendidos</div></div>
+      <div class="stat-item"><div class="stat-number">1</div><div class="stat-label">Cannes Short Film Corner</div></div>
     </div>
   </div>
-  <div class="about-image reveal">
-    <img src="chamada_Raul_na_Madruga-Cover.jpg" alt="Raul Grecco">
+  <!-- PAINEL VISUAL ABSTRATO substituindo foto do Raul -->
+  <div class="reveal" style="position:relative;">
+    <canvas id="portraitCanvas" style="width:100%; aspect-ratio:4/5; display:block; filter: contrast(1.05);"></canvas>
+    <div style="position:absolute; bottom:-30px; right:0; font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.25em; color:var(--gold); opacity:0.6;">MACUCA PRODUÇÕES</div>
+    <div style="position:absolute; inset:-15px -15px 15px 15px; border:1px solid var(--gold); opacity:0.3; z-index:-1; pointer-events:none;"></div>
   </div>
 </section>
 
 <div class="divider"></div>
 
+<!-- TRIO VISUAL ABSTRATO substituindo as 3 fotos -->
 <section style="padding: 0;">
-  <div class="photos-strip">
-    <div class="photo-item">
-      <img src="Filmagem.jpg" alt="Filmagem">
+  <div class="visual-trio">
+    <div class="visual-panel">
+      <canvas id="panel1"></canvas>
+      <div class="visual-panel-label">Filmagem · Set</div>
     </div>
-    <div class="photo-item" style="background:#111; display:flex; align-items:center; justify-content:center;">
+    <div class="visual-panel" style="background:#0a0a0a; display:flex; align-items:center; justify-content:center;">
       <div style="text-align:center; padding:30px;">
-        <div style="font-family:'Bebas Neue',sans-serif; font-size:3rem; color:var(--gold); line-height:1;">MACUCA</div>
-        <div style="font-family:'Bebas Neue',sans-serif; font-size:3rem; color:var(--white); line-height:1;">PRODUÇÕES</div>
-        <div style="font-family:'Space Mono',monospace; font-size:0.55rem; letter-spacing:0.2em; color:var(--gray); margin-top:16px;">MARATAÍZES — ES</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:2.5rem; color:var(--gold); line-height:1;">MACUCA</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:2.5rem; color:var(--white); line-height:1;">PRODUÇÕES</div>
+        <div style="font-family:'Space Mono',monospace; font-size:0.5rem; letter-spacing:0.2em; color:var(--gray); margin-top:16px;">MARATAÍZES — ES</div>
       </div>
     </div>
-    <div class="photo-item">
-      <img src="Digitalizar0005.jpg" alt="Raul Grecco jovem">
+    <div class="visual-panel">
+      <canvas id="panel2"></canvas>
+      <div class="visual-panel-label">Arquivo · Memória</div>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
+<!-- FILMOGRAFIA -->
 <section id="works">
   <div class="works-header reveal">
     <div>
@@ -648,7 +424,6 @@
       </div>
     </div>
   </div>
-
   <div class="festivals-row reveal">
     <div class="festival-card">
       <div class="festival-year">Internacional</div>
@@ -675,6 +450,7 @@
 
 <div class="divider"></div>
 
+<!-- CARREIRA -->
 <section id="career">
   <div class="section-label reveal">Carreira</div>
   <div class="career-grid reveal">
@@ -709,9 +485,7 @@
       </div>
       <div class="raiz-tag">Lei Rouanet · Aprovado</div>
       <div class="raiz-title">Cine Arte <span>Raiz</span></div>
-      <p class="raiz-desc">
-        Projeto aprovado pela Lei Rouanet que leva aulas de câmera e edição de vídeo para 5 municípios do sul do Espírito Santo. Uma iniciativa de formação audiovisual que democratiza o acesso à linguagem cinematográfica e descobre novos talentos nas comunidades do interior capixaba.
-      </p>
+      <p class="raiz-desc">Projeto aprovado pela Lei Rouanet que leva aulas de câmera e edição de vídeo para 5 municípios do sul do Espírito Santo. Uma iniciativa de formação audiovisual que democratiza o acesso à linguagem cinematográfica e descobre novos talentos nas comunidades do interior capixaba.</p>
       <div class="raiz-municipios">
         <div class="raiz-municipio">Marataízes</div>
         <div class="raiz-municipio">Itapemirim</div>
@@ -741,45 +515,23 @@
 
 <div class="divider"></div>
 
+<!-- MÚSICA -->
 <section id="music">
   <div class="section-label reveal">Videoclipes & DVDs</div>
   <h2 class="reveal" style="font-family:'Bebas Neue',sans-serif; font-size:clamp(3rem,5vw,5rem); color:var(--white); margin-bottom:60px;">A música<br>em imagem</h2>
   <div class="music-grid reveal">
-    <div class="music-card">
-      <div class="music-artist">Marisa Monte</div>
-      <div class="music-title">"Memórias, Crônicas e Declarações de Amor"</div>
-      <div class="music-role">DVD · Câmera</div>
-    </div>
-    <div class="music-card">
-      <div class="music-artist">Djavan</div>
-      <div class="music-title">"Milagreiros"</div>
-      <div class="music-role">DVD · Câmera</div>
-    </div>
-    <div class="music-card">
-      <div class="music-artist">Gal · Bethânia · Caetano</div>
-      <div class="music-title">Registro Audiovisual</div>
-      <div class="music-role">DVD · Câmera</div>
-    </div>
-    <div class="music-card">
-      <div class="music-artist">Rosemary</div>
-      <div class="music-title">Mulheres da Mangueira</div>
-      <div class="music-role">DVD Prod. Executivo — Beth Carvalho, Chico Buarque, Zeca Pagodinho, Alcione</div>
-    </div>
-    <div class="music-card">
-      <div class="music-artist">Bruno Galvão</div>
-      <div class="music-title">"Casaco Marrom"</div>
-      <div class="music-role">Clipe · 3º Lugar Orange Clipes — França</div>
-    </div>
-    <div class="music-card">
-      <div class="music-artist">O Rappa</div>
-      <div class="music-title">Clipe Promo — Portuguesa da Ilha</div>
-      <div class="music-role">Direção / Câmera</div>
-    </div>
+    <div class="music-card"><div class="music-artist">Marisa Monte</div><div class="music-title">"Memórias, Crônicas e Declarações de Amor"</div><div class="music-role">DVD · Câmera</div></div>
+    <div class="music-card"><div class="music-artist">Djavan</div><div class="music-title">"Milagreiros"</div><div class="music-role">DVD · Câmera</div></div>
+    <div class="music-card"><div class="music-artist">Gal · Bethânia · Caetano</div><div class="music-title">Registro Audiovisual</div><div class="music-role">DVD · Câmera</div></div>
+    <div class="music-card"><div class="music-artist">Rosemary</div><div class="music-title">Mulheres da Mangueira</div><div class="music-role">DVD Prod. Executivo — Beth Carvalho, Chico Buarque, Zeca Pagodinho, Alcione</div></div>
+    <div class="music-card"><div class="music-artist">Bruno Galvão</div><div class="music-title">"Casaco Marrom"</div><div class="music-role">Clipe · 3º Lugar Orange Clipes — França</div></div>
+    <div class="music-card"><div class="music-artist">O Rappa</div><div class="music-title">Clipe Promo — Portuguesa da Ilha</div><div class="music-role">Direção / Câmera</div></div>
   </div>
 </section>
 
 <div class="divider"></div>
 
+<!-- COMERCIAIS -->
 <section id="brands">
   <div class="section-label" style="justify-content:center;">Publicidade</div>
   <h2>+600 comerciais</h2>
@@ -816,7 +568,7 @@
       <span class="brand-item">Claro</span>
     </div>
   </div>
-  <div class="reveal" style="margin-top:60px; display:flex; gap:20px; flex-wrap:wrap; justify-content:center;">
+  <div class="reveal" style="margin-top:60px; display:flex; justify-content:center;">
     <div style="font-family:'Space Mono',monospace; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gray); opacity:0.6; text-align:center;">
       Conspiração Filmes · O2 Filmes · Film Planet · Zohar · Mixer · Hungry Man — entre outras
     </div>
@@ -825,6 +577,7 @@
 
 <div class="divider"></div>
 
+<!-- FOOTER -->
 <footer id="contact">
   <div class="footer-top">
     <div class="footer-brand">
@@ -863,25 +616,424 @@
 </footer>
 
 <script>
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursor-ring');
-  document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-    setTimeout(() => {
-      ring.style.left = e.clientX + 'px';
-      ring.style.top = e.clientY + 'px';
-    }, 80);
-  });
+// ── CURSOR ──────────────────────────────────────────────
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursor-ring');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top  = e.clientY + 'px';
+  setTimeout(() => { ring.style.left = e.clientX + 'px'; ring.style.top = e.clientY + 'px'; }, 80);
+});
 
-  const reveals = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+// ── REVEAL ON SCROLL ────────────────────────────────────
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.1 });
+reveals.forEach(r => io.observe(r));
+
+// ── CANVAS HERO — partículas + linhas cinematográficas ──
+(function() {
+  const c = document.getElementById('heroCanvas');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  let W, H, particles = [], t = 0;
+
+  function resize() {
+    W = c.width  = c.offsetWidth;
+    H = c.height = c.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Criar partículas
+  for (let i = 0; i < 120; i++) {
+    particles.push({
+      x: Math.random() * 1200,
+      y: Math.random() * 900,
+      r: Math.random() * 1.5 + 0.3,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      alpha: Math.random() * 0.6 + 0.1
     });
-  }, { threshold: 0.1 });
-  reveals.forEach(r => io.observe(r));
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    t += 0.008;
+
+    // Linhas de scan cinematográficas (horizontal)
+    for (let i = 0; i < 6; i++) {
+      const y = ((t * 60 + i * (H / 6)) % H);
+      const grd = ctx.createLinearGradient(0, y, W, y);
+      grd.addColorStop(0,   'rgba(201,168,76,0)');
+      grd.addColorStop(0.3, 'rgba(201,168,76,0.04)');
+      grd.addColorStop(0.7, 'rgba(201,168,76,0.04)');
+      grd.addColorStop(1,   'rgba(201,168,76,0)');
+      ctx.fillStyle = grd;
+      ctx.fillRect(0, y, W, 1.5);
+    }
+
+    // Linhas diagonais — perspectiva de set
+    ctx.strokeStyle = 'rgba(201,168,76,0.04)';
+    ctx.lineWidth = 1;
+    for (let i = 0; i < 8; i++) {
+      const x = (W / 8) * i;
+      ctx.beginPath();
+      ctx.moveTo(W / 2, H / 2);
+      ctx.lineTo(x, 0);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(W / 2, H / 2);
+      ctx.lineTo(x, H);
+      ctx.stroke();
+    }
+
+    // Círculo de íris de câmera
+    const cx = W * 0.72, cy = H * 0.38;
+    const maxR = Math.min(W, H) * 0.22;
+    for (let ring = 8; ring > 0; ring--) {
+      ctx.beginPath();
+      ctx.arc(cx, cy, maxR * (ring / 8), 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(201,168,76,${0.015 * ring})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+    // Linhas de abertura da íris
+    for (let i = 0; i < 12; i++) {
+      const angle = (i / 12) * Math.PI * 2 + t * 0.2;
+      ctx.beginPath();
+      ctx.moveTo(cx + Math.cos(angle) * maxR * 0.1, cy + Math.sin(angle) * maxR * 0.1);
+      ctx.lineTo(cx + Math.cos(angle) * maxR, cy + Math.sin(angle) * maxR);
+      ctx.strokeStyle = 'rgba(201,168,76,0.06)';
+      ctx.stroke();
+    }
+
+    // Partículas
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+      if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+      ctx.beginPath();
+      ctx.arc((p.x / 1200) * W, (p.y / 900) * H, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(201,168,76,${p.alpha})`;
+      ctx.fill();
+    });
+
+    // Conexões entre partículas próximas
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const px = (particles[i].x / 1200) * W;
+        const py = (particles[i].y / 900) * H;
+        const qx = (particles[j].x / 1200) * W;
+        const qy = (particles[j].y / 900) * H;
+        const dist = Math.hypot(px - qx, py - qy);
+        if (dist < 80) {
+          ctx.beginPath();
+          ctx.moveTo(px, py); ctx.lineTo(qx, qy);
+          ctx.strokeStyle = `rgba(201,168,76,${0.08 * (1 - dist / 80)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ── CANVAS RETRATO — silhueta abstrata cinematográfica ──
+(function() {
+  const c = document.getElementById('portraitCanvas');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+
+  function resize() {
+    const rect = c.getBoundingClientRect();
+    c.width  = rect.width  || 500;
+    c.height = c.width * (5 / 4);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  let t = 0;
+  function draw() {
+    const W = c.width, H = c.height;
+    ctx.clearRect(0, 0, W, H);
+    t += 0.01;
+
+    // Fundo escuro com gradiente
+    const bg = ctx.createLinearGradient(0, 0, W, H);
+    bg.addColorStop(0, '#0d0d0d');
+    bg.addColorStop(1, '#050505');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    // Grade de linhas finas
+    ctx.strokeStyle = 'rgba(201,168,76,0.04)';
+    ctx.lineWidth = 0.5;
+    for (let x = 0; x < W; x += W / 12) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+    }
+    for (let y = 0; y < H; y += H / 15) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+    }
+
+    // Silhueta câmera (forma geométrica abstrata)
+    const cx = W * 0.5, cy = H * 0.42;
+
+    // Corpo da câmera
+    ctx.fillStyle = 'rgba(201,168,76,0.06)';
+    ctx.strokeStyle = 'rgba(201,168,76,0.3)';
+    ctx.lineWidth = 1.5;
+    const bw = W * 0.55, bh = H * 0.28;
+    const bx = cx - bw / 2, by = cy - bh / 2;
+    ctx.beginPath();
+    ctx.roundRect(bx, by, bw, bh, 8);
+    ctx.fill(); ctx.stroke();
+
+    // Lente (círculos concêntricos)
+    for (let i = 5; i > 0; i--) {
+      ctx.beginPath();
+      ctx.arc(cx, cy, (W * 0.13) * (i / 5), 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(201,168,76,${0.1 + 0.06 * i})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+    // Lente cheia
+    const lgrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, W * 0.13);
+    lgrad.addColorStop(0, 'rgba(201,168,76,0.15)');
+    lgrad.addColorStop(1, 'rgba(201,168,76,0.02)');
+    ctx.beginPath();
+    ctx.arc(cx, cy, W * 0.13, 0, Math.PI * 2);
+    ctx.fillStyle = lgrad; ctx.fill();
+
+    // Visor superior
+    ctx.fillStyle = 'rgba(201,168,76,0.08)';
+    ctx.strokeStyle = 'rgba(201,168,76,0.25)';
+    ctx.beginPath();
+    ctx.roundRect(cx - W * 0.1, by - H * 0.06, W * 0.2, H * 0.06, 4);
+    ctx.fill(); ctx.stroke();
+
+    // Grip lateral
+    ctx.beginPath();
+    ctx.roundRect(bx + bw, by + bh * 0.15, W * 0.07, bh * 0.7, 4);
+    ctx.fill(); ctx.stroke();
+
+    // Raio animado saindo da lente
+    const rayAngle = t;
+    ctx.beginPath();
+    ctx.moveTo(cx + Math.cos(rayAngle) * W * 0.14, cy + Math.sin(rayAngle) * W * 0.14);
+    ctx.lineTo(cx + Math.cos(rayAngle) * W * 0.45, cy + Math.sin(rayAngle) * W * 0.45);
+    ctx.strokeStyle = `rgba(201,168,76,${0.1 + Math.sin(t * 3) * 0.05})`;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // Texto "MACUCA PRODUÇÕES" embaixo
+    ctx.font = `${W * 0.04}px 'Space Mono', monospace`;
+    ctx.fillStyle = 'rgba(201,168,76,0.4)';
+    ctx.textAlign = 'center';
+    ctx.letterSpacing = '0.2em';
+    ctx.fillText('DIRETOR · PRODUTOR · CURADOR', cx, H * 0.82);
+
+    // Ano 1998 → linha do tempo
+    ctx.font = `bold ${W * 0.22}px 'Bebas Neue', sans-serif`;
+    ctx.fillStyle = 'rgba(201,168,76,0.04)';
+    ctx.fillText('1998', cx, H * 0.97);
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ── PANEL 1 — cenas de set (linhas e luz) ──────────────
+(function() {
+  const c = document.getElementById('panel1');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  let t = 0;
+
+  function resize() {
+    const rect = c.getBoundingClientRect();
+    c.width = rect.width || 600; c.height = rect.height || 340;
+  }
+  resize(); window.addEventListener('resize', resize);
+
+  function draw() {
+    const W = c.width, H = c.height;
+    ctx.clearRect(0, 0, W, H);
+    t += 0.012;
+
+    ctx.fillStyle = '#080808';
+    ctx.fillRect(0, 0, W, H);
+
+    // Feixes de luz de set
+    for (let i = 0; i < 5; i++) {
+      const angle = (-0.4 + i * 0.18) + Math.sin(t + i) * 0.04;
+      const srcX = W * (0.1 + i * 0.2);
+      const grd = ctx.createLinearGradient(srcX, 0, srcX + Math.tan(angle) * H, H);
+      grd.addColorStop(0, `rgba(201,168,76,${0.12 - i * 0.01})`);
+      grd.addColorStop(1, 'rgba(201,168,76,0)');
+      ctx.beginPath();
+      ctx.moveTo(srcX - 10, 0);
+      ctx.lineTo(srcX + 10, 0);
+      ctx.lineTo(srcX + Math.tan(angle) * H + 60, H);
+      ctx.lineTo(srcX + Math.tan(angle) * H - 60, H);
+      ctx.closePath();
+      ctx.fillStyle = grd;
+      ctx.fill();
+    }
+
+    // Silhueta câmera pequena
+    ctx.strokeStyle = 'rgba(201,168,76,0.35)';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(W * 0.38, H * 0.3, W * 0.24, H * 0.35);
+    ctx.beginPath();
+    ctx.arc(W * 0.5, H * 0.475, H * 0.1, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.strokeRect(W * 0.44, H * 0.18, W * 0.12, H * 0.12);
+
+    // Tripé
+    ctx.beginPath();
+    ctx.moveTo(W * 0.5, H * 0.65);
+    ctx.lineTo(W * 0.35, H * 0.92);
+    ctx.moveTo(W * 0.5, H * 0.65);
+    ctx.lineTo(W * 0.5, H * 0.92);
+    ctx.moveTo(W * 0.5, H * 0.65);
+    ctx.lineTo(W * 0.65, H * 0.92);
+    ctx.strokeStyle = 'rgba(201,168,76,0.3)';
+    ctx.stroke();
+
+    // Claquete abstrata (canto)
+    ctx.fillStyle = 'rgba(201,168,76,0.08)';
+    ctx.fillRect(W * 0.06, H * 0.07, W * 0.18, H * 0.16);
+    ctx.strokeStyle = 'rgba(201,168,76,0.3)';
+    ctx.strokeRect(W * 0.06, H * 0.07, W * 0.18, H * 0.16);
+    // listras da claquete
+    for (let i = 0; i < 4; i++) {
+      ctx.fillStyle = i % 2 === 0 ? 'rgba(201,168,76,0.15)' : 'rgba(0,0,0,0.3)';
+      ctx.fillRect(W * 0.06 + i * (W * 0.045), H * 0.07, W * 0.045, H * 0.05);
+    }
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ── PANEL 2 — mapa ES abstrato + pontos dos municípios ─
+(function() {
+  const c = document.getElementById('panel2');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  let t = 0;
+
+  function resize() {
+    const rect = c.getBoundingClientRect();
+    c.width = rect.width || 300; c.height = rect.height || 340;
+  }
+  resize(); window.addEventListener('resize', resize);
+
+  // Contorno simplificado do ES (pontos normalizados 0-1)
+  const esShape = [
+    [0.42,0.02],[0.55,0.04],[0.68,0.08],[0.78,0.14],[0.82,0.22],
+    [0.85,0.30],[0.88,0.40],[0.90,0.50],[0.88,0.60],[0.84,0.68],
+    [0.80,0.75],[0.75,0.82],[0.68,0.88],[0.60,0.93],[0.50,0.97],
+    [0.40,0.95],[0.30,0.90],[0.22,0.83],[0.16,0.74],[0.12,0.63],
+    [0.10,0.52],[0.12,0.42],[0.16,0.32],[0.20,0.22],[0.26,0.14],
+    [0.34,0.07],[0.42,0.02]
+  ];
+
+  // Municípios do sul do ES (posições aproximadas no mapa)
+  const cities = [
+    { name: 'Marataízes',   x: 0.72, y: 0.82 },
+    { name: 'Itapemirim',   x: 0.66, y: 0.78 },
+    { name: 'Piúma',        x: 0.76, y: 0.75 },
+    { name: 'Pres. Kennedy',x: 0.58, y: 0.86 },
+    { name: 'Cachoeiro',    x: 0.48, y: 0.80 },
+  ];
+
+  function draw() {
+    const W = c.width, H = c.height;
+    ctx.clearRect(0, 0, W, H);
+    t += 0.015;
+
+    ctx.fillStyle = '#060606';
+    ctx.fillRect(0, 0, W, H);
+
+    // Grade de fundo
+    ctx.strokeStyle = 'rgba(201,168,76,0.04)';
+    ctx.lineWidth = 0.5;
+    for (let x = 0; x < W; x += W / 8) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+    for (let y = 0; y < H; y += H / 10) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+
+    // Contorno do ES
+    ctx.beginPath();
+    esShape.forEach(([px, py], i) => {
+      const x = px * W * 0.85 + W * 0.05;
+      const y = py * H * 0.85 + H * 0.05;
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(201,168,76,0.04)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(201,168,76,0.25)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Linhas conectando municípios
+    cities.forEach((a, i) => {
+      cities.forEach((b, j) => {
+        if (j <= i) return;
+        const ax = a.x * W * 0.85 + W * 0.05;
+        const ay = a.y * H * 0.85 + H * 0.05;
+        const bx = b.x * W * 0.85 + W * 0.05;
+        const by = b.y * H * 0.85 + H * 0.05;
+        ctx.beginPath();
+        ctx.moveTo(ax, ay); ctx.lineTo(bx, by);
+        ctx.strokeStyle = `rgba(201,168,76,${0.08 + Math.sin(t + i) * 0.04})`;
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+      });
+    });
+
+    // Pontos dos municípios
+    cities.forEach((city, i) => {
+      const x = city.x * W * 0.85 + W * 0.05;
+      const y = city.y * H * 0.85 + H * 0.05;
+      const pulse = 1 + Math.sin(t * 2 + i * 1.2) * 0.4;
+
+      // Anel pulsante
+      ctx.beginPath();
+      ctx.arc(x, y, 8 * pulse, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(201,168,76,${0.15 * (1 / pulse)})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // Ponto central
+      ctx.beginPath();
+      ctx.arc(x, y, 3, 0, Math.PI * 2);
+      ctx.fillStyle = '#c9a84c';
+      ctx.fill();
+
+      // Nome
+      ctx.font = `${W * 0.055}px 'Space Mono', monospace`;
+      ctx.fillStyle = `rgba(201,168,76,${0.55 + Math.sin(t + i) * 0.1})`;
+      ctx.textAlign = x > W * 0.5 ? 'right' : 'left';
+      const offX = x > W * 0.5 ? -10 : 10;
+      ctx.fillText(city.name, x + offX, y - 6);
+    });
+
+    // Label "ES — SUL"
+    ctx.font = `bold ${W * 0.09}px 'Bebas Neue', sans-serif`;
+    ctx.fillStyle = 'rgba(201,168,76,0.06)';
+    ctx.textAlign = 'center';
+    ctx.fillText('ESPÍRITO SANTO', W / 2, H * 0.5);
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
 </script>
 </body>
-</html>
 </html>
