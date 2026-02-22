@@ -10,649 +10,112 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --black: #0a0a0a;
-      --off-black: #111111;
-      --dark: #161616;
-      --surface: #1c1c1c;
-      --warm: #c8a96e;
-      --warm-dim: #a88a50;
-      --cream: #f0e8d8;
-      --muted: #888880;
-      --text: #e8e0d0;
-      --accent: #d4522a;
+      --black: #0a0a0a; --off-black: #111111; --dark: #161616; --surface: #1c1c1c;
+      --warm: #c8a96e; --warm-dim: #a88a50; --cream: #f0e8d8; --muted: #888880;
+      --text: #e8e0d0; --accent: #d4522a;
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--black);
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 1000;
-      opacity: 0.35;
-    }
-
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 900;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.4rem 3rem;
-      background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, transparent 100%);
-      backdrop-filter: blur(2px);
-    }
-
-    .nav-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      letter-spacing: 0.18em;
-      color: var(--warm);
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.3s;
-    }
+    body { background: var(--black); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1000; opacity: 0.35; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 900; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 3rem; background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, transparent 100%); backdrop-filter: blur(2px); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.18em; color: var(--warm); text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; }
     .nav-links a:hover { color: var(--warm); }
-
-    #hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-image-side {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-image-side img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      filter: grayscale(30%) contrast(1.1);
-      display: block;
-    }
-
-    .hero-image-side::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, transparent 40%, var(--black) 100%),
-                  linear-gradient(to top, var(--black) 0%, transparent 30%);
-    }
-
-    .hero-image-side::before {
-      content: 'ELETRÔNICA · SOUL · BRASILIDADE';
-      position: absolute;
-      bottom: 3rem;
-      left: 1.8rem;
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      transform: rotate(180deg);
-      font-size: 0.65rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--warm);
-      opacity: 0.7;
-      z-index: 2;
-    }
-
-    .hero-text-side {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 8rem 4rem 4rem 3rem;
-      position: relative;
-    }
-
-    .hero-eyebrow {
-      font-size: 0.7rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--warm);
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.3s forwards;
-    }
-
-    .hero-name {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3.5rem, 7vw, 6rem);
-      font-weight: 900;
-      line-height: 0.95;
-      letter-spacing: -0.02em;
-      color: var(--cream);
-      margin-bottom: 0.3rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.5s forwards;
-    }
-
-    .hero-name em {
-      font-style: italic;
-      color: var(--warm);
-    }
-
-    .hero-sub {
-      font-size: 0.95rem;
-      color: var(--muted);
-      line-height: 1.5;
-      margin-top: 1.8rem;
-      max-width: 340px;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.7s forwards;
-    }
-
+    #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; }
+    .hero-image-side { position: relative; overflow: hidden; }
+    .hero-image-side img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: grayscale(30%) contrast(1.1); display: block; }
+    .hero-image-side::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, transparent 40%, var(--black) 100%), linear-gradient(to top, var(--black) 0%, transparent 30%); }
+    .hero-image-side::before { content: 'ELETRÔNICA · SOUL · BRASILIDADE'; position: absolute; bottom: 3rem; left: 1.8rem; writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--warm); opacity: 0.7; z-index: 2; }
+    .hero-text-side { display: flex; flex-direction: column; justify-content: center; padding: 8rem 4rem 4rem 3rem; position: relative; }
+    .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--warm); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s 0.3s forwards; }
+    .hero-name { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 7vw, 6rem); font-weight: 900; line-height: 0.95; letter-spacing: -0.02em; color: var(--cream); margin-bottom: 0.3rem; opacity: 0; animation: fadeUp 0.8s 0.5s forwards; }
+    .hero-name em { font-style: italic; color: var(--warm); }
+    .hero-sub { font-size: 0.95rem; color: var(--muted); line-height: 1.5; margin-top: 1.8rem; max-width: 340px; opacity: 0; animation: fadeUp 0.8s 0.7s forwards; }
     .hero-sub strong { color: var(--text); font-weight: 500; }
-
-    .hero-cta {
-      display: flex;
-      gap: 1rem;
-      margin-top: 3rem;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.9s forwards;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--warm);
-      color: var(--black);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-      padding: 0.9rem 2rem;
-      border: none;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
-    }
+    .hero-cta { display: flex; gap: 1rem; margin-top: 3rem; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s 0.9s forwards; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--warm); color: var(--black); font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 0.9rem 2rem; border: none; cursor: pointer; transition: background 0.3s, transform 0.2s; }
     .btn-primary:hover { background: var(--cream); transform: translateY(-2px); }
-
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: transparent;
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 400;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-      padding: 0.9rem 2rem;
-      border: 1px solid rgba(200,169,110,0.3);
-      cursor: pointer;
-      transition: border-color 0.3s, color 0.3s, transform 0.2s;
-    }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 0.5rem; background: transparent; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 0.9rem 2rem; border: 1px solid rgba(200,169,110,0.3); cursor: pointer; transition: border-color 0.3s, color 0.3s, transform 0.2s; }
     .btn-secondary:hover { border-color: var(--warm); color: var(--warm); transform: translateY(-2px); }
-
-    .hero-location {
-      position: absolute;
-      bottom: 2.5rem;
-      right: 4rem;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      opacity: 0.6;
-    }
-
+    .hero-location { position: absolute; bottom: 2.5rem; right: 4rem; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.6; }
     section { padding: 7rem 0; }
-
-    .container {
-      max-width: 1140px;
-      margin: 0 auto;
-      padding: 0 3rem;
-    }
-
-    .section-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--warm);
-      margin-bottom: 0.8rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    .section-label::after {
-      content: '';
-      display: block;
-      height: 1px;
-      width: 40px;
-      background: var(--warm);
-      opacity: 0.5;
-    }
-
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.2rem, 4vw, 3.2rem);
-      font-weight: 700;
-      line-height: 1.15;
-      color: var(--cream);
-      margin-bottom: 2rem;
-    }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 3rem; }
+    .section-label { font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--warm); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 1rem; }
+    .section-label::after { content: ''; display: block; height: 1px; width: 40px; background: var(--warm); opacity: 0.5; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 700; line-height: 1.15; color: var(--cream); margin-bottom: 2rem; }
     .section-title em { font-style: italic; color: var(--warm); }
-
-    .divider {
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(200,169,110,0.2), transparent);
-      margin: 0 3rem;
-    }
-
+    .divider { height: 1px; background: linear-gradient(to right, transparent, rgba(200,169,110,0.2), transparent); margin: 0 3rem; }
     #sobre { background: var(--off-black); }
-
-    .bio-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 5rem;
-      align-items: start;
-    }
-
-    .bio-stats {
-      display: flex;
-      flex-direction: column;
-      gap: 2.5rem;
-    }
-
-    .stat-block {
-      border-left: 2px solid var(--warm);
-      padding-left: 1.5rem;
-    }
-
-    .stat-number {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 3rem;
-      color: var(--cream);
-      line-height: 1;
-      letter-spacing: 0.05em;
-    }
-
-    .stat-label {
-      font-size: 0.72rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-top: 0.3rem;
-    }
-
-    .bio-text p {
-      color: rgba(232,224,208,0.8);
-      font-size: 1.05rem;
-      line-height: 1.85;
-      margin-bottom: 1.3rem;
-    }
-
-    .bio-text p:first-child {
-      font-size: 1.2rem;
-      color: var(--text);
-      font-weight: 400;
-    }
-
-    .bio-highlight {
-      border-left: 3px solid var(--accent);
-      padding: 1.2rem 1.5rem;
-      margin: 2rem 0;
-      background: rgba(212,82,42,0.06);
-    }
-
-    .bio-highlight p {
-      font-size: 1.05rem !important;
-      color: var(--cream) !important;
-      font-style: italic;
-      margin: 0 !important;
-    }
-
+    .bio-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; align-items: start; }
+    .bio-stats { display: flex; flex-direction: column; gap: 2.5rem; }
+    .stat-block { border-left: 2px solid var(--warm); padding-left: 1.5rem; }
+    .stat-number { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--cream); line-height: 1; letter-spacing: 0.05em; }
+    .stat-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+    .bio-text p { color: rgba(232,224,208,0.8); font-size: 1.05rem; line-height: 1.85; margin-bottom: 1.3rem; }
+    .bio-text p:first-child { font-size: 1.2rem; color: var(--text); font-weight: 400; }
+    .bio-highlight { border-left: 3px solid var(--accent); padding: 1.2rem 1.5rem; margin: 2rem 0; background: rgba(212,82,42,0.06); }
+    .bio-highlight p { font-size: 1.05rem !important; color: var(--cream) !important; font-style: italic; margin: 0 !important; }
     #portfolio { background: var(--black); }
-
-    .portfolio-intro {
-      max-width: 560px;
-      margin-bottom: 4rem;
-    }
-
-    .portfolio-intro p {
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.7;
-    }
-
-    .tracks-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
-    }
-
-    .track-card {
-      background: var(--surface);
-      border: 1px solid rgba(200,169,110,0.1);
-      overflow: hidden;
-      transition: border-color 0.3s, transform 0.3s;
-    }
-
-    .track-card:hover {
-      border-color: rgba(200,169,110,0.35);
-      transform: translateY(-4px);
-    }
-
+    .portfolio-intro { max-width: 560px; margin-bottom: 4rem; }
+    .portfolio-intro p { color: var(--muted); font-size: 1rem; line-height: 1.7; }
+    .tracks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    .track-card { background: var(--surface); border: 1px solid rgba(200,169,110,0.1); overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+    .track-card:hover { border-color: rgba(200,169,110,0.35); transform: translateY(-4px); }
     .track-header { padding: 1.8rem 2rem 1rem; }
-
-    .track-number {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 0.85rem;
-      color: var(--warm);
-      letter-spacing: 0.2em;
-      margin-bottom: 0.5rem;
-    }
-
-    .track-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
-      font-style: italic;
-      color: var(--cream);
-      font-weight: 400;
-      margin-bottom: 0.4rem;
-    }
-
-    .track-meta {
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .track-desc {
-      padding: 0 2rem 2rem;
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    .track-visual {
-      overflow: hidden;
-      line-height: 0;
-    }
-
+    .track-number { font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; color: var(--warm); letter-spacing: 0.2em; margin-bottom: 0.5rem; }
+    .track-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-style: italic; color: var(--cream); font-weight: 400; margin-bottom: 0.4rem; }
+    .track-meta { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .track-desc { padding: 0 2rem 2rem; font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+    .track-visual { overflow: hidden; line-height: 0; }
     .track-listen { padding: 0 2rem 1.2rem; }
-
-    .listen-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.7rem;
-      background: rgba(200,169,110,0.1);
-      border: 1px solid rgba(200,169,110,0.35);
-      color: var(--warm);
-      text-decoration: none;
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-family: 'DM Sans', sans-serif;
-      padding: 0.75rem 1.5rem;
-      transition: background 0.3s, border-color 0.3s, color 0.3s;
-    }
-
-    .listen-btn:hover {
-      background: rgba(200,169,110,0.2);
-      border-color: var(--warm);
-      color: var(--cream);
-    }
-
+    .listen-btn { display: inline-flex; align-items: center; gap: 0.7rem; background: rgba(200,169,110,0.1); border: 1px solid rgba(200,169,110,0.35); color: var(--warm); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; font-family: 'DM Sans', sans-serif; padding: 0.75rem 1.5rem; transition: background 0.3s, border-color 0.3s, color 0.3s; }
+    .listen-btn:hover { background: rgba(200,169,110,0.2); border-color: var(--warm); color: var(--cream); }
     .listen-icon { font-size: 0.9rem; }
-
     #processo { background: var(--dark); }
-
-    .processo-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 5rem;
-      align-items: center;
-    }
-
-    .processo-text p {
-      color: rgba(232,224,208,0.75);
-      font-size: 1rem;
-      line-height: 1.8;
-      margin-bottom: 1.2rem;
-    }
-
-    .processo-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-top: 2rem;
-    }
-
-    .tag {
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--warm);
-      border: 1px solid rgba(200,169,110,0.3);
-      padding: 0.4rem 0.9rem;
-    }
-
-    .processo-images {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.8rem;
-    }
-
-    .studio-img {
-      aspect-ratio: 4/3;
-      background: var(--surface);
-      border: 1px solid rgba(200,169,110,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .studio-img:first-child {
-      grid-column: span 2;
-      aspect-ratio: 16/7;
-    }
-
+    .processo-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 5rem; align-items: center; }
+    .processo-text p { color: rgba(232,224,208,0.75); font-size: 1rem; line-height: 1.8; margin-bottom: 1.2rem; }
+    .processo-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+    .tag { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--warm); border: 1px solid rgba(200,169,110,0.3); padding: 0.4rem 0.9rem; }
+    .processo-images { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    .studio-img { aspect-ratio: 4/3; background: var(--surface); border: 1px solid rgba(200,169,110,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+    .studio-img:first-child { grid-column: span 2; aspect-ratio: 16/7; }
     #territorio { background: var(--off-black); }
-
-    .territorio-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-    }
-
-    .territorio-text p {
-      color: rgba(232,224,208,0.75);
-      font-size: 1rem;
-      line-height: 1.8;
-      margin-bottom: 1.2rem;
-    }
-
-    .territorio-map {
-      height: 280px;
-      background: var(--surface);
-      border: 1px solid rgba(200,169,110,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-
+    .territorio-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .territorio-text p { color: rgba(232,224,208,0.75); font-size: 1rem; line-height: 1.8; margin-bottom: 1.2rem; }
+    .territorio-map { height: 280px; background: var(--surface); border: 1px solid rgba(200,169,110,0.1); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
     .territorio-map svg { width: 60%; opacity: 0.15; }
-
-    .territorio-map-label {
-      position: absolute;
-      text-align: center;
-    }
-
-    .territorio-map-label .city {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2rem;
-      letter-spacing: 0.2em;
-      color: var(--warm);
-      display: block;
-    }
-
-    .territorio-map-label .state {
-      font-size: 0.7rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-top: 0.3rem;
-      display: block;
-    }
-
+    .territorio-map-label { position: absolute; text-align: center; }
+    .territorio-map-label .city { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.2em; color: var(--warm); display: block; }
+    .territorio-map-label .state { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; display: block; }
     #links { background: var(--black); }
-
-    .links-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-
-    .link-card {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      padding: 2rem;
-      background: var(--surface);
-      border: 1px solid rgba(200,169,110,0.1);
-      text-decoration: none;
-      transition: border-color 0.3s, background 0.3s;
-    }
-
-    .link-card:hover {
-      border-color: var(--warm);
-      background: rgba(200,169,110,0.04);
-    }
-
+    .links-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .link-card { display: flex; flex-direction: column; gap: 0.8rem; padding: 2rem; background: var(--surface); border: 1px solid rgba(200,169,110,0.1); text-decoration: none; transition: border-color 0.3s, background 0.3s; }
+    .link-card:hover { border-color: var(--warm); background: rgba(200,169,110,0.04); }
     .link-card-icon { font-size: 1.5rem; line-height: 1; }
-
-    .link-card-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .link-card-value {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      color: var(--cream);
-      font-style: italic;
-    }
-
-    .link-card-arrow {
-      margin-top: auto;
-      color: var(--warm);
-      font-size: 0.8rem;
-      letter-spacing: 0.1em;
-    }
-
-    footer {
-      background: var(--off-black);
-      padding: 3rem;
-      border-top: 1px solid rgba(200,169,110,0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .footer-brand {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.2rem;
-      letter-spacing: 0.2em;
-      color: var(--warm);
-    }
-
-    .footer-copy {
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      text-align: center;
-    }
-
-    .footer-right {
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
+    .link-card-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+    .link-card-value { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--cream); font-style: italic; }
+    .link-card-arrow { margin-top: auto; color: var(--warm); font-size: 0.8rem; letter-spacing: 0.1em; }
+    footer { background: var(--off-black); padding: 3rem; border-top: 1px solid rgba(200,169,110,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.2em; color: var(--warm); }
+    .footer-copy { font-size: 0.72rem; letter-spacing: 0.12em; color: var(--muted); text-align: center; }
+    .footer-right { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
     @media (max-width: 900px) {
-      nav { padding: 1.2rem 1.5rem; }
-      .nav-links { display: none; }
+      nav { padding: 1.2rem 1.5rem; } .nav-links { display: none; }
       #hero { grid-template-columns: 1fr; min-height: auto; }
       .hero-image-side { height: 55vw; min-height: 260px; }
-      .hero-text-side { padding: 3rem 1.5rem 4rem; }
-      .hero-location { display: none; }
-      .bio-grid,
-      .processo-grid,
-      .territorio-inner { grid-template-columns: 1fr; gap: 3rem; }
-      .tracks-grid { grid-template-columns: 1fr; }
-      .links-grid { grid-template-columns: 1fr; }
-      .container { padding: 0 1.5rem; }
-      section { padding: 5rem 0; }
+      .hero-text-side { padding: 3rem 1.5rem 4rem; } .hero-location { display: none; }
+      .bio-grid, .processo-grid, .territorio-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .tracks-grid { grid-template-columns: 1fr; } .links-grid { grid-template-columns: 1fr; }
+      .container { padding: 0 1.5rem; } section { padding: 5rem 0; }
       footer { flex-direction: column; text-align: center; }
     }
-
     @media (max-width: 600px) {
-      .processo-images { grid-template-columns: 1fr; }
-      .studio-img:first-child { grid-column: span 1; }
+      .processo-images { grid-template-columns: 1fr; } .studio-img:first-child { grid-column: span 1; }
     }
   </style>
 </head>
@@ -671,7 +134,7 @@
 
   <section id="hero">
     <div class="hero-image-side">
-      <img src="../clima/FOTO_GABRIEL_CAPA_SITE.png" alt="Gabriel Grekko — DJ e Produtor Musical" />
+      <img src="../clima/FOTO%20GABRIEL%20CAPA%20SITE.png" alt="Gabriel Grekko — DJ e Produtor Musical" />
     </div>
     <div class="hero-text-side">
       <p class="hero-eyebrow">Produtor Musical · Espírito Santo</p>
@@ -710,18 +173,12 @@
         <div class="bio-text reveal">
           <div class="section-label">Biografia</div>
           <h2 class="section-title">Uma voz <em>autoral</em> na eletrônica brasileira</h2>
-          <p>
-            Gabriel Grekko é produtor musical, compositor e DJ com formação sólida em produção de música eletrônica. Nascido no Rio de Janeiro e radicado no Espírito Santo, desenvolveu sua identidade sonora a partir de uma escuta atenta: o soul como estrutura emocional, a eletrônica como linguagem contemporânea e a brasilidade como ponto de partida.
-          </p>
+          <p>Gabriel Grekko é produtor musical, compositor e DJ com formação sólida em produção de música eletrônica. Nascido no Rio de Janeiro e radicado no Espírito Santo, desenvolveu sua identidade sonora a partir de uma escuta atenta: o soul como estrutura emocional, a eletrônica como linguagem contemporânea e a brasilidade como ponto de partida.</p>
           <div class="bio-highlight">
             <p>"O soul não é apenas um gênero — é uma forma de sentir e transmitir. Meu trabalho é levar essa profundidade para dentro da produção eletrônica autoral."</p>
           </div>
-          <p>
-            Com passagem por mais de quarenta edições dos principais festivais do circuito nacional, Grekko não é apenas um observador da cena — é um artista que absorveu referências para construir algo próprio. Formado pela AIMEC (Academia Internacional de Música Eletrônica), une técnica apurada à sensibilidade de quem cresceu ouvindo trilhas sonoras em estúdio.
-          </p>
-          <p>
-            Sua estreia autoral, a faixa <em>"Diagê"</em>, marca o início de uma produção comprometida com a representação da música eletrônica capixaba no cenário cultural brasileiro — uma cena em expansão que carece de vozes locais articuladas entre técnica, identidade e inovação.
-          </p>
+          <p>Com passagem por mais de quarenta edições dos principais festivais do circuito nacional, Grekko não é apenas um observador da cena — é um artista que absorveu referências para construir algo próprio. Formado pela AIMEC (Academia Internacional de Música Eletrônica), une técnica apurada à sensibilidade de quem cresceu ouvindo trilhas sonoras em estúdio.</p>
+          <p>Sua estreia autoral, a faixa <em>"Diagê"</em>, marca o início de uma produção comprometida com a representação da música eletrônica capixaba no cenário cultural brasileiro — uma cena em expansão que carece de vozes locais articuladas entre técnica, identidade e inovação.</p>
         </div>
       </div>
     </div>
@@ -742,64 +199,12 @@
           <div class="track-visual">
             <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" width="100%" height="180">
               <defs>
-                <radialGradient id="g1" cx="30%" cy="50%" r="60%">
-                  <stop offset="0%" stop-color="#c8a96e" stop-opacity="0.4"/>
-                  <stop offset="100%" stop-color="#0a0a0a" stop-opacity="0"/>
-                </radialGradient>
-                <radialGradient id="g1b" cx="75%" cy="50%" r="50%">
-                  <stop offset="0%" stop-color="#d4522a" stop-opacity="0.25"/>
-                  <stop offset="100%" stop-color="#0a0a0a" stop-opacity="0"/>
-                </radialGradient>
+                <radialGradient id="g1" cx="30%" cy="50%" r="60%"><stop offset="0%" stop-color="#c8a96e" stop-opacity="0.4"/><stop offset="100%" stop-color="#0a0a0a" stop-opacity="0"/></radialGradient>
+                <radialGradient id="g1b" cx="75%" cy="50%" r="50%"><stop offset="0%" stop-color="#d4522a" stop-opacity="0.25"/><stop offset="100%" stop-color="#0a0a0a" stop-opacity="0"/></radialGradient>
               </defs>
-              <rect width="400" height="180" fill="#111"/>
-              <rect width="400" height="180" fill="url(#g1)"/>
-              <rect width="400" height="180" fill="url(#g1b)"/>
+              <rect width="400" height="180" fill="#111"/><rect width="400" height="180" fill="url(#g1)"/><rect width="400" height="180" fill="url(#g1b)"/>
               <g opacity="0.6">
-                <rect x="20" y="70" width="3" height="40" rx="2" fill="#c8a96e"/>
-                <rect x="28" y="55" width="3" height="70" rx="2" fill="#c8a96e"/>
-                <rect x="36" y="65" width="3" height="50" rx="2" fill="#c8a96e"/>
-                <rect x="44" y="45" width="3" height="90" rx="2" fill="#c8a96e"/>
-                <rect x="52" y="60" width="3" height="60" rx="2" fill="#c8a96e"/>
-                <rect x="60" y="75" width="3" height="30" rx="2" fill="#c8a96e"/>
-                <rect x="68" y="50" width="3" height="80" rx="2" fill="#c8a96e"/>
-                <rect x="76" y="40" width="3" height="100" rx="2" fill="#d4522a"/>
-                <rect x="84" y="55" width="3" height="70" rx="2" fill="#d4522a"/>
-                <rect x="92" y="65" width="3" height="50" rx="2" fill="#c8a96e"/>
-                <rect x="100" y="70" width="3" height="40" rx="2" fill="#c8a96e"/>
-                <rect x="108" y="50" width="3" height="80" rx="2" fill="#c8a96e"/>
-                <rect x="116" y="60" width="3" height="60" rx="2" fill="#c8a96e"/>
-                <rect x="124" y="45" width="3" height="90" rx="2" fill="#d4522a"/>
-                <rect x="132" y="55" width="3" height="70" rx="2" fill="#c8a96e"/>
-                <rect x="140" y="70" width="3" height="40" rx="2" fill="#c8a96e"/>
-                <rect x="148" y="50" width="3" height="80" rx="2" fill="#c8a96e"/>
-                <rect x="156" y="35" width="3" height="110" rx="2" fill="#d4522a"/>
-                <rect x="164" y="55" width="3" height="70" rx="2" fill="#c8a96e"/>
-                <rect x="172" y="65" width="3" height="50" rx="2" fill="#c8a96e"/>
-                <rect x="180" y="75" width="3" height="30" rx="2" fill="#c8a96e"/>
-                <rect x="188" y="45" width="3" height="90" rx="2" fill="#c8a96e"/>
-                <rect x="196" y="60" width="3" height="60" rx="2" fill="#d4522a"/>
-                <rect x="204" y="50" width="3" height="80" rx="2" fill="#c8a96e"/>
-                <rect x="212" y="70" width="3" height="40" rx="2" fill="#c8a96e"/>
-                <rect x="220" y="55" width="3" height="70" rx="2" fill="#c8a96e"/>
-                <rect x="228" y="65" width="3" height="50" rx="2" fill="#c8a96e"/>
-                <rect x="236" y="40" width="3" height="100" rx="2" fill="#d4522a"/>
-                <rect x="244" y="60" width="3" height="60" rx="2" fill="#c8a96e"/>
-                <rect x="252" y="70" width="3" height="40" rx="2" fill="#c8a96e"/>
-                <rect x="260" y="50" width="3" height="80" rx="2" fill="#c8a96e"/>
-                <rect x="268" y="55" width="3" height="70" rx="2" fill="#c8a96e"/>
-                <rect x="276" y="65" width="3" height="50" rx="2" fill="#c8a96e"/>
-                <rect x="284" y="45" width="3" height="90" rx="2" fill="#d4522a"/>
-                <rect x="292" y="60" width="3" height="60" rx="2" fill="#c8a96e"/>
-                <rect x="300" y="70" width="3" height="40" rx="2" fill="#c8a96e"/>
-                <rect x="308" y="55" width="3" height="70" rx="2" fill="#c8a96e"/>
-                <rect x="316" y="65" width="3" height="50" rx="2" fill="#c8a96e"/>
-                <rect x="324" y="50" width="3" height="80" rx="2" fill="#c8a96e"/>
-                <rect x="332" y="40" width="3" height="100" rx="2" fill="#d4522a"/>
-                <rect x="340" y="60" width="3" height="60" rx="2" fill="#c8a96e"/>
-                <rect x="348" y="70" width="3" height="40" rx="2" fill="#c8a96e"/>
-                <rect x="356" y="55" width="3" height="70" rx="2" fill="#c8a96e"/>
-                <rect x="364" y="65" width="3" height="50" rx="2" fill="#c8a96e"/>
-                <rect x="372" y="75" width="3" height="30" rx="2" fill="#c8a96e"/>
+                <rect x="20" y="70" width="3" height="40" rx="2" fill="#c8a96e"/><rect x="28" y="55" width="3" height="70" rx="2" fill="#c8a96e"/><rect x="36" y="65" width="3" height="50" rx="2" fill="#c8a96e"/><rect x="44" y="45" width="3" height="90" rx="2" fill="#c8a96e"/><rect x="52" y="60" width="3" height="60" rx="2" fill="#c8a96e"/><rect x="60" y="75" width="3" height="30" rx="2" fill="#c8a96e"/><rect x="68" y="50" width="3" height="80" rx="2" fill="#c8a96e"/><rect x="76" y="40" width="3" height="100" rx="2" fill="#d4522a"/><rect x="84" y="55" width="3" height="70" rx="2" fill="#d4522a"/><rect x="92" y="65" width="3" height="50" rx="2" fill="#c8a96e"/><rect x="100" y="70" width="3" height="40" rx="2" fill="#c8a96e"/><rect x="108" y="50" width="3" height="80" rx="2" fill="#c8a96e"/><rect x="116" y="60" width="3" height="60" rx="2" fill="#c8a96e"/><rect x="124" y="45" width="3" height="90" rx="2" fill="#d4522a"/><rect x="132" y="55" width="3" height="70" rx="2" fill="#c8a96e"/><rect x="140" y="70" width="3" height="40" rx="2" fill="#c8a96e"/><rect x="148" y="50" width="3" height="80" rx="2" fill="#c8a96e"/><rect x="156" y="35" width="3" height="110" rx="2" fill="#d4522a"/><rect x="164" y="55" width="3" height="70" rx="2" fill="#c8a96e"/><rect x="172" y="65" width="3" height="50" rx="2" fill="#c8a96e"/><rect x="180" y="75" width="3" height="30" rx="2" fill="#c8a96e"/><rect x="188" y="45" width="3" height="90" rx="2" fill="#c8a96e"/><rect x="196" y="60" width="3" height="60" rx="2" fill="#d4522a"/><rect x="204" y="50" width="3" height="80" rx="2" fill="#c8a96e"/><rect x="212" y="70" width="3" height="40" rx="2" fill="#c8a96e"/><rect x="220" y="55" width="3" height="70" rx="2" fill="#c8a96e"/><rect x="228" y="65" width="3" height="50" rx="2" fill="#c8a96e"/><rect x="236" y="40" width="3" height="100" rx="2" fill="#d4522a"/><rect x="244" y="60" width="3" height="60" rx="2" fill="#c8a96e"/><rect x="252" y="70" width="3" height="40" rx="2" fill="#c8a96e"/><rect x="260" y="50" width="3" height="80" rx="2" fill="#c8a96e"/><rect x="268" y="55" width="3" height="70" rx="2" fill="#c8a96e"/><rect x="276" y="65" width="3" height="50" rx="2" fill="#c8a96e"/><rect x="284" y="45" width="3" height="90" rx="2" fill="#d4522a"/><rect x="292" y="60" width="3" height="60" rx="2" fill="#c8a96e"/><rect x="300" y="70" width="3" height="40" rx="2" fill="#c8a96e"/><rect x="308" y="55" width="3" height="70" rx="2" fill="#c8a96e"/><rect x="316" y="65" width="3" height="50" rx="2" fill="#c8a96e"/><rect x="324" y="50" width="3" height="80" rx="2" fill="#c8a96e"/><rect x="332" y="40" width="3" height="100" rx="2" fill="#d4522a"/><rect x="340" y="60" width="3" height="60" rx="2" fill="#c8a96e"/><rect x="348" y="70" width="3" height="40" rx="2" fill="#c8a96e"/><rect x="356" y="55" width="3" height="70" rx="2" fill="#c8a96e"/><rect x="364" y="65" width="3" height="50" rx="2" fill="#c8a96e"/><rect x="372" y="75" width="3" height="30" rx="2" fill="#c8a96e"/>
               </g>
               <text x="200" y="100" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-style="italic" fill="#f0e8d8" opacity="0.9">Diagê</text>
               <text x="200" y="120" text-anchor="middle" font-family="monospace" font-size="9" fill="#c8a96e" letter-spacing="3" opacity="0.7">DEMO AUTORAL · 2024</text>
@@ -811,41 +216,26 @@
             <div class="track-meta">Estreia autoral · Demo 2024 · Produção própria</div>
           </div>
           <div class="track-listen">
-            <a href="https://soundcloud.com/gabriel-grecco-72633875" target="_blank" rel="noopener" class="listen-btn">
-              <span class="listen-icon">▶</span>
-              <span>Ouvir no SoundCloud</span>
-            </a>
+            <a href="https://soundcloud.com/gabriel-grecco-72633875" target="_blank" rel="noopener" class="listen-btn"><span class="listen-icon">▶</span><span>Ouvir no SoundCloud</span></a>
           </div>
-          <div class="track-desc">
-            Primeira composição autoral de Grekko. Uma faixa que nasce da síntese entre texturas eletrônicas densas e a leveza melódica do soul, com letras e arranjos inteiramente concebidos pelo artista.
-          </div>
+          <div class="track-desc">Primeira composição autoral de Grekko. Uma faixa que nasce da síntese entre texturas eletrônicas densas e a leveza melódica do soul, com letras e arranjos inteiramente concebidos pelo artista.</div>
         </div>
 
         <div class="track-card reveal">
           <div class="track-visual">
             <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" width="100%" height="180">
               <defs>
-                <radialGradient id="g2" cx="70%" cy="40%" r="65%">
-                  <stop offset="0%" stop-color="#a88a50" stop-opacity="0.45"/>
-                  <stop offset="100%" stop-color="#0a0a0a" stop-opacity="0"/>
-                </radialGradient>
-                <radialGradient id="g2b" cx="20%" cy="70%" r="45%">
-                  <stop offset="0%" stop-color="#c8a96e" stop-opacity="0.2"/>
-                  <stop offset="100%" stop-color="#0a0a0a" stop-opacity="0"/>
-                </radialGradient>
+                <radialGradient id="g2" cx="70%" cy="40%" r="65%"><stop offset="0%" stop-color="#a88a50" stop-opacity="0.45"/><stop offset="100%" stop-color="#0a0a0a" stop-opacity="0"/></radialGradient>
+                <radialGradient id="g2b" cx="20%" cy="70%" r="45%"><stop offset="0%" stop-color="#c8a96e" stop-opacity="0.2"/><stop offset="100%" stop-color="#0a0a0a" stop-opacity="0"/></radialGradient>
               </defs>
-              <rect width="400" height="180" fill="#111"/>
-              <rect width="400" height="180" fill="url(#g2)"/>
-              <rect width="400" height="180" fill="url(#g2b)"/>
+              <rect width="400" height="180" fill="#111"/><rect width="400" height="180" fill="url(#g2)"/><rect width="400" height="180" fill="url(#g2b)"/>
               <circle cx="200" cy="90" r="70" fill="none" stroke="#c8a96e" stroke-width="0.5" opacity="0.3"/>
               <circle cx="200" cy="90" r="50" fill="none" stroke="#c8a96e" stroke-width="0.5" opacity="0.25"/>
               <circle cx="200" cy="90" r="30" fill="none" stroke="#d4522a" stroke-width="0.8" opacity="0.4"/>
               <circle cx="200" cy="90" r="10" fill="#c8a96e" opacity="0.5"/>
               <g opacity="0.15" stroke="#c8a96e" stroke-width="0.5">
-                <line x1="200" y1="20" x2="200" y2="160"/>
-                <line x1="130" y1="90" x2="270" y2="90"/>
-                <line x1="151" y1="41" x2="249" y2="139"/>
-                <line x1="249" y1="41" x2="151" y2="139"/>
+                <line x1="200" y1="20" x2="200" y2="160"/><line x1="130" y1="90" x2="270" y2="90"/>
+                <line x1="151" y1="41" x2="249" y2="139"/><line x1="249" y1="41" x2="151" y2="139"/>
               </g>
               <text x="200" y="97" text-anchor="middle" font-family="Georgia, serif" font-size="22" font-style="italic" fill="#f0e8d8" opacity="0.9">Set Autoral</text>
               <text x="200" y="116" text-anchor="middle" font-family="monospace" font-size="9" fill="#c8a96e" letter-spacing="3" opacity="0.7">MIX ORIGINAL · 2024</text>
@@ -857,14 +247,9 @@
             <div class="track-meta">Mix original · Gravação ao vivo · 2024</div>
           </div>
           <div class="track-listen">
-            <a href="https://soundcloud.com/gabriel-grecco-72633875" target="_blank" rel="noopener" class="listen-btn">
-              <span class="listen-icon">▶</span>
-              <span>Ouvir no SoundCloud</span>
-            </a>
+            <a href="https://soundcloud.com/gabriel-grecco-72633875" target="_blank" rel="noopener" class="listen-btn"><span class="listen-icon">▶</span><span>Ouvir no SoundCloud</span></a>
           </div>
-          <div class="track-desc">
-            Set de estreia publicado no SoundCloud, apresentando a curadoria sonora e a identidade estética do artista: eletrônica fluida com alma e intenção narrativa ao longo de toda a mixagem.
-          </div>
+          <div class="track-desc">Set de estreia publicado no SoundCloud, apresentando a curadoria sonora e a identidade estética do artista: eletrônica fluida com alma e intenção narrativa ao longo de toda a mixagem.</div>
         </div>
 
       </div>
@@ -879,35 +264,18 @@
         <div class="processo-text reveal">
           <div class="section-label">Processo Criativo</div>
           <h2 class="section-title">Do sentimento<br/>ao <em>arquivo de áudio</em></h2>
-          <p>
-            Todo trabalho de Grekko nasce de uma ideia melódica ou de um sentimento que precisa de forma. Utilizando ambiente digital de produção (DAW), o artista desenvolve integralmente composição, arranjo, mixagem e masterização — mantendo controle criativo total sobre cada aspecto sonoro.
-          </p>
-          <p>
-            O processo parte das camadas de baixo e percussão eletrônica, avança para as texturas harmônicas inspiradas no soul e culmina em arranjos vocais ou melódicos que conferem identidade e emoção à produção. Cada faixa é construída como uma narrativa: com início, tensão e resolução.
-          </p>
-          <p>
-            Esse domínio do fluxo criativo — da ideia à masterização final — posiciona Grekko como produtor independente de ciclo completo, capaz de entregar obras originais prontas para circulação artística e cultural.
-          </p>
+          <p>Todo trabalho de Grekko nasce de uma ideia melódica ou de um sentimento que precisa de forma. Utilizando ambiente digital de produção (DAW), o artista desenvolve integralmente composição, arranjo, mixagem e masterização — mantendo controle criativo total sobre cada aspecto sonoro.</p>
+          <p>O processo parte das camadas de baixo e percussão eletrônica, avança para as texturas harmônicas inspiradas no soul e culmina em arranjos vocais ou melódicos que conferem identidade e emoção à produção. Cada faixa é construída como uma narrativa: com início, tensão e resolução.</p>
+          <p>Esse domínio do fluxo criativo — da ideia à masterização final — posiciona Grekko como produtor independente de ciclo completo, capaz de entregar obras originais prontas para circulação artística e cultural.</p>
           <div class="processo-tags">
-            <span class="tag">Composição</span>
-            <span class="tag">Arranjo</span>
-            <span class="tag">Produção em DAW</span>
-            <span class="tag">Mixagem</span>
-            <span class="tag">House</span>
-            <span class="tag">Soul Eletrônico</span>
-            <span class="tag">Autoral</span>
+            <span class="tag">Composição</span><span class="tag">Arranjo</span><span class="tag">Produção em DAW</span><span class="tag">Mixagem</span><span class="tag">House</span><span class="tag">Soul Eletrônico</span><span class="tag">Autoral</span>
           </div>
         </div>
         <div class="processo-images reveal">
           <div class="studio-img">
             <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
               <rect width="500" height="200" fill="#111"/>
-              <defs>
-                <radialGradient id="sa1" cx="50%" cy="50%" r="70%">
-                  <stop offset="0%" stop-color="#c8a96e" stop-opacity="0.15"/>
-                  <stop offset="100%" stop-color="#111" stop-opacity="0"/>
-                </radialGradient>
-              </defs>
+              <defs><radialGradient id="sa1" cx="50%" cy="50%" r="70%"><stop offset="0%" stop-color="#c8a96e" stop-opacity="0.15"/><stop offset="100%" stop-color="#111" stop-opacity="0"/></radialGradient></defs>
               <rect width="500" height="200" fill="url(#sa1)"/>
               <path d="M0 100 Q62.5 20 125 100 Q187.5 180 250 100 Q312.5 20 375 100 Q437.5 180 500 100" fill="none" stroke="#c8a96e" stroke-width="1.5" opacity="0.7"/>
               <path d="M0 100 Q62.5 40 125 100 Q187.5 160 250 100 Q312.5 40 375 100 Q437.5 160 500 100" fill="none" stroke="#a88a50" stroke-width="1" opacity="0.4"/>
@@ -918,12 +286,7 @@
           <div class="studio-img">
             <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
               <rect width="300" height="200" fill="#0d0d0d"/>
-              <defs>
-                <radialGradient id="sa2" cx="60%" cy="40%" r="70%">
-                  <stop offset="0%" stop-color="#d4522a" stop-opacity="0.2"/>
-                  <stop offset="100%" stop-color="#0d0d0d" stop-opacity="0"/>
-                </radialGradient>
-              </defs>
+              <defs><radialGradient id="sa2" cx="60%" cy="40%" r="70%"><stop offset="0%" stop-color="#d4522a" stop-opacity="0.2"/><stop offset="100%" stop-color="#0d0d0d" stop-opacity="0"/></radialGradient></defs>
               <rect width="300" height="200" fill="url(#sa2)"/>
               <rect x="100" y="60" width="100" height="80" fill="none" stroke="#c8a96e" stroke-width="0.8" opacity="0.5"/>
               <rect x="115" y="72" width="70" height="56" fill="none" stroke="#c8a96e" stroke-width="0.6" opacity="0.35"/>
@@ -940,17 +303,10 @@
             <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
               <rect width="300" height="200" fill="#0f0f0f"/>
               <defs>
-                <radialGradient id="sa3a" cx="30%" cy="60%" r="60%">
-                  <stop offset="0%" stop-color="#c8a96e" stop-opacity="0.3"/>
-                  <stop offset="100%" stop-color="#0f0f0f" stop-opacity="0"/>
-                </radialGradient>
-                <radialGradient id="sa3b" cx="75%" cy="35%" r="50%">
-                  <stop offset="0%" stop-color="#d4522a" stop-opacity="0.2"/>
-                  <stop offset="100%" stop-color="#0f0f0f" stop-opacity="0"/>
-                </radialGradient>
+                <radialGradient id="sa3a" cx="30%" cy="60%" r="60%"><stop offset="0%" stop-color="#c8a96e" stop-opacity="0.3"/><stop offset="100%" stop-color="#0f0f0f" stop-opacity="0"/></radialGradient>
+                <radialGradient id="sa3b" cx="75%" cy="35%" r="50%"><stop offset="0%" stop-color="#d4522a" stop-opacity="0.2"/><stop offset="100%" stop-color="#0f0f0f" stop-opacity="0"/></radialGradient>
               </defs>
-              <rect width="300" height="200" fill="url(#sa3a)"/>
-              <rect width="300" height="200" fill="url(#sa3b)"/>
+              <rect width="300" height="200" fill="url(#sa3a)"/><rect width="300" height="200" fill="url(#sa3b)"/>
               <path d="M80 100 Q100 40 160 60 Q220 80 200 130 Q180 180 120 160 Q60 140 80 100Z" fill="none" stroke="#c8a96e" stroke-width="1" opacity="0.45"/>
               <path d="M100 100 Q120 55 165 72 Q210 90 192 128 Q174 166 128 150 Q82 134 100 100Z" fill="rgba(200,169,110,0.06)"/>
               <path d="M130 100 Q140 75 165 82 Q190 89 182 112 Q174 135 152 128 Q130 121 130 100Z" fill="rgba(212,82,42,0.15)"/>
@@ -970,15 +326,9 @@
         <div class="territorio-text reveal">
           <div class="section-label">Território & Difusão</div>
           <h2 class="section-title">Produzido no <em>Espírito Santo</em></h2>
-          <p>
-            Gabriel Grekko reside e produz em Marataízes, no litoral sul do Espírito Santo. Sua presença ativa na cena independente capixaba representa um movimento importante de interiorização da produção musical eletrônica — historicamente concentrada nos grandes centros urbanos.
-          </p>
-          <p>
-            Produzir música autoral de qualidade a partir do interior do Espírito Santo é um ato político e cultural. Significa afirmar que a periferia criativa tem voz, técnica e proposta estética própria — e que a cena eletrônica brasileira é mais rica e diversa do que sua cobertura midiática habitual sugere.
-          </p>
-          <p>
-            A música de Grekko carrega o sotaque do litoral capixaba: uma cadência lenta e afetiva, uma relação íntima com o mar e com o silêncio que precede o som. Isso é o que diferencia sua produção — uma eletrônica que soa de dentro para fora.
-          </p>
+          <p>Gabriel Grekko reside e produz em Marataízes, no litoral sul do Espírito Santo. Sua presença ativa na cena independente capixaba representa um movimento importante de interiorização da produção musical eletrônica — historicamente concentrada nos grandes centros urbanos.</p>
+          <p>Produzir música autoral de qualidade a partir do interior do Espírito Santo é um ato político e cultural. Significa afirmar que a periferia criativa tem voz, técnica e proposta estética própria — e que a cena eletrônica brasileira é mais rica e diversa do que sua cobertura midiática habitual sugere.</p>
+          <p>A música de Grekko carrega o sotaque do litoral capixaba: uma cadência lenta e afetiva, uma relação íntima com o mar e com o silêncio que precede o som. Isso é o que diferencia sua produção — uma eletrônica que soa de dentro para fora.</p>
         </div>
         <div class="territorio-map reveal">
           <svg viewBox="0 0 100 160" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1028,21 +378,14 @@
 
   <footer>
     <div class="footer-brand">Grekko</div>
-    <div class="footer-copy">
-      Gabriel Grecco — Produtor Musical<br/>
-      Produzido no Espírito Santo – Marataízes | 2026
-    </div>
+    <div class="footer-copy">Gabriel Grecco — Produtor Musical<br/>Produzido no Espírito Santo – Marataízes | 2026</div>
     <div class="footer-right">ES · BR</div>
   </footer>
 
   <script>
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
+      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
     }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
   </script>
