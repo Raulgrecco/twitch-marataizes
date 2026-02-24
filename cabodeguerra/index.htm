@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cabo de Guerra do Abacaxi - TV Marataízes</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'Nunito',sans-serif;
+  background:linear-gradient(135deg,#0d0520 0%,#12183a 60%,#0a2a50 100%);
+  min-height:100vh; overflow:hidden;
+  display:flex; flex-direction:column; align-items:center;
+}
+.header { width:100%; text-align:center; padding:10px 0 4px; position:relative; }
+.header h1 { font-family:'Fredoka One',cursive; font-size:clamp(1.6rem,3.5vw,2.8rem); color:#FFD700; text-shadow:3px 3px 0 #ff6b00, 0 0 30px rgba(255,215,0,.5); letter-spacing:2px; }
+.header .sub { font-size:.8rem; color:#888; letter-spacing:3px; text-transform:uppercase; }
+.tv-badge { position:absolute; right:20px; top:8px; background:linear-gradient(135deg,#ff6b00,#ffd700); border-radius:50%; width:48px; height:48px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; box-shadow:0 0 15px rgba(255,107,0,.6); }
+.scoreboard { display:flex; align-items:center; gap:24px; background:rgba(255,255,255,.05); border-radius:50px; padding:8px 32px; border:1px solid rgba(255,255,255,.1); margin:4px 0; }
+.score-team { font-family:'Fredoka One',cursive; font-size:1.5rem; display:flex; flex-direction:column; align-items:center; }
+.score-team .lbl { font-size:.75rem; opacity:.6; font-family:'Nunito',sans-serif; }
+.score-team.red .pts { color:#ff4757; }
+.score-team.blue .pts { color:#1e90ff; }
+.timer { font-family:'Fredoka One',cursive; font-size:1.3rem; color:#FFD700; min-width:70px; text-align:center; }
+.game-area { display:flex; width:100%; max-width:1300px; padding:0 8px; gap:8px; flex:1; align-items:flex-start; justify-content:center; }
+.team-panel { flex:0 0 240px; border-radius:20px; padding:14px; display:flex; flex-direction:column; align-items:center; gap:8px; }
+.team-panel.red { background:linear-gradient(160deg,rgba(220,30,60,.25),rgba(255,100,50,.12)); border:2px solid rgba(255,80,80,.4); }
+.team-panel.blue { background:linear-gradient(160deg,rgba(30,100,220,.25),rgba(50,150,255,.12)); border:2px solid rgba(80,150,255,.4); }
+.team-lbl { font-family:'Fredoka One',cursive; font-size:1.2rem; padding:4px 18px; border-radius:20px; letter-spacing:1px; }
+.red .team-lbl { background:#dc1e3c; color:#fff; box-shadow:0 4px 15px rgba(220,30,60,.5); }
+.blue .team-lbl { background:#1e64dc; color:#fff; box-shadow:0 4px 15px rgba(30,100,220,.5); }
+.question { font-family:'Fredoka One',cursive; font-size:clamp(1.6rem,3vw,2.3rem); color:#fff; min-height:55px; display:flex; align-items:center; }
+.red .question { color:#ffb3b3; }
+.blue .question { color:#b3d4ff; }
+.answer-disp { font-family:'Fredoka One',cursive; font-size:1.9rem; width:100%; text-align:center; padding:8px; border-radius:12px; min-height:52px; background:rgba(0,0,0,.3); border:2px solid rgba(255,255,255,.15); color:#fff; letter-spacing:4px; }
+.numpad { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; width:100%; }
+.numpad button { font-family:'Fredoka One',cursive; font-size:1.3rem; padding:13px 0; border:none; border-radius:12px; cursor:pointer; transition:all .12s; background:rgba(255,255,255,.12); color:#fff; border:1px solid rgba(255,255,255,.2); }
+.numpad button:hover { transform:scale(1.06); background:rgba(255,255,255,.25); }
+.numpad button:active { transform:scale(.94); }
+.btn-zero { grid-column:2; }
+.btn-clear { background:rgba(220,50,50,.5)!important; border-color:rgba(220,50,50,.8)!important; }
+.btn-ok { background:rgba(50,200,80,.5)!important; border-color:rgba(50,200,80,.8)!important; }
+.btn-ok:disabled { opacity:.35; cursor:not-allowed; transform:none!important; }
+.arena { flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; padding-top:8px; }
+.rope-stage { width:100%; position:relative; height:230px; }
+.rope-stage svg { width:100%; height:100%; overflow:visible; }
+.feedback-zone { font-family:'Fredoka One',cursive; font-size:1.6rem; min-height:46px; text-align:center; }
+.fb-correct { color:#2ecc71; animation:pop .5s ease; }
+.fb-wrong   { color:#e74c3c; animation:shake .4s ease; }
+@keyframes pop   { 0%{transform:scale(.5);opacity:0} 70%{transform:scale(1.2)} 100%{transform:scale(1);opacity:1} }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+.progress-wrap { width:85%; height:20px; background:rgba(0,0,0,.35); border-radius:10px; overflow:hidden; border:1px solid rgba(255,255,255,.1); position:relative; }
+.progress-fill { height:100%; width:50%; background:linear-gradient(90deg,#dc1e3c 0%,#ff8c00 50%,#1e64dc 100%); border-radius:10px; transition:width .6s cubic-bezier(.34,1.56,.64,1); }
+.progress-mid { position:absolute; left:50%; top:0; width:3px; height:100%; background:#fff; opacity:.5; }
+.progress-labels { display:flex; justify-content:space-between; width:85%; font-size:.7rem; color:rgba(255,255,255,.4); font-family:'Fredoka One',cursive; }
+.round-lbl { color:rgba(255,255,255,.35); font-size:.75rem; }
+.win-screen { display:none; position:fixed; inset:0; background:rgba(0,0,0,.88); z-index:100; flex-direction:column; align-items:center; justify-content:center; gap:20px; backdrop-filter:blur(10px); }
+.win-screen.show { display:flex; animation:fadeIn .5s ease; }
+.win-title { font-family:'Fredoka One',cursive; font-size:clamp(2.2rem,5vw,4.5rem); text-align:center; padding:0 20px; text-shadow:0 0 40px currentColor; }
+.win-emoji { font-size:5rem; animation:bounce 1s infinite alternate; }
+@keyframes bounce { from{transform:translateY(0)} to{transform:translateY(-20px)} }
+.btn-restart { font-family:'Fredoka One',cursive; font-size:1.4rem; padding:15px 48px; background:linear-gradient(135deg,#FFD700,#ff6b00); border:none; border-radius:50px; color:#fff; cursor:pointer; box-shadow:0 8px 25px rgba(255,107,0,.5); transition:transform .2s; }
+.btn-restart:hover { transform:scale(1.05); }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+.confetti-piece { position:fixed; width:10px; height:18px; border-radius:2px; animation:cfall linear forwards; pointer-events:none; z-index:200; }
+@keyframes cfall { 0%{transform:translateY(-100px) rotate(0deg);opacity:1} 100%{transform:translateY(110vh) rotate(720deg);opacity:0} }
+.start-screen { display:flex; position:fixed; inset:0; background:linear-gradient(135deg,#1a0a2e,#0f3460); z-index:100; flex-direction:column; align-items:center; justify-content:center; gap:18px; }
+.start-title { font-family:'Fredoka One',cursive; font-size:clamp(2rem,5vw,3.8rem); color:#FFD700; text-shadow:3px 3px 0 #ff6b00, 0 0 40px rgba(255,215,0,.6); text-align:center; line-height:1.1; padding:0 20px; }
+.start-faces { display:flex; gap:20px; align-items:center; font-size:3.5rem; }
+.start-vs { font-family:'Fredoka One',cursive; font-size:2rem; color:#fff; }
+.cfg-box { background:rgba(255,255,255,.05); border-radius:20px; padding:18px 28px; border:1px solid rgba(255,255,255,.1); display:flex; flex-direction:column; gap:12px; align-items:center; }
+.cfg-box label { color:#ccc; font-size:.85rem; text-align:center; }
+.cfg-row { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+.cfg-btn { font-family:'Fredoka One',cursive; font-size:.9rem; padding:7px 14px; border-radius:20px; border:2px solid rgba(255,255,255,.2); background:rgba(255,255,255,.07); color:#fff; cursor:pointer; transition:all .2s; }
+.cfg-btn:hover,.cfg-btn.active { background:rgba(255,215,0,.25); border-color:#FFD700; color:#FFD700; }
+.btn-start { font-family:'Fredoka One',cursive; font-size:1.7rem; padding:16px 56px; background:linear-gradient(135deg,#FFD700,#ff6b00); border:none; border-radius:50px; color:#fff; cursor:pointer; box-shadow:0 8px 30px rgba(255,107,0,.6); transition:transform .2s; }
+.btn-start:hover { transform:scale(1.05); }
+.powered { color:rgba(255,255,255,.25); font-size:.7rem; letter-spacing:2px; text-transform:uppercase; }
+</style>
+</head>
+<body>
+
+<!-- START SCREEN -->
+<div class="start-screen" id="startScreen">
+  <div class="start-title">🍍 CABO DE GUERRA<br>DO ABACAXI 🍍</div>
+  <div class="start-faces"><span>🍍</span><div class="start-vs">VS</div><span>🍍</span></div>
+  <div class="cfg-box">
+    <label>⚡ Operação</label>
+    <div class="cfg-row" id="opBtns">
+      <button class="cfg-btn active" onclick="selOp('add',this)">➕ Soma</button>
+      <button class="cfg-btn" onclick="selOp('sub',this)">➖ Subtração</button>
+      <button class="cfg-btn" onclick="selOp('mul',this)">✖️ Multiplicação</button>
+      <button class="cfg-btn" onclick="selOp('mix',this)">🎲 Mistura</button>
+    </div>
+    <label>🎯 Pontos para vencer</label>
+    <div class="cfg-row" id="ptBtns">
+      <button class="cfg-btn" onclick="selPts(3,this)">3 pts</button>
+      <button class="cfg-btn active" onclick="selPts(5,this)">5 pts</button>
+      <button class="cfg-btn" onclick="selPts(7,this)">7 pts</button>
+    </div>
+    <label>🔢 Dificuldade</label>
+    <div class="cfg-row" id="lvlBtns">
+      <button class="cfg-btn active" onclick="selLvl(1,this)">🟢 Fácil (1–10)</button>
+      <button class="cfg-btn" onclick="selLvl(2,this)">🟡 Médio (1–20)</button>
+      <button class="cfg-btn" onclick="selLvl(3,this)">🔴 Difícil (1–50)</button>
+    </div>
+  </div>
+  <button class="btn-start" onclick="startGame()">🎮 JOGAR!</button>
+  <div class="powered">📺 TV Marataízes · Educação Gamificada</div>
+</div>
+
+<!-- WIN SCREEN -->
+<div class="win-screen" id="winScreen">
+  <div class="win-emoji">🍍</div>
+  <div class="win-title" id="winTitle">Venceu!</div>
+  <button class="btn-restart" onclick="resetGame()">🔄 Jogar Novamente</button>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>🍍 CABO DE GUERRA DO ABACAXI</h1>
+  <div class="sub">TV Marataízes · Educação</div>
+  <div class="tv-badge">📺</div>
+</div>
+
+<!-- SCOREBOARD -->
+<div class="scoreboard">
+  <div class="score-team red"><span class="lbl">🔴 TIME VERMELHO</span><span class="pts" id="scoreRed">0</span></div>
+  <div>
+    <div class="timer" id="timerDisp">⏱ --</div>
+    <div style="color:#aaa;font-size:.7rem;text-align:center" id="rdInfo">Rodada 1</div>
+  </div>
+  <div class="score-team blue"><span class="lbl">AZUL 🔵</span><span class="pts" id="scoreBlue">0</span></div>
+</div>
+
+<!-- GAME AREA -->
+<div class="game-area">
+
+  <!-- RED PANEL -->
+  <div class="team-panel red">
+    <div class="team-lbl">🔴 TIME 1</div>
+    <div class="question" id="qRed">?</div>
+    <div class="answer-disp" id="aRed">_</div>
+    <div class="numpad">
+      <button onclick="num('red',1)">1</button><button onclick="num('red',2)">2</button><button onclick="num('red',3)">3</button>
+      <button onclick="num('red',4)">4</button><button onclick="num('red',5)">5</button><button onclick="num('red',6)">6</button>
+      <button onclick="num('red',7)">7</button><button onclick="num('red',8)">8</button><button onclick="num('red',9)">9</button>
+      <button class="btn-clear" onclick="clr('red')">✕</button>
+      <button class="btn-zero" onclick="num('red',0)">0</button>
+      <button class="btn-ok" id="okRed" onclick="sub('red')">✓</button>
+    </div>
+  </div>
+
+  <!-- ARENA -->
+  <div class="arena">
+    <div class="rope-stage">
+      <svg id="stageSvg" viewBox="0 0 700 230" preserveAspectRatio="xMidYMid meet">
+        <ellipse cx="350" cy="222" rx="320" ry="8" fill="rgba(0,0,0,.25)"/>
+        <line id="ropeA" x1="150" y1="138" x2="350" y2="138" stroke="#6B4515" stroke-width="10" stroke-linecap="round"/>
+        <line id="ropeB" x1="350" y1="138" x2="550" y2="138" stroke="#6B4515" stroke-width="10" stroke-linecap="round"/>
+        <line id="ropeTex" x1="150" y1="135" x2="550" y2="135" stroke="#A07840" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+        <line id="ropeTex2" x1="150" y1="141" x2="550" y2="141" stroke="#3D2008" stroke-width="3" stroke-linecap="round" opacity=".4"/>
+        <line x1="350" y1="100" x2="350" y2="190" stroke="#FFD700" stroke-width="3" stroke-dasharray="7,5" opacity=".85"/>
+        <rect x="344" y="96" width="12" height="8" fill="#FFD700" rx="2"/>
+        <line x1="350" y1="96" x2="350" y2="80" stroke="#FFD700" stroke-width="2.5"/>
+        <g id="knotG" transform="translate(0,0)">
+          <circle cx="350" cy="138" r="13" fill="#3D2008" stroke="#6B4515" stroke-width="2.5"/>
+          <circle cx="350" cy="138" r="8"  fill="#6B4515"/>
+          <circle cx="350" cy="138" r="4"  fill="#A07840"/>
+        </g>
+        <!-- RED PINEAPPLE -->
+        <g id="charRed" transform="translate(90, 50)">
+          <g id="leanRed" style="transform-origin:55px 155px; transform:rotate(0deg)">
+            <line x1="32" y1="105" x2="6"  y2="88"  stroke="#F4A520" stroke-width="10" stroke-linecap="round"/>
+            <line x1="78" y1="105" x2="118" y2="125" stroke="#F4A520" stroke-width="10" stroke-linecap="round"/>
+            <ellipse cx="55" cy="98" rx="32" ry="40" fill="#F5A623" stroke="#D4851A" stroke-width="2"/>
+            <ellipse cx="55" cy="120" rx="32" ry="22" fill="#DC1E3C"/>
+            <circle cx="42" cy="118" r="5" fill="#FF8FAD" opacity=".65"/>
+            <circle cx="63" cy="113" r="4" fill="#FF8FAD" opacity=".65"/>
+            <circle cx="50" cy="128" r="3.5" fill="#FF8FAD" opacity=".55"/>
+            <line x1="28" y1="86"  x2="82" y2="86"  stroke="#C47A15" stroke-width="1.2" opacity=".45"/>
+            <line x1="25" y1="97"  x2="85" y2="97"  stroke="#C47A15" stroke-width="1.2" opacity=".45"/>
+            <line x1="26" y1="108" x2="84" y2="108" stroke="#C47A15" stroke-width="1.2" opacity=".45"/>
+            <circle cx="42" cy="88" r="10" fill="white"/>
+            <circle cx="68" cy="88" r="10" fill="white"/>
+            <circle cx="44" cy="88" r="5.5" fill="#3D1F00"/>
+            <circle cx="70" cy="88" r="5.5" fill="#3D1F00"/>
+            <circle cx="45" cy="86" r="2.2" fill="white"/>
+            <circle cx="71" cy="86" r="2.2" fill="white"/>
+            <rect x="32" y="79" width="20" height="18" rx="8" fill="none" stroke="#3D1F00" stroke-width="3"/>
+            <rect x="58" y="79" width="20" height="18" rx="8" fill="none" stroke="#3D1F00" stroke-width="3"/>
+            <line x1="52" y1="88" x2="58" y2="88" stroke="#3D1F00" stroke-width="2.5"/>
+            <line x1="32" y1="88" x2="26" y2="87" stroke="#3D1F00" stroke-width="2.5"/>
+            <line x1="78" y1="88" x2="84" y2="87" stroke="#3D1F00" stroke-width="2.5"/>
+            <path d="M 43 104 Q 55 110 67 104" fill="none" stroke="#3D1F00" stroke-width="3" stroke-linecap="round"/>
+            <ellipse cx="55" cy="52" rx="16" ry="9" fill="#228B22"/>
+            <path d="M48 52 Q42 28 46 20 Q50 35 55 30 Q60 20 64 25 Q61 35 67 40 Q70 30 74 34 Q69 42 68 52" fill="#2ECC40" stroke="#1A7A1A" stroke-width="1"/>
+            <rect x="40" y="140" width="12" height="20" rx="5" fill="#F5A623"/>
+            <rect x="58" y="140" width="12" height="20" rx="5" fill="#F5A623"/>
+            <ellipse cx="46"  cy="161" rx="11" ry="6" fill="#E08A15"/>
+            <ellipse cx="64"  cy="161" rx="11" ry="6" fill="#E08A15"/>
+          </g>
+        </g>
+        <!-- BLUE PINEAPPLE -->
+        <g id="charBlue" transform="translate(560,50) scale(-1,1) translate(-110,0)">
+          <g id="leanBlue" style="transform-origin:55px 155px; transform:rotate(0deg)">
+            <line x1="32" y1="105" x2="6"  y2="88"  stroke="#F4A520" stroke-width="10" stroke-linecap="round"/>
+            <line x1="78" y1="105" x2="118" y2="125" stroke="#F4A520" stroke-width="10" stroke-linecap="round"/>
+            <ellipse cx="55" cy="98" rx="32" ry="40" fill="#F5A623" stroke="#D4851A" stroke-width="2"/>
+            <ellipse cx="55" cy="120" rx="32" ry="22" fill="#1E64DC"/>
+            <circle cx="42" cy="118" r="5" fill="#6BAAFF" opacity=".65"/>
+            <circle cx="63" cy="113" r="4" fill="#6BAAFF" opacity=".65"/>
+            <circle cx="50" cy="128" r="3.5" fill="#6BAAFF" opacity=".55"/>
+            <line x1="28" y1="86"  x2="82" y2="86"  stroke="#C47A15" stroke-width="1.2" opacity=".45"/>
+            <line x1="25" y1="97"  x2="85" y2="97"  stroke="#C47A15" stroke-width="1.2" opacity=".45"/>
+            <line x1="26" y1="108" x2="84" y2="108" stroke="#C47A15" stroke-width="1.2" opacity=".45"/>
+            <circle cx="42" cy="88" r="10" fill="white"/>
+            <circle cx="68" cy="88" r="10" fill="white"/>
+            <circle cx="44" cy="88" r="5.5" fill="#3D1F00"/>
+            <circle cx="70" cy="88" r="5.5" fill="#3D1F00"/>
+            <circle cx="45" cy="86" r="2.2" fill="white"/>
+            <circle cx="71" cy="86" r="2.2" fill="white"/>
+            <rect x="32" y="79" width="20" height="18" rx="8" fill="none" stroke="#3D1F00" stroke-width="3"/>
+            <rect x="58" y="79" width="20" height="18" rx="8" fill="none" stroke="#3D1F00" stroke-width="3"/>
+            <line x1="52" y1="88" x2="58" y2="88" stroke="#3D1F00" stroke-width="2.5"/>
+            <line x1="32" y1="88" x2="26" y2="87" stroke="#3D1F00" stroke-width="2.5"/>
+            <line x1="78" y1="88" x2="84" y2="87" stroke="#3D1F00" stroke-width="2.5"/>
+            <path d="M 43 104 Q 55 110 67 104" fill="none" stroke="#3D1F00" stroke-width="3" stroke-linecap="round"/>
+            <ellipse cx="55" cy="52" rx="16" ry="9" fill="#228B22"/>
+            <path d="M48 52 Q42 28 46 20 Q50 35 55 30 Q60 20 64 25 Q61 35 67 40 Q70 30 74 34 Q69 42 68 52" fill="#2ECC40" stroke="#1A7A1A" stroke-width="1"/>
+            <rect x="40" y="140" width="12" height="20" rx="5" fill="#F5A623"/>
+            <rect x="58" y="140" width="12" height="20" rx="5" fill="#F5A623"/>
+            <ellipse cx="46"  cy="161" rx="11" ry="6" fill="#E08A15"/>
+            <ellipse cx="64"  cy="161" rx="11" ry="6" fill="#E08A15"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="progress-labels"><span>🔴</span><span>🔵</span></div>
+    <div class="progress-wrap">
+      <div class="progress-fill" id="progFill"></div>
+      <div class="progress-mid"></div>
+    </div>
+    <div class="feedback-zone" id="fbZone"></div>
+    <div class="round-lbl" id="centerLbl">Responda sua pergunta!</div>
+  </div>
+
+  <!-- BLUE PANEL -->
+  <div class="team-panel blue">
+    <div class="team-lbl">AZUL 🔵</div>
+    <div class="question" id="qBlue">?</div>
+    <div class="answer-disp" id="aBlue">_</div>
+    <div class="numpad">
+      <button onclick="num('blue',1)">1</button><button onclick="num('blue',2)">2</button><button onclick="num('blue',3)">3</button>
+      <button onclick="num('blue',4)">4</button><button onclick="num('blue',5)">5</button><button onclick="num('blue',6)">6</button>
+      <button onclick="num('blue',7)">7</button><button onclick="num('blue',8)">8</button><button onclick="num('blue',9)">9</button>
+      <button class="btn-clear" onclick="clr('blue')">✕</button>
+      <button class="btn-zero" onclick="num('blue',0)">0</button>
+      <button class="btn-ok" id="okBlue" onclick="sub('blue')">✓</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const G = {
+  op:'add', maxPts:5, level:1,
+  scoreRed:0, scoreBlue:0,
+  ropePos:350,
+  round:1,
+  ansRed:'', ansBlue:'',
+  corrRed:0, corrBlue:0,
+  lockRed:false, lockBlue:false,
+  active:false,
+  timer:null, timeLeft:15,
+  rafId:null,
+};
+
+function selOp(op,b){ G.op=op; tog('#opBtns',b); }
+function selPts(p,b){ G.maxPts=p; tog('#ptBtns',b); }
+function selLvl(l,b){ G.level=l; tog('#lvlBtns',b); }
+function tog(sel,btn){ document.querySelectorAll(sel+' .cfg-btn').forEach(x=>x.classList.remove('active')); btn.classList.add('active'); }
+
+const ROPE_LEFT=150, ROPE_RIGHT=550, ROPE_MID=350;
+
+function updateVisual(kx) {
+  document.getElementById('knotG').setAttribute('transform',`translate(${kx-350},0)`);
+  const redHandX=195, blueHandX=505;
+  document.getElementById('ropeA').setAttribute('x1', redHandX);
+  document.getElementById('ropeA').setAttribute('x2', kx);
+  document.getElementById('ropeB').setAttribute('x1', kx);
+  document.getElementById('ropeB').setAttribute('x2', blueHandX);
+  document.getElementById('ropeTex').setAttribute('x1',  redHandX);
+  document.getElementById('ropeTex').setAttribute('x2',  blueHandX);
+  document.getElementById('ropeTex2').setAttribute('x1', redHandX);
+  document.getElementById('ropeTex2').setAttribute('x2', blueHandX);
+  const offset = kx - ROPE_MID;
+  const redLean  = Math.max(-18, Math.min(22,  offset * 0.09));
+  const blueLean = Math.max(-18, Math.min(22, -offset * 0.09));
+  document.getElementById('leanRed').style.transform  = `rotate(${redLean}deg)`;
+  document.getElementById('leanBlue').style.transform = `rotate(${blueLean}deg)`;
+  const slide = (kx - ROPE_MID) * 0.32;
+  document.getElementById('charRed').setAttribute('transform',  `translate(${90  + slide}, 50)`);
+  document.getElementById('charBlue').setAttribute('transform', `translate(${560 + slide}, 50) scale(-1,1) translate(-110,0)`);
+  const pct = ((kx - ROPE_LEFT) / (ROPE_RIGHT - ROPE_LEFT)) * 100;
+  document.getElementById('progFill').style.width = Math.max(0,Math.min(100,pct))+'%';
+}
+
+function animateTo(target, onDone) {
+  cancelAnimationFrame(G.rafId);
+  const from=G.ropePos, dist=target-from, dur=1000, t0=performance.now();
+  function step(now) {
+    const p=Math.min(1,(now-t0)/dur);
+    const e=1-Math.pow(1-p,3);
+    G.ropePos=from+dist*e;
+    updateVisual(G.ropePos);
+    if(p<1) G.rafId=requestAnimationFrame(step);
+    else { G.ropePos=target; if(onDone) onDone(); }
+  }
+  G.rafId=requestAnimationFrame(step);
+}
+
+let swayPhase=0;
+function swayLoop() {
+  if(!G.active){ swayPhase+=0.025; updateVisual(G.ropePos+Math.sin(swayPhase)*3); }
+  requestAnimationFrame(swayLoop);
+}
+swayLoop();
+
+function genQ(){
+  const max=G.level===1?10:G.level===2?20:50;
+  let op=G.op==='mix'?['add','sub','mul'][Math.floor(Math.random()*3)]:G.op;
+  let a,b,ans,sym;
+  if(op==='add'){ a=rn(max)+1;b=rn(max)+1;ans=a+b;sym='+'; }
+  else if(op==='sub'){ a=rn(max)+1;b=rn(a)+1;ans=a-b;sym='−'; }
+  else{ const m=G.level===1?5:G.level===2?9:12;a=rn(m)+1;b=rn(m)+1;ans=a*b;sym='×'; }
+  return {text:`${a} ${sym} ${b} = ?`,ans};
+}
+function rn(n){ return Math.floor(Math.random()*n); }
+
+function startGame(){ document.getElementById('startScreen').style.display='none'; newRound(); }
+
+function newRound(){
+  const qR=genQ(), qB=genQ();
+  G.corrRed=qR.ans; G.corrBlue=qB.ans;
+  G.ansRed=''; G.ansBlue='';
+  G.lockRed=false; G.lockBlue=false;
+  G.active=true; G.timeLeft=15;
+  document.getElementById('qRed').textContent=qR.text;
+  document.getElementById('qBlue').textContent=qB.text;
+  document.getElementById('aRed').textContent='_';
+  document.getElementById('aBlue').textContent='_';
+  document.getElementById('fbZone').textContent='';
+  document.getElementById('fbZone').className='feedback-zone';
+  document.getElementById('centerLbl').textContent=`Rodada ${G.round}`;
+  document.getElementById('rdInfo').textContent=`Rodada ${G.round}`;
+  document.getElementById('okRed').disabled=false;
+  document.getElementById('okBlue').disabled=false;
+  clearInterval(G.timer);
+  updTimer();
+  G.timer=setInterval(()=>{ G.timeLeft--; updTimer(); if(G.timeLeft<=0){clearInterval(G.timer);endRound();} },1000);
+}
+
+function updTimer(){ document.getElementById('timerDisp').textContent=`⏱ ${G.timeLeft}s`; }
+
+function num(t,n){
+  if(!G.active) return;
+  if(t==='red'&&G.lockRed) return;
+  if(t==='blue'&&G.lockBlue) return;
+  const k='ans'+cap(t);
+  if(G[k].length<3){ G[k]+=n; document.getElementById('a'+cap(t)).textContent=G[k]||'_'; }
+}
+function clr(t){
+  if(t==='red'&&G.lockRed) return;
+  if(t==='blue'&&G.lockBlue) return;
+  const k='ans'+cap(t);
+  G[k]=G[k].slice(0,-1);
+  document.getElementById('a'+cap(t)).textContent=G[k]||'_';
+}
+function sub(t){
+  if(!G.active) return;
+  if(t==='red'){ if(G.lockRed||G.ansRed==='') return; G.lockRed=true; document.getElementById('okRed').disabled=true; }
+  else         { if(G.lockBlue||G.ansBlue==='') return; G.lockBlue=true; document.getElementById('okBlue').disabled=true; }
+  if(G.lockRed&&G.lockBlue){ clearInterval(G.timer); endRound(); }
+}
+function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+
+function endRound(){
+  G.active=false;
+  clearInterval(G.timer);
+  const rOk=parseInt(G.ansRed)===G.corrRed;
+  const bOk=parseInt(G.ansBlue)===G.corrBlue;
+  const fbEl=document.getElementById('fbZone');
+  let shift=0, fb='';
+  if(rOk&&!bOk){ shift=-55; G.scoreRed++; fb='🍍 Vermelho acertou! 💪 Puxa!'; fbEl.className='feedback-zone fb-correct'; }
+  else if(bOk&&!rOk){ shift=+55; G.scoreBlue++; fb='🍍 Azul acertou! 💪 Puxa!'; fbEl.className='feedback-zone fb-correct'; }
+  else if(rOk&&bOk){ fb='🎯 Empate! Os dois acertaram!'; fbEl.className='feedback-zone fb-correct'; }
+  else { fb='😅 Ninguém acertou! Próxima rodada...'; fbEl.className='feedback-zone fb-wrong'; }
+  fbEl.textContent=fb;
+  document.getElementById('scoreRed').textContent=G.scoreRed;
+  document.getElementById('scoreBlue').textContent=G.scoreBlue;
+  const newPos=Math.max(ROPE_LEFT,Math.min(ROPE_RIGHT,G.ropePos+shift));
+  animateTo(newPos,()=>{
+    if(G.scoreRed>=G.maxPts||newPos<=ROPE_LEFT+10){ setTimeout(()=>showWin('red'),400); return; }
+    if(G.scoreBlue>=G.maxPts||newPos>=ROPE_RIGHT-10){ setTimeout(()=>showWin('blue'),400); return; }
+    G.round++;
+    setTimeout(newRound,2000);
+  });
+}
+
+function showWin(t){
+  const isRed=t==='red';
+  document.getElementById('winTitle').textContent=isRed?'🔴 TIME VERMELHO VENCEU! 🎉':'🔵 TIME AZUL VENCEU! 🎉';
+  document.getElementById('winTitle').style.color=isRed?'#ff6b6b':'#6bb3ff';
+  document.getElementById('winScreen').classList.add('show');
+  confetti();
+}
+
+function resetGame(){
+  G.scoreRed=0; G.scoreBlue=0; G.ropePos=ROPE_MID; G.round=1;
+  clearInterval(G.timer); cancelAnimationFrame(G.rafId);
+  document.getElementById('winScreen').classList.remove('show');
+  document.getElementById('scoreRed').textContent='0';
+  document.getElementById('scoreBlue').textContent='0';
+  updateVisual(ROPE_MID);
+  document.getElementById('startScreen').style.display='flex';
+}
+
+function confetti(){
+  const cols=['#FFD700','#ff4757','#1e90ff','#2ecc71','#ff6b81','#eccc68'];
+  for(let i=0;i<80;i++){
+    const el=document.createElement('div');
+    el.className='confetti-piece';
+    el.style.left=Math.random()*100+'vw';
+    el.style.background=cols[Math.floor(Math.random()*cols.length)];
+    el.style.animationDuration=(1.5+Math.random()*2.5)+'s';
+    el.style.animationDelay=Math.random()+'s';
+    el.style.width=(6+Math.random()*8)+'px';
+    el.style.height=(10+Math.random()*14)+'px';
+    el.style.transform=`rotate(${Math.random()*360}deg)`;
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),4500);
+  }
+}
+
+updateVisual(ROPE_MID);
+</script>
+</body>
+</html>
