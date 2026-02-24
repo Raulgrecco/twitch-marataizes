@@ -17,6 +17,8 @@ body {
 .header h1 { font-family:'Fredoka One',cursive; font-size:clamp(1.6rem,3.5vw,2.8rem); color:#FFD700; text-shadow:3px 3px 0 #ff6b00, 0 0 30px rgba(255,215,0,.5); letter-spacing:2px; }
 .header .sub { font-size:.8rem; color:#888; letter-spacing:3px; text-transform:uppercase; }
 .tv-badge { position:absolute; right:20px; top:8px; background:linear-gradient(135deg,#ff6b00,#ffd700); border-radius:50%; width:48px; height:48px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; box-shadow:0 0 15px rgba(255,107,0,.6); }
+.mute-btn { position:absolute; left:20px; top:8px; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); border-radius:50%; width:42px; height:42px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; cursor:pointer; transition:all .2s; }
+.mute-btn:hover { background:rgba(255,255,255,.2); }
 .scoreboard { display:flex; align-items:center; gap:24px; background:rgba(255,255,255,.05); border-radius:50px; padding:8px 32px; border:1px solid rgba(255,255,255,.1); margin:4px 0; }
 .score-team { font-family:'Fredoka One',cursive; font-size:1.5rem; display:flex; flex-direction:column; align-items:center; }
 .score-team .lbl { font-size:.75rem; opacity:.6; font-family:'Nunito',sans-serif; }
@@ -119,6 +121,7 @@ body {
 
 <!-- HEADER -->
 <div class="header">
+  <button class="mute-btn" id="muteBtn" onclick="toggleMute()">🔊</button>
   <h1>🍍 CABO DE GUERRA DO ABACAXI</h1>
   <div class="sub">TV Marataízes · Educação</div>
   <div class="tv-badge">📺</div>
@@ -157,10 +160,10 @@ body {
     <div class="rope-stage">
       <svg id="stageSvg" viewBox="0 0 700 230" preserveAspectRatio="xMidYMid meet">
         <ellipse cx="350" cy="222" rx="320" ry="8" fill="rgba(0,0,0,.25)"/>
-        <line id="ropeA" x1="150" y1="138" x2="350" y2="138" stroke="#6B4515" stroke-width="10" stroke-linecap="round"/>
-        <line id="ropeB" x1="350" y1="138" x2="550" y2="138" stroke="#6B4515" stroke-width="10" stroke-linecap="round"/>
-        <line id="ropeTex" x1="150" y1="135" x2="550" y2="135" stroke="#A07840" stroke-width="3" stroke-linecap="round" opacity=".5"/>
-        <line id="ropeTex2" x1="150" y1="141" x2="550" y2="141" stroke="#3D2008" stroke-width="3" stroke-linecap="round" opacity=".4"/>
+        <line id="ropeA"    x1="195" y1="138" x2="350" y2="138" stroke="#6B4515" stroke-width="10" stroke-linecap="round"/>
+        <line id="ropeB"    x1="350" y1="138" x2="505" y2="138" stroke="#6B4515" stroke-width="10" stroke-linecap="round"/>
+        <line id="ropeTex"  x1="195" y1="135" x2="505" y2="135" stroke="#A07840" stroke-width="3"  stroke-linecap="round" opacity=".5"/>
+        <line id="ropeTex2" x1="195" y1="141" x2="505" y2="141" stroke="#3D2008" stroke-width="3"  stroke-linecap="round" opacity=".4"/>
         <line x1="350" y1="100" x2="350" y2="190" stroke="#FFD700" stroke-width="3" stroke-dasharray="7,5" opacity=".85"/>
         <rect x="344" y="96" width="12" height="8" fill="#FFD700" rx="2"/>
         <line x1="350" y1="96" x2="350" y2="80" stroke="#FFD700" stroke-width="2.5"/>
@@ -169,11 +172,12 @@ body {
           <circle cx="350" cy="138" r="8"  fill="#6B4515"/>
           <circle cx="350" cy="138" r="4"  fill="#A07840"/>
         </g>
-        <!-- RED PINEAPPLE -->
+        <!-- ABACAXI VERMELHO -->
         <g id="charRed" transform="translate(90, 50)">
           <g id="leanRed" style="transform-origin:55px 155px; transform:rotate(0deg)">
-            <line x1="32" y1="105" x2="6"  y2="88"  stroke="#F4A520" stroke-width="10" stroke-linecap="round"/>
-            <line x1="78" y1="105" x2="118" y2="125" stroke="#F4A520" stroke-width="10" stroke-linecap="round"/>
+            <line x1="32" y1="105" x2="6" y2="88" stroke="#F4A520" stroke-width="10" stroke-linecap="round"/>
+            <line x1="78" y1="105" x2="105" y2="88" stroke="#F4A520" stroke-width="10" stroke-linecap="round"/>
+            <circle cx="105" cy="88" r="9" fill="#D4780A" stroke="#8B4500" stroke-width="2"/>
             <ellipse cx="55" cy="98" rx="32" ry="40" fill="#F5A623" stroke="#D4851A" stroke-width="2"/>
             <ellipse cx="55" cy="120" rx="32" ry="22" fill="#DC1E3C"/>
             <circle cx="42" cy="118" r="5" fill="#FF8FAD" opacity=".65"/>
@@ -198,15 +202,16 @@ body {
             <path d="M48 52 Q42 28 46 20 Q50 35 55 30 Q60 20 64 25 Q61 35 67 40 Q70 30 74 34 Q69 42 68 52" fill="#2ECC40" stroke="#1A7A1A" stroke-width="1"/>
             <rect x="40" y="140" width="12" height="20" rx="5" fill="#F5A623"/>
             <rect x="58" y="140" width="12" height="20" rx="5" fill="#F5A623"/>
-            <ellipse cx="46"  cy="161" rx="11" ry="6" fill="#E08A15"/>
-            <ellipse cx="64"  cy="161" rx="11" ry="6" fill="#E08A15"/>
+            <ellipse cx="46" cy="161" rx="11" ry="6" fill="#E08A15"/>
+            <ellipse cx="64" cy="161" rx="11" ry="6" fill="#E08A15"/>
           </g>
         </g>
-        <!-- BLUE PINEAPPLE -->
+        <!-- ABACAXI AZUL -->
         <g id="charBlue" transform="translate(560,50) scale(-1,1) translate(-110,0)">
           <g id="leanBlue" style="transform-origin:55px 155px; transform:rotate(0deg)">
-            <line x1="32" y1="105" x2="6"  y2="88"  stroke="#F4A520" stroke-width="10" stroke-linecap="round"/>
-            <line x1="78" y1="105" x2="118" y2="125" stroke="#F4A520" stroke-width="10" stroke-linecap="round"/>
+            <line x1="32" y1="105" x2="6" y2="88" stroke="#F4A520" stroke-width="10" stroke-linecap="round"/>
+            <line x1="78" y1="105" x2="105" y2="88" stroke="#F4A520" stroke-width="10" stroke-linecap="round"/>
+            <circle cx="105" cy="88" r="9" fill="#D4780A" stroke="#8B4500" stroke-width="2"/>
             <ellipse cx="55" cy="98" rx="32" ry="40" fill="#F5A623" stroke="#D4851A" stroke-width="2"/>
             <ellipse cx="55" cy="120" rx="32" ry="22" fill="#1E64DC"/>
             <circle cx="42" cy="118" r="5" fill="#6BAAFF" opacity=".65"/>
@@ -231,8 +236,8 @@ body {
             <path d="M48 52 Q42 28 46 20 Q50 35 55 30 Q60 20 64 25 Q61 35 67 40 Q70 30 74 34 Q69 42 68 52" fill="#2ECC40" stroke="#1A7A1A" stroke-width="1"/>
             <rect x="40" y="140" width="12" height="20" rx="5" fill="#F5A623"/>
             <rect x="58" y="140" width="12" height="20" rx="5" fill="#F5A623"/>
-            <ellipse cx="46"  cy="161" rx="11" ry="6" fill="#E08A15"/>
-            <ellipse cx="64"  cy="161" rx="11" ry="6" fill="#E08A15"/>
+            <ellipse cx="46" cy="161" rx="11" ry="6" fill="#E08A15"/>
+            <ellipse cx="64" cy="161" rx="11" ry="6" fill="#E08A15"/>
           </g>
         </g>
       </svg>
@@ -264,6 +269,88 @@ body {
 </div>
 
 <script>
+/* ══════════════════════════════
+   WEB AUDIO — sons gerados no browser
+══════════════════════════════ */
+let audioCtx = null;
+let muted = false;
+
+function getCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function toggleMute() {
+  muted = !muted;
+  document.getElementById('muteBtn').textContent = muted ? '🔇' : '🔊';
+}
+
+function playTone(freq, type, duration, volume, freqEnd) {
+  if (muted) return;
+  try {
+    const ctx = getCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+    if (freqEnd) osc.frequency.linearRampToValueAtTime(freqEnd, ctx.currentTime + duration);
+    gain.gain.setValueAtTime(volume, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + duration);
+  } catch(e) {}
+}
+
+function sfxCorrect() {
+  // Ding! ascendente alegre
+  playTone(520, 'sine', 0.12, 0.4);
+  setTimeout(() => playTone(660, 'sine', 0.12, 0.4), 110);
+  setTimeout(() => playTone(880, 'sine', 0.2,  0.4), 220);
+}
+
+function sfxWrong() {
+  // Buzz descendente
+  playTone(220, 'sawtooth', 0.08, 0.3, 140);
+  setTimeout(() => playTone(140, 'sawtooth', 0.15, 0.25, 100), 80);
+}
+
+function sfxPull() {
+  // Whoosh curto de corda sendo puxada
+  playTone(180, 'sine', 0.18, 0.25, 80);
+  playTone(300, 'triangle', 0.18, 0.15, 120);
+}
+
+function sfxTick() {
+  // Bip urgente do timer
+  playTone(880, 'square', 0.06, 0.18);
+}
+
+function sfxNewRound() {
+  // Dois bips suaves — "pronto!"
+  playTone(440, 'sine', 0.1, 0.25);
+  setTimeout(() => playTone(550, 'sine', 0.12, 0.25), 130);
+}
+
+function sfxVictory() {
+  // Fanfarra curta
+  const notes = [523, 659, 784, 1047];
+  notes.forEach((f, i) => setTimeout(() => playTone(f, 'sine', 0.18, 0.4), i * 140));
+  setTimeout(() => {
+    playTone(784, 'sine', 0.1, 0.3);
+    setTimeout(() => playTone(1047, 'sine', 0.35, 0.5), 120);
+  }, notes.length * 140);
+}
+
+function sfxNumpad() {
+  // Clique suave ao digitar número
+  playTone(600, 'sine', 0.05, 0.15);
+}
+
+/* ══════════════════════════════
+   GAME STATE
+══════════════════════════════ */
 const G = {
   op:'add', maxPts:5, level:1,
   scoreRed:0, scoreBlue:0,
@@ -286,7 +373,11 @@ const ROPE_LEFT=150, ROPE_RIGHT=550, ROPE_MID=350;
 
 function updateVisual(kx) {
   document.getElementById('knotG').setAttribute('transform',`translate(${kx-350},0)`);
-  const redHandX=195, blueHandX=505;
+  const slide = (kx - ROPE_MID) * 0.32;
+  const redHandX  = 195 + slide;
+  const blueHandX = 565 + slide;
+  document.getElementById('charRed').setAttribute('transform',  `translate(${90  + slide}, 50)`);
+  document.getElementById('charBlue').setAttribute('transform', `translate(${560 + slide}, 50) scale(-1,1) translate(-110,0)`);
   document.getElementById('ropeA').setAttribute('x1', redHandX);
   document.getElementById('ropeA').setAttribute('x2', kx);
   document.getElementById('ropeB').setAttribute('x1', kx);
@@ -300,9 +391,6 @@ function updateVisual(kx) {
   const blueLean = Math.max(-18, Math.min(22, -offset * 0.09));
   document.getElementById('leanRed').style.transform  = `rotate(${redLean}deg)`;
   document.getElementById('leanBlue').style.transform = `rotate(${blueLean}deg)`;
-  const slide = (kx - ROPE_MID) * 0.32;
-  document.getElementById('charRed').setAttribute('transform',  `translate(${90  + slide}, 50)`);
-  document.getElementById('charBlue').setAttribute('transform', `translate(${560 + slide}, 50) scale(-1,1) translate(-110,0)`);
   const pct = ((kx - ROPE_LEFT) / (ROPE_RIGHT - ROPE_LEFT)) * 100;
   document.getElementById('progFill').style.width = Math.max(0,Math.min(100,pct))+'%';
 }
@@ -339,7 +427,12 @@ function genQ(){
 }
 function rn(n){ return Math.floor(Math.random()*n); }
 
-function startGame(){ document.getElementById('startScreen').style.display='none'; newRound(); }
+function startGame(){
+  // Inicializa AudioContext no primeiro clique do usuário (requisito do browser)
+  getCtx();
+  document.getElementById('startScreen').style.display='none';
+  newRound();
+}
 
 function newRound(){
   const qR=genQ(), qB=genQ();
@@ -359,7 +452,13 @@ function newRound(){
   document.getElementById('okBlue').disabled=false;
   clearInterval(G.timer);
   updTimer();
-  G.timer=setInterval(()=>{ G.timeLeft--; updTimer(); if(G.timeLeft<=0){clearInterval(G.timer);endRound();} },1000);
+  sfxNewRound();
+  G.timer=setInterval(()=>{
+    G.timeLeft--;
+    updTimer();
+    if(G.timeLeft <= 5 && G.timeLeft > 0) sfxTick();
+    if(G.timeLeft <= 0){ clearInterval(G.timer); endRound(); }
+  },1000);
 }
 
 function updTimer(){ document.getElementById('timerDisp').textContent=`⏱ ${G.timeLeft}s`; }
@@ -369,7 +468,11 @@ function num(t,n){
   if(t==='red'&&G.lockRed) return;
   if(t==='blue'&&G.lockBlue) return;
   const k='ans'+cap(t);
-  if(G[k].length<3){ G[k]+=n; document.getElementById('a'+cap(t)).textContent=G[k]||'_'; }
+  if(G[k].length<3){
+    G[k]+=n;
+    document.getElementById('a'+cap(t)).textContent=G[k]||'_';
+    sfxNumpad();
+  }
 }
 function clr(t){
   if(t==='red'&&G.lockRed) return;
@@ -377,6 +480,7 @@ function clr(t){
   const k='ans'+cap(t);
   G[k]=G[k].slice(0,-1);
   document.getElementById('a'+cap(t)).textContent=G[k]||'_';
+  sfxNumpad();
 }
 function sub(t){
   if(!G.active) return;
@@ -393,10 +497,27 @@ function endRound(){
   const bOk=parseInt(G.ansBlue)===G.corrBlue;
   const fbEl=document.getElementById('fbZone');
   let shift=0, fb='';
-  if(rOk&&!bOk){ shift=-55; G.scoreRed++; fb='🍍 Vermelho acertou! 💪 Puxa!'; fbEl.className='feedback-zone fb-correct'; }
-  else if(bOk&&!rOk){ shift=+55; G.scoreBlue++; fb='🍍 Azul acertou! 💪 Puxa!'; fbEl.className='feedback-zone fb-correct'; }
-  else if(rOk&&bOk){ fb='🎯 Empate! Os dois acertaram!'; fbEl.className='feedback-zone fb-correct'; }
-  else { fb='😅 Ninguém acertou! Próxima rodada...'; fbEl.className='feedback-zone fb-wrong'; }
+  if(rOk&&!bOk){
+    shift=-55; G.scoreRed++;
+    fb='🍍 Vermelho acertou! 💪 Puxa!';
+    fbEl.className='feedback-zone fb-correct';
+    sfxCorrect();
+    setTimeout(sfxPull, 300);
+  } else if(bOk&&!rOk){
+    shift=+55; G.scoreBlue++;
+    fb='🍍 Azul acertou! 💪 Puxa!';
+    fbEl.className='feedback-zone fb-correct';
+    sfxCorrect();
+    setTimeout(sfxPull, 300);
+  } else if(rOk&&bOk){
+    fb='🎯 Empate! Os dois acertaram!';
+    fbEl.className='feedback-zone fb-correct';
+    sfxCorrect();
+  } else {
+    fb='😅 Ninguém acertou! Próxima rodada...';
+    fbEl.className='feedback-zone fb-wrong';
+    sfxWrong();
+  }
   fbEl.textContent=fb;
   document.getElementById('scoreRed').textContent=G.scoreRed;
   document.getElementById('scoreBlue').textContent=G.scoreBlue;
@@ -414,6 +535,7 @@ function showWin(t){
   document.getElementById('winTitle').textContent=isRed?'🔴 TIME VERMELHO VENCEU! 🎉':'🔵 TIME AZUL VENCEU! 🎉';
   document.getElementById('winTitle').style.color=isRed?'#ff6b6b':'#6bb3ff';
   document.getElementById('winScreen').classList.add('show');
+  sfxVictory();
   confetti();
 }
 
