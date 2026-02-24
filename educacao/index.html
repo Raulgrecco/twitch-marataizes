@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Educação Brincando · Quando aprender vira o melhor momento do dia</title>
+<meta name="description" content="A plataforma que transforma salas de aula em arenas de aprendizado. Matemática, Geografia, Português — ao vivo, em jogo, toda semana. TV Marataízes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#09090B;
+  --offwhite:#F7F4EE;
+  --white:#FFFFFF;
+  --lime:#C8F135;
+  --orange:#FF4D00;
+  --blue:#0038FF;
+  --yellow:#FFD600;
+  --red:#E8192C;
+  --gray:#6B7280;
+  --lightgray:#E5E2DB;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'DM Sans',sans-serif;background:var(--offwhite);color:var(--black);overflow-x:hidden}
+img{max-width:100%;display:block}
+a{text-decoration:none}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-thumb{background:var(--lime)}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:64px;
+  background:rgba(247,244,238,.94);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(0,0,0,.06);
+}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:1px;color:var(--black);display:flex;align-items:center;gap:10px}
+.logo-pill{background:var(--lime);color:var(--black);font-family:'DM Sans',sans-serif;font-size:.6rem;font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:1.5px;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-link{font-size:.85rem;font-weight:500;color:var(--gray);transition:color .2s}
+.nav-link:hover{color:var(--black)}
+.nav-btn{
+  font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:1px;
+  padding:10px 24px;border-radius:6px;
+  background:var(--black);color:var(--lime);
+  transition:all .2s;
+}
+.nav-btn:hover{background:var(--orange);color:#fff;transform:translateY(-1px)}
+.hero{
+  min-height:100vh;
+  background:var(--black);
+  padding:80px 48px 60px;
+  display:flex;align-items:center;
+  position:relative;overflow:hidden;
+}
+.hero-bg-text{
+  position:absolute;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(160px,28vw,420px);
+  line-height:.85;
+  color:rgba(255,255,255,.025);
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  white-space:nowrap;
+  pointer-events:none;
+  letter-spacing:-4px;
+  user-select:none;
+}
+.hero-ticker{
+  position:absolute;bottom:0;left:0;right:0;
+  background:var(--lime);padding:10px 0;
+  overflow:hidden;white-space:nowrap;
+}
+.ticker-track{
+  display:inline-flex;gap:0;
+  animation:ticker 22s linear infinite;
+}
+.ticker-item{
+  font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:2px;
+  color:var(--black);padding:0 32px;display:inline-flex;align-items:center;gap:10px;
+}
+.ticker-dot{width:6px;height:6px;background:var(--black);border-radius:50%;opacity:.4}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.hero-inner{
+  max-width:1280px;margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1.1fr 0.9fr;gap:64px;align-items:center;
+  position:relative;z-index:1;
+}
+.hero-kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.72rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(255,255,255,.35);margin-bottom:20px;
+}
+.kicker-line{width:24px;height:1px;background:var(--lime)}
+.kicker-em{color:var(--lime)}
+h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3rem,7vw,7.5rem);
+  line-height:.92;
+  color:#fff;
+  letter-spacing:-1px;
+  margin-bottom:28px;
+}
+h1 .hl{color:var(--lime)}
+h1 .hl-orange{color:var(--orange)}
+.hero-lead{
+  font-size:1.1rem;line-height:1.75;
+  color:rgba(255,255,255,.6);
+  max-width:500px;margin-bottom:36px;font-weight:400;
+}
+.hero-lead strong{color:#fff;font-weight:700}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px}
+.btn-lime{
+  font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:1.5px;
+  padding:15px 36px;border-radius:6px;
+  background:var(--lime);color:var(--black);
+  display:inline-flex;align-items:center;gap:8px;
+  transition:all .22s cubic-bezier(.34,1.56,.64,1);
+  box-shadow:0 4px 24px rgba(200,241,53,.25);
+}
+.btn-lime:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 10px 36px rgba(200,241,53,.4)}
+.btn-ghost{
+  font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;
+  padding:15px 28px;border-radius:6px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);
+  color:#fff;display:inline-flex;align-items:center;gap:8px;
+  transition:all .2s;
+}
+.btn-ghost:hover{background:rgba(255,255,255,.13)}
+.hero-proof{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.proof-chip{
+  font-size:.75rem;font-weight:600;
+  padding:6px 14px;border-radius:50px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.5);
+}
+.hero-right{position:relative}
+.video-shell{
+  border-radius:16px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 32px 80px rgba(0,0,0,.6);
+  position:relative;
+}
+.video-shell iframe{display:block;width:100%;aspect-ratio:16/9;border:none}
+.vid-badge{
+  position:absolute;top:14px;left:14px;
+  background:rgba(0,0,0,.75);backdrop-filter:blur(8px);
+  border-radius:50px;padding:6px 14px;
+  font-size:.72rem;font-weight:700;color:#fff;
+  display:flex;align-items:center;gap:6px;letter-spacing:.5px;
+}
+.rec-dot{width:7px;height:7px;background:var(--red);border-radius:50%;animation:blink 1.2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.float-tag{
+  position:absolute;
+  background:#fff;border-radius:12px;padding:12px 16px;
+  box-shadow:0 16px 40px rgba(0,0,0,.25);
+  display:flex;align-items:center;gap:10px;white-space:nowrap;
+}
+.float-tag.ft1{bottom:-16px;right:-16px}
+.float-tag.ft2{top:-16px;left:-16px}
+.ft-icon{font-size:1.6rem}
+.ft-text{font-size:.78rem}
+.ft-text strong{display:block;font-weight:800;font-size:.9rem;color:var(--black)}
+.ft-text span{color:var(--gray)}
+.stats-bar{
+  background:var(--black);
+  border-top:1px solid rgba(255,255,255,.06);
+  padding:36px 48px;
+}
+.stats-bar-inner{
+  max-width:1280px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:2px;
+}
+.sbar-item{
+  padding:24px 32px;text-align:center;
+  border-right:1px solid rgba(255,255,255,.06);
+}
+.sbar-item:last-child{border-right:none}
+.sbar-num{
+  font-family:'Bebas Neue',sans-serif;font-size:3.2rem;
+  color:var(--lime);line-height:1;margin-bottom:4px;
+}
+.sbar-label{font-size:.78rem;color:rgba(255,255,255,.35);font-weight:500;text-transform:uppercase;letter-spacing:1.5px}
+.sec{padding:100px 48px}
+.sec-inner{max-width:1280px;margin:0 auto}
+.tag{
+  display:inline-block;font-size:.68rem;font-weight:700;
+  letter-spacing:3px;text-transform:uppercase;
+  padding:5px 12px;border-radius:4px;
+  background:var(--lime);color:var(--black);
+  margin-bottom:20px;
+}
+.tag.orange{background:var(--orange);color:#fff}
+.tag.blue{background:var(--blue);color:#fff}
+.tag.white{background:#fff;color:var(--black)}
+h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.4rem,5vw,5rem);
+  line-height:.95;letter-spacing:-1px;
+  margin-bottom:16px;
+}
+h2 em{font-style:normal;color:var(--orange)}
+h2 .hl{color:var(--lime)}
+.sec-lead{font-size:1.05rem;color:var(--gray);line-height:1.75;max-width:600px}
+.manifesto{background:var(--offwhite)}
+.manifesto-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;
+  margin-top:60px;align-items:start;
+}
+.manifesto-copy p{font-size:1.05rem;line-height:1.82;color:#444;margin-bottom:20px}
+.manifesto-copy p strong{color:var(--black);font-weight:700}
+.pullquote{
+  border-left:5px solid var(--lime);padding-left:24px;
+  font-family:'Bebas Neue',sans-serif;font-size:2rem;
+  line-height:1.2;letter-spacing:-.5px;
+  color:var(--black);margin-top:32px;
+}
+.cards-col{display:flex;flex-direction:column;gap:14px}
+.mcard{
+  background:#fff;border:1px solid var(--lightgray);
+  border-radius:12px;padding:22px 24px;
+  display:flex;gap:16px;align-items:flex-start;
+  transition:all .22s;cursor:default;
+}
+.mcard:hover{border-color:var(--lime);transform:translateX(6px);box-shadow:0 4px 24px rgba(0,0,0,.07)}
+.mcard-n{
+  font-family:'Bebas Neue',sans-serif;font-size:2.2rem;
+  color:var(--lime);line-height:1;min-width:36px;
+}
+.mcard-title{font-weight:700;font-size:.95rem;margin-bottom:4px}
+.mcard-desc{font-size:.85rem;color:var(--gray);line-height:1.6}
+.problema{background:var(--black);padding:100px 48px}
+.problema h2{color:#fff}
+.problema .sec-lead{color:rgba(255,255,255,.45)}
+.data-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:rgba(255,255,255,.06);
+  border-radius:12px;overflow:hidden;
+  margin-top:60px;
+}
+.data-cell{
+  background:var(--black);padding:44px 36px;
+  transition:background .2s;
+}
+.data-cell:hover{background:#111}
+.data-num{
+  font-family:'Bebas Neue',sans-serif;font-size:5rem;
+  color:var(--lime);line-height:1;margin-bottom:12px;
+}
+.data-desc{font-size:.95rem;color:rgba(255,255,255,.45);line-height:1.65}
+.data-desc strong{color:#fff}
+.problema-bridge{
+  margin-top:64px;text-align:center;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;padding:48px;
+  background:rgba(255,255,255,.02);
+}
+.bridge-line{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(1.6rem,4vw,3.2rem);
+  color:rgba(255,255,255,.2);
+  line-height:1.2;
+  letter-spacing:-1px;
+}
+.bridge-line em{color:var(--lime);font-style:normal}
+.como{background:var(--offwhite)}
+.steps{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:16px;margin-top:60px;
+}
+.step{
+  background:var(--black);border-radius:12px;padding:32px 24px;
+  position:relative;overflow:hidden;
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1);
+}
+.step:hover{transform:translateY(-8px)}
+.step-n{
+  font-family:'Bebas Neue',sans-serif;font-size:.75rem;
+  letter-spacing:3px;color:rgba(255,255,255,.2);
+  margin-bottom:20px;text-transform:uppercase;
+}
+.step-icon{font-size:2.2rem;margin-bottom:16px}
+.step-title{
+  font-family:'Bebas Neue',sans-serif;font-size:1.4rem;
+  color:#fff;letter-spacing:.5px;margin-bottom:10px;
+}
+.step-desc{font-size:.85rem;color:rgba(255,255,255,.45);line-height:1.65}
+.step-bar{position:absolute;bottom:0;left:0;right:0;height:3px}
+.step:nth-child(1) .step-bar{background:var(--lime)}
+.step:nth-child(2) .step-bar{background:var(--orange)}
+.step:nth-child(3) .step-bar{background:var(--blue)}
+.step:nth-child(4) .step-bar{background:var(--yellow)}
+.devices{background:#fff;padding:100px 48px}
+.devices h2{color:var(--black)}
+.devices-intro{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;
+  align-items:end;margin-bottom:64px;
+}
+.devices-sub{font-size:1rem;color:var(--gray);line-height:1.75}
+.devices-sub strong{color:var(--black)}
+.devices-grid{display:grid;grid-template-columns:1fr;max-width:780px;margin:0 auto;gap:32px}
+.device-card{
+  border:1.5px solid var(--lightgray);
+  border-radius:20px;overflow:hidden;
+  background:var(--offwhite);
+  transition:box-shadow .25s;
+}
+.device-card:hover{box-shadow:0 16px 48px rgba(0,0,0,.1)}
+.device-top{
+  padding:20px 24px 0;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.device-type{
+  font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:1px;
+  display:flex;align-items:center;gap:8px;
+}
+.device-chip{
+  font-size:.65rem;font-weight:700;padding:4px 10px;border-radius:4px;
+  letter-spacing:1px;text-transform:uppercase;
+}
+.chip-desktop{background:rgba(0,56,255,.1);color:var(--blue)}
+.device-caption{padding:10px 24px 20px;font-size:.85rem;color:var(--gray);line-height:1.6}
+.browser{
+  margin:0 24px;border-radius:10px;overflow:hidden;
+  border:1.5px solid var(--lightgray);
+  box-shadow:0 6px 20px rgba(0,0,0,.1);
+}
+.browser-top{
+  background:#e8e5df;padding:9px 14px;
+  display:flex;align-items:center;gap:8px;
+}
+.dots{display:flex;gap:5px}
+.dots span{width:9px;height:9px;border-radius:50%}
+.d-r{background:#ff5f57}.d-y{background:#ffbd2e}.d-g{background:#28c840}
+.url-bar{
+  flex:1;background:rgba(255,255,255,.7);border-radius:5px;
+  padding:4px 10px;font-size:.65rem;color:#777;font-weight:600;
+  margin:0 10px;
+}
+.device-bullets{
+  padding:0 24px 24px;
+  display:flex;flex-direction:column;gap:7px;margin-top:4px;
+}
+.dbullet{font-size:.83rem;color:#555;display:flex;gap:8px;align-items:flex-start;line-height:1.5}
+.dbullet::before{content:'→';color:var(--orange);font-weight:800;flex-shrink:0}
+.semanal{background:var(--black);padding:100px 48px}
+.semanal h2{color:#fff}
+.semanal .sec-lead{color:rgba(255,255,255,.4)}
+.semanal-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;margin-top:60px;align-items:start;
+}
+.semanal-text p{font-size:1rem;color:rgba(255,255,255,.55);line-height:1.82;margin-bottom:18px}
+.semanal-text strong{color:#fff}
+.semanal-bigline{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(1.8rem,3.5vw,2.8rem);
+  color:rgba(255,255,255,.1);
+  line-height:1.15;margin-top:32px;
+  letter-spacing:-.5px;
+}
+.semanal-bigline em{color:var(--lime);font-style:normal}
+.reasons{display:flex;flex-direction:column;gap:12px}
+.reason{
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+  border-radius:12px;padding:20px 22px;
+  display:flex;gap:14px;align-items:flex-start;
+  transition:all .2s;
+}
+.reason:hover{border-color:rgba(200,241,53,.3);background:rgba(200,241,53,.04)}
+.reason-icon{font-size:1.5rem;flex-shrink:0}
+.reason-title{font-weight:700;font-size:.92rem;color:#fff;margin-bottom:3px}
+.reason-desc{font-size:.83rem;color:rgba(255,255,255,.4);line-height:1.55}
+.materias{background:var(--offwhite);padding:100px 48px}
+.subjects{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:16px;margin-top:60px;
+}
+.subject{
+  border-radius:14px;padding:28px 22px;
+  border:1.5px solid;transition:all .25s;
+  position:relative;overflow:hidden;
+}
+.subject:hover{transform:translateY(-5px)}
+.subject.s-active{background:var(--black);border-color:var(--black)}
+.subject.s-coming{background:#fff;border-color:var(--lightgray)}
+.subject.s-future{background:#f0ede7;border-color:var(--lightgray);opacity:.65}
+.subj-status{
+  font-size:.62rem;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:14px;
+  display:flex;align-items:center;gap:5px;
+}
+.ss-active{color:#16a34a}
+.ss-coming{color:var(--orange)}
+.ss-future{color:var(--gray)}
+.ss-dot{width:6px;height:6px;border-radius:50%}
+.sd-active{background:#16a34a}
+.sd-coming{background:var(--orange);animation:blink 1.5s infinite}
+.sd-future{background:var(--lightgray)}
+.subj-icon{font-size:2.6rem;margin-bottom:14px}
+.subj-name{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.5px;margin-bottom:8px}
+.subject.s-active .subj-name{color:#fff}
+.subj-desc{font-size:.82rem;line-height:1.6}
+.subject.s-active .subj-desc{color:rgba(255,255,255,.4)}
+.subject.s-coming .subj-desc,.subject.s-future .subj-desc{color:var(--gray)}
+.subj-games{margin-top:14px;font-size:.75rem;color:var(--lime);font-weight:700;font-family:'Bebas Neue',sans-serif;letter-spacing:1px}
+.subject.s-coming .subj-games,.subject.s-future .subj-games{color:var(--lightgray)}
+.secretario{background:var(--offwhite);padding:0 48px 100px}
+.sec-banner{
+  background:var(--black);
+  border-radius:20px;padding:72px 72px;
+  position:relative;overflow:hidden;
+}
+.sec-banner::before{
+  content:'';position:absolute;
+  top:-120px;right:-120px;width:480px;height:480px;
+  background:radial-gradient(circle,rgba(200,241,53,.12),transparent 70%);
+  pointer-events:none;
+}
+.sec-banner::after{
+  content:'REFERÊNCIA';
+  position:absolute;bottom:-30px;right:-20px;
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(80px,14vw,200px);
+  color:rgba(255,255,255,.025);line-height:1;
+  pointer-events:none;letter-spacing:-4px;
+}
+.sec-banner-inner{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;align-items:center;
+  position:relative;z-index:1;
+}
+.sec-tag{font-size:.68rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--lime);margin-bottom:16px}
+.sec-h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2rem,4vw,4rem);
+  color:#fff;line-height:.95;letter-spacing:-1px;
+  margin-bottom:22px;
+}
+.sec-h2 em{color:var(--lime);font-style:normal}
+.sec-copy p{font-size:.98rem;color:rgba(255,255,255,.55);line-height:1.82;margin-bottom:16px}
+.sec-copy strong{color:#fff}
+.outcomes{display:flex;flex-direction:column;gap:12px}
+.outcome{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;padding:18px 20px;
+  display:flex;gap:14px;align-items:flex-start;
+  transition:border-color .2s;
+}
+.outcome:hover{border-color:rgba(200,241,53,.3)}
+.outcome-icon{font-size:1.4rem;flex-shrink:0}
+.outcome strong{display:block;font-size:.92rem;color:#fff;font-weight:700;margin-bottom:3px}
+.outcome span{font-size:.82rem;color:rgba(255,255,255,.4);line-height:1.55}
+.cta-final{
+  background:var(--black);padding:140px 48px;
+  text-align:center;position:relative;overflow:hidden;
+}
+.cta-final::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 50% at 50% 50%,rgba(200,241,53,.07),transparent 70%);
+  pointer-events:none;
+}
+.cta-kicker{font-size:.68rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:16px}
+.cta-h{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3rem,8vw,9rem);
+  color:#fff;line-height:.92;letter-spacing:-2px;
+  margin-bottom:16px;
+}
+.cta-h em{color:var(--lime);font-style:normal}
+.cta-sub{font-size:1rem;color:rgba(255,255,255,.4);max-width:520px;margin:0 auto 48px;line-height:1.75}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-big-wapp{
+  font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:1.5px;
+  padding:18px 44px;border-radius:8px;
+  background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;
+  display:inline-flex;align-items:center;gap:10px;
+  box-shadow:0 8px 36px rgba(37,211,102,.3);
+  transition:all .25s;
+}
+.btn-big-wapp:hover{transform:translateY(-3px);box-shadow:0 14px 44px rgba(37,211,102,.45)}
+.urgency-line{
+  margin-top:32px;
+  font-size:.8rem;color:rgba(255,255,255,.2);font-weight:500;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.u-dot{width:6px;height:6px;background:var(--orange);border-radius:50%;animation:blink 1.4s infinite}
+footer{
+  background:#050507;padding:36px 48px;
+  border-top:1px solid rgba(255,255,255,.04);
+}
+.footer-inner{
+  max-width:1280px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:rgba(255,255,255,.25);letter-spacing:1px}
+.footer-logo em{color:var(--lime);font-style:normal}
+.footer-copy{font-size:.78rem;color:rgba(255,255,255,.2)}
+.footer-link{color:var(--lime);font-weight:700}
+.rv{opacity:0;transform:translateY(30px);transition:opacity .75s ease,transform .75s ease}
+.rv.in{opacity:1;transform:translateY(0)}
+.rv-l{opacity:0;transform:translateX(-30px);transition:opacity .75s ease,transform .75s ease}
+.rv-l.in{opacity:1;transform:translateX(0)}
+.rv-r{opacity:0;transform:translateX(30px);transition:opacity .75s ease,transform .75s ease}
+.rv-r.in{opacity:1;transform:translateX(0)}
+@media(max-width:900px){
+  nav{padding:0 20px}
+  .nav-links .nav-link{display:none}
+  .hero{padding:80px 20px 70px}
+  .hero-inner{grid-template-columns:1fr;gap:40px}
+  .hero-right{order:-1}
+  .float-tag{display:none}
+  h1{font-size:3.4rem}
+  .hero-lead{font-size:.95rem}
+  .hero-actions{flex-direction:column}
+  .btn-lime,.btn-ghost{justify-content:center}
+  .stats-bar{padding:24px 20px}
+  .stats-bar-inner{grid-template-columns:repeat(2,1fr);gap:1px}
+  .sbar-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.06);padding:20px}
+  .sbar-item:nth-child(odd){border-right:1px solid rgba(255,255,255,.06)}
+  .sec{padding:64px 20px}
+  .manifesto-grid{grid-template-columns:1fr;gap:40px}
+  .data-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr;gap:12px}
+  .devices-intro{grid-template-columns:1fr;gap:24px}
+  .devices-grid{grid-template-columns:1fr}
+  .semanal-grid{grid-template-columns:1fr;gap:48px}
+  .subjects{grid-template-columns:1fr 1fr;gap:12px}
+  .sec-banner{margin:0;padding:40px 24px}
+  .sec-banner-inner{grid-template-columns:1fr;gap:40px}
+  .cta-final{padding:80px 20px}
+  .cta-h{font-size:3.8rem}
+  .cta-btns{flex-direction:column;align-items:center}
+  .btn-big-wapp{width:100%;max-width:340px;justify-content:center}
+  footer{padding:28px 20px}
+  .footer-inner{flex-direction:column;text-align:center}
+  .manifesto{padding:64px 20px}
+  .problema{padding:64px 20px}
+  .como{padding:64px 20px}
+  .devices{padding:64px 20px}
+  .semanal{padding:64px 20px}
+  .materias{padding:64px 20px}
+  .secretario{padding:0 20px 64px}
+}
+@media(max-width:540px){
+  .steps{grid-template-columns:1fr}
+  .subjects{grid-template-columns:1fr}
+  .stats-bar-inner{grid-template-columns:1fr}
+  .sbar-item{border-right:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Educação Brincando <span class="logo-pill">Beta</span></div>
+  <div class="nav-links">
+    <a href="#como" class="nav-link">Como funciona</a>
+    <a href="#materias" class="nav-link">Matérias</a>
+    <a href="#prefeitura" class="nav-link">Prefeituras</a>
+    <a href="https://wa.me/5528999036141" target="_blank" class="nav-btn">💬 Falar conosco</a>
+  </div>
+</nav>
+
+<section class="hero" id="inicio">
+  <div class="hero-bg-text">APRENDER</div>
+  <div class="hero-ticker">
+    <div class="ticker-track">
+      <span class="ticker-item"><span class="ticker-dot"></span>MATEMÁTICA AO VIVO</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>TURMA INTEIRA ENGAJADA</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>TV TOUCH NAS ESCOLAS</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>TODA SEMANA NAS AULAS</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>GEOGRAFIA EM BREVE</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>PORTUGUÊS EM BREVE</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>TV MARATAÍZES · ES</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>MATEMÁTICA AO VIVO</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>TURMA INTEIRA ENGAJADA</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>TV TOUCH NAS ESCOLAS</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>TODA SEMANA NAS AULAS</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>GEOGRAFIA EM BREVE</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>PORTUGUÊS EM BREVE</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>TV MARATAÍZES · ES</span>
+    </div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-kicker rv"><span class="kicker-line"></span> <span class="kicker-em">TV Marataízes</span> · Projeto Piloto 2025</div>
+      <h1 class="rv">
+        QUANDO<br>
+        <span class="hl">APRENDER</span><br>
+        VIRA O MELHOR<br>
+        <span class="hl-orange">JOGO</span> DO DIA
+      </h1>
+      <p class="hero-lead rv">
+        Imagine uma sala de aula onde <strong>toda criança quer responder primeiro</strong>. Onde o sino do recreio chega cedo demais. Onde matemática gera grito de torcida.<br><br>
+        Isso não é utopia — é o que acontece toda semana nas turmas parceiras da <strong>TV Marataízes.</strong>
+      </p>
+      <div class="hero-actions rv">
+        <a href="https://wa.me/5528999036141?text=Ol%C3%A1!+Quero+conhecer+o+projeto+Educa%C3%A7%C3%A3o+Brincando." target="_blank" class="btn-lime">💬 Falar com a TV Marataízes</a>
+        <a href="#como" class="btn-ghost">Como funciona →</a>
+      </div>
+      <div class="hero-proof rv">
+        <span class="proof-chip">📺 TV Touch nas escolas</span>
+        <span class="proof-chip">🖐 Dois modos de jogo</span>
+        <span class="proof-chip">🏫 Estrutura completa inclusa</span>
+        <span class="proof-chip">💰 Programa semanal</span>
+      </div>
+    </div>
+    <div class="hero-right rv-r">
+      <div class="video-shell" id="videoWrap">
+        <div id="videoThumb" onclick="loadCastrVideo()" style="cursor:pointer;width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#0d0520 0%,#0a2a50 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;position:relative;overflow:hidden;">
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(200,241,53,.1),transparent 70%);pointer-events:none;"></div>
+          <div style="width:76px;height:76px;background:var(--lime);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 18px rgba(200,241,53,.12);transition:transform .25s,box-shadow .25s;" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 0 0 24px rgba(200,241,53,.18)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 0 0 18px rgba(200,241,53,.12)'">
+            <svg width="30" height="30" viewBox="0 0 24 24"><polygon points="7,3 21,12 7,21" fill="#09090B"/></svg>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:2px;color:#fff;margin-bottom:6px;">▶ ASSISTIR AO VÍDEO DO PROJETO</div>
+            <div style="font-size:.78rem;color:rgba(255,255,255,.35);font-weight:500;">TV Marataízes · Educação Interativa</div>
+          </div>
+        </div>
+        <div class="vid-badge"><span class="rec-dot"></span> Vídeo do projeto</div>
+      </div>
+      <script>
+      function loadCastrVideo(){
+        document.getElementById('videoThumb').outerHTML='<iframe src="https://player.castr.com/vod/UW7gyZp4Wa5PgaPy" width="100%" style="aspect-ratio:16/9;min-height:200px;border:none;display:block;" frameborder="0" scrolling="no" allow="autoplay; fullscreen" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>';
+      }
+      </script>
+      <div class="float-tag ft1">
+        <span class="ft-icon">🍍</span>
+        <div class="ft-text"><strong>Cabo de Guerra</strong><span>1° jogo ao vivo</span></div>
+      </div>
+      <div class="float-tag ft2">
+        <span class="ft-icon">📈</span>
+        <div class="ft-text"><strong>+3× mais retenção</strong><span>vs. aula tradicional</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="sbar-item"><div class="sbar-num">15min</div><div class="sbar-label">Para montar e começar</div></div>
+    <div class="sbar-item"><div class="sbar-num">4+</div><div class="sbar-label">Matérias em produção</div></div>
+    <div class="sbar-item"><div class="sbar-num">2×</div><div class="sbar-label">Times por rodada ao vivo</div></div>
+    <div class="sbar-item"><div class="sbar-num">1°</div><div class="sbar-label">No ES em gamificação ao vivo</div></div>
+  </div>
+</div>
+
+<section class="manifesto sec" id="manifesto">
+  <div class="sec-inner">
+    <div class="rv">
+      <div class="tag">Por que isso importa</div>
+      <h2>A CRIANÇA NÃO É<br><em>DESINTERESSADA.</em><br>O MÉTODO É QUE<br>FICOU PRA TRÁS.</h2>
+    </div>
+    <div class="manifesto-grid">
+      <div class="rv-l">
+        <div class="manifesto-copy">
+          <p>Nenhuma criança nasce odiando matemática. O que acontece é mais simples — e mais solucionável do que parece: o cérebro aprende melhor quando existe <strong>emoção, competição saudável e recompensa imediata</strong>.</p>
+          <p>A neurociência confirma: memórias formadas em estados de alta ativação emocional são <strong>até 3× mais duradouras</strong>. Quando uma criança grita de alegria ao acertar uma conta, ela não está só acertando — ela está <strong>gravando aquele conteúdo para sempre</strong>.</p>
+          <p>O Educação Brincando não substitui o professor. Ele <strong>devolve o palco ao professor</strong> — e à criança o protagonismo que sempre foi dela.</p>
+        </div>
+        <div class="pullquote rv">"Aprendeu brincando?<br>Aprendeu de verdade."</div>
+      </div>
+      <div class="cards-col rv-r">
+        <div class="mcard"><div class="mcard-n">01</div><div><div class="mcard-title">Neurociência aplicada</div><div class="mcard-desc">Aprendizado com ativação emocional positiva grava conteúdo com muito mais profundidade e permanência na memória de longo prazo.</div></div></div>
+        <div class="mcard"><div class="mcard-n">02</div><div><div class="mcard-title">Competição saudável</div><div class="mcard-desc">Times, placar e corda puxando — a estrutura de jogo cria urgência e foco sem pressão negativa. Cada rodada é um recomeço.</div></div></div>
+        <div class="mcard"><div class="mcard-n">03</div><div><div class="mcard-title">Repetição prazerosa</div><div class="mcard-desc">A criança pede para jogar de novo. E ao jogar de novo, pratica o conteúdo mais uma vez sem perceber. Isso é aprendizado real.</div></div></div>
+        <div class="mcard"><div class="mcard-n">04</div><div><div class="mcard-title">Inclusão total</div><div class="mcard-desc">Todo aluno joga — o mais tímido e o mais agitado. Em time, cada um encontra seu papel. Ninguém fica de fora da aula.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="problema sec" id="problema">
+  <div class="sec-inner">
+    <div class="rv">
+      <div class="tag orange">O contexto que não dá pra ignorar</div>
+      <h2 style="color:#fff">OS NÚMEROS MOSTRAM<br>UM PROBLEMA REAL.<br>A <em>SOLUÇÃO TAMBÉM.</em></h2>
+    </div>
+    <div class="data-grid rv">
+      <div class="data-cell">
+        <div class="data-num">52%</div>
+        <div class="data-desc">dos alunos do 5° ano do ensino fundamental <strong>não dominam matemática básica</strong>, segundo o INEP 2023.</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-num">68%</div>
+        <div class="data-desc">dos professores relatam <strong>queda crítica de atenção</strong> nos primeiros 10 minutos de aulas tradicionais, segundo pesquisa CNE.</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-num">3×</div>
+        <div class="data-desc">mais retenção de conteúdo em aulas com <strong>elementos de gamificação</strong>, segundo estudo da Universidade de Columbia.</div>
+      </div>
+    </div>
+    <div class="problema-bridge rv">
+      <div class="bridge-line">O problema é conhecido.<br>A tecnologia existe.<br>Falta só <em>quem lidere.</em></div>
+    </div>
+  </div>
+</section>
+
+<section class="como sec" id="como">
+  <div class="sec-inner">
+    <div class="rv">
+      <div class="tag">Como funciona</div>
+      <h2>DE ZERO A JOGO<br>EM <em>15 MINUTOS</em></h2>
+      <p class="sec-lead">A equipe da TV Marataízes chega, monta tudo e começa. Sem obra, sem treinamento técnico, sem burocracia. O professor continua sendo o centro — a tecnologia só amplifica.</p>
+    </div>
+    <div class="steps rv">
+      <div class="step">
+        <div class="step-n">Passo 01</div>
+        <div class="step-icon">🤝</div>
+        <div class="step-title">Negociação com a Secretaria</div>
+        <div class="step-desc">A TV Marataízes apresenta o projeto diretamente ao secretário de educação. Sem formulário online — é uma parceria institucional de verdade.</div>
+        <div class="step-bar"></div>
+      </div>
+      <div class="step">
+        <div class="step-n">Passo 02</div>
+        <div class="step-icon">📺</div>
+        <div class="step-title">TV Marataízes leva tudo</div>
+        <div class="step-desc">Nossa equipe chega com a estrutura completa: TV touch, equipamento e suporte técnico. Montagem em 15 minutos. A escola não precisa ter nenhum equipamento.</div>
+        <div class="step-bar"></div>
+      </div>
+      <div class="step">
+        <div class="step-n">Passo 03</div>
+        <div class="step-icon">🎮</div>
+        <div class="step-title">Turma joga ao vivo</div>
+        <div class="step-desc">Dois times, uma corda, perguntas na tela. Cada acerto puxa o placar. A sala inteira torce e aprende ao mesmo tempo.</div>
+        <div class="step-bar"></div>
+      </div>
+      <div class="step">
+        <div class="step-n">Passo 04</div>
+        <div class="step-icon">📊</div>
+        <div class="step-title">Professor analisa</div>
+        <div class="step-desc">Relatório de desempenho por aluno e por turma. O professor sabe exatamente o que reforçar na próxima semana.</div>
+        <div class="step-bar"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="devices" id="dispositivos">
+  <div class="sec-inner">
+    <div class="devices-intro">
+      <div class="rv-l">
+        <div class="tag blue">A TV que a escola recebe</div>
+        <h2 style="color:var(--black)">UMA TV TOUCH.<br><em style="color:var(--orange)">DOIS MODOS</em><br>DE JOGAR.</h2>
+      </div>
+      <div class="devices-sub rv-r">
+        A TV Marataízes leva para cada escola uma <strong>TV touch</strong> — os dois formatos do jogo foram desenhados para ela. No <strong>modo TV (landscape)</strong>, os dois times ficam lado a lado na mesma tela. No <strong>modo touch (portrait)</strong>, os painéis empilham verticalmente: Time 1 em cima, arena no meio, Time 2 embaixo — com botões grandes feitos para o toque dos alunos. <strong>Tudo na mesma TV, sem nenhum equipamento extra da escola.</strong>
+      </div>
+    </div>
+    <div class="devices-grid rv">
+      <div class="device-card">
+        <div class="device-top">
+          <div class="device-type">📺 TV Touch — Modo Horizontal <span class="device-chip chip-desktop">Landscape</span></div>
+        </div>
+        <div class="device-caption">Times <strong>lado a lado</strong> na mesma tela — cada time toca no próprio painel para responder. Arena central com a corda e o placar em tempo real. Dois alunos jogam ao mesmo tempo.</div>
+        <div class="browser">
+          <div class="browser-top">
+            <div class="dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div>
+            <div class="url-bar">Cabo de Guerra do Abacaxi · TV Marataízes</div>
+          </div>
+          <img src="game-screenshot.png" alt="Cabo de Guerra do Abacaxi" style="width:100%;display:block;aspect-ratio:16/9;object-fit:cover;">
+        </div>
+        <div class="device-bullets">
+          <div class="dbullet">Dois times na mesma tela — cada um toca no próprio lado</div>
+          <div class="dbullet">Arena central com corda e abacaxis animados em tempo real</div>
+          <div class="dbullet">TV touch que a equipe da TV Marataízes leva para a escola</div>
+          <div class="dbullet">Montagem completa em 15 minutos — a escola não precisa de nada</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="semanal" id="semanal">
+  <div class="sec-inner">
+    <div class="rv">
+      <div class="tag white">Por que toda semana?</div>
+      <h2 style="color:#fff">UM EVENTO É<br>ESQUECIDO.<br>UMA <span class="hl">ROTINA</span><br>TRANSFORMA.</h2>
+      <p class="sec-lead">Gamificação pontual não muda nada. O que transforma é o hábito — a antecipação semanal que faz o aluno rever o conteúdo por conta própria antes da aula.</p>
+    </div>
+    <div class="semanal-grid">
+      <div class="rv-l">
+        <div class="semanal-text">
+          <p>Não adianta aplicar gamificação uma vez por mês como "aula especial". O cérebro aprende por <strong>repetição espaçada</strong> — e o engajamento se constrói pela antecipação.</p>
+          <p>Quando o aluno sabe que toda terça-feira tem o jogo, ele passa a semana pensando nisso. <strong>Revisa o conteúdo. Pratica em casa. Quer chegar primeiro.</strong></p>
+          <p>Isso é o que a ciência chama de <strong>"motivação intrínseca"</strong> — e é exatamente o que a escola pública mais precisa criar. Não como projeto piloto. Como cultura permanente.</p>
+        </div>
+        <div class="semanal-bigline rv">"A criança que antecipa a aula<br><em>já aprendeu antes de começar."</em></div>
+      </div>
+      <div class="reasons rv-r">
+        <div class="reason">
+          <span class="reason-icon">🧠</span>
+          <div><div class="reason-title">Repetição espaçada que funciona</div><div class="reason-desc">Jogar semanalmente cria ciclos de revisão natural. O aluno pratica o mesmo conteúdo em contextos diferentes sem perceber que está estudando.</div></div>
+        </div>
+        <div class="reason">
+          <span class="reason-icon">📈</span>
+          <div><div class="reason-title">Progresso visível e acumulativo</div><div class="reason-desc">O histórico mostra a evolução semana a semana. A turma vê o quanto melhorou. Isso gera senso de conquista coletiva e vontade de melhorar mais.</div></div>
+        </div>
+        <div class="reason">
+          <span class="reason-icon">🤝</span>
+          <div><div class="reason-title">Ritual de turma que une</div><div class="reason-desc">O jogo semanal vira identidade da turma. Cria pertencimento, coesão e até reduz conflitos. "Nosso dia do jogo" é um marco da semana escolar.</div></div>
+        </div>
+        <div class="reason">
+          <span class="reason-icon">🚐</span>
+          <div><div class="reason-title">Logística simples, garantida</div><div class="reason-desc">A TV Marataízes cuida de tudo — equipamento, montagem e suporte. A escola só precisa reservar 45 minutos na grade semanal. Zero sobrecarga para o professor.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="materias sec" id="materias">
+  <div class="sec-inner">
+    <div class="rv">
+      <div class="tag">Conteúdo programático</div>
+      <h2>MATEMÁTICA É SÓ<br>O <em>COMEÇO.</em></h2>
+      <p class="sec-lead">Desenvolvemos jogos para cada matéria do currículo. O formato muda, o engajamento permanece. A estrutura de competição funciona para qualquer conteúdo.</p>
+    </div>
+    <div class="subjects rv">
+      <div class="subject s-active">
+        <div class="subj-status ss-active"><span class="ss-dot sd-active"></span> Disponível agora</div>
+        <div class="subj-icon">🔢</div>
+        <div class="subj-name">Matemática</div>
+        <div class="subj-desc">Soma, subtração, multiplicação e divisão. 3 níveis de dificuldade. Para o 1° ao 3° ano do fundamental.</div>
+        <div class="subj-games">▶ CABO DE GUERRA DO ABACAXI</div>
+      </div>
+      <div class="subject s-coming">
+        <div class="subj-status ss-coming"><span class="ss-dot sd-coming"></span> Em produção</div>
+        <div class="subj-icon">🌍</div>
+        <div class="subj-name">Geografia</div>
+        <div class="subj-desc">Estados, capitais, regiões do Brasil e elementos de geopolítica em formato de jogo de conquista territorial.</div>
+        <div class="subj-games">EM BREVE</div>
+      </div>
+      <div class="subject s-coming">
+        <div class="subj-status ss-coming"><span class="ss-dot sd-coming"></span> Em produção</div>
+        <div class="subj-icon">📖</div>
+        <div class="subj-name">Português</div>
+        <div class="subj-desc">Ortografia, gramática e interpretação. Quiz competitivo com perguntas calibradas por série e dificuldade.</div>
+        <div class="subj-games">EM BREVE</div>
+      </div>
+      <div class="subject s-future">
+        <div class="subj-status ss-future"><span class="ss-dot sd-future"></span> Roadmap 2026</div>
+        <div class="subj-icon">🔬</div>
+        <div class="subj-name">Ciências</div>
+        <div class="subj-desc">Corpo humano, ecossistemas e ciências da natureza em formato de quiz interativo e experimentos gamificados.</div>
+        <div class="subj-games" style="color:var(--lightgray)">ROADMAP 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="secretario" id="prefeitura">
+  <div class="sec-inner">
+    <div class="sec-banner rv">
+      <div class="sec-banner-inner">
+        <div>
+          <div class="sec-tag">✦ Para prefeituras e secretarias de educação</div>
+          <h2 class="sec-h2">O MUNICÍPIO QUE<br>IMPLEMENTAR PRIMEIRO<br>SERÁ <em>LEMBRADO</em><br>POR ISSO.</h2>
+          <div class="sec-copy">
+            <p>Inovação em educação pública é rara. Quando acontece com resultado, ela cria legado. O secretário que implantar o Educação Brincando não está aprovando mais um projeto — <strong>está fundando uma referência.</strong></p>
+            <p>Hoje, municípios de todo o Brasil buscam casos de uso reais de gamificação nas escolas públicas. O Espírito Santo tem a chance de ser esse caso. Marataízes tem a chance de ser <strong>o nome que aparece nas apresentações do MEC.</strong></p>
+            <p>Cidades que lideram em inovação educacional não são as maiores. <strong>São as que agiram primeiro.</strong></p>
+          </div>
+          <div style="margin-top:28px">
+            <a href="https://wa.me/5528999036141?text=Ol%C3%A1!+Tenho+interesse+no+projeto+Educa%C3%A7%C3%A3o+Brincando+para+minha+escola%2Fprefeitura." target="_blank" class="btn-lime">💬 Falar com a TV Marataízes</a>
+          </div>
+        </div>
+        <div class="outcomes">
+          <div class="outcome">
+            <span class="outcome-icon">🏅</span>
+            <div><strong>Reconhecimento estadual e nacional</strong><span>Projetos de inovação educacional recebem visibilidade do MEC, Undime e mídia especializada. O secretário vira referência.</span></div>
+          </div>
+          <div class="outcome">
+            <span class="outcome-icon">📊</span>
+            <div><strong>Melhora real no IDEB do município</strong><span>Engajamento consistente gera aprendizado consistente. Os indicadores respondem em 12 a 18 meses de projeto contínuo.</span></div>
+          </div>
+          <div class="outcome">
+            <span class="outcome-icon">📰</span>
+            <div><strong>Pautas espontâneas na imprensa</strong><span>"Cidade do ES usa jogo ao vivo para ensinar matemática" — esse título já existe. Falta só o município que o protagoniza.</span></div>
+          </div>
+          <div class="outcome">
+            <span class="outcome-icon">🤝</span>
+            <div><strong>Modelo consultado por outros municípios</strong><span>A prefeitura pioneira vira referência. O secretário é convidado para eventos da Undime, congressos do MEC, fóruns de educação pública.</span></div>
+          </div>
+          <div class="outcome">
+            <span class="outcome-icon">🎯</span>
+            <div><strong>Programa estruturado e recorrente</strong><span>A TV Marataízes leva toda a estrutura — TV touch, equipe e conteúdo — toda semana nas escolas parceiras. É um programa de TV dentro da escola.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final" id="contato">
+  <div class="cta-kicker">✦ Próximo passo</div>
+  <h2 class="cta-h rv">SUA ESCOLA<br>PODE SER<br>A <em>PRÓXIMA.</em></h2>
+  <p class="cta-sub rv">Entre em contato com a TV Marataízes. A equipe apresenta o projeto, explica o modelo de parceria e agenda uma visita à secretaria — sem burocracia, com resultado.</p>
+  <div class="cta-btns rv">
+    <a href="https://wa.me/5528999036141?text=Ol%C3%A1!+Quero+saber+mais+sobre+o+programa+Educa%C3%A7%C3%A3o+Brincando+para+as+escolas." target="_blank" class="btn-big-wapp">💬 (28) 9 9903-6141 · WhatsApp</a>
+  </div>
+  <div class="urgency-line rv"><span class="u-dot"></span> Negociação direta com a secretaria · Municípios pioneiros entram primeiro</div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo"><em>Educação Brincando</em> · TV Marataízes</div>
+    <div class="footer-copy">© 2025 TV Marataízes · Marataízes, Espírito Santo · <a href="https://wa.me/5528999036141" target="_blank" class="footer-link">(28) 9 9903-6141</a></div>
+  </div>
+</footer>
+
+<script>
+function loadCastrVideo(){
+  document.getElementById('videoThumb').outerHTML='<iframe src="https://player.castr.com/vod/UW7gyZp4Wa5PgaPy" width="100%" style="aspect-ratio:16/9;min-height:200px;border:none;display:block;" frameborder="0" scrolling="no" allow="autoplay; fullscreen" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>';
+}
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.rv, .rv-l, .rv-r').forEach(el => io.observe(el));
+</script>
+</body>
+</html>v
