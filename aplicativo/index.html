@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TV Marataízes — ao vivo</title>
+
+<meta name="description" content="TV Marataízes — emissora independente do Espírito Santo, transmitida pela Soul TV (canal 300). Programação ao vivo, cultura, jornalismo e entretenimento capixaba." />
+<meta name="theme-color" content="#000" />
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="TV Marataízes" />
+<link rel="apple-touch-icon" href="clima/logo_tv_marataizes.png" />
+
+<style>
+:root{
+  --bg:#000;
+  --fg:#fff;
+  --card:#0e0e0e;
+  --line:#222;
+  --accent:#FF6F00;
+  --max:1320px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,Arial,sans-serif}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+
+header{
+  text-align:center;
+  padding:14px;
+  font-weight:800;
+}
+
+.player-outer{max-width:var(--max);margin:0 auto;padding:0 14px;}
+.player{
+  aspect-ratio:16/9;
+  background:#000;
+  border-radius:14px;
+  overflow:hidden;
+}
+.player iframe{width:100%;height:100%;border:0}
+
+section{max-width:var(--max);margin:30px auto;padding:0 14px}
+
+.vitrine{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:24px;
+  align-items:center;
+}
+@media(max-width:800px){
+  .vitrine{grid-template-columns:1fr}
+}
+
+.vitrine img{
+  border-radius:16px;
+  aspect-ratio:16/9;
+  object-fit:cover;
+}
+
+.btn{
+  display:inline-block;
+  background:var(--accent);
+  color:#fff;
+  padding:12px 18px;
+  border-radius:30px;
+  font-weight:700;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+@media(max-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr)}}
+
+.thumb{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+  aspect-ratio:16/9;
+}
+.thumb img{width:100%;height:100%;object-fit:cover}
+
+.cta{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:var(--accent);
+  color:#fff;
+  padding:14px 18px;
+  border-radius:40px;
+  font-weight:800;
+}
+
+footer{
+  text-align:center;
+  padding:40px 20px;
+  font-size:14px;
+  color:#ccc;
+}
+</style>
+
+<!-- manifest.json embutido via JS — não precisa de arquivo separado -->
+<script>
+(function(){
+  var manifest = {
+    name: "TV Marataízes",
+    short_name: "TV Marataízes",
+    description: "Emissora local ao vivo 24h",
+    start_url: "/",
+    display: "standalone",
+    background_color: "#000000",
+    theme_color: "#000000",
+    orientation: "landscape-primary",
+    icons: [
+      { src: "clima/logo_tv_marataizes.png", sizes: "192x192", type: "image/png" },
+      { src: "clima/logo_tv_marataizes.png", sizes: "512x512", type: "image/png" }
+    ]
+  };
+  var blob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
+  var url  = URL.createObjectURL(blob);
+  var link = document.createElement('link');
+  link.rel  = 'manifest';
+  link.href = url;
+  document.head.appendChild(link);
+})();
+</script>
+
+<!-- service worker embutido via Blob — não precisa de sw.js separado -->
+<script>
+if ('serviceWorker' in navigator) {
+  var swCode = [
+    "self.addEventListener('install',function(e){self.skipWaiting();});",
+    "self.addEventListener('activate',function(e){clients.claim();});"
+  ].join('\n');
+  var swBlob = new Blob([swCode], {type: 'text/javascript'});
+  var swUrl  = URL.createObjectURL(swBlob);
+  navigator.serviceWorker.register(swUrl).catch(function(){});
+}
+</script>
+
+</head>
+
+<body>
+
+<header>TV MARATAÍZES — AO VIVO</header>
+<div style="text-align:center; max-width: 980px; margin: 6px auto 0; padding: 0 14px; font-size: 14px; line-height: 1.4; color: #ccc;">
+  TV Marataízes — emissora local multiplataforma e multicanal, com programação ao vivo 24h e atuação em comunicação territorial, cultura e entretenimento. Também disponível na plataforma SOUL TV - Canal 300
+</div>
+
+<!-- PLAYER AO VIVO -->
+<div class="player-outer">
+  <div class="player">
+    <iframe
+      id="castr-player"
+      src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
+      allow="autoplay; fullscreen"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+
+<!-- TÍTULO DA SESSÃO -->
+<section>
+  <h2>Programas da TV Marataízes</h2>
+</section>
+
+<!-- DOCUMENTÁRIO PREFEITO -->
+<section>
+  <div class="vitrine">
+    <a href="https://tvmarataizes.digital/marataizes-em-movimento">
+      <img src="clima/PREFEITO.png" alt="Marataízes está em movimento">
+    </a>
+    <div>
+      <h2>Marataízes está em movimento</h2>
+      <p>
+        Um registro documental sobre um momento de articulação e
+        desenvolvimento em Marataízes. A TV Marataízes acompanha
+        de perto os movimentos que ajudam a desenhar o futuro da cidade.
+      </p>
+      <a class="btn" href="https://tvmarataizes.digital/marataizes-em-movimento">
+        Assistir aqui
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- EXPO INOVADORA -->
+<section>
+  <div class="vitrine">
+    <a href="https://tvmarataizes.digital/expo-inovadora-2026">
+      <img src="clima/EXPO.png" alt="Cidade Expo Inovadora">
+    </a>
+    <div>
+      <h2>Cidade Expo Inovadora</h2>
+      <p>
+        A TV Marataízes registrou os bastidores e os momentos
+        mais importantes da Expo Inovadora, evento que conecta
+        educação, tecnologia e oportunidades para o município.
+      </p>
+      <a class="btn" href="https://tvmarataizes.digital/expo-inovadora-2026">
+        Assistir aqui
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- LEITURA EM CENA -->
+<section>
+  <div class="vitrine">
+    <img src="clima/Leitura.png" alt="Leitura em Cena">
+    <div>
+      <h2>Leitura em Cena</h2>
+      <p>
+        Um programa de análise e comentário que conecta filmes, músicas
+        e obras audiovisuais a contexto, linguagem e pensamento crítico.
+      </p>
+      <a class="btn" href="https://tvmarataizes.digital/leituraemcena/">
+        Assistir episódios
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- VITRINE -->
+<section>
+  <div class="vitrine">
+    <img src="clima/vitrine-thumb.png" alt="Vitrine Marataízes">
+    <div>
+      <h2>Vitrine Marataízes</h2>
+      <p>
+        A vitrine onde a população encontra promoções, novidades,
+        histórias e oportunidades do comércio local de Marataízes.
+      </p>
+      <a class="btn" href="https://tvmarataizes.digital/vitrine-marataizes.html">
+        Assistir episódios
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- THUMBS DOS OUTROS PROGRAMAS -->
+<section>
+  <div class="grid">
+    <div class="thumb"><img src="clima/dicasdefilmes.png"></div>
+    <div class="thumb"><img src="clima/morocanoticiasdiarias.png"></div>
+    <div class="thumb"><img src="clima/historiasdeamoremcena.png"></div>
+    <div class="thumb"><img src="clima/rebrincar.png"></div>
+    <div class="thumb"><img src="clima/caindonatela.png"></div>
+    <div class="thumb"><img src="clima/naosaimosda5serie.png"></div>
+    <div class="thumb"><img src="clima/claudiarayallar.png"></div>
+    <div class="thumb"><img src="clima/fala_marataizes.png"></div>
+    <div class="thumb"><img src="clima/rota_300.png"></div>
+    <div class="thumb"><img src="clima/RAULjuremavaiok.png"></div>
+    <div class="thumb"><img src="clima/tal_mae_tal_filha.png"></div>
+    <div class="thumb"><img src="clima/saude_mental.png"></div>
+    <div class="thumb"><img src="clima/classicos_da_tela.png"></div>
+    <div class="thumb"><img src="clima/eeee.png"></div>
+    <div class="thumb"><img src="clima/GOODTIMES.png"></div>
+    <div class="thumb"><img src="clima/perguntatorta.png"></div>
+  </div>
+</section>
+
+<a class="cta" href="https://tvmarataizes.digital/planos.html">ANUNCIE AQUI</a>
+
+<footer>
+  TV Marataízes também está na Soul TV<br>
+  Assista gratuitamente pelo aplicativo Soul TV — Canal 300<br>
+  Disponível para Smart TVs, Android e iOS<br>
+  📺 Mais de 200 canais gratuitos
+</footer>
+
+<!-- ============================================================
+     WATCHDOG v2 — TV MARATAÍZES (Chrome-compatible)
+     Realinha o stream HLS automaticamente sem recarregar a página.
+============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  var BASE_SRC = 'https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on';
+
+  var SYNC_INTERVAL    = 3 * 60 * 1000;
+  var HIDDEN_THRESHOLD = 10 * 1000;
+
+  var hiddenAt  = null;
+  var syncTimer = null;
+
+  function getIframe() {
+    return document.getElementById('castr-player');
+  }
+
+  function freshSrc() {
+    return BASE_SRC + '&_t=' + Date.now();
+  }
+
+  function reloadPlayer() {
+    var el = getIframe();
+    if (!el) return;
+    el.src = freshSrc();
+  }
+
+  function startSync() {
+    clearInterval(syncTimer);
+    syncTimer = setInterval(reloadPlayer, SYNC_INTERVAL);
+  }
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'hidden') {
+      hiddenAt = Date.now();
+    } else {
+      if (hiddenAt !== null) {
+        var elapsed = Date.now() - hiddenAt;
+        if (elapsed > HIDDEN_THRESHOLD) {
+          reloadPlayer();
+        }
+        hiddenAt = null;
+      }
+    }
+  });
+
+  window.addEventListener('focus', function () {
+    reloadPlayer();
+  });
+
+  var lastTick = Date.now();
+  setInterval(function () {
+    var now = Date.now();
+    var gap = now - lastTick;
+    if (gap > 3000) {
+      reloadPlayer();
+    }
+    lastTick = now;
+  }, 1000);
+
+  function init() {
+    if (!getIframe()) { setTimeout(init, 500); return; }
+    startSync();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+})();
+</script>
+
+</body>
+</html>
