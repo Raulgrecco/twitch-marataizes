@@ -176,6 +176,7 @@
       opacity: 0;
       animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) 1s forwards;
       text-decoration: none;
+      cursor: none;
     }
 
     .cta-btn {
@@ -474,15 +475,15 @@
       <p class="hero-sub">
         Quando uma cidade articula seu próprio futuro, alguém precisa registrar esse momento. Com precisão. Com responsabilidade. Com memória.
       </p>
-      <a href="#video" class="hero-cta">
-        <span class="cta-btn">
+      <div class="hero-cta">
+        <a href="#video" class="cta-btn" onclick="scrollToVideo(event)">
           Assistir ao documentário
           <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 6H11M11 6L6 1M11 6L6 11" stroke="currentColor" stroke-width="1" stroke-linecap="square"/>
           </svg>
-        </span>
+        </a>
         <span class="cta-duration">4 minutos</span>
-      </a>
+      </div>
     </div>
   </section>
 
@@ -563,6 +564,16 @@
   </footer>
 
   <script>
+    // Scroll suave até o player
+    function scrollToVideo(e) {
+      e.preventDefault();
+      const target = document.getElementById('video');
+      const offset = 40;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+
+    // Custom cursor
     const cursor = document.getElementById('cursor');
     const ring   = document.getElementById('cursorRing');
     let mx = 0, my = 0, rx = 0, ry = 0;
@@ -593,6 +604,7 @@
       });
     });
 
+    // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
