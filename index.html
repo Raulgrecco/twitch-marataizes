@@ -111,10 +111,10 @@ footer{
 <!-- PLAYER AO VIVO -->
 <div class="player-outer">
   <div class="player">
-    <iframe 
+    <iframe
       id="castr-player"
       src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
-      allow="autoplay; fullscreen" 
+      allow="autoplay; fullscreen"
       allowfullscreen>
     </iframe>
   </div>
@@ -231,10 +231,8 @@ footer{
 </footer>
 
 <!-- ============================================================
-     WATCHDOG DE SINCRONIZAÇÃO — TV MARATAÍZES
-     Realinha o stream HLS automaticamente, sem recarregar a página.
-     Comportamento igual ao de IPTV / TV linear.
-     Não altera layout, CSS, SEO nem nenhum outro elemento.
+     WATCHDOG v2 — TV MARATAÍZES (Chrome-compatible)
+     Realinha o stream HLS automaticamente sem recarregar a página.
 ============================================================ -->
 <script>
 (function () {
@@ -242,102 +240,68 @@ footer{
 
   var BASE_SRC = 'https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on';
 
-  // Realinha preventivamente a cada 4 minutos
-  var SYNC_INTERVAL = 4 * 60 * 1000;
+  // Realinha a cada 3 minutos preventivamente
+  var SYNC_INTERVAL = 3 * 60 * 1000;
 
-  // Se o iframe não carregar em 20 s, considera congelado e recarrega
-  var FROZEN_TIMEOUT = 20 * 1000;
+  // Se a aba ficou oculta por mais de 10s, realinha ao voltar
+  var HIDDEN_THRESHOLD = 10 * 1000;
 
-  var iframe        = null;
-  var syncTimer     = null;
-  var frozenTimer   = null;
-  var isReloading   = false;
+  var hiddenAt  = null;
+  var syncTimer = null;
 
-  /* ── Encontra o iframe ─────────────────────────────────── */
   function getIframe() {
-    if (iframe && document.contains(iframe)) return iframe;
-    iframe = document.getElementById('castr-player');
-    if (!iframe) {
-      // fallback: busca qualquer iframe com src do Castr
-      var all = document.querySelectorAll('iframe');
-      for (var i = 0; i < all.length; i++) {
-        if ((all[i].src || '').indexOf('castr') !== -1) {
-          iframe = all[i];
-          break;
-        }
-      }
-    }
-    return iframe;
+    return document.getElementById('castr-player');
   }
 
-  /* ── Reconstrói URL com timestamp único ────────────────── */
   function freshSrc() {
     return BASE_SRC + '&_t=' + Date.now();
   }
 
-  /* ── Recarrega APENAS o iframe ─────────────────────────── */
-  function reloadPlayer(reason) {
-    if (isReloading) return;
+  function reloadPlayer() {
     var el = getIframe();
     if (!el) return;
-
-    isReloading = true;
-    clearTimeout(frozenTimer);
-
     el.src = freshSrc();
-
-    // Arma detector de congelamento para o próximo carregamento
-    frozenTimer = setTimeout(function () {
-      isReloading = false;
-      checkFrozen();
-    }, FROZEN_TIMEOUT);
   }
 
-  /* ── Verifica se o iframe está responsivo ──────────────── */
-  function checkFrozen() {
-    var el = getIframe();
-    if (!el) return;
-
-    var alive = false;
-    try {
-      // Tenta acessar o documento interno (falha silenciosamente em cross-origin,
-      // mas se o iframe estiver morto o próprio acesso lança exceção diferente)
-      var rdy = el.contentDocument
-             || (el.contentWindow && el.contentWindow.document);
-      alive = !!rdy;
-    } catch (e) {
-      alive = true; // cross-origin = iframe vivo, só bloqueado por política
-    }
-
-    if (!alive) {
-      reloadPlayer('frozen');
-    } else {
-      isReloading = false;
-    }
-  }
-
-  /* ── Loop principal: realinhamento preventivo ───────────── */
+  // Realinhamento preventivo periódico
   function startSync() {
     clearInterval(syncTimer);
-    syncTimer = setInterval(function () {
-      reloadPlayer('scheduled-sync');
-    }, SYNC_INTERVAL);
+    syncTimer = setInterval(reloadPlayer, SYNC_INTERVAL);
   }
 
-  /* ── Visibilidade da aba: quando o usuário volta, realinha ── */
+  // Quando aba some e volta — principal causa de drift no Chrome
   document.addEventListener('visibilitychange', function () {
-    if (document.visibilityState === 'visible') {
-      reloadPlayer('tab-visible');
+    if (document.visibilityState === 'hidden') {
+      hiddenAt = Date.now();
+    } else {
+      if (hiddenAt !== null) {
+        var elapsed = Date.now() - hiddenAt;
+        if (elapsed > HIDDEN_THRESHOLD) {
+          reloadPlayer();
+        }
+        hiddenAt = null;
+      }
     }
   });
 
-  /* ── Inicia tudo quando a página estiver pronta ─────────── */
-  function init() {
-    if (!getIframe()) {
-      // Aguarda o DOM se o script rodou muito cedo
-      setTimeout(init, 500);
-      return;
+  // Quando a janela perde e ganha foco (troca de app, alt+tab)
+  window.addEventListener('focus', function () {
+    reloadPlayer();
+  });
+
+  // Detecta suspensão silenciosa de aba pelo Chrome
+  var lastTick = Date.now();
+  setInterval(function () {
+    var now = Date.now();
+    var gap = now - lastTick;
+    if (gap > 3000) {
+      reloadPlayer();
     }
+    lastTick = now;
+  }, 1000);
+
+  function init() {
+    if (!getIframe()) { setTimeout(init, 500); return; }
     startSync();
   }
 
