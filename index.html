@@ -112,6 +112,7 @@ footer{
 <div class="player-outer">
   <div class="player">
     <iframe 
+      id="castr-player"
       src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
       allow="autoplay; fullscreen" 
       allowfullscreen>
@@ -228,6 +229,126 @@ footer{
   Disponível para Smart TVs, Android e iOS<br>
   📺 Mais de 200 canais gratuitos
 </footer>
+
+<!-- ============================================================
+     WATCHDOG DE SINCRONIZAÇÃO — TV MARATAÍZES
+     Realinha o stream HLS automaticamente, sem recarregar a página.
+     Comportamento igual ao de IPTV / TV linear.
+     Não altera layout, CSS, SEO nem nenhum outro elemento.
+============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  var BASE_SRC = 'https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on';
+
+  // Realinha preventivamente a cada 4 minutos
+  var SYNC_INTERVAL = 4 * 60 * 1000;
+
+  // Se o iframe não carregar em 20 s, considera congelado e recarrega
+  var FROZEN_TIMEOUT = 20 * 1000;
+
+  var iframe        = null;
+  var syncTimer     = null;
+  var frozenTimer   = null;
+  var isReloading   = false;
+
+  /* ── Encontra o iframe ─────────────────────────────────── */
+  function getIframe() {
+    if (iframe && document.contains(iframe)) return iframe;
+    iframe = document.getElementById('castr-player');
+    if (!iframe) {
+      // fallback: busca qualquer iframe com src do Castr
+      var all = document.querySelectorAll('iframe');
+      for (var i = 0; i < all.length; i++) {
+        if ((all[i].src || '').indexOf('castr') !== -1) {
+          iframe = all[i];
+          break;
+        }
+      }
+    }
+    return iframe;
+  }
+
+  /* ── Reconstrói URL com timestamp único ────────────────── */
+  function freshSrc() {
+    return BASE_SRC + '&_t=' + Date.now();
+  }
+
+  /* ── Recarrega APENAS o iframe ─────────────────────────── */
+  function reloadPlayer(reason) {
+    if (isReloading) return;
+    var el = getIframe();
+    if (!el) return;
+
+    isReloading = true;
+    clearTimeout(frozenTimer);
+
+    el.src = freshSrc();
+
+    // Arma detector de congelamento para o próximo carregamento
+    frozenTimer = setTimeout(function () {
+      isReloading = false;
+      checkFrozen();
+    }, FROZEN_TIMEOUT);
+  }
+
+  /* ── Verifica se o iframe está responsivo ──────────────── */
+  function checkFrozen() {
+    var el = getIframe();
+    if (!el) return;
+
+    var alive = false;
+    try {
+      // Tenta acessar o documento interno (falha silenciosamente em cross-origin,
+      // mas se o iframe estiver morto o próprio acesso lança exceção diferente)
+      var rdy = el.contentDocument
+             || (el.contentWindow && el.contentWindow.document);
+      alive = !!rdy;
+    } catch (e) {
+      alive = true; // cross-origin = iframe vivo, só bloqueado por política
+    }
+
+    if (!alive) {
+      reloadPlayer('frozen');
+    } else {
+      isReloading = false;
+    }
+  }
+
+  /* ── Loop principal: realinhamento preventivo ───────────── */
+  function startSync() {
+    clearInterval(syncTimer);
+    syncTimer = setInterval(function () {
+      reloadPlayer('scheduled-sync');
+    }, SYNC_INTERVAL);
+  }
+
+  /* ── Visibilidade da aba: quando o usuário volta, realinha ── */
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible') {
+      reloadPlayer('tab-visible');
+    }
+  });
+
+  /* ── Inicia tudo quando a página estiver pronta ─────────── */
+  function init() {
+    if (!getIframe()) {
+      // Aguarda o DOM se o script rodou muito cedo
+      setTimeout(init, 500);
+      return;
+    }
+    startSync();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+})();
+</script>
 
 </body>
 </html>
