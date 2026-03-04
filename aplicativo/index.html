@@ -9,7 +9,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="TV Marataízes" />
-<link rel="apple-touch-icon" href="clima/logo_tv_marataizes.png" />
+<link rel="apple-touch-icon" href="../clima/logo_tv_marataizes.png" />
+<link rel="manifest" href="manifest.json" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -19,7 +20,6 @@
 
 :root {
   --bg:       #0a0a0a;
-  --surface:  #141414;
   --card:     #1a1a1a;
   --border:   #2a2a2a;
   --fg:       #ffffff;
@@ -71,7 +71,6 @@ a   { text-decoration: none; color: inherit; }
   font-size: 22px;
   font-weight: 900;
   letter-spacing: 0.04em;
-  color: var(--fg);
 }
 
 .nav-logo span { color: var(--accent); }
@@ -101,7 +100,6 @@ a   { text-decoration: none; color: inherit; }
 }
 
 .hero {
-  position: relative;
   width: 100%;
   padding-top: 64px;
   background: #000;
@@ -116,10 +114,8 @@ a   { text-decoration: none; color: inherit; }
 }
 
 .hero-player iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
-  display: block;
+  width: 100%; height: 100%;
+  border: 0; display: block;
 }
 
 .hero-player::after {
@@ -178,7 +174,7 @@ a   { text-decoration: none; color: inherit; }
 #install-banner {
   display: none;
   max-width: var(--max);
-  margin: 0 auto 0;
+  margin: 0 auto;
   padding: 0 32px 16px;
 }
 
@@ -290,8 +286,7 @@ a   { text-decoration: none; color: inherit; }
 }
 
 .destaque-card img {
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   object-fit: cover;
   transition: transform 0.4s;
 }
@@ -301,12 +296,7 @@ a   { text-decoration: none; color: inherit; }
 .destaque-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(0,0,0,0.92) 0%,
-    rgba(0,0,0,0.4) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -371,7 +361,6 @@ a   { text-decoration: none; color: inherit; }
   background: var(--card);
   border: 1px solid var(--border);
   aspect-ratio: 16/9;
-  position: relative;
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
 }
@@ -382,15 +371,9 @@ a   { text-decoration: none; color: inherit; }
   border-color: rgba(255,111,0,0.3);
 }
 
-.prog-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+.prog-card img { width: 100%; height: 100%; object-fit: cover; }
 
-@media (max-width: 600px) {
-  .prog-card { flex: 0 0 160px; }
-}
+@media (max-width: 600px) { .prog-card { flex: 0 0 160px; } }
 
 .footer {
   max-width: var(--max);
@@ -420,9 +403,7 @@ a   { text-decoration: none; color: inherit; }
   text-align: right;
 }
 
-@media (max-width: 600px) {
-  .footer-text { text-align: left; }
-}
+@media (max-width: 600px) { .footer-text { text-align: left; } }
 
 .cta-fixed {
   position: fixed;
@@ -453,9 +434,7 @@ a   { text-decoration: none; color: inherit; }
   animation: fadeUp 0.5s forwards;
 }
 
-@keyframes fadeUp {
-  to { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
 .fade-in:nth-child(1) { animation-delay: 0.05s; }
 .fade-in:nth-child(2) { animation-delay: 0.12s; }
@@ -464,8 +443,7 @@ a   { text-decoration: none; color: inherit; }
 
 @media (max-width: 600px) {
   .nav { padding: 0 16px; }
-  .hero-meta, .section, .footer { padding-left: 16px; padding-right: 16px; }
-  #install-banner { padding-left: 16px; padding-right: 16px; }
+  .hero-meta, .section, .footer, #install-banner { padding-left: 16px; padding-right: 16px; }
 }
 </style>
 </head>
@@ -489,7 +467,6 @@ a   { text-decoration: none; color: inherit; }
       allowfullscreen>
     </iframe>
   </div>
-
   <div class="hero-meta">
     <div>
       <div class="hero-title">TV Marataízes — Ao Vivo</div>
@@ -515,11 +492,10 @@ a   { text-decoration: none; color: inherit; }
     <div class="section-title">Em <span>Destaque</span></div>
     <div class="section-line"></div>
   </div>
-
   <div class="destaque-grid">
 
     <a href="https://tvmarataizes.digital/marataizes-em-movimento" class="destaque-card fade-in">
-      <img src="clima/PREFEITO.png" alt="Marataízes está em movimento" loading="lazy" />
+      <img src="../clima/PREFEITO.png" alt="Marataízes está em movimento" loading="lazy" />
       <div class="destaque-overlay">
         <div class="destaque-name">Marataízes está em Movimento</div>
         <div class="destaque-desc">Registro documental sobre articulação e desenvolvimento em Marataízes.</div>
@@ -528,7 +504,7 @@ a   { text-decoration: none; color: inherit; }
     </a>
 
     <a href="https://tvmarataizes.digital/expo-inovadora-2026" class="destaque-card fade-in">
-      <img src="clima/EXPO.png" alt="Cidade Expo Inovadora" loading="lazy" />
+      <img src="../clima/EXPO.png" alt="Cidade Expo Inovadora" loading="lazy" />
       <div class="destaque-overlay">
         <div class="destaque-name">Cidade Expo Inovadora</div>
         <div class="destaque-desc">Bastidores e momentos da Expo Inovadora 2026.</div>
@@ -537,7 +513,7 @@ a   { text-decoration: none; color: inherit; }
     </a>
 
     <a href="https://tvmarataizes.digital/leituraemcena/" class="destaque-card fade-in">
-      <img src="clima/Leitura.png" alt="Leitura em Cena" loading="lazy" />
+      <img src="../clima/Leitura.png" alt="Leitura em Cena" loading="lazy" />
       <div class="destaque-overlay">
         <div class="destaque-name">Leitura em Cena</div>
         <div class="destaque-desc">Filmes, músicas e obras audiovisuais com pensamento crítico.</div>
@@ -546,7 +522,7 @@ a   { text-decoration: none; color: inherit; }
     </a>
 
     <a href="https://tvmarataizes.digital/vitrine-marataizes.html" class="destaque-card fade-in">
-      <img src="clima/vitrine-thumb.png" alt="Vitrine Marataízes" loading="lazy" />
+      <img src="../clima/vitrine-thumb.png" alt="Vitrine Marataízes" loading="lazy" />
       <div class="destaque-overlay">
         <div class="destaque-name">Vitrine Marataízes</div>
         <div class="destaque-desc">Promoções, novidades e oportunidades do comércio local.</div>
@@ -562,24 +538,23 @@ a   { text-decoration: none; color: inherit; }
     <div class="section-title">Todos os <span>Programas</span></div>
     <div class="section-line"></div>
   </div>
-
   <div class="programs-row">
-    <div class="prog-card"><img src="clima/dicasdefilmes.png" alt="Dicas de Filmes" loading="lazy" /></div>
-    <div class="prog-card"><img src="clima/morocanoticiasdiarias.png" alt="Moroco Notícias Diárias" loading="lazy" /></div>
-    <div class="prog-card"><img src="clima/historiasdeamoremcena.png" alt="Histórias de Amor em Cena" loading="lazy" /></div>
-    <div class="prog-card"><img src="clima/rebrincar.png" alt="Rebrincar" loading="lazy" /></div>
-    <div class="prog-card"><img src="clima/caindonatela.png" alt="Caindo na Tela" loading="lazy" /></div>
-    <div class="prog-card"><img src="clima/naosaimosda5serie.png" alt="Não Saímos da 5ª Série" loading="lazy" /></div>
-    <div class="prog-card"><img src="clima/claudiarayallar.png" alt="Claudia Rayallar" loading="lazy" /></div>
-    <div class="prog-card"><img src="clima/fala_marataizes.png" alt="Fala Marataízes" loading="lazy" /></div>
-    <div class="prog-card"><img src="clima/rota_300.png" alt="Rota 300" loading="lazy" /></div>
-    <div class="prog-card"><img src="clima/RAULjuremavaiok.png" alt="Raul Jurema" loading="lazy" /></div>
-    <div class="prog-card"><img src="clima/tal_mae_tal_filha.png" alt="Tal Mãe Tal Filha" loading="lazy" /></div>
-    <div class="prog-card"><img src="clima/saude_mental.png" alt="Saúde Mental" loading="lazy" /></div>
-    <div class="prog-card"><img src="clima/classicos_da_tela.png" alt="Clássicos da Tela" loading="lazy" /></div>
-    <div class="prog-card"><img src="clima/eeee.png" alt="Programa" loading="lazy" /></div>
-    <div class="prog-card"><img src="clima/GOODTIMES.png" alt="Good Times" loading="lazy" /></div>
-    <div class="prog-card"><img src="clima/perguntatorta.png" alt="Pergunta Torta" loading="lazy" /></div>
+    <div class="prog-card"><img src="../clima/dicasdefilmes.png" alt="Dicas de Filmes" loading="lazy" /></div>
+    <div class="prog-card"><img src="../clima/morocanoticiasdiarias.png" alt="Moroco Notícias Diárias" loading="lazy" /></div>
+    <div class="prog-card"><img src="../clima/historiasdeamoremcena.png" alt="Histórias de Amor em Cena" loading="lazy" /></div>
+    <div class="prog-card"><img src="../clima/rebrincar.png" alt="Rebrincar" loading="lazy" /></div>
+    <div class="prog-card"><img src="../clima/caindonatela.png" alt="Caindo na Tela" loading="lazy" /></div>
+    <div class="prog-card"><img src="../clima/naosaimosda5serie.png" alt="Não Saímos da 5ª Série" loading="lazy" /></div>
+    <div class="prog-card"><img src="../clima/claudiarayallar.png" alt="Claudia Rayallar" loading="lazy" /></div>
+    <div class="prog-card"><img src="../clima/fala_marataizes.png" alt="Fala Marataízes" loading="lazy" /></div>
+    <div class="prog-card"><img src="../clima/rota_300.png" alt="Rota 300" loading="lazy" /></div>
+    <div class="prog-card"><img src="../clima/RAULjuremavaiok.png" alt="Raul Jurema" loading="lazy" /></div>
+    <div class="prog-card"><img src="../clima/tal_mae_tal_filha.png" alt="Tal Mãe Tal Filha" loading="lazy" /></div>
+    <div class="prog-card"><img src="../clima/saude_mental.png" alt="Saúde Mental" loading="lazy" /></div>
+    <div class="prog-card"><img src="../clima/classicos_da_tela.png" alt="Clássicos da Tela" loading="lazy" /></div>
+    <div class="prog-card"><img src="../clima/eeee.png" alt="Programa" loading="lazy" /></div>
+    <div class="prog-card"><img src="../clima/GOODTIMES.png" alt="Good Times" loading="lazy" /></div>
+    <div class="prog-card"><img src="../clima/perguntatorta.png" alt="Pergunta Torta" loading="lazy" /></div>
   </div>
 </div>
 
@@ -593,41 +568,13 @@ a   { text-decoration: none; color: inherit; }
 
 <a class="cta-fixed" href="https://tvmarataizes.digital/planos.html">ANUNCIE AQUI</a>
 
+<!-- PWA install prompt -->
 <script>
-(function(){
-  var manifest = {
-    name: "TV Marataízes",
-    short_name: "TV Marataízes",
-    description: "Emissora local ao vivo 24h",
-    start_url: "/",
-    display: "standalone",
-    background_color: "#0a0a0a",
-    theme_color: "#0a0a0a",
-    orientation: "landscape-primary",
-    icons: [
-      { src: "clima/logo_tv_marataizes.png", sizes: "192x192", type: "image/png" },
-      { src: "clima/logo_tv_marataizes.png", sizes: "512x512", type: "image/png" }
-    ]
-  };
-  var blob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
-  var link = document.createElement('link');
-  link.rel = 'manifest';
-  link.href = URL.createObjectURL(blob);
-  document.head.appendChild(link);
-})();
-
-if ('serviceWorker' in navigator) {
-  var swCode = "self.addEventListener('install',function(e){self.skipWaiting();});self.addEventListener('activate',function(e){clients.claim();});";
-  var swBlob = new Blob([swCode], {type:'text/javascript'});
-  navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(function(){});
-}
-
 var deferredPrompt = null;
 window.addEventListener('beforeinstallprompt', function(e) {
   e.preventDefault();
   deferredPrompt = e;
-  var banner = document.getElementById('install-banner');
-  if (banner) banner.classList.add('visible');
+  document.getElementById('install-banner').classList.add('visible');
 });
 
 document.getElementById('btn-install-pwa').addEventListener('click', function() {
@@ -643,42 +590,29 @@ document.getElementById('btn-install-pwa').addEventListener('click', function() 
 document.getElementById('btn-dismiss').addEventListener('click', function() {
   document.getElementById('install-banner').classList.remove('visible');
 });
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+}
 </script>
 
+<!-- WATCHDOG v2 -->
 <script>
 (function () {
   'use strict';
-
   var BASE_SRC         = 'https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on';
   var SYNC_INTERVAL    = 3 * 60 * 1000;
   var HIDDEN_THRESHOLD = 10 * 1000;
-
-  var hiddenAt  = null;
-  var syncTimer = null;
+  var hiddenAt = null, syncTimer = null;
 
   function getIframe() { return document.getElementById('castr-player'); }
   function freshSrc()  { return BASE_SRC + '&_t=' + Date.now(); }
-
-  function reloadPlayer() {
-    var el = getIframe();
-    if (!el) return;
-    el.src = freshSrc();
-  }
-
-  function startSync() {
-    clearInterval(syncTimer);
-    syncTimer = setInterval(reloadPlayer, SYNC_INTERVAL);
-  }
+  function reloadPlayer() { var el = getIframe(); if (!el) return; el.src = freshSrc(); }
+  function startSync() { clearInterval(syncTimer); syncTimer = setInterval(reloadPlayer, SYNC_INTERVAL); }
 
   document.addEventListener('visibilitychange', function () {
-    if (document.visibilityState === 'hidden') {
-      hiddenAt = Date.now();
-    } else {
-      if (hiddenAt !== null) {
-        if (Date.now() - hiddenAt > HIDDEN_THRESHOLD) reloadPlayer();
-        hiddenAt = null;
-      }
-    }
+    if (document.visibilityState === 'hidden') { hiddenAt = Date.now(); }
+    else { if (hiddenAt && Date.now() - hiddenAt > HIDDEN_THRESHOLD) reloadPlayer(); hiddenAt = null; }
   });
 
   window.addEventListener('focus', function () { reloadPlayer(); });
@@ -690,16 +624,8 @@ document.getElementById('btn-dismiss').addEventListener('click', function() {
     lastTick = now;
   }, 1000);
 
-  function init() {
-    if (!getIframe()) { setTimeout(init, 500); return; }
-    startSync();
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+  function init() { if (!getIframe()) { setTimeout(init, 500); return; } startSync(); }
+  document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', init) : init();
 })();
 </script>
 
