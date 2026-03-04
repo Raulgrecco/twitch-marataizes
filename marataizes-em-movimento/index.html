@@ -4,9 +4,33 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Marataízes está em movimento — TV Marataízes</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Marataízes está em movimento — documentário da TV Marataízes que registra um momento de articulação institucional e desenvolvimento da cidade." />
+
+  <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+  <meta property="og:type" content="video.other">
+  <meta property="og:title" content="Marataízes está em movimento">
+  <meta property="og:description" content="Documentário da TV Marataízes que registra um momento importante da cidade.">
+  <meta property="og:url" content="https://tvmarataizes.digital/marataizes-em-movimento">
+  <meta property="og:image" content="https://tvmarataizes.digital/clima/PREFEITO.png">
+
+  <!-- Forçar comportamento de vídeo -->
+  <meta property="og:video" content="https://player.castr.com/vod/IbmihPljyY7i1cRi">
+  <meta property="og:video:type" content="text/html">
+  <meta property="og:video:width" content="1280">
+  <meta property="og:video:height" content="720">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Marataízes está em movimento">
+  <meta name="twitter:description" content="Documentário da TV Marataízes sobre um momento importante da cidade.">
+  <meta name="twitter:image" content="https://tvmarataizes.digital/clima/PREFEITO.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Tenor+Sans&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+
   <style>
     *, *::before, *::after {
       margin: 0;
@@ -564,7 +588,6 @@
   </footer>
 
   <script>
-    // Scroll suave até o player
     function scrollToVideo(e) {
       e.preventDefault();
       const target = document.getElementById('video');
@@ -573,7 +596,6 @@
       window.scrollTo({ top, behavior: 'smooth' });
     }
 
-    // Custom cursor
     const cursor = document.getElementById('cursor');
     const ring   = document.getElementById('cursorRing');
     let mx = 0, my = 0, rx = 0, ry = 0;
@@ -604,7 +626,6 @@
       });
     });
 
-    // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
