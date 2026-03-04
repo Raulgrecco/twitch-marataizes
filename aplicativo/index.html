@@ -3,111 +3,596 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>TV Marataízes — ao vivo</title>
-
-<meta name="description" content="TV Marataízes — emissora independente do Espírito Santo, transmitida pela Soul TV (canal 300). Programação ao vivo, cultura, jornalismo e entretenimento capixaba." />
-<meta name="theme-color" content="#000" />
-
-<!-- PWA -->
-<link rel="manifest" href="manifest.json" />
+<title>TV Marataízes</title>
+<meta name="description" content="TV Marataízes — emissora independente do Espírito Santo. Programação ao vivo 24h." />
+<meta name="theme-color" content="#0a0a0a" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="TV Marataízes" />
 <link rel="apple-touch-icon" href="clima/logo_tv_marataizes.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet" />
 
 <style>
-:root{
-  --bg:#000;
-  --fg:#fff;
-  --card:#0e0e0e;
-  --line:#222;
-  --accent:#FF6F00;
-  --max:1320px;
-}
-*{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,Arial,sans-serif}
-img{max-width:100%;display:block}
-a{text-decoration:none;color:inherit}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-header{
-  text-align:center;
-  padding:14px;
-  font-weight:800;
-}
-
-.player-outer{max-width:var(--max);margin:0 auto;padding:0 14px;}
-.player{
-  aspect-ratio:16/9;
-  background:#000;
-  border-radius:14px;
-  overflow:hidden;
-}
-.player iframe{width:100%;height:100%;border:0}
-
-section{max-width:var(--max);margin:30px auto;padding:0 14px}
-
-.vitrine{
-  display:grid;
-  grid-template-columns:2fr 1fr;
-  gap:24px;
-  align-items:center;
-}
-@media(max-width:800px){
-  .vitrine{grid-template-columns:1fr}
+:root {
+  --bg:       #0a0a0a;
+  --surface:  #141414;
+  --card:     #1a1a1a;
+  --border:   #2a2a2a;
+  --fg:       #ffffff;
+  --muted:    #888;
+  --accent:   #FF6F00;
+  --accent2:  #ff9a00;
+  --live:     #ff3b3b;
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body:    'Barlow', sans-serif;
+  --max: 1400px;
+  --radius: 10px;
 }
 
-.vitrine img{
-  border-radius:16px;
-  aspect-ratio:16/9;
-  object-fit:cover;
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-weight: 300;
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
-.btn{
-  display:inline-block;
-  background:var(--accent);
-  color:#fff;
-  padding:12px 18px;
-  border-radius:30px;
-  font-weight:700;
+img { display: block; max-width: 100%; }
+a   { text-decoration: none; color: inherit; }
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 64px;
+  background: linear-gradient(to bottom, rgba(10,10,10,0.98) 0%, transparent 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
-}
-@media(max-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr)}}
-
-.thumb{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:12px;
-  overflow:hidden;
-  aspect-ratio:16/9;
-}
-.thumb img{width:100%;height:100%;object-fit:cover}
-
-.cta{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  background:var(--accent);
-  color:#fff;
-  padding:14px 18px;
-  border-radius:40px;
-  font-weight:800;
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: var(--fg);
 }
 
-footer{
-  text-align:center;
-  padding:40px 20px;
-  font-size:14px;
-  color:#ccc;
+.nav-logo span { color: var(--accent); }
+
+.nav-live {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--live);
+}
+
+.live-dot {
+  width: 8px; height: 8px;
+  background: var(--live);
+  border-radius: 50%;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.7); }
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  padding-top: 64px;
+  background: #000;
+}
+
+.hero-player {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #000;
+  overflow: hidden;
+}
+
+.hero-player iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.hero-player::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 40%;
+  background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.hero-meta {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 24px 32px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 4vw, 38px);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.hero-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 6px;
+  max-width: 520px;
+  line-height: 1.5;
+}
+
+.badge-soul {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,111,0,0.12);
+  border: 1px solid rgba(255,111,0,0.3);
+  color: var(--accent2);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 30px;
+  white-space: nowrap;
+}
+
+#install-banner {
+  display: none;
+  max-width: var(--max);
+  margin: 0 auto 0;
+  padding: 0 32px 16px;
+}
+
+#install-banner.visible { display: block; }
+
+.install-card {
+  background: linear-gradient(135deg, rgba(255,111,0,0.15) 0%, rgba(255,111,0,0.05) 100%);
+  border: 1px solid rgba(255,111,0,0.25);
+  border-radius: var(--radius);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.install-text { flex: 1; min-width: 200px; }
+
+.install-text strong {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  display: block;
+}
+
+.install-text span { font-size: 12px; color: var(--muted); }
+
+.btn-install {
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.btn-install:hover { background: var(--accent2); transform: translateY(-1px); }
+
+.btn-dismiss {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+}
+
+.section {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 32px 32px 0;
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 3vw, 26px);
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.section-title span { color: var(--accent); }
+
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.destaque-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 700px) {
+  .destaque-grid { grid-template-columns: 1fr; }
+}
+
+.destaque-card {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--card);
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(.25,.46,.45,.94), box-shadow 0.25s;
+  aspect-ratio: 16/9;
+}
+
+.destaque-card:hover {
+  transform: scale(1.02) translateY(-3px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+  z-index: 2;
+}
+
+.destaque-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+
+.destaque-card:hover img { transform: scale(1.05); }
+
+.destaque-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.92) 0%,
+    rgba(0,0,0,0.4) 50%,
+    transparent 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.destaque-card:hover .destaque-overlay { opacity: 1; }
+
+.destaque-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  margin-bottom: 6px;
+}
+
+.destaque-desc {
+  font-size: 12px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+.btn-watch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: 30px;
+  width: fit-content;
+  transition: background 0.2s;
+}
+
+.btn-watch:hover { background: var(--accent2); }
+
+.programs-row {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.programs-row::-webkit-scrollbar { display: none; }
+
+.prog-card {
+  flex: 0 0 200px;
+  scroll-snap-align: start;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--border);
+  aspect-ratio: 16/9;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.prog-card:hover {
+  transform: scale(1.04) translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+  border-color: rgba(255,111,0,0.3);
+}
+
+.prog-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 600px) {
+  .prog-card { flex: 0 0 160px; }
+}
+
+.footer {
+  max-width: var(--max);
+  margin: 48px auto 0;
+  padding: 32px 32px 48px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.footer-brand span { color: var(--accent); }
+
+.footer-text {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  text-align: right;
+}
+
+@media (max-width: 600px) {
+  .footer-text { text-align: left; }
+}
+
+.cta-fixed {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 14px 22px;
+  border-radius: 40px;
+  box-shadow: 0 8px 32px rgba(255,111,0,0.4);
+  z-index: 99;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cta-fixed:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(255,111,0,0.55);
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.5s forwards;
+}
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in:nth-child(1) { animation-delay: 0.05s; }
+.fade-in:nth-child(2) { animation-delay: 0.12s; }
+.fade-in:nth-child(3) { animation-delay: 0.19s; }
+.fade-in:nth-child(4) { animation-delay: 0.26s; }
+
+@media (max-width: 600px) {
+  .nav { padding: 0 16px; }
+  .hero-meta, .section, .footer { padding-left: 16px; padding-right: 16px; }
+  #install-banner { padding-left: 16px; padding-right: 16px; }
 }
 </style>
+</head>
 
-<!-- manifest.json embutido via JS — não precisa de arquivo separado -->
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">TV <span>Marataízes</span></div>
+  <div class="nav-live">
+    <div class="live-dot"></div>
+    Ao vivo
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-player">
+    <iframe
+      id="castr-player"
+      src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
+      allow="autoplay; fullscreen"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <div class="hero-meta">
+    <div>
+      <div class="hero-title">TV Marataízes — Ao Vivo</div>
+      <div class="hero-sub">Emissora local multiplataforma e multicanal, com programação ao vivo 24h. Comunicação territorial, cultura e entretenimento.</div>
+    </div>
+    <div class="badge-soul">📺 Soul TV · Canal 300</div>
+  </div>
+</div>
+
+<div id="install-banner">
+  <div class="install-card">
+    <div class="install-text">
+      <strong>Instalar TV Marataízes</strong>
+      <span>Adicione à tela inicial e assista como um app</span>
+    </div>
+    <button class="btn-install" id="btn-install-pwa">⬇ Instalar App</button>
+    <button class="btn-dismiss" id="btn-dismiss">✕</button>
+  </div>
+</div>
+
+<div class="section" style="padding-top:28px;">
+  <div class="section-header">
+    <div class="section-title">Em <span>Destaque</span></div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="destaque-grid">
+
+    <a href="https://tvmarataizes.digital/marataizes-em-movimento" class="destaque-card fade-in">
+      <img src="clima/PREFEITO.png" alt="Marataízes está em movimento" loading="lazy" />
+      <div class="destaque-overlay">
+        <div class="destaque-name">Marataízes está em Movimento</div>
+        <div class="destaque-desc">Registro documental sobre articulação e desenvolvimento em Marataízes.</div>
+        <div class="btn-watch">▶ Assistir</div>
+      </div>
+    </a>
+
+    <a href="https://tvmarataizes.digital/expo-inovadora-2026" class="destaque-card fade-in">
+      <img src="clima/EXPO.png" alt="Cidade Expo Inovadora" loading="lazy" />
+      <div class="destaque-overlay">
+        <div class="destaque-name">Cidade Expo Inovadora</div>
+        <div class="destaque-desc">Bastidores e momentos da Expo Inovadora 2026.</div>
+        <div class="btn-watch">▶ Assistir</div>
+      </div>
+    </a>
+
+    <a href="https://tvmarataizes.digital/leituraemcena/" class="destaque-card fade-in">
+      <img src="clima/Leitura.png" alt="Leitura em Cena" loading="lazy" />
+      <div class="destaque-overlay">
+        <div class="destaque-name">Leitura em Cena</div>
+        <div class="destaque-desc">Filmes, músicas e obras audiovisuais com pensamento crítico.</div>
+        <div class="btn-watch">▶ Episódios</div>
+      </div>
+    </a>
+
+    <a href="https://tvmarataizes.digital/vitrine-marataizes.html" class="destaque-card fade-in">
+      <img src="clima/vitrine-thumb.png" alt="Vitrine Marataízes" loading="lazy" />
+      <div class="destaque-overlay">
+        <div class="destaque-name">Vitrine Marataízes</div>
+        <div class="destaque-desc">Promoções, novidades e oportunidades do comércio local.</div>
+        <div class="btn-watch">▶ Episódios</div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<div class="section" style="padding-top:36px; padding-bottom:48px;">
+  <div class="section-header">
+    <div class="section-title">Todos os <span>Programas</span></div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="programs-row">
+    <div class="prog-card"><img src="clima/dicasdefilmes.png" alt="Dicas de Filmes" loading="lazy" /></div>
+    <div class="prog-card"><img src="clima/morocanoticiasdiarias.png" alt="Moroco Notícias Diárias" loading="lazy" /></div>
+    <div class="prog-card"><img src="clima/historiasdeamoremcena.png" alt="Histórias de Amor em Cena" loading="lazy" /></div>
+    <div class="prog-card"><img src="clima/rebrincar.png" alt="Rebrincar" loading="lazy" /></div>
+    <div class="prog-card"><img src="clima/caindonatela.png" alt="Caindo na Tela" loading="lazy" /></div>
+    <div class="prog-card"><img src="clima/naosaimosda5serie.png" alt="Não Saímos da 5ª Série" loading="lazy" /></div>
+    <div class="prog-card"><img src="clima/claudiarayallar.png" alt="Claudia Rayallar" loading="lazy" /></div>
+    <div class="prog-card"><img src="clima/fala_marataizes.png" alt="Fala Marataízes" loading="lazy" /></div>
+    <div class="prog-card"><img src="clima/rota_300.png" alt="Rota 300" loading="lazy" /></div>
+    <div class="prog-card"><img src="clima/RAULjuremavaiok.png" alt="Raul Jurema" loading="lazy" /></div>
+    <div class="prog-card"><img src="clima/tal_mae_tal_filha.png" alt="Tal Mãe Tal Filha" loading="lazy" /></div>
+    <div class="prog-card"><img src="clima/saude_mental.png" alt="Saúde Mental" loading="lazy" /></div>
+    <div class="prog-card"><img src="clima/classicos_da_tela.png" alt="Clássicos da Tela" loading="lazy" /></div>
+    <div class="prog-card"><img src="clima/eeee.png" alt="Programa" loading="lazy" /></div>
+    <div class="prog-card"><img src="clima/GOODTIMES.png" alt="Good Times" loading="lazy" /></div>
+    <div class="prog-card"><img src="clima/perguntatorta.png" alt="Pergunta Torta" loading="lazy" /></div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-brand">TV <span>Marataízes</span></div>
+  <div class="footer-text">
+    Também na Soul TV · Canal 300<br>
+    Smart TVs, Android e iOS · Mais de 200 canais gratuitos
+  </div>
+</footer>
+
+<a class="cta-fixed" href="https://tvmarataizes.digital/planos.html">ANUNCIE AQUI</a>
+
 <script>
 (function(){
   var manifest = {
@@ -116,190 +601,63 @@ footer{
     description: "Emissora local ao vivo 24h",
     start_url: "/",
     display: "standalone",
-    background_color: "#000000",
-    theme_color: "#000000",
+    background_color: "#0a0a0a",
+    theme_color: "#0a0a0a",
     orientation: "landscape-primary",
     icons: [
       { src: "clima/logo_tv_marataizes.png", sizes: "192x192", type: "image/png" },
       { src: "clima/logo_tv_marataizes.png", sizes: "512x512", type: "image/png" }
     ]
   };
-  var blob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
-  var url  = URL.createObjectURL(blob);
+  var blob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
   var link = document.createElement('link');
-  link.rel  = 'manifest';
-  link.href = url;
+  link.rel = 'manifest';
+  link.href = URL.createObjectURL(blob);
   document.head.appendChild(link);
 })();
-</script>
 
-<!-- service worker embutido via Blob — não precisa de sw.js separado -->
-<script>
 if ('serviceWorker' in navigator) {
-  var swCode = [
-    "self.addEventListener('install',function(e){self.skipWaiting();});",
-    "self.addEventListener('activate',function(e){clients.claim();});"
-  ].join('\n');
-  var swBlob = new Blob([swCode], {type: 'text/javascript'});
-  var swUrl  = URL.createObjectURL(swBlob);
-  navigator.serviceWorker.register(swUrl).catch(function(){});
+  var swCode = "self.addEventListener('install',function(e){self.skipWaiting();});self.addEventListener('activate',function(e){clients.claim();});";
+  var swBlob = new Blob([swCode], {type:'text/javascript'});
+  navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(function(){});
 }
+
+var deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', function(e) {
+  e.preventDefault();
+  deferredPrompt = e;
+  var banner = document.getElementById('install-banner');
+  if (banner) banner.classList.add('visible');
+});
+
+document.getElementById('btn-install-pwa').addEventListener('click', function() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(function() {
+      deferredPrompt = null;
+      document.getElementById('install-banner').classList.remove('visible');
+    });
+  }
+});
+
+document.getElementById('btn-dismiss').addEventListener('click', function() {
+  document.getElementById('install-banner').classList.remove('visible');
+});
 </script>
 
-</head>
-
-<body>
-
-<header>TV MARATAÍZES — AO VIVO</header>
-<div style="text-align:center; max-width: 980px; margin: 6px auto 0; padding: 0 14px; font-size: 14px; line-height: 1.4; color: #ccc;">
-  TV Marataízes — emissora local multiplataforma e multicanal, com programação ao vivo 24h e atuação em comunicação territorial, cultura e entretenimento. Também disponível na plataforma SOUL TV - Canal 300
-</div>
-
-<!-- PLAYER AO VIVO -->
-<div class="player-outer">
-  <div class="player">
-    <iframe
-      id="castr-player"
-      src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
-      allow="autoplay; fullscreen"
-      allowfullscreen>
-    </iframe>
-  </div>
-</div>
-
-<!-- TÍTULO DA SESSÃO -->
-<section>
-  <h2>Programas da TV Marataízes</h2>
-</section>
-
-<!-- DOCUMENTÁRIO PREFEITO -->
-<section>
-  <div class="vitrine">
-    <a href="https://tvmarataizes.digital/marataizes-em-movimento">
-      <img src="clima/PREFEITO.png" alt="Marataízes está em movimento">
-    </a>
-    <div>
-      <h2>Marataízes está em movimento</h2>
-      <p>
-        Um registro documental sobre um momento de articulação e
-        desenvolvimento em Marataízes. A TV Marataízes acompanha
-        de perto os movimentos que ajudam a desenhar o futuro da cidade.
-      </p>
-      <a class="btn" href="https://tvmarataizes.digital/marataizes-em-movimento">
-        Assistir aqui
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- EXPO INOVADORA -->
-<section>
-  <div class="vitrine">
-    <a href="https://tvmarataizes.digital/expo-inovadora-2026">
-      <img src="clima/EXPO.png" alt="Cidade Expo Inovadora">
-    </a>
-    <div>
-      <h2>Cidade Expo Inovadora</h2>
-      <p>
-        A TV Marataízes registrou os bastidores e os momentos
-        mais importantes da Expo Inovadora, evento que conecta
-        educação, tecnologia e oportunidades para o município.
-      </p>
-      <a class="btn" href="https://tvmarataizes.digital/expo-inovadora-2026">
-        Assistir aqui
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- LEITURA EM CENA -->
-<section>
-  <div class="vitrine">
-    <img src="clima/Leitura.png" alt="Leitura em Cena">
-    <div>
-      <h2>Leitura em Cena</h2>
-      <p>
-        Um programa de análise e comentário que conecta filmes, músicas
-        e obras audiovisuais a contexto, linguagem e pensamento crítico.
-      </p>
-      <a class="btn" href="https://tvmarataizes.digital/leituraemcena/">
-        Assistir episódios
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- VITRINE -->
-<section>
-  <div class="vitrine">
-    <img src="clima/vitrine-thumb.png" alt="Vitrine Marataízes">
-    <div>
-      <h2>Vitrine Marataízes</h2>
-      <p>
-        A vitrine onde a população encontra promoções, novidades,
-        histórias e oportunidades do comércio local de Marataízes.
-      </p>
-      <a class="btn" href="https://tvmarataizes.digital/vitrine-marataizes.html">
-        Assistir episódios
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- THUMBS DOS OUTROS PROGRAMAS -->
-<section>
-  <div class="grid">
-    <div class="thumb"><img src="clima/dicasdefilmes.png"></div>
-    <div class="thumb"><img src="clima/morocanoticiasdiarias.png"></div>
-    <div class="thumb"><img src="clima/historiasdeamoremcena.png"></div>
-    <div class="thumb"><img src="clima/rebrincar.png"></div>
-    <div class="thumb"><img src="clima/caindonatela.png"></div>
-    <div class="thumb"><img src="clima/naosaimosda5serie.png"></div>
-    <div class="thumb"><img src="clima/claudiarayallar.png"></div>
-    <div class="thumb"><img src="clima/fala_marataizes.png"></div>
-    <div class="thumb"><img src="clima/rota_300.png"></div>
-    <div class="thumb"><img src="clima/RAULjuremavaiok.png"></div>
-    <div class="thumb"><img src="clima/tal_mae_tal_filha.png"></div>
-    <div class="thumb"><img src="clima/saude_mental.png"></div>
-    <div class="thumb"><img src="clima/classicos_da_tela.png"></div>
-    <div class="thumb"><img src="clima/eeee.png"></div>
-    <div class="thumb"><img src="clima/GOODTIMES.png"></div>
-    <div class="thumb"><img src="clima/perguntatorta.png"></div>
-  </div>
-</section>
-
-<a class="cta" href="https://tvmarataizes.digital/planos.html">ANUNCIE AQUI</a>
-
-<footer>
-  TV Marataízes também está na Soul TV<br>
-  Assista gratuitamente pelo aplicativo Soul TV — Canal 300<br>
-  Disponível para Smart TVs, Android e iOS<br>
-  📺 Mais de 200 canais gratuitos
-</footer>
-
-<!-- ============================================================
-     WATCHDOG v2 — TV MARATAÍZES (Chrome-compatible)
-     Realinha o stream HLS automaticamente sem recarregar a página.
-============================================================ -->
 <script>
 (function () {
   'use strict';
 
-  var BASE_SRC = 'https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on';
-
+  var BASE_SRC         = 'https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on';
   var SYNC_INTERVAL    = 3 * 60 * 1000;
   var HIDDEN_THRESHOLD = 10 * 1000;
 
   var hiddenAt  = null;
   var syncTimer = null;
 
-  function getIframe() {
-    return document.getElementById('castr-player');
-  }
-
-  function freshSrc() {
-    return BASE_SRC + '&_t=' + Date.now();
-  }
+  function getIframe() { return document.getElementById('castr-player'); }
+  function freshSrc()  { return BASE_SRC + '&_t=' + Date.now(); }
 
   function reloadPlayer() {
     var el = getIframe();
@@ -317,26 +675,18 @@ if ('serviceWorker' in navigator) {
       hiddenAt = Date.now();
     } else {
       if (hiddenAt !== null) {
-        var elapsed = Date.now() - hiddenAt;
-        if (elapsed > HIDDEN_THRESHOLD) {
-          reloadPlayer();
-        }
+        if (Date.now() - hiddenAt > HIDDEN_THRESHOLD) reloadPlayer();
         hiddenAt = null;
       }
     }
   });
 
-  window.addEventListener('focus', function () {
-    reloadPlayer();
-  });
+  window.addEventListener('focus', function () { reloadPlayer(); });
 
   var lastTick = Date.now();
   setInterval(function () {
     var now = Date.now();
-    var gap = now - lastTick;
-    if (gap > 3000) {
-      reloadPlayer();
-    }
+    if (now - lastTick > 3000) reloadPlayer();
     lastTick = now;
   }, 1000);
 
@@ -350,7 +700,6 @@ if ('serviceWorker' in navigator) {
   } else {
     init();
   }
-
 })();
 </script>
 
