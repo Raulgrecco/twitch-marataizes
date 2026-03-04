@@ -1,0 +1,15 @@
+{
+  "name": "TV Marataízes",
+  "short_name": "TV Marataízes",
+  "description": "Emissora local ao vivo 24h",
+  "start_url": "/aplicativo/",
+  "scope": "/aplicativo/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "orientation": "landscape-primary",
+  "icons": [
+    { "src": "../clima/logo_tv_marataizes.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "../clima/logo_tv_marataizes.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
