@@ -51,6 +51,7 @@ a   { text-decoration: none; color: inherit; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
+/* NAV */
 .nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -74,6 +75,12 @@ a   { text-decoration: none; color: inherit; }
 }
 
 .nav-logo span { color: var(--accent); }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
 
 .nav-live {
   display: flex;
@@ -99,6 +106,29 @@ a   { text-decoration: none; color: inherit; }
   50%       { opacity: 0.4; transform: scale(0.7); }
 }
 
+.nav-install-btn {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.nav-install-btn.visible { display: flex; }
+.nav-install-btn:hover { background: var(--accent2); }
+
+/* HERO */
 .hero {
   width: 100%;
   padding-top: 64px;
@@ -171,6 +201,7 @@ a   { text-decoration: none; color: inherit; }
   white-space: nowrap;
 }
 
+/* ANDROID BANNER */
 #install-banner {
   display: none;
   max-width: var(--max);
@@ -230,6 +261,89 @@ a   { text-decoration: none; color: inherit; }
   line-height: 1;
 }
 
+/* IOS BANNER */
+#ios-banner {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 200;
+  padding: 0 16px 16px;
+}
+
+#ios-banner.visible { display: block; }
+
+.ios-card {
+  background: #1c1c1e;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  padding: 18px 20px 14px;
+  position: relative;
+  box-shadow: 0 -8px 40px rgba(0,0,0,0.6);
+}
+
+.ios-arrow {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #1c1c1e;
+}
+
+.ios-title {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.ios-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.ios-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+}
+
+.ios-step-icon {
+  width: 36px; height: 36px;
+  background: rgba(255,111,0,0.15);
+  border: 1px solid rgba(255,111,0,0.3);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.ios-close {
+  display: block;
+  width: 100%;
+  background: rgba(255,255,255,0.08);
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* SECTIONS */
 .section {
   max-width: var(--max);
   margin: 0 auto;
@@ -252,22 +366,16 @@ a   { text-decoration: none; color: inherit; }
 }
 
 .section-title span { color: var(--accent); }
+.section-line { flex: 1; height: 1px; background: var(--border); }
 
-.section-line {
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
+/* DESTAQUE */
 .destaque-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
 }
 
-@media (max-width: 700px) {
-  .destaque-grid { grid-template-columns: 1fr; }
-}
+@media (max-width: 700px) { .destaque-grid { grid-template-columns: 1fr; } }
 
 .destaque-card {
   position: relative;
@@ -341,6 +449,7 @@ a   { text-decoration: none; color: inherit; }
 
 .btn-watch:hover { background: var(--accent2); }
 
+/* PROGRAMS ROW */
 .programs-row {
   display: flex;
   gap: 12px;
@@ -375,10 +484,11 @@ a   { text-decoration: none; color: inherit; }
 
 @media (max-width: 600px) { .prog-card { flex: 0 0 160px; } }
 
+/* FOOTER */
 .footer {
   max-width: var(--max);
   margin: 48px auto 0;
-  padding: 32px 32px 48px;
+  padding: 32px 32px 80px;
   border-top: 1px solid var(--border);
   display: flex;
   align-items: center;
@@ -450,14 +560,19 @@ a   { text-decoration: none; color: inherit; }
 
 <body>
 
+<!-- NAV -->
 <nav class="nav">
   <div class="nav-logo">TV <span>Marataízes</span></div>
-  <div class="nav-live">
-    <div class="live-dot"></div>
-    Ao vivo
+  <div class="nav-right">
+    <button class="nav-install-btn" id="nav-install-btn">⬇ Instalar App</button>
+    <div class="nav-live">
+      <div class="live-dot"></div>
+      Ao vivo
+    </div>
   </div>
 </nav>
 
+<!-- PLAYER -->
 <div class="hero">
   <div class="hero-player">
     <iframe
@@ -476,6 +591,7 @@ a   { text-decoration: none; color: inherit; }
   </div>
 </div>
 
+<!-- ANDROID INSTALL BANNER -->
 <div id="install-banner">
   <div class="install-card">
     <div class="install-text">
@@ -483,10 +599,34 @@ a   { text-decoration: none; color: inherit; }
       <span>Adicione à tela inicial e assista como um app</span>
     </div>
     <button class="btn-install" id="btn-install-pwa">⬇ Instalar App</button>
-    <button class="btn-dismiss" id="btn-dismiss">✕</button>
+    <button class="btn-dismiss" id="btn-dismiss-android">✕</button>
   </div>
 </div>
 
+<!-- IOS INSTALL BANNER -->
+<div id="ios-banner">
+  <div class="ios-card">
+    <div class="ios-title">📲 Instalar TV Marataízes no iPhone</div>
+    <div class="ios-steps">
+      <div class="ios-step">
+        <div class="ios-step-icon">⬆</div>
+        <span>Toque no botão <strong>Compartilhar</strong> na barra do Safari</span>
+      </div>
+      <div class="ios-step">
+        <div class="ios-step-icon">＋</div>
+        <span>Toque em <strong>"Adicionar à Tela de Início"</strong></span>
+      </div>
+      <div class="ios-step">
+        <div class="ios-step-icon">📺</div>
+        <span>Toque em <strong>"Adicionar"</strong> para confirmar</span>
+      </div>
+    </div>
+    <button class="ios-close" id="btn-dismiss-ios">Fechar</button>
+    <div class="ios-arrow"></div>
+  </div>
+</div>
+
+<!-- DESTAQUES -->
 <div class="section" style="padding-top:28px;">
   <div class="section-header">
     <div class="section-title">Em <span>Destaque</span></div>
@@ -533,6 +673,7 @@ a   { text-decoration: none; color: inherit; }
   </div>
 </div>
 
+<!-- PROGRAMAS -->
 <div class="section" style="padding-top:36px; padding-bottom:48px;">
   <div class="section-header">
     <div class="section-title">Todos os <span>Programas</span></div>
@@ -568,29 +709,58 @@ a   { text-decoration: none; color: inherit; }
 
 <a class="cta-fixed" href="https://tvmarataizes.digital/planos.html">ANUNCIE AQUI</a>
 
-<!-- PWA install prompt -->
+<!-- PWA + INSTALL LOGIC -->
 <script>
 var deferredPrompt = null;
+var isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+var isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+// ANDROID — captura o evento antes que o Chrome mostre o banner nativo
 window.addEventListener('beforeinstallprompt', function(e) {
   e.preventDefault();
   deferredPrompt = e;
   document.getElementById('install-banner').classList.add('visible');
+  document.getElementById('nav-install-btn').classList.add('visible');
 });
 
-document.getElementById('btn-install-pwa').addEventListener('click', function() {
+function triggerAndroidInstall() {
   if (deferredPrompt) {
     deferredPrompt.prompt();
     deferredPrompt.userChoice.then(function() {
       deferredPrompt = null;
       document.getElementById('install-banner').classList.remove('visible');
+      document.getElementById('nav-install-btn').classList.remove('visible');
     });
+  }
+}
+
+document.getElementById('btn-install-pwa').addEventListener('click', triggerAndroidInstall);
+document.getElementById('nav-install-btn').addEventListener('click', function() {
+  if (deferredPrompt) {
+    triggerAndroidInstall();
+  } else if (isIos) {
+    document.getElementById('ios-banner').classList.add('visible');
   }
 });
 
-document.getElementById('btn-dismiss').addEventListener('click', function() {
+document.getElementById('btn-dismiss-android').addEventListener('click', function() {
   document.getElementById('install-banner').classList.remove('visible');
 });
 
+// IOS — mostra banner com instruções manuais
+document.getElementById('btn-dismiss-ios').addEventListener('click', function() {
+  document.getElementById('ios-banner').classList.remove('visible');
+});
+
+// Mostra banner iOS automaticamente após 3s se for Safari no iPhone e não estiver instalado
+if (isIos && !isInStandaloneMode) {
+  setTimeout(function() {
+    document.getElementById('ios-banner').classList.add('visible');
+    document.getElementById('nav-install-btn').classList.add('visible');
+  }, 3000);
+}
+
+// Service Worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').catch(function(){});
 }
