@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Marataízes está em movimento — TV Marataízes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Tenor+Sans&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --ink: #0e0e0d;
+      --bone: #f0ebe3;
+      --warm-gray: #8c8680;
+      --accent: #b5974a;
+      --accent-light: #d4b978;
+      --line: rgba(14,14,13,0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bone);
+      color: var(--ink);
+      font-family: 'Tenor Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    .cursor {
+      width: 8px;
+      height: 8px;
+      background: var(--ink);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.15s ease, background 0.2s ease;
+      transform: translate(-50%, -50%);
+    }
+    .cursor-ring {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), opacity 0.2s;
+      transform: translate(-50%, -50%);
+      opacity: 0.5;
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 56px;
+      mix-blend-mode: multiply;
+    }
+
+    .logo-mark {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.7;
+    }
+
+    .header-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: var(--warm-gray);
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 56px 72px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 20%, rgba(181,151,74,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(14,14,13,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-counter {
+      position: absolute;
+      top: 50%;
+      right: 56px;
+      transform: translateY(-50%);
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      color: var(--warm-gray);
+      writing-mode: vertical-rl;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.8s forwards;
+    }
+
+    .hero-content { max-width: 860px; }
+
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 36px;
+      opacity: 0;
+      animation: slideUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
+    }
+
+    .hero-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(60px, 9vw, 130px);
+      font-weight: 300;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 44px;
+      opacity: 0;
+      animation: slideUp 1.1s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+    }
+
+    .hero-headline em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-family: 'Tenor Sans', sans-serif;
+      font-size: clamp(14px, 1.5vw, 18px);
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--warm-gray);
+      max-width: 480px;
+      margin-bottom: 52px;
+      opacity: 0;
+      animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) 0.8s forwards;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 18px;
+      opacity: 0;
+      animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) 1s forwards;
+      text-decoration: none;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      border: 1px solid var(--ink);
+      padding: 16px 36px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: transparent;
+      cursor: none;
+      transition: background 0.3s ease, color 0.3s ease;
+      text-decoration: none;
+    }
+
+    .cta-btn:hover {
+      background: var(--ink);
+      color: var(--bone);
+    }
+
+    .cta-btn svg {
+      width: 12px;
+      height: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .cta-btn:hover svg { transform: translateX(4px); }
+
+    .cta-duration {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      color: var(--warm-gray);
+    }
+
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .context-section {
+      padding: 120px 56px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .context-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+      padding-top: 6px;
+    }
+
+    .context-body { max-width: 680px; }
+
+    .context-body p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(20px, 2.2vw, 28px);
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--ink);
+      margin-bottom: 28px;
+    }
+
+    .context-body p:last-child { margin-bottom: 0; }
+
+    .context-body strong {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .video-section { padding: 0 56px 120px; }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: var(--ink);
+      overflow: hidden;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .quotes-section {
+      background: var(--ink);
+      color: var(--bone);
+    }
+
+    .quote-item {
+      padding: 80px 56px;
+      border-bottom: 1px solid rgba(240,235,227,0.08);
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 40px;
+      align-items: start;
+      transition: background 0.4s ease;
+    }
+
+    .quote-item:last-child { border-bottom: none; }
+    .quote-item:hover { background: rgba(240,235,227,0.03); }
+
+    .quote-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      padding-top: 12px;
+    }
+
+    .quote-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(30px, 4.5vw, 64px);
+      font-weight: 300;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--bone);
+    }
+
+    .quote-text em {
+      font-style: italic;
+      color: var(--accent-light);
+    }
+
+    .institutional-section {
+      background: var(--bone);
+      padding: 120px 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: end;
+      border-top: 1px solid var(--line);
+    }
+
+    .inst-left { max-width: 480px; }
+
+    .inst-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+      margin-bottom: 32px;
+    }
+
+    .inst-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 5vw, 72px);
+      font-weight: 300;
+      line-height: 1.0;
+      color: var(--ink);
+      margin-bottom: 36px;
+    }
+
+    .inst-desc {
+      font-family: 'Tenor Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--warm-gray);
+    }
+
+    .inst-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 32px;
+    }
+
+    .inst-stat { text-align: right; }
+
+    .inst-stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px;
+      font-weight: 300;
+      line-height: 1;
+      color: var(--ink);
+      display: block;
+    }
+
+    .inst-stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+    }
+
+    footer {
+      background: var(--ink);
+      padding: 48px 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--bone);
+      opacity: 0.6;
+    }
+
+    .footer-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: rgba(240,235,227,0.3);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 0.5; }
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9997;
+      opacity: 0.4;
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 24px 28px; }
+      .hero { padding: 0 28px 60px; min-height: 100svh; }
+      .hero-counter { display: none; }
+      .context-section { grid-template-columns: 1fr; gap: 32px; padding: 80px 28px; }
+      .video-section { padding: 0 28px 80px; }
+      .quote-item { grid-template-columns: 1fr; gap: 16px; padding: 60px 28px; }
+      .institutional-section { grid-template-columns: 1fr; gap: 60px; padding: 80px 28px; }
+      .inst-right { align-items: flex-start; flex-direction: row; flex-wrap: wrap; gap: 40px; }
+      .inst-stat { text-align: left; }
+      footer { flex-direction: column; gap: 16px; padding: 40px 28px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <header>
+    <span class="logo-mark">TV Marataízes</span>
+    <span class="header-year">Documentário — 2025</span>
+  </header>
+
+  <section class="hero">
+    <div class="hero-counter">Memória Institucional · 4 min</div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Um registro que permanece</p>
+      <h1 class="hero-headline">
+        Marataízes<br>está <em>em</em><br>movimento.
+      </h1>
+      <p class="hero-sub">
+        Quando uma cidade articula seu próprio futuro, alguém precisa registrar esse momento. Com precisão. Com responsabilidade. Com memória.
+      </p>
+      <a href="#video" class="hero-cta">
+        <span class="cta-btn">
+          Assistir ao documentário
+          <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 6H11M11 6L6 1M11 6L6 11" stroke="currentColor" stroke-width="1" stroke-linecap="square"/>
+          </svg>
+        </span>
+        <span class="cta-duration">4 minutos</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="context-section">
+    <div class="context-label reveal">Contexto</div>
+    <div class="context-body">
+      <p class="reveal">
+        Há momentos na trajetória de uma cidade que definem sua direção para os anos seguintes. Momentos em que a articulação entre poderes, a negociação institucional e o compromisso com o território produzem algo concreto — e necessário.
+      </p>
+      <p class="reveal">
+        Marataízes viveu um desses momentos. A aproximação entre o município e o Governo do Estado do Espírito Santo resultou em avanços que afetam diretamente a vida de quem habita esta cidade. <strong>A TV Marataízes esteve presente para documentá-lo.</strong>
+      </p>
+      <p class="reveal">
+        Não como cobertura de rotina. Como registro histórico.
+      </p>
+    </div>
+  </section>
+
+  <section class="video-section" id="video">
+    <div class="video-wrapper reveal">
+      <iframe
+        src="https://player.castr.com/vod/IbmihPljyY7i1cRi"
+        allow="autoplay; fullscreen"
+        allowfullscreen
+        frameborder="0"
+        scrolling="no"
+      ></iframe>
+    </div>
+  </section>
+
+  <section class="quotes-section">
+    <div class="quote-item">
+      <span class="quote-number">01</span>
+      <blockquote class="quote-text">
+        "Cidades crescem quando suas <em>lideranças</em> sabem dialogar além de suas fronteiras."
+      </blockquote>
+    </div>
+    <div class="quote-item">
+      <span class="quote-number">02</span>
+      <blockquote class="quote-text">
+        "O que foi <em>construído aqui</em> não começou com obras. Começou com conversas."
+      </blockquote>
+    </div>
+    <div class="quote-item">
+      <span class="quote-number">03</span>
+      <blockquote class="quote-text">
+        "Marataízes não espera. <em>Marataízes</em> articula."
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="institutional-section">
+    <div class="inst-left">
+      <p class="inst-eyebrow reveal">Sobre a TV Marataízes</p>
+      <h2 class="inst-name reveal">Quem constrói<br>narrativa,<br>constrói cidade.</h2>
+      <p class="inst-desc reveal">
+        A TV Marataízes não é apenas um veículo de comunicação regional. É uma plataforma de memória, uma câmera voltada para os processos que moldam o território. Cobrimos o que importa — não o que passa, mas o que fica.
+      </p>
+    </div>
+    <div class="inst-right">
+      <div class="inst-stat reveal">
+        <span class="inst-stat-number">+10</span>
+        <span class="inst-stat-label">Anos de cobertura local</span>
+      </div>
+      <div class="section-divider" style="width:100%; margin: 8px 0;"></div>
+      <div class="inst-stat reveal">
+        <span class="inst-stat-number">1</span>
+        <span class="inst-stat-label">Cidade. Registrada com rigor.</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-logo">TV Marataízes — Comunicação &amp; Memória Institucional</span>
+    <span class="footer-copy">Marataízes, Espírito Santo · Brasil</span>
+  </footer>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    const ring   = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.transform = `translate(${mx - 4}px, ${my - 4}px)`;
+    });
+
+    function animateRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.transform = `translate(${rx - 16}px, ${ry - 16}px)`;
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        ring.style.width = '56px';
+        ring.style.height = '56px';
+        ring.style.opacity = '0.3';
+      });
+      el.addEventListener('mouseleave', () => {
+        ring.style.width = '32px';
+        ring.style.height = '32px';
+        ring.style.opacity = '0.5';
+      });
+    });
+
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    reveals.forEach(el => observer.observe(el));
+
+    document.querySelectorAll('.context-body .reveal').forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.12}s`;
+    });
+  </script>
+</body>
+</html>
