@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>O Divã do Abacaxi · TV Marataízes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --amarelo: #f5c842;
+      --verde: #2d6a4f;
+      --roxo: #4a3560;
+      --roxo-claro: #7b5ea7;
+      --creme: #fdf8ee;
+      --escuro: #1a1228;
+      --texto: #2e2438;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--escuro);
+      color: var(--creme);
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--escuro);
+      border-bottom: 1px solid rgba(245,200,66,0.15);
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-logo {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(253,248,238,0.5);
+      text-decoration: none;
+    }
+
+    .header-logo span {
+      color: var(--amarelo);
+      font-weight: 500;
+    }
+
+    .hero {
+      padding: 64px 32px 48px;
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(245,200,66,0.12);
+      border: 1px solid rgba(245,200,66,0.3);
+      color: var(--amarelo);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--creme);
+      margin-bottom: 8px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--amarelo);
+    }
+
+    .hero-desc {
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(253,248,238,0.65);
+      max-width: 520px;
+    }
+
+    .hero-abacaxi {
+      font-size: clamp(72px, 10vw, 110px);
+      line-height: 1;
+      filter: drop-shadow(0 0 40px rgba(245,200,66,0.3));
+      animation: flutuando 4s ease-in-out infinite;
+      user-select: none;
+    }
+
+    @keyframes flutuando {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .divider {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 32px;
+      border-top: 1px solid rgba(245,200,66,0.1);
+    }
+
+    .episodios-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 48px 32px 80px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(253,248,238,0.35);
+      margin-bottom: 32px;
+    }
+
+    .ep-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(245,200,66,0.15);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      transition: border-color 0.3s, background 0.3s;
+    }
+
+    .ep-card:hover {
+      border-color: rgba(245,200,66,0.4);
+      background: rgba(245,200,66,0.04);
+    }
+
+    .ep-card.ativo {
+      border-color: var(--amarelo);
+      background: rgba(245,200,66,0.04);
+    }
+
+    .ep-header {
+      padding: 22px 26px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      cursor: pointer;
+    }
+
+    .ep-numero {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(245,200,66,0.1);
+      border: 1px solid rgba(245,200,66,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--amarelo);
+      flex-shrink: 0;
+    }
+
+    .ep-info { flex: 1; }
+
+    .ep-tag {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amarelo);
+      opacity: 0.6;
+      margin-bottom: 3px;
+    }
+
+    .ep-titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(15px, 2.2vw, 19px);
+      font-weight: 700;
+      color: var(--creme);
+      line-height: 1.3;
+    }
+
+    .ep-subtitulo {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(253,248,238,0.4);
+      margin-top: 3px;
+    }
+
+    .ep-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--amarelo);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .ep-btn:hover { transform: scale(1.1); background: #ffd740; }
+
+    .ep-btn svg {
+      width: 15px;
+      height: 15px;
+      fill: var(--escuro);
+      margin-left: 2px;
+    }
+
+    .ep-btn.pausar svg { margin-left: 0; }
+
+    .player-wrapper {
+      display: none;
+      padding: 0 26px 26px;
+      animation: fadeIn 0.35s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .player-wrapper iframe {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border: none;
+      border-radius: 10px;
+      background: #000;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 28px 32px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 300;
+      color: rgba(253,248,238,0.25);
+      letter-spacing: 0.05em;
+    }
+
+    footer a {
+      color: var(--amarelo);
+      opacity: 0.6;
+      text-decoration: none;
+    }
+
+    footer a:hover { opacity: 1; }
+
+    @media (max-width: 600px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 40px 20px 32px;
+        gap: 0;
+      }
+      .hero-abacaxi { display: none; }
+      .episodios-section { padding: 32px 20px 60px; }
+      header { padding: 16px 20px; }
+      .ep-header { padding: 18px 18px; gap: 12px; }
+      .player-wrapper { padding: 0 18px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="https://tvmarataizes.digital" class="header-logo">
+      <span>TV Marataízes</span> · VOD
+    </a>
+  </header>
+
+  <section class="hero">
+    <div>
+      <span class="hero-badge">Programa</span>
+      <h1>O Divã do<br><em>Abacaxi</em></h1>
+      <p class="hero-desc">
+        Um abacaxi no divã. Um terapeuta com paciência infinita. Conversas sobre o que todo mundo sente mas poucos conseguem nomear — ansiedade, dinheiro, redes sociais e o peso do amanhã que ainda não chegou.
+      </p>
+    </div>
+    <div class="hero-abacaxi">🍍</div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="episodios-section">
+    <p class="section-title">Escolha um episódio</p>
+
+    <div class="ep-card" id="ep1">
+      <div class="ep-header" onclick="toggleEp('ep1','https://player.castr.com/vod/RPzS5HFVvyBeUpXG')">
+        <div class="ep-numero">1</div>
+        <div class="ep-info">
+          <div class="ep-tag">Episódio 1</div>
+          <div class="ep-titulo">O Peso do Amanhã que Ainda Não Chegou</div>
+          <div class="ep-subtitulo">Ansiedade, presença e o custo de viver no futuro</div>
+        </div>
+        <button class="ep-btn" id="btn-ep1" aria-label="Assistir episódio 1">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+      <div class="player-wrapper" id="player-ep1"></div>
+    </div>
+
+    <div class="ep-card" id="ep2">
+      <div class="ep-header" onclick="toggleEp('ep2','https://player.castr.com/vod/YtyvRp7AUA2wizKH')">
+        <div class="ep-numero">2</div>
+        <div class="ep-info">
+          <div class="ep-tag">Episódio 2</div>
+          <div class="ep-titulo">Episódio 2</div>
+          <div class="ep-subtitulo">O Divã do Abacaxi · TV Marataízes</div>
+        </div>
+        <button class="ep-btn" id="btn-ep2" aria-label="Assistir episódio 2">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+      <div class="player-wrapper" id="player-ep2"></div>
+    </div>
+
+    <div class="ep-card" id="ep3">
+      <div class="ep-header" onclick="toggleEp('ep3','https://player.castr.com/vod/zzH8A07y2Cg9nsdJ')">
+        <div class="ep-numero">3</div>
+        <div class="ep-info">
+          <div class="ep-tag">Episódio 3</div>
+          <div class="ep-titulo">Episódio 3</div>
+          <div class="ep-subtitulo">O Divã do Abacaxi · TV Marataízes</div>
+        </div>
+        <button class="ep-btn" id="btn-ep3" aria-label="Assistir episódio 3">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+      <div class="player-wrapper" id="player-ep3"></div>
+    </div>
+
+  </section>
+
+  <footer>
+    <a href="https://tvmarataizes.digital">← Voltar para TV Marataízes</a>
+    &nbsp;·&nbsp; © TV Marataízes · O Divã do Abacaxi
+  </footer>
+
+  <script>
+    let aberto = null;
+
+    function toggleEp(id, src) {
+      const card = document.getElementById(id);
+      const playerDiv = document.getElementById('player-' + id);
+      const btn = document.getElementById('btn-' + id);
+
+      if (aberto && aberto !== id) {
+        const antCard = document.getElementById(aberto);
+        const antPlayer = document.getElementById('player-' + aberto);
+        const antBtn = document.getElementById('btn-' + aberto);
+        antCard.classList.remove('ativo');
+        antPlayer.style.display = 'none';
+        antPlayer.innerHTML = '';
+        antBtn.className = 'ep-btn';
+        antBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+      }
+
+      if (card.classList.contains('ativo')) {
+        card.classList.remove('ativo');
+        playerDiv.style.display = 'none';
+        playerDiv.innerHTML = '';
+        btn.className = 'ep-btn';
+        btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+        aberto = null;
+      } else {
+        card.classList.add('ativo');
+        playerDiv.style.display = 'block';
+        playerDiv.innerHTML = `<iframe src="${src}" allowfullscreen allow="autoplay; fullscreen"></iframe>`;
+        btn.className = 'ep-btn pausar';
+        btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+        aberto = id;
+        setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 120);
+      }
+    }
+  </script>
+
+</body>
+</html>
