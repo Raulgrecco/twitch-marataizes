@@ -125,6 +125,27 @@ footer{
   <h2>Programas da TV Marataízes</h2>
 </section>
 
+<!-- DIVÃ DO ABACAXI -->
+<section>
+  <div class="vitrine">
+    <a href="https://tvmarataizes.digital/diva/">
+      <img src="clima/diva.png" alt="O Divã do Abacaxi">
+    </a>
+    <div>
+      <h2>O Divã do Abacaxi</h2>
+      <p>
+        Um abacaxi no divã. Um terapeuta com paciência infinita.
+        Conversas sobre o que todo mundo sente mas poucos conseguem
+        nomear — ansiedade, dinheiro, redes sociais e o peso do
+        amanhã que ainda não chegou.
+      </p>
+      <a class="btn" href="https://tvmarataizes.digital/diva/">
+        Assistir episódios
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- DOCUMENTÁRIO PREFEITO -->
 <section>
   <div class="vitrine">
@@ -240,10 +261,7 @@ footer{
 
   var BASE_SRC = 'https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on';
 
-  // Realinha a cada 3 minutos preventivamente
   var SYNC_INTERVAL = 3 * 60 * 1000;
-
-  // Se a aba ficou oculta por mais de 10s, realinha ao voltar
   var HIDDEN_THRESHOLD = 10 * 1000;
 
   var hiddenAt  = null;
@@ -263,13 +281,11 @@ footer{
     el.src = freshSrc();
   }
 
-  // Realinhamento preventivo periódico
   function startSync() {
     clearInterval(syncTimer);
     syncTimer = setInterval(reloadPlayer, SYNC_INTERVAL);
   }
 
-  // Quando aba some e volta — principal causa de drift no Chrome
   document.addEventListener('visibilitychange', function () {
     if (document.visibilityState === 'hidden') {
       hiddenAt = Date.now();
@@ -284,12 +300,10 @@ footer{
     }
   });
 
-  // Quando a janela perde e ganha foco (troca de app, alt+tab)
   window.addEventListener('focus', function () {
     reloadPlayer();
   });
 
-  // Detecta suspensão silenciosa de aba pelo Chrome
   var lastTick = Date.now();
   setInterval(function () {
     var now = Date.now();
