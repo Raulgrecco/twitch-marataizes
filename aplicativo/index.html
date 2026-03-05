@@ -550,6 +550,7 @@ a   { text-decoration: none; color: inherit; }
 .fade-in:nth-child(2) { animation-delay: 0.12s; }
 .fade-in:nth-child(3) { animation-delay: 0.19s; }
 .fade-in:nth-child(4) { animation-delay: 0.26s; }
+.fade-in:nth-child(5) { animation-delay: 0.33s; }
 
 @media (max-width: 600px) {
   .nav { padding: 0 16px; }
@@ -634,6 +635,16 @@ a   { text-decoration: none; color: inherit; }
   </div>
   <div class="destaque-grid">
 
+    <!-- DIVÃ DO ABACAXI -->
+    <a href="https://tvmarataizes.digital/diva/" class="destaque-card fade-in">
+      <img src="../clima/diva.png" alt="O Divã do Abacaxi" loading="lazy" />
+      <div class="destaque-overlay">
+        <div class="destaque-name">O Divã do Abacaxi</div>
+        <div class="destaque-desc">Conversas sobre ansiedade, dinheiro, redes sociais e o peso do amanhã que ainda não chegou.</div>
+        <div class="btn-watch">▶ Episódios</div>
+      </div>
+    </a>
+
     <a href="https://tvmarataizes.digital/marataizes-em-movimento" class="destaque-card fade-in">
       <img src="../clima/PREFEITO.png" alt="Marataízes está em movimento" loading="lazy" />
       <div class="destaque-overlay">
@@ -715,7 +726,6 @@ var deferredPrompt = null;
 var isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
 var isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 
-// ANDROID — captura o evento antes que o Chrome mostre o banner nativo
 window.addEventListener('beforeinstallprompt', function(e) {
   e.preventDefault();
   deferredPrompt = e;
@@ -747,12 +757,10 @@ document.getElementById('btn-dismiss-android').addEventListener('click', functio
   document.getElementById('install-banner').classList.remove('visible');
 });
 
-// IOS — mostra banner com instruções manuais
 document.getElementById('btn-dismiss-ios').addEventListener('click', function() {
   document.getElementById('ios-banner').classList.remove('visible');
 });
 
-// Mostra banner iOS automaticamente após 3s se for Safari no iPhone e não estiver instalado
 if (isIos && !isInStandaloneMode) {
   setTimeout(function() {
     document.getElementById('ios-banner').classList.add('visible');
@@ -760,7 +768,6 @@ if (isIos && !isInStandaloneMode) {
   }, 3000);
 }
 
-// Service Worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').catch(function(){});
 }
@@ -800,4 +807,4 @@ if ('serviceWorker' in navigator) {
 </script>
 
 </body>
-</html>
+</html>v
