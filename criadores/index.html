@@ -95,7 +95,7 @@ footer{background:var(--red);color:rgba(247,242,235,.85);padding:32px 52px;displ
   <div class="nav-links">
     <a href="/">Início</a>
     <a href="/criadores/" class="active">Criadores</a>
-    <a href="/#cadastro">Cadastre-se</a>
+    <a href="/index.html#cadastro">Cadastre-se</a>
   </div>
 </nav>
 
@@ -143,7 +143,7 @@ footer{background:var(--red);color:rgba(247,242,235,.85);padding:32px 52px;displ
     <h3>Você é criador da orla?</h3>
     <p>Cadastre-se e apareça nesse mapa.</p>
   </div>
-  <a href="/#cadastro" class="cta-btn">Quero me cadastrar →</a>
+  <a href="/index.html#cadastro" class="cta-btn">Quero me cadastrar →</a>
 </div>
 
 <footer>
@@ -163,22 +163,18 @@ const COORDS = {
   'Outra':      [-21.05,   -40.85]
 };
 
-// ✅ COLE AQUI a URL do Apps Script quando tiver
-// Substitua a linha abaixo pela sua URL
 const SHEET_URL = 'https://script.google.com/macros/s/SUA_URL_AQUI/exec';
 
-// Dados de exemplo enquanto a planilha não está conectada
 const EXEMPLOS = [
   { nome: 'Gabriel Silva',   cidade: 'Marataízes', whatsapp: '5528999990001', instagram: '@gabriel.cria', linguagens: 'Beat / Produção Musical, Vídeo / Audiovisual',  descricao: 'Produtor musical e videomaker da orla.' },
   { nome: 'Ana Beats',       cidade: 'Marataízes', whatsapp: '5528999990002', instagram: '@anabeats',      linguagens: 'Beat / Produção Musical, Canto / Rap / Música', descricao: 'MC e produtora de rap consciente.' },
-  { nome: 'Raul Marques',    cidade: 'Itapemirim', whatsapp: '5528999990003', instagram: '@raulmarques',   linguagens: 'Vídeo / Audiovisual, Atuação / Teatro',          descricao: 'Cineasta e ator independente.' },
+  { nome: 'Cleiton Marques',    cidade: 'Itapemirim', whatsapp: '5528999990003', instagram: '@raulmarques',   linguagens: 'Vídeo / Audiovisual, Atuação / Teatro',          descricao: 'Cineasta e ator independente.' },
   { nome: 'Bia Dança',       cidade: 'Piúma',      whatsapp: '5528999990004', instagram: '@biadanca',      linguagens: 'Dança',                                          descricao: 'Bailarina e professora de dança contemporânea.' },
   { nome: 'Léo Escritor',    cidade: 'Kennedy',    whatsapp: '5528999990005', instagram: '@leo.escreve',   linguagens: 'Escrita / Poesia',                               descricao: 'Poeta e escritor da orla sul.' },
   { nome: 'Carol Canta',     cidade: 'Marataízes', whatsapp: '5528999990006', instagram: '@carolcanta',    linguagens: 'Canto / Rap / Música, Escrita / Poesia',         descricao: 'Cantora e compositora.' }
 ];
 
 let todosCriadores = [];
-let filtroAtivo = 'todos';
 let mapa, markers = [];
 
 function iniciarMapa() {
@@ -211,7 +207,6 @@ function renderMapa(lista) {
   });
   Object.entries(grupos).forEach(([cidade, criadores]) => {
     const coords = COORDS[cidade] || COORDS['Outra'];
-    const lings = criadores.map(c => (c.linguagens||'').split(',').map(l => `<span class="popup-ling">${l.trim()}</span>`).join('')).join('');
     const nomes = criadores.map(c => {
       const wpp = c.whatsapp ? `<a class="popup-wpp" href="https://wa.me/${c.whatsapp.replace(/\D/g,'')}" target="_blank">WhatsApp</a>` : '';
       return `<div style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(247,242,235,.08)">
@@ -258,7 +253,6 @@ function atualizarStats(lista) {
 }
 
 function aplicarFiltro(filtro) {
-  filtroAtivo = filtro;
   document.querySelectorAll('.filtro-btn').forEach(b => b.classList.toggle('ativo', b.dataset.filtro === filtro));
   let lista = todosCriadores;
   if (filtro !== 'todos') {
