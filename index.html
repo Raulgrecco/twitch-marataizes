@@ -252,8 +252,10 @@ footer{
 </footer>
 
 <!-- ============================================================
-     WATCHDOG v2 — TV MARATAÍZES (Chrome-compatible)
-     Realinha o stream HLS automaticamente sem recarregar a página.
+     WATCHDOG v3 — TV MARATAÍZES
+     Corrige dessincronização áudio/vídeo no Chrome (áudio adiantado).
+     Zera src para about:blank antes de recarregar — força o Chrome
+     a destruir e recriar os pipelines de áudio e vídeo juntos.
 ============================================================ -->
 <script>
 (function () {
@@ -261,8 +263,9 @@ footer{
 
   var BASE_SRC = 'https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on';
 
-  var SYNC_INTERVAL = 3 * 60 * 1000;
-  var HIDDEN_THRESHOLD = 10 * 1000;
+  var SYNC_INTERVAL    = 4 * 60 * 1000;
+  var HIDDEN_THRESHOLD = 8 * 1000;
+  var RELOAD_BLANK_MS  = 400;
 
   var hiddenAt  = null;
   var syncTimer = null;
@@ -278,7 +281,10 @@ footer{
   function reloadPlayer() {
     var el = getIframe();
     if (!el) return;
-    el.src = freshSrc();
+    el.src = 'about:blank';
+    setTimeout(function () {
+      el.src = freshSrc();
+    }, RELOAD_BLANK_MS);
   }
 
   function startSync() {
@@ -307,8 +313,7 @@ footer{
   var lastTick = Date.now();
   setInterval(function () {
     var now = Date.now();
-    var gap = now - lastTick;
-    if (gap > 3000) {
+    if (now - lastTick > 4000) {
       reloadPlayer();
     }
     lastTick = now;
