@@ -15,6 +15,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 .nav-links{display:flex;gap:32px}
 .nav-links a{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
 .nav-links a:hover{color:var(--ink)}
+.nav-links a.destaque{color:var(--red);border:1px solid var(--red);padding:6px 14px}
+.nav-links a.destaque:hover{background:var(--red);color:#fff}
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:120px 52px 80px;gap:80px;position:relative;overflow:hidden}
 .hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 .kicker{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--red);font-weight:500;margin-bottom:24px}
@@ -53,6 +55,11 @@ h2 em{font-style:italic;color:var(--red)}
 .pn{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--muted);transition:color .2s}
 .pt{font-size:14px;font-weight:500;margin-bottom:3px;transition:color .2s}
 .pd{font-size:13px;color:var(--muted);transition:color .2s}
+.criadores-cta{background:var(--ink);padding:80px 52px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:32px}
+.criadores-cta-text h2{color:var(--cream);margin-bottom:8px}
+.criadores-cta-text p{color:rgba(247,242,235,.5);font-size:16px;max-width:420px}
+.criadores-cta-btn{background:var(--gold);color:var(--ink);font-family:'Playfair Display',serif;font-size:20px;font-weight:700;padding:18px 44px;text-decoration:none;transition:background .15s,transform .12s;white-space:nowrap}
+.criadores-cta-btn:hover{background:#e0b52a;transform:translateY(-2px)}
 .formulario{background:var(--ink)}
 .formulario h2{color:var(--cream)}
 .form-desc{font-size:16px;color:rgba(247,242,235,.5);margin-bottom:48px;max-width:500px;line-height:1.8}
@@ -88,6 +95,7 @@ footer{background:var(--red);color:rgba(247,242,235,.85);padding:40px 52px;displ
   .cert-card{display:none}
   section{padding:80px 22px}
   .sobre{grid-template-columns:1fr;gap:40px}
+  .criadores-cta{padding:60px 22px;flex-direction:column;align-items:flex-start}
   .cboxes{grid-template-columns:1fr}
   footer{padding:32px 22px}.f-meta{text-align:left}
 }
@@ -96,10 +104,11 @@ footer{background:var(--red);color:rgba(247,242,235,.85);padding:40px 52px;displ
 <body>
 
 <nav>
-  <a class="nav-logo" href="#">Cinema e Artes Marataízes</a>
+  <a class="nav-logo" href="/">Cinema e Artes Marataízes</a>
   <div class="nav-links">
     <a href="#sobre">O que é</a>
-    <a href="#cadastro">Cadastro</a>
+    <a href="/criadores/">Criadores</a>
+    <a href="#cadastro" class="destaque">Cadastre-se</a>
   </div>
 </nav>
 
@@ -146,13 +155,20 @@ footer{background:var(--red);color:rgba(247,242,235,.85);padding:40px 52px;displ
   </div>
 </section>
 
+<div class="criadores-cta fu">
+  <div class="criadores-cta-text">
+    <h2>Veja os <em>Criadores</em><br>da Orla</h2>
+    <p>Marataízes, Itapemirim, Piúma e Kennedy — todos no mapa.</p>
+  </div>
+  <a href="/criadores/" class="criadores-cta-btn">Ver o mapa →</a>
+</div>
+
 <section class="formulario" id="cadastro">
   <span class="slabel">Faça parte</span>
   <h2 class="fu">Cadastro de<br><em>Criadores</em></h2>
   <p class="form-desc fu">Preencha e entre para o mapa de criadores da nossa orla. Marataízes, Itapemirim, Piúma, Kennedy — todos unidos.</p>
 
   <form id="formCriador" class="fu" action="https://formspree.io/f/mqeyajpo" method="POST">
-
     <div class="fg"><label>Nome completo *</label><input type="text" name="nome" placeholder="Seu nome artístico ou civil" required></div>
     <div class="fg"><label>Cidade *</label>
       <select name="cidade" required>
@@ -175,7 +191,6 @@ footer{background:var(--red);color:rgba(247,242,235,.85);padding:40px 52px;displ
       </div>
     </div>
     <div class="fg"><label>Sobre o que você cria</label><textarea name="descricao" placeholder="Projetos, ideias, o que você está desenvolvendo…"></textarea></div>
-
     <button type="submit" class="submit" id="submitBtn">Entrar para o mapa →</button>
     <div class="success" id="ok">✅ Cadastro enviado com sucesso! A equipe entra em contato em breve.</div>
     <div class="errmsg" id="err">❌ Algo deu errado. Tente pelo WhatsApp: (28) 99903-6141</div>
@@ -203,7 +218,6 @@ form.addEventListener('submit', async function(e) {
   btn.textContent = 'Enviando…';
   ok.style.display = 'none';
   err.style.display = 'none';
-
   try {
     const res = await fetch(form.action, {
       method: 'POST',
@@ -220,7 +234,6 @@ form.addEventListener('submit', async function(e) {
   } catch {
     err.style.display = 'block';
   }
-
   btn.disabled = false;
   btn.textContent = 'Entrar para o mapa →';
 });
