@@ -3,101 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ponto de Cultura — Cinema e Artes Marataízes</title>
+<title>Criadores da Orla — TV Marataízes</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{--ink:#0d0d0d;--cream:#f7f2eb;--red:#c8281e;--gold:#c9a227;--blue:#1a3a6b;--muted:#8a8070}
 html{scroll-behavior:smooth}
-body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;line-height:1.7}
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:18px 52px;background:rgba(247,242,235,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(13,13,13,.07)}
-.nav-logo{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--ink);text-decoration:none}
+body{background:var(--ink);color:var(--cream);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;line-height:1.7}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:18px 52px;background:rgba(13,13,13,.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(247,242,235,.07)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--cream);text-decoration:none}
 .nav-links{display:flex;gap:32px}
 .nav-links a{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
-.nav-links a:hover{color:var(--ink)}
-.nav-links a.destaque{color:var(--red);border:1px solid var(--red);padding:6px 14px}
-.nav-links a.destaque:hover{background:var(--red);color:#fff}
-.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:120px 52px 80px;gap:80px;position:relative;overflow:hidden}
-.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.kicker{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--red);font-weight:500;margin-bottom:24px}
-.kicker::before{content:'';display:block;width:28px;height:1px;background:var(--red)}
-h1{font-family:'Playfair Display',serif;font-size:clamp(44px,5vw,80px);font-weight:900;line-height:1.02;letter-spacing:-2px;margin-bottom:24px}
-h1 em{font-style:italic;color:var(--red)}
-.hero-body{font-size:17px;color:var(--muted);max-width:420px;margin-bottom:40px;line-height:1.85}
-.badges{display:flex;gap:10px;flex-wrap:wrap}
-.badge{font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:7px 16px;border:1px solid currentColor}
-.badge-r{color:var(--red)}.badge-b{color:var(--blue)}.badge-g{color:var(--gold)}
-.cert-card{background:#fff;border:1px solid rgba(13,13,13,.09);padding:44px 36px;box-shadow:0 24px 80px rgba(13,13,13,.1);position:relative;animation:float 6s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.cert-card::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--red),var(--gold),var(--blue))}
-.cm{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
-.cn{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--blue);line-height:1.2;margin-bottom:6px}
-.cs{font-size:13px;color:var(--muted);margin-bottom:24px}
-.cid{display:inline-block;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;background:var(--cream);padding:5px 12px}
-.cdiv{height:1px;background:rgba(13,13,13,.08);margin:24px 0}
-.cmeta{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.cmeta-i label{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
-.cmeta-i span{font-size:14px;font-weight:500}
-.cseal{position:absolute;bottom:28px;right:28px;width:50px;height:50px;border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--gold)}
-section{padding:110px 52px}
-.slabel{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:block}
-h2{font-family:'Playfair Display',serif;font-size:clamp(34px,4vw,54px);font-weight:900;line-height:1.08;letter-spacing:-1px;margin-bottom:20px}
-h2 em{font-style:italic;color:var(--red)}
-.sobre{background:#fff;display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center}
-.sobre p{font-size:16px;color:var(--muted);margin-bottom:18px;line-height:1.85}
-.sobre strong{color:var(--ink);font-weight:500}
-.pilares{display:flex;flex-direction:column;gap:2px}
-.pilar{display:grid;grid-template-columns:44px 1fr;gap:18px;align-items:start;padding:22px 24px;background:var(--cream);transition:background .2s;cursor:default}
-.pilar:hover{background:var(--ink)}
-.pilar:hover .pn{color:var(--gold)}
-.pilar:hover .pt{color:var(--cream)}
-.pilar:hover .pd{color:rgba(247,242,235,.55)}
-.pn{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--muted);transition:color .2s}
-.pt{font-size:14px;font-weight:500;margin-bottom:3px;transition:color .2s}
-.pd{font-size:13px;color:var(--muted);transition:color .2s}
-.criadores-cta{background:var(--ink);padding:80px 52px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:32px}
-.criadores-cta-text h2{color:var(--cream);margin-bottom:8px}
-.criadores-cta-text p{color:rgba(247,242,235,.5);font-size:16px;max-width:420px}
-.criadores-cta-btn{background:var(--gold);color:var(--ink);font-family:'Playfair Display',serif;font-size:20px;font-weight:700;padding:18px 44px;text-decoration:none;transition:background .15s,transform .12s;white-space:nowrap}
-.criadores-cta-btn:hover{background:#e0b52a;transform:translateY(-2px)}
-.formulario{background:var(--ink)}
-.formulario h2{color:var(--cream)}
-.form-desc{font-size:16px;color:rgba(247,242,235,.5);margin-bottom:48px;max-width:500px;line-height:1.8}
-form{max-width:640px}
-.fg{margin-bottom:24px}
-label{display:block;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
-input,select,textarea{width:100%;background:rgba(247,242,235,.05);border:none;border-bottom:1px solid rgba(247,242,235,.2);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:15px;padding:13px 0;outline:none;transition:border-color .2s;-webkit-appearance:none;border-radius:0}
-input:focus,select:focus,textarea:focus{border-color:var(--gold)}
-input::placeholder,textarea::placeholder{color:rgba(247,242,235,.25)}
-select option{background:#1a1a1a;color:var(--cream)}
-textarea{resize:vertical;min-height:100px}
-.cboxes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.cbox{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid rgba(247,242,235,.1);cursor:pointer;transition:border-color .2s,background .2s}
-.cbox:hover{border-color:var(--gold);background:rgba(201,162,39,.07)}
-.cbox input[type=checkbox]{width:16px;height:16px;padding:0;accent-color:var(--gold);cursor:pointer;flex-shrink:0}
-.cbox span{font-size:13px;color:rgba(247,242,235,.8)}
-.submit{background:var(--gold);color:var(--ink);font-family:'Playfair Display',serif;font-size:20px;font-weight:700;letter-spacing:1px;padding:18px 0;border:none;cursor:pointer;width:100%;margin-top:12px;transition:background .15s,transform .12s}
-.submit:hover{background:#e0b52a;transform:translateY(-2px)}
-.submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
-.success{display:none;background:rgba(39,201,63,.1);border:1px solid #27c93f;color:#27c93f;padding:24px;font-size:15px;margin-top:20px;text-align:center;line-height:1.8}
-.errmsg{display:none;background:rgba(200,40,30,.1);border:1px solid var(--red);color:#ff6b6b;padding:20px 24px;font-size:15px;margin-top:20px;text-align:center}
-.form-note{font-size:12px;color:rgba(247,242,235,.3);margin-top:20px;line-height:1.8;text-align:center}
-.form-note a{color:var(--gold);text-decoration:none}
-footer{background:var(--red);color:rgba(247,242,235,.85);padding:40px 52px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
-.f-brand{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff}
-.f-meta{font-size:12px;letter-spacing:1px;line-height:1.9;text-align:right}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.hero{padding:140px 52px 60px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(201,162,39,.12) 0%,transparent 70%);pointer-events:none}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:20px}
+.kicker::before{content:'';display:block;width:28px;height:1px;background:var(--gold)}
+h1{font-family:'Playfair Display',serif;font-size:clamp(48px,7vw,96px);font-weight:900;line-height:.95;letter-spacing:-2px;margin-bottom:20px}
+h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:17px;color:rgba(247,242,235,.5);max-width:500px;margin-bottom:40px}
+.stats{display:flex;gap:48px;flex-wrap:wrap}
+.stat-item{display:flex;flex-direction:column;gap:4px}
+.stat-num{font-family:'Playfair Display',serif;font-size:40px;font-weight:900;color:var(--gold);line-height:1}
+.stat-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.filtros{padding:0 52px 40px;display:flex;gap:10px;flex-wrap:wrap}
+.filtro-btn{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:8px 20px;border:1px solid rgba(247,242,235,.15);background:transparent;color:rgba(247,242,235,.5);cursor:pointer;transition:all .2s}
+.filtro-btn:hover,.filtro-btn.ativo{border-color:var(--gold);color:var(--gold);background:rgba(201,162,39,.08)}
+.mapa-wrapper{margin:0 52px;border:1px solid rgba(247,242,235,.08);position:relative}
+.mapa-wrapper::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--gold),var(--blue));z-index:10}
+#mapa{height:520px;width:100%;background:#111}
+.leaflet-popup-content-wrapper{background:var(--ink);border:1px solid rgba(201,162,39,.3);border-radius:0;box-shadow:0 8px 40px rgba(0,0,0,.6)}
+.leaflet-popup-tip{background:var(--ink)}
+.leaflet-popup-content{margin:0;padding:0}
+.popup-inner{padding:20px 24px;min-width:200px}
+.popup-nome{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--cream);margin-bottom:4px}
+.popup-cidade{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.popup-lings{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.popup-ling{font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border:1px solid rgba(201,162,39,.3);color:rgba(247,242,235,.6)}
+.popup-desc{font-size:13px;color:rgba(247,242,235,.5);line-height:1.6;margin-bottom:14px}
+.popup-wpp{display:inline-block;background:var(--gold);color:var(--ink);font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;padding:8px 16px;text-decoration:none;transition:background .15s}
+.popup-wpp:hover{background:#e0b52a}
+.cards-section{padding:60px 52px}
+.section-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(28px,3vw,40px);font-weight:900;line-height:1}
+.section-title em{font-style:italic;color:var(--gold)}
+.total-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2px}
+.card{background:rgba(247,242,235,.03);border:1px solid rgba(247,242,235,.06);padding:28px;transition:background .2s,border-color .2s;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--gold);transition:height .3s}
+.card:hover{background:rgba(247,242,235,.06);border-color:rgba(201,162,39,.2)}
+.card:hover::before{height:100%}
+.card-nome{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cream);margin-bottom:4px;line-height:1.2}
+.card-cidade{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.card-lings{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.card-ling{font-size:10px;padding:3px 10px;border:1px solid rgba(247,242,235,.1);color:rgba(247,242,235,.5);letter-spacing:1px;text-transform:uppercase}
+.card-desc{font-size:13px;color:rgba(247,242,235,.4);line-height:1.6;margin-bottom:16px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-links{display:flex;gap:12px}
+.card-link{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .15s}
+.card-link:hover{color:var(--gold)}
+.vazio{text-align:center;padding:80px 20px;color:var(--muted);font-size:16px;display:none}
+.cta-bar{margin:0 52px 80px;background:rgba(201,162,39,.08);border:1px solid rgba(201,162,39,.2);padding:40px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px}
+.cta-text h3{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--cream);margin-bottom:6px}
+.cta-text p{font-size:15px;color:var(--muted)}
+.cta-btn{background:var(--gold);color:var(--ink);font-family:'Playfair Display',serif;font-size:18px;font-weight:700;padding:16px 40px;text-decoration:none;transition:background .15s,transform .12s;white-space:nowrap}
+.cta-btn:hover{background:#e0b52a;transform:translateY(-2px)}
+footer{background:var(--red);color:rgba(247,242,235,.85);padding:32px 52px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.f-brand{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#fff}
+.f-meta{font-size:12px;line-height:1.9;text-align:right}
 .f-meta a{color:#fff;text-decoration:none}
-.fu{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.loading{text-align:center;padding:60px;color:var(--muted);font-size:14px;letter-spacing:2px;text-transform:uppercase}
+.fu{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
 .fu.v{opacity:1;transform:translateY(0)}
 @media(max-width:900px){
   nav{padding:16px 22px}.nav-links{display:none}
-  .hero{grid-template-columns:1fr;padding:100px 22px 60px;gap:40px}
-  .cert-card{display:none}
-  section{padding:80px 22px}
-  .sobre{grid-template-columns:1fr;gap:40px}
-  .criadores-cta{padding:60px 22px;flex-direction:column;align-items:flex-start}
-  .cboxes{grid-template-columns:1fr}
-  footer{padding:32px 22px}.f-meta{text-align:left}
+  .hero{padding:110px 22px 48px}
+  .filtros{padding:0 22px 32px}
+  .mapa-wrapper{margin:0 22px}
+  #mapa{height:380px}
+  .cards-section{padding:48px 22px}
+  .cta-bar{margin:0 22px 60px;padding:28px 24px}
+  footer{padding:28px 22px}.f-meta{text-align:left}
+  .stats{gap:28px}
 }
 </style>
 </head>
@@ -106,142 +93,207 @@ footer{background:var(--red);color:rgba(247,242,235,.85);padding:40px 52px;displ
 <nav>
   <a class="nav-logo" href="/">Cinema e Artes Marataízes</a>
   <div class="nav-links">
-    <a href="#sobre">O que é</a>
-    <a href="/criadores/">Criadores</a>
-    <a href="#cadastro" class="destaque">Cadastre-se</a>
+    <a href="/">Início</a>
+    <a href="/criadores/" class="active">Criadores</a>
+    <a href="/#cadastro">Cadastre-se</a>
   </div>
 </nav>
 
-<section class="hero">
-  <div class="fu">
-    <div class="kicker">Ministério da Cultura · ID 301034</div>
-    <h1>Ponto de<br><em>Cultura.</em></h1>
-    <p class="hero-body">O <strong>Cinema e Artes Marataízes</strong> é um Ponto de Cultura certificado pelo Governo Federal. Hub cultural da orla sul do Espírito Santo — onde criadores de Beat, Vídeo, Canto, Dança, Atuação e Escrita se encontram.</p>
-    <div class="badges">
-      <span class="badge badge-r">Ponto de Cultura</span>
-      <span class="badge badge-b">Marataízes · ES</span>
-      <span class="badge badge-g">Cert. 25/02/2026</span>
-    </div>
-  </div>
-  <div class="cert-card fu">
-    <div class="cm">Cadastro Nacional de Pontos e Pontões de Cultura</div>
-    <div class="cn">Cinema e Artes<br>Marataízes</div>
-    <div class="cs">Certificado pelo Ministério da Cultura</div>
-    <div class="cid">ID: 301034</div>
-    <div class="cdiv"></div>
-    <div class="cmeta">
-      <div class="cmeta-i"><label>Localização</label><span>Marataízes, ES</span></div>
-      <div class="cmeta-i"><label>Certificação</label><span>25/02/2026</span></div>
-      <div class="cmeta-i"><label>País</label><span>Brasil</span></div>
-      <div class="cmeta-i"><label>CNPJ</label><span>Não se aplica</span></div>
-    </div>
-    <div class="cseal">✦</div>
+<section class="hero fu">
+  <div class="kicker">Ponto de Cultura · ID 301034</div>
+  <h1>Criadores<br><em>da Orla.</em></h1>
+  <p class="hero-sub">Todos os criadores cadastrados no Ponto de Cultura — Beat, Vídeo, Canto, Dança, Atuação e Escrita espalhados pela orla sul do ES.</p>
+  <div class="stats">
+    <div class="stat-item"><span class="stat-num" id="totalCriadores">—</span><span class="stat-label">Criadores</span></div>
+    <div class="stat-item"><span class="stat-num" id="totalCidades">—</span><span class="stat-label">Cidades</span></div>
+    <div class="stat-item"><span class="stat-num" id="totalLings">—</span><span class="stat-label">Linguagens</span></div>
   </div>
 </section>
 
-<section class="sobre" id="sobre">
-  <div class="fu">
-    <span class="slabel">O que é um Ponto de Cultura</span>
-    <h2>Cultura <em>reconhecida</em><br>pelo Estado</h2>
-    <p>Um <strong>Ponto de Cultura</strong> é uma certificação oficial do Governo Federal concedida a organizações que desenvolvem atividades culturais nas comunidades.</p>
-    <p>O reconhecimento segue a <strong>Política Nacional Cultura Viva (Lei nº 13.018/2014)</strong> e valoriza o fazer cultural comunitário, a formação artística e o acesso da população à cultura.</p>
-    <p>O <strong>Cinema e Artes Marataízes</strong> é o Ponto de Cultura da orla sul do ES — reunindo criadores de Marataízes, Itapemirim, Piúma e Kennedy.</p>
-  </div>
-  <div class="pilares fu">
-    <div class="pilar"><span class="pn">01</span><div><div class="pt">Expressão Cultural</div><div class="pd">Beat, vídeo, canto, dança, atuação e escrita como linguagens do território.</div></div></div>
-    <div class="pilar"><span class="pn">02</span><div><div class="pt">Formação Artística</div><div class="pd">Capacitação de criadores locais e acesso a ferramentas profissionais.</div></div></div>
-    <div class="pilar"><span class="pn">03</span><div><div class="pt">Rede Cultura Viva</div><div class="pd">Articulação com a rede nacional de Pontos de Cultura do Brasil.</div></div></div>
-    <div class="pilar"><span class="pn">04</span><div><div class="pt">Hub da Orla</div><div class="pd">Ponto de encontro de criadores de toda a orla sul do Espírito Santo.</div></div></div>
-  </div>
-</section>
-
-<div class="criadores-cta fu">
-  <div class="criadores-cta-text">
-    <h2>Veja os <em>Criadores</em><br>da Orla</h2>
-    <p>Marataízes, Itapemirim, Piúma e Kennedy — todos no mapa.</p>
-  </div>
-  <a href="/criadores/" class="criadores-cta-btn">Ver o mapa →</a>
+<div class="filtros fu" id="filtros">
+  <button class="filtro-btn ativo" data-filtro="todos">Todos</button>
+  <button class="filtro-btn" data-filtro="Marataízes">Marataízes</button>
+  <button class="filtro-btn" data-filtro="Itapemirim">Itapemirim</button>
+  <button class="filtro-btn" data-filtro="Piúma">Piúma</button>
+  <button class="filtro-btn" data-filtro="Kennedy">Kennedy</button>
+  <button class="filtro-btn" data-filtro="Beat">🎵 Beat</button>
+  <button class="filtro-btn" data-filtro="Vídeo">🎬 Vídeo</button>
+  <button class="filtro-btn" data-filtro="Canto">🎤 Canto</button>
+  <button class="filtro-btn" data-filtro="Dança">💃 Dança</button>
+  <button class="filtro-btn" data-filtro="Atuação">🎭 Atuação</button>
+  <button class="filtro-btn" data-filtro="Escrita">✍️ Escrita</button>
 </div>
 
-<section class="formulario" id="cadastro">
-  <span class="slabel">Faça parte</span>
-  <h2 class="fu">Cadastro de<br><em>Criadores</em></h2>
-  <p class="form-desc fu">Preencha e entre para o mapa de criadores da nossa orla. Marataízes, Itapemirim, Piúma, Kennedy — todos unidos.</p>
+<div class="mapa-wrapper fu">
+  <div id="mapa"></div>
+</div>
 
-  <form id="formCriador" class="fu" action="https://formspree.io/f/mqeyajpo" method="POST">
-    <div class="fg"><label>Nome completo *</label><input type="text" name="nome" placeholder="Seu nome artístico ou civil" required></div>
-    <div class="fg"><label>Cidade *</label>
-      <select name="cidade" required>
-        <option value="">Selecione sua cidade</option>
-        <option>Marataízes</option><option>Itapemirim</option><option>Piúma</option><option>Kennedy</option><option>Outra</option>
-      </select>
-    </div>
-    <div class="fg"><label>WhatsApp *</label><input type="tel" name="whatsapp" placeholder="(28) 9 0000-0000" required></div>
-    <div class="fg"><label>E-mail</label><input type="email" name="email" placeholder="seu@email.com"></div>
-    <div class="fg"><label>Instagram / redes sociais</label><input type="text" name="instagram" placeholder="@seuperfil"></div>
-    <div class="fg">
-      <label>Linguagem artística * (pode marcar mais de uma)</label>
-      <div class="cboxes">
-        <label class="cbox"><input type="checkbox" name="linguagem" value="Beat / Produção Musical"><span>🎵 Beat / Produção</span></label>
-        <label class="cbox"><input type="checkbox" name="linguagem" value="Vídeo / Audiovisual"><span>🎬 Vídeo / Audiovisual</span></label>
-        <label class="cbox"><input type="checkbox" name="linguagem" value="Canto / Rap / Música"><span>🎤 Canto / Rap</span></label>
-        <label class="cbox"><input type="checkbox" name="linguagem" value="Dança"><span>💃 Dança</span></label>
-        <label class="cbox"><input type="checkbox" name="linguagem" value="Atuação / Teatro"><span>🎭 Atuação / Teatro</span></label>
-        <label class="cbox"><input type="checkbox" name="linguagem" value="Escrita / Poesia"><span>✍️ Escrita / Poesia</span></label>
-      </div>
-    </div>
-    <div class="fg"><label>Sobre o que você cria</label><textarea name="descricao" placeholder="Projetos, ideias, o que você está desenvolvendo…"></textarea></div>
-    <button type="submit" class="submit" id="submitBtn">Entrar para o mapa →</button>
-    <div class="success" id="ok">✅ Cadastro enviado com sucesso! A equipe entra em contato em breve.</div>
-    <div class="errmsg" id="err">❌ Algo deu errado. Tente pelo WhatsApp: (28) 99903-6141</div>
-    <p class="form-note">Seus dados vão direto para a equipe da Macuca Produções.<br>Dúvidas? <a href="https://wa.me/5528999036141" target="_blank">(28) 99903-6141</a> · <a href="mailto:macucaproducoes.oficial@gmail.com">macucaproducoes.oficial@gmail.com</a></p>
-  </form>
+<section class="cards-section fu">
+  <div class="section-header">
+    <h2 class="section-title">Todos os <em>Criadores</em></h2>
+    <span class="total-label" id="totalLabel">carregando…</span>
+  </div>
+  <div class="loading" id="loading">Carregando criadores…</div>
+  <div class="cards-grid" id="cardsGrid"></div>
+  <div class="vazio" id="vazio">Nenhum criador encontrado com esse filtro.</div>
 </section>
+
+<div class="cta-bar fu">
+  <div class="cta-text">
+    <h3>Você é criador da orla?</h3>
+    <p>Cadastre-se e apareça nesse mapa.</p>
+  </div>
+  <a href="/#cadastro" class="cta-btn">Quero me cadastrar →</a>
+</div>
 
 <footer>
   <span class="f-brand">Cinema e Artes Marataízes · Ponto de Cultura</span>
   <div class="f-meta">
-    ID 301034 · Marataízes, ES · Cert. 25/02/2026<br>
     <a href="https://wa.me/5528999036141">(28) 99903-6141</a> · <a href="mailto:macucaproducoes.oficial@gmail.com">macucaproducoes.oficial@gmail.com</a>
   </div>
 </footer>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-const form = document.getElementById('formCriador');
-const btn  = document.getElementById('submitBtn');
-const ok   = document.getElementById('ok');
-const err  = document.getElementById('err');
+const COORDS = {
+  'Marataízes': [-21.0478, -40.8278],
+  'Itapemirim': [-21.0119, -40.8339],
+  'Piúma':      [-20.8333, -40.7278],
+  'Kennedy':    [-21.0944, -41.1003],
+  'Outra':      [-21.05,   -40.85]
+};
 
-form.addEventListener('submit', async function(e) {
-  e.preventDefault();
-  btn.disabled = true;
-  btn.textContent = 'Enviando…';
-  ok.style.display = 'none';
-  err.style.display = 'none';
-  try {
-    const res = await fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    });
-    if (res.ok) {
-      ok.style.display = 'block';
-      ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      form.reset();
-    } else {
-      err.style.display = 'block';
-    }
-  } catch {
-    err.style.display = 'block';
+// ✅ COLE AQUI a URL do Apps Script quando tiver
+// Substitua a linha abaixo pela sua URL
+const SHEET_URL = 'https://script.google.com/macros/s/SUA_URL_AQUI/exec';
+
+// Dados de exemplo enquanto a planilha não está conectada
+const EXEMPLOS = [
+  { nome: 'Gabriel Silva',   cidade: 'Marataízes', whatsapp: '5528999990001', instagram: '@gabriel.cria', linguagens: 'Beat / Produção Musical, Vídeo / Audiovisual',  descricao: 'Produtor musical e videomaker da orla.' },
+  { nome: 'Ana Beats',       cidade: 'Marataízes', whatsapp: '5528999990002', instagram: '@anabeats',      linguagens: 'Beat / Produção Musical, Canto / Rap / Música', descricao: 'MC e produtora de rap consciente.' },
+  { nome: 'Raul Marques',    cidade: 'Itapemirim', whatsapp: '5528999990003', instagram: '@raulmarques',   linguagens: 'Vídeo / Audiovisual, Atuação / Teatro',          descricao: 'Cineasta e ator independente.' },
+  { nome: 'Bia Dança',       cidade: 'Piúma',      whatsapp: '5528999990004', instagram: '@biadanca',      linguagens: 'Dança',                                          descricao: 'Bailarina e professora de dança contemporânea.' },
+  { nome: 'Léo Escritor',    cidade: 'Kennedy',    whatsapp: '5528999990005', instagram: '@leo.escreve',   linguagens: 'Escrita / Poesia',                               descricao: 'Poeta e escritor da orla sul.' },
+  { nome: 'Carol Canta',     cidade: 'Marataízes', whatsapp: '5528999990006', instagram: '@carolcanta',    linguagens: 'Canto / Rap / Música, Escrita / Poesia',         descricao: 'Cantora e compositora.' }
+];
+
+let todosCriadores = [];
+let filtroAtivo = 'todos';
+let mapa, markers = [];
+
+function iniciarMapa() {
+  mapa = L.map('mapa', { zoomControl: true, scrollWheelZoom: false }).setView([-21.0, -40.85], 10);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '© OpenStreetMap © CARTO', maxZoom: 18
+  }).addTo(mapa);
+}
+
+function limparMarkers() {
+  markers.forEach(m => mapa.removeLayer(m));
+  markers = [];
+}
+
+function criarIcone() {
+  return L.divIcon({
+    className: '',
+    html: `<div style="width:16px;height:16px;background:#c9a227;border:2px solid #fff;border-radius:50%;box-shadow:0 0 12px rgba(201,162,39,.8)"></div>`,
+    iconSize: [16, 16], iconAnchor: [8, 8]
+  });
+}
+
+function renderMapa(lista) {
+  limparMarkers();
+  const grupos = {};
+  lista.forEach(c => {
+    const cidade = c.cidade || 'Outra';
+    if (!grupos[cidade]) grupos[cidade] = [];
+    grupos[cidade].push(c);
+  });
+  Object.entries(grupos).forEach(([cidade, criadores]) => {
+    const coords = COORDS[cidade] || COORDS['Outra'];
+    const lings = criadores.map(c => (c.linguagens||'').split(',').map(l => `<span class="popup-ling">${l.trim()}</span>`).join('')).join('');
+    const nomes = criadores.map(c => {
+      const wpp = c.whatsapp ? `<a class="popup-wpp" href="https://wa.me/${c.whatsapp.replace(/\D/g,'')}" target="_blank">WhatsApp</a>` : '';
+      return `<div style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(247,242,235,.08)">
+        <div class="popup-nome">${c.nome}</div>
+        <div class="popup-lings">${(c.linguagens||'').split(',').map(l=>`<span class="popup-ling">${l.trim()}</span>`).join('')}</div>
+        ${wpp}
+      </div>`;
+    }).join('');
+    const popup = `<div class="popup-inner"><div class="popup-cidade">${cidade} · ${criadores.length} criador${criadores.length>1?'es':''}</div>${nomes}</div>`;
+    const marker = L.marker(coords, { icon: criarIcone() }).addTo(mapa).bindPopup(popup, { maxWidth: 280 });
+    markers.push(marker);
+  });
+}
+
+function renderCards(lista) {
+  const grid = document.getElementById('cardsGrid');
+  const vazio = document.getElementById('vazio');
+  const label = document.getElementById('totalLabel');
+  grid.innerHTML = '';
+  if (!lista.length) { vazio.style.display = 'block'; label.textContent = '0 criadores'; return; }
+  vazio.style.display = 'none';
+  label.textContent = lista.length + ' criador' + (lista.length > 1 ? 'es' : '');
+  lista.forEach(c => {
+    const lings = (c.linguagens||'').split(',').map(l => `<span class="card-ling">${l.trim()}</span>`).join('');
+    const wpp  = c.whatsapp  ? `<a class="card-link" href="https://wa.me/${c.whatsapp.replace(/\D/g,'')}" target="_blank">WhatsApp</a>` : '';
+    const inst = c.instagram ? `<a class="card-link" href="https://instagram.com/${c.instagram.replace('@','')}" target="_blank">Instagram</a>` : '';
+    grid.innerHTML += `<div class="card">
+      <div class="card-nome">${c.nome}</div>
+      <div class="card-cidade">${c.cidade||'—'}</div>
+      <div class="card-lings">${lings}</div>
+      <div class="card-desc">${c.descricao||''}</div>
+      <div class="card-links">${wpp}${inst}</div>
+    </div>`;
+  });
+}
+
+function atualizarStats(lista) {
+  document.getElementById('totalCriadores').textContent = lista.length;
+  const cidades = new Set(lista.map(c => c.cidade)).size;
+  document.getElementById('totalCidades').textContent = cidades;
+  const lingsSet = new Set();
+  lista.forEach(c => (c.linguagens||'').split(',').forEach(l => { if(l.trim()) lingsSet.add(l.trim()); }));
+  document.getElementById('totalLings').textContent = lingsSet.size;
+}
+
+function aplicarFiltro(filtro) {
+  filtroAtivo = filtro;
+  document.querySelectorAll('.filtro-btn').forEach(b => b.classList.toggle('ativo', b.dataset.filtro === filtro));
+  let lista = todosCriadores;
+  if (filtro !== 'todos') {
+    lista = lista.filter(c => c.cidade === filtro || (c.linguagens||'').includes(filtro));
   }
-  btn.disabled = false;
-  btn.textContent = 'Entrar para o mapa →';
+  renderMapa(lista);
+  renderCards(lista);
+}
+
+async function carregarDados() {
+  document.getElementById('loading').style.display = 'block';
+  try {
+    if (SHEET_URL.includes('SUA_URL_AQUI')) throw new Error('sem url');
+    const res = await fetch(SHEET_URL);
+    const data = await res.json();
+    todosCriadores = data.filter(r => r.nome);
+  } catch {
+    todosCriadores = EXEMPLOS;
+  }
+  document.getElementById('loading').style.display = 'none';
+  atualizarStats(todosCriadores);
+  aplicarFiltro('todos');
+}
+
+document.querySelectorAll('.filtro-btn').forEach(b => {
+  b.addEventListener('click', () => aplicarFiltro(b.dataset.filtro));
 });
 
 const io = new IntersectionObserver(entries => entries.forEach(e => {
   if (e.isIntersecting) e.target.classList.add('v');
 }), { threshold: 0.1 });
 document.querySelectorAll('.fu').forEach(el => io.observe(el));
+
+iniciarMapa();
+carregarDados();
 </script>
 </body>
 </html>
