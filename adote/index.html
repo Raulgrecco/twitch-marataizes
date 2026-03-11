@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cinema e Artes Marataízes — Ponto de Cultura</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --dark: #0D0D0D;
+      --dark2: #141414;
+      --dark3: #1C1C1C;
+      --cream: #F5F0E8;
+      --text: #D4CFC7;
+      --green: #2ECC71;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--dark); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(13,13,13,0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+      padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 60px;
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--gold); text-decoration: none; white-space: nowrap; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(212,207,199,0.6); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { background: var(--gold) !important; color: var(--dark) !important; padding: 8px 18px; border-radius: 4px; font-weight: 500 !important; }
+    @media (max-width: 700px) { .nav-links { display: none; } }
+
+    .hero {
+      min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; padding: 100px 24px 60px; position: relative;
+      background: radial-gradient(ellipse at 50% 0%, #2a1f0a 0%, var(--dark) 65%); overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(201,168,76,0.025) 80px, rgba(201,168,76,0.025) 81px),
+        repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(201,168,76,0.025) 80px, rgba(201,168,76,0.025) 81px);
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1px solid rgba(201,168,76,0.4); border-radius: 100px;
+      padding: 8px 20px; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 40px; animation: fadeUp 0.8s ease both; background: rgba(201,168,76,0.05);
+    }
+    .badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
+    .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 8vw, 6.5rem); font-weight: 900; line-height: 1; color: var(--cream); margin-bottom: 8px; animation: fadeUp 0.8s 0.1s ease both; }
+    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-sub { font-family: 'Playfair Display', serif; font-size: clamp(1.2rem, 3vw, 2rem); font-style: italic; color: var(--gold-light); margin-bottom: 36px; animation: fadeUp 0.8s 0.2s ease both; }
+
+    .hero-gatilho {
+      background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.25); border-radius: 8px;
+      padding: 28px 40px; max-width: 620px; margin-bottom: 40px; animation: fadeUp 0.8s 0.3s ease both;
+    }
+    .valor-destaque { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 900; color: var(--gold); line-height: 1; display: block; }
+    .valor-contexto { font-size: 1rem; color: rgba(212,207,199,0.7); margin-top: 8px; line-height: 1.6; }
+    .valor-contexto strong { color: var(--cream); font-weight: 500; }
+
+    .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; animation: fadeUp 0.8s 0.4s ease both; }
+
+    .btn-primary { background: var(--gold); color: var(--dark); padding: 16px 36px; border-radius: 4px; font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 0.95rem; letter-spacing: 0.05em; text-decoration: none; transition: all 0.25s ease; display: inline-block; }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(201,168,76,0.3); }
+    .btn-secondary { border: 1px solid rgba(201,168,76,0.5); color: var(--gold); padding: 16px 36px; border-radius: 4px; font-family: 'DM Sans', sans-serif; font-weight: 400; font-size: 0.95rem; text-decoration: none; transition: all 0.25s ease; display: inline-block; }
+    .btn-secondary:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); transform: translateY(-2px); }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+
+    .comparacao { background: var(--dark2); border-top: 1px solid rgba(201,168,76,0.1); border-bottom: 1px solid rgba(201,168,76,0.1); padding: 60px 24px; }
+    .comparacao-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+    .comparacao-titulo { font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 40px; }
+    .comparacao-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: rgba(201,168,76,0.1); border-radius: 8px; overflow: hidden; }
+    .comp-item { background: var(--dark3); padding: 28px 16px; text-align: center; }
+    .comp-item.destaque { background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); }
+    .comp-emoji { font-size: 1.8rem; display: block; margin-bottom: 10px; }
+    .comp-valor { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--cream); display: block; margin-bottom: 4px; }
+    .comp-label { font-size: 0.76rem; color: rgba(212,207,199,0.45); }
+    .comp-item.destaque .comp-valor { color: var(--gold); font-size: 1.5rem; }
+    .comp-item.destaque .comp-label { color: var(--gold-light); }
+    .comparacao-frase { margin-top: 32px; font-family: 'Playfair Display', serif; font-size: 1.2rem; font-style: italic; color: var(--cream); }
+    .comparacao-frase em { color: var(--gold); }
+
+    .selos { display: flex; justify-content: center; flex-wrap: wrap; border-bottom: 1px solid rgba(201,168,76,0.1); }
+    .selo { padding: 28px 36px; text-align: center; border-right: 1px solid rgba(201,168,76,0.1); flex: 1; min-width: 140px; }
+    .selo:last-child { border-right: none; }
+    .selo-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--gold); display: block; }
+    .selo-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(212,207,199,0.4); margin-top: 4px; }
+    @media (max-width: 600px) { .selo { border-right: none; border-bottom: 1px solid rgba(201,168,76,0.1); } }
+
+    section { padding: 90px 24px; max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; display: block; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 700; color: var(--cream); line-height: 1.15; margin-bottom: 20px; }
+    .section-title em { font-style: italic; color: var(--gold); }
+    .section-body { font-size: 1rem; line-height: 1.85; color: rgba(212,207,199,0.72); max-width: 680px; }
+
+    .oque { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    @media (max-width: 768px) { .oque { grid-template-columns: 1fr; gap: 40px; } }
+    .oque-card { background: var(--dark3); border: 1px solid rgba(201,168,76,0.15); border-radius: 8px; padding: 40px; position: relative; overflow: hidden; }
+    .oque-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold)); }
+    .cert-badge { display: flex; align-items: center; gap: 12px; background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.2); border-radius: 6px; padding: 14px 18px; margin-bottom: 24px; }
+    .cert-icon { width: 38px; height: 38px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .cert-text strong { display: block; color: var(--cream); font-size: 0.88rem; font-weight: 500; }
+    .cert-text span { font-size: 0.76rem; color: var(--gold); }
+    .info-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid rgba(201,168,76,0.07); font-size: 0.86rem; }
+    .info-row:last-child { border-bottom: none; }
+    .info-row .label { color: rgba(212,207,199,0.45); }
+    .info-row .value { color: var(--cream); font-weight: 500; }
+
+    .timeline-section { background: var(--dark2); border-top: 1px solid rgba(201,168,76,0.1); border-bottom: 1px solid rgba(201,168,76,0.1); }
+    .timeline-inner { max-width: 1100px; margin: 0 auto; padding: 90px 24px; }
+    .timeline { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; margin-top: 56px; position: relative; }
+    .timeline::before { content: ''; position: absolute; top: 27px; left: 8%; right: 8%; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+    .tl-item { text-align: center; padding: 0 8px; position: relative; }
+    .tl-dot { width: 54px; height: 54px; background: var(--dark2); border: 2px solid rgba(201,168,76,0.35); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--gold); position: relative; z-index: 1; }
+    .tl-mes { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .tl-desc { font-size: 0.78rem; line-height: 1.5; color: rgba(212,207,199,0.55); }
+    @media (max-width: 700px) { .timeline { grid-template-columns: 1fr 1fr; } .timeline::before { display: none; } }
+
+    .apoio-section { background: var(--dark); }
+    .apoio-inner { max-width: 1100px; margin: 0 auto; padding: 90px 24px; }
+
+    .gatilho-box {
+      background: linear-gradient(135deg, rgba(201,168,76,0.12) 0%, rgba(201,168,76,0.04) 100%);
+      border: 1px solid rgba(201,168,76,0.3); border-radius: 12px; padding: 48px;
+      text-align: center; margin-bottom: 48px; position: relative; overflow: hidden;
+    }
+    .gatilho-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+    .gatilho-valor { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 5.5rem); font-weight: 900; color: var(--gold); line-height: 1; display: block; }
+    .gatilho-periodo { font-size: 1rem; color: rgba(212,207,199,0.55); margin-bottom: 20px; display: block; }
+    .duracao-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(46,204,113,0.1); border: 1px solid rgba(46,204,113,0.3); border-radius: 100px; padding: 8px 20px; font-size: 0.82rem; color: var(--green); margin-bottom: 24px; }
+    .gatilho-frase { font-family: 'Playfair Display', serif; font-size: clamp(1.1rem, 2.5vw, 1.6rem); font-style: italic; color: var(--cream); margin-bottom: 12px; }
+    .gatilho-frase em { color: var(--gold); }
+    .gatilho-sub { font-size: 0.9rem; color: rgba(212,207,199,0.5); max-width: 500px; margin: 0 auto 32px; line-height: 1.75; }
+
+    .vagas-aviso { display: flex; align-items: center; gap: 12px; background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.2); border-radius: 6px; padding: 16px 20px; margin-bottom: 32px; font-size: 0.88rem; color: rgba(212,207,199,0.65); }
+    .vagas-aviso strong { color: var(--cream); }
+
+    .apoio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; }
+    @media (max-width: 768px) { .apoio-grid { grid-template-columns: 1fr; } }
+    .apoio-card { background: var(--dark3); border: 1px solid rgba(201,168,76,0.1); border-radius: 8px; padding: 28px; transition: all 0.3s ease; }
+    .apoio-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-3px); }
+    .apoio-card-icon { font-size: 1.7rem; display: block; margin-bottom: 14px; }
+    .apoio-card-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--cream); margin-bottom: 8px; }
+    .apoio-card-desc { font-size: 0.86rem; line-height: 1.65; color: rgba(212,207,199,0.55); }
+
+    .meta-bar { background: var(--dark2); border: 1px solid rgba(201,168,76,0.15); border-radius: 8px; padding: 24px 28px; }
+    .meta-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .meta-label { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(212,207,199,0.4); }
+    .meta-count { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--gold); }
+    .meta-progress { height: 6px; background: rgba(201,168,76,0.12); border-radius: 3px; overflow: hidden; margin-bottom: 10px; }
+    .meta-fill { height: 100%; width: 7%; background: linear-gradient(90deg, var(--gold), var(--gold-light)); border-radius: 3px; animation: fillBar 1.5s 1s ease both; }
+    @keyframes fillBar { from{width:0} to{width:7%} }
+    .meta-nums { display: flex; justify-content: space-between; font-size: 0.8rem; }
+    .meta-nums .atual { color: var(--gold); }
+    .meta-nums .total { color: rgba(212,207,199,0.3); }
+
+    .tv-section { background: linear-gradient(135deg, #0e0e0e 0%, #1a1200 100%); border-top: 1px solid rgba(201,168,76,0.1); }
+    .tv-inner { max-width: 1100px; margin: 0 auto; padding: 90px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    @media (max-width: 768px) { .tv-inner { grid-template-columns: 1fr; gap: 40px; } }
+    .tv-mockup { background: var(--dark3); border: 1px solid rgba(201,168,76,0.12); border-radius: 8px; padding: 28px; }
+    .tv-screen { background: #000; border-radius: 4px; padding: 24px; margin-bottom: 14px; text-align: center; border: 1px solid rgba(201,168,76,0.08); }
+    .tv-logo-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; color: var(--gold); display: block; margin-bottom: 6px; }
+    .tv-tag-screen { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(201,168,76,0.4); }
+    .sponsor-strip { display: flex; align-items: center; gap: 10px; padding: 11px 14px; background: rgba(201,168,76,0.05); border-radius: 4px; font-size: 0.76rem; color: rgba(212,207,199,0.55); margin-bottom: 8px; }
+    .sponsor-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+    .contato-box { background: var(--dark3); border: 1px solid rgba(201,168,76,0.15); border-radius: 8px; padding: 48px; text-align: center; max-width: 580px; margin: 56px auto 0; }
+    .contato-frase { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-style: italic; color: var(--gold); margin-bottom: 16px; }
+    .contato-box p { color: rgba(212,207,199,0.62); font-size: 0.95rem; line-height: 1.75; margin-bottom: 28px; }
+    .whatsapp-btn { display: inline-flex; align-items: center; gap: 10px; background: #25D366; color: #fff; padding: 16px 32px; border-radius: 4px; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: all 0.25s ease; }
+    .whatsapp-btn:hover { background: #1ebe5d; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(37,211,102,0.3); }
+
+    footer { text-align: center; padding: 56px 24px; border-top: 1px solid rgba(201,168,76,0.1); background: var(--dark2); }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--gold); margin-bottom: 6px; }
+    .footer-sub { font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(212,207,199,0.3); margin-bottom: 28px; }
+    .footer-links { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; margin-bottom: 28px; }
+    .footer-links a { font-size: 0.82rem; color: rgba(212,207,199,0.4); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy { font-size: 0.72rem; color: rgba(212,207,199,0.18); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-logo">Cinema e Artes Marataízes</a>
+    <ul class="nav-links">
+      <li><a href="#sobre">O Projeto</a></li>
+      <li><a href="#como-funciona">Como Funciona</a></li>
+      <li><a href="#apoie">Apoie</a></li>
+      <li><a href="https://tvmarataizes.digital" target="_blank">TV Marataízes</a></li>
+      <li><a href="#contato" class="nav-cta">Fale Conosco</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero">
+    <div class="badge"><span></span> Ponto de Cultura · Ministério da Cultura · ID 301034</div>
+    <h1 class="hero-title">Cinema e <em>Artes</em></h1>
+    <p class="hero-sub">Marataízes</p>
+    <div class="hero-gatilho">
+      <span class="valor-destaque">R$ 500</span>
+      <p class="valor-contexto">
+        por mês, por <strong>6 meses</strong> — o mesmo que um jantar por semana.<br>
+        Você <strong>forma um jovem talento</strong> de Marataízes e sua marca aparece para a cidade inteira.
+      </p>
+    </div>
+    <div class="hero-ctas">
+      <a href="#apoie" class="btn-primary">Adote um jovem talento</a>
+      <a href="#sobre" class="btn-secondary">Conhecer o projeto</a>
+    </div>
+  </header>
+
+  <div class="comparacao">
+    <div class="comparacao-inner">
+      <p class="comparacao-titulo">O que R$ 500 representa no dia a dia</p>
+      <div class="comparacao-grid">
+        <div class="comp-item">
+          <span class="comp-emoji">☕</span>
+          <span class="comp-valor">R$ 16</span>
+          <span class="comp-label">por dia</span>
+        </div>
+        <div class="comp-item">
+          <span class="comp-emoji">🍽️</span>
+          <span class="comp-valor">1 jantar</span>
+          <span class="comp-label">por semana</span>
+        </div>
+        <div class="comp-item destaque">
+          <span class="comp-emoji">🎬</span>
+          <span class="comp-valor">R$ 500/mês</span>
+          <span class="comp-label">forma um jovem talento</span>
+        </div>
+        <div class="comp-item">
+          <span class="comp-emoji">📺</span>
+          <span class="comp-valor">Visibilidade</span>
+          <span class="comp-label">na TV e Instagram</span>
+        </div>
+        <div class="comp-item">
+          <span class="comp-emoji">🏆</span>
+          <span class="comp-valor">Prestígio</span>
+          <span class="comp-label">na cidade</span>
+        </div>
+      </div>
+      <p class="comparacao-frase">Pouco para você. <em>Muito para Marataízes.</em></p>
+    </div>
+  </div>
+
+  <div class="selos">
+    <div class="selo"><span class="selo-num">2+</span><span class="selo-label">Anos de Atividade</span></div>
+    <div class="selo"><span class="selo-num">MinC</span><span class="selo-label">Certificado Federal</span></div>
+    <div class="selo"><span class="selo-num">6 meses</span><span class="selo-label">Formação Completa</span></div>
+    <div class="selo"><span class="selo-num">Gratuito</span><span class="selo-label">Para os Jovens</span></div>
+    <div class="selo"><span class="selo-num">TV + Insta</span><span class="selo-label">Sua Marca na Mídia</span></div>
+  </div>
+
+  <section id="sobre">
+    <div class="oque">
+      <div class="oque-texto">
+        <span class="section-tag">O Projeto</span>
+        <h2 class="section-title">Cultura que nasce <em>de dentro</em> da cidade</h2>
+        <p class="section-body">
+          O Cinema e Artes Marataízes é um Ponto de Cultura certificado pelo Ministério da Cultura,
+          com mais de dois anos de atividade. Agora tem sede própria: uma sala cedida pela
+          Secretaria Municipal de Educação na EMEF José Marcelino.
+        </p>
+        <p class="section-body" style="margin-top:14px;">
+          Oficinas gratuitas de audiovisual e música para jovens da cidade.
+          Tudo produzido aqui aparece na <strong style="color:var(--cream)">TV Marataízes</strong> e nas redes —
+          e quem apoia aparece junto.
+        </p>
+      </div>
+      <div>
+        <div class="oque-card">
+          <div class="cert-badge">
+            <div class="cert-icon">★</div>
+            <div class="cert-text">
+              <strong>Certificado pelo Ministério da Cultura</strong>
+              <span>Política Nacional Cultura Viva · Lei nº 13.018/2014</span>
+            </div>
+          </div>
+          <div class="info-row"><span class="label">ID do Ponto</span><span class="value">301034</span></div>
+          <div class="info-row"><span class="label">Certificação</span><span class="value">25/02/2026</span></div>
+          <div class="info-row"><span class="label">Sede</span><span class="value">EMEF José Marcelino</span></div>
+          <div class="info-row"><span class="label">Bairro</span><span class="value">Barra do Itapemirim</span></div>
+          <div class="info-row"><span class="label">Cessão</span><span class="value">Sec. Educação · 24 meses</span></div>
+          <div class="info-row"><span class="label">Acesso</span><span class="value">Gratuito · Acessível</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="timeline-section" id="como-funciona">
+    <div class="timeline-inner">
+      <span class="section-tag">Compromisso claro</span>
+      <h2 class="section-title">6 meses. <em>Uma formação completa.</em></h2>
+      <p class="section-body">
+        Seu apoio tem começo, meio e fim. São 6 meses de formação, com resultado visível mês a mês
+        na TV Marataízes e no Instagram. <strong style="color:var(--cream)">R$ 3.000 no total.</strong> Sem surpresa.
+      </p>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot">1</div>
+          <div class="tl-mes">Mês 1</div>
+          <div class="tl-desc">Início das oficinas. Sua marca estreia na TV e no Instagram.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">2</div>
+          <div class="tl-mes">Mês 2</div>
+          <div class="tl-desc">Primeiras produções dos alunos. Cidade começa a acompanhar.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">3</div>
+          <div class="tl-mes">Mês 3</div>
+          <div class="tl-desc">Metade do caminho. Relatório enviado aos apoiadores.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">4</div>
+          <div class="tl-mes">Mês 4</div>
+          <div class="tl-desc">Produções avançadas. Visibilidade crescente na mídia local.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">5</div>
+          <div class="tl-mes">Mês 5</div>
+          <div class="tl-desc">Projetos finais em desenvolvimento.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">6</div>
+          <div class="tl-mes">Mês 6</div>
+          <div class="tl-desc">Mostra final. Jovens formados. Apoiadores celebrados.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="apoio-section" id="apoie">
+    <div class="apoio-inner">
+      <span class="section-tag">Como apoiar</span>
+      <h2 class="section-title">Adote um jovem <em>talento</em> de Marataízes</h2>
+
+      <div class="gatilho-box">
+        <span class="gatilho-valor">R$ 500</span>
+        <span class="gatilho-periodo">por mês · 6 meses · R$ 3.000 no total</span>
+        <div class="duracao-tag">✓ Compromisso de 6 meses — sem surpresa, sem contrato complicado</div>
+        <p class="gatilho-frase">Pouco para você. <em>Uma vida diferente para um jovem da cidade.</em></p>
+        <p class="gatilho-sub">
+          Menos que um plano de internet empresarial. Menos que um anúncio que some em 3 dias.
+          Aqui sua marca fica 6 meses na TV e no Instagram — e a cidade sabe quem apoiou.
+        </p>
+        <a href="https://wa.me/5528999036141" class="btn-primary">Quero ser apoiador</a>
+      </div>
+
+      <div class="vagas-aviso">
+        <span>⚠️</span>
+        <span>Apenas <strong>15 vagas</strong> de apoiador por turma. Cada empresa aparece com destaque — sem concorrência de marca no mesmo espaço.</span>
+      </div>
+
+      <div class="apoio-grid">
+        <div class="apoio-card">
+          <span class="apoio-card-icon">📺</span>
+          <h3 class="apoio-card-title">No programa mensal da TV</h3>
+          <p class="apoio-card-desc">Sua empresa aparece como apoiadora no programa que exibe as aulas e produções dos alunos. Conteúdo real — não comercial.</p>
+        </div>
+        <div class="apoio-card">
+          <span class="apoio-card-icon">📱</span>
+          <h3 class="apoio-card-title">Nas pílulas do Instagram</h3>
+          <p class="apoio-card-desc">Seu nome aparece nas publicações mensais mostrando o que os alunos criaram. A cidade vê quem tornou isso possível.</p>
+        </div>
+        <div class="apoio-card">
+          <span class="apoio-card-icon">🏅</span>
+          <h3 class="apoio-card-title">Placa de apoiador na sede</h3>
+          <p class="apoio-card-desc">Nome da sua empresa fixado na EMEF José Marcelino. Quem passa pela escola sabe quem apoia a cultura da cidade.</p>
+        </div>
+        <div class="apoio-card">
+          <span class="apoio-card-icon">📊</span>
+          <h3 class="apoio-card-title">Relatório mensal</h3>
+          <p class="apoio-card-desc">Todo mês você recebe um resumo: quantos alunos, o que produziram, o que foi ao ar. Você vê seu apoio gerando resultado.</p>
+        </div>
+      </div>
+
+      <div class="meta-bar">
+        <div class="meta-header">
+          <span class="meta-label">Apoiadores confirmados</span>
+          <span class="meta-count">1 de 15</span>
+        </div>
+        <div class="meta-progress"><div class="meta-fill"></div></div>
+        <div class="meta-nums">
+          <span class="atual">Juliana Móveis — apoiadora fundadora</span>
+          <span class="total">Meta: 15 apoiadores</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tv-section">
+    <div class="tv-inner">
+      <div>
+        <span class="section-tag">Parceira do Projeto</span>
+        <h2 class="section-title">TV Marataízes <em>exibe as aulas</em></h2>
+        <p class="section-body">
+          A TV Marataízes é parceira do Cinema e Artes — não é veículo de publicidade.
+          Todo mês ela exibe um programa com o que os alunos produziram: as aulas, os trabalhos, a evolução.
+        </p>
+        <p class="section-body" style="margin-top:14px;">
+          Quem apoia o projeto aparece junto a esse conteúdo — não como anunciante,
+          mas como <strong style="color:var(--cream);">empresa que acredita nos jovens da cidade.</strong>
+          É completamente diferente de comprar um anúncio.
+        </p>
+        <a href="https://tvmarataizes.digital" target="_blank" class="btn-secondary" style="margin-top:28px;">Assistir TV Marataízes →</a>
+      </div>
+      <div class="tv-mockup">
+        <div class="tv-screen">
+          <span class="tv-logo-text">TV Marataízes</span>
+          <span class="tv-tag-screen">programa mensal · aulas e produções dos alunos</span>
+        </div>
+        <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-bottom:10px;">Apoiadores do programa</div>
+        <div class="sponsor-strip">
+          <div class="sponsor-dot"></div>
+          <strong style="color:var(--cream);">TV Marataízes</strong>
+          <span style="margin-left:auto;font-size:0.7rem;color:rgba(201,168,76,0.6);">parceira exibidora</span>
+        </div>
+        <div class="sponsor-strip">
+          <div class="sponsor-dot"></div>
+          <strong style="color:var(--cream);">Juliana Móveis</strong>
+          <span style="margin-left:auto;font-size:0.7rem;color:rgba(201,168,76,0.6);">apoiadora fundadora</span>
+        </div>
+        <div class="sponsor-strip" style="opacity:0.35;">
+          <div class="sponsor-dot" style="background:rgba(201,168,76,0.3)"></div>
+          <em style="font-size:0.72rem;">Sua empresa aqui — 13 vagas restantes</em>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="contato">
+    <span class="section-tag" style="text-align:center;display:block;">Fale conosco</span>
+    <h2 class="section-title" style="text-align:center;">Vamos <em>conversar?</em></h2>
+    <div class="contato-box">
+      <div class="contato-frase">"Adote um jovem talento de Marataízes."</div>
+      <p>
+        Mande uma mensagem e a gente explica tudo em 5 minutos.
+        Sem contrato complicado, sem burocracia.
+        Só você, sua marca e um jovem que vai crescer com seu apoio.
+      </p>
+      <a href="https://wa.me/5528999036141" class="whatsapp-btn">💬 Falar pelo WhatsApp</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Cinema e Artes Marataízes</div>
+    <div class="footer-sub">Ponto de Cultura · ID 301034 · Ministério da Cultura</div>
+    <div class="footer-links">
+      <a href="#sobre">O Projeto</a>
+      <a href="#como-funciona">Como Funciona</a>
+      <a href="#apoie">Apoie</a>
+      <a href="https://tvmarataizes.digital" target="_blank">TV Marataízes</a>
+      <a href="#contato">Contato</a>
+    </div>
+    <div class="footer-copy">© 2026 Cinema e Artes Marataízes — Macuca Produções · CNPJ 59.245.417/0001-67</div>
+  </footer>
+
+</body>
+</html>
