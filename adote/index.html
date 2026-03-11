@@ -170,11 +170,34 @@
     .sponsor-strip { display: flex; align-items: center; gap: 10px; padding: 11px 14px; background: rgba(201,168,76,0.05); border-radius: 4px; font-size: 0.76rem; color: rgba(212,207,199,0.55); margin-bottom: 8px; }
     .sponsor-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
 
-    .contato-box { background: var(--dark3); border: 1px solid rgba(201,168,76,0.15); border-radius: 8px; padding: 48px; text-align: center; max-width: 580px; margin: 56px auto 0; }
-    .contato-frase { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-style: italic; color: var(--gold); margin-bottom: 16px; }
-    .contato-box p { color: rgba(212,207,199,0.62); font-size: 0.95rem; line-height: 1.75; margin-bottom: 28px; }
-    .whatsapp-btn { display: inline-flex; align-items: center; gap: 10px; background: #25D366; color: #fff; padding: 16px 32px; border-radius: 4px; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: all 0.25s ease; }
-    .whatsapp-btn:hover { background: #1ebe5d; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(37,211,102,0.3); }
+    .contato-section { padding: 90px 24px; max-width: 1100px; margin: 0 auto; }
+    .contato-box { background: var(--dark3); border: 1px solid rgba(201,168,76,0.15); border-radius: 12px; padding: 56px 48px; text-align: center; max-width: 620px; margin: 56px auto 0; position: relative; overflow: hidden; }
+    .contato-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+    .contato-frase { font-family: 'Playfair Display', serif; font-size: clamp(1.3rem, 3vw, 1.7rem); font-style: italic; color: var(--gold); margin-bottom: 20px; line-height: 1.3; }
+    .contato-box p { color: rgba(212,207,199,0.62); font-size: 0.95rem; line-height: 1.75; margin-bottom: 12px; }
+    .contato-box .msg-preview {
+      background: rgba(37,211,102,0.07);
+      border: 1px solid rgba(37,211,102,0.2);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 20px 0 28px;
+      font-size: 0.85rem;
+      color: rgba(212,207,199,0.7);
+      text-align: left;
+      position: relative;
+    }
+    .contato-box .msg-preview::before {
+      content: '💬 Mensagem que será enviada automaticamente:';
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+    .contato-box .msg-preview span { color: var(--cream); font-style: italic; }
+    .whatsapp-btn { display: inline-flex; align-items: center; gap: 10px; background: #25D366; color: #fff; padding: 18px 36px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 1rem; transition: all 0.25s ease; }
+    .whatsapp-btn:hover { background: #1ebe5d; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(37,211,102,0.35); }
 
     footer { text-align: center; padding: 56px 24px; border-top: 1px solid rgba(201,168,76,0.1); background: var(--dark2); }
     .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--gold); margin-bottom: 6px; }
@@ -210,7 +233,7 @@
       </p>
     </div>
     <div class="hero-ctas">
-      <a href="#apoie" class="btn-primary">Adote um jovem talento</a>
+      <a href="https://wa.me/5528999036141?text=Ol%C3%A1%21%20Vi%20o%20site%20do%20Cinema%20e%20Artes%20Marata%C3%ADzes%20e%20quero%20saber%20como%20apoiar%20um%20jovem%20talento%20da%20cidade." class="btn-primary" target="_blank">Adote um jovem talento</a>
       <a href="#sobre" class="btn-secondary">Conhecer o projeto</a>
     </div>
   </header>
@@ -350,7 +373,7 @@
           Menos que um plano de internet empresarial. Menos que um anúncio que some em 3 dias.
           Aqui sua marca fica 6 meses na TV e no Instagram — e a cidade sabe quem apoiou.
         </p>
-        <a href="https://wa.me/5528999036141" class="btn-primary">Quero ser apoiador</a>
+        <a href="https://wa.me/5528999036141?text=Ol%C3%A1%21%20Vi%20o%20site%20do%20Cinema%20e%20Artes%20Marata%C3%ADzes%20e%20quero%20saber%20como%20apoiar%20um%20jovem%20talento%20da%20cidade." class="btn-primary" target="_blank">Quero ser apoiador</a>
       </div>
 
       <div class="vagas-aviso">
@@ -435,17 +458,21 @@
     </div>
   </div>
 
-  <section id="contato">
+  <section id="contato" class="contato-section">
     <span class="section-tag" style="text-align:center;display:block;">Fale conosco</span>
     <h2 class="section-title" style="text-align:center;">Vamos <em>conversar?</em></h2>
     <div class="contato-box">
       <div class="contato-frase">"Adote um jovem talento de Marataízes."</div>
       <p>
-        Mande uma mensagem e a gente explica tudo em 5 minutos.
-        Sem contrato complicado, sem burocracia.
-        Só você, sua marca e um jovem que vai crescer com seu apoio.
+        Clique no botão abaixo. O WhatsApp já abre com a mensagem pronta —
+        é só enviar e a gente responde na hora.
       </p>
-      <a href="https://wa.me/5528999036141" class="whatsapp-btn">💬 Falar pelo WhatsApp</a>
+      <div class="msg-preview">
+        <span>"Olá! Vi o site do Cinema e Artes Marataízes e quero saber como apoiar um jovem talento da cidade."</span>
+      </div>
+      <a href="https://wa.me/5528999036141?text=Ol%C3%A1%21%20Vi%20o%20site%20do%20Cinema%20e%20Artes%20Marata%C3%ADzes%20e%20quero%20saber%20como%20apoiar%20um%20jovem%20talento%20da%20cidade." class="whatsapp-btn" target="_blank">
+        💬 Falar pelo WhatsApp
+      </a>
     </div>
   </section>
 
