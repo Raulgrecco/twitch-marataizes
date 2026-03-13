@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trabalho Seguro ES — Proposta Kaizen Ocupacional × TV Marataízes</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --preto: #080C10;
+    --preto-med: #111820;
+    --preto-card: #161E28;
+    --laranja: #F46A1A;
+    --laranja-claro: #FF8C42;
+    --amarelo: #F4C11A;
+    --branco: #ffffff;
+    --cinza: #F2F4F6;
+    --cinza-text: #6A7A8A;
+    --verde-ok: #22C55E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--preto);
+    color: var(--branco);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    min-height: 100vh;
+    background: var(--preto);
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 80px 24px 60px;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--laranja), var(--amarelo));
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -100px; right: -150px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(244,106,26,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-glow-2 {
+    position: absolute;
+    bottom: -100px; left: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(244,193,26,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(28px);
+    animation: fadeUp 0.9s ease forwards 0.2s;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(244,106,26,0.15);
+    border: 1px solid rgba(244,106,26,0.3);
+    color: var(--laranja-claro);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 7px 16px;
+    border-radius: 100px;
+    margin-bottom: 32px;
+    text-transform: uppercase;
+  }
+
+  .tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--laranja);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(38px, 7vw, 68px);
+    line-height: 1.05;
+    margin-bottom: 8px;
+    font-weight: 800;
+  }
+
+  .hero h1 .laranja { color: var(--laranja); }
+  .hero h1 .amarelo { color: var(--amarelo); }
+
+  .hero-sub {
+    font-size: clamp(15px, 2.5vw, 17px);
+    color: var(--cinza-text);
+    font-weight: 300;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    line-height: 1.65;
+    max-width: 580px;
+  }
+
+  .pertencimento-box {
+    background: linear-gradient(135deg, #1a0a00, #1f1200);
+    border: 1px solid rgba(244,106,26,0.25);
+    border-left: 4px solid var(--laranja);
+    border-radius: 0 12px 12px 0;
+    padding: 28px 32px;
+    margin-bottom: 40px;
+  }
+
+  .pertencimento-box .label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--laranja);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .pertencimento-box p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #c8d0d8;
+  }
+
+  .pertencimento-box strong { color: var(--branco); }
+
+  .soul-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #2a1f00, #1f1800);
+    border: 1px solid rgba(244,193,26,0.3);
+    padding: 14px 22px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.6;
+    margin-bottom: 44px;
+    color: #d4b860;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.5s;
+  }
+
+  .soul-badge strong {
+    display: block;
+    font-size: 14px;
+    color: var(--amarelo);
+    margin-bottom: 2px;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+    gap: 14px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.7s;
+  }
+
+  .card {
+    background: var(--preto-card);
+    border-radius: 12px;
+    padding: 20px 18px;
+    border: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--laranja), var(--amarelo));
+  }
+
+  .card-tag {
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 2px; color: var(--laranja);
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+
+  .card h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .card p { font-size: 12px; color: var(--cinza-text); line-height: 1.5; }
+
+  section { padding: 80px 24px; }
+  .section-inner { max-width: 800px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 3px; color: var(--laranja);
+    text-transform: uppercase; margin-bottom: 14px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(26px, 5vw, 40px);
+    line-height: 1.15;
+    margin-bottom: 40px;
+    font-weight: 800;
+  }
+
+  .programa { background: var(--cinza); color: var(--preto); }
+  .programa .section-title { color: var(--preto); }
+  .programa .section-label { color: var(--laranja); }
+
+  .ep-flow { display: flex; flex-direction: column; gap: 0; margin-bottom: 40px; }
+
+  .ep {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 20px;
+    align-items: start;
+    padding: 22px 0;
+    border-bottom: 1px solid #dde3ea;
+  }
+
+  .ep:last-child { border-bottom: none; }
+
+  .ep-time {
+    background: var(--laranja);
+    color: var(--branco);
+    border-radius: 8px;
+    padding: 6px 8px;
+    font-size: 11px; font-weight: 700;
+    text-align: center; line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  .ep-content h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; color: var(--preto); }
+  .ep-content p { font-size: 13px; color: #5a6a7a; line-height: 1.6; }
+
+  .programa-note {
+    background: var(--preto);
+    color: var(--branco);
+    border-radius: 12px;
+    padding: 24px 28px;
+    font-size: 14px; line-height: 1.7;
+    border-left: 4px solid var(--laranja);
+  }
+
+  .programa-note strong { color: var(--laranja); }
+
+  .gatilhos { background: var(--preto); }
+
+  .g-card {
+    border-radius: 14px;
+    padding: 32px;
+    margin-bottom: 18px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .g-card-1 { background: var(--preto-card); }
+  .g-card-2 { background: #100810; border-color: rgba(244,106,26,0.2); }
+  .g-card-3 { background: var(--preto-med); }
+  .g-card-4 { background: #0a100a; border-color: rgba(34,197,94,0.2); }
+
+  .g-num {
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 2px; color: var(--laranja);
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+
+  .g-card-4 .g-num { color: var(--verde-ok); }
+
+  .g-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(17px, 3vw, 22px);
+    margin-bottom: 12px; line-height: 1.3; font-weight: 700;
+  }
+
+  .g-card p { font-size: 14px; color: #8090a0; line-height: 1.75; }
+  .g-card .hl { color: var(--laranja-claro); font-weight: 600; }
+  .g-card-4 .hl { color: var(--verde-ok); }
+
+  .incluso { background: var(--preto-med); }
+  .i-list { display: flex; flex-direction: column; }
+
+  .i-item {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 18px; align-items: start;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .i-item:last-child { border-bottom: none; }
+
+  .i-num {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--laranja), var(--amarelo));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: var(--preto);
+    flex-shrink: 0; margin-top: 2px;
+  }
+
+  .i-item h3 { font-size: 15px; font-weight: 600; margin-bottom: 5px; }
+  .i-item p { font-size: 13px; color: var(--cinza-text); line-height: 1.65; }
+
+  .investimento { background: var(--preto); }
+
+  .inv-box {
+    background: var(--preto-card);
+    border-radius: 16px; padding: 40px;
+    border: 1px solid rgba(244,106,26,0.2);
+    margin-bottom: 32px; position: relative; overflow: hidden;
+  }
+
+  .inv-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--laranja), var(--amarelo));
+  }
+
+  .inv-valor {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(34px, 6vw, 52px);
+    color: var(--laranja); line-height: 1;
+    margin-bottom: 10px; font-weight: 800;
+  }
+
+  .inv-detalhe { font-size: 15px; color: var(--cinza-text); margin-bottom: 5px; }
+  .inv-obs { font-size: 13px; color: var(--amarelo); margin-top: 14px; font-style: italic; opacity: 0.85; }
+
+  .passos { list-style: none; counter-reset: p; }
+
+  .passos li {
+    counter-increment: p;
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 13px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 14px; color: #a0b0c0;
+  }
+
+  .passos li::before {
+    content: counter(p);
+    min-width: 26px; height: 26px;
+    background: linear-gradient(135deg, var(--laranja), var(--amarelo));
+    color: var(--preto); border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700;
+    flex-shrink: 0; margin-top: 1px;
+  }
+
+  .cta-section { background: var(--preto-med); text-align: center; padding: 80px 24px; }
+
+  .cta-box {
+    max-width: 560px; margin: 0 auto;
+    background: linear-gradient(135deg, var(--laranja), var(--amarelo));
+    border-radius: 20px; padding: 50px 40px;
+  }
+
+  .cta-box h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(24px, 5vw, 34px);
+    color: var(--preto); margin-bottom: 14px; font-weight: 800;
+  }
+
+  .cta-box p { font-size: 15px; color: rgba(8,12,16,0.7); margin-bottom: 28px; line-height: 1.6; }
+
+  .btn-wpp {
+    display: inline-block;
+    background: var(--preto); color: var(--branco);
+    padding: 16px 36px; border-radius: 10px;
+    text-decoration: none; font-weight: 600; font-size: 15px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .btn-wpp:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.4); }
+
+  .footer {
+    background: #040608; text-align: center;
+    padding: 28px 24px; font-size: 12px;
+    color: var(--cinza-text); line-height: 1.8;
+  }
+
+  .footer a { color: var(--laranja); text-decoration: none; }
+
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+  .reveal {
+    opacity: 0; transform: translateY(22px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 480px) {
+    .inv-box { padding: 26px 18px; }
+    .g-card { padding: 24px 18px; }
+    .cta-box { padding: 36px 22px; }
+    .pertencimento-box { padding: 22px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+  <div class="hero-inner">
+    <div class="tag">Proposta exclusiva — Marcelo, Kaizen Ocupacional — 2026</div>
+    <h1>Trabalho<br><span class="laranja">Seguro</span> <span class="amarelo">ES</span></h1>
+    <p class="hero-sub">Um programa mensal na TV Marataízes que coloca a Kaizen Ocupacional como a referência em medicina e segurança do trabalho no sul do Espírito Santo — e no Brasil.</p>
+
+    <div class="pertencimento-box">
+      <div class="label">⚡ Por que isso é urgente para a Kaizen</div>
+      <p>
+        Seus concorrentes já estão na cidade. Talvez tenham contatos, relações, indicações.
+        Mas <strong>nenhum deles está na TV.</strong> Enquanto eles dependem de quem conhecem,
+        a Kaizen pode construir algo que nenhuma amizade garante:
+        <strong>ser a empresa que a cidade inteira vê e reconhece como referência.</strong>
+        Reconhecimento não se herda — se conquista.
+      </p>
+    </div>
+
+    <div class="soul-badge">
+      <strong>SOUL TV — Canal 300</strong>
+      Mesmo canal de CNN Brasil · Record News · Times Brasil · TV UOL<br>
+      Distribuição para todo o Brasil e +197 países
+    </div>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-tag">Nacional</div>
+        <h3>SOUL TV Canal 300</h3>
+        <p>Brasil inteiro e +197 países</p>
+      </div>
+      <div class="card">
+        <div class="card-tag">Regional</div>
+        <h3>Sul do ES</h3>
+        <p>Grande audiência via tvmarataizes.digital</p>
+      </div>
+      <div class="card">
+        <div class="card-tag">Digital</div>
+        <h3>Instagram pipeline</h3>
+        <p>Pílulas impulsionadas direto da TV</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="programa">
+  <div class="section-inner">
+    <div class="section-label reveal">O programa na TV</div>
+    <h2 class="section-title reveal">Como o "Trabalho Seguro ES"<br>vai ao ar todo mês</h2>
+
+    <div class="ep-flow">
+      <div class="ep reveal">
+        <div class="ep-time">0:00<br>–<br>1:30</div>
+        <div class="ep-content">
+          <h3>Abertura — Identidade Kaizen</h3>
+          <p>Vinheta exclusiva com a marca da Kaizen. Apresentação do episódio do mês pelo apresentador da TV Marataízes. A cidade já sabe: esse programa é da Kaizen.</p>
+        </div>
+      </div>
+      <div class="ep reveal">
+        <div class="ep-time">1:30<br>–<br>5:00</div>
+        <div class="ep-content">
+          <h3>Bloco 1 — Quem é a Kaizen</h3>
+          <p>Apresentação da equipe, estrutura e especialidades. Médicos do trabalho, engenheiros, técnicos em segurança. A empresa ganha rosto — e rostos criam confiança.</p>
+        </div>
+      </div>
+      <div class="ep reveal">
+        <div class="ep-time">5:00<br>–<br>9:00</div>
+        <div class="ep-content">
+          <h3>Bloco 2 — Serviços em destaque</h3>
+          <p>Cada episódio foca em um serviço diferente: ASO, PCMSO, PPRA, laudos, treinamentos NR. Explicado de forma simples para que empresas da região entendam o que precisam contratar.</p>
+        </div>
+      </div>
+      <div class="ep reveal">
+        <div class="ep-time">9:00<br>–<br>12:00</div>
+        <div class="ep-content">
+          <h3>Bloco 3 — Encerramento e contato</h3>
+          <p>Chamada direta: "Sua empresa está em conformidade? Fale com a Kaizen." Telefone, site e redes aparecem na tela. O espectador já sabe para quem ligar.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="programa-note reveal">
+      <strong>Importante:</strong> o programa não é um comercial. É <strong>conteúdo de utilidade pública</strong> — e isso é o que faz a audiência assistir. Quem assiste confia. Quem confia contrata.
+    </div>
+  </div>
+</section>
+
+<section class="gatilhos">
+  <div class="section-inner">
+    <div class="section-label reveal">Por que a Kaizen precisa disso agora</div>
+    <h2 class="section-title reveal">Quatro gatilhos que<br>mudam o jogo</h2>
+
+    <div class="g-card g-card-1 reveal">
+      <div class="g-num">Gatilho 01 — Pertencimento e autoridade</div>
+      <h3>Seus concorrentes têm contatos.<br>Você pode ter reconhecimento.</h3>
+      <p>Indicação funciona para quem já conhece. <span class="hl">TV funciona para quem ainda não te conhece.</span> Cada empresa do sul do ES que assiste ao "Trabalho Seguro ES" passa a associar segurança do trabalho a um nome: Kaizen. Quando precisar contratar, o nome que vem à cabeça é o seu.</p>
+    </div>
+
+    <div class="g-card g-card-2 reveal">
+      <div class="g-num">Gatilho 02 — Diferenciação que não se copia</div>
+      <h3>Micro agência faz vídeo.<br>TV Marataízes faz programa.</h3>
+      <p>Vídeo no Instagram tem vida útil de 48 horas. Um programa mensal na TV — exibido na SOUL TV canal 300, ao lado de CNN Brasil e Record News — <span class="hl">constrói autoridade que nenhum concorrente pode copiar rapidamente.</span> Quando eles perceberem, você já está consolidado.</p>
+    </div>
+
+    <div class="g-card g-card-3 reveal">
+      <div class="g-num">Gatilho 03 — Mercado B2B educado compra mais</div>
+      <h3>A maioria das empresas da região<br>não sabe o que está deixando de cumprir.</h3>
+      <p>ASO vencido. PCMSO desatualizado. NRs ignoradas. Um programa que <span class="hl">educa o mercado sobre obrigações legais</span> gera demanda direta para a Kaizen — porque quem explica a necessidade é o primeiro a ser procurado para resolver.</p>
+    </div>
+
+    <div class="g-card g-card-4 reveal">
+      <div class="g-num">Gatilho 04 — Expansão regional</div>
+      <h3>Itapemirim. Presidente Kennedy.<br>Cachoeiro. O sul do ES inteiro.</h3>
+      <p>A TV Marataízes tem audiência em toda a região. A SOUL TV vai para o Brasil. <span class="hl">Um programa mensal transforma a Kaizen na referência regional</span> — não só na cidade onde já atua, mas em todos os municípios onde ainda não entrou. É presença antes da visita comercial.</p>
+    </div>
+  </div>
+</section>
+
+<section class="incluso">
+  <div class="section-inner">
+    <div class="section-label reveal">O que está incluído</div>
+    <h2 class="section-title reveal">Tudo por mês,<br>sem surpresa</h2>
+
+    <div class="i-list">
+      <div class="i-item reveal">
+        <div class="i-num">01</div>
+        <div>
+          <h3>Programa mensal de 10 a 12 minutos</h3>
+          <p>Produção completa pela TV Marataízes: roteiro, gravação, edição e distribuição. Formato institucional com foco na equipe e serviços da Kaizen.</p>
+        </div>
+      </div>
+      <div class="i-item reveal">
+        <div class="i-num">02</div>
+        <div>
+          <h3>Distribuição TV Marataízes + SOUL TV canal 300</h3>
+          <p>Exibição na plataforma tvmarataizes.digital (sul do ES) e na SOUL TV canal 300 para todo Brasil e +197 países — mesmo canal de CNN Brasil, Record News, Times Brasil e TV UOL.</p>
+        </div>
+      </div>
+      <div class="i-item reveal">
+        <div class="i-num">03</div>
+        <div>
+          <h3>Pílulas no Instagram impulsionadas</h3>
+          <p>Cortes do programa distribuídos no Instagram com impulsionamento direto da pipeline da TV — alcance real, não orgânico.</p>
+        </div>
+      </div>
+      <div class="i-item reveal">
+        <div class="i-num">04</div>
+        <div>
+          <h3>Vinheta e identidade visual exclusiva</h3>
+          <p>"Trabalho Seguro ES — uma realização da Kaizen Ocupacional." Seu nome na abertura e no encerramento de cada episódio.</p>
+        </div>
+      </div>
+      <div class="i-item reveal">
+        <div class="i-num">05</div>
+        <div>
+          <h3>Relatório mensal de alcance</h3>
+          <p>Visualizações, alcance nas plataformas e resumo do episódio. Você vê os números todo mês.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="investimento">
+  <div class="section-inner">
+    <div class="section-label reveal">Investimento</div>
+    <h2 class="section-title reveal">Claro e direto</h2>
+
+    <div class="inv-box reveal">
+      <div class="inv-valor">R$ 3.500<span style="font-size:0.42em; color:var(--cinza-text)">/mês</span></div>
+      <div class="inv-detalhe">Contrato de 6 meses · R$ 21.000 no total</div>
+      <div class="inv-detalhe">TV Marataízes + SOUL TV canal 300 + Instagram</div>
+      <div class="inv-obs">Menos que uma única ação jurídica trabalhista. 6 meses sendo a referência em segurança do trabalho no sul do ES.</div>
+    </div>
+
+    <div class="section-label reveal" style="margin-top: 36px;">Próximos passos</div>
+    <ul class="passos reveal">
+      <li>Conversa para alinhar o roteiro do primeiro episódio</li>
+      <li>Definição da equipe e serviços que estreiam no programa</li>
+      <li>Gravação e produção do episódio piloto</li>
+      <li>Estreia do "Trabalho Seguro ES" na TV e nas redes</li>
+    </ul>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-box reveal">
+    <h2>Marcelo, vamos conversar?</h2>
+    <p>15 minutos para apresentar o formato do programa e mostrar como fica na prática. Sem compromisso.</p>
+    <a class="btn-wpp" href="https://wa.me/5528999036141?text=Ol%C3%A1%21+Vi+a+proposta+Trabalho+Seguro+ES+e+gostaria+de+conversar+sobre+o+programa." target="_blank">
+      💬 Falar pelo WhatsApp
+    </a>
+  </div>
+</section>
+
+<footer class="footer">
+  <strong>TV Marataízes</strong> · <a href="https://tvmarataizes.digital" target="_blank">tvmarataizes.digital</a><br>
+  Macuca Produções · CNPJ 59.245.417/0001-67<br>
+  © 2026 — Proposta exclusiva para Kaizen Ocupacional
+</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 70);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
