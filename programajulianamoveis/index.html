@@ -100,30 +100,6 @@
       animation:up 0.9s 0.2s ease both;
     }
 
-    .hero-card{
-      background:rgba(192,122,58,0.07);
-      border:1px solid rgba(192,122,58,0.2);
-      border-top:2px solid var(--copper);
-      border-radius:2px;padding:32px 44px;
-      max-width:620px;margin:0 auto 44px;
-      animation:up 0.9s 0.28s ease both;
-    }
-    @media(max-width:560px){.hero-card{padding:24px 20px;}}
-    .hero-card-label{font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--copper);margin-bottom:14px;display:block;}
-    .hero-card-line{
-      display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;
-      margin-bottom:10px;
-    }
-    .hc-item{text-align:center;}
-    .hc-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--copper3);display:block;line-height:1;}
-    .hc-lbl{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(196,186,176,0.4);margin-top:3px;}
-    .hc-div{width:1px;height:36px;background:var(--line);}
-    .hero-card-desc{
-      font-family:'Playfair Display',serif;font-style:italic;
-      font-size:clamp(0.95rem,2vw,1.2rem);color:rgba(240,232,220,0.7);
-      margin-top:16px;line-height:1.5;
-    }
-
     .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;animation:up 0.9s 0.35s ease both;}
     .btn-copper{
       background:var(--copper);color:var(--bg);
@@ -220,7 +196,6 @@
       background:var(--bg);border:1px solid rgba(192,122,58,0.25);border-radius:3px;
       padding:28px;text-align:center;
     }
-
     .fund-quote{
       font-family:'Playfair Display',serif;font-style:italic;
       font-size:clamp(1.2rem,2.8vw,1.7rem);color:var(--copper2);
@@ -287,28 +262,42 @@
     <h1 class="hero-title">Casa com <em>Estilo</em></h1>
     <p class="hero-sub">com Juliana Móveis</p>
 
-    <div class="hero-card">
-      <span class="hero-card-label">O programa de decoração do sul do Espírito Santo</span>
-      <div class="hero-card-line">
-        <div class="hc-item">
-          <span class="hc-num">12</span>
-          <span class="hc-lbl">min / episódio</span>
-        </div>
-        <div class="hc-div"></div>
-        <div class="hc-item">
-          <span class="hc-num">1×</span>
-          <span class="hc-lbl">por mês</span>
-        </div>
-        <div class="hc-div"></div>
-        <div class="hc-item">
-          <span class="hc-num">TV+</span>
-          <span class="hc-lbl">Instagram</span>
-        </div>
+    <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1rem,2.2vw,1.35rem);color:rgba(240,232,220,0.6);max-width:560px;margin:0 auto 44px;line-height:1.6;animation:up 0.9s 0.22s ease both;">
+      Juliana Móveis apresenta o programa oficial de decoração da TV Marataízes — todo mês, para o sul do Espírito Santo inteiro.
+    </p>
+
+    <div style="display:flex;align-items:center;gap:28px;max-width:640px;margin:0 auto 44px;background:rgba(192,122,58,0.07);border:1px solid rgba(192,122,58,0.2);border-top:2px solid var(--copper);border-radius:2px;padding:28px 32px;text-align:left;animation:up 0.9s 0.28s ease both;flex-wrap:wrap;justify-content:center;">
+      <div style="flex-shrink:0;text-align:center;">
+        <img
+          src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/fotodionea.png"
+          alt="Dionea — Juliana Móveis"
+          style="width:90px;height:90px;object-fit:cover;object-position:center top;border-radius:50%;border:2px solid var(--copper);display:block;margin:0 auto 8px;"
+        />
+        <div style="font-size:0.78rem;font-weight:500;color:var(--cream);">Dionea</div>
+        <div style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(192,122,58,0.6);">Apresentadora</div>
       </div>
-      <p class="hero-card-desc">
-        Dionea apresenta. A Juliana Móveis é referência.<br>
-        A cidade inteira vê.
-      </p>
+      <div style="flex:1;min-width:200px;">
+        <span style="font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--copper);display:block;margin-bottom:12px;">O programa de decoração do sul do ES</span>
+        <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:12px;">
+          <div>
+            <span style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--copper3);display:block;line-height:1;">12</span>
+            <span style="font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(196,186,176,0.4);">min / episódio</span>
+          </div>
+          <div style="width:1px;background:var(--line);"></div>
+          <div>
+            <span style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--copper3);display:block;line-height:1;">1×</span>
+            <span style="font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(196,186,176,0.4);">por mês</span>
+          </div>
+          <div style="width:1px;background:var(--line);"></div>
+          <div>
+            <span style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--copper3);display:block;line-height:1;">10+</span>
+            <span style="font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(196,186,176,0.4);">cortes p/ episódio</span>
+          </div>
+        </div>
+        <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:0.95rem;color:rgba(240,232,220,0.6);line-height:1.5;">
+          A Juliana Móveis vira referência em decoração.<br>A cidade inteira vê.
+        </p>
+      </div>
     </div>
 
     <div class="hero-ctas">
@@ -319,11 +308,11 @@
 </header>
 
 <div class="stripe">
-  <div class="s-item"><span class="s-num">12min</span><span class="s-lbl">por episódio</span></div>
-  <div class="s-item"><span class="s-num">Mensal</span><span class="s-lbl">periodicidade</span></div>
-  <div class="s-item"><span class="s-num">TV+Redes</span><span class="s-lbl">distribuição</span></div>
-  <div class="s-item"><span class="s-num">10+</span><span class="s-lbl">cortes por episódio</span></div>
-  <div class="s-item"><span class="s-num">Sul ES</span><span class="s-lbl">alcance regional</span></div>
+  <div class="s-item"><span class="s-num">12 min</span><span class="s-lbl">duração do episódio</span></div>
+  <div class="s-item"><span class="s-num">1 × mês</span><span class="s-lbl">gravação mensal</span></div>
+  <div class="s-item"><span class="s-num">10+ cortes</span><span class="s-lbl">Instagram por episódio</span></div>
+  <div class="s-item"><span class="s-num">TV + Redes</span><span class="s-lbl">TV Marataízes · SOUL TV · Instagram</span></div>
+  <div class="s-item"><span class="s-num">R$ 2.500</span><span class="s-lbl">investimento mensal</span></div>
 </div>
 
 <div class="prog-outer" id="programa">
@@ -332,6 +321,39 @@
     <h2 class="ttl">Como o <em>Casa com Estilo</em><br>vai ao ar todo mês</h2>
     <p class="body">Um programa de 12 minutos gravado dentro da Juliana Móveis. A própria loja é o cenário — cada episódio foca em um ambiente diferente, com Dionea guiando o espectador.</p>
     <div class="div"></div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:52px;">
+      <div style="background:var(--bg3);border:1px solid var(--line);border-radius:2px;padding:16px;text-align:center;">
+        <span style="font-size:1.4rem;display:block;margin-bottom:6px;">🛋️</span>
+        <span style="font-family:'Playfair Display',serif;font-size:0.9rem;color:var(--cream);display:block;margin-bottom:2px;">Ep. 1</span>
+        <span style="font-size:0.7rem;color:rgba(196,186,176,0.4);">A Sala dos Sonhos</span>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--line);border-radius:2px;padding:16px;text-align:center;">
+        <span style="font-size:1.4rem;display:block;margin-bottom:6px;">🛏️</span>
+        <span style="font-family:'Playfair Display',serif;font-size:0.9rem;color:var(--cream);display:block;margin-bottom:2px;">Ep. 2</span>
+        <span style="font-size:0.7rem;color:rgba(196,186,176,0.4);">Quarto com Conforto</span>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--line);border-radius:2px;padding:16px;text-align:center;">
+        <span style="font-size:1.4rem;display:block;margin-bottom:6px;">🍳</span>
+        <span style="font-family:'Playfair Display',serif;font-size:0.9rem;color:var(--cream);display:block;margin-bottom:2px;">Ep. 3</span>
+        <span style="font-size:0.7rem;color:rgba(196,186,176,0.4);">Cozinha e Jantar</span>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--line);border-radius:2px;padding:16px;text-align:center;">
+        <span style="font-size:1.4rem;display:block;margin-bottom:6px;">🌿</span>
+        <span style="font-family:'Playfair Display',serif;font-size:0.9rem;color:var(--cream);display:block;margin-bottom:2px;">Ep. 4</span>
+        <span style="font-size:0.7rem;color:rgba(196,186,176,0.4);">Varanda e Área Gourmet</span>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--line);border-radius:2px;padding:16px;text-align:center;">
+        <span style="font-size:1.4rem;display:block;margin-bottom:6px;">🎨</span>
+        <span style="font-family:'Playfair Display',serif;font-size:0.9rem;color:var(--cream);display:block;margin-bottom:2px;">Ep. 5</span>
+        <span style="font-size:0.7rem;color:rgba(196,186,176,0.4);">Cores e Combinações</span>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--line);border-radius:2px;padding:16px;text-align:center;">
+        <span style="font-size:1.4rem;display:block;margin-bottom:6px;">🏠</span>
+        <span style="font-family:'Playfair Display',serif;font-size:0.9rem;color:var(--cream);display:block;margin-bottom:2px;">Ep. 6</span>
+        <span style="font-size:0.7rem;color:rgba(196,186,176,0.4);">Casa Completa</span>
+      </div>
+    </div>
 
     <div class="prog-grid">
       <div class="ep-track">
@@ -466,13 +488,13 @@
       <div class="fund-grid">
 
         <div class="fund-seal">
-          <div style="font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(192,122,58,0.5);margin-bottom:14px;">Selo Oficial</div>
+          <div style="font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(192,122,58,0.5);margin-bottom:14px;">Selo Oficial · Apoiadora Fundadora</div>
           <img
             src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/APOIADOR%20FUNDADOR%20CINEMA%20E%20ARTE.png"
             alt="Apoiador Fundador Cinema e Artes Marataízes"
-            style="width:100%;max-width:280px;border-radius:3px;"
+            style="width:100%;max-width:300px;display:block;margin:0 auto;"
           />
-          <div style="font-size:0.72rem;color:rgba(192,122,58,0.45);margin-top:14px;line-height:1.6;">
+          <div style="font-size:0.72rem;color:rgba(192,122,58,0.45);margin-top:14px;line-height:1.6;text-align:center;">
             Selo digital enviado à Dionea — para usar no Instagram, no site e em todos os materiais da Juliana Móveis.
           </div>
         </div>
