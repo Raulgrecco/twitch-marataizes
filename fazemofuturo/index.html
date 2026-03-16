@@ -28,7 +28,7 @@
 
     nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,248,240,0.96);backdrop-filter:blur(20px);border-bottom:2px solid var(--orange);height:64px;padding:0 40px;display:flex;align-items:center;justify-content:space-between;}
     .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-    .nav-logo img{height:32px;width:auto;}
+    .nav-logo img{height:38px;width:auto;mix-blend-mode:multiply;}
     .nav-logo-txt{font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:700;color:var(--orange);}
     .nav-links{display:flex;gap:28px;list-style:none;}
     .nav-links a{font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text2);text-decoration:none;transition:color 0.2s;}
@@ -41,9 +41,9 @@
     .hero-pattern{position:absolute;inset:0;z-index:0;opacity:0.035;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,var(--orange) 40px,var(--orange) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,var(--orange) 40px,var(--orange) 41px);}
     .hero-content{position:relative;z-index:2;max-width:880px;}
 
-    .hero-logos{display:flex;align-items:center;justify-content:center;gap:28px;margin-bottom:32px;animation:up 0.8s ease both;}
-    .hero-logos img{height:50px;width:auto;object-fit:contain;}
-    .hero-logos-sep{width:1px;height:38px;background:var(--line2);}
+    .hero-logos{display:flex;align-items:center;justify-content:center;gap:40px;margin-bottom:36px;animation:up 0.8s ease both;background:rgba(255,255,255,0.6);border-radius:12px;padding:20px 40px;border:1px solid var(--line2);}
+    .hero-logos img{height:72px;width:auto;object-fit:contain;mix-blend-mode:multiply;}
+    .hero-logos-sep{width:1px;height:52px;background:var(--line2);}
 
     .eyebrow{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line2);border-radius:1px;padding:7px 20px;font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--orange);margin-bottom:26px;animation:up 0.8s 0.06s ease both;background:rgba(200,80,16,0.06);}
     .eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--orange);animation:blink 2.5s infinite;}
@@ -109,7 +109,7 @@
     .tv-mock{background:var(--dark2);border:1px solid rgba(200,80,16,0.22);border-radius:3px;padding:22px;}
     .tv-screen{background:#000;border-radius:2px;padding:22px 16px;text-align:center;margin-bottom:14px;border:1px solid rgba(200,80,16,0.08);}
     .tv-logo-wrap{display:flex;align-items:center;justify-content:center;margin-bottom:8px;}
-    .tv-logo-wrap img{height:26px;width:auto;}
+    .tv-logo-wrap img{height:36px;width:auto;mix-blend-mode:screen;}
     .tv-screen-tag{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(200,80,16,0.45);}
     .tv-badge{display:inline-block;margin-top:10px;background:rgba(200,80,16,0.2);border:1px solid rgba(200,80,16,0.4);border-radius:1px;padding:4px 12px;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--orange3);}
     .tv-bar{height:3px;background:rgba(200,80,16,0.12);border-radius:1px;margin-bottom:14px;overflow:hidden;}
@@ -123,7 +123,7 @@
     @media(max-width:800px){.sobre-inner{grid-template-columns:1fr;gap:48px;}}
     .cert-card{background:var(--white);border:1px solid var(--line2);border-top:4px solid var(--orange);border-radius:3px;padding:32px;box-shadow:0 4px 24px rgba(200,80,16,0.07);}
     .cert-header{display:flex;align-items:center;gap:12px;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--line);}
-    .cert-logo{height:34px;width:auto;}
+    .cert-logo{height:44px;width:auto;mix-blend-mode:multiply;}
     .cert-ht strong{display:block;color:var(--dark);font-size:0.88rem;font-weight:500;}
     .cert-ht span{font-size:0.7rem;color:var(--orange);letter-spacing:0.06em;}
     .data-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(200,80,16,0.07);font-size:0.83rem;}
@@ -202,7 +202,7 @@
 
     footer{text-align:center;padding:48px 24px;border-top:1px solid rgba(200,80,16,0.2);background:var(--dark);}
     .f-logos{display:flex;align-items:center;justify-content:center;gap:22px;margin-bottom:18px;}
-    .f-logos img{height:26px;width:auto;}
+    .f-logos img{height:36px;width:auto;mix-blend-mode:multiply;filter:brightness(1.1);}
     .f-sep{width:1px;height:20px;background:rgba(200,80,16,0.28);}
     .f-sub{font-size:0.64rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,248,240,0.18);margin-bottom:22px;}
     .f-links{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin-bottom:18px;}
@@ -230,18 +230,14 @@
 <header class="hero">
   <div class="hero-pattern"></div>
   <div class="hero-content">
-
     <div class="hero-logos">
       <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logo%20cinema%20e%20artes%20marataizes.png" alt="Cinema e Artes Marataízes"/>
       <div class="hero-logos-sep"></div>
       <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logo_tv_marataizes.png" alt="TV Marataízes"/>
     </div>
-
     <div class="eyebrow"><span class="eyebrow-dot"></span>Ponto de Cultura · Ministério da Cultura · ID 301034</div>
-
     <h1 class="hero-title">Cinema e <em>Artes</em></h1>
     <p class="hero-city">Marataízes · Turma 2026</p>
-
     <div class="ciclo-hero">
       <span class="ciclo-hero-label">Como o seu apoio funciona na prática</span>
       <div class="ciclo-steps">
@@ -257,7 +253,6 @@
       </div>
       <p class="ciclo-hero-frase"><strong>R$ 500 por mês mantém as aulas.</strong> As aulas geram os filmes. Os filmes levam sua marca à cidade — e ficam gravados para sempre.</p>
     </div>
-
     <div class="hero-ctas">
       <a href="https://wa.me/5528999036141?text=Ol%C3%A1!%20Vi%20o%20site%20do%20Cinema%20e%20Artes%20Marata%C3%ADzes%20e%20quero%20saber%20sobre%20a%20Cota%20Fundadora." class="btn-orange" target="_blank">Quero ser Apoiador Fundador</a>
       <a href="#como-funciona" class="btn-outline">Entender o projeto</a>
@@ -280,48 +275,12 @@
     <h2 class="s-title">Seu dinheiro vira filme.<br><em>Seu nome vira história.</em></h2>
     <p class="s-body">Não é patrocínio de anúncio. É financiamento real de cultura. Cada R$ 500 mantém um jovem de Marataízes aprendendo cinema toda semana — e tudo que ele produz carrega o nome da sua empresa.</p>
     <div class="como-grid">
-      <div class="como-card">
-        <span class="como-n">1</span>
-        <span class="como-icon">💰</span>
-        <div class="como-title">Sua empresa entra</div>
-        <p class="como-body">R$ 500 por mês, por 6 meses. Você se torna Apoiador Fundador da Turma 2026 do Cinema e Artes Marataízes. Sem contrato complicado.</p>
-        <p class="como-result">→ Cota Fundadora garantida</p>
-      </div>
-      <div class="como-card">
-        <span class="como-n">2</span>
-        <span class="como-icon">🎬</span>
-        <div class="como-title">As aulas acontecem</div>
-        <p class="como-body">Toda terça e quinta, na sala cedida pela Prefeitura na EMEF José Marcelino, na Praça da Barra do Itapemirim. Jovens de Marataízes aprendem cinema, som e montagem.</p>
-        <p class="como-result">→ Cultura real na cidade</p>
-      </div>
-      <div class="como-card">
-        <span class="como-n">3</span>
-        <span class="como-icon">🎞️</span>
-        <div class="como-title">Os filmes são produzidos</div>
-        <p class="como-body">Os alunos criam curtas e documentários reais. São produções de verdade, com roteiro, câmera, som e edição. Não é simulação.</p>
-        <p class="como-result">→ Conteúdo original de Marataízes</p>
-      </div>
-      <div class="como-card">
-        <span class="como-n">4</span>
-        <span class="como-icon">📺</span>
-        <div class="como-title">A TV Marataízes exibe</div>
-        <p class="como-body">A TV Marataízes é parceira do projeto. Todo mês exibe o programa com as produções dos alunos — na plataforma digital, na SOUL TV Canal 300 e no Instagram.</p>
-        <p class="como-result">→ Distribuição real, não promessa</p>
-      </div>
-      <div class="como-card">
-        <span class="como-n">5</span>
-        <span class="como-icon">🏆</span>
-        <div class="como-title">Sua marca nos créditos</div>
-        <p class="como-body">O nome da sua empresa aparece nos créditos de abertura de cada filme dos alunos da Turma 2026. Para sempre. Cada produção que existir carrega seu nome.</p>
-        <p class="como-result">→ Legado permanente</p>
-      </div>
-      <div class="como-card">
-        <span class="como-n">6</span>
-        <span class="como-icon">🎤</span>
-        <div class="como-title">Você vai à TV</div>
-        <p class="como-body">A TV Marataízes grava e exibe uma entrevista com o representante da sua empresa. Você conta a história da sua empresa para a cidade inteira. Incluído na cota.</p>
-        <p class="como-result">→ Visibilidade real na cidade</p>
-      </div>
+      <div class="como-card"><span class="como-n">1</span><span class="como-icon">💰</span><div class="como-title">Sua empresa entra</div><p class="como-body">R$ 500 por mês, por 6 meses. Você se torna Apoiador Fundador da Turma 2026 do Cinema e Artes Marataízes. Sem contrato complicado.</p><p class="como-result">→ Cota Fundadora garantida</p></div>
+      <div class="como-card"><span class="como-n">2</span><span class="como-icon">🎬</span><div class="como-title">As aulas acontecem</div><p class="como-body">Toda terça e quinta, na sala cedida pela Prefeitura na EMEF José Marcelino, na Praça da Barra do Itapemirim. Jovens de Marataízes aprendem cinema, som e montagem.</p><p class="como-result">→ Cultura real na cidade</p></div>
+      <div class="como-card"><span class="como-n">3</span><span class="como-icon">🎞️</span><div class="como-title">Os filmes são produzidos</div><p class="como-body">Os alunos criam curtas e documentários reais. São produções de verdade, com roteiro, câmera, som e edição. Não é simulação.</p><p class="como-result">→ Conteúdo original de Marataízes</p></div>
+      <div class="como-card"><span class="como-n">4</span><span class="como-icon">📺</span><div class="como-title">A TV Marataízes exibe</div><p class="como-body">A TV Marataízes é parceira do projeto. Todo mês exibe o programa com as produções dos alunos — na plataforma digital, na SOUL TV Canal 300 e no Instagram.</p><p class="como-result">→ Distribuição real, não promessa</p></div>
+      <div class="como-card"><span class="como-n">5</span><span class="como-icon">🏆</span><div class="como-title">Sua marca nos créditos</div><p class="como-body">O nome da sua empresa aparece nos créditos de abertura de cada filme dos alunos da Turma 2026. Para sempre. Cada produção que existir carrega seu nome.</p><p class="como-result">→ Legado permanente</p></div>
+      <div class="como-card"><span class="como-n">6</span><span class="como-icon">🎤</span><div class="como-title">Você vai à TV</div><p class="como-body">A TV Marataízes grava e exibe uma entrevista com o representante da sua empresa. Você conta a história da sua empresa para a cidade inteira. Incluído na cota.</p><p class="como-result">→ Visibilidade real na cidade</p></div>
     </div>
   </div>
 </div>
@@ -395,36 +354,12 @@
     <h2 class="s-title">Aulas reais.<br><em>Filmes reais.</em></h2>
     <p class="s-body">Não é curso online. São aulas toda semana, com câmera, som e edição. Os alunos saem sabendo fazer cinema de verdade — e os filmes que fazem vão ao ar na TV.</p>
     <div class="aulas-grid">
-      <div class="aula-card">
-        <span class="aula-icon">🎥</span>
-        <div class="aula-title">Câmera e imagem</div>
-        <p class="aula-body">Enquadramento, luz, movimento. Os alunos aprendem a contar histórias com imagem — não só a apertar o botão.</p>
-      </div>
-      <div class="aula-card">
-        <span class="aula-icon">🎙️</span>
-        <div class="aula-title">Som e mixagem</div>
-        <p class="aula-body">Captação de áudio, tratamento, trilha. O som é metade do cinema — aqui ele é levado a sério.</p>
-      </div>
-      <div class="aula-card">
-        <span class="aula-icon">✂️</span>
-        <div class="aula-title">Edição e montagem</div>
-        <p class="aula-body">Os alunos editam suas próprias produções e aprendem o ritmo e a linguagem do cinema.</p>
-      </div>
-      <div class="aula-card">
-        <span class="aula-icon">📝</span>
-        <div class="aula-title">Roteiro e narrativa</div>
-        <p class="aula-body">Toda história começa no papel. Os alunos criam roteiros originais sobre Marataízes, suas famílias e a cidade que conhecem.</p>
-      </div>
-      <div class="aula-card">
-        <span class="aula-icon">🎞️</span>
-        <div class="aula-title">Curtas e documentários</div>
-        <p class="aula-body">O resultado são produções reais, exibidas na TV Marataízes — com créditos, com nome dos alunos e dos apoiadores.</p>
-      </div>
-      <div class="aula-card">
-        <span class="aula-icon">🏛️</span>
-        <div class="aula-title">Mostra final</div>
-        <p class="aula-body">No 6º mês, os alunos apresentam seus filmes em uma mostra pública. Apoiadores são celebrados. A turma fica na história.</p>
-      </div>
+      <div class="aula-card"><span class="aula-icon">🎥</span><div class="aula-title">Câmera e imagem</div><p class="aula-body">Enquadramento, luz, movimento. Os alunos aprendem a contar histórias com imagem — não só a apertar o botão.</p></div>
+      <div class="aula-card"><span class="aula-icon">🎙️</span><div class="aula-title">Som e mixagem</div><p class="aula-body">Captação de áudio, tratamento, trilha. O som é metade do cinema — aqui ele é levado a sério.</p></div>
+      <div class="aula-card"><span class="aula-icon">✂️</span><div class="aula-title">Edição e montagem</div><p class="aula-body">Os alunos editam suas próprias produções e aprendem o ritmo e a linguagem do cinema.</p></div>
+      <div class="aula-card"><span class="aula-icon">📝</span><div class="aula-title">Roteiro e narrativa</div><p class="aula-body">Toda história começa no papel. Os alunos criam roteiros originais sobre Marataízes, suas famílias e a cidade que conhecem.</p></div>
+      <div class="aula-card"><span class="aula-icon">🎞️</span><div class="aula-title">Curtas e documentários</div><p class="aula-body">O resultado são produções reais, exibidas na TV Marataízes — com créditos, com nome dos alunos e dos apoiadores.</p></div>
+      <div class="aula-card"><span class="aula-icon">🏛️</span><div class="aula-title">Mostra final</div><p class="aula-body">No 6º mês, os alunos apresentam seus filmes em uma mostra pública. Apoiadores são celebrados. A turma fica na história.</p></div>
     </div>
   </div>
 </div>
@@ -453,42 +388,17 @@
       </div>
       <a href="https://wa.me/5528999036141?text=Ol%C3%A1!%20Vi%20o%20site%20do%20Cinema%20e%20Artes%20Marata%C3%ADzes%20e%20quero%20saber%20sobre%20a%20Cota%20Fundadora." class="btn-orange" target="_blank" style="position:relative;z-index:1;">Quero ser Apoiador Fundador</a>
     </div>
-    <div class="escassez">
-      <span style="font-size:1.2rem;flex-shrink:0;">◈</span>
-      <span>Apenas <strong>15 vagas</strong> de Apoiador Fundador por turma. Uma empresa por setor — sem concorrência de marca dentro do mesmo projeto.</span>
-    </div>
+    <div class="escassez"><span style="font-size:1.2rem;flex-shrink:0;">◈</span><span>Apenas <strong>15 vagas</strong> de Apoiador Fundador por turma. Uma empresa por setor — sem concorrência de marca dentro do mesmo projeto.</span></div>
     <div class="contra-grid">
-      <div class="contra-card">
-        <span class="contra-icon">🎞️</span>
-        <div class="contra-title">Nos créditos de cada produção</div>
-        <p class="contra-desc">Seu nome nos créditos de abertura de todos os filmes da Turma 2026. Para sempre. Cada produção que existir carrega seu nome.</p>
-      </div>
-      <div class="contra-card">
-        <span class="contra-icon">🎤</span>
-        <div class="contra-title">Entrevista na TV Marataízes</div>
-        <p class="contra-desc">A TV vai até você, grava a história da sua empresa e exibe na programação. Na SOUL TV Canal 300 e no Instagram. Você conta sua história para a cidade.</p>
-      </div>
-      <div class="contra-card">
-        <span class="contra-icon">📱</span>
-        <div class="contra-title">Presença mensal no Instagram</div>
-        <p class="contra-desc">Seu nome aparece todo mês nas publicações mostrando o que os alunos criaram. A cidade sabe quem tornou tudo possível.</p>
-      </div>
-      <div class="contra-card">
-        <span class="contra-icon">📊</span>
-        <div class="contra-title">Relatório mensal de impacto</div>
-        <p class="contra-desc">Alunos ativos, produções realizadas, alcance na TV e no Instagram. Você vê o retorno com dados reais todo mês.</p>
-      </div>
+      <div class="contra-card"><span class="contra-icon">🎞️</span><div class="contra-title">Nos créditos de cada produção</div><p class="contra-desc">Seu nome nos créditos de abertura de todos os filmes da Turma 2026. Para sempre. Cada produção que existir carrega seu nome.</p></div>
+      <div class="contra-card"><span class="contra-icon">🎤</span><div class="contra-title">Entrevista na TV Marataízes</div><p class="contra-desc">A TV vai até você, grava a história da sua empresa e exibe na programação. Na SOUL TV Canal 300 e no Instagram.</p></div>
+      <div class="contra-card"><span class="contra-icon">📱</span><div class="contra-title">Presença mensal no Instagram</div><p class="contra-desc">Seu nome aparece todo mês nas publicações mostrando o que os alunos criaram. A cidade sabe quem tornou tudo possível.</p></div>
+      <div class="contra-card"><span class="contra-icon">📊</span><div class="contra-title">Relatório mensal de impacto</div><p class="contra-desc">Alunos ativos, produções realizadas, alcance na TV e no Instagram. Você vê o retorno com dados reais todo mês.</p></div>
     </div>
     <div class="meta-wrap">
-      <div class="meta-top">
-        <span class="meta-lbl">Apoiadores confirmados — Turma 2026</span>
-        <span class="meta-ct">1 de 15</span>
-      </div>
+      <div class="meta-top"><span class="meta-lbl">Apoiadores confirmados — Turma 2026</span><span class="meta-ct">1 de 15</span></div>
       <div class="meta-bar"><div class="meta-fill"></div></div>
-      <div class="meta-bottom">
-        <span class="meta-confirmed">Juliana Móveis — Apoiadora Fundadora</span>
-        <span class="meta-total">14 vagas restantes</span>
-      </div>
+      <div class="meta-bottom"><span class="meta-confirmed">Juliana Móveis — Apoiadora Fundadora</span><span class="meta-total">14 vagas restantes</span></div>
     </div>
   </div>
 </div>
@@ -510,6 +420,609 @@
         <div class="selo-check">Nome em todos os curtas e filmes produzidos pelos alunos</div>
         <div class="selo-check">Reconhecimento público na Mostra Final da Turma 2026</div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- CLUBE DAS FUNDADORAS -->
+<div style="background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <div style="max-width:1120px;margin:0 auto;padding:90px 24px;">
+    <span style="font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;display:block;">O clube</span>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,5vw,3.3rem);font-weight:700;color:var(--dark);line-height:1.1;margin-bottom:18px;">Empresas que fazem o<br><em style="font-style:italic;color:var(--orange);">futuro de Marataízes</em></h2>
+    <p style="font-size:0.97rem;line-height:1.9;color:var(--text2);max-width:600px;margin-bottom:48px;">15 vagas. Uma por setor. Quando a lista fechar, fecha para sempre. Quem está aqui é Apoiador Fundador da Turma 2026 — para sempre.</p>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;">
+      <div style="background:var(--cream);border:2px solid var(--orange);border-radius:4px;padding:20px 16px;text-align:center;position:relative;">
+        <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--orange);color:var(--white);font-size:8px;letter-spacing:0.2em;text-transform:uppercase;padding:3px 10px;border-radius:10px;white-space:nowrap;">Apoiadora Fundadora</div>
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logo%20cinema%20e%20artes%20marataizes.png" alt="Juliana Móveis" style="height:36px;width:auto;object-fit:contain;mix-blend-mode:multiply;margin-bottom:8px;"/>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:0.9rem;font-weight:700;color:var(--dark);">Juliana Móveis</div>
+        <div style="font-size:0.65rem;color:var(--orange);letter-spacing:0.08em;text-transform:uppercase;margin-top:3px;">Móveis · Decoração</div>
+      </div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Clínica / Saúde</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Internet / Telecom</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Farmácia / Drogaria</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Imobiliária</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Material de Construção</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Supermercado / Mercado</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Advocacia / Contabilidade</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Posto / Combustível</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Restaurante / Alimentação</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Energia Solar / Instalações</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Pet Shop / Veterinária</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Academia / Estética</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Confeitaria / Doces</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Outros setores</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+    </div>
+    <div style="text-align:center;margin-top:36px;">
+      <a href="https://wa.me/5528999036141?text=Ol%C3%A1!%20Vi%20a%20lista%20de%20Apoiadores%20Fundadores%20e%20quero%20garantir%20a%20vaga%20da%20minha%20empresa." style="display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;padding:15px 32px;border-radius:2px;font-family:'Outfit',sans-serif;font-weight:500;font-size:0.88rem;letter-spacing:0.06em;text-decoration:none;" target="_blank">💬 Quero garantir minha vaga</a>
+    </div>
+  </div>
+</div>
+
+<!-- ALUNOS + MADRINHAS -->
+<div style="background:linear-gradient(160deg,#fff0e4 0%,#fde0c4 100%);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <div style="max-width:1120px;margin:0 auto;padding:90px 24px;">
+    <span style="font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;display:block;">Turma 2026</span>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,5vw,3.3rem);font-weight:700;color:var(--dark);line-height:1.1;margin-bottom:18px;">Cada aluno tem<br><em style="font-style:italic;color:var(--orange);">uma empresa madrinha</em></h2>
+    <p style="font-size:0.97rem;line-height:1.9;color:var(--text2);max-width:600px;margin-bottom:48px;">Sua empresa não apoia "o projeto". Ela apoia um jovem específico de Marataízes. O nome do aluno e da empresa ficam juntos nos créditos de cada filme que ele produzir.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <!-- ALUNO CONFIRMADO -->
+      <div style="background:var(--white);border:1px solid var(--line2);border-top:3px solid var(--orange);border-radius:3px;padding:24px;">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+          <div style="width:48px;height:48px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--white);flex-shrink:0;">G</div>
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--dark);">Gabriel Neves</div>
+            <div style="font-size:0.7rem;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;">Aluno · Turma 2026</div>
+          </div>
+        </div>
+        <div style="background:rgba(200,80,16,0.06);border:1px solid var(--line);border-radius:2px;padding:10px 14px;">
+          <div style="font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--orange);margin-bottom:4px;">Empresa Madrinha</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--dark);">Juliana Móveis</div>
+          <div style="font-size:0.72rem;color:var(--text2);margin-top:2px;">Apoiadora Fundadora · Turma 2026</div>
+        </div>
+        <div style="margin-top:12px;font-size:0.75rem;color:var(--text3);font-style:italic;font-family:'Cormorant Garamond',serif;">"Juliana Móveis · nos créditos de cada filme do Gabriel"</div>
+      </div>
+      <!-- VAGAS -->
+      <div style="background:var(--white);border:2px dashed var(--line2);border-radius:3px;padding:24px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;"><div style="width:48px;height:48px;border-radius:50%;background:var(--line);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--text3);margin-bottom:12px;">?</div><div style="font-size:0.8rem;color:var(--text3);margin-bottom:6px;">Aluno aguardando madrinha</div><div style="font-size:0.7rem;color:var(--orange);letter-spacing:0.08em;text-transform:uppercase;">vaga aberta</div></div>
+      <div style="background:var(--white);border:2px dashed var(--line2);border-radius:3px;padding:24px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;"><div style="width:48px;height:48px;border-radius:50%;background:var(--line);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--text3);margin-bottom:12px;">?</div><div style="font-size:0.8rem;color:var(--text3);margin-bottom:6px;">Aluno aguardando madrinha</div><div style="font-size:0.7rem;color:var(--orange);letter-spacing:0.08em;text-transform:uppercase;">vaga aberta</div></div>
+      <div style="background:var(--white);border:2px dashed var(--line2);border-radius:3px;padding:24px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;"><div style="width:48px;height:48px;border-radius:50%;background:var(--line);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--text3);margin-bottom:12px;">?</div><div style="font-size:0.8rem;color:var(--text3);margin-bottom:6px;">Aluno aguardando madrinha</div><div style="font-size:0.7rem;color:var(--orange);letter-spacing:0.08em;text-transform:uppercase;">vaga aberta</div></div>
+      <div style="background:var(--white);border:2px dashed var(--line2);border-radius:3px;padding:24px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;"><div style="width:48px;height:48px;border-radius:50%;background:var(--line);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--text3);margin-bottom:12px;">?</div><div style="font-size:0.8rem;color:var(--text3);margin-bottom:6px;">Aluno aguardando madrinha</div><div style="font-size:0.7rem;color:var(--orange);letter-spacing:0.08em;text-transform:uppercase;">vaga aberta</div></div>
+      <div style="background:var(--white);border:2px dashed var(--line2);border-radius:3px;padding:24px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;"><div style="width:48px;height:48px;border-radius:50%;background:var(--line);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--text3);margin-bottom:12px;">?</div><div style="font-size:0.8rem;color:var(--text3);margin-bottom:6px;">Aluno aguardando madrinha</div><div style="font-size:0.7rem;color:var(--orange);letter-spacing:0.08em;text-transform:uppercase;">vaga aberta</div></div>
+    </div>
+    <div style="text-align:center;margin-top:36px;">
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:var(--text2);margin-bottom:20px;">Seja a empresa madrinha de um jovem talento de Marataízes.</p>
+      <a href="https://wa.me/5528999036141?text=Ol%C3%A1!%20Quero%20ser%20empresa%20madrinha%20de%20um%20aluno%20do%20Cinema%20e%20Artes%20Marata%C3%ADzes." style="display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;padding:15px 32px;border-radius:2px;font-family:'Outfit',sans-serif;font-weight:500;font-size:0.88rem;letter-spacing:0.06em;text-decoration:none;" target="_blank">💬 Quero ser empresa madrinha</a>
+    </div>
+  </div>
+</div>
+
+<div class="ctt-outer" id="contato">
+  <div class="ctt-inner">
+    <span class="s-tag" style="display:block;text-align:center;">Fale conosco</span>
+    <h2 class="s-title" style="text-align:center;">Vamos <em>conversar?</em></h2>
+    <div class="ctt-box">
+      <div class="ctt-quote">"Torne-se Apoiador Fundador<br>do Cinema de Marataízes."</div>
+      <p>Clique no botão. O WhatsApp abre com a mensagem pronta — é só enviar e a gente responde na hora.</p>
+      <div class="msg-box">
+        <span class="msg-lbl">Mensagem automática</span>
+        <span class="msg-txt">"Olá! Vi o site do Cinema e Artes Marataízes e quero saber sobre a Cota Fundadora."</span>
+      </div>
+      <a href="https://wa.me/5528999036141?text=Ol%C3%A1!%20Vi%20o%20site%20do%20Cinema%20e%20Artes%20Marata%C3%ADzes%20e%20quero%20saber%20sobre%20a%20Cota%20Fundadora." class="wa-btn" target="_blank">💬 Falar pelo WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="f-logos">
+    <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logo%20cinema%20e%20artes%20marataizes.png" alt="Cinema e Artes Marataízes"/>
+    <div class="f-sep"></div>
+    <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logo_tv_marataizes.png" alt="TV Marataízes"/>
+  </div>
+  <div class="f-sub">Ponto de Cultura · ID 301034 · Ministério da Cultura</div>
+  <div class="f-links">
+    <a href="#como-funciona">Como Funciona</a>
+    <a href="#aulas">As Aulas</a>
+    <a href="#cota">Cota Fundadora</a>
+    <a href="#selo">O Selo</a>
+    <a href="https://tvmarataizes.digital" target="_blank">TV Marataízes</a>
+    <a href="#contato">Contato</a>
+  </div>
+  <div class="f-copy">© 2026 Cinema e Artes Marataízes — Macuca Produções · CNPJ 59.245.417/0001-67</div>
+</footer>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cinema e Artes Marataízes — Apoiador Fundador</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --orange:  #C85010;
+      --orange2: #E06828;
+      --orange3: #F59050;
+      --dark:    #180C02;
+      --dark2:   #221408;
+      --dark3:   #2C1C0C;
+      --cream:   #FFF8F0;
+      --white:   #FFFFFF;
+      --text:    #3A200A;
+      --text2:   #6A3E1A;
+      --text3:   #9A6A3A;
+      --line:    rgba(200,80,16,0.12);
+      --line2:   rgba(200,80,16,0.25);
+      --green:   #1E6E3E;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--cream);color:var(--text);font-family:'Outfit',sans-serif;font-weight:300;overflow-x:hidden;}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,248,240,0.96);backdrop-filter:blur(20px);border-bottom:2px solid var(--orange);height:64px;padding:0 40px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .nav-logo img{height:38px;width:auto;mix-blend-mode:multiply;}
+    .nav-logo-txt{font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:700;color:var(--orange);}
+    .nav-links{display:flex;gap:28px;list-style:none;}
+    .nav-links a{font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text2);text-decoration:none;transition:color 0.2s;}
+    .nav-links a:hover{color:var(--orange);}
+    .nav-cta{background:var(--orange)!important;color:var(--white)!important;padding:7px 20px;border-radius:2px;font-size:0.7rem!important;letter-spacing:0.12em!important;}
+    .nav-cta:hover{background:var(--orange2)!important;}
+    @media(max-width:720px){.nav-links{display:none;}nav{padding:0 20px;}}
+
+    .hero{min-height:100vh;display:grid;place-items:center;padding:110px 24px 80px;position:relative;overflow:hidden;text-align:center;background:linear-gradient(160deg,#fff8f0 0%,#fde8d0 60%,#fbd0a8 100%);}
+    .hero-pattern{position:absolute;inset:0;z-index:0;opacity:0.035;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,var(--orange) 40px,var(--orange) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,var(--orange) 40px,var(--orange) 41px);}
+    .hero-content{position:relative;z-index:2;max-width:880px;}
+
+    .hero-logos{display:flex;align-items:center;justify-content:center;gap:40px;margin-bottom:36px;animation:up 0.8s ease both;background:rgba(255,255,255,0.6);border-radius:12px;padding:20px 40px;border:1px solid var(--line2);}
+    .hero-logos img{height:72px;width:auto;object-fit:contain;mix-blend-mode:multiply;}
+    .hero-logos-sep{width:1px;height:52px;background:var(--line2);}
+
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line2);border-radius:1px;padding:7px 20px;font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--orange);margin-bottom:26px;animation:up 0.8s 0.06s ease both;background:rgba(200,80,16,0.06);}
+    .eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--orange);animation:blink 2.5s infinite;}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+
+    .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,8vw,7rem);font-weight:700;line-height:0.92;color:var(--dark);margin-bottom:10px;animation:up 0.8s 0.12s ease both;}
+    .hero-title em{font-style:italic;color:var(--orange);}
+    .hero-city{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.2rem,3vw,2.1rem);color:var(--orange2);margin-bottom:40px;animation:up 0.8s 0.18s ease both;}
+
+    .ciclo-hero{background:var(--white);border:1px solid var(--line2);border-left:4px solid var(--orange);border-radius:3px;padding:32px 40px;max-width:720px;margin:0 auto 32px;animation:up 0.8s 0.26s ease both;box-shadow:0 8px 40px rgba(200,80,16,0.08);}
+    @media(max-width:560px){.ciclo-hero{padding:22px 18px;}}
+    .ciclo-hero-label{font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--orange);margin-bottom:18px;display:block;}
+    .ciclo-steps{display:flex;align-items:flex-start;justify-content:center;gap:0;flex-wrap:wrap;}
+    .ciclo-step{text-align:center;padding:0 8px;flex:1;min-width:70px;}
+    .ciclo-step-n{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:var(--orange);display:block;line-height:1;}
+    .ciclo-step-txt{font-size:0.68rem;color:var(--text2);margin-top:4px;line-height:1.4;}
+    .ciclo-arrow{color:var(--orange3);font-size:1.1rem;padding-top:10px;flex-shrink:0;}
+    .ciclo-hero-frase{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(0.95rem,2.2vw,1.2rem);color:var(--text);margin-top:18px;line-height:1.55;border-top:1px solid var(--line);padding-top:16px;}
+    .ciclo-hero-frase strong{color:var(--orange);font-style:normal;font-weight:600;}
+
+    .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;animation:up 0.8s 0.34s ease both;}
+    .btn-orange{background:var(--orange);color:var(--white);padding:15px 34px;border-radius:2px;font-family:'Outfit',sans-serif;font-weight:500;font-size:0.84rem;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:all 0.25s;display:inline-block;}
+    .btn-orange:hover{background:var(--orange2);transform:translateY(-2px);box-shadow:0 14px 40px rgba(200,80,16,0.3);}
+    .btn-outline{border:2px solid var(--orange);color:var(--orange);padding:14px 34px;border-radius:2px;font-family:'Outfit',sans-serif;font-weight:400;font-size:0.84rem;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:all 0.25s;display:inline-block;}
+    .btn-outline:hover{background:var(--orange);color:var(--white);transform:translateY(-2px);}
+
+    @keyframes up{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+
+    .stripe{border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);display:flex;flex-wrap:wrap;background:var(--white);}
+    .st{flex:1;min-width:110px;padding:22px 16px;text-align:center;border-right:1px solid var(--line);}
+    .st:last-child{border-right:none;}
+    .st-num{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--orange);display:block;}
+    .st-lbl{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);margin-top:3px;}
+    @media(max-width:560px){.st{border-right:none;border-bottom:1px solid var(--line);}.st:last-child{border-bottom:none;}}
+
+    .s-tag{font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;display:block;}
+    .s-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,5vw,3.3rem);font-weight:700;color:var(--dark);line-height:1.1;margin-bottom:18px;}
+    .s-title em{font-style:italic;color:var(--orange);}
+    .s-body{font-size:0.97rem;line-height:1.9;color:var(--text2);max-width:600px;}
+    .hdiv{width:44px;height:3px;background:var(--orange);border-radius:1px;margin:18px 0;}
+
+    .como-outer{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+    .como-inner{max-width:1120px;margin:0 auto;padding:90px 24px;}
+    .como-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:48px;}
+    @media(max-width:700px){.como-grid{grid-template-columns:1fr;}}
+    .como-card{background:var(--cream);padding:30px 26px;position:relative;}
+    .como-n{font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:700;color:rgba(200,80,16,0.07);position:absolute;top:14px;right:18px;line-height:1;}
+    .como-icon{font-size:1.8rem;display:block;margin-bottom:12px;}
+    .como-title{font-family:'Cormorant Garamond',serif;font-size:1.12rem;font-weight:700;color:var(--dark);margin-bottom:7px;}
+    .como-body{font-size:0.83rem;line-height:1.7;color:var(--text2);}
+    .como-result{margin-top:10px;font-size:0.79rem;color:var(--orange);font-style:italic;font-family:'Cormorant Garamond',serif;}
+
+    .tv-outer{background:var(--dark);border-top:4px solid var(--orange);}
+    .tv-inner{max-width:1120px;margin:0 auto;padding:90px 24px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+    @media(max-width:800px){.tv-inner{grid-template-columns:1fr;gap:48px;}}
+    .tv-text .s-title{color:var(--cream);}
+    .tv-text .s-body{color:rgba(255,248,240,0.6);}
+    .tv-text .s-tag{color:var(--orange3);}
+    .tv-destaque{background:rgba(200,80,16,0.15);border:1px solid rgba(200,80,16,0.4);border-radius:3px;padding:26px;margin-top:26px;}
+    .tv-destaque-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--cream);margin-bottom:8px;}
+    .tv-destaque-body{font-size:0.87rem;line-height:1.75;color:rgba(255,248,240,0.58);}
+    .tv-destaque-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--orange3);line-height:1.5;border-left:3px solid var(--orange);padding-left:16px;margin-top:14px;}
+    .tv-mock{background:var(--dark2);border:1px solid rgba(200,80,16,0.22);border-radius:3px;padding:22px;}
+    .tv-screen{background:#000;border-radius:2px;padding:22px 16px;text-align:center;margin-bottom:14px;border:1px solid rgba(200,80,16,0.08);}
+    .tv-logo-wrap{display:flex;align-items:center;justify-content:center;margin-bottom:8px;}
+    .tv-logo-wrap img{height:36px;width:auto;mix-blend-mode:screen;}
+    .tv-screen-tag{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(200,80,16,0.45);}
+    .tv-badge{display:inline-block;margin-top:10px;background:rgba(200,80,16,0.2);border:1px solid rgba(200,80,16,0.4);border-radius:1px;padding:4px 12px;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--orange3);}
+    .tv-bar{height:3px;background:rgba(200,80,16,0.12);border-radius:1px;margin-bottom:14px;overflow:hidden;}
+    .tv-bar-fill{height:100%;width:45%;background:linear-gradient(90deg,var(--orange),var(--orange3));border-radius:1px;animation:bar 2.5s 1s ease both;}
+    @keyframes bar{from{width:0}to{width:45%}}
+    .tv-row{display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(200,80,16,0.06);border-radius:2px;margin-bottom:5px;font-size:0.71rem;color:rgba(255,248,240,0.38);}
+    .tv-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);flex-shrink:0;}
+
+    .sobre-outer{background:var(--cream);border-top:1px solid var(--line);}
+    .sobre-inner{max-width:1120px;margin:0 auto;padding:90px 24px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+    @media(max-width:800px){.sobre-inner{grid-template-columns:1fr;gap:48px;}}
+    .cert-card{background:var(--white);border:1px solid var(--line2);border-top:4px solid var(--orange);border-radius:3px;padding:32px;box-shadow:0 4px 24px rgba(200,80,16,0.07);}
+    .cert-header{display:flex;align-items:center;gap:12px;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--line);}
+    .cert-logo{height:44px;width:auto;mix-blend-mode:multiply;}
+    .cert-ht strong{display:block;color:var(--dark);font-size:0.88rem;font-weight:500;}
+    .cert-ht span{font-size:0.7rem;color:var(--orange);letter-spacing:0.06em;}
+    .data-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(200,80,16,0.07);font-size:0.83rem;}
+    .data-row:last-child{border-bottom:none;}
+    .data-k{color:var(--text3);}
+    .data-v{color:var(--dark);font-weight:400;}
+
+    .aulas-outer{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+    .aulas-inner{max-width:1120px;margin:0 auto;padding:90px 24px;}
+    .aulas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px;}
+    @media(max-width:700px){.aulas-grid{grid-template-columns:1fr;}}
+    .aula-card{background:var(--cream);border:1px solid var(--line);border-radius:3px;padding:24px;transition:all 0.3s;}
+    .aula-card:hover{border-color:var(--orange2);transform:translateY(-3px);box-shadow:0 8px 24px rgba(200,80,16,0.1);}
+    .aula-icon{font-size:1.6rem;display:block;margin-bottom:10px;}
+    .aula-title{font-family:'Cormorant Garamond',serif;font-size:1.08rem;font-weight:700;color:var(--dark);margin-bottom:6px;}
+    .aula-body{font-size:0.82rem;line-height:1.65;color:var(--text2);}
+
+    .cota-outer{background:linear-gradient(160deg,#fff0e4 0%,#fde0c4 100%);border-top:1px solid var(--line);}
+    .cota-inner{max-width:1120px;margin:0 auto;padding:90px 24px;}
+    .cota-box{background:var(--white);border:1px solid var(--line2);border-top:4px solid var(--orange);border-radius:4px;padding:52px 44px;text-align:center;box-shadow:0 12px 48px rgba(200,80,16,0.12);position:relative;overflow:hidden;margin-bottom:36px;}
+    @media(max-width:560px){.cota-box{padding:32px 18px;}}
+    .cota-box-bg{position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(200,80,16,0.04);}
+    .cota-tag{display:inline-block;background:var(--orange);color:var(--white);font-size:9px;letter-spacing:0.25em;text-transform:uppercase;font-weight:500;padding:5px 16px;border-radius:1px;margin-bottom:18px;}
+    .cota-valor{font-family:'Cormorant Garamond',serif;font-size:clamp(4rem,10vw,7rem);font-weight:700;color:var(--orange);line-height:1;display:block;}
+    .cota-periodo{font-size:0.95rem;color:var(--text2);margin-bottom:18px;display:block;}
+    .cota-headline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.1rem,2.8vw,1.7rem);color:var(--dark);margin-bottom:10px;line-height:1.3;}
+    .cota-ciclo{background:rgba(200,80,16,0.06);border:1px solid var(--line);border-radius:2px;padding:14px 22px;margin:18px auto;max-width:560px;font-size:0.9rem;color:var(--text);line-height:1.7;}
+    .cota-ciclo strong{color:var(--orange);}
+    .cota-checks{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:20px 0;}
+    .check{background:rgba(200,80,16,0.07);border:1px solid var(--line2);border-radius:100px;padding:6px 14px;font-size:0.77rem;color:var(--orange);display:flex;align-items:center;gap:6px;}
+    .check::before{content:'✓';font-weight:600;}
+    .escassez{display:flex;align-items:center;gap:12px;background:var(--white);border:1px solid var(--line2);border-left:4px solid var(--orange);border-radius:2px;padding:15px 20px;margin-bottom:32px;font-size:0.86rem;color:var(--text);}
+    .escassez strong{color:var(--orange);}
+    .contra-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:32px;}
+    @media(max-width:700px){.contra-grid{grid-template-columns:1fr;}}
+    .contra-card{background:var(--white);border:1px solid var(--line);border-radius:3px;padding:22px;transition:all 0.3s;}
+    .contra-card:hover{border-color:var(--orange2);transform:translateY(-2px);}
+    .contra-icon{font-size:1.5rem;display:block;margin-bottom:10px;}
+    .contra-title{font-family:'Cormorant Garamond',serif;font-size:1.02rem;font-weight:700;color:var(--dark);margin-bottom:5px;}
+    .contra-desc{font-size:0.82rem;line-height:1.65;color:var(--text2);}
+    .meta-wrap{background:var(--white);border:1px solid var(--line2);border-radius:3px;padding:22px 26px;margin-bottom:36px;}
+    .meta-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;}
+    .meta-lbl{font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text3);}
+    .meta-ct{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--orange);}
+    .meta-bar{height:6px;background:rgba(200,80,16,0.1);border-radius:3px;margin-bottom:10px;overflow:hidden;}
+    .meta-fill{height:100%;width:7%;background:linear-gradient(90deg,var(--orange),var(--orange3));border-radius:3px;animation:grow 2s 1s ease both;}
+    @keyframes grow{from{width:0}to{width:7%}}
+    .meta-bottom{display:flex;justify-content:space-between;font-size:0.79rem;}
+    .meta-confirmed{color:var(--orange);}
+    .meta-total{color:var(--text3);}
+
+    .selo-outer{background:var(--dark);border-top:4px solid var(--orange);}
+    .selo-inner{max-width:1120px;margin:0 auto;padding:90px 24px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+    @media(max-width:800px){.selo-inner{grid-template-columns:1fr;gap:48px;}}
+    .selo-img-wrap{text-align:center;}
+    .selo-img-wrap img{width:100%;max-width:320px;border-radius:4px;}
+    .selo-label{font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(200,80,16,0.45);margin-top:12px;text-align:center;}
+    .selo-text .s-tag{color:var(--orange3);}
+    .selo-text .s-title{color:var(--cream);}
+    .selo-text .s-body{color:rgba(255,248,240,0.58);}
+    .selo-checks{display:flex;flex-direction:column;gap:12px;margin-top:22px;}
+    .selo-check{display:flex;align-items:flex-start;gap:12px;font-size:0.86rem;color:rgba(255,248,240,0.68);}
+    .selo-check::before{content:'✦';color:var(--orange);flex-shrink:0;font-size:0.72rem;margin-top:2px;}
+
+    .ctt-outer{background:var(--cream);border-top:1px solid var(--line);}
+    .ctt-inner{max-width:1120px;margin:0 auto;padding:90px 24px;text-align:center;}
+    .ctt-box{max-width:540px;margin:44px auto 0;background:var(--white);border:1px solid var(--line2);border-top:4px solid var(--orange);border-radius:3px;padding:44px 36px;box-shadow:0 8px 40px rgba(200,80,16,0.1);}
+    @media(max-width:560px){.ctt-box{padding:32px 18px;}}
+    .ctt-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.15rem,2.5vw,1.55rem);color:var(--orange);margin-bottom:14px;line-height:1.3;}
+    .ctt-box p{color:var(--text2);font-size:0.91rem;line-height:1.75;margin-bottom:22px;}
+    .msg-box{background:rgba(30,110,62,0.06);border:1px solid rgba(30,110,62,0.2);border-radius:3px;padding:13px 16px;margin-bottom:22px;text-align:left;}
+    .msg-lbl{font-size:0.64rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin-bottom:6px;display:block;}
+    .msg-txt{font-size:0.83rem;color:var(--text);font-style:italic;}
+    .wa-btn{display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;padding:15px 32px;border-radius:2px;font-family:'Outfit',sans-serif;font-weight:500;font-size:0.88rem;letter-spacing:0.06em;text-decoration:none;transition:all 0.25s;}
+    .wa-btn:hover{background:#1ebe5d;transform:translateY(-2px);box-shadow:0 12px 32px rgba(37,211,102,0.28);}
+
+    footer{text-align:center;padding:48px 24px;border-top:1px solid rgba(200,80,16,0.2);background:var(--dark);}
+    .f-logos{display:flex;align-items:center;justify-content:center;gap:22px;margin-bottom:18px;}
+    .f-logos img{height:36px;width:auto;mix-blend-mode:multiply;filter:brightness(1.1);}
+    .f-sep{width:1px;height:20px;background:rgba(200,80,16,0.28);}
+    .f-sub{font-size:0.64rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,248,240,0.18);margin-bottom:22px;}
+    .f-links{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin-bottom:18px;}
+    .f-links a{font-size:0.74rem;color:rgba(255,248,240,0.28);text-decoration:none;transition:color 0.2s;}
+    .f-links a:hover{color:var(--orange3);}
+    .f-copy{font-size:0.63rem;color:rgba(255,248,240,0.1);}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logo%20cinema%20e%20artes%20marataizes.png" alt="Cinema e Artes Marataízes"/>
+    <span class="nav-logo-txt">Cinema e Artes Marataízes</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#como-funciona">Como Funciona</a></li>
+    <li><a href="#aulas">As Aulas</a></li>
+    <li><a href="#cota">Cota Fundadora</a></li>
+    <li><a href="https://tvmarataizes.digital" target="_blank">TV Marataízes</a></li>
+    <li><a href="#contato" class="nav-cta">Quero Ser Apoiador</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-logos">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logo%20cinema%20e%20artes%20marataizes.png" alt="Cinema e Artes Marataízes"/>
+      <div class="hero-logos-sep"></div>
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logo_tv_marataizes.png" alt="TV Marataízes"/>
+    </div>
+    <div class="eyebrow"><span class="eyebrow-dot"></span>Ponto de Cultura · Ministério da Cultura · ID 301034</div>
+    <h1 class="hero-title">Cinema e <em>Artes</em></h1>
+    <p class="hero-city">Marataízes · Turma 2026</p>
+    <div class="ciclo-hero">
+      <span class="ciclo-hero-label">Como o seu apoio funciona na prática</span>
+      <div class="ciclo-steps">
+        <div class="ciclo-step"><span class="ciclo-step-n">R$500</span><span class="ciclo-step-txt">sua empresa apoia por mês</span></div>
+        <span class="ciclo-arrow">→</span>
+        <div class="ciclo-step"><span class="ciclo-step-n">🎬</span><span class="ciclo-step-txt">mantém as aulas de cinema</span></div>
+        <span class="ciclo-arrow">→</span>
+        <div class="ciclo-step"><span class="ciclo-step-n">🎞️</span><span class="ciclo-step-txt">alunos produzem filmes reais</span></div>
+        <span class="ciclo-arrow">→</span>
+        <div class="ciclo-step"><span class="ciclo-step-n">📺</span><span class="ciclo-step-txt">TV Marataízes exibe tudo</span></div>
+        <span class="ciclo-arrow">→</span>
+        <div class="ciclo-step"><span class="ciclo-step-n">🏆</span><span class="ciclo-step-txt">sua marca nos créditos para sempre</span></div>
+      </div>
+      <p class="ciclo-hero-frase"><strong>R$ 500 por mês mantém as aulas.</strong> As aulas geram os filmes. Os filmes levam sua marca à cidade — e ficam gravados para sempre.</p>
+    </div>
+    <div class="hero-ctas">
+      <a href="https://wa.me/5528999036141?text=Ol%C3%A1!%20Vi%20o%20site%20do%20Cinema%20e%20Artes%20Marata%C3%ADzes%20e%20quero%20saber%20sobre%20a%20Cota%20Fundadora." class="btn-orange" target="_blank">Quero ser Apoiador Fundador</a>
+      <a href="#como-funciona" class="btn-outline">Entender o projeto</a>
+    </div>
+  </div>
+</header>
+
+<div class="stripe">
+  <div class="st"><span class="st-num">2+</span><span class="st-lbl">Anos de atividade</span></div>
+  <div class="st"><span class="st-num">MinC</span><span class="st-lbl">Certificado federal</span></div>
+  <div class="st"><span class="st-num">Ter+Qui</span><span class="st-lbl">Aulas toda semana</span></div>
+  <div class="st"><span class="st-num">Prefeitura</span><span class="st-lbl">Cedeu o espaço</span></div>
+  <div class="st"><span class="st-num">TV+Redes</span><span class="st-lbl">Sua marca visível</span></div>
+  <div class="st"><span class="st-num">15 vagas</span><span class="st-lbl">Uma por setor</span></div>
+</div>
+
+<div class="como-outer" id="como-funciona">
+  <div class="como-inner">
+    <span class="s-tag">O ciclo completo</span>
+    <h2 class="s-title">Seu dinheiro vira filme.<br><em>Seu nome vira história.</em></h2>
+    <p class="s-body">Não é patrocínio de anúncio. É financiamento real de cultura. Cada R$ 500 mantém um jovem de Marataízes aprendendo cinema toda semana — e tudo que ele produz carrega o nome da sua empresa.</p>
+    <div class="como-grid">
+      <div class="como-card"><span class="como-n">1</span><span class="como-icon">💰</span><div class="como-title">Sua empresa entra</div><p class="como-body">R$ 500 por mês, por 6 meses. Você se torna Apoiador Fundador da Turma 2026 do Cinema e Artes Marataízes. Sem contrato complicado.</p><p class="como-result">→ Cota Fundadora garantida</p></div>
+      <div class="como-card"><span class="como-n">2</span><span class="como-icon">🎬</span><div class="como-title">As aulas acontecem</div><p class="como-body">Toda terça e quinta, na sala cedida pela Prefeitura na EMEF José Marcelino, na Praça da Barra do Itapemirim. Jovens de Marataízes aprendem cinema, som e montagem.</p><p class="como-result">→ Cultura real na cidade</p></div>
+      <div class="como-card"><span class="como-n">3</span><span class="como-icon">🎞️</span><div class="como-title">Os filmes são produzidos</div><p class="como-body">Os alunos criam curtas e documentários reais. São produções de verdade, com roteiro, câmera, som e edição. Não é simulação.</p><p class="como-result">→ Conteúdo original de Marataízes</p></div>
+      <div class="como-card"><span class="como-n">4</span><span class="como-icon">📺</span><div class="como-title">A TV Marataízes exibe</div><p class="como-body">A TV Marataízes é parceira do projeto. Todo mês exibe o programa com as produções dos alunos — na plataforma digital, na SOUL TV Canal 300 e no Instagram.</p><p class="como-result">→ Distribuição real, não promessa</p></div>
+      <div class="como-card"><span class="como-n">5</span><span class="como-icon">🏆</span><div class="como-title">Sua marca nos créditos</div><p class="como-body">O nome da sua empresa aparece nos créditos de abertura de cada filme dos alunos da Turma 2026. Para sempre. Cada produção que existir carrega seu nome.</p><p class="como-result">→ Legado permanente</p></div>
+      <div class="como-card"><span class="como-n">6</span><span class="como-icon">🎤</span><div class="como-title">Você vai à TV</div><p class="como-body">A TV Marataízes grava e exibe uma entrevista com o representante da sua empresa. Você conta a história da sua empresa para a cidade inteira. Incluído na cota.</p><p class="como-result">→ Visibilidade real na cidade</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="tv-outer" id="entrevista">
+  <div class="tv-inner">
+    <div class="tv-text">
+      <span class="s-tag">Exclusivo para Apoiadores Fundadores</span>
+      <h2 class="s-title">Você vai à<br><em>TV Marataízes.</em></h2>
+      <p class="s-body">Todo Apoiador Fundador tem direito a uma entrevista gravada e exibida na TV Marataízes e na SOUL TV Canal 300. A TV vai até você, grava a história da sua empresa e coloca no ar.</p>
+      <div class="hdiv"></div>
+      <p class="s-body">Não é comercial. É uma matéria real sobre quem você é e o que sua empresa faz por Marataízes. A cidade assiste. A cidade conhece. A cidade lembra.</p>
+      <div class="tv-destaque">
+        <div class="tv-destaque-title">Como fica no programa</div>
+        <p class="tv-destaque-body">A TV Marataízes apresenta o Apoiador Fundador da Turma 2026 do Cinema e Artes — e conta a história da empresa para toda a cidade.</p>
+        <div class="tv-destaque-quote">"Hoje a TV Marataízes conversa com [sua empresa], que acreditou nos jovens talentos da cidade desde o começo."</div>
+      </div>
+    </div>
+    <div>
+      <div class="tv-mock">
+        <div class="tv-screen">
+          <div class="tv-logo-wrap">
+            <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logo_tv_marataizes.png" alt="TV Marataízes"/>
+          </div>
+          <span class="tv-screen-tag">programa mensal · cinema e artes marataízes</span>
+          <div class="tv-badge">▶ Entrevista exclusiva · Apoiador Fundador</div>
+        </div>
+        <div class="tv-bar"><div class="tv-bar-fill"></div></div>
+        <div style="font-size:0.63rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(200,80,16,0.38);margin-bottom:10px;">Distribuição</div>
+        <div class="tv-row"><div class="tv-dot"></div>TV Marataízes · tvmarataizes.digital</div>
+        <div class="tv-row"><div class="tv-dot"></div>SOUL TV · Canal 300 · Brasil e +197 países</div>
+        <div class="tv-row"><div class="tv-dot"></div>Instagram · cortes impulsionados</div>
+        <div class="tv-row"><div class="tv-dot"></div>Página exclusiva no site da TV</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sobre-outer" id="projeto">
+  <div class="sobre-inner">
+    <div>
+      <span class="s-tag">O projeto</span>
+      <h2 class="s-title">Cultura que nasce<br><em>de dentro</em> da cidade</h2>
+      <p class="s-body">O Cinema e Artes Marataízes é um Ponto de Cultura certificado pelo Ministério da Cultura, com mais de dois anos de atividade. A Prefeitura cedeu uma sala na EMEF José Marcelino, na Praça da Barra do Itapemirim.</p>
+      <div class="hdiv"></div>
+      <p class="s-body">As aulas acontecem toda terça e quinta. São gratuitas para os jovens. A TV Marataízes é parceira exibidora — tudo que é produzido aqui vai ao ar, e o nome de quem apoia aparece em tudo.</p>
+    </div>
+    <div class="cert-card">
+      <div class="cert-header">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logo%20cinema%20e%20artes%20marataizes.png" alt="Cinema e Artes" class="cert-logo"/>
+        <div class="cert-ht">
+          <strong>Certificado pelo Ministério da Cultura</strong>
+          <span>Política Nacional Cultura Viva · Lei nº 13.018/2014</span>
+        </div>
+      </div>
+      <div class="data-row"><span class="data-k">ID do Ponto</span><span class="data-v">301034</span></div>
+      <div class="data-row"><span class="data-k">Certificação</span><span class="data-v">25/02/2026</span></div>
+      <div class="data-row"><span class="data-k">Sede</span><span class="data-v">EMEF José Marcelino</span></div>
+      <div class="data-row"><span class="data-k">Localização</span><span class="data-v">Praça · Barra do Itapemirim</span></div>
+      <div class="data-row"><span class="data-k">Aulas</span><span class="data-v">Terça e Quinta — toda semana</span></div>
+      <div class="data-row"><span class="data-k">Espaço cedido por</span><span class="data-v">Prefeitura Municipal</span></div>
+      <div class="data-row"><span class="data-k">Acesso</span><span class="data-v">Gratuito para os jovens</span></div>
+      <div class="data-row"><span class="data-k">Parceira exibidora</span><span class="data-v">TV Marataízes</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="aulas-outer" id="aulas">
+  <div class="aulas-inner">
+    <span class="s-tag">O que acontece toda terça e quinta</span>
+    <h2 class="s-title">Aulas reais.<br><em>Filmes reais.</em></h2>
+    <p class="s-body">Não é curso online. São aulas toda semana, com câmera, som e edição. Os alunos saem sabendo fazer cinema de verdade — e os filmes que fazem vão ao ar na TV.</p>
+    <div class="aulas-grid">
+      <div class="aula-card"><span class="aula-icon">🎥</span><div class="aula-title">Câmera e imagem</div><p class="aula-body">Enquadramento, luz, movimento. Os alunos aprendem a contar histórias com imagem — não só a apertar o botão.</p></div>
+      <div class="aula-card"><span class="aula-icon">🎙️</span><div class="aula-title">Som e mixagem</div><p class="aula-body">Captação de áudio, tratamento, trilha. O som é metade do cinema — aqui ele é levado a sério.</p></div>
+      <div class="aula-card"><span class="aula-icon">✂️</span><div class="aula-title">Edição e montagem</div><p class="aula-body">Os alunos editam suas próprias produções e aprendem o ritmo e a linguagem do cinema.</p></div>
+      <div class="aula-card"><span class="aula-icon">📝</span><div class="aula-title">Roteiro e narrativa</div><p class="aula-body">Toda história começa no papel. Os alunos criam roteiros originais sobre Marataízes, suas famílias e a cidade que conhecem.</p></div>
+      <div class="aula-card"><span class="aula-icon">🎞️</span><div class="aula-title">Curtas e documentários</div><p class="aula-body">O resultado são produções reais, exibidas na TV Marataízes — com créditos, com nome dos alunos e dos apoiadores.</p></div>
+      <div class="aula-card"><span class="aula-icon">🏛️</span><div class="aula-title">Mostra final</div><p class="aula-body">No 6º mês, os alunos apresentam seus filmes em uma mostra pública. Apoiadores são celebrados. A turma fica na história.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="cota-outer" id="cota">
+  <div class="cota-inner">
+    <span class="s-tag">Cota Fundadora · Turma 2026</span>
+    <h2 class="s-title">Torne-se <em>Apoiador Fundador</em><br>do Cinema de Marataízes</h2>
+    <div style="height:32px"></div>
+    <div class="cota-box">
+      <div class="cota-box-bg"></div>
+      <span class="cota-tag">Cota de Apoio Cultural · Turma 2026</span>
+      <span class="cota-valor">R$ 500</span>
+      <span class="cota-periodo">por mês · 6 meses · R$ 3.000 no total</span>
+      <p class="cota-headline">Menos que um plano de internet empresarial.<br>Mais do que qualquer anúncio pode fazer pela sua reputação.</p>
+      <div class="cota-ciclo"><strong>R$ 500</strong> mantém as aulas → as aulas geram os filmes → os filmes vão à TV → <strong>sua marca nos créditos para sempre</strong></div>
+      <div class="cota-checks">
+        <div class="check">Créditos em todos os filmes</div>
+        <div class="check">Entrevista na TV Marataízes</div>
+        <div class="check">Página exclusiva no site</div>
+        <div class="check">Selo Apoiador Fundador</div>
+        <div class="check">Instagram todo mês</div>
+        <div class="check">SOUL TV Canal 300</div>
+        <div class="check">Relatório mensal</div>
+        <div class="check">Sem contrato complicado</div>
+      </div>
+      <a href="https://wa.me/5528999036141?text=Ol%C3%A1!%20Vi%20o%20site%20do%20Cinema%20e%20Artes%20Marata%C3%ADzes%20e%20quero%20saber%20sobre%20a%20Cota%20Fundadora." class="btn-orange" target="_blank" style="position:relative;z-index:1;">Quero ser Apoiador Fundador</a>
+    </div>
+    <div class="escassez"><span style="font-size:1.2rem;flex-shrink:0;">◈</span><span>Apenas <strong>15 vagas</strong> de Apoiador Fundador por turma. Uma empresa por setor — sem concorrência de marca dentro do mesmo projeto.</span></div>
+    <div class="contra-grid">
+      <div class="contra-card"><span class="contra-icon">🎞️</span><div class="contra-title">Nos créditos de cada produção</div><p class="contra-desc">Seu nome nos créditos de abertura de todos os filmes da Turma 2026. Para sempre. Cada produção que existir carrega seu nome.</p></div>
+      <div class="contra-card"><span class="contra-icon">🎤</span><div class="contra-title">Entrevista na TV Marataízes</div><p class="contra-desc">A TV vai até você, grava a história da sua empresa e exibe na programação. Na SOUL TV Canal 300 e no Instagram.</p></div>
+      <div class="contra-card"><span class="contra-icon">📱</span><div class="contra-title">Presença mensal no Instagram</div><p class="contra-desc">Seu nome aparece todo mês nas publicações mostrando o que os alunos criaram. A cidade sabe quem tornou tudo possível.</p></div>
+      <div class="contra-card"><span class="contra-icon">📊</span><div class="contra-title">Relatório mensal de impacto</div><p class="contra-desc">Alunos ativos, produções realizadas, alcance na TV e no Instagram. Você vê o retorno com dados reais todo mês.</p></div>
+    </div>
+    <div class="meta-wrap">
+      <div class="meta-top"><span class="meta-lbl">Apoiadores confirmados — Turma 2026</span><span class="meta-ct">1 de 15</span></div>
+      <div class="meta-bar"><div class="meta-fill"></div></div>
+      <div class="meta-bottom"><span class="meta-confirmed">Juliana Móveis — Apoiadora Fundadora</span><span class="meta-total">14 vagas restantes</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="selo-outer" id="selo">
+  <div class="selo-inner">
+    <div class="selo-img-wrap">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/APOIADOR%20FUNDADOR%20CINEMA%20E%20ARTE.png" alt="Selo Apoiador Fundador Cinema e Artes Marataízes"/>
+      <div class="selo-label">Selo digital oficial · Apoiador Fundador · Turma 2026</div>
+    </div>
+    <div class="selo-text">
+      <span class="s-tag">Reconhecimento oficial</span>
+      <h2 class="s-title">Um título que<br><em>nenhuma outra empresa</em><br>pode ter depois.</h2>
+      <p class="s-body">Quando as 15 vagas da Turma 2026 fecharem, esse título não existe mais. Quem entrar agora é Apoiador Fundador para sempre — nos créditos dos filmes e na memória da cidade.</p>
+      <div class="selo-checks">
+        <div class="selo-check">Selo digital para usar no Instagram e no site da empresa</div>
+        <div class="selo-check">Título permanente de Apoiador Fundador da Turma 2026</div>
+        <div class="selo-check">Nome nos créditos de abertura do programa mensal da TV</div>
+        <div class="selo-check">Nome em todos os curtas e filmes produzidos pelos alunos</div>
+        <div class="selo-check">Reconhecimento público na Mostra Final da Turma 2026</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CLUBE DAS FUNDADORAS -->
+<div style="background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <div style="max-width:1120px;margin:0 auto;padding:90px 24px;">
+    <span style="font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;display:block;">O clube</span>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,5vw,3.3rem);font-weight:700;color:var(--dark);line-height:1.1;margin-bottom:18px;">Empresas que fazem o<br><em style="font-style:italic;color:var(--orange);">futuro de Marataízes</em></h2>
+    <p style="font-size:0.97rem;line-height:1.9;color:var(--text2);max-width:600px;margin-bottom:48px;">15 vagas. Uma por setor. Quando a lista fechar, fecha para sempre. Quem está aqui é Apoiador Fundador da Turma 2026 — para sempre.</p>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;">
+      <div style="background:var(--cream);border:2px solid var(--orange);border-radius:4px;padding:20px 16px;text-align:center;position:relative;">
+        <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--orange);color:var(--white);font-size:8px;letter-spacing:0.2em;text-transform:uppercase;padding:3px 10px;border-radius:10px;white-space:nowrap;">Apoiadora Fundadora</div>
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logo%20cinema%20e%20artes%20marataizes.png" alt="Juliana Móveis" style="height:36px;width:auto;object-fit:contain;mix-blend-mode:multiply;margin-bottom:8px;"/>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:0.9rem;font-weight:700;color:var(--dark);">Juliana Móveis</div>
+        <div style="font-size:0.65rem;color:var(--orange);letter-spacing:0.08em;text-transform:uppercase;margin-top:3px;">Móveis · Decoração</div>
+      </div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Clínica / Saúde</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Internet / Telecom</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Farmácia / Drogaria</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Imobiliária</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Material de Construção</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Supermercado / Mercado</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Advocacia / Contabilidade</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Posto / Combustível</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Restaurante / Alimentação</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Energia Solar / Instalações</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Pet Shop / Veterinária</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Academia / Estética</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Confeitaria / Doces</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+      <div style="background:var(--cream);border:2px dashed var(--line2);border-radius:4px;padding:20px 16px;text-align:center;opacity:0.7;"><div style="font-size:1.6rem;color:var(--line2);margin-bottom:8px;">+</div><div style="font-size:0.72rem;color:var(--text3);line-height:1.4;">Outros setores</div><div style="font-size:0.62rem;color:var(--orange);margin-top:6px;letter-spacing:0.08em;">vaga aberta</div></div>
+    </div>
+    <div style="text-align:center;margin-top:36px;">
+      <a href="https://wa.me/5528999036141?text=Ol%C3%A1!%20Vi%20a%20lista%20de%20Apoiadores%20Fundadores%20e%20quero%20garantir%20a%20vaga%20da%20minha%20empresa." style="display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;padding:15px 32px;border-radius:2px;font-family:'Outfit',sans-serif;font-weight:500;font-size:0.88rem;letter-spacing:0.06em;text-decoration:none;" target="_blank">💬 Quero garantir minha vaga</a>
+    </div>
+  </div>
+</div>
+
+<!-- ALUNOS + MADRINHAS -->
+<div style="background:linear-gradient(160deg,#fff0e4 0%,#fde0c4 100%);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <div style="max-width:1120px;margin:0 auto;padding:90px 24px;">
+    <span style="font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;display:block;">Turma 2026</span>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,5vw,3.3rem);font-weight:700;color:var(--dark);line-height:1.1;margin-bottom:18px;">Cada aluno tem<br><em style="font-style:italic;color:var(--orange);">uma empresa madrinha</em></h2>
+    <p style="font-size:0.97rem;line-height:1.9;color:var(--text2);max-width:600px;margin-bottom:48px;">Sua empresa não apoia "o projeto". Ela apoia um jovem específico de Marataízes. O nome do aluno e da empresa ficam juntos nos créditos de cada filme que ele produzir.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <!-- ALUNO CONFIRMADO -->
+      <div style="background:var(--white);border:1px solid var(--line2);border-top:3px solid var(--orange);border-radius:3px;padding:24px;">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+          <div style="width:48px;height:48px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--white);flex-shrink:0;">G</div>
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--dark);">Gabriel Neves</div>
+            <div style="font-size:0.7rem;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;">Aluno · Turma 2026</div>
+          </div>
+        </div>
+        <div style="background:rgba(200,80,16,0.06);border:1px solid var(--line);border-radius:2px;padding:10px 14px;">
+          <div style="font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--orange);margin-bottom:4px;">Empresa Madrinha</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--dark);">Juliana Móveis</div>
+          <div style="font-size:0.72rem;color:var(--text2);margin-top:2px;">Apoiadora Fundadora · Turma 2026</div>
+        </div>
+        <div style="margin-top:12px;font-size:0.75rem;color:var(--text3);font-style:italic;font-family:'Cormorant Garamond',serif;">"Juliana Móveis · nos créditos de cada filme do Gabriel"</div>
+      </div>
+      <!-- VAGAS -->
+      <div style="background:var(--white);border:2px dashed var(--line2);border-radius:3px;padding:24px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;"><div style="width:48px;height:48px;border-radius:50%;background:var(--line);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--text3);margin-bottom:12px;">?</div><div style="font-size:0.8rem;color:var(--text3);margin-bottom:6px;">Aluno aguardando madrinha</div><div style="font-size:0.7rem;color:var(--orange);letter-spacing:0.08em;text-transform:uppercase;">vaga aberta</div></div>
+      <div style="background:var(--white);border:2px dashed var(--line2);border-radius:3px;padding:24px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;"><div style="width:48px;height:48px;border-radius:50%;background:var(--line);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--text3);margin-bottom:12px;">?</div><div style="font-size:0.8rem;color:var(--text3);margin-bottom:6px;">Aluno aguardando madrinha</div><div style="font-size:0.7rem;color:var(--orange);letter-spacing:0.08em;text-transform:uppercase;">vaga aberta</div></div>
+      <div style="background:var(--white);border:2px dashed var(--line2);border-radius:3px;padding:24px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;"><div style="width:48px;height:48px;border-radius:50%;background:var(--line);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--text3);margin-bottom:12px;">?</div><div style="font-size:0.8rem;color:var(--text3);margin-bottom:6px;">Aluno aguardando madrinha</div><div style="font-size:0.7rem;color:var(--orange);letter-spacing:0.08em;text-transform:uppercase;">vaga aberta</div></div>
+      <div style="background:var(--white);border:2px dashed var(--line2);border-radius:3px;padding:24px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;"><div style="width:48px;height:48px;border-radius:50%;background:var(--line);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--text3);margin-bottom:12px;">?</div><div style="font-size:0.8rem;color:var(--text3);margin-bottom:6px;">Aluno aguardando madrinha</div><div style="font-size:0.7rem;color:var(--orange);letter-spacing:0.08em;text-transform:uppercase;">vaga aberta</div></div>
+      <div style="background:var(--white);border:2px dashed var(--line2);border-radius:3px;padding:24px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;"><div style="width:48px;height:48px;border-radius:50%;background:var(--line);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--text3);margin-bottom:12px;">?</div><div style="font-size:0.8rem;color:var(--text3);margin-bottom:6px;">Aluno aguardando madrinha</div><div style="font-size:0.7rem;color:var(--orange);letter-spacing:0.08em;text-transform:uppercase;">vaga aberta</div></div>
+    </div>
+    <div style="text-align:center;margin-top:36px;">
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:var(--text2);margin-bottom:20px;">Seja a empresa madrinha de um jovem talento de Marataízes.</p>
+      <a href="https://wa.me/5528999036141?text=Ol%C3%A1!%20Quero%20ser%20empresa%20madrinha%20de%20um%20aluno%20do%20Cinema%20e%20Artes%20Marata%C3%ADzes." style="display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;padding:15px 32px;border-radius:2px;font-family:'Outfit',sans-serif;font-weight:500;font-size:0.88rem;letter-spacing:0.06em;text-decoration:none;" target="_blank">💬 Quero ser empresa madrinha</a>
     </div>
   </div>
 </div>
