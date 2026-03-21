@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Turismo em Marataízes ES | TV Marataízes — Praias, Pousadas e O que Fazer</title>
-<meta name="description" content="Descubra Marataízes ES — praias, falésias, lagoas, gastronomia e pousadas. O guia de turismo mais completo da Pérola Capixaba. TV Marataízes, Canal 300.">
+<title>Turismo em Marataízes ES 2026 | Praias, Falésias, Pousadas e O que Fazer</title>
+<meta name="description" content="Descubra Marataízes ES — praias, falésias, lagoas, gastronomia e pousadas. O guia de turismo mais completo da Pérola Capixaba. TV Marataízes, Canal 300, a única TV independente do ES.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://tvmarataizes.digital/turismo-marataizes/">
 <meta property="og:title" content="Turismo em Marataízes ES — Praias, Falésias e Experiências Únicas">
-<meta property="og:description" content="Guia completo de turismo em Marataízes ES. Praias, pousadas, gastronomia e roteiros pela Pérola Capixaba.">
+<meta property="og:description" content="Guia completo de turismo em Marataízes ES. Praias, pousadas, gastronomia e roteiros pela Pérola Capixaba. TV Marataízes — Canal 300.">
 <meta property="og:image" content="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Falesias.png">
 <meta property="og:url" content="https://tvmarataizes.digital/turismo-marataizes/">
 <meta property="og:type" content="website">
@@ -16,670 +16,836 @@
 {
   "@context":"https://schema.org",
   "@type":"TouristDestination",
-  "name":"Marataízes ES",
-  "description":"Destino turístico no litoral sul do Espírito Santo, com praias, falésias, lagoas e gastronomia de frutos do mar.",
+  "name":"Marataízes ES — Turismo na Pérola Capixaba",
+  "description":"Destino turístico no litoral sul do Espírito Santo com 26 km de praias, falésias, lagoas e gastronomia de frutos do mar.",
   "url":"https://tvmarataizes.digital/turismo-marataizes/",
-  "touristType":["Praia","Natureza","Gastronomia","Cultura"],
+  "touristType":["Praia e Mar","Natureza","Gastronomia","Cultura e Patrimônio"],
   "geo":{"@type":"GeoCoordinates","latitude":-21.03,"longitude":-40.83},
-  "containedInPlace":{"@type":"State","name":"Espírito Santo","addressCountry":"BR"}
+  "containedInPlace":{"@type":"State","name":"Espírito Santo","addressCountry":"BR"},
+  "amenityFeature":[
+    {"@type":"LocationFeatureSpecification","name":"Praias","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Falésias","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Lagoas","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Gastronomia de frutos do mar","value":true}
+  ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"O que fazer em Marataízes ES?","acceptedAnswer":{"@type":"Answer","text":"Em Marataízes você pode visitar praias como Praia dos Cações, Lagoa Dantas e a famosa Praia de Boa Vista com suas falésias coloridas, fazer caiaque na Lagoa do Siri, experimentar frutos do mar frescos e assistir ao vivo o Canal 300 da TV Marataízes."}},
+    {"@type":"Question","name":"Quais as melhores praias de Marataízes?","acceptedAnswer":{"@type":"Answer","text":"As principais praias de Marataízes são: Praia dos Cações (a mais central), Lagoa Dantas, Praia de Boa Vista (com falésias), Lagoa Funda, Areia Preta e Praia do Itaputera."}},
+    {"@type":"Question","name":"Como chegar em Marataízes ES?","acceptedAnswer":{"@type":"Answer","text":"De Vitória são 127 km pela Rodovia do Sol (ES-060), cerca de 1h30. Do Rio de Janeiro são aproximadamente 380 km pela BR-101, cerca de 4h30."}},
+    {"@type":"Question","name":"Tem pousada em Marataízes ES?","acceptedAnswer":{"@type":"Answer","text":"Sim. Marataízes tem pousadas na Barra do Itapemirim, Avenida Atlântica e próximas às praias. Para temporada, as reservas devem ser feitas com antecedência entre outubro e fevereiro."}}
+  ]
+}
+</script>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:#fff;color:#1a1a1a;font-family:'Georgia',serif;font-size:15px;line-height:1.7}
 a{text-decoration:none;color:inherit}
-img{display:block;width:100%;object-fit:cover}
+img{display:block;width:100%;height:100%;object-fit:cover}
 
 :root{
   --green:#1a6b3c;
   --green-dark:#0f4526;
   --gold:#c8961a;
+  --red:#e8000a;
+  --navy:#003781;
   --text:#1a1a1a;
   --muted:#666;
-  --white:#fff;
   --border:#e8e8e8;
   --bg:#f8f7f4;
 }
 
 /* ── NAVBAR ── */
-.navbar{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  padding:0 40px;height:70px;
-  display:flex;align-items:center;justify-content:space-between;
-  transition:all .4s ease;
-  background:transparent;
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:0 40px;height:68px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  transition:all .35s ease;
 }
-.navbar.scrolled{
+.nav.solid{
   background:rgba(255,255,255,.97);
   box-shadow:0 2px 20px rgba(0,0,0,.08);
 }
-.navbar.scrolled .nav-logo{color:#1a6b3c}
-.navbar.scrolled .nav-links a{color:#333}
-.navbar.scrolled .nav-cta{background:#1a6b3c;color:#fff}
-.nav-logo{
-  font-family:'Georgia',serif;
-  font-size:18px;font-weight:700;
-  color:#fff;letter-spacing:.5px;
-  display:flex;align-items:center;gap:10px;
-  transition:color .3s;
+.nav-logo{display:flex;align-items:center;gap:8px}
+.nav-logo img{
+  height:40px;width:auto;
+  filter:brightness(0) invert(1);
+  transition:filter .3s;
+  object-fit:contain;
 }
-.nav-logo-badge{
-  background:#e8000a;color:#fff;
-  font-size:10px;font-weight:800;
-  padding:3px 7px;border-radius:2px;
-  letter-spacing:.5px;font-family:sans-serif;
+.nav.solid .nav-logo img{filter:none}
+.nav-logo-fb{
+  font-family:sans-serif;font-size:15px;font-weight:800;
+  color:#fff;transition:color .3s;
+  display:flex;align-items:center;gap:6px;
 }
-.nav-links{display:flex;align-items:center;gap:28px}
+.nav.solid .nav-logo-fb{color:var(--green)}
+.nav-logo-fb .badge{
+  background:var(--red);color:#fff;
+  font-size:9px;padding:2px 6px;border-radius:2px;
+  letter-spacing:.5px;
+}
+.nav-links{
+  display:flex;align-items:center;gap:24px;
+}
 .nav-links a{
-  font-family:sans-serif;font-size:12px;
-  font-weight:600;color:rgba(255,255,255,.9);
-  letter-spacing:.5px;text-transform:uppercase;
-  transition:color .2s;
+  font-family:sans-serif;font-size:11px;font-weight:700;
+  color:rgba(255,255,255,.85);letter-spacing:.8px;
+  text-transform:uppercase;transition:color .2s;
 }
+.nav.solid .nav-links a{color:#444}
 .nav-links a:hover{color:#fff}
+.nav.solid .nav-links a:hover{color:var(--green)}
 .nav-cta{
-  font-family:sans-serif;font-size:12px;font-weight:700;
+  font-family:sans-serif;font-size:11px;font-weight:800;
   background:rgba(255,255,255,.15);color:#fff;
-  padding:9px 20px;border-radius:2px;
-  border:1.5px solid rgba(255,255,255,.4);
-  letter-spacing:.3px;text-transform:uppercase;
-  transition:all .2s;
+  padding:8px 18px;border-radius:2px;
+  border:1.5px solid rgba(255,255,255,.35);
+  letter-spacing:.5px;text-transform:uppercase;
+  transition:all .2s;white-space:nowrap;
 }
-.nav-cta:hover{background:#fff;color:#1a6b3c}
-.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
-.nav-hamburger span{width:22px;height:2px;background:#fff;transition:background .3s;display:block;border-radius:2px}
-.navbar.scrolled .nav-hamburger span{background:#333}
+.nav.solid .nav-cta{background:var(--green);color:#fff;border-color:var(--green)}
+.nav-cta:hover{background:#fff;color:var(--green)}
+.nav.solid .nav-cta:hover{background:var(--green-dark)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hamburger span{width:22px;height:2px;background:#fff;border-radius:1px;display:block;transition:background .3s}
+.nav.solid .hamburger span{background:#333}
 
 /* ── HERO ── */
 .hero{
   height:100vh;min-height:600px;
   position:relative;overflow:hidden;
+  display:flex;align-items:flex-end;
 }
-.hero-bg{
+.hero-img{
   position:absolute;inset:0;
-  background-image:url('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Falesias.png');
-  background-size:cover;background-position:center 30%;
-  transform:scale(1.05);
-  animation:heroZoom 12s ease-in-out infinite alternate;
+  animation:zoom 14s ease-in-out infinite alternate;
 }
-@keyframes heroZoom{from{transform:scale(1.05)}to{transform:scale(1.12)}}
-.hero-overlay{
+.hero-img img{
+  width:100%;height:100%;object-fit:cover;object-position:center 40%;
+}
+@keyframes zoom{from{transform:scale(1)}to{transform:scale(1.08)}}
+.hero-grad{
   position:absolute;inset:0;
   background:linear-gradient(
-    to bottom,
-    rgba(0,0,0,.2) 0%,
-    rgba(0,0,0,.1) 40%,
-    rgba(0,0,0,.65) 100%
+    180deg,
+    rgba(0,0,0,.15) 0%,
+    rgba(0,0,0,.05) 35%,
+    rgba(0,0,0,.55) 75%,
+    rgba(0,0,0,.78) 100%
   );
 }
-.hero-content{
-  position:absolute;bottom:0;left:0;right:0;
-  padding:0 40px 64px;
-  max-width:900px;
+.hero-body{
+  position:relative;z-index:1;
+  padding:0 40px 60px;max-width:820px;
 }
-.hero-kicker{
-  font-family:sans-serif;font-size:11px;font-weight:800;
-  color:rgba(255,255,255,.75);letter-spacing:2px;
-  text-transform:uppercase;margin-bottom:16px;
-  display:flex;align-items:center;gap:10px;
+.hero-sup{
+  font-family:sans-serif;font-size:10px;font-weight:800;
+  color:rgba(255,255,255,.6);letter-spacing:2.5px;text-transform:uppercase;
+  margin-bottom:14px;display:flex;align-items:center;gap:10px;
 }
-.hero-kicker::before{content:'';width:32px;height:1px;background:rgba(255,255,255,.5)}
+.hero-sup::before{content:'';width:28px;height:1px;background:rgba(255,255,255,.4)}
 .hero-h1{
-  font-size:clamp(36px,6vw,72px);
-  font-weight:700;color:#fff;
-  line-height:1.05;margin-bottom:18px;
-  letter-spacing:-.5px;
+  font-size:clamp(34px,5.5vw,68px);font-weight:700;
+  color:#fff;line-height:1.05;
+  letter-spacing:-.5px;margin-bottom:16px;
 }
-.hero-h1 em{font-style:italic;color:#f0d080}
-.hero-desc{
-  font-size:16px;color:rgba(255,255,255,.85);
-  max-width:520px;line-height:1.65;margin-bottom:32px;
+.hero-h1 em{color:#f0d080;font-style:italic}
+.hero-p{
+  font-size:15px;color:rgba(255,255,255,.82);
+  line-height:1.65;max-width:500px;margin-bottom:28px;
 }
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
-.btn-primary-hero{
-  background:#1a6b3c;color:#fff;
-  padding:14px 28px;border-radius:2px;
-  font-family:sans-serif;font-size:13px;font-weight:700;
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn-h1{
+  font-family:sans-serif;font-size:12px;font-weight:800;
+  background:var(--green);color:#fff;
+  padding:13px 26px;border-radius:2px;
   letter-spacing:.5px;text-transform:uppercase;
   transition:background .2s;
 }
-.btn-primary-hero:hover{background:#0f4526}
-.btn-ghost-hero{
+.btn-h1:hover{background:var(--green-dark)}
+.btn-h2{
+  font-family:sans-serif;font-size:12px;font-weight:700;
   background:transparent;color:#fff;
-  padding:14px 28px;border-radius:2px;
-  font-family:sans-serif;font-size:13px;font-weight:600;
-  border:1.5px solid rgba(255,255,255,.5);
+  padding:13px 24px;border-radius:2px;
+  border:1.5px solid rgba(255,255,255,.45);
   letter-spacing:.5px;text-transform:uppercase;
   transition:all .2s;
 }
-.btn-ghost-hero:hover{background:rgba(255,255,255,.1);border-color:#fff}
+.btn-h2:hover{background:rgba(255,255,255,.12);border-color:#fff}
 .hero-scroll{
-  position:absolute;bottom:28px;right:40px;
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  font-family:sans-serif;font-size:10px;color:rgba(255,255,255,.5);
-  letter-spacing:1px;text-transform:uppercase;
+  position:absolute;bottom:24px;right:40px;
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  font-family:sans-serif;font-size:9px;color:rgba(255,255,255,.4);
+  letter-spacing:1.5px;text-transform:uppercase;
 }
-.hero-scroll-line{width:1px;height:40px;background:rgba(255,255,255,.3);animation:scrollPulse 2s ease-in-out infinite}
-@keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:1}}
+.scroll-line{width:1px;height:36px;background:rgba(255,255,255,.25);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.25}50%{opacity:.8}}
 
-/* ── STATS BAND ── */
-.stats-band{
-  background:#1a6b3c;
-  padding:0;
+/* ── PROVA REAL ── */
+.prova{
+  background:var(--green);
+  padding:22px 0;
 }
-.stats-inner{
+.prova-inner{
+  max-width:1100px;margin:0 auto;padding:0 40px;
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+}
+.prova-label{
+  font-family:sans-serif;font-size:10px;font-weight:800;
+  color:rgba(255,255,255,.5);letter-spacing:1.5px;text-transform:uppercase;
+  flex-shrink:0;
+}
+.prova-tags{display:flex;flex-wrap:wrap;gap:8px;flex:1}
+.prova-tag{
+  font-family:sans-serif;font-size:11px;font-weight:600;
+  background:rgba(255,255,255,.12);color:#fff;
+  padding:5px 12px;border-radius:20px;
+  border:1px solid rgba(255,255,255,.2);
+  display:flex;align-items:center;gap:5px;
+}
+.prova-tag::before{content:'🔍';font-size:10px}
+
+/* ── STATS ── */
+.stats{
+  background:var(--green-dark);
+}
+.stats-g{
   max-width:1100px;margin:0 auto;
   display:grid;grid-template-columns:repeat(4,1fr);
 }
-.stat-b{
-  padding:28px 24px;text-align:center;
-  border-right:1px solid rgba(255,255,255,.12);
+.stat{
+  padding:26px 20px;text-align:center;
+  border-right:1px solid rgba(255,255,255,.1);
 }
-.stat-b:last-child{border-right:0}
-.stat-b-n{
-  font-size:32px;font-weight:700;color:#fff;
+.stat:last-child{border:0}
+.stat-n{
+  font-size:30px;font-weight:700;color:#fff;
   line-height:1;margin-bottom:5px;
 }
-.stat-b-n span{font-size:18px;color:rgba(255,255,255,.7)}
-.stat-b-l{font-family:sans-serif;font-size:11px;color:rgba(255,255,255,.6);letter-spacing:.5px;text-transform:uppercase}
+.stat-n small{font-size:16px;color:rgba(255,255,255,.6)}
+.stat-l{
+  font-family:sans-serif;font-size:10px;
+  color:rgba(255,255,255,.5);letter-spacing:.5px;text-transform:uppercase;
+}
 
-/* ── SECTION GENÉRICA ── */
-.section{padding:80px 0}
-.section-alt{background:var(--bg)}
-.container{max-width:1100px;margin:0 auto;padding:0 40px}
-.section-label{
+/* ── LAYOUT ── */
+.wrap{max-width:1100px;margin:0 auto;padding:0 40px}
+.section{padding:76px 0}
+.section-bg{background:var(--bg)}
+.eyebrow{
   font-family:sans-serif;font-size:10px;font-weight:800;
-  color:var(--green);letter-spacing:2.5px;text-transform:uppercase;
-  margin-bottom:12px;display:flex;align-items:center;gap:10px;
+  color:var(--green);letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:10px;display:flex;align-items:center;gap:8px;
 }
-.section-label::before{content:'';width:24px;height:1px;background:var(--green)}
-.section-h2{
-  font-size:clamp(26px,3.5vw,40px);font-weight:700;
-  color:var(--text);line-height:1.15;margin-bottom:16px;
-  letter-spacing:-.3px;
+.eyebrow::before{content:'';width:20px;height:1px;background:var(--green)}
+.h2{
+  font-size:clamp(24px,3vw,38px);font-weight:700;
+  color:var(--text);line-height:1.15;margin-bottom:12px;letter-spacing:-.3px;
 }
-.section-h2 em{font-style:italic;color:var(--green)}
-.section-lead{
-  font-size:15px;color:var(--muted);
-  max-width:560px;line-height:1.75;margin-bottom:40px;
-}
+.h2 em{font-style:italic;color:var(--green)}
+.lead{font-size:14px;color:var(--muted);max-width:520px;line-height:1.8;margin-bottom:36px}
 
-/* ── DESTINOS GRID ── */
-.destinos-grid{
-  display:grid;
-  grid-template-columns:1.6fr 1fr;
-  grid-template-rows:340px 280px;
-  gap:12px;
+/* ── TV — CORAÇÃO DA PÁGINA ── */
+.tv-hero{
+  background:var(--green-dark);
+  padding:0;
+  display:grid;grid-template-columns:1fr 1fr;
+  min-height:560px;
 }
-.destino-card{
-  position:relative;overflow:hidden;border-radius:3px;cursor:pointer;
+.tv-player-col{
+  position:relative;overflow:hidden;
+  background:#000;
 }
-.destino-card:first-child{grid-row:1/3}
-.destino-card img{
+.tv-player-col img{
   width:100%;height:100%;object-fit:cover;
+  opacity:.55;
+  transition:opacity .3s;
+}
+.tv-player-col:hover img{opacity:.35}
+.tv-live-badge{
+  position:absolute;top:20px;left:20px;
+  background:var(--red);color:#fff;
+  font-family:sans-serif;font-size:10px;font-weight:800;
+  padding:5px 12px;border-radius:2px;letter-spacing:.8px;text-transform:uppercase;
+  display:flex;align-items:center;gap:6px;z-index:2;
+}
+.dot{width:6px;height:6px;background:#fff;border-radius:50%;animation:blink 1.2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.1}}
+.tv-player-embed{
+  position:absolute;inset:0;z-index:1;
+  display:flex;flex-direction:column;justify-content:flex-end;
+}
+.tv-player-embed iframe{
+  width:100%;aspect-ratio:16/9;border:0;display:block;
+}
+.tv-texto{
+  padding:52px 48px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.tv-kicker{
+  font-family:sans-serif;font-size:10px;font-weight:800;
+  color:rgba(255,255,255,.45);letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:14px;
+}
+.tv-h2{
+  font-size:clamp(22px,2.5vw,34px);font-weight:700;
+  color:#fff;line-height:1.15;margin-bottom:16px;
+}
+.tv-h2 em{font-style:italic;color:#f0d080}
+.tv-p{font-size:13px;color:rgba(255,255,255,.7);line-height:1.8;margin-bottom:14px}
+.tv-p strong{color:#fff}
+.tv-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:20px;padding:5px 14px;
+  font-family:sans-serif;font-size:11px;color:rgba(255,255,255,.7);
+  margin-bottom:20px;width:fit-content;
+}
+.tv-btn{
+  font-family:sans-serif;font-size:11px;font-weight:800;
+  color:#fff;letter-spacing:.8px;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:8px;
+  border-bottom:1.5px solid rgba(255,255,255,.3);
+  padding-bottom:3px;width:fit-content;transition:border-color .2s;
+}
+.tv-btn:hover{border-color:#fff}
+
+/* ── DESTINOS ── */
+.dest-grid{
+  display:grid;
+  grid-template-columns:1.55fr 1fr;
+  grid-template-rows:320px 260px;
+  gap:10px;
+}
+.dest-card{
+  position:relative;overflow:hidden;
+  border-radius:2px;cursor:pointer;
+}
+.dest-card:first-child{grid-row:1/3}
+.dest-card img{
   transition:transform .6s ease;
 }
-.destino-card:hover img{transform:scale(1.06)}
-.destino-overlay{
+.dest-card:hover img{transform:scale(1.06)}
+.dest-grad{
   position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 55%);
+  background:linear-gradient(to top,rgba(0,0,0,.72) 0%,rgba(0,0,0,.05) 55%);
   transition:background .3s;
 }
-.destino-card:hover .destino-overlay{background:linear-gradient(to top,rgba(0,0,0,.8) 0%,rgba(0,0,0,.1) 60%)}
-.destino-info{
-  position:absolute;bottom:0;left:0;right:0;
-  padding:20px 22px;
-}
-.destino-tag{
+.dest-card:hover .dest-grad{background:linear-gradient(to top,rgba(0,0,0,.82) 0%,rgba(0,0,0,.15) 60%)}
+.dest-info{position:absolute;bottom:0;left:0;right:0;padding:18px 20px}
+.dest-sup{
   font-family:sans-serif;font-size:9px;font-weight:800;
-  color:rgba(255,255,255,.7);letter-spacing:1.5px;
-  text-transform:uppercase;margin-bottom:5px;
+  color:rgba(255,255,255,.6);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;
 }
-.destino-nome{
-  font-size:clamp(16px,2.5vw,22px);font-weight:700;
-  color:#fff;line-height:1.2;margin-bottom:4px;
+.dest-nome{
+  font-size:clamp(15px,2.2vw,20px);font-weight:700;
+  color:#fff;line-height:1.2;margin-bottom:3px;
 }
-.destino-desc{
-  font-family:sans-serif;font-size:11px;
-  color:rgba(255,255,255,.7);line-height:1.5;
-}
-.destino-arrow{
-  position:absolute;top:18px;right:18px;
-  width:36px;height:36px;border-radius:50%;
-  background:rgba(255,255,255,.15);
-  border:1px solid rgba(255,255,255,.3);
+.dest-desc{font-family:sans-serif;font-size:11px;color:rgba(255,255,255,.65);line-height:1.4}
+.dest-arr{
+  position:absolute;top:16px;right:16px;
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);
   display:flex;align-items:center;justify-content:center;
-  font-size:14px;color:#fff;
-  transition:all .2s;
-  opacity:0;
+  font-size:13px;color:#fff;opacity:0;transition:opacity .2s;
 }
-.destino-card:hover .destino-arrow{opacity:1}
+.dest-card:hover .dest-arr{opacity:1}
+/* fallback cores quando foto não carrega */
+.dest-card:nth-child(1){background:#1a5c34}
+.dest-card:nth-child(2){background:#0d3d5e}
+.dest-card:nth-child(3){background:#5c3d1a}
 
 /* ── EXPERIÊNCIAS ── */
 .exp-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:2px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
 }
 .exp-card{
-  position:relative;overflow:hidden;
-  height:320px;cursor:pointer;
+  position:relative;overflow:hidden;height:300px;cursor:pointer;
+  background:#1a4a2a;
 }
 .exp-card img{
-  width:100%;height:100%;object-fit:cover;
-  transition:transform .5s ease;
-  filter:brightness(.85);
+  filter:brightness(.8);transition:transform .5s ease,filter .3s;
 }
-.exp-card:hover img{transform:scale(1.05);filter:brightness(.7)}
-.exp-overlay{
+.exp-card:hover img{transform:scale(1.05);filter:brightness(.65)}
+.exp-grad{
   position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(0,0,0,.75) 0%,transparent 50%);
+  background:linear-gradient(to top,rgba(0,0,0,.78) 0%,transparent 50%);
 }
-.exp-info{
-  position:absolute;bottom:0;left:0;right:0;
-  padding:22px 20px;
-}
+.exp-info{position:absolute;bottom:0;left:0;right:0;padding:20px 18px}
 .exp-cat{
   font-family:sans-serif;font-size:9px;font-weight:800;
-  color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;
-  margin-bottom:5px;
+  color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;
 }
-.exp-nome{
-  font-size:17px;font-weight:700;color:#fff;
-  line-height:1.25;
-}
+.exp-nome{font-size:16px;font-weight:700;color:#fff;line-height:1.25}
+.exp-card:nth-child(2){background:#2a1a4a}
+.exp-card:nth-child(3){background:#1a3a4a}
 
-/* ── EDITORIAL TV ── */
-.editorial{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:0;align-items:stretch;
-  min-height:500px;
+/* ── PRAIAS ── */
+.praias-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
 }
-.editorial-foto{
-  position:relative;overflow:hidden;
+.praia-card{cursor:pointer}
+.praia-img{
+  height:190px;overflow:hidden;border-radius:2px;
+  background:#1a5c34;margin-bottom:12px;
 }
-.editorial-foto img{
-  width:100%;height:100%;
-  object-fit:cover;
-  transition:transform .6s ease;
-}
-.editorial-foto:hover img{transform:scale(1.04)}
-.editorial-foto-badge{
-  position:absolute;top:24px;left:24px;
-  background:#e8000a;color:#fff;
-  font-family:sans-serif;font-size:10px;font-weight:800;
-  padding:5px 12px;border-radius:2px;letter-spacing:.8px;text-transform:uppercase;
-  display:flex;align-items:center;gap:6px;
-}
-.dot-red{width:6px;height:6px;background:#fff;border-radius:50%;animation:blink 1.2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.1}}
-.editorial-texto{
-  background:var(--green-dark);
-  padding:60px 52px;
-  display:flex;flex-direction:column;justify-content:center;
-}
-.editorial-kicker{
-  font-family:sans-serif;font-size:10px;font-weight:800;
-  color:rgba(255,255,255,.5);letter-spacing:2px;
-  text-transform:uppercase;margin-bottom:14px;
-}
-.editorial-h2{
-  font-size:clamp(22px,2.5vw,34px);font-weight:700;
-  color:#fff;line-height:1.2;margin-bottom:16px;
-}
-.editorial-h2 em{font-style:italic;color:#f0d080}
-.editorial-p{
-  font-size:14px;color:rgba(255,255,255,.75);
-  line-height:1.8;margin-bottom:24px;
-}
-.editorial-p strong{color:#fff}
-.btn-editorial{
-  font-family:sans-serif;font-size:12px;font-weight:700;
-  color:#fff;letter-spacing:.5px;text-transform:uppercase;
-  display:inline-flex;align-items:center;gap:8px;
-  border-bottom:1px solid rgba(255,255,255,.3);
-  padding-bottom:3px;width:fit-content;
-  transition:border-color .2s;
-}
-.btn-editorial:hover{border-color:#fff}
-.editorial-player{
-  margin-top:24px;
-  background:rgba(0,0,0,.3);
-  border-radius:3px;overflow:hidden;
-  border:1px solid rgba(255,255,255,.1);
-}
-.editorial-player iframe{
-  display:block;width:100%;
-  aspect-ratio:16/9;border:0;
-}
+.praia-img img{transition:transform .5s}
+.praia-card:hover .praia-img img{transform:scale(1.07)}
+.praia-nome{font-size:15px;font-weight:700;color:var(--text);margin-bottom:3px}
+.praia-desc{font-family:sans-serif;font-size:11px;color:var(--muted);line-height:1.5}
 
 /* ── SÉRIE ── */
-.serie-block{
-  background:var(--bg);
-  border-top:3px solid var(--green);
-  padding:60px 0;
-}
-.serie-inner{
-  max-width:1100px;margin:0 auto;padding:0 40px;
+.serie{
   display:grid;grid-template-columns:1fr 1fr;
-  gap:60px;align-items:center;
+  gap:0;align-items:stretch;min-height:460px;
 }
 .serie-fotos{
   display:grid;grid-template-columns:1fr 1fr;
-  grid-template-rows:200px 200px;
-  gap:8px;
+  grid-template-rows:230px 230px;gap:4px;
 }
-.serie-foto{overflow:hidden;border-radius:2px}
-.serie-foto img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.serie-foto{overflow:hidden;background:#1a3a4a}
+.serie-foto img{transition:transform .5s}
 .serie-foto:hover img{transform:scale(1.05)}
-.serie-foto:first-child{grid-row:1/3;border-radius:2px}
-.serie-texto{}
+.serie-foto:first-child{grid-row:1/3}
+.serie-texto{
+  background:#111;
+  padding:52px 44px;
+  display:flex;flex-direction:column;justify-content:center;
+}
 .serie-kicker{
   font-family:sans-serif;font-size:10px;font-weight:800;
-  color:var(--green);letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,.4);letter-spacing:2px;text-transform:uppercase;
   margin-bottom:12px;display:flex;align-items:center;gap:8px;
 }
-.serie-kicker::before{content:'';width:20px;height:1px;background:var(--green)}
+.serie-kicker::before{content:'';width:18px;height:1px;background:rgba(255,255,255,.3)}
 .serie-h2{
-  font-size:clamp(22px,2.8vw,34px);font-weight:700;
-  color:var(--text);line-height:1.2;margin-bottom:16px;
+  font-size:clamp(20px,2.3vw,30px);font-weight:700;
+  color:#fff;line-height:1.2;margin-bottom:14px;
 }
-.serie-p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:20px}
-.serie-p strong{color:var(--text)}
+.serie-p{font-size:13px;color:rgba(255,255,255,.6);line-height:1.8;margin-bottom:18px}
+.serie-p strong{color:rgba(255,255,255,.9)}
 .btn-serie{
-  display:inline-flex;align-items:center;gap:8px;
+  font-family:sans-serif;font-size:12px;font-weight:800;
+  background:var(--gold);color:#111;
+  padding:12px 22px;border-radius:2px;
+  letter-spacing:.5px;text-transform:uppercase;
+  width:fit-content;transition:background .2s;
+  display:flex;align-items:center;gap:6px;
+}
+.btn-serie:hover{background:#b5840f}
+
+/* ── COMO CHEGAR ── */
+.chegar{background:var(--green-dark);padding:56px 0}
+.chegar-inner{
+  max-width:1100px;margin:0 auto;padding:0 40px;
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:36px;align-items:start;
+}
+.chegar-h2{
+  font-size:clamp(20px,2.3vw,30px);font-weight:700;
+  color:#fff;line-height:1.2;
+}
+.chegar-h2 em{font-style:italic;color:#f0d080}
+.chegar-item{border-left:2px solid rgba(255,255,255,.15);padding-left:18px}
+.chegar-ico{font-size:22px;margin-bottom:8px}
+.chegar-t{
+  font-family:sans-serif;font-size:10px;font-weight:800;
+  color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;
+}
+.chegar-d{font-size:13px;color:rgba(255,255,255,.8);line-height:1.7}
+.chegar-d strong{color:#fff}
+
+/* ── SEBRAE / PARCERIA ── */
+.parceria{
+  background:var(--bg);
+  border-top:3px solid var(--green);
+  padding:56px 0;text-align:center;
+}
+.parceria-inner{max-width:680px;margin:0 auto;padding:0 40px}
+.parceria-kicker{
+  font-family:sans-serif;font-size:10px;font-weight:800;
+  color:var(--green);letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:12px;
+}
+.parceria-h2{
+  font-size:clamp(20px,2.5vw,30px);font-weight:700;
+  color:var(--text);margin-bottom:12px;line-height:1.2;
+}
+.parceria-p{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:24px}
+.parceria-btns{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.btn-p1{
+  font-family:sans-serif;font-size:12px;font-weight:800;
   background:var(--green);color:#fff;
-  font-family:sans-serif;font-size:12px;font-weight:700;
-  padding:13px 24px;border-radius:2px;
+  padding:13px 26px;border-radius:2px;
   letter-spacing:.5px;text-transform:uppercase;
   transition:background .2s;
 }
-.btn-serie:hover{background:var(--green-dark)}
-
-/* ── PRAIAS CAROUSEL ── */
-.praias-row{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-}
-.praia-card{border-radius:3px;overflow:hidden;cursor:pointer}
-.praia-img{
-  height:200px;overflow:hidden;
-}
-.praia-img img{
-  width:100%;height:100%;object-fit:cover;
-  transition:transform .5s;
-}
-.praia-card:hover .praia-img img{transform:scale(1.07)}
-.praia-info{
-  padding:14px 0 4px;
-}
-.praia-nome{
-  font-size:15px;font-weight:700;color:var(--text);margin-bottom:3px;
-}
-.praia-desc{
-  font-family:sans-serif;font-size:11px;color:var(--muted);
-}
-
-/* ── COMO CHEGAR ── */
-.chegar-block{
-  background:var(--green-dark);color:#fff;
-  padding:60px 0;
-}
-.chegar-inner{
-  max-width:1100px;margin:0 auto;padding:0 40px;
-  display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;
-  align-items:start;
-}
-.chegar-titulo{
-  font-size:clamp(22px,2.5vw,32px);font-weight:700;
-  line-height:1.2;color:#fff;
-}
-.chegar-titulo em{font-style:italic;color:#f0d080}
-.chegar-item{border-left:2px solid rgba(255,255,255,.2);padding-left:20px}
-.chegar-icon{font-size:24px;margin-bottom:10px}
-.chegar-nome{
-  font-family:sans-serif;font-size:12px;font-weight:800;
-  color:rgba(255,255,255,.5);letter-spacing:1px;
-  text-transform:uppercase;margin-bottom:6px;
-}
-.chegar-detalhe{font-size:14px;color:rgba(255,255,255,.85);line-height:1.6}
-.chegar-detalhe strong{color:#fff}
-
-/* ── ANUNCIE ── */
-.anuncie-block{
-  background:#fff;
-  border-top:1px solid var(--border);
-  padding:60px 0;text-align:center;
-}
-.anuncie-h2{
-  font-size:clamp(20px,2.5vw,30px);font-weight:700;
-  color:var(--text);margin-bottom:10px;
-}
-.anuncie-p{
-  font-size:14px;color:var(--muted);
-  max-width:480px;margin:0 auto 28px;line-height:1.7;
-}
-.btn-anuncie{
-  display:inline-flex;align-items:center;gap:8px;
+.btn-p1:hover{background:var(--green-dark)}
+.btn-p2{
+  font-family:sans-serif;font-size:12px;font-weight:700;
   background:#25d366;color:#fff;
-  font-family:sans-serif;font-size:13px;font-weight:700;
-  padding:14px 32px;border-radius:2px;
-  letter-spacing:.3px;transition:background .2s;
+  padding:13px 24px;border-radius:2px;
+  letter-spacing:.3px;
+  display:flex;align-items:center;gap:6px;
+  transition:background .2s;
 }
-.btn-anuncie:hover{background:#1ebe5d}
+.btn-p2:hover{background:#1ebe5d}
+
+/* ── FAQ ── */
+.faq-section{padding:60px 0}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:32px}
+.faq-item{
+  background:#fff;border:1px solid var(--border);
+  border-radius:2px;padding:18px 20px;cursor:pointer;
+  transition:border-color .15s;
+}
+.faq-item:hover{border-color:var(--green)}
+.faq-q{
+  font-size:14px;font-weight:700;color:var(--text);
+  margin-bottom:6px;line-height:1.3;
+  display:flex;justify-content:space-between;align-items:flex-start;gap:10px;
+}
+.faq-q::after{content:'＋';color:var(--green);font-size:16px;font-weight:400;flex-shrink:0}
+.faq-item.open .faq-q::after{content:'－'}
+.faq-a{
+  display:none;font-family:sans-serif;font-size:12px;
+  color:var(--muted);line-height:1.7;padding-top:8px;
+  border-top:1px solid var(--border);margin-top:8px;
+}
+.faq-item.open .faq-a{display:block}
 
 /* ── FOOTER ── */
-footer{background:#0a0a0a;color:rgba(255,255,255,.6);padding:50px 0 24px}
-.footer-inner{max-width:1100px;margin:0 auto;padding:0 40px}
-.footer-top{
+footer{background:#080808;padding:48px 0 20px}
+.footer-g{
+  max-width:1100px;margin:0 auto;padding:0 40px;
   display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
-  gap:40px;margin-bottom:40px;
-  padding-bottom:40px;
-  border-bottom:1px solid rgba(255,255,255,.07);
+  gap:36px;margin-bottom:36px;
+  padding-bottom:36px;
+  border-bottom:1px solid rgba(255,255,255,.06);
 }
-.footer-brand-logo{
-  font-size:16px;font-weight:700;color:#fff;
-  margin-bottom:12px;display:flex;align-items:center;gap:8px;
-  font-family:Georgia,serif;
+.f-logo{
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:10px;
 }
-.footer-brand-badge{background:#e8000a;color:#fff;font-size:9px;font-weight:800;padding:3px 7px;border-radius:2px;font-family:sans-serif;letter-spacing:.5px}
-.footer-brand-p{font-size:12px;color:rgba(255,255,255,.4);line-height:1.7;margin-bottom:14px}
-.footer-wa{
-  display:inline-flex;align-items:center;gap:6px;
-  font-family:sans-serif;font-size:12px;font-weight:600;
-  color:#25d366;
+.f-logo img{
+  height:36px;width:auto;object-fit:contain;
+  filter:brightness(0) invert(1);
 }
-.footer-col h4{
-  font-family:sans-serif;font-size:10px;font-weight:800;
-  color:rgba(255,255,255,.3);text-transform:uppercase;
-  letter-spacing:1px;margin-bottom:14px;
+.f-logo-fb{
+  font-family:Georgia,serif;font-size:15px;font-weight:700;color:#fff;
+  display:flex;align-items:center;gap:6px;
 }
-.footer-col a{
+.f-logo-badge{background:var(--red);color:#fff;font-family:sans-serif;font-size:9px;font-weight:800;padding:2px 6px;border-radius:2px}
+.f-p{font-family:sans-serif;font-size:12px;color:rgba(255,255,255,.35);line-height:1.7;margin-bottom:12px}
+.f-wa{font-family:sans-serif;font-size:12px;font-weight:600;color:#25d366}
+.f-col h4{
+  font-family:sans-serif;font-size:9px;font-weight:800;
+  color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:1px;
+  margin-bottom:12px;
+}
+.f-col a{
   display:block;font-family:sans-serif;font-size:12px;
-  color:rgba(255,255,255,.5);padding:3px 0;transition:color .15s;
+  color:rgba(255,255,255,.45);padding:3px 0;transition:color .15s;
 }
-.footer-col a:hover{color:#fff}
-.footer-bottom{
+.f-col a:hover{color:#fff}
+.f-bot{
+  max-width:1100px;margin:0 auto;padding:0 40px;
   display:flex;justify-content:space-between;
   font-family:sans-serif;font-size:11px;
-  color:rgba(255,255,255,.2);flex-wrap:wrap;gap:8px;
+  color:rgba(255,255,255,.18);flex-wrap:wrap;gap:6px;
 }
 
 /* ── RESPONSIVE ── */
-@media(max-width:900px){
-  .navbar{padding:0 20px}
+@media(max-width:960px){
+  .nav{padding:0 20px}
   .nav-links{display:none}
-  .nav-hamburger{display:flex}
-  .hero-content{padding:0 20px 48px}
-  .container{padding:0 20px}
+  .hamburger{display:flex}
+  .hero-body{padding:0 20px 48px}
+  .wrap{padding:0 20px}
   .section{padding:52px 0}
-  .destinos-grid{grid-template-columns:1fr;grid-template-rows:auto}
-  .destino-card:first-child{grid-row:auto;height:300px}
-  .destino-card{height:220px}
-  .exp-grid{grid-template-columns:1fr}
-  .exp-card{height:240px}
-  .editorial{grid-template-columns:1fr}
-  .editorial-texto{padding:36px 24px}
-  .serie-inner{grid-template-columns:1fr;gap:32px}
-  .serie-fotos{grid-template-rows:160px 160px}
-  .praias-row{grid-template-columns:1fr 1fr;gap:8px}
-  .chegar-inner{grid-template-columns:1fr;gap:28px}
-  .stats-inner{grid-template-columns:repeat(2,1fr)}
-  .footer-top{grid-template-columns:1fr 1fr;gap:24px}
+  .tv-hero{grid-template-columns:1fr}
+  .tv-player-col{height:260px}
+  .tv-texto{padding:32px 24px}
+  .dest-grid{grid-template-columns:1fr;grid-template-rows:auto}
+  .dest-card:first-child{grid-row:auto;height:280px}
+  .dest-card{height:220px}
+  .exp-grid{grid-template-columns:1fr;gap:4px}
+  .exp-card{height:220px}
+  .praias-grid{grid-template-columns:1fr 1fr}
+  .serie{grid-template-columns:1fr}
+  .serie-fotos{grid-template-rows:180px 180px}
+  .serie-texto{padding:32px 24px}
+  .chegar-inner{grid-template-columns:1fr;gap:24px;padding:0 20px}
+  .faq-grid{grid-template-columns:1fr}
+  .footer-g{grid-template-columns:1fr 1fr;gap:24px;padding:0 20px}
+  .f-bot{padding:0 20px}
+  .stats-g{grid-template-columns:repeat(2,1fr)}
+  .prova-inner{padding:0 20px}
+  .parceria-inner{padding:0 20px}
 }
 @media(max-width:600px){
   .hero-h1{font-size:30px}
-  .hero-btns{flex-direction:column}
-  .btn-primary-hero,.btn-ghost-hero{text-align:center;justify-content:center}
-  .praias-row{grid-template-columns:1fr}
-  .stats-inner{grid-template-columns:1fr 1fr}
-  .stat-b{padding:18px 12px}
-  .footer-top{grid-template-columns:1fr}
+  .hero-actions{flex-direction:column}
+  .btn-h1,.btn-h2{text-align:center;justify-content:center}
+  .praias-grid{grid-template-columns:1fr}
+  .footer-g{grid-template-columns:1fr}
+  .stats-g{grid-template-columns:1fr 1fr}
+  .stat{padding:16px 12px}
+  .parceria-btns{flex-direction:column;align-items:center}
+  .serie-fotos{grid-template-columns:1fr;grid-template-rows:180px 120px 120px}
+  .serie-foto:first-child{grid-row:auto}
 }
+
+/* ── PONTO DE CULTURA ── */
+.pc-block{display:grid;grid-template-columns:320px 1fr;gap:0;background:#0d0d0d;overflow:hidden;margin:0}
+.pc-cartaz{position:relative;overflow:hidden;min-height:400px}
+.pc-cartaz img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .5s ease}
+.pc-block:hover .pc-cartaz img{transform:scale(1.03)}
+.pc-cartaz-badge{position:absolute;top:14px;left:14px;background:rgba(0,0,0,.65);border:1px solid rgba(200,150,26,.4);border-radius:3px;padding:5px 10px;font-family:sans-serif;font-size:10px;font-weight:800;color:#c8961a;letter-spacing:.8px;text-transform:uppercase}
+.pc-texto{padding:44px 44px 40px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(135deg,#111 0%,#0a1a0f 100%);border-left:3px solid #c8961a}
+.pc-kicker{font-family:sans-serif;font-size:10px;font-weight:800;color:#c8961a;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.pc-kicker::before{content:'';width:20px;height:1px;background:#c8961a}
+.pc-h2{font-family:Georgia,serif;font-size:clamp(20px,2.2vw,28px);font-weight:700;color:#fff;line-height:1.2;margin-bottom:16px;letter-spacing:-.2px}
+.pc-h2 em{font-style:italic;color:#c8961a}
+.pc-p{font-family:Georgia,serif;font-size:13px;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:14px}
+.pc-p strong{color:rgba(255,255,255,.9)}
+.pc-cidades{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 24px}
+.pc-cidade{font-family:sans-serif;font-size:11px;font-weight:600;color:#c8961a;background:rgba(200,150,26,.1);border:1px solid rgba(200,150,26,.25);padding:4px 12px;border-radius:20px}
+.pc-btns{display:flex;gap:10px;flex-wrap:wrap}
+.pc-btn-primary{font-family:sans-serif;font-size:12px;font-weight:800;background:#c8961a;color:#111;padding:11px 22px;border-radius:2px;letter-spacing:.5px;text-transform:uppercase;transition:background .2s;display:inline-flex;align-items:center;gap:6px}
+.pc-btn-primary:hover{background:#b5840f;text-decoration:none;color:#111}
+.pc-btn-ghost{font-family:sans-serif;font-size:12px;font-weight:600;background:transparent;color:rgba(255,255,255,.7);padding:11px 20px;border-radius:2px;border:1.5px solid rgba(255,255,255,.2);letter-spacing:.3px;transition:all .2s}
+.pc-btn-ghost:hover{border-color:rgba(255,255,255,.5);color:#fff;text-decoration:none}
+.pc-minc{margin-top:24px;padding-top:18px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pc-minc-tag{font-family:sans-serif;font-size:9px;font-weight:800;color:rgba(255,255,255,.3);letter-spacing:1px;text-transform:uppercase}
+.pc-minc-dot{width:4px;height:4px;background:rgba(255,255,255,.2);border-radius:50%;flex-shrink:0}
+@media(max-width:860px){.pc-block{grid-template-columns:1fr}.pc-cartaz{min-height:280px;max-height:340px}.pc-texto{padding:28px 22px 24px;border-left:0;border-top:3px solid #c8961a}}
+@media(max-width:500px){.pc-btns{flex-direction:column}.pc-btn-primary,.pc-btn-ghost{text-align:center;justify-content:center}}
 </style>
 </head>
 <body>
 
-<!-- ── NAVBAR ── -->
-<nav class="navbar" id="navbar">
+<!-- NAVBAR -->
+<nav class="nav" id="nav">
   <a href="https://www.tvmarataizes.digital/" class="nav-logo">
-    <span class="nav-logo-badge">TV</span>
-    Marataízes
+    <img
+      src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logo.png"
+      alt="TV Marataízes"
+      onerror="this.style.display='none';document.getElementById('nav-fb').style.display='flex'">
+    <span id="nav-fb" class="nav-logo-fb" style="display:none">
+      <span class="badge">TV</span>Marataízes
+    </span>
   </a>
   <div class="nav-links">
     <a href="#destinos">Destinos</a>
     <a href="#experiencias">Experiências</a>
     <a href="#praias">Praias</a>
     <a href="#serie">Série</a>
-    <a href="#como-chegar">Como Chegar</a>
+    <a href="#faq">Perguntas</a>
     <a href="https://wa.me/5528999036141" target="_blank" class="nav-cta">Anuncie</a>
   </div>
-  <div class="nav-hamburger" id="hamburger">
+  <div class="hamburger" id="hbg">
     <span></span><span></span><span></span>
   </div>
 </nav>
 
-<!-- ── HERO ── -->
+<!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <div class="hero-kicker">Pérola Capixaba · Litoral Sul do ES</div>
+  <div class="hero-img">
+    <img
+      src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Falesias.png"
+      alt="Falésias de Marataízes ES — litoral sul do Espírito Santo"
+      onerror="this.parentElement.style.background='linear-gradient(135deg,#0f4526,#1a6b3c)'">
+  </div>
+  <div class="hero-grad"></div>
+  <div class="hero-body">
+    <div class="hero-sup">Pérola Capixaba · Litoral Sul do ES · 2026</div>
     <h1 class="hero-h1">
       Marataízes.<br>
       <em>Onde o mar escreve</em><br>
       histórias nas falésias.
     </h1>
-    <p class="hero-desc">
-      26 km de litoral, lagoas, falésias centenárias e uma gastronomia de frutos do mar que não precisa de legenda. Bem-vindo ao Sul do Espírito Santo.
+    <p class="hero-p">
+      26 km de litoral, lagoas de águas calmas, falésias centenárias e frutos do mar que nenhum roteiro turístico ainda conseguiu descrever direito. Bem-vindo ao Sul do Espírito Santo.
     </p>
-    <div class="hero-btns">
-      <a href="#destinos" class="btn-primary-hero">Explorar destinos</a>
-      <a href="#serie" class="btn-ghost-hero">📺 Ver a série</a>
+    <div class="hero-actions">
+      <a href="#destinos" class="btn-h1">Explorar destinos</a>
+      <a href="#serie" class="btn-h2">📺 Ver a série</a>
     </div>
   </div>
   <div class="hero-scroll">
-    <div class="hero-scroll-line"></div>
+    <div class="scroll-line"></div>
     scroll
   </div>
 </section>
 
-<!-- ── STATS ── -->
-<div class="stats-band">
-  <div class="stats-inner">
-    <div class="stat-b"><div class="stat-b-n">26<span>km</span></div><div class="stat-b-l">de litoral</div></div>
-    <div class="stat-b"><div class="stat-b-n">45<span>mil</span></div><div class="stat-b-l">habitantes</div></div>
-    <div class="stat-b"><div class="stat-b-n">R$27<span>mi</span></div><div class="stat-b-l">investidos no turismo ES 2026</div></div>
-    <div class="stat-b"><div class="stat-b-n">24<span>h</span></div><div class="stat-b-l">TV ao vivo · Canal 300</div></div>
+<!-- PROVA REAL — buscas capturadas -->
+<div class="prova">
+  <div class="prova-inner">
+    <span class="prova-label">Já aparecemos no Google para:</span>
+    <div class="prova-tags">
+      <span class="prova-tag">turismo em marataízes</span>
+      <span class="prova-tag">praias de marataízes</span>
+      <span class="prova-tag">o que fazer em marataízes</span>
+      <span class="prova-tag">pousadas marataízes es</span>
+      <span class="prova-tag">falésias marataízes</span>
+      <span class="prova-tag">lagoa do siri marataízes</span>
+      <span class="prova-tag">restaurantes marataízes</span>
+      <span class="prova-tag">como chegar em marataízes</span>
+    </div>
   </div>
 </div>
 
-<!-- ── DESTINOS ── -->
-<section class="section" id="destinos">
-  <div class="container">
-    <div class="section-label">Descubra Marataízes</div>
-    <h2 class="section-h2">Os destinos que fazem<br><em>você querer voltar</em></h2>
-    <p class="section-lead">Das falésias que colorem o entardecer às lagoas que espelham o céu — cada canto de Marataízes tem sua própria personalidade.</p>
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-g">
+    <div class="stat">
+      <div class="stat-n">26<small>km</small></div>
+      <div class="stat-l">de litoral</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">45<small>mil</small></div>
+      <div class="stat-l">habitantes</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">R$27<small>mi</small></div>
+      <div class="stat-l">turismo ES 2026</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">24<small>h</small></div>
+      <div class="stat-l">TV ao vivo · Canal 300</div>
+    </div>
+  </div>
+</div>
 
-    <div class="destinos-grid">
-      <!-- card grande -->
-      <div class="destino-card">
-        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Falesias.png"
-          alt="Falésias de Marataízes ES"
-          onerror="this.parentElement.style.background='#1a6b3c'">
-        <div class="destino-overlay"></div>
-        <div class="destino-arrow">→</div>
-        <div class="destino-info">
-          <div class="destino-tag">Monumento Natural · Sul do ES</div>
-          <div class="destino-nome">Falésias de Marataízes</div>
-          <div class="destino-desc">Paredões multicoloridos que mudam de cor ao entardecer. Um dos cartões-postais mais fotografados do Espírito Santo.</div>
+<!-- TV — CORAÇÃO DA PÁGINA -->
+<section class="tv-hero" id="tv">
+  <div class="tv-player-col">
+    <img
+      src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/tv_canal.jpg"
+      alt="TV Marataízes Canal 300 ao vivo"
+      onerror="this.style.display='none'">
+    <div class="tv-live-badge"><span class="dot"></span> Ao Vivo Agora</div>
+    <div class="tv-player-embed">
+      <iframe
+        src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen loading="lazy">
+      </iframe>
+    </div>
+  </div>
+  <div class="tv-texto">
+    <div class="tv-kicker">📺 Canal 300 · Soul TV · tvmarataizes.digital</div>
+    <h2 class="tv-h2">
+      A única TV<br><em>independente</em><br>do Espírito Santo
+    </h2>
+    <div class="tv-tag">🔴 Transmitindo 24h direto de Marataízes</div>
+    <p class="tv-p">
+      O <strong>Canal 300</strong> não pertence a grupo político, corporação ou afiliada de rede nacional. Nasceu em Marataízes, transmite de Marataízes, conta Marataízes — com produção audiovisual própria, estúdio local e jornalismo sem padrinho.
+    </p>
+    <p class="tv-p">
+      É do Canal 300 que nasce o maior portal digital do Sul do ES — e é da TV que vem a série que vai mostrar Marataízes para o Brasil inteiro.
+    </p>
+    <a href="https://wa.me/5528999036141" target="_blank" class="tv-btn">
+      Anuncie na TV Marataízes →
+    </a>
+  </div>
+</section>
+
+<!-- DESTINOS -->
+<section class="section" id="destinos">
+  <div class="wrap">
+    <div class="eyebrow">Descubra Marataízes</div>
+    <h2 class="h2">Os destinos que fazem<br><em>você querer voltar</em></h2>
+    <p class="lead">Das falésias que colorem o entardecer às lagoas que espelham o céu — cada canto de Marataízes tem sua própria personalidade.</p>
+    <div class="dest-grid">
+      <div class="dest-card">
+        <img
+          src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Falesias.png"
+          alt="Falésias de Marataízes ES — monumento natural"
+          onerror="this.style.display='none'">
+        <div class="dest-grad"></div>
+        <div class="dest-arr">→</div>
+        <div class="dest-info">
+          <div class="dest-sup">Monumento Natural · Sul do ES</div>
+          <div class="dest-nome">Falésias de Marataízes</div>
+          <div class="dest-desc">Paredões multicoloridos que mudam de tom ao entardecer. O cartão-postal mais fotografado do Espírito Santo.</div>
         </div>
       </div>
-      <!-- card pequeno 1 -->
-      <div class="destino-card">
-        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/praia1"
-          alt="Praia de Marataízes"
-          onerror="this.parentElement.style.background='#0f4526'">
-        <div class="destino-overlay"></div>
-        <div class="destino-arrow">→</div>
-        <div class="destino-info">
-          <div class="destino-tag">Praias</div>
-          <div class="destino-nome">Praias da Pérola Capixaba</div>
-          <div class="destino-desc">Águas claras, areias douradas e ondas para todos os estilos.</div>
+      <div class="dest-card">
+        <img
+          src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/praia1.png"
+          alt="Praias de Marataízes ES"
+          onerror="this.style.display='none'">
+        <div class="dest-grad"></div>
+        <div class="dest-arr">→</div>
+        <div class="dest-info">
+          <div class="dest-sup">Praias</div>
+          <div class="dest-nome">Praias da Pérola Capixaba</div>
+          <div class="dest-desc">Águas claras, areias douradas, ondas para todos os estilos.</div>
         </div>
       </div>
-      <!-- card pequeno 2 -->
-      <div class="destino-card">
-        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/lagoa%20do%20siri"
-          alt="Lagoa do Siri Marataízes"
-          onerror="this.parentElement.style.background='#003781'">
-        <div class="destino-overlay"></div>
-        <div class="destino-arrow">→</div>
-        <div class="destino-info">
-          <div class="destino-tag">Natureza · Ecoturismo</div>
-          <div class="destino-nome">Lagoa do Siri</div>
-          <div class="destino-desc">Stand-up paddle, caiaque e silêncio. A natureza no estado puro.</div>
+      <div class="dest-card">
+        <img
+          src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/lagoa%20do%20siri.png"
+          alt="Lagoa do Siri Marataízes — ecoturismo"
+          onerror="this.style.display='none'">
+        <div class="dest-grad"></div>
+        <div class="dest-arr">→</div>
+        <div class="dest-info">
+          <div class="dest-sup">Natureza · Ecoturismo</div>
+          <div class="dest-nome">Lagoa do Siri</div>
+          <div class="dest-desc">Stand-up paddle, caiaque e silêncio. Natureza no estado puro.</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── EXPERIÊNCIAS ── -->
-<section class="section section-alt" id="experiencias">
-  <div class="container">
-    <div class="section-label">Viver Marataízes</div>
-    <h2 class="section-h2">Experiências que vão<br><em>além da praia</em></h2>
-    <p class="section-lead">Marataízes tem cultura, história, gastronomia e uma TV independente que conta tudo isso com a câmera voltada para a cidade real.</p>
+<!-- EXPERIÊNCIAS -->
+<section class="section section-bg" id="experiencias">
+  <div class="wrap">
+    <div class="eyebrow">Viver Marataízes</div>
+    <h2 class="h2">Experiências que vão<br><em>além da praia</em></h2>
+    <p class="lead">Marataízes tem cultura, história, gastronomia e uma TV independente que conta tudo isso com a câmera voltada para a cidade real.</p>
   </div>
   <div class="exp-grid">
     <div class="exp-card">
-      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/heranca_da_terra.png"
-        alt="Herança cultural de Marataízes"
-        onerror="this.style.background='#1a6b3c'">
-      <div class="exp-overlay"></div>
+      <img
+        src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/heranca_da_terra.png"
+        alt="Herança cultural de Marataízes ES"
+        onerror="this.style.display='none'">
+      <div class="exp-grad"></div>
       <div class="exp-info">
         <div class="exp-cat">Cultura & História</div>
         <div class="exp-nome">A herança da terra</div>
       </div>
     </div>
     <div class="exp-card">
-      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/EXPO.png"
-        alt="Expo Marataízes"
-        onerror="this.style.background='#c8961a'">
-      <div class="exp-overlay"></div>
+      <img
+        src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/EXPO.png"
+        alt="Expo Marataízes — eventos e feiras"
+        onerror="this.style.display='none'">
+      <div class="exp-grad"></div>
       <div class="exp-info">
         <div class="exp-cat">Eventos & Feiras</div>
         <div class="exp-nome">Expo Marataízes</div>
       </div>
     </div>
     <div class="exp-card">
-      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Leitura.png"
-        alt="Educação e cultura em Marataízes"
-        onerror="this.style.background='#003781'">
-      <div class="exp-overlay"></div>
+      <img
+        src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Leitura.png"
+        alt="Cultura e educação em Marataízes"
+        onerror="this.style.display='none'">
+      <div class="exp-grad"></div>
       <div class="exp-info">
         <div class="exp-cat">Educação & Comunidade</div>
         <div class="exp-nome">Marataízes que lê</div>
@@ -688,226 +854,283 @@ footer{background:#0a0a0a;color:rgba(255,255,255,.6);padding:50px 0 24px}
   </div>
 </section>
 
-<!-- ── EDITORIAL TV ── -->
-<section class="section" style="padding:0" id="tv">
-  <div class="editorial">
-    <div class="editorial-foto">
-      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Filmagem.jpg"
-        alt="TV Marataízes Canal 300 produção"
-        onerror="this.style.background='#0a0a0a'">
-      <div class="editorial-foto-badge">
-        <span class="dot-red"></span> Canal 300 · Ao vivo
+<!-- PRAIAS -->
+<section class="section" id="praias">
+  <div class="wrap">
+    <div class="eyebrow">Litoral de Marataízes</div>
+    <h2 class="h2">26 km de praias.<br><em>Cada uma com sua história.</em></h2>
+    <p class="lead">De norte a sul, o litoral de Marataízes muda de personalidade em cada quilômetro — do agitado ao selvagem.</p>
+    <div class="praias-grid">
+      <div class="praia-card">
+        <div class="praia-img">
+          <img
+            src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/praia1.png"
+            alt="Praia dos Cações Marataízes ES"
+            onerror="this.style.display='none'">
+        </div>
+        <div class="praia-nome">Praia dos Cações</div>
+        <div class="praia-desc">A mais central. Infraestrutura, quiosques e acesso fácil.</div>
+      </div>
+      <div class="praia-card">
+        <div class="praia-img">
+          <img
+            src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/praia2.png"
+            alt="Lagoa Dantas Marataízes ES"
+            onerror="this.style.display='none'">
+        </div>
+        <div class="praia-nome">Lagoa Dantas</div>
+        <div class="praia-desc">Mar e lagoa lado a lado. Favorita das famílias.</div>
+      </div>
+      <div class="praia-card">
+        <div class="praia-img">
+          <img
+            src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Falesias.png"
+            alt="Praia de Boa Vista falésias Marataízes"
+            onerror="this.style.display='none'">
+        </div>
+        <div class="praia-nome">Praia de Boa Vista</div>
+        <div class="praia-desc">Falésias vermelhas e o pôr do sol mais fotografado do ES.</div>
+      </div>
+      <div class="praia-card">
+        <div class="praia-img">
+          <img
+            src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/lagoa%20do%20siri.png"
+            alt="Lagoa do Siri Marataízes ecoturismo"
+            onerror="this.style.display='none'">
+        </div>
+        <div class="praia-nome">Lagoa do Siri</div>
+        <div class="praia-desc">Ecoturismo, stand-up paddle e silêncio completo.</div>
       </div>
     </div>
-    <div class="editorial-texto">
-      <div class="editorial-kicker">📺 TV Marataízes · Soul TV</div>
-      <h2 class="editorial-h2">
-        A única TV<br><em>independente</em><br>do Espírito Santo
-      </h2>
-      <p class="editorial-p">
-        O <strong>Canal 300</strong> não pertence a grupo político, corporação ou afiliada. Nasceu em Marataízes, transmite de Marataízes, conta Marataízes — 24 horas ao vivo, com produção audiovisual própria e jornalismo sem padrinho.
-      </p>
-      <p class="editorial-p">
-        Assista ao vivo abaixo e descubra por que quem mora aqui sabe: quando algo acontece na cidade, a TV Marataízes já está lá.
-      </p>
-      <a href="https://wa.me/5528999036141" target="_blank" class="btn-editorial">
-        Anuncie na TV Marataízes →
+  </div>
+</section>
+
+<!-- PONTO DE CULTURA -->
+<section class="pc-block" id="ponto-de-cultura">
+  <div class="pc-cartaz">
+    <img
+      src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/PONTOCULTURA01.png"
+      alt="Ponto de Cultura Cinema e Artes Marataízes — Ministério da Cultura — Turma 2026"
+      onerror="this.parentElement.style.background='#1a1a0a'">
+    <div class="pc-cartaz-badge">🎬 Ministério da Cultura</div>
+  </div>
+  <div class="pc-texto">
+    <div class="pc-kicker">Ponto de Cultura · Reconhecimento Federal</div>
+    <h2 class="pc-h2">
+      Cinema e Artes Marataízes.<br>
+      <em>Formando criadores</em><br>
+      do Sul do Espírito Santo.
+    </h2>
+    <p class="pc-p">
+      A TV Marataízes é um <strong>Ponto de Cultura reconhecido pelo Ministério da Cultura</strong> — o único do Sul do ES com esse reconhecimento federal. Não é só um selo: é a prova de que Marataízes tem estrutura cultural real, com capacidade de formar, produzir e distribuir conteúdo audiovisual com alcance nacional.
+    </p>
+    <p class="pc-p">
+      Beat, vídeo, canto, dança, teatro ou escrita — se você cria, este é o seu espaço. O cadastro é gratuito e abre portas para a <strong>série documental, o portal digital e a rede de criadores da orla</strong>.
+    </p>
+    <div class="pc-cidades">
+      <span class="pc-cidade">Marataízes</span>
+      <span class="pc-cidade">Itapemirim</span>
+      <span class="pc-cidade">Piúma</span>
+      <span class="pc-cidade">Pres. Kennedy</span>
+    </div>
+    <div class="pc-btns">
+      <a href="https://tvmarataizes.digital/criadores" class="pc-btn-primary">
+        🎬 Cadastro gratuito — Turma 2026
       </a>
-      <div class="editorial-player">
-        <iframe
-          src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4"
-          allow="autoplay; fullscreen; picture-in-picture"
-          allowfullscreen loading="lazy">
-        </iframe>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── PRAIAS ── -->
-<section class="section section-alt" id="praias">
-  <div class="container">
-    <div class="section-label">Litoral de Marataízes</div>
-    <h2 class="section-h2">26 km de praias.<br><em>Cada uma com sua história.</em></h2>
-    <p class="section-lead">De norte a sul, o litoral de Marataízes muda de personalidade em cada quilômetro — do agitado ao selvagem.</p>
-
-    <div class="praias-row">
-      <div class="praia-card">
-        <div class="praia-img">
-          <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/praia1"
-            alt="Praia dos Cações Marataízes"
-            onerror="this.style.background='#1a6b3c'">
-        </div>
-        <div class="praia-info">
-          <div class="praia-nome">Praia dos Cações</div>
-          <div class="praia-desc">A mais central. Infraestrutura, quiosques e acesso fácil.</div>
-        </div>
-      </div>
-      <div class="praia-card">
-        <div class="praia-img">
-          <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/praia2"
-            alt="Lagoa Dantas Marataízes"
-            onerror="this.style.background='#0f4526'">
-        </div>
-        <div class="praia-info">
-          <div class="praia-nome">Lagoa Dantas</div>
-          <div class="praia-desc">Mar e lagoa lado a lado. Favorita das famílias.</div>
-        </div>
-      </div>
-      <div class="praia-card">
-        <div class="praia-img">
-          <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Falesias.png"
-            alt="Praia de Boa Vista Falésias"
-            onerror="this.style.background='#c8961a'">
-        </div>
-        <div class="praia-info">
-          <div class="praia-nome">Praia de Boa Vista</div>
-          <div class="praia-desc">Falésias vermelhas, lagunas e o pôr do sol mais fotografado do ES.</div>
-        </div>
-      </div>
-      <div class="praia-card">
-        <div class="praia-img">
-          <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/lagoa%20do%20siri"
-            alt="Lagoa do Siri Marataízes"
-            onerror="this.style.background='#003781'">
-        </div>
-        <div class="praia-info">
-          <div class="praia-nome">Lagoa do Siri</div>
-          <div class="praia-desc">Ecoturismo, stand-up paddle e silêncio completo.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── SÉRIE ── -->
-<section class="serie-block" id="serie">
-  <div class="serie-inner">
-    <div class="serie-fotos">
-      <div class="serie-foto">
-        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Filmagem.jpg"
-          alt="Produção série TV Marataízes"
-          onerror="this.style.background='#1a6b3c'">
-      </div>
-      <div class="serie-foto">
-        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/heranca.jpg"
-          alt="Herança Marataízes"
-          onerror="this.style.background='#0f4526'">
-      </div>
-      <div class="serie-foto">
-        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/SOULTV%20.png"
-          alt="Soul TV Canal 300"
-          onerror="this.style.background='#003781'">
-      </div>
-    </div>
-    <div class="serie-texto">
-      <div class="serie-kicker">Em produção · 2026</div>
-      <h2 class="serie-h2">A série que vai mostrar Marataízes para o Brasil inteiro</h2>
-      <p class="serie-p">
-        A TV Marataízes prepara uma <strong>série documental</strong> sobre o turismo narrativo da cidade — praias filmadas no horário certo, pousadas contadas pelos donos, gastronomia com história e a alma de Marataízes que nenhum roteiro oficial conseguiu capturar ainda.
-      </p>
-      <p class="serie-p">
-        Produção audiovisual independente. Distribuição digital. Uma cidade inteira como protagonista.
-      </p>
-      <a href="https://tvmarataizes.digital/turismo-marataizes/" class="btn-serie">
-        📺 Quero ver a série →
+      <a href="https://www.tvmarataizes.digital/" class="pc-btn-ghost">
+        Ver o portal →
       </a>
     </div>
+    <div class="pc-minc">
+      <span class="pc-minc-tag">Ponto de Cultura</span>
+      <div class="pc-minc-dot"></div>
+      <span class="pc-minc-tag">Ministério da Cultura · Governo Federal</span>
+      <div class="pc-minc-dot"></div>
+      <span class="pc-minc-tag">TV Marataízes · Canal 300</span>
+    </div>
   </div>
 </section>
 
-<!-- ── COMO CHEGAR ── -->
-<section class="chegar-block" id="como-chegar">
+<!-- SÉRIE -->
+<section class="serie" id="serie">
+  <div class="serie-fotos">
+    <div class="serie-foto">
+      <img
+        src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Filmagem.jpg"
+        alt="Produção série TV Marataízes"
+        onerror="this.style.display='none'">
+    </div>
+    <div class="serie-foto">
+      <img
+        src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/heranca.jpg"
+        alt="Herança cultural Marataízes"
+        onerror="this.style.display='none'">
+    </div>
+    <div class="serie-foto">
+      <img
+        src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/SOULTV%20.png"
+        alt="Soul TV Canal 300 Marataízes"
+        onerror="this.style.display='none'">
+    </div>
+  </div>
+  <div class="serie-texto">
+    <div class="serie-kicker">Em produção · 2026 · Canal 300</div>
+    <h2 class="serie-h2">A série que vai mostrar Marataízes para o Brasil inteiro</h2>
+    <p class="serie-p">
+      A TV Marataízes prepara uma <strong>série documental</strong> sobre o turismo narrativo da cidade — praias filmadas no horário certo, pousadas contadas pelos donos, gastronomia com história e a alma de Marataízes que nenhum roteiro oficial conseguiu capturar ainda.
+    </p>
+    <p class="serie-p">
+      Produção audiovisual independente. Distribuição digital. <strong>Uma cidade inteira como protagonista.</strong>
+    </p>
+    <a href="https://tvmarataizes.digital/turismo-marataizes/" class="btn-serie">
+      📺 Quero ver a série →
+    </a>
+  </div>
+</section>
+
+<!-- COMO CHEGAR -->
+<section class="chegar" id="como-chegar">
   <div class="chegar-inner">
     <div>
-      <h2 class="chegar-titulo">Como chegar em<br><em>Marataízes ES</em></h2>
+      <h2 class="chegar-h2">Como chegar em<br><em>Marataízes ES</em></h2>
     </div>
     <div class="chegar-item">
-      <div class="chegar-icon">🚗</div>
-      <div class="chegar-nome">De carro</div>
-      <div class="chegar-detalhe">
+      <div class="chegar-ico">🚗</div>
+      <div class="chegar-t">De carro</div>
+      <div class="chegar-d">
         <strong>De Vitória:</strong> 127 km pela Rodovia do Sol (ES-060). Cerca de 1h30.<br>
         <strong>Do Rio de Janeiro:</strong> ~380 km pela BR-101. Cerca de 4h30.
       </div>
     </div>
     <div class="chegar-item">
-      <div class="chegar-icon">✈️</div>
-      <div class="chegar-nome">De avião</div>
-      <div class="chegar-detalhe">
-        Aeroporto de Vitória (VIX) é o mais próximo — <strong>~1h30 de carro</strong> até Marataízes. Táxi, aluguel de carro e transfer disponíveis.
+      <div class="chegar-ico">✈️</div>
+      <div class="chegar-t">De avião</div>
+      <div class="chegar-d">
+        Aeroporto de Vitória (VIX) é o mais próximo — <strong>~1h30 de carro</strong>. Transfer, táxi e aluguel de carro disponíveis.
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── ANUNCIE ── -->
-<section class="anuncie-block">
-  <div class="container">
-    <h2 class="anuncie-h2">Tem negócio em Marataízes?</h2>
-    <p class="anuncie-p">Pousada, restaurante, experiência turística ou serviço local — apareça no Google quando turistas pesquisarem por Marataízes. Sem precisar pagar Google Ads.</p>
-    <a href="https://wa.me/5528999036141" target="_blank" class="btn-anuncie">
-      💬 Falar com a TV Marataízes
-    </a>
+<!-- FAQ -->
+<section class="faq-section section-bg" id="faq">
+  <div class="wrap">
+    <div class="eyebrow">Perguntas Frequentes</div>
+    <h2 class="h2">O que as pessoas mais<br><em>perguntam sobre Marataízes</em></h2>
+    <div class="faq-grid">
+      <div class="faq-item" onclick="faq(this)">
+        <div class="faq-q">O que fazer em Marataízes ES?</div>
+        <div class="faq-a">Visitar as falésias e as praias (Cações, Lagoa Dantas, Boa Vista), fazer caiaque na Lagoa do Siri, experimentar frutos do mar frescos, conhecer a Barra do Itapemirim e assistir ao vivo o Canal 300 da TV Marataízes — a única TV independente do ES.</div>
+      </div>
+      <div class="faq-item" onclick="faq(this)">
+        <div class="faq-q">Quais as melhores praias de Marataízes?</div>
+        <div class="faq-a">Praia dos Cações (a mais central e movimentada), Lagoa Dantas (mar e lagoa juntos), Praia de Boa Vista (falésias coloridas, a mais fotografada), Lagoa do Siri (ecoturismo), Praia do Itaputera (ilha selvagem com snorkel) e Areia Preta.</div>
+      </div>
+      <div class="faq-item" onclick="faq(this)">
+        <div class="faq-q">Como chegar em Marataízes ES?</div>
+        <div class="faq-a">De Vitória são 127 km pela Rodovia do Sol (ES-060), cerca de 1h30 de carro. Do Rio de Janeiro são ~380 km pela BR-101, cerca de 4h30. O aeroporto mais próximo é o de Vitória (VIX).</div>
+      </div>
+      <div class="faq-item" onclick="faq(this)">
+        <div class="faq-q">Tem pousada em Marataízes ES?</div>
+        <div class="faq-a">Sim. Marataízes tem pousadas na Barra do Itapemirim (mais tranquila), na Avenida Atlântica (frente ao mar) e próximas às praias. Na alta temporada (dez–fev), reserve com 3 a 6 meses de antecedência.</div>
+      </div>
+      <div class="faq-item" onclick="faq(this)">
+        <div class="faq-q">O que é a TV Marataízes — Canal 300?</div>
+        <div class="faq-a">A TV Marataízes é o Canal 300 — a Soul TV — a única emissora de televisão independente de todo o Espírito Santo. Transmite 24 horas ao vivo em tvmarataizes.digital com produção audiovisual própria e sem vínculo político ou corporativo.</div>
+      </div>
+      <div class="faq-item" onclick="faq(this)">
+        <div class="faq-q">Como anunciar meu negócio em Marataízes no Google?</div>
+        <div class="faq-a">A TV Marataízes oferece planos de divulgação que posicionam seu negócio nas primeiras posições do Google quando turistas e moradores pesquisarem por serviços em Marataízes — sem precisar pagar Google Ads. Fale pelo WhatsApp: (28) 99903-6141.</div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
+<!-- PARCERIA / SEBRAE -->
+<section class="parceria">
+  <div class="parceria-inner">
+    <div class="parceria-kicker">Para empreendedores locais</div>
+    <h2 class="parceria-h2">Tem negócio em Marataízes ou na região?</h2>
+    <p class="parceria-p">Pousada, restaurante, experiência turística ou serviço local — apareça no Google quando turistas pesquisarem por Marataízes. A TV Marataízes é a estrutura digital que faltava para o Sul do ES.</p>
+    <div class="parceria-btns">
+      <a href="https://tvmarataizes.digital/turismo-marataizes/" class="btn-p1">Ver o portal completo</a>
+      <a href="https://wa.me/5528999036141" target="_blank" class="btn-p2">💬 (28) 99903-6141</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div>
-        <div class="footer-brand-logo">
-          <span class="footer-brand-badge">TV</span>
-          Marataízes
-        </div>
-        <p class="footer-brand-p">Canal 300 · Soul TV · A única emissora independente do Espírito Santo. Portal digital de Marataízes, Itapemirim, Piúma e Presidente Kennedy.</p>
-        <a href="https://wa.me/5528999036141" class="footer-wa">📲 (28) 99903-6141</a>
+  <div class="footer-g">
+    <div>
+      <div class="f-logo">
+        <img
+          src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logo.png"
+          alt="TV Marataízes"
+          onerror="this.style.display='none'">
+        <span class="f-logo-fb" style="display:none">
+          <span class="f-logo-badge">TV</span>Marataízes
+        </span>
       </div>
-      <div class="footer-col">
-        <h4>Turismo</h4>
-        <a href="#destinos">Destinos</a>
-        <a href="#praias">Praias</a>
-        <a href="#experiencias">Experiências</a>
-        <a href="#serie">A Série</a>
-        <a href="#como-chegar">Como Chegar</a>
-      </div>
-      <div class="footer-col">
-        <h4>Portal</h4>
-        <a href="https://www.tvmarataizes.digital/">Início</a>
-        <a href="https://www.tvmarataizes.digital/">Guia da Cidade</a>
-        <a href="https://www.tvmarataizes.digital/">Saúde</a>
-        <a href="https://www.tvmarataizes.digital/">Empregos</a>
-        <a href="https://www.tvmarataizes.digital/">Prefeitura</a>
-      </div>
-      <div class="footer-col">
-        <h4>Região</h4>
-        <a href="https://www.itapemirim.es.gov.br" target="_blank">Itapemirim</a>
-        <a href="https://www.piuma.es.gov.br" target="_blank">Piúma</a>
-        <a href="https://presidentekennedy.es.gov.br" target="_blank">Pres. Kennedy</a>
-        <a href="https://wa.me/5528999036141" target="_blank">Anuncie</a>
-      </div>
+      <p class="f-p">Canal 300 · Soul TV · A única emissora independente do Espírito Santo. Portal digital de Marataízes, Itapemirim, Piúma e Presidente Kennedy.</p>
+      <a href="https://wa.me/5528999036141" class="f-wa">📲 (28) 99903-6141</a>
     </div>
-    <div class="footer-bottom">
-      <span>© 2026 TV Marataízes · Canal 300 · Soul TV · Marataízes – ES</span>
-      <span>A única TV independente do Espírito Santo</span>
+    <div class="f-col">
+      <h4>Turismo</h4>
+      <a href="#destinos">Destinos</a>
+      <a href="#praias">Praias</a>
+      <a href="#experiencias">Experiências</a>
+      <a href="#serie">A Série</a>
+      <a href="#como-chegar">Como Chegar</a>
     </div>
+    <div class="f-col">
+      <h4>Portal</h4>
+      <a href="https://www.tvmarataizes.digital/">Início</a>
+      <a href="https://www.tvmarataizes.digital/">Guia da Cidade</a>
+      <a href="https://www.tvmarataizes.digital/">Saúde</a>
+      <a href="https://www.tvmarataizes.digital/">Empregos</a>
+      <a href="https://www.tvmarataizes.digital/">Prefeitura</a>
+    </div>
+    <div class="f-col">
+      <h4>Região</h4>
+      <a href="https://www.itapemirim.es.gov.br" target="_blank">Itapemirim</a>
+      <a href="https://www.piuma.es.gov.br" target="_blank">Piúma</a>
+      <a href="https://presidentekennedy.es.gov.br" target="_blank">Pres. Kennedy</a>
+      <a href="https://wa.me/5528999036141" target="_blank">Anuncie</a>
+    </div>
+  </div>
+  <div class="f-bot">
+    <span>© 2026 TV Marataízes · Canal 300 · Soul TV · Marataízes – ES</span>
+    <span>A única TV independente do Espírito Santo</span>
   </div>
 </footer>
 
 <script>
 // Navbar scroll
 window.addEventListener('scroll',()=>{
-  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>80);
+  document.getElementById('nav').classList.toggle('solid',scrollY>60);
 });
 
-// Hamburger mobile
-document.getElementById('hamburger').addEventListener('click',()=>{
-  const nav = document.querySelector('.nav-links');
-  if(nav.style.display==='flex'){
-    nav.style.display='none';
-  } else {
-    nav.style.cssText='display:flex;flex-direction:column;position:fixed;top:70px;left:0;right:0;background:rgba(10,10,10,.97);padding:24px 20px;gap:16px;z-index:99';
-  }
+// Hamburger
+document.getElementById('hbg').addEventListener('click',()=>{
+  const links = document.querySelector('.nav-links');
+  const open = links.style.display==='flex';
+  links.style.cssText = open ? '' :
+    'display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:rgba(10,20,15,.97);padding:28px 24px;gap:18px;z-index:199';
+  if(open) links.style.display='none';
+});
+
+// FAQ toggle
+function faq(el){
+  const open = el.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!open) el.classList.add('open');
+}
+
+// Logo footer fallback
+document.querySelector('.f-logo img').addEventListener('error',function(){
+  this.style.display='none';
+  this.nextElementSibling.style.display='flex';
 });
 </script>
 </body>
