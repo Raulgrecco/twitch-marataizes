@@ -408,14 +408,17 @@ img{display:block;width:100%;height:100%;object-fit:cover}
   display:grid;grid-template-columns:1fr 1fr;
   gap:0;align-items:stretch;min-height:460px;
 }
-.serie-fotos{
-  display:grid;grid-template-columns:1fr 1fr;
-  grid-template-rows:230px 230px;gap:4px;
+.serie-foto-unica{
+  overflow:hidden;background:#1a3a4a;
+  min-height:460px;
 }
-.serie-foto{overflow:hidden;background:#1a3a4a}
-.serie-foto img{transition:transform .5s}
-.serie-foto:hover img{transform:scale(1.05)}
-.serie-foto:first-child{grid-row:1/3}
+.serie-foto-unica img{
+  width:100%;height:100%;object-fit:cover;
+  object-position:center;
+  transition:transform .6s ease;
+  display:block;
+}
+.serie:hover .serie-foto-unica img{transform:scale(1.04)}
 .serie-texto{
   background:#111;
   padding:52px 44px;
@@ -581,8 +584,7 @@ footer{background:#080808;padding:48px 0 20px}
   .exp-card{height:220px}
   .praias-grid{grid-template-columns:1fr 1fr}
   .serie{grid-template-columns:1fr}
-  .serie-fotos{grid-template-rows:180px 180px}
-  .serie-texto{padding:32px 24px}
+  .serie-foto-unica{min-height:260px}
   .chegar-inner{grid-template-columns:1fr;gap:24px;padding:0 20px}
   .faq-grid{grid-template-columns:1fr}
   .footer-g{grid-template-columns:1fr 1fr;gap:24px;padding:0 20px}
@@ -604,31 +606,6 @@ footer{background:#080808;padding:48px 0 20px}
   .serie-foto:first-child{grid-row:auto}
 }
 
-/* ── PONTO DE CULTURA ── */
-.pc-block{display:grid;grid-template-columns:320px 1fr;gap:0;background:#0d0d0d;overflow:hidden;margin:0}
-.pc-cartaz{position:relative;overflow:hidden;min-height:400px}
-.pc-cartaz img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .5s ease}
-.pc-block:hover .pc-cartaz img{transform:scale(1.03)}
-.pc-cartaz-badge{position:absolute;top:14px;left:14px;background:rgba(0,0,0,.65);border:1px solid rgba(200,150,26,.4);border-radius:3px;padding:5px 10px;font-family:sans-serif;font-size:10px;font-weight:800;color:#c8961a;letter-spacing:.8px;text-transform:uppercase}
-.pc-texto{padding:44px 44px 40px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(135deg,#111 0%,#0a1a0f 100%);border-left:3px solid #c8961a}
-.pc-kicker{font-family:sans-serif;font-size:10px;font-weight:800;color:#c8961a;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.pc-kicker::before{content:'';width:20px;height:1px;background:#c8961a}
-.pc-h2{font-family:Georgia,serif;font-size:clamp(20px,2.2vw,28px);font-weight:700;color:#fff;line-height:1.2;margin-bottom:16px;letter-spacing:-.2px}
-.pc-h2 em{font-style:italic;color:#c8961a}
-.pc-p{font-family:Georgia,serif;font-size:13px;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:14px}
-.pc-p strong{color:rgba(255,255,255,.9)}
-.pc-cidades{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 24px}
-.pc-cidade{font-family:sans-serif;font-size:11px;font-weight:600;color:#c8961a;background:rgba(200,150,26,.1);border:1px solid rgba(200,150,26,.25);padding:4px 12px;border-radius:20px}
-.pc-btns{display:flex;gap:10px;flex-wrap:wrap}
-.pc-btn-primary{font-family:sans-serif;font-size:12px;font-weight:800;background:#c8961a;color:#111;padding:11px 22px;border-radius:2px;letter-spacing:.5px;text-transform:uppercase;transition:background .2s;display:inline-flex;align-items:center;gap:6px}
-.pc-btn-primary:hover{background:#b5840f;text-decoration:none;color:#111}
-.pc-btn-ghost{font-family:sans-serif;font-size:12px;font-weight:600;background:transparent;color:rgba(255,255,255,.7);padding:11px 20px;border-radius:2px;border:1.5px solid rgba(255,255,255,.2);letter-spacing:.3px;transition:all .2s}
-.pc-btn-ghost:hover{border-color:rgba(255,255,255,.5);color:#fff;text-decoration:none}
-.pc-minc{margin-top:24px;padding-top:18px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.pc-minc-tag{font-family:sans-serif;font-size:9px;font-weight:800;color:rgba(255,255,255,.3);letter-spacing:1px;text-transform:uppercase}
-.pc-minc-dot{width:4px;height:4px;background:rgba(255,255,255,.2);border-radius:50%;flex-shrink:0}
-@media(max-width:860px){.pc-block{grid-template-columns:1fr}.pc-cartaz{min-height:280px;max-height:340px}.pc-texto{padding:28px 22px 24px;border-left:0;border-top:3px solid #c8961a}}
-@media(max-width:500px){.pc-btns{flex-direction:column}.pc-btn-primary,.pc-btn-ghost{text-align:center;justify-content:center}}
 </style>
 </head>
 <body>
@@ -905,8 +882,8 @@ footer{background:#080808;padding:48px 0 20px}
   </div>
 </section>
 
-<!-- PONTO DE CULTURA -->
-<section class="pc-block" id="ponto-de-cultura">
+<!-- PONTO DE CULTURA REMOVIDO -->
+<!--
   <div class="pc-cartaz">
     <img
       src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/PONTOCULTURA01.png"
@@ -953,25 +930,11 @@ footer{background:#080808;padding:48px 0 20px}
 
 <!-- SÉRIE -->
 <section class="serie" id="serie">
-  <div class="serie-fotos">
-    <div class="serie-foto">
-      <img
-        src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/FRAME1.png"
-        alt="Frame da série TV Marataízes — Canal 300"
-        onerror="this.style.display='none'">
-    </div>
-    <div class="serie-foto">
-      <img
-        src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/heranca.jpg"
-        alt="Herança cultural Marataízes"
-        onerror="this.style.display='none'">
-    </div>
-    <div class="serie-foto">
-      <img
-        src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/SOULTV%20.png"
-        alt="Soul TV Canal 300 Marataízes"
-        onerror="this.style.display='none'">
-    </div>
+  <div class="serie-foto-unica">
+    <img
+      src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/FRAME1.png"
+      alt="Frame da série TV Marataízes — Canal 300"
+      onerror="this.parentElement.style.background='#1a1a1a'">
   </div>
   <div class="serie-texto">
     <div class="serie-kicker">Em produção · 2026 · Canal 300</div>
