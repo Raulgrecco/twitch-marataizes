@@ -83,11 +83,15 @@
   .logo {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 17px;
-    font-weight: 700;
-    letter-spacing: -.3px;
-    color: #fff;
+    gap: 8px;
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+  .logo img {
+    height: 48px;
+    width: auto;
+    display: block;
+    object-fit: contain;
   }
   .logo-icon {
     background: var(--red);
@@ -573,8 +577,15 @@
 <header>
   <div class="header-inner">
     <a href="https://www.tvmarataizes.digital/" class="logo">
-      <div class="logo-icon">📺</div>
-      TV Marataízes
+      <img
+        src="https://raw.githubusercontent.com/twitch-marataizes/clima/main/Logo_TVMarataizes.png%20ajust%C3%A1vel%2C%20fundo%20transparente%20%28500%20x%20500%20px%29.png"
+        alt="TV Marataízes"
+        style="height:48px;width:auto;display:block;"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <span style="display:none;align-items:center;gap:8px;font-size:18px;font-weight:800;color:#003366">
+        <span style="background:#e8000a;color:#fff;font-size:13px;font-weight:900;padding:4px 8px;border-radius:3px">TV</span>
+        Marat<span style="color:#e8000a">aízes</span>
+      </span>
     </a>
     <nav>
       <a href="#guia">Guia</a>
