@@ -227,10 +227,15 @@ footer{background:#111;color:rgba(255,255,255,.6);padding:28px 0 16px;margin-top
 .player-header{
   background:#0a0a0a;
   padding:12px 16px;
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
   border-bottom:1px solid rgba(255,255,255,.07);
 }
-.player-header-left{display:flex;align-items:center;gap:12px}
+.player-header-top{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+}
+.player-header-left{display:flex;align-items:center;gap:10px}
 .player-live-badge{
   background:var(--red);color:#fff;
   font-size:10px;font-weight:800;
@@ -250,6 +255,7 @@ footer{background:#111;color:rgba(255,255,255,.6);padding:28px 0 16px;margin-top
   font-size:12px;font-weight:600;cursor:pointer;
   white-space:nowrap;flex-shrink:0;
   transition:background .15s;
+  align-self:flex-start;
 }
 .btn-fullscreen:hover{background:rgba(255,255,255,.15)}
 .player-frame-wrap{
@@ -265,10 +271,18 @@ footer{background:#111;color:rgba(255,255,255,.6);padding:28px 0 16px;margin-top
 .player-footer{
   background:#0a0a0a;
   padding:10px 16px;
-  display:flex;align-items:center;justify-content:space-between;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
   font-size:12px;color:rgba(255,255,255,.4);
   border-top:1px solid rgba(255,255,255,.07);
-  flex-wrap:wrap;gap:8px;
+}
+.player-footer a.btn-wa{
+  width:100%;
+  justify-content:center;
+  text-align:center;
+  padding:10px;
+  font-size:13px;
 }
 @media(max-width:640px){
   article{padding:20px 18px}
@@ -300,9 +314,9 @@ footer{background:#111;color:rgba(255,255,255,.6);padding:28px 0 16px;margin-top
 .turismo-footer{padding:14px 26px;background:#f8f9fc;border-top:1px solid #eee;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .turismo-footer-text{font-size:12px;color:#666}
 .turismo-footer-text strong{color:#333}
-.turismo-cta{background:#003781;color:#fff;padding:9px 18px;border-radius:3px;font-size:12px;font-weight:700;white-space:nowrap;transition:background .15s;display:inline-flex;align-items:center;gap:6px}
+.turismo-cta{background:#003781;color:#fff;padding:9px 18px;border-radius:3px;font-size:12px;font-weight:700;transition:background .15s;display:inline-flex;align-items:center;gap:6px;white-space:normal;text-align:center;line-height:1.4}
 .turismo-cta:hover{background:#002560;color:#fff;text-decoration:none}
-@media(max-width:600px){.turismo-body{padding:18px 16px 14px}.turismo-titulo{font-size:17px}.turismo-footer{flex-direction:column;align-items:flex-start}}
+@media(max-width:600px){.turismo-body{padding:18px 16px 14px}.turismo-titulo{font-size:17px}.turismo-footer{flex-direction:column;align-items:stretch}.turismo-cta{width:100%;justify-content:center;padding:12px 16px;font-size:13px}}
 </style>
 </head>
 <body>
@@ -386,16 +400,18 @@ footer{background:#111;color:rgba(255,255,255,.6);padding:28px 0 16px;margin-top
     <!-- ═══ PLAYER TV AO VIVO ═══ -->
     <div class="player-block" id="assistir-ao-vivo">
       <div class="player-header">
-        <div class="player-header-left">
-          <span class="player-live-badge"><span class="dot"></span> AO VIVO</span>
-          <div>
-            <div class="player-title">📺 Assista agora à TV Marataízes ao vivo</div>
-            <div class="player-sub">A única TV independente do Espírito Santo — transmitindo 24h direto de Marataízes</div>
+        <div class="player-header-top">
+          <div class="player-header-left">
+            <span class="player-live-badge"><span class="dot"></span> AO VIVO</span>
           </div>
+          <button class="btn-fullscreen" onclick="openFullscreen()" title="Abrir em tela cheia">
+            ⛶ Tela cheia
+          </button>
         </div>
-        <button class="btn-fullscreen" onclick="openFullscreen()" title="Abrir em tela cheia">
-          ⛶ Abrir em tela cheia
-        </button>
+        <div>
+          <div class="player-title">📺 Assista agora à TV Marataízes ao vivo</div>
+          <div class="player-sub">A única TV independente do Espírito Santo — transmitindo 24h direto de Marataízes</div>
+        </div>
       </div>
       <div class="player-frame-wrap" id="player-wrap">
         <iframe
