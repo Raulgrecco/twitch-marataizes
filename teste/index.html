@@ -100,7 +100,6 @@ footer{
 }
 </style>
 
-<!-- SEO PORTAL -->
 <meta name="keywords" content="Marataízes ES, portal Marataízes, TV Marataízes, notícias Marataízes, UPA Marataízes, SINE Marataízes, empregos Marataízes, restaurantes Marataízes, pousadas Marataízes, imóveis Marataízes, farmácias Marataízes, delivery Marataízes, praias Marataízes, Pérola Capixaba, sul Espírito Santo">
 <meta name="geo.region" content="BR-ES">
 <meta name="geo.placename" content="Marataízes, Espírito Santo">
@@ -375,6 +374,12 @@ footer{
   📺 Mais de 200 canais gratuitos
 </footer>
 
+<!-- ============================================================
+     WATCHDOG v3 — TV MARATAÍZES
+     Corrige dessincronização áudio/vídeo no Chrome (áudio adiantado).
+     Zera src para about:blank antes de recarregar — força o Chrome
+     a destruir e recriar os pipelines de áudio e vídeo juntos.
+============================================================ -->
 <script>
 (function () {
   'use strict';
@@ -452,24 +457,13 @@ footer{
 </script>
 
 
-<!-- ══════════════════════════════════════════
-     PORTAL DIGITAL TV MARATAÍZES
-     CSS completamente isolado — não afeta o site original
-════════════════════════════════════════════ -->
+<!-- PORTAL TV MARATAÍZES -->
 <style>
-/* ═══ TV MARATAÍZES — PORTAL CSS (isolado) ═══ */
-#tvmz-portal {
-  background: #f2f2f2;
-  color: #1a1a1a;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.5;
-  box-sizing: border-box;
-}
-#tvmz-portal *, #tvmz-portal *::before, #tvmz-portal *::after { box-sizing: border-box; }
-#tvmz-portal a { text-decoration: none; color: inherit; }
-#tvmz-portal img { display: block; max-width: 100%; }
-#tvmz-portal .cta { position: static !important; }
+#tvmz-portal { background:#f2f2f2 !important; color:#1a1a1a !important; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:14px; line-height:1.5; }
+#tvmz-portal * { box-sizing:border-box; color:inherit; }
+#tvmz-portal a { text-decoration:none; color:inherit; }
+#tvmz-portal img { display:block; max-width:100%; }
+#tvmz-portal .cta { position:static !important; }
 
 
 
@@ -491,7 +485,7 @@ footer{
 #tvmz-portal .bl {background:var(--red);color:#fff;padding:7px 16px;border-radius:2px;font-size:12px;font-weight:700;letter-spacing:.3px;display:flex;align-items:center;gap:6px;transition:background .15s}
 #tvmz-portal .bl:hover {background:#c0000a}
 #tvmz-portal .dot {width:7px;height:7px;background:#fff;border-radius:50%;animation:blink 1.2s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
+@keyframes blink {0%,100%{opacity:1}50%{opacity:.15}}
 #tvmz-portal .bw {background:var(--green);color:#fff;padding:7px 12px;border-radius:2px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px}
 #tvmz-portal .bw:hover {background:#005e2e}
 #tvmz-portal .cat {background:var(--navy);border-top:1px solid rgba(255,255,255,.12);border-bottom:3px solid var(--red)}
@@ -524,7 +518,7 @@ footer{
 #tvmz-portal .sh a {margin-left:auto;font-size:11px;color:var(--red);font-weight:700}
 #tvmz-portal .box {background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:16px}
 
-/* GUIA GRID */
+
 #tvmz-portal .gg {display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px}
 #tvmz-portal .gi {background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:10px 6px;text-align:center;cursor:pointer;transition:border-color .15s,box-shadow .15s;display:block}
 #tvmz-portal .gi:hover {border-color:var(--red);box-shadow:0 2px 8px rgba(232,0,10,.1)}
@@ -532,7 +526,7 @@ footer{
 #tvmz-portal .gn {font-size:11px;font-weight:700;color:var(--navy);margin-bottom:1px;line-height:1.2}
 #tvmz-portal .gk {font-size:9px;color:var(--muted)}
 
-/* SERVIÇOS URGENTES */
+
 #tvmz-portal .urg-grid {display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-bottom:12px}
 #tvmz-portal .urg {background:#fff5f5;border:1px solid #f5c0c0;border-left:4px solid var(--red);border-radius:var(--r);padding:10px 12px;display:flex;gap:10px;align-items:flex-start}
 #tvmz-portal .urg.verde {background:#f0fff5;border-color:#a0ddb5;border-left-color:var(--green)}
@@ -546,7 +540,7 @@ footer{
 #tvmz-portal .urg.verde .ud b {color:var(--green)}
 #tvmz-portal .urg.azul .ud b {color:var(--navy)}
 
-/* UBS */
+
 #tvmz-portal .g2 {display:grid;grid-template-columns:1fr 1fr;gap:10px}
 #tvmz-portal .g3 {display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 #tvmz-portal .sg2 {display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:7px}
@@ -562,7 +556,7 @@ footer{
 #tvmz-portal .sd b {color:var(--text)}
 #tvmz-portal .sd a {color:var(--blue)}
 
-/* TABS */
+
 #tvmz-portal .tabs2 {display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:12px;overflow-x:auto;scrollbar-width:none}
 #tvmz-portal .tabs2::-webkit-scrollbar {display:none}
 #tvmz-portal .tb2 {padding:8px 16px;font-size:11px;font-weight:800;border:0;background:transparent;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;text-transform:uppercase;letter-spacing:.2px;white-space:nowrap}
@@ -579,7 +573,7 @@ footer{
 #tvmz-portal .phd {font-size:11px;color:var(--muted);line-height:1.7}
 #tvmz-portal .phd a {color:var(--blue)}
 
-/* OBRAS */
+
 #tvmz-portal .obra {display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
 #tvmz-portal .obra:last-child {border-bottom:0;padding-bottom:0}
 #tvmz-portal .od {width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
@@ -588,7 +582,7 @@ footer{
 #tvmz-portal .odesc {font-size:11px;color:var(--muted);line-height:1.4}
 #tvmz-portal .odesc a {color:var(--blue)}
 
-/* NEGÓCIOS LIST */
+
 #tvmz-portal .neg-list {display:flex;flex-direction:column;gap:8px}
 #tvmz-portal .neg-item {background:#fafafa;border:1px solid var(--border);border-radius:var(--r);padding:10px 12px;display:flex;gap:12px;align-items:flex-start;transition:box-shadow .15s}
 #tvmz-portal .neg-item:hover {box-shadow:0 2px 8px rgba(0,0,0,.08);border-color:#bbb}
@@ -602,7 +596,7 @@ footer{
 #tvmz-portal .nb-g {background:#e6f4ec;color:#005c2e}
 #tvmz-portal .nb-a {background:#fff3e0;color:#a05000}
 
-/* CIDADES */
+
 #tvmz-portal .cities {display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
 #tvmz-portal .city {background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:16px 12px;text-align:center;border-top:3px solid var(--navy);transition:box-shadow .15s;cursor:pointer;display:block}
 #tvmz-portal .city:hover {box-shadow:0 3px 10px rgba(0,0,0,.08)}
@@ -611,7 +605,7 @@ footer{
 #tvmz-portal .cp {font-size:10px;color:var(--muted);margin-bottom:8px}
 #tvmz-portal .cl {font-size:10px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.3px}
 
-/* CTA */
+
 #tvmz-portal .cta {background:var(--navy);color:#fff;border-radius:var(--r);padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:24px}
 #tvmz-portal .cta h3 {font-size:18px;font-weight:800;margin-bottom:4px}
 #tvmz-portal .cta p {font-size:12px;color:rgba(255,255,255,.7);max-width:460px}
@@ -621,7 +615,7 @@ footer{
 #tvmz-portal .bgh {border:1.5px solid rgba(255,255,255,.4);color:#fff;padding:10px 20px;border-radius:3px;font-size:13px;font-weight:600}
 #tvmz-portal .bgh:hover {border-color:#fff}
 
-/* SIDEBAR */
+
 #tvmz-portal .side {}
 #tvmz-portal .sw3 {background:#fff;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:14px}
 #tvmz-portal .swh {background:var(--navy);color:#fff;padding:8px 12px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
@@ -637,7 +631,7 @@ footer{
 #tvmz-portal .emn {font-size:26px;font-weight:900;line-height:1;margin-bottom:2px}
 #tvmz-portal .eml {font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase}
 
-/* TURISMO PRAIAS */
+
 #tvmz-portal .praias-grid {display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
 #tvmz-portal .praia-card {background:linear-gradient(135deg,#003781,#0055b3);border-radius:var(--r);padding:14px 12px;color:#fff;position:relative;overflow:hidden}
 #tvmz-portal .praia-card::before {content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.06)}
@@ -645,7 +639,7 @@ footer{
 #tvmz-portal .praia-nome {font-size:12px;font-weight:800;margin-bottom:2px}
 #tvmz-portal .praia-desc {font-size:10px;color:rgba(255,255,255,.7)}
 
-/* FAQ SEO */
+
 #tvmz-portal .faq-box {background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:16px}
 #tvmz-portal .faq-item {padding:10px 0;border-bottom:1px solid var(--border)}
 #tvmz-portal .faq-item:last-child {border-bottom:none;padding-bottom:0}
@@ -654,7 +648,7 @@ footer{
 #tvmz-portal .faq-a a {color:var(--blue);font-weight:600}
 #tvmz-portal .faq-a b {color:var(--text)}
 
-/* FOOTER */
+
 #tvmz-portal [data-tvmz="footer"] {background:#111;color:rgba(255,255,255,.75);margin-top:8px}
 #tvmz-portal .ft {border-bottom:3px solid var(--red)}
 #tvmz-portal .fi {max-width:1200px;margin:0 auto;padding:28px 16px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
@@ -665,12 +659,11 @@ footer{
 #tvmz-portal .fc a:hover {color:#fff}
 #tvmz-portal .fbot {max-width:1200px;margin:0 auto;padding:12px 16px;display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.3);border-top:1px solid rgba(255,255,255,.06);flex-wrap:wrap;gap:6px}
 
-/* RESPONSIVE */
-@media(max-width:900px){.two{grid-template-columns:1fr}.side{display:none}.cities{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}.fi{grid-template-columns:1fr 1fr;gap:20px}.cta{flex-direction:column;text-align:center}.bw{display:none}.urg-grid{grid-template-columns:1fr}}
-@media(max-width:600px){.g2,.g3{grid-template-columns:1fr}.cities{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.fi{grid-template-columns:1fr;gap:16px}.hi{gap:8px}.sw2{flex:1}}
+
+@media(max-width:900px) {.two{grid-template-columns:1fr}.side{display:none}.cities{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}.fi{grid-template-columns:1fr 1fr;gap:20px}.cta{flex-direction:column;text-align:center}.bw{display:none}.urg-grid{grid-template-columns:1fr}}
+@media(max-width:600px) {.g2,.g3{grid-template-columns:1fr}.cities{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.fi{grid-template-columns:1fr;gap:16px}.hi{gap:8px}.sw2{flex:1}}
 
 </style>
-
 <div id="tvmz-portal">
 
 
@@ -717,7 +710,7 @@ footer{
 <div class="tick" role="marquee" aria-label="Informações rápidas">
   <div class="tick-i">
     <span class="tlbl">Agora</span>
-    <span class="ttxt">Portal digital de Marataízes ES &nbsp;·&nbsp; UPA 24h: <b>(28) 3532-5856</b> &nbsp;·&nbsp; SAMU: <b>192</b> &nbsp;·&nbsp; SINE: <b>(28) 3596-1726</b> &nbsp;·&nbsp; WhatsApp: <b>(28) 99903-6141</b></span>
+    <span class="ttxt">Anuncie na única TV independente do ES e apareça no Google quando seus clientes pesquisarem &nbsp;·&nbsp; <b>(28) 99903-6141</b> &nbsp;·&nbsp; UPA 24h: <b>(28) 3532-5856</b> &nbsp;·&nbsp; SAMU: <b>192</b> &nbsp;·&nbsp; SINE: <b>(28) 3596-1726</b></span>
   </div>
 </div>
 
@@ -1375,8 +1368,8 @@ footer{
       <!-- CTA ANUNCIE -->
       <div class="cta" id="anuncie">
         <div>
-          <h3>📺 Apareça no Google quando seus clientes pesquisarem</h3>
-          <p>A TV Marataízes é o maior portal digital do Sul do ES. Anuncie e apareça nas primeiras posições do Google para restaurantes, pousadas, lojas, clínicas e qualquer serviço em Marataízes.</p>
+          <h3>📺 Sua empresa aparece quando o cliente pesquisa no Google</h3>
+          <p>Anuncie na única TV independente do ES e seja encontrado por quem já está procurando o que você vende.</p>
         </div>
         <div class="ctab">
           <a href="https://wa.me/5528999036141" target="_blank" rel="noopener" class="bwa">💬 WhatsApp</a>
@@ -1512,7 +1505,5 @@ function tab(btn, id) {
 
 
 </div>
-<!-- /tvmz-portal -->
-
 </body>
 </html>
