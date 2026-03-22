@@ -223,32 +223,19 @@ footer{
   ]
 }
 </script>
-<style>
-/* Reset crítico: impede que o .cta fixo do site original afete o portal */
+<style>/* Resets para isolar o portal do site original */
 #tvmz-portal .cta { position: static !important; }
-
-/* Reset base para neutralizar body{color:#fff} do site original */
-#tvmz-portal, #tvmz-portal * {
-  color: inherit;
-}
-#tvmz-portal {
-  color: #1a1a1a;
-}
-
-
-
-
-
-
-
-
+#tvmz-portal, #tvmz-portal * { color: inherit; }
+#tvmz-portal { color: #1a1a1a; background: #f2f2f2; }
+#tvmz-portal a { text-decoration: none; color: inherit; }
+#tvmz-portal img { display: block; max-width: 100%; }
 
 #tvmz-portal{--red:#e8000a;--navy:#003781;--text:#1a1a1a;--muted:#666;--border:#ddd;--white:#fff;--bg:#f2f2f2;--green:#007a3d;--blue:#0066cc;--amber:#e67e00;--r:4px}
 #tvmz-portal .top-stripe{background:var(--red);height:4px}
-#tvmz-portal [data-role="header"]{background:var(--navy);position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+#tvmz-portal header{background:var(--navy);position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.25)}
 #tvmz-portal .hi{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:14px;height:62px}
 #tvmz-portal .logo-w{flex-shrink:0;display:flex;align-items:center}
-#tvmz-portal .logo-w 
+#tvmz-portal .logo-w img{height:48px;width:auto;display:block}
 #tvmz-portal .logo-fb{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:800;color:#fff}
 #tvmz-portal .logo-fb .tag{background:var(--red);padding:3px 8px;border-radius:3px;font-size:13px;font-weight:900}
 #tvmz-portal .sw2{flex:1;max-width:400px;display:flex;align-items:center;background:#fff;border-radius:2px;overflow:hidden}
@@ -264,7 +251,7 @@ footer{
 #tvmz-portal .cat{background:var(--navy);border-top:1px solid rgba(255,255,255,.12);border-bottom:3px solid var(--red)}
 #tvmz-portal .cat-i{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;overflow-x:auto;scrollbar-width:none}
 #tvmz-portal .cat-i::-webkit-scrollbar{display:none}
-#tvmz-portal .cat-i 
+#tvmz-portal .cat-i a{color:rgba(255,255,255,.8);font-size:12px;font-weight:700;padding:9px 14px;white-space:nowrap;letter-spacing:.2px;text-transform:uppercase;border-bottom:3px solid transparent;margin-bottom:-3px;transition:all .15s}
 #tvmz-portal .cat-i a:hover, #tvmz-portal .cat-i a.active{color:#fff;border-bottom-color:var(--red)}
 #tvmz-portal .tick{background:#fff;border-bottom:1px solid var(--border);padding:5px 0}
 #tvmz-portal .tick-i{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:10px;font-size:12px}
@@ -288,7 +275,7 @@ footer{
 #tvmz-portal .pdesc{font-size:12px;color:var(--muted)}
 #tvmz-portal .sh{display:flex;align-items:center;gap:10px;padding-bottom:8px;border-bottom:3px solid var(--red);margin-bottom:12px}
 #tvmz-portal .sh h2{font-size:13px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.3px}
-#tvmz-portal .sh 
+#tvmz-portal .sh a{margin-left:auto;font-size:11px;color:var(--red);font-weight:700}
 #tvmz-portal .box{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:16px}
 
 /* GUIA GRID */
@@ -327,7 +314,7 @@ footer{
 #tvmz-portal .tf{background:#fff3e0;color:#a05000}
 #tvmz-portal .sd{font-size:11px;color:var(--muted)}
 #tvmz-portal .sd b{color:var(--text)}
-#tvmz-portal .sd 
+#tvmz-portal .sd a{color:var(--blue)}
 
 /* TABS */
 #tvmz-portal .tabs2{display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:12px;overflow-x:auto;scrollbar-width:none}
@@ -335,25 +322,25 @@ footer{
 #tvmz-portal .tb2{padding:8px 16px;font-size:11px;font-weight:800;border:0;background:transparent;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;text-transform:uppercase;letter-spacing:.2px;white-space:nowrap}
 #tvmz-portal .tb2:hover{color:var(--navy)}
 #tvmz-portal .tb2.active{color:var(--red);border-bottom-color:var(--red)}
-#tvmz-portal .tp2{display:none}#tvmz-portal .tp2.active{display:block}
+#tvmz-portal .tp2{display:none}.tp2.active{display:block}
 #tvmz-portal .ssg{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:7px}
 #tvmz-portal .ssc{background:#f8f9fc;border:1px solid #dde4ee;border-radius:var(--r);padding:9px 11px;border-left:3px solid var(--navy)}
 #tvmz-portal .ssn{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:2px}
 #tvmz-portal .ssd{font-size:11px;color:var(--muted);line-height:1.4}
-#tvmz-portal .ssd 
+#tvmz-portal .ssd a{color:var(--blue)}
 #tvmz-portal .ph{background:#f0f4fa;border:1px solid #c8d8ee;border-radius:var(--r);padding:11px 13px;margin-bottom:11px;border-left:4px solid var(--navy)}
 #tvmz-portal .pht{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:3px}
 #tvmz-portal .phd{font-size:11px;color:var(--muted);line-height:1.7}
-#tvmz-portal .phd 
+#tvmz-portal .phd a{color:var(--blue)}
 
 /* OBRAS */
 #tvmz-portal .obra{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
 #tvmz-portal .obra:last-child{border-bottom:0;padding-bottom:0}
 #tvmz-portal .od{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
-#tvmz-portal .dg{background:var(--green)}#tvmz-portal .da{background:var(--amber)}#tvmz-portal .dz{background:#bbb}
+#tvmz-portal .dg{background:var(--green)}.da{background:var(--amber)}.dz{background:#bbb}
 #tvmz-portal .ot{font-size:12px;font-weight:700;color:var(--text);margin-bottom:1px}
 #tvmz-portal .odesc{font-size:11px;color:var(--muted);line-height:1.4}
-#tvmz-portal .odesc 
+#tvmz-portal .odesc a{color:var(--blue)}
 
 /* NEGÓCIOS LIST */
 #tvmz-portal .neg-list{display:flex;flex-direction:column;gap:8px}
@@ -367,7 +354,7 @@ footer{
 #tvmz-portal .neg-link{font-size:10px;color:var(--blue);font-weight:600}
 #tvmz-portal .neg-badge{font-size:9px;padding:2px 6px;border-radius:2px;font-weight:700;text-transform:uppercase;letter-spacing:.2px;margin-left:6px}
 #tvmz-portal .nb-g{background:#e6f4ec;color:#005c2e}
-#tvmz-portal .nb-
+#tvmz-portal .nb-a{background:#fff3e0;color:#a05000}
 
 /* CIDADES */
 #tvmz-portal .cities{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
@@ -417,27 +404,24 @@ footer{
 #tvmz-portal .faq-item{padding:10px 0;border-bottom:1px solid var(--border)}
 #tvmz-portal .faq-item:last-child{border-bottom:none;padding-bottom:0}
 #tvmz-portal .faq-q{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:4px}
-#tvmz-portal .faq-
-.faq-a 
+#tvmz-portal .faq-a{font-size:12px;color:var(--muted);line-height:1.7}
+#tvmz-portal .faq-a a{color:var(--blue);font-weight:600}
 #tvmz-portal .faq-a b{color:var(--text)}
 
 /* FOOTER */
-#tvmz-portal [data-role="footer"]{background:#111;color:rgba(255,255,255,.75);margin-top:8px}
+#tvmz-portal footer{background:#111;color:rgba(255,255,255,.75);margin-top:8px}
 #tvmz-portal .ft{border-bottom:3px solid var(--red)}
 #tvmz-portal .fi{max-width:1200px;margin:0 auto;padding:28px 16px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
-#tvmz-portal .fb 
+#tvmz-portal .fb img{height:44px;width:auto;margin-bottom:10px}
 #tvmz-portal .fb p{font-size:12px;color:rgba(255,255,255,.45);line-height:1.6}
 #tvmz-portal .fc h4{font-size:10px;font-weight:800;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid rgba(255,255,255,.08)}
-#tvmz-portal .fc 
+#tvmz-portal .fc a{display:block;font-size:12px;color:rgba(255,255,255,.6);padding:3px 0;transition:color .15s}
 #tvmz-portal .fc a:hover{color:#fff}
 #tvmz-portal .fbot{max-width:1200px;margin:0 auto;padding:12px 16px;display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.3);border-top:1px solid rgba(255,255,255,.06);flex-wrap:wrap;gap:6px}
 
 /* RESPONSIVE */
-@media(max-width:900px){#tvmz-portal .two{grid-template-columns:1fr}#tvmz-portal .side{display:none}#tvmz-portal .cities{grid-template-columns:repeat(2,1fr)}#tvmz-portal .stats{grid-template-columns:repeat(2,1fr)}#tvmz-portal .g3{grid-template-columns:repeat(2,1fr)}#tvmz-portal .fi{grid-template-columns:1fr 1fr;gap:20px}#tvmz-portal .cta{flex-direction:column;text-align:center}#tvmz-portal .bw{display:none}#tvmz-portal .urg-grid{grid-template-columns:1fr}}
-@media(max-width:600px){#tvmz-portal .g2, #tvmz-portal .g3{grid-template-columns:1fr}#tvmz-portal .cities{grid-template-columns:repeat(2,1fr)}#tvmz-portal .stats{grid-template-columns:repeat(2,1fr)}#tvmz-portal .fi{grid-template-columns:1fr;gap:16px}#tvmz-portal .hi{gap:8px}#tvmz-portal .sw2{flex:1}}
-
-
-
+@media(max-width:900px){.two{grid-template-columns:1fr}.side{display:none}.cities{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}.fi{grid-template-columns:1fr 1fr;gap:20px}.cta{flex-direction:column;text-align:center}.bw{display:none}.urg-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.g2,.g3{grid-template-columns:1fr}.cities{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.fi{grid-template-columns:1fr;gap:16px}.hi{gap:8px}.sw2{flex:1}}
 </style>
 </head>
 
@@ -731,13 +715,6 @@ footer{
 
   <div class="two">
     <main id="main-content">
-          <iframe src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" title="TV Marataízes ao vivo"></iframe>
-        </div>
-        <div class="pinfo">
-          <div class="pcat">📺 TV Marataízes ao vivo</div>
-          <div class="ptit">O maior portal digital do Sul do Espírito Santo</div>
-          <div class="pdesc">Notícias, saúde, prefeitura, turismo e serviços de Marataízes, Itapemirim, Piúma e Presidente Kennedy.</div>
-        </div>
       </div>
 
       <!-- ═══════════ GUIA COMPLETO ═══════════ -->
