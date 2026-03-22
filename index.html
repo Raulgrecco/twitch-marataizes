@@ -98,6 +98,172 @@ footer{
   font-size:14px;
   color:#ccc;
 }
+
+/* ═══ CARROSSÉIS ESTILO GLOBOPLAY ═══ */
+
+/* Carrossel de destaque (programas principais) */
+.gp-featured {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 14px 30px;
+}
+.gp-featured h2 {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 16px;
+  padding-left: 2px;
+}
+.gp-row-wrap {
+  position: relative;
+}
+.gp-row {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 4px;
+}
+.gp-row::-webkit-scrollbar { display: none; }
+
+/* Card de destaque */
+.gp-card {
+  flex: 0 0 340px;
+  background: var(--card);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transition: transform .2s, box-shadow .2s;
+  border: 1px solid #1a1a1a;
+}
+.gp-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 32px rgba(0,0,0,.7);
+  z-index: 2;
+}
+.gp-card-thumb {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+.gp-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .3s;
+}
+.gp-card:hover .gp-card-thumb img {
+  transform: scale(1.06);
+}
+.gp-card-info {
+  padding: 10px 12px 14px;
+}
+.gp-card-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.gp-card-desc {
+  font-size: 11px;
+  color: #999;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.gp-card-btn {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.gp-card-btn:hover { opacity: .85; }
+
+/* Setas de navegação */
+.gp-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-60%);
+  width: 40px;
+  height: 60px;
+  background: rgba(0,0,0,.75);
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s, opacity .15s;
+  opacity: 0;
+}
+.gp-row-wrap:hover .gp-arrow { opacity: 1; }
+.gp-arrow:hover { background: rgba(0,0,0,.95); }
+.gp-arrow.prev { left: -8px; }
+.gp-arrow.next { right: -8px; }
+
+/* Carrossel de thumbs (16 programas) */
+.gp-thumbs-wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 14px 30px;
+  position: relative;
+}
+.gp-thumbs-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 12px;
+}
+.gp-thumbs {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.gp-thumbs::-webkit-scrollbar { display: none; }
+.gp-thumb-item {
+  flex: 0 0 200px;
+  aspect-ratio: 16/9;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid #222;
+  transition: transform .2s, border-color .2s;
+}
+.gp-thumb-item:hover {
+  transform: scale(1.04);
+  border-color: #fff;
+}
+.gp-thumb-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media(max-width:600px) {
+  .gp-card { flex: 0 0 260px; }
+  .gp-thumb-item { flex: 0 0 150px; }
+  .gp-arrow { display: none; }
+}
 </style>
 
 <meta name="keywords" content="Marataízes ES, portal Marataízes, TV Marataízes, notícias Marataízes, UPA Marataízes, SINE Marataízes, empregos Marataízes, restaurantes Marataízes, pousadas Marataízes, imóveis Marataízes, farmácias Marataízes, delivery Marataízes, praias Marataízes, Pérola Capixaba, sul Espírito Santo">
@@ -243,127 +409,102 @@ footer{
   </div>
 </div>
 
-<!-- TÍTULO DA SESSÃO -->
-<section>
+
+<!-- CARROSSEL DESTAQUE — GLOBOPLAY STYLE -->
+<div class="gp-featured">
   <h2>Programas da TV Marataízes</h2>
-</section>
+  <div class="gp-row-wrap">
+    <button class="gp-arrow prev" id="gp-feat-prev" aria-label="Anterior">&#8249;</button>
+    <div class="gp-row" id="gp-featured-row">
 
-<!-- DIVÃ DO ABACAXI -->
-<section>
-  <div class="vitrine">
-    <a href="https://tvmarataizes.digital/diva/">
-      <img src="clima/diva.png" alt="O Divã do Abacaxi">
-    </a>
-    <div>
-      <h2>O Divã do Abacaxi</h2>
-      <p>
-        Um abacaxi no divã. Um terapeuta com paciência infinita.
-        Conversas sobre o que todo mundo sente mas poucos conseguem
-        nomear — ansiedade, dinheiro, redes sociais e o peso do
-        amanhã que ainda não chegou.
-      </p>
-      <a class="btn" href="https://tvmarataizes.digital/diva/">
-        Assistir episódios
-      </a>
+      <div class="gp-card">
+        <a href="https://tvmarataizes.digital/diva/" style="text-decoration:none">
+          <div class="gp-card-thumb"><img src="clima/diva.png" alt="O Divã do Abacaxi"></div>
+          <div class="gp-card-info">
+            <div class="gp-card-title">O Divã do Abacaxi</div>
+            <div class="gp-card-desc">Um abacaxi no divã. Conversas sobre o que todo mundo sente mas poucos conseguem nomear — ansiedade, dinheiro, redes sociais.</div>
+            <span class="gp-card-btn">Assistir episódios</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="gp-card">
+        <a href="https://tvmarataizes.digital/marataizes-em-movimento" style="text-decoration:none">
+          <div class="gp-card-thumb"><img src="clima/PREFEITO.png" alt="Marataízes está em movimento"></div>
+          <div class="gp-card-info">
+            <div class="gp-card-title">Marataízes está em movimento</div>
+            <div class="gp-card-desc">Um registro documental sobre articulação e desenvolvimento em Marataízes.</div>
+            <span class="gp-card-btn">Assistir aqui</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="gp-card">
+        <a href="https://tvmarataizes.digital/expo-inovadora-2026" style="text-decoration:none">
+          <div class="gp-card-thumb"><img src="clima/EXPO.png" alt="Cidade Expo Inovadora"></div>
+          <div class="gp-card-info">
+            <div class="gp-card-title">Cidade Expo Inovadora</div>
+            <div class="gp-card-desc">Bastidores e momentos mais importantes da Expo Inovadora — educação, tecnologia e oportunidades.</div>
+            <span class="gp-card-btn">Assistir aqui</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="gp-card">
+        <a href="https://tvmarataizes.digital/leituraemcena/" style="text-decoration:none">
+          <div class="gp-card-thumb"><img src="clima/Leitura.png" alt="Leitura em Cena"></div>
+          <div class="gp-card-info">
+            <div class="gp-card-title">Leitura em Cena</div>
+            <div class="gp-card-desc">Análise e comentário que conecta filmes, músicas e obras audiovisuais a contexto e pensamento crítico.</div>
+            <span class="gp-card-btn">Assistir episódios</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="gp-card">
+        <a href="https://tvmarataizes.digital/vitrine-marataizes.html" style="text-decoration:none">
+          <div class="gp-card-thumb"><img src="clima/vitrine-thumb.png" alt="Vitrine Marataízes"></div>
+          <div class="gp-card-info">
+            <div class="gp-card-title">Vitrine Marataízes</div>
+            <div class="gp-card-desc">Promoções, novidades, histórias e oportunidades do comércio local de Marataízes.</div>
+            <span class="gp-card-btn">Assistir episódios</span>
+          </div>
+        </a>
+      </div>
+
     </div>
+    <button class="gp-arrow next" id="gp-feat-next" aria-label="Próximo">&#8250;</button>
   </div>
-</section>
+</div>
 
-<!-- DOCUMENTÁRIO PREFEITO -->
-<section>
-  <div class="vitrine">
-    <a href="https://tvmarataizes.digital/marataizes-em-movimento">
-      <img src="clima/PREFEITO.png" alt="Marataízes está em movimento">
-    </a>
-    <div>
-      <h2>Marataízes está em movimento</h2>
-      <p>
-        Um registro documental sobre um momento de articulação e
-        desenvolvimento em Marataízes. A TV Marataízes acompanha
-        de perto os movimentos que ajudam a desenhar o futuro da cidade.
-      </p>
-      <a class="btn" href="https://tvmarataizes.digital/marataizes-em-movimento">
-        Assistir aqui
-      </a>
+
+<!-- CARROSSEL THUMBS — GLOBOPLAY STYLE -->
+<div class="gp-thumbs-wrap">
+  <div class="gp-thumbs-label">Mais programas</div>
+  <div style="position:relative">
+    <button class="gp-arrow prev" id="gp-thumb-prev" aria-label="Anterior" style="top:45%">&#8249;</button>
+    <div class="gp-thumbs" id="gp-thumbs-row">
+      <div class="gp-thumb-item"><img src="clima/dicasdefilmes.png" alt="Dicas de Filmes"></div>
+      <div class="gp-thumb-item"><img src="clima/morocanoticiasdiarias.png" alt="Moroca Notícias Diárias"></div>
+      <div class="gp-thumb-item"><img src="clima/historiasdeamoremcena.png" alt="Histórias de Amor em Cena"></div>
+      <div class="gp-thumb-item"><img src="clima/rebrincar.png" alt="Rebrincar"></div>
+      <div class="gp-thumb-item"><img src="clima/caindonatela.png" alt="Caindo na Tela"></div>
+      <div class="gp-thumb-item"><img src="clima/naosaimosda5serie.png" alt="Não Saímos da 5ª Série"></div>
+      <div class="gp-thumb-item"><img src="clima/claudiarayallar.png" alt="Claudia Rayallar"></div>
+      <div class="gp-thumb-item"><img src="clima/fala_marataizes.png" alt="Fala Marataízes"></div>
+      <div class="gp-thumb-item"><img src="clima/rota_300.png" alt="Rota 300"></div>
+      <div class="gp-thumb-item"><img src="clima/RAULjuremavaiok.png" alt="Raul Jurema"></div>
+      <div class="gp-thumb-item"><img src="clima/tal_mae_tal_filha.png" alt="Tal Mãe Tal Filha"></div>
+      <div class="gp-thumb-item"><img src="clima/saude_mental.png" alt="Saúde Mental"></div>
+      <div class="gp-thumb-item"><img src="clima/classicos_da_tela.png" alt="Clássicos da Tela"></div>
+      <div class="gp-thumb-item"><img src="clima/eeee.png" alt="Programa"></div>
+      <div class="gp-thumb-item"><img src="clima/GOODTIMES.png" alt="Good Times"></div>
+      <div class="gp-thumb-item"><img src="clima/perguntatorta.png" alt="Pergunta Torta"></div>
     </div>
+    <button class="gp-arrow next" id="gp-thumb-next" aria-label="Próximo" style="top:45%">&#8250;</button>
   </div>
-</section>
+</div>
 
-<!-- EXPO INOVADORA -->
-<section>
-  <div class="vitrine">
-    <a href="https://tvmarataizes.digital/expo-inovadora-2026">
-      <img src="clima/EXPO.png" alt="Cidade Expo Inovadora">
-    </a>
-    <div>
-      <h2>Cidade Expo Inovadora</h2>
-      <p>
-        A TV Marataízes registrou os bastidores e os momentos
-        mais importantes da Expo Inovadora, evento que conecta
-        educação, tecnologia e oportunidades para o município.
-      </p>
-      <a class="btn" href="https://tvmarataizes.digital/expo-inovadora-2026">
-        Assistir aqui
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- LEITURA EM CENA -->
-<section>
-  <div class="vitrine">
-    <img src="clima/Leitura.png" alt="Leitura em Cena">
-    <div>
-      <h2>Leitura em Cena</h2>
-      <p>
-        Um programa de análise e comentário que conecta filmes, músicas
-        e obras audiovisuais a contexto, linguagem e pensamento crítico.
-      </p>
-      <a class="btn" href="https://tvmarataizes.digital/leituraemcena/">
-        Assistir episódios
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- VITRINE -->
-<section>
-  <div class="vitrine">
-    <img src="clima/vitrine-thumb.png" alt="Vitrine Marataízes">
-    <div>
-      <h2>Vitrine Marataízes</h2>
-      <p>
-        A vitrine onde a população encontra promoções, novidades,
-        histórias e oportunidades do comércio local de Marataízes.
-      </p>
-      <a class="btn" href="https://tvmarataizes.digital/vitrine-marataizes.html">
-        Assistir episódios
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- THUMBS DOS OUTROS PROGRAMAS -->
-<section>
-  <div class="grid">
-    <div class="thumb"><img src="clima/dicasdefilmes.png"></div>
-    <div class="thumb"><img src="clima/morocanoticiasdiarias.png"></div>
-    <div class="thumb"><img src="clima/historiasdeamoremcena.png"></div>
-    <div class="thumb"><img src="clima/rebrincar.png"></div>
-    <div class="thumb"><img src="clima/caindonatela.png"></div>
-    <div class="thumb"><img src="clima/naosaimosda5serie.png"></div>
-    <div class="thumb"><img src="clima/claudiarayallar.png"></div>
-    <div class="thumb"><img src="clima/fala_marataizes.png"></div>
-    <div class="thumb"><img src="clima/rota_300.png"></div>
-    <div class="thumb"><img src="clima/RAULjuremavaiok.png"></div>
-    <div class="thumb"><img src="clima/tal_mae_tal_filha.png"></div>
-    <div class="thumb"><img src="clima/saude_mental.png"></div>
-    <div class="thumb"><img src="clima/classicos_da_tela.png"></div>
-    <div class="thumb"><img src="clima/eeee.png"></div>
-    <div class="thumb"><img src="clima/GOODTIMES.png"></div>
-    <div class="thumb"><img src="clima/perguntatorta.png"></div>
-  </div>
-</section>
 
 <a class="cta" href="https://tvmarataizes.digital/planos.html">ANUNCIE AQUI</a>
 
@@ -1577,5 +1718,43 @@ function tab(btn, id) {
 
 
 </div>
+
+<script>
+// ═══ CARROSSEL GLOBOPLAY ═══
+(function() {
+  function initCarousel(rowId, prevId, nextId) {
+    var row = document.getElementById(rowId);
+    var prev = document.getElementById(prevId);
+    var next = document.getElementById(nextId);
+    if (!row) return;
+
+    var scrollAmt = function() {
+      var card = row.querySelector('.gp-card, .gp-thumb-item');
+      return card ? card.offsetWidth + 16 : 280;
+    };
+
+    if (next) next.addEventListener('click', function() {
+      row.scrollBy({ left: scrollAmt() * 2, behavior: 'smooth' });
+    });
+    if (prev) prev.addEventListener('click', function() {
+      row.scrollBy({ left: -scrollAmt() * 2, behavior: 'smooth' });
+    });
+
+    // Swipe touch
+    var startX = 0;
+    row.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
+    row.addEventListener('touchend', function(e) {
+      var dx = startX - e.changedTouches[0].clientX;
+      if (Math.abs(dx) > 40) row.scrollBy({ left: dx * 2, behavior: 'smooth' });
+    }, { passive: true });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    initCarousel('gp-featured-row', 'gp-feat-prev', 'gp-feat-next');
+    initCarousel('gp-thumbs-row',   'gp-thumb-prev', 'gp-thumb-next');
+  });
+})();
+</script>
+
 </body>
 </html>
