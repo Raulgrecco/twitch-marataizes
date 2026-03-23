@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -821,6 +820,7 @@ footer{
       <button aria-label="Pesquisar">🔍</button>
     </div>
     <div class="hr">
+      <a href="#tvmz-portal" class="bw" style="background:#003781;border:1px solid rgba(255,255,255,.2)" aria-label="Guia da Cidade">📍 Guia</a>
       <a href="https://wa.me/5528999036141" target="_blank" rel="noopener" class="bw" aria-label="WhatsApp TV Marataízes">📲 WhatsApp</a>
       <a href="#player" class="bl"><span class="dot"></span> Ao Vivo</a>
     </div>
@@ -1772,6 +1772,32 @@ function tab(btn, id) {
     initCarousel('gp-featured-row', 'gp-feat-prev', 'gp-feat-next');
     initCarousel('gp-thumbs-row',   'gp-thumb-prev', 'gp-thumb-next');
   });
+})();
+</script>
+
+
+<a href="#tvmz-portal" id="btn-guia-float"
+   style="position:fixed;bottom:80px;left:16px;z-index:999;
+          background:#003781;color:#fff;padding:10px 16px;
+          border-radius:24px;font-size:13px;font-weight:800;
+          box-shadow:0 4px 16px rgba(0,0,0,.4);
+          display:flex;align-items:center;gap:6px;
+          border:1px solid rgba(255,255,255,.2);
+          text-decoration:none;transition:opacity .3s"
+   aria-label="Ir para o Guia da Cidade">
+  📍 Guia da Cidade
+</a>
+<script>
+(function(){
+  var btn = document.getElementById('btn-guia-float');
+  var portal = document.getElementById('tvmz-portal');
+  if(!btn || !portal) return;
+  window.addEventListener('scroll', function(){
+    var portalTop = portal.getBoundingClientRect().top;
+    // Mostrar só quando o portal ainda não está visível
+    btn.style.opacity = portalTop > window.innerHeight ? '1' : '0';
+    btn.style.pointerEvents = portalTop > window.innerHeight ? 'auto' : 'none';
+  }, {passive:true});
 })();
 </script>
 
