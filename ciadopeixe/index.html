@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Restaurante Cia do Peixe — Frutos do Mar em Marataízes ES</title>
+<meta name="description" content="Restaurante e Pousada Cia do Peixe. Os melhores frutos do mar de Marataízes. Av. Atlântica, 1800 — Alto Lagoa Funda. Aberto todos os dias 11h às 17h. (28) 99901-2288.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Cia do Peixe — Frutos do Mar em Marataízes">
+<meta property="og:image" content="https://tvmarataizes.digital/clima/cia1.png">
+<link rel="canonical" href="https://tvmarataizes.digital/ciadopeixe">
+<style>
+:root{
+  --navy:#003781;--red:#e8000a;--gold:#f5c518;--gold2:#c8960c;
+  --bg:#06090f;--card:#0d1117;--card2:#0f1923;--border:#1a2535;
+  --text:#f0f4f8;--muted:#7a8fa8;--green:#25d366;
+  --ocean:#0077b6;--ocean2:#023e8a;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* HEADER */
+.hdr{background:rgba(6,9,15,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;gap:12px;height:56px;position:sticky;top:0;z-index:100}
+.hdr-logo{display:flex;align-items:center;gap:8px;color:#fff;font-weight:900;font-size:15px}
+.hdr-tag{background:var(--red);color:#fff;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:900}
+.hdr-r{margin-left:auto;display:flex;gap:8px}
+.btn-wpp-sm{background:var(--green);color:#fff;padding:7px 14px;border-radius:4px;font-size:12px;font-weight:800}
+.btn-back{color:var(--muted);font-size:12px;padding:7px 10px;border:1px solid var(--border);border-radius:4px}
+.btn-back:hover{border-color:#fff;color:#fff}
+
+/* HERO */
+.hero{position:relative;height:480px;overflow:hidden}
+.hero-img{width:100%;height:100%;object-fit:cover;object-position:center}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(6,9,15,.3) 0%,rgba(6,9,15,.85) 100%)}
+.hero-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:40px 24px;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,119,182,.2);border:1px solid rgba(0,119,182,.5);color:#48cae4;font-size:11px;font-weight:800;padding:5px 14px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}
+.hero h1{font-size:clamp(28px,5vw,52px);font-weight:900;line-height:1.1;margin-bottom:12px;text-shadow:0 2px 20px rgba(0,0,0,.5)}
+.hero h1 em{color:#48cae4;font-style:normal}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.75);max-width:500px;margin:0 auto 24px;line-height:1.6}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.btn-main{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;padding:13px 26px;border-radius:6px;font-weight:900;font-size:14px;box-shadow:0 4px 20px rgba(37,211,102,.3);transition:transform .15s}
+.btn-main:hover{transform:translateY(-2px)}
+.btn-mapa{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);color:#fff;padding:13px 20px;border-radius:6px;font-weight:700;font-size:14px;border:1px solid rgba(255,255,255,.2)}
+
+/* INFO BAR */
+.info-bar{background:var(--ocean2);border-bottom:1px solid rgba(0,119,182,.3);padding:14px 24px}
+.info-inner{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;gap:20px;justify-content:center}
+.info-item{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.8)}
+.info-item strong{color:#fff}
+.info-dot{width:6px;height:6px;border-radius:50%;background:#25d366;flex-shrink:0}
+
+/* FOTOS */
+.fotos-sec{max-width:980px;margin:0 auto;padding:48px 20px}
+.sec-label{font-size:11px;font-weight:800;color:#48cae4;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;text-align:center}
+.sec-title{font-size:clamp(20px,3vw,32px);font-weight:900;text-align:center;margin-bottom:6px}
+.sec-title em{color:var(--gold);font-style:normal}
+.sec-sub{font-size:14px;color:var(--muted);text-align:center;max-width:500px;margin:0 auto 32px;line-height:1.7}
+
+.fotos-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:auto auto;gap:8px}
+.foto{overflow:hidden;border-radius:8px;position:relative}
+.foto img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.foto:hover img{transform:scale(1.04)}
+.foto-1{grid-column:1;grid-row:1/3;aspect-ratio:4/5}
+.foto-2{grid-column:2;grid-row:1;aspect-ratio:1}
+.foto-3{grid-column:3;grid-row:1;aspect-ratio:1}
+.foto-4{grid-column:2/4;grid-row:2;aspect-ratio:16/7}
+
+/* SOBRE */
+.sobre-sec{background:var(--card2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:56px 20px}
+.sobre-inner{max-width:860px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.sobre-txt p{font-size:15px;color:#c8d8e8;line-height:1.9;margin-bottom:16px}
+.sobre-txt p:last-child{margin-bottom:0}
+.sobre-stats{display:flex;flex-direction:column;gap:16px}
+.stat-item{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:18px 20px;display:flex;align-items:center;gap:14px}
+.stat-ico{font-size:28px;flex-shrink:0}
+.stat-info{}
+.stat-val{font-size:20px;font-weight:900;color:var(--gold);line-height:1}
+.stat-desc{font-size:12px;color:var(--muted);margin-top:2px}
+
+/* CARDÁPIO */
+.menu-sec{max-width:900px;margin:0 auto;padding:56px 20px}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.menu-item{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:18px 16px;text-align:center;transition:border-color .15s,transform .15s}
+.menu-item:hover{border-color:rgba(0,119,182,.5);transform:translateY(-2px)}
+.menu-ico{font-size:32px;margin-bottom:8px}
+.menu-name{font-size:13px;font-weight:800;color:var(--text)}
+.menu-desc{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.5}
+
+/* HORÁRIOS */
+.horario-sec{background:linear-gradient(135deg,var(--ocean2),var(--navy));padding:48px 20px}
+.horario-inner{max-width:700px;margin:0 auto}
+.dias-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:28px}
+.dia{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:14px;text-align:center}
+.dia.hoje{border-color:var(--green);background:rgba(37,211,102,.1)}
+.dia-nome{font-size:11px;font-weight:800;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.dia-hora{font-size:14px;font-weight:900;color:#fff}
+.dia.hoje .dia-hora{color:var(--green)}
+.aberto-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(37,211,102,.15);border:1px solid rgba(37,211,102,.3);color:var(--green);font-size:12px;font-weight:800;padding:5px 14px;border-radius:20px;margin-top:20px}
+
+/* LOCALIZAÇÃO */
+.local-sec{max-width:900px;margin:0 auto;padding:56px 20px}
+.local-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px}
+.local-card{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:24px}
+.local-ico{font-size:32px;margin-bottom:12px}
+.local-title{font-size:15px;font-weight:900;margin-bottom:6px}
+.local-val{font-size:13px;color:var(--muted);line-height:1.8}
+.local-val a{color:var(--green)}
+.map-embed{border-radius:12px;overflow:hidden;border:1px solid var(--border);grid-column:1/3}
+.map-embed iframe{width:100%;height:280px;border:0;display:block}
+
+/* CTA FINAL */
+.cta-final{background:linear-gradient(135deg,#001530,#003272);padding:56px 20px;text-align:center}
+.cta-final h2{font-size:clamp(22px,3vw,34px);font-weight:900;margin-bottom:10px}
+.cta-final h2 em{color:#48cae4;font-style:normal}
+.cta-final p{font-size:15px;color:rgba(255,255,255,.6);max-width:440px;margin:0 auto 28px;line-height:1.7}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-cta-wpp{background:var(--green);color:#fff;padding:14px 30px;border-radius:6px;font-weight:900;font-size:15px;display:flex;align-items:center;gap:8px}
+.btn-cta-tel{background:rgba(255,255,255,.07);color:#fff;padding:14px 20px;border-radius:6px;font-weight:700;font-size:13px;border:1px solid rgba(255,255,255,.12)}
+
+/* PLANO */
+.plano-sec{background:linear-gradient(135deg,#003781,#005bb5);padding:44px 20px;text-align:center}
+
+/* FOOTER */
+.footer{background:#000;border-top:1px solid var(--border);text-align:center;padding:22px;font-size:12px;color:#333}
+.footer a{color:#222}
+.footer-tv{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:6px;font-size:13px;color:#444}
+.footer-tv-tag{background:var(--red);color:#fff;padding:1px 6px;border-radius:2px;font-size:10px;font-weight:900}
+
+@media(max-width:640px){
+  .sobre-inner{grid-template-columns:1fr}
+  .fotos-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .foto-1{grid-column:1/3;grid-row:1;aspect-ratio:16/9}
+  .foto-2{grid-column:1;grid-row:2;aspect-ratio:1}
+  .foto-3{grid-column:2;grid-row:2;aspect-ratio:1}
+  .foto-4{grid-column:1/3;grid-row:3;aspect-ratio:16/7}
+  .local-grid{grid-template-columns:1fr}
+  .map-embed{grid-column:1}
+  .hero{height:380px}
+  .cta-btns,.hero-btns{flex-direction:column;align-items:center}
+  .dias-grid{grid-template-columns:repeat(4,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-logo"><span class="hdr-tag">TV</span> Marataízes</div>
+  <div class="hdr-r">
+    <a href="https://www.tvmarataizes.digital/" class="btn-back">← Portal</a>
+    <a href="https://wa.me/5528999012288?text=Olá!+Vim+pelo+portal+TV+Marataízes+e+quero+saber+mais+sobre+o+Cia+do+Peixe" target="_blank" rel="noopener" class="btn-wpp-sm">💬 Reservar</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="https://tvmarataizes.digital/clima/cia1.png" alt="Cia do Peixe Marataízes" class="hero-img">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🐟 Frutos do Mar · Marataízes ES · Aberto todos os dias</div>
+    <h1>O sabor do mar<br>na mesa <em>certa</em></h1>
+    <p class="hero-sub">Frutos do mar frescos, ambiente à beira-mar e uma cozinha que faz jus à Pérola Capixaba. O Cia do Peixe é onde Marataízes vai comer bem.</p>
+    <div class="hero-btns">
+      <a href="https://wa.me/5528999012288?text=Olá!+Vim+pelo+portal+TV+Marataízes+e+quero+reservar+uma+mesa+no+Cia+do+Peixe" target="_blank" rel="noopener" class="btn-main">💬 Reservar pelo WhatsApp</a>
+      <a href="https://maps.google.com/?q=Av.+Atlântica,+1800,+Marataízes+ES" target="_blank" rel="noopener" class="btn-mapa">📍 Como chegar</a>
+    </div>
+  </div>
+</section>
+
+<!-- INFO BAR -->
+<div class="info-bar">
+  <div class="info-inner">
+    <div class="info-item"><span class="info-dot"></span><span>Aberto <strong>todos os dias</strong> 11h às 17h</span></div>
+    <div class="info-item">📍 <span>Av. Atlântica, 1800 — <strong>Alto Lagoa Funda</strong></span></div>
+    <div class="info-item">📞 <a href="tel:+5528999012288" style="color:var(--green);font-weight:700">(28) 99901-2288</a></div>
+    <div class="info-item">⭐ <span><strong>4.5</strong> no Google · Referência em frutos do mar</span></div>
+  </div>
+</div>
+
+<!-- GALERIA -->
+<section class="fotos-sec">
+  <div class="sec-label">Galeria</div>
+  <h2 class="sec-title">Ambiente, pratos e <em>muito mar</em></h2>
+  <div class="fotos-grid">
+    <div class="foto foto-1"><img src="https://tvmarataizes.digital/clima/cia1.png" alt="Cia do Peixe Marataízes"></div>
+    <div class="foto foto-2"><img src="https://tvmarataizes.digital/clima/cia2.png" alt="Pratos Cia do Peixe"></div>
+    <div class="foto foto-3"><img src="https://tvmarataizes.digital/clima/cia3.png" alt="Frutos do mar Cia do Peixe"></div>
+    <div class="foto foto-4"><img src="https://tvmarataizes.digital/clima/cia4.png" alt="Restaurante Cia do Peixe"></div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section class="sobre-sec">
+  <div class="sobre-inner">
+    <div class="sobre-txt">
+      <div class="sec-label" style="text-align:left;margin-bottom:12px">Sobre</div>
+      <h2 class="sec-title" style="text-align:left;margin-bottom:20px">O restaurante que<br><em>Marataízes merece</em></h2>
+      <p>O Cia do Peixe nasceu do respeito pelo mar. Situado na Avenida Atlântica com vista para o oceano, o restaurante transforma ingredientes frescos em pratos que contam a história do litoral capixaba.</p>
+      <p>Cada prato é preparado com frutos do mar selecionados — camarão, polvo, lula, peixes nobres e muito mais. O cardápio é amplo, a porção é generosa e o ambiente faz você querer ficar mais um tempo à mesa.</p>
+      <p>Seja para um almoço em família, um encontro especial ou simplesmente o prazer de comer bem à beira-mar — o Cia do Peixe é o endereço certo em Marataízes.</p>
+    </div>
+    <div class="sobre-stats">
+      <div class="stat-item">
+        <div class="stat-ico">⭐</div>
+        <div class="stat-info">
+          <div class="stat-val">4.5 / 5</div>
+          <div class="stat-desc">Avaliação média no Google</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-ico">🐟</div>
+        <div class="stat-info">
+          <div class="stat-val">Frutos do mar</div>
+          <div class="stat-desc">Ingredientes frescos, selecionados diariamente</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-ico">🏖️</div>
+        <div class="stat-info">
+          <div class="stat-val">À beira-mar</div>
+          <div class="stat-desc">Av. Atlântica, 1800 — Alto Lagoa Funda</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-ico">🍽️</div>
+        <div class="stat-info">
+          <div class="stat-val">Todos os dias</div>
+          <div class="stat-desc">Aberto das 11h às 17h, inclusive fins de semana</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARDÁPIO -->
+<section class="menu-sec">
+  <div class="sec-label">Cardápio</div>
+  <h2 class="sec-title">Do mar para a <em>sua mesa</em></h2>
+  <p class="sec-sub">Uma seleção que vai do clássico ao sofisticado, com porções generosas e ingredientes frescos.</p>
+  <div class="menu-grid">
+    <div class="menu-item"><div class="menu-ico">🦐</div><div class="menu-name">Camarão</div><div class="menu-desc">Grelhado, ao alho ou empanado</div></div>
+    <div class="menu-item"><div class="menu-ico">🐙</div><div class="menu-name">Polvo</div><div class="menu-desc">Grelhado ou à lagareiro</div></div>
+    <div class="menu-item"><div class="menu-ico">🦑</div><div class="menu-name">Lula</div><div class="menu-desc">Frita, grelhada ou recheada</div></div>
+    <div class="menu-item"><div class="menu-ico">🐟</div><div class="menu-name">Peixes</div><div class="menu-desc">Filé, posta ou inteiro</div></div>
+    <div class="menu-item"><div class="menu-ico">🦀</div><div class="menu-name">Frutos do mar</div><div class="menu-desc">Caldeirada e moqueca</div></div>
+    <div class="menu-item"><div class="menu-ico">🍚</div><div class="menu-name">Acompanhamentos</div><div class="menu-desc">Arroz, farofa, pirão e saladas</div></div>
+    <div class="menu-item"><div class="menu-ico">🥂</div><div class="menu-name">Bebidas</div><div class="menu-desc">Drinks, cervejas e sucos naturais</div></div>
+    <div class="menu-item"><div class="menu-ico">🍮</div><div class="menu-name">Sobremesas</div><div class="menu-desc">Doces da casa para finalizar</div></div>
+  </div>
+  <p style="text-align:center;margin-top:24px;font-size:13px;color:var(--muted)">
+    Cardápio completo pelo WhatsApp →
+    <a href="https://wa.me/5528999012288?text=Quero+ver+o+cardápio+completo+do+Cia+do+Peixe" target="_blank" rel="noopener" style="color:var(--green);font-weight:700">(28) 99901-2288</a>
+  </p>
+</section>
+
+<!-- HORÁRIOS -->
+<section class="horario-sec">
+  <div style="max-width:700px;margin:0 auto;text-align:center">
+    <div class="sec-label" style="color:rgba(255,255,255,.6)">Funcionamento</div>
+    <h2 style="font-size:clamp(20px,3vw,30px);font-weight:900;color:#fff;margin-bottom:6px">Aberto <em style="color:#48cae4;font-style:normal">todos os dias</em></h2>
+    <div class="dias-grid">
+      <div class="dia"><div class="dia-nome">Dom</div><div class="dia-hora">11h–17h</div></div>
+      <div class="dia"><div class="dia-nome">Seg</div><div class="dia-hora">11h–17h</div></div>
+      <div class="dia"><div class="dia-nome">Ter</div><div class="dia-hora">11h–17h</div></div>
+      <div class="dia"><div class="dia-nome">Qua</div><div class="dia-hora">11h–17h</div></div>
+      <div class="dia"><div class="dia-nome">Qui</div><div class="dia-hora">11h–17h</div></div>
+      <div class="dia"><div class="dia-nome">Sex</div><div class="dia-hora">11h–17h</div></div>
+      <div class="dia"><div class="dia-nome">Sáb</div><div class="dia-hora">11h–17h</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCALIZAÇÃO -->
+<section class="local-sec">
+  <div class="sec-label">Localização</div>
+  <h2 class="sec-title">Fácil de <em>encontrar</em></h2>
+  <div class="local-grid">
+    <div class="local-card">
+      <div class="local-ico">📍</div>
+      <div class="local-title">Endereço</div>
+      <div class="local-val">Av. Atlântica, 1800<br>Alto Lagoa Funda<br>Marataízes — ES<br>CEP 29345-000</div>
+    </div>
+    <div class="local-card">
+      <div class="local-ico">📞</div>
+      <div class="local-title">Contato</div>
+      <div class="local-val">
+        <a href="tel:+5528999012288">(28) 99901-2288</a><br>
+        <a href="https://wa.me/5528999012288?text=Vim+pelo+portal+TV+Marataízes" target="_blank" rel="noopener">WhatsApp →</a>
+      </div>
+    </div>
+    <div class="map-embed">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3745.8!2d-40.8333!3d-21.0333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sAv.+Atl%C3%A2ntica%2C+1800%2C+Marata%C3%ADzes+ES!5e0!3m2!1spt!2sbr!4v1"
+        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <h2>Com fome?<br><em>A mesa está esperando.</em></h2>
+  <p>Reserve pelo WhatsApp ou apareça direto. Aberto todos os dias das 11h às 17h, à beira-mar em Marataízes.</p>
+  <div class="cta-btns">
+    <a href="https://wa.me/5528999012288?text=Olá!+Vim+pelo+portal+TV+Marataízes+e+quero+reservar+uma+mesa+no+Cia+do+Peixe!" target="_blank" rel="noopener" class="btn-cta-wpp">
+      💬 Reservar — (28) 99901-2288
+    </a>
+    <a href="https://maps.google.com/?q=Av.+Atlântica,+1800,+Marataízes+ES" target="_blank" rel="noopener" class="btn-cta-tel">
+      📍 Ver no mapa
+    </a>
+  </div>
+</section>
+
+<!-- PLANO EXCLUSIVO -->
+<section class="plano-sec">
+  <div style="max-width:580px;margin:0 auto">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(245,197,24,.15);border:1px solid rgba(245,197,24,.35);color:#f5c518;font-size:11px;font-weight:800;padding:4px 14px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;margin-bottom:18px">📺 TV Marataízes · Guia Digital</div>
+    <h2 style="font-size:clamp(18px,3vw,26px);font-weight:900;color:#fff;margin-bottom:8px;line-height:1.3">Esta é uma <span style="color:#f5c518">Página Exclusiva</span><br>do portal TV Marataízes</h2>
+    <p style="font-size:13px;color:rgba(255,255,255,.6);margin-bottom:20px;line-height:1.6">O Cia do Peixe tem galeria de fotos, cardápio, mapa e botão de reserva — tudo aparecendo no Google quando alguém pesquisa restaurante em Marataízes.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="https://wa.me/5528999036141?text=Quero+uma+página+exclusiva+como+a+do+Cia+do+Peixe!" target="_blank" rel="noopener"
+         style="background:#25d366;color:#fff;padding:12px 24px;border-radius:6px;font-weight:900;font-size:14px;display:flex;align-items:center;gap:8px">
+        💬 Quero minha página — R$99/mês
+      </a>
+      <a href="https://tvmarataizes.digital/anunciar"
+         style="background:rgba(255,255,255,.1);color:#fff;padding:12px 16px;border-radius:6px;font-weight:700;font-size:13px;border:1px solid rgba(255,255,255,.2)">
+        Ver todos os planos →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-tv"><span class="footer-tv-tag">TV</span> Marataízes · Guia Digital do Sul do ES</div>
+  <p><a href="https://www.tvmarataizes.digital/">tvmarataizes.digital</a> · <a href="tel:+5528999012288">(28) 99901-2288</a> · <a href="https://wa.me/5528999012288">WhatsApp</a></p>
+</footer>
+
+</body>
+</html>
