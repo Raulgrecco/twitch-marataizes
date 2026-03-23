@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Seja Parceiro Comercial — TV Marataízes | Sul do ES</title>
+<title>Programa de Parceiros — TV Marataízes | Ganhe indicando empresas</title>
+<meta name="description" content="Seja parceiro da TV Marataízes. Indique empresas para o guia digital e ganhe 30% de comissão + 10% recorrente todo mês. Marataízes, Itapemirim, Piúma e Presidente Kennedy.">
+<link rel="canonical" href="https://tvmarataizes.digital/oportunidade">
 <style>
 :root{
   --navy:#003781;--red:#e8000a;--gold:#f5c518;--gold2:#c8960c;
@@ -16,83 +18,122 @@ body{background:var(--bg);color:var(--text);font-family:'Helvetica Neue',Helveti
 a{text-decoration:none;color:inherit}
 
 /* HEADER */
-.hdr{background:rgba(6,9,15,.96);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;height:54px}
+.hdr{background:rgba(6,9,15,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;height:56px;position:sticky;top:0;z-index:100}
 .logo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:15px}
 .logo-tag{background:var(--red);color:#fff;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:900}
+.hdr-r{margin-left:auto;display:flex;gap:8px}
+.btn-wpp{background:var(--green);color:#fff;padding:7px 16px;border-radius:4px;font-size:12px;font-weight:800}
+.btn-back{color:var(--muted);font-size:12px;padding:7px 10px;border:1px solid var(--border);border-radius:4px}
 
 /* HERO */
-.hero{background:linear-gradient(160deg,#001030,#003781);padding:56px 20px 48px;text-align:center}
+.hero{background:linear-gradient(160deg,#001030,#003781);padding:64px 20px 52px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'💰';position:absolute;right:-20px;bottom:-20px;font-size:200px;opacity:.04;pointer-events:none}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,197,24,.1);border:1px solid rgba(245,197,24,.3);color:var(--gold);font-size:11px;font-weight:800;padding:5px 14px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px}
-.hero h1{font-size:clamp(26px,5vw,48px);font-weight:900;line-height:1.15;margin-bottom:14px}
+.hero h1{font-size:clamp(26px,5vw,50px);font-weight:900;line-height:1.15;margin-bottom:14px}
 .hero h1 em{color:var(--gold);font-style:normal}
-.hero-sub{font-size:16px;color:rgba(255,255,255,.7);max-width:500px;margin:0 auto 32px;line-height:1.7}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.7);max-width:520px;margin:0 auto 32px;line-height:1.7}
+.hero-nums{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
+.hero-num{text-align:center}
+.hero-num-val{font-size:28px;font-weight:900;color:var(--gold);line-height:1}
+.hero-num-label{font-size:11px;color:rgba(255,255,255,.5);margin-top:3px}
+.btn-hero{display:inline-flex;align-items:center;gap:10px;background:var(--green);color:#fff;padding:15px 32px;border-radius:6px;font-weight:900;font-size:15px;box-shadow:0 4px 20px rgba(37,211,102,.3)}
 
-/* CALCULADORA */
-.calc-sec{max-width:860px;margin:0 auto;padding:56px 20px}
+/* SEÇÃO */
+.sec{max-width:900px;margin:0 auto;padding:56px 20px}
 .sec-label{font-size:11px;font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;text-align:center}
-.sec-title{font-size:clamp(20px,3vw,32px);font-weight:900;text-align:center;margin-bottom:6px}
+.sec-title{font-size:clamp(20px,3vw,34px);font-weight:900;text-align:center;margin-bottom:8px}
 .sec-title em{color:var(--gold);font-style:normal}
-.sec-sub{font-size:14px;color:var(--muted);text-align:center;max-width:460px;margin:0 auto 40px;line-height:1.7}
+.sec-sub{font-size:14px;color:var(--muted);text-align:center;max-width:500px;margin:0 auto 36px;line-height:1.7}
 
-/* SLIDER */
-.slider-wrap{background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:32px 28px;margin-bottom:24px}
-.slider-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-.slider-title{font-size:15px;font-weight:800}
-.slider-val{font-size:22px;font-weight:900;color:var(--gold)}
-input[type=range]{width:100%;-webkit-appearance:none;height:6px;border-radius:3px;background:var(--border);outline:none;margin-bottom:8px}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--gold);cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.4)}
-.slider-hints{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+/* ESCADA DE VALOR */
+.escada{display:flex;flex-direction:column;gap:0}
 
-/* RESULTADO */
-.resultado{background:linear-gradient(135deg,#001530,#003272);border:1px solid rgba(0,80,200,.3);border-radius:14px;padding:32px;margin-bottom:32px}
-.res-title{font-size:13px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:24px;text-align:center}
-.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
-.res-item{text-align:center;background:rgba(255,255,255,.05);border-radius:10px;padding:16px 8px}
-.res-num{font-size:clamp(20px,3vw,32px);font-weight:900;color:var(--gold);line-height:1;margin-bottom:4px}
-.res-desc{font-size:11px;color:var(--muted);line-height:1.4}
-.res-destaque{background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.25);border-radius:10px;padding:20px;text-align:center}
-.res-destaque-num{font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--green);line-height:1;margin-bottom:6px}
-.res-destaque-desc{font-size:13px;color:rgba(255,255,255,.7)}
+/* DEGRAU */
+.degrau{border-radius:14px;overflow:hidden;margin-bottom:16px}
+.degrau-header{display:flex;align-items:center;gap:16px;padding:20px 24px;cursor:pointer}
+.degrau-num{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;flex-shrink:0}
+.degrau-info{flex:1}
+.degrau-title{font-size:17px;font-weight:900;margin-bottom:2px}
+.degrau-sub{font-size:12px;opacity:.7}
+.degrau-arrow{font-size:18px;transition:transform .2s;flex-shrink:0}
+.degrau-body{padding:0 24px 24px}
 
-/* PLANOS */
-.planos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:40px}
-.plano{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center;cursor:pointer;transition:all .15s}
-.plano:hover,.plano.ativo{border-color:var(--gold);background:rgba(200,150,12,.08)}
+/* DEGRAU 1 — GUIA */
+.d1{background:linear-gradient(135deg,#0a1525,#0f2040);border:2px solid rgba(37,211,102,.3)}
+.d1 .degrau-num{background:rgba(37,211,102,.15);color:var(--green)}
+.d1 .degrau-title{color:var(--green)}
+
+/* DEGRAU 2 — TV */
+.d2{background:linear-gradient(135deg,#0a0f20,#0f1535);border:2px solid rgba(0,55,129,.4)}
+.d2 .degrau-num{background:rgba(0,55,129,.3);color:#7ab0ff}
+.d2 .degrau-title{color:#7ab0ff}
+
+/* GRID DE PLANOS */
+.planos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:20px}
+.plano-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:18px}
+.plano-card.destaque{border-color:var(--gold);background:rgba(200,150,12,.08)}
 .plano-ico{font-size:28px;margin-bottom:8px}
-.plano-nome{font-size:13px;font-weight:800;margin-bottom:4px}
-.plano-valor{font-size:18px;font-weight:900;color:var(--gold)}
-.plano-comissao{font-size:11px;color:var(--green);margin-top:4px;font-weight:700}
+.plano-nome{font-size:14px;font-weight:900;margin-bottom:4px}
+.plano-preco{font-size:24px;font-weight:900;color:var(--gold);line-height:1;margin-bottom:4px}
+.plano-comissao{font-size:12px;color:var(--green);font-weight:700;margin-bottom:12px}
+.plano-features{list-style:none;display:flex;flex-direction:column;gap:5px}
+.plano-features li{font-size:12px;color:#c8d8e8;display:flex;gap:6px}
+.plano-features li::before{content:'✓';color:var(--green);font-weight:800;flex-shrink:0}
 
-/* PROGRESSÃO */
-.prog-sec{max-width:860px;margin:0 auto;padding:0 20px 56px}
-.prog-table{width:100%;border-collapse:collapse;margin-top:28px}
-.prog-table th{background:var(--card2);padding:12px 16px;font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;text-align:left;border-bottom:1px solid var(--border)}
-.prog-table td{padding:12px 16px;font-size:13px;border-bottom:1px solid rgba(255,255,255,.04);color:#c8d8e8}
-.prog-table tr:last-child td{color:var(--green);font-weight:800;font-size:14px;background:rgba(37,211,102,.05)}
-.prog-table .gold{color:var(--gold);font-weight:800}
+/* KIT */
+.kit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px}
+.kit-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px;display:block;transition:border-color .15s}
+.kit-card:hover{border-color:rgba(255,255,255,.2)}
+
+/* TABELA TV */
+.tv-table{width:100%;border-collapse:collapse;margin-bottom:16px}
+.tv-table th{background:rgba(0,55,129,.3);padding:11px 14px;font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;text-align:left;border-bottom:1px solid var(--border)}
+.tv-table td{padding:12px 14px;font-size:13px;border-bottom:1px solid rgba(255,255,255,.04);color:#c8d8e8}
+.tv-table tr:hover td{background:rgba(255,255,255,.02)}
+.tv-table .gold{color:var(--gold);font-weight:800}
+.tv-table .green{color:var(--green);font-weight:700}
+
+/* QUEM PODE */
+.perfis-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.perfil{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:18px}
+.perfil-ico{font-size:28px;margin-bottom:8px}
+.perfil-nome{font-size:13px;font-weight:800;margin-bottom:4px}
+.perfil-desc{font-size:11px;color:var(--muted);line-height:1.6}
+
+/* MERCADO */
+.mercado-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:24px}
+.cidade-card{background:rgba(255,255,255,.04);border-radius:8px;padding:14px;text-align:center}
+.cidade-ico{font-size:20px;margin-bottom:6px}
+.cidade-nome{font-size:13px;font-weight:900;color:#fff;margin-bottom:2px}
+.cidade-num{font-size:18px;font-weight:900;color:var(--green);line-height:1;margin:4px 0}
+.cidade-sub{font-size:10px;color:var(--muted)}
 
 /* COMO FUNCIONA */
-.como-sec{background:var(--card2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:56px 20px}
-.como-inner{max-width:860px;margin:0 auto}
-.steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin-top:32px}
-.step{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:22px}
-.step-n{font-size:36px;font-weight:900;color:var(--gold);line-height:1;margin-bottom:10px}
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+.step{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:22px}
+.step-n{font-size:34px;font-weight:900;color:var(--gold);line-height:1;margin-bottom:10px}
 .step-t{font-size:14px;font-weight:800;margin-bottom:5px}
 .step-d{font-size:12px;color:var(--muted);line-height:1.7}
 
-/* O QUE VOCÊ VENDE */
-.vende-sec{max-width:860px;margin:0 auto;padding:56px 20px}
-.vende-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.vende-card{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:24px;position:relative}
-.vende-card.hot{border-color:var(--gold);background:rgba(200,150,12,.06)}
-.vende-badge{position:absolute;top:-11px;left:20px;background:var(--gold2);color:#000;font-size:10px;font-weight:900;padding:3px 12px;border-radius:20px;text-transform:uppercase}
-.vende-ico{font-size:28px;margin-bottom:10px}
-.vende-nome{font-size:16px;font-weight:900;margin-bottom:4px}
-.vende-preco{font-size:26px;font-weight:900;color:var(--gold);margin-bottom:4px}
-.vende-comissao{font-size:12px;color:var(--green);font-weight:700;margin-bottom:14px}
-.vende-desc{font-size:12px;color:var(--muted);line-height:1.6}
+/* EXEMPLOS NA PRÁTICA */
+.exemplo{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:14px}
+.exemplo-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;padding:3px 12px;border-radius:20px;text-transform:uppercase;margin-bottom:14px}
+.exemplo-txt{font-size:13px;color:#c8d8e8;line-height:1.8}
+.exemplo-txt em{color:var(--gold);font-style:italic}
 
-/* CTA */
+/* FAQ */
+.faq-item{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:8px}
+.faq-q{font-size:14px;font-weight:800;color:var(--gold);margin-bottom:8px}
+.faq-a{font-size:13px;color:#c8d8e8;line-height:1.8}
+
+/* REGRAS */
+.regras-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.regra{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:20px}
+.regra-ico{font-size:26px;margin-bottom:8px}
+.regra-title{font-size:13px;font-weight:800;color:var(--gold);margin-bottom:6px}
+.regra-desc{font-size:12px;color:var(--muted);line-height:1.7}
+
+/* CTA FINAL */
 .cta-final{background:linear-gradient(135deg,#001530,#003272);padding:56px 20px;text-align:center}
 .cta-final h2{font-size:clamp(22px,3vw,34px);font-weight:900;margin-bottom:10px}
 .cta-final h2 em{color:var(--gold);font-style:normal}
@@ -101,12 +142,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 
 .footer{background:#000;border-top:1px solid var(--border);text-align:center;padding:20px;font-size:12px;color:#333}
 
-@media(max-width:600px){
-  .res-grid{grid-template-columns:1fr 1fr}
-  .planos-grid{grid-template-columns:1fr 1fr}
-  .steps{grid-template-columns:1fr 1fr}
-  .prog-table{font-size:11px}
-  .prog-table td,.prog-table th{padding:9px 8px}
+@media(max-width:640px){
+  .planos-grid,.perfis-grid,.steps-grid,.regras-grid,.mercado-grid{grid-template-columns:1fr 1fr}
+  .kit-grid{grid-template-columns:1fr}
+  .tv-table{font-size:11px}
+  .tv-table td,.tv-table th{padding:9px 8px}
+  .hero-nums{gap:16px}
 }
 </style>
 </head>
@@ -114,587 +155,444 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 
 <!-- HEADER -->
 <header class="hdr">
-  <div class="logo"><span class="logo-tag">TV</span> Marataízes · Parceiro Comercial</div>
+  <div class="logo"><span class="logo-tag">TV</span> Marataízes · Parceiros</div>
+  <div class="hdr-r">
+    <a href="https://www.tvmarataizes.digital/" class="btn-back">← Portal</a>
+    <a href="https://wa.me/5528999036141?text=Quero+ser+parceiro+da+TV+Marataízes" target="_blank" rel="noopener" class="btn-wpp">💬 Quero ser parceiro</a>
+  </div>
 </header>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">💰 Marataízes · Itapemirim · Piúma · Pres. Kennedy</div>
-  <h1>Venda uma vez.<br>Receba <em>todo mês.</em></h1>
-  <p class="hero-sub">Você conhece os comerciantes do Sul do ES. A gente tem a TV, o portal e a estrutura. Marataízes, Itapemirim, Piúma e Presidente Kennedy — qualquer negócio nessas cidades pode entrar no guia.</p>
+  <div class="hero-badge">🤝 Programa de Parceiros · TV Marataízes · Sul do ES</div>
+  <h1>Indique empresas.<br>Receba <em>todo mês.</em></h1>
+  <p class="hero-sub">Você conhece os comerciantes da região. A gente tem a TV, o portal e a estrutura. Indique uma empresa, a gente cuida de tudo — você recebe a comissão enquanto ela ficar.</p>
+  <div class="hero-nums">
+    <div class="hero-num"><div class="hero-num-val">30%</div><div class="hero-num-label">no primeiro mês</div></div>
+    <div class="hero-num"><div class="hero-num-val">10%</div><div class="hero-num-label">recorrente todo mês</div></div>
+    <div class="hero-num"><div class="hero-num-val">+12.900</div><div class="hero-num-label">empresas nas 4 cidades</div></div>
+    <div class="hero-num"><div class="hero-num-val">R$0</div><div class="hero-num-label">para começar</div></div>
+  </div>
+  <a href="#como" class="btn-hero">Entender como funciona →</a>
 </section>
 
 
-<!-- QUEM PODE SER PARCEIRO -->
-<section style="max-width:860px;margin:0 auto;padding:48px 20px 0">
-  <div class="sec-label">Quem pode participar</div>
-  <h2 class="sec-title">Se você conhece pessoas no <em>Sul do ES</em>, pode participar</h2>
-  <p class="sec-sub">Não precisa entender de tecnologia. Não precisa ter empresa. Só Marataízes tem 5.095 empresas ativas. A maioria nunca foi abordada por ninguém com uma solução como essa.</p>
-
-
-  <!-- MERCADO POTENCIAL -->
-  <div style="background:linear-gradient(135deg,#001030,#003272);border-radius:14px;padding:28px;margin-bottom:48px">
-    <div style="font-size:12px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.5px;margin-bottom:16px">📍 Sua área de atuação</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px">
-      <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:14px;text-align:center">
-        <div style="font-size:22px;margin-bottom:6px">🏖️</div>
-        <div style="font-size:13px;font-weight:900;color:#fff">Marataízes</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:3px">~45.000 hab · Pérola Capixaba</div>
-        <div style="font-size:14px;color:var(--green);font-weight:900;margin-top:6px">5.095</div>
-        <div style="font-size:10px;color:var(--muted)">empresas ativas · jul/2025</div>
-        <div style="font-size:10px;color:var(--gold);font-weight:700;margin-top:2px">+47,4% em 1 ano</div>
+<!-- PROVA SOCIAL — NÚMEROS REAIS DA CAMPANHA -->
+<section style="background:var(--card2);border-bottom:1px solid var(--border);padding:40px 20px">
+  <div style="max-width:900px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:24px">
+      <div style="font-size:11px;font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px">📊 Dados reais — última campanha</div>
+      <div style="font-size:15px;color:var(--muted)">Esses são os números que você vai mostrar para o anunciante. São reais, verificáveis.</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px">
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center">
+        <div style="font-size:22px;font-weight:900;color:var(--gold);line-height:1">237.649</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">Views totais</div>
       </div>
-      <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:14px;text-align:center">
-        <div style="font-size:22px;margin-bottom:6px">🏛️</div>
-        <div style="font-size:13px;font-weight:900;color:#fff">Itapemirim</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:3px">~35.000 hab · Porto histórico</div>
-        <div style="font-size:14px;color:var(--green);font-weight:900;margin-top:6px">4.576</div>
-        <div style="font-size:10px;color:var(--muted)">empresas ativas · dez/2025</div>
-        <div style="font-size:10px;color:var(--gold);font-weight:700;margin-top:2px">Crescendo forte</div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center">
+        <div style="font-size:22px;font-weight:900;color:var(--gold);line-height:1">69.932</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">Pessoas alcançadas</div>
       </div>
-      <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:14px;text-align:center">
-        <div style="font-size:22px;margin-bottom:6px">🐚</div>
-        <div style="font-size:13px;font-weight:900;color:#fff">Piúma</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:3px">~22.000 hab · Cidade das Conchas</div>
-        <div style="font-size:14px;color:var(--green);font-weight:900;margin-top:6px">~2.000</div>
-        <div style="font-size:10px;color:var(--muted)">empresas estimadas</div>
-        <div style="font-size:10px;color:var(--gold);font-weight:700;margin-top:2px">Turismo em expansão</div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center">
+        <div style="font-size:22px;font-weight:900;color:var(--gold);line-height:1">50.385</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">Engajamentos</div>
       </div>
-      <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:14px;text-align:center">
-        <div style="font-size:22px;margin-bottom:6px">⚡</div>
-        <div style="font-size:13px;font-weight:900;color:#fff">Pres. Kennedy</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:3px">~11.000 hab · Polo de petróleo</div>
-        <div style="font-size:14px;color:var(--green);font-weight:900;margin-top:6px">1.248</div>
-        <div style="font-size:10px;color:var(--muted)">empresas ativas</div>
-        <div style="font-size:10px;color:var(--gold);font-weight:700;margin-top:2px">Porto Central chegando</div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center">
+        <div style="font-size:22px;font-weight:900;color:var(--gold);line-height:1">3.282</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">Cliques no link</div>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center">
+        <div style="font-size:22px;font-weight:900;color:var(--gold);line-height:1">2.878</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">Visitas ao perfil</div>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center">
+        <div style="font-size:22px;font-weight:900;color:var(--gold);line-height:1">1.126</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">Novos seguidores</div>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center">
+        <div style="font-size:22px;font-weight:900;color:var(--gold);line-height:1">1.936</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">Curtidas</div>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center">
+        <div style="font-size:22px;font-weight:900;color:var(--gold);line-height:1">160</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">Compartilhamentos</div>
       </div>
     </div>
-    <div style="text-align:center;margin-top:20px;background:rgba(245,197,24,.08);border-radius:8px;padding:14px">
-      <div style="font-size:22px;font-weight:900;color:var(--gold)">+12.900 empresas</div>
-      <div style="font-size:13px;color:rgba(255,255,255,.7);margin-top:4px">nas 4 cidades do Sul do ES · Fonte: Receita Federal / EmpresAqui 2025</div>
-      <div style="font-size:12px;color:var(--muted);margin-top:4px">A maioria nunca foi abordada por ninguém com uma solução como essa</div>
-    </div>
-  </div>
-  <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:-8px;margin-bottom:24px">* Fonte: Receita Federal · julho de 2025 · crescimento de 47,4% em relação ao ano anterior</p>
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:48px">
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:20px">
-      <div style="font-size:30px;margin-bottom:8px">👨‍🏫</div>
-      <div style="font-size:14px;font-weight:900;margin-bottom:4px">Professor</div>
-      <div style="font-size:12px;color:var(--muted);line-height:1.6">Você conhece pais, diretores, donos de comércio. Uma conversa na saída da escola já pode fechar um cliente.</div>
-    </div>
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:20px">
-      <div style="font-size:30px;margin-bottom:8px">🏠</div>
-      <div style="font-size:14px;font-weight:900;margin-bottom:4px">Corretor de imóveis</div>
-      <div style="font-size:12px;color:var(--muted);line-height:1.6">Já visita imobiliárias, construtoras e empresas todo dia. É só acrescentar uma conversa de 5 minutos.</div>
-    </div>
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:20px">
-      <div style="font-size:30px;margin-bottom:8px">🎙️</div>
-      <div style="font-size:14px;font-weight:900;margin-bottom:4px">Locutor / comunicador</div>
-      <div style="font-size:12px;color:var(--muted);line-height:1.6">Fala com anunciante toda semana. Já tem a confiança do comerciante. É a venda mais fácil de todas.</div>
-    </div>
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:20px">
-      <div style="font-size:30px;margin-bottom:8px">💼</div>
-      <div style="font-size:14px;font-weight:900;margin-bottom:4px">Vendedor autônomo</div>
-      <div style="font-size:12px;color:var(--muted);line-height:1.6">Já vende plano de saúde, energia solar ou seguro? Adiciona mais um produto na carteira — sem conflito.</div>
-    </div>
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:20px">
-      <div style="font-size:30px;margin-bottom:8px">🛍️</div>
-      <div style="font-size:14px;font-weight:900;margin-bottom:4px">Comerciante</div>
-      <div style="font-size:12px;color:var(--muted);line-height:1.6">Você já está no guia? Indica o vizinho da loja ao lado e ganha comissão. Seu conhecimento da rua vale dinheiro.</div>
-    </div>
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:20px">
-      <div style="font-size:30px;margin-bottom:8px">📱</div>
-      <div style="font-size:14px;font-weight:900;margin-bottom:4px">Qualquer pessoa</div>
-      <div style="font-size:12px;color:var(--muted);line-height:1.6">Se você conhece donos de negócio em Marataízes, Itapemirim, Piúma ou Presidente Kennedy — você já pode começar agora.</div>
+    <div style="background:rgba(245,197,24,.06);border:1px solid rgba(245,197,24,.2);border-radius:10px;padding:14px 18px;margin-top:16px;font-size:13px;color:#c8d8e8;line-height:1.7;text-align:center">
+      💡 <strong style="color:#fff">Use esses números na abordagem:</strong> <em style="color:var(--gold)">"A última campanha da TV Marataízes alcançou 69.932 pessoas e gerou 3.282 cliques. Quanto o seu panfleto gerou?"</em>
     </div>
   </div>
 </section>
 
-<!-- COMO VENDER NA PRÁTICA -->
-<section style="background:var(--card2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:48px 20px;margin-bottom:0">
-  <div style="max-width:860px;margin:0 auto">
-    <div class="sec-label" style="text-align:center">Na prática</div>
-    <h2 class="sec-title" style="text-align:center">Como você <em>vende de verdade</em></h2>
-    <p class="sec-sub" style="text-align:center">Não tem script complicado. Não tem apresentação. Tem uma conversa e um celular.</p>
+<!-- ESCADA DE VALOR -->
+<section class="sec">
+  <div class="sec-label">Por onde começar</div>
+  <h2 class="sec-title">Escolha o seu <em>primeiro passo</em></h2>
+  <p class="sec-sub">Comece pelo que você conhece. Se tem amigo dono de restaurante, começa pelo Guia. Se conhece uma construtora ou escola, vai direto para a TV.</p>
 
-    <div style="display:flex;flex-direction:column;gap:16px;max-width:680px;margin:0 auto">
+  <div class="escada">
 
-      <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:24px">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
-          <div style="background:var(--navy);color:#fff;font-size:12px;font-weight:900;padding:4px 12px;border-radius:20px">EXEMPLO 1</div>
-          <div style="font-size:13px;font-weight:800;color:var(--gold)">Para o dono do restaurante — Plano R$99</div>
-        </div>
-        <div style="font-size:13px;color:#c8d8e8;line-height:1.8">
-          Você chega no restaurante, abre o celular e mostra a página do Cia do Peixe em <strong style="color:#fff">tvmarataizes.digital/ciadopeixe</strong>.<br><br>
-          Fala: <em style="color:var(--gold)">"Olha como ficou a página deles. Tem foto, vídeo, cardápio, botão pra chamar no WhatsApp — e aparece no Google quando alguém pesquisa restaurante em Marataízes, Itapemirim, Piúma ou Presidente Kennedy. Você quer uma igual? São R$99 por mês."</em><br><br>
-          Ele viu o produto funcionando. Não tem como dizer que não sabe o que está comprando.
+    <!-- DEGRAU 1 — GUIA -->
+    <div class="degrau d1">
+      <div class="degrau-header">
+        <div class="degrau-num">1</div>
+        <div class="degrau-info">
+          <div class="degrau-title">🗺️ Guia Digital — comece aqui</div>
+          <div class="degrau-sub">Fácil de explicar · fácil de fechar · qualquer negócio local</div>
         </div>
       </div>
+      <div class="degrau-body">
 
-      <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:24px">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
-          <div style="background:var(--navy);color:#fff;font-size:12px;font-weight:900;padding:4px 12px;border-radius:20px">EXEMPLO 2</div>
-          <div style="font-size:13px;font-weight:800;color:var(--gold)">Para a clínica ou dentista — Plano TV R$1.490</div>
+        <!-- Planos do guia -->
+        <div class="planos-grid">
+          <div class="plano-card">
+            <div class="plano-ico">🗺️</div>
+            <div class="plano-nome">Card no Guia</div>
+            <div class="plano-preco">R$49<span style="font-size:13px;font-weight:400;color:var(--muted)">/mês</span></div>
+            <div class="plano-comissao">Você ganha R$14,70 + R$4,90/mês</div>
+            <ul class="plano-features">
+              <li>Card no portal tvmarataizes.digital</li>
+              <li>Aparece no Google</li>
+              <li>Sem contrato</li>
+            </ul>
+          </div>
+          <div class="plano-card destaque">
+            <div class="plano-ico">📄</div>
+            <div class="plano-nome">Página Exclusiva ⭐</div>
+            <div class="plano-preco">R$99<span style="font-size:13px;font-weight:400;color:var(--muted)">/mês</span></div>
+            <div class="plano-comissao">Você ganha R$29,70 + R$9,90/mês</div>
+            <ul class="plano-features">
+              <li>Página própria com URL exclusiva</li>
+              <li>Vídeo incorporado</li>
+              <li>Fotos, horários, WhatsApp</li>
+              <li>Aparece no Google</li>
+            </ul>
+          </div>
+          <div class="plano-card">
+            <div class="plano-ico">📺</div>
+            <div class="plano-nome">Guia + Aparição na TV</div>
+            <div class="plano-preco">R$249<span style="font-size:13px;font-weight:400;color:var(--muted)">/mês</span></div>
+            <div class="plano-comissao">Você ganha R$74,70 + R$24,90/mês</div>
+            <ul class="plano-features">
+              <li>Tudo da Página Exclusiva +</li>
+              <li>2 stories/semana na TV</li>
+              <li>Alcance 5.000+ pessoas/mês</li>
+            </ul>
+          </div>
         </div>
-        <div style="font-size:13px;color:#c8d8e8;line-height:1.8">
-          Você chega na clínica e fala: <em style="color:var(--gold)">"A TV Marataízes tem 170 mil visualizações por mês — cobre Marataízes, Itapemirim, Piúma e Presidente Kennedy. Está no Canal 300 da Soul TV, ao lado da CNN Brasil. Um anúncio de 30 segundos na programação custa R$1.490 por mês. Quanto você gasta hoje em panfleto ou impulsionamento sem saber se alguém viu?"</em><br><br>
-          Ele não tem resposta para isso. Ninguém sabe o retorno do panfleto. Da TV, você mostra o relatório.
+
+        <!-- Kit do parceiro -->
+        <p style="font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">📱 Mostra isso no celular na hora da abordagem:</p>
+        <div class="kit-grid">
+          <a href="https://tvmarataizes.digital/ciadopeixe" target="_blank" rel="noopener" class="kit-card">
+            <div style="font-size:20px;margin-bottom:6px">🐟</div>
+            <div style="font-size:12px;font-weight:900;color:#fff;margin-bottom:3px">Cia do Peixe</div>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Exemplo para restaurante</div>
+            <div style="font-size:10px;color:#48cae4">tvmarataizes.digital/ciadopeixe →</div>
+          </a>
+          <a href="https://tvmarataizes.digital/cone" target="_blank" rel="noopener" class="kit-card">
+            <div style="font-size:20px;margin-bottom:6px">🍦</div>
+            <div style="font-size:12px;font-weight:900;color:#fff;margin-bottom:3px">Amor dentro do Cone</div>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Exemplo para loja/delivery</div>
+            <div style="font-size:10px;color:#f5a623">tvmarataizes.digital/cone →</div>
+          </a>
+          <a href="https://tvmarataizes.digital/penafama" target="_blank" rel="noopener" class="kit-card">
+            <div style="font-size:20px;margin-bottom:6px">👟</div>
+            <div style="font-size:12px;font-weight:900;color:#fff;margin-bottom:3px">Pé na Fama</div>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Exemplo para loja de moda</div>
+            <div style="font-size:10px;color:#ff7777">tvmarataizes.digital/penafama →</div>
+          </a>
+        </div>
+        <p style="font-size:11px;color:var(--muted);margin-top:8px">💡 Salva os 3 nos favoritos do celular antes de sair para prospectar</p>
+      </div>
+    </div>
+
+    <!-- SETA -->
+    <div style="text-align:center;padding:8px 0;font-size:22px;color:var(--muted)">↓ se você conhece empresas maiores, vai direto aqui ↓</div>
+
+    <!-- DEGRAU 2 — TV -->
+    <div class="degrau d2">
+      <div class="degrau-header">
+        <div class="degrau-num" style="color:#7ab0ff;background:rgba(0,55,129,.3)">2</div>
+        <div class="degrau-info">
+          <div class="degrau-title" style="color:#7ab0ff">📺 Planos de TV — comissão maior</div>
+          <div class="degrau-sub">Para clínicas, construtoras, escolas, supermercados, imobiliárias</div>
         </div>
       </div>
-
-      <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:24px">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
-          <div style="background:rgba(37,211,102,.15);color:var(--green);font-size:12px;font-weight:900;padding:4px 12px;border-radius:20px">DICA DE OURO</div>
-          <div style="font-size:13px;font-weight:800;color:var(--gold)">O que fazer quando o cliente diz "vou pensar"</div>
+      <div class="degrau-body">
+        <div style="overflow-x:auto">
+          <table class="tv-table">
+            <thead>
+              <tr>
+                <th>Plano</th>
+                <th>Valor/mês</th>
+                <th>Sua comissão (1º mês)</th>
+                <th>Recorrente/mês</th>
+                <th>Para quem vender</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>🌱 Essencial</td>
+                <td class="gold">R$1.490</td>
+                <td class="green">R$447</td>
+                <td class="green">R$149</td>
+                <td>MEI, lojista, profissional liberal</td>
+              </tr>
+              <tr>
+                <td>⭐ Destaque</td>
+                <td class="gold">R$2.800</td>
+                <td class="green">R$840</td>
+                <td class="green">R$280</td>
+                <td>Clínicas, comércio estabelecido, salões</td>
+              </tr>
+              <tr>
+                <td>🏆 Topo</td>
+                <td class="gold">R$4.500</td>
+                <td class="green">R$1.350</td>
+                <td class="green">R$450</td>
+                <td>Escolas, imobiliárias, planos de saúde</td>
+              </tr>
+              <tr style="background:rgba(200,150,12,.06)">
+                <td>💎 Exclusividade</td>
+                <td class="gold">R$6.500</td>
+                <td class="green">R$1.950</td>
+                <td class="green">R$650</td>
+                <td>Supermercados, construtoras, funerárias</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div style="font-size:13px;color:#c8d8e8;line-height:1.8">
-          Fala: <em style="color:var(--gold)">"Tudo bem. Só te aviso que são no máximo 5 empresas por segmento no guia. Já tem uma concorrente sua me ligando esta semana."</em><br><br>
-          Você não está mentindo — as vagas são realmente limitadas por segmento. E nenhum empresário quer ver o concorrente aparecer primeiro.
+        <div style="background:rgba(0,55,129,.15);border:1px solid rgba(0,55,129,.3);border-radius:8px;padding:14px;font-size:13px;color:#c8d8e8;line-height:1.7">
+          💡 <strong style="color:#fff">Dica:</strong> Se você conhece o dono de uma construtora, escola ou supermercado — vá direto para a TV. Um único cliente no Plano Topo (R$4.500) vale mais de 45 clientes no Card do Guia (R$49). A conversa é diferente, mas a comissão compensa.
         </div>
       </div>
+    </div>
 
-    </div>
-  </div>
-</section>
-
-<!-- REGRAS CLARAS -->
-<section style="max-width:860px;margin:0 auto;padding:48px 20px">
-  <div class="sec-label" style="text-align:center">Regras</div>
-  <h2 class="sec-title" style="text-align:center">Sem letra <em>miúda</em></h2>
-  <p class="sec-sub" style="text-align:center">Tudo simples, tudo combinado antes de começar.</p>
-
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px">
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:22px">
-      <div style="font-size:28px;margin-bottom:10px">💰</div>
-      <div style="font-size:14px;font-weight:900;color:var(--gold);margin-bottom:6px">Comissão</div>
-      <div style="font-size:13px;color:var(--muted);line-height:1.7"><strong style="color:#fff">30%</strong> do primeiro mês na hora que o cliente pagar.<br><strong style="color:#fff">10%</strong> recorrente todo mês enquanto o cliente ficar.</div>
-    </div>
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:22px">
-      <div style="font-size:28px;margin-bottom:10px">📅</div>
-      <div style="font-size:14px;font-weight:900;color:var(--gold);margin-bottom:6px">Pagamento</div>
-      <div style="font-size:13px;color:var(--muted);line-height:1.7">Via Pix até o dia <strong style="color:#fff">10 de cada mês</strong>. Você recebe um extrato com todos os clientes ativos e os valores correspondentes.</div>
-    </div>
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:22px">
-      <div style="font-size:28px;margin-bottom:10px">🤝</div>
-      <div style="font-size:14px;font-weight:900;color:var(--gold);margin-bottom:6px">Sem contrato complicado</div>
-      <div style="font-size:13px;color:var(--muted);line-height:1.7">Um acordo simples por WhatsApp. Sem exclusividade, sem meta mínima, sem multa. Você para quando quiser.</div>
-    </div>
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:22px">
-      <div style="font-size:28px;margin-bottom:10px">🛠️</div>
-      <div style="font-size:14px;font-weight:900;color:var(--gold);margin-bottom:6px">A TV faz tudo</div>
-      <div style="font-size:13px;color:var(--muted);line-height:1.7">Você fecha o cliente e manda os dados. A gente cria a página, publica, faz o suporte. <strong style="color:#fff">Você não precisa entender de tecnologia.</strong></div>
-    </div>
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:22px">
-      <div style="font-size:28px;margin-bottom:10px">📲</div>
-      <div style="font-size:14px;font-weight:900;color:var(--gold);margin-bottom:6px">Como fechar</div>
-      <div style="font-size:13px;color:var(--muted);line-height:1.7">Manda mensagem no WhatsApp da TV com nome e telefone do cliente. A gente confirma, envia o link de pagamento e avisa você quando pagar.</div>
-    </div>
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:22px">
-      <div style="font-size:28px;margin-bottom:10px">🚫</div>
-      <div style="font-size:14px;font-weight:900;color:var(--gold);margin-bottom:6px">O que não pode</div>
-      <div style="font-size:13px;color:var(--muted);line-height:1.7">Não pode cobrar valor diferente do tabelado. Não pode prometer o que não está no plano. Não pode receber pagamento direto do cliente.</div>
-    </div>
   </div>
 </section>
 
 <!-- CALCULADORA -->
-<section class="calc-sec">
-  <div class="sec-label">Simulador de ganhos</div>
-  <h2 class="sec-title">Quanto você pode <em>ganhar?</em></h2>
-  <p class="sec-sub">Escolha o plano que vai vender e quantos clientes quer fechar. A conta é simples.</p>
+<section style="background:var(--card2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:56px 20px">
+  <div style="max-width:860px;margin:0 auto">
+    <div class="sec-label">Simulador</div>
+    <h2 class="sec-title">Quanto você vai <em>ganhar?</em></h2>
+    <p class="sec-sub">Escolha o plano e arraste para o número de clientes. A conta aparece na hora.</p>
 
-  <!-- Seletor de plano -->
-  <!-- INSTRUÇÕES -->
-  <div style="background:rgba(245,197,24,.06);border:1px solid rgba(245,197,24,.2);border-radius:12px;padding:20px 24px;margin-bottom:24px">
-    <div style="font-size:12px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px">📖 Como usar esta calculadora</div>
-    <div style="display:flex;flex-direction:column;gap:10px">
-      <div style="display:flex;gap:12px;align-items:flex-start">
-        <div style="background:var(--navy);color:#fff;font-size:11px;font-weight:900;padding:3px 9px;border-radius:20px;flex-shrink:0;margin-top:2px">1</div>
-        <div style="font-size:13px;color:#c8d8e8;line-height:1.5">Clique no plano que você quer vender — por exemplo <strong style="color:var(--gold)">Página Exclusiva R$99</strong> para o dono do restaurante, ou <strong style="color:var(--gold)">TV Essencial R$1.490</strong> para a clínica.</div>
+    <p style="font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px">Selecione o plano:</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:24px" id="planos-grid">
+      <div onclick="sel(49,this)" class="plano-btn" style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;cursor:pointer;transition:all .15s">
+        <div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:4px">Card Guia</div>
+        <div style="font-size:16px;font-weight:900;color:var(--gold)">R$49</div>
       </div>
-      <div style="display:flex;gap:12px;align-items:flex-start">
-        <div style="background:var(--navy);color:#fff;font-size:11px;font-weight:900;padding:3px 9px;border-radius:20px;flex-shrink:0;margin-top:2px">2</div>
-        <div style="font-size:13px;color:#c8d8e8;line-height:1.5">Arraste o slider para o número de clientes que você acha que consegue fechar — comece com <strong style="color:var(--gold)">5 ou 10</strong>, seja realista.</div>
+      <div onclick="sel(99,this)" class="plano-btn ativo" style="background:rgba(200,150,12,.1);border:1px solid var(--gold);border-radius:8px;padding:12px;text-align:center;cursor:pointer;transition:all .15s">
+        <div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:4px">Pág. Exclusiva</div>
+        <div style="font-size:16px;font-weight:900;color:var(--gold)">R$99</div>
       </div>
-      <div style="display:flex;gap:12px;align-items:flex-start">
-        <div style="background:var(--navy);color:#fff;font-size:11px;font-weight:900;padding:3px 9px;border-radius:20px;flex-shrink:0;margin-top:2px">3</div>
-        <div style="font-size:13px;color:#c8d8e8;line-height:1.5">Veja quanto você recebe <strong style="color:var(--gold)">no primeiro mês</strong> (30% de comissão) e quanto entra <strong style="color:var(--gold)">todo mês seguinte</strong> automaticamente (10% recorrente).</div>
+      <div onclick="sel(249,this)" class="plano-btn" style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;cursor:pointer;transition:all .15s">
+        <div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:4px">Guia + TV</div>
+        <div style="font-size:16px;font-weight:900;color:var(--gold)">R$249</div>
       </div>
-      <div style="display:flex;gap:12px;align-items:flex-start">
-        <div style="background:rgba(37,211,102,.15);color:var(--green);font-size:11px;font-weight:900;padding:3px 9px;border-radius:20px;flex-shrink:0;margin-top:2px">💡</div>
-        <div style="font-size:13px;color:#c8d8e8;line-height:1.5">Tente misturar: fecha <strong style="color:var(--gold)">5 clientes de R$99</strong> no guia e <strong style="color:var(--gold)">2 clientes de R$1.490</strong> na TV — a recorrência dos dois somada é o que vai surpreender você.</div>
+      <div onclick="sel(1490,this)" class="plano-btn" style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;cursor:pointer;transition:all .15s">
+        <div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:4px">TV Essencial</div>
+        <div style="font-size:16px;font-weight:900;color:var(--gold)">R$1.490</div>
+      </div>
+      <div onclick="sel(2800,this)" class="plano-btn" style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;cursor:pointer;transition:all .15s">
+        <div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:4px">TV Destaque</div>
+        <div style="font-size:16px;font-weight:900;color:var(--gold)">R$2.800</div>
+      </div>
+      <div onclick="sel(4500,this)" class="plano-btn" style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;cursor:pointer;transition:all .15s">
+        <div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:4px">TV Topo</div>
+        <div style="font-size:16px;font-weight:900;color:var(--gold)">R$4.500</div>
+      </div>
+      <div onclick="sel(6500,this)" class="plano-btn" style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;cursor:pointer;transition:all .15s">
+        <div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:4px">Exclusividade</div>
+        <div style="font-size:16px;font-weight:900;color:var(--gold)">R$6.500</div>
       </div>
     </div>
-  </div>
 
-  <p style="font-size:13px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px">1. Escolha o plano que vai vender:</p>
-  <div class="planos-grid" id="planos-grid">
-    <div class="plano" onclick="selecionarPlano(49,30,this)" data-valor="49">
-      <div class="plano-ico">🗺️</div>
-      <div class="plano-nome">Card no Guia</div>
-      <div class="plano-valor">R$49/mês</div>
-      <div class="plano-comissao">Você ganha R$14,70/cliente</div>
+    <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <span style="font-size:14px;font-weight:800">Quantos clientes você quer fechar?</span>
+        <span id="slider-val" style="font-size:20px;font-weight:900;color:var(--gold)">10 clientes</span>
+      </div>
+      <input type="range" min="1" max="50" value="10" id="slider" oninput="calc()" style="width:100%;-webkit-appearance:none;height:6px;border-radius:3px;background:var(--border);outline:none">
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:6px"><span>1</span><span>10</span><span>25</span><span>50</span></div>
     </div>
-    <div class="plano ativo" onclick="selecionarPlano(99,30,this)" data-valor="99">
-      <div class="plano-ico">📄</div>
-      <div class="plano-nome">Página Exclusiva</div>
-      <div class="plano-valor">R$99/mês</div>
-      <div class="plano-comissao">Você ganha R$29,70/cliente</div>
-    </div>
-    <div class="plano" onclick="selecionarPlano(249,30,this)" data-valor="249">
-      <div class="plano-ico">📺</div>
-      <div class="plano-nome">Guia + TV</div>
-      <div class="plano-valor">R$249/mês</div>
-      <div class="plano-comissao">Você ganha R$74,70/cliente</div>
-    </div>
-    <div class="plano" onclick="selecionarPlano(1490,30,this)" data-valor="1490">
-      <div class="plano-ico">🌱</div>
-      <div class="plano-nome">TV Essencial</div>
-      <div class="plano-valor">R$1.490/mês</div>
-      <div class="plano-comissao">Você ganha R$447/cliente</div>
-    </div>
-    <div class="plano" onclick="selecionarPlano(2800,30,this)" data-valor="2800">
-      <div class="plano-ico">⭐</div>
-      <div class="plano-nome">TV Destaque</div>
-      <div class="plano-valor">R$2.800/mês</div>
-      <div class="plano-comissao">Você ganha R$840/cliente</div>
-    </div>
-    <div class="plano" onclick="selecionarPlano(4500,30,this)" data-valor="4500">
-      <div class="plano-ico">🏆</div>
-      <div class="plano-nome">TV Topo</div>
-      <div class="plano-valor">R$4.500/mês</div>
-      <div class="plano-comissao">Você ganha R$1.350/cliente</div>
-    </div>
-    <div class="plano" onclick="selecionarPlano(6500,30,this)" data-valor="6500">
-      <div class="plano-ico">💎</div>
-      <div class="plano-nome">TV Exclusividade</div>
-      <div class="plano-valor">R$6.500/mês</div>
-      <div class="plano-comissao">Você ganha R$1.950/cliente</div>
-    </div>
-  </div>
 
-  <!-- Slider de clientes -->
-  <div class="slider-wrap">
-    <div class="slider-label">
-      <span class="slider-title">2. Quantos clientes você quer fechar?</span>
-      <span class="slider-val" id="slider-display">10 clientes</span>
-    </div>
-    <input type="range" min="1" max="50" value="10" id="slider-clientes" oninput="calcular()">
-    <div class="slider-hints"><span>1</span><span>10</span><span>25</span><span>50</span></div>
-  </div>
-
-  <!-- Resultado -->
-  <div class="resultado">
-    <div class="res-title">Seu resultado estimado</div>
-    <div class="res-grid">
-      <div class="res-item">
-        <div class="res-num" id="res-primeiro-mes">R$297</div>
-        <div class="res-desc">No primeiro mês<br>(comissão 30%)</div>
+    <div style="background:linear-gradient(135deg,#001530,#003272);border-radius:12px;padding:28px">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px">
+        <div style="text-align:center;background:rgba(255,255,255,.05);border-radius:8px;padding:14px">
+          <div id="r1" style="font-size:clamp(18px,3vw,28px);font-weight:900;color:var(--gold)">R$297</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">1º mês (30%)</div>
+        </div>
+        <div style="text-align:center;background:rgba(255,255,255,.05);border-radius:8px;padding:14px">
+          <div id="r2" style="font-size:clamp(18px,3vw,28px);font-weight:900;color:var(--green)">R$99/mês</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">Recorrente (10%)</div>
+        </div>
+        <div style="text-align:center;background:rgba(255,255,255,.05);border-radius:8px;padding:14px">
+          <div id="r3" style="font-size:clamp(18px,3vw,28px);font-weight:900;color:#fff">R$1.386</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">Total em 12 meses</div>
+        </div>
       </div>
-      <div class="res-item">
-        <div class="res-num" id="res-recorrente">R$99</div>
-        <div class="res-desc">Todo mês seguinte<br>(comissão 10%)</div>
+      <div style="background:rgba(37,211,102,.08);border:1px solid rgba(37,211,102,.2);border-radius:8px;padding:16px;text-align:center">
+        <div id="r-total" style="font-size:clamp(24px,4vw,40px);font-weight:900;color:var(--green)">R$1.386</div>
+        <div id="r-desc" style="font-size:13px;color:rgba(255,255,255,.6);margin-top:6px">Com 10 clientes no plano R$99 em 12 meses</div>
       </div>
-      <div class="res-item">
-        <div class="res-num" id="res-12meses">R$1.386</div>
-        <div class="res-desc">Total em 12 meses<br>por esses clientes</div>
-      </div>
-    </div>
-    <div class="res-destaque">
-      <div class="res-destaque-num" id="res-anual">R$1.386</div>
-      <div class="res-destaque-desc">💰 Você recebe esse valor em 12 meses com <span id="res-clientes-txt">10 clientes</span> no plano <span id="res-plano-txt">Página Exclusiva</span> — sem fazer mais nada depois de fechar.</div>
     </div>
   </div>
 </section>
 
-<!-- PROGRESSÃO -->
-<section class="prog-sec">
-  <div class="sec-label">Progressão real</div>
-  <h2 class="sec-title" style="text-align:center">A conta que o <em>tempo faz por você</em></h2>
-  <p class="sec-sub" style="text-align:center">Você fecha clientes uma vez. A recorrência acumula todo mês.</p>
-  <div style="overflow-x:auto">
-    <table class="prog-table" id="prog-table">
-      <thead>
-        <tr>
-          <th>Mês</th>
-          <th>Clientes fechados</th>
-          <th>Comissão do mês</th>
-          <th class="gold">Recorrência acumulada</th>
-          <th>Total recebido</th>
-        </tr>
-      </thead>
-      <tbody id="prog-body"></tbody>
-    </table>
+<!-- QUEM PODE -->
+<section class="sec">
+  <div class="sec-label">Quem pode participar</div>
+  <h2 class="sec-title">Se você conhece alguém em <em>Marataízes</em>, pode começar</h2>
+  <p class="sec-sub">Não precisa entender de tecnologia. Não precisa ter empresa. Só precisa conhecer comerciantes.</p>
+  <div class="perfis-grid">
+    <div class="perfil"><div class="perfil-ico">👨‍🏫</div><div class="perfil-nome">Professor</div><div class="perfil-desc">Conhece pais, diretores e donos de comércio. Uma conversa na saída da escola já pode fechar um cliente.</div></div>
+    <div class="perfil"><div class="perfil-ico">🎙️</div><div class="perfil-nome">Locutor / comunicador</div><div class="perfil-desc">Fala com anunciante toda semana. Já tem a confiança do comerciante. A venda mais fácil de todas.</div></div>
+    <div class="perfil"><div class="perfil-ico">🏠</div><div class="perfil-nome">Corretor de imóveis</div><div class="perfil-desc">Visita imobiliárias e construtoras todo dia. Adiciona uma conversa de 5 minutos e fecha TV Topo.</div></div>
+    <div class="perfil"><div class="perfil-ico">💼</div><div class="perfil-nome">Vendedor autônomo</div><div class="perfil-desc">Já vende plano de saúde, energia solar ou seguro? Adiciona mais um produto na carteira.</div></div>
+    <div class="perfil"><div class="perfil-ico">🛍️</div><div class="perfil-nome">Comerciante</div><div class="perfil-desc">Você já está no guia? Indica o vizinho da loja ao lado e ganha comissão. Seu conhecimento vale dinheiro.</div></div>
+    <div class="perfil"><div class="perfil-ico">📱</div><div class="perfil-nome">Qualquer pessoa</div><div class="perfil-desc">Se você conhece donos de negócio nas 4 cidades do Sul do ES — você já pode começar agora.</div></div>
   </div>
 </section>
 
-<!-- O QUE VOCÊ VENDE -->
-<section class="vende-sec">
-  <div class="sec-label">Produtos</div>
-  <h2 class="sec-title" style="text-align:center">O que você <em>oferece</em></h2>
-  <p class="sec-sub" style="text-align:center">Mostre a página do Cia do Peixe ou do Amor dentro do Cone no celular. O produto se vende sozinho.</p>
-  <div class="vende-grid">
-    <div class="vende-card">
-      <div class="vende-ico">🗺️</div>
-      <div class="vende-nome">Card no Guia</div>
-      <div class="vende-preco">R$49/mês</div>
-      <div class="vende-comissao">Sua comissão: R$14,70 + R$4,90/mês</div>
-      <div class="vende-desc">Para qualquer negócio local. Aparece no portal da TV e no Google. Sem contrato. Argumento: "menos que um impulsionamento no Instagram".</div>
+<!-- MERCADO -->
+<section style="background:linear-gradient(135deg,#001030,#003272);padding:48px 20px">
+  <div style="max-width:860px;margin:0 auto;text-align:center">
+    <div class="sec-label" style="color:rgba(255,255,255,.5)">Mercado disponível</div>
+    <h2 style="font-size:clamp(20px,3vw,32px);font-weight:900;color:#fff;margin-bottom:6px">+12.900 empresas nas <em style="color:var(--gold);font-style:normal">4 cidades</em></h2>
+    <p style="font-size:14px;color:rgba(255,255,255,.6);margin-bottom:24px">A maioria nunca foi abordada por ninguém com uma solução como essa</p>
+    <div class="mercado-grid">
+      <div class="cidade-card"><div class="cidade-ico">🏖️</div><div class="cidade-nome">Marataízes</div><div class="cidade-num">5.095</div><div class="cidade-sub">empresas ativas · +47% em 1 ano</div></div>
+      <div class="cidade-card"><div class="cidade-ico">🏛️</div><div class="cidade-nome">Itapemirim</div><div class="cidade-num">4.576</div><div class="cidade-sub">empresas ativas · dez/2025</div></div>
+      <div class="cidade-card"><div class="cidade-ico">🐚</div><div class="cidade-nome">Piúma</div><div class="cidade-num">~2.000</div><div class="cidade-sub">empresas estimadas</div></div>
+      <div class="cidade-card"><div class="cidade-ico">⚡</div><div class="cidade-nome">Pres. Kennedy</div><div class="cidade-num">1.248</div><div class="cidade-sub">empresas ativas</div></div>
     </div>
-    <div class="vende-card hot">
-      <div class="vende-badge">⭐ Mais fácil de vender</div>
-      <div class="vende-ico">📄</div>
-      <div class="vende-nome">Página Exclusiva</div>
-      <div class="vende-preco">R$99/mês</div>
-      <div class="vende-comissao">Sua comissão: R$29,70 + R$9,90/mês</div>
-      <div class="vende-desc">Mostra a página do Cia do Peixe no celular. O dono vê vídeo, fotos, botão de WhatsApp — e quer igual. Argumento: "agência cobra R$500 sem audiência".</div>
-    </div>
-    <div class="vende-card">
-      <div class="vende-ico">🌱</div>
-      <div class="vende-nome">TV Essencial</div>
-      <div class="vende-preco">R$1.490/mês</div>
-      <div class="vende-comissao">Sua comissão: R$447 + R$149/mês</div>
-      <div class="vende-desc">Para MEI, lojistas e profissionais liberais. 3 stories/semana + 1 inserção na programação por semana. Sem taxa de produção.</div>
-    </div>
-    <div class="vende-card">
-      <div class="vende-ico">⭐</div>
-      <div class="vende-nome">TV Destaque</div>
-      <div class="vende-preco">R$2.800/mês</div>
-      <div class="vende-comissao">Sua comissão: R$840 + R$280/mês</div>
-      <div class="vende-desc">Para comércio, clínicas e salões. 5 stories/semana + campanha impulsionada inclusa + menção ao vivo 1x/mês.</div>
-    </div>
-    <div class="vende-card">
-      <div class="vende-ico">🏆</div>
-      <div class="vende-nome">TV Topo</div>
-      <div class="vende-preco">R$4.500/mês</div>
-      <div class="vende-comissao">Sua comissão: R$1.350 + R$450/mês</div>
-      <div class="vende-desc">Para escolas, imobiliárias e planos de saúde. 7 stories/semana + 3 inserções semanais em horário nobre + consultoria estratégica.</div>
-    </div>
-    <div class="vende-card hot">
-      <div class="vende-badge">💎 Maior comissão</div>
-      <div class="vende-ico">💎</div>
-      <div class="vende-nome">TV Exclusividade</div>
-      <div class="vende-preco">R$6.500/mês</div>
-      <div class="vende-comissao">Sua comissão: R$1.950 + R$650/mês</div>
-      <div class="vende-desc">Exclusividade total no segmento. Vinheta em todos os blocos + vídeo institucional mensal + priority account. Um cliente = R$1.950 na hora.</div>
-    </div>
+    <p style="font-size:12px;color:rgba(255,255,255,.3);margin-top:16px">Fonte: Receita Federal / EmpresAqui 2025</p>
   </div>
 </section>
 
 <!-- COMO FUNCIONA -->
-<section class="como-sec">
-  <div class="como-inner">
-    <div class="sec-label" style="text-align:center">Como funciona</div>
-    <h2 class="sec-title" style="text-align:center">Simples. Sem <em>burocracia.</em></h2>
-    <div class="steps">
-      <div class="step">
-        <div class="step-n">01</div>
-        <div class="step-t">Você aborda</div>
-        <div class="step-d">Chega no comerciante, abre o celular, mostra a página do Cia do Peixe ou da Pé na Fama. Deixa o produto falar.</div>
-      </div>
-      <div class="step">
-        <div class="step-n">02</div>
-        <div class="step-t">Cliente topa</div>
-        <div class="step-d">Manda o nome, telefone e WhatsApp do cliente para a TV Marataízes. A gente cuida de tudo — página, publicação, suporte.</div>
-      </div>
-      <div class="step">
-        <div class="step-n">03</div>
-        <div class="step-t">Publicamos em 24h</div>
-        <div class="step-d">O cliente já aparece no portal e no Google. Você não precisa fazer mais nada — só receber.</div>
-      </div>
-      <div class="step">
-        <div class="step-n">04</div>
-        <div class="step-t">Você recebe</div>
-        <div class="step-d">30% do primeiro mês na hora. 10% de recorrência todo mês enquanto o cliente ficar. Sem teto, sem limite de clientes.</div>
-      </div>
+<section class="sec" id="como">
+  <div class="sec-label">Processo</div>
+  <h2 class="sec-title">Como funciona na <em>prática</em></h2>
+  <p class="sec-sub">Quatro passos. Sem burocracia.</p>
+  <div class="steps-grid">
+    <div class="step"><div class="step-n">01</div><div class="step-t">Você aborda</div><div class="step-d">Chega no comerciante, abre o celular, mostra a página do Cia do Peixe ou da Pé na Fama. O produto fala por si.</div></div>
+    <div class="step"><div class="step-n">02</div><div class="step-t">Registra a indicação</div><div class="step-d">Manda o nome e telefone do cliente no WhatsApp da TV antes de fechar. Isso garante que a comissão fica no seu nome.</div></div>
+    <div class="step"><div class="step-n">03</div><div class="step-t">A TV cuida de tudo</div><div class="step-d">A gente contata o cliente, cria a página, publica no guia, faz o suporte. Você não precisa entender de tecnologia.</div></div>
+    <div class="step"><div class="step-n">04</div><div class="step-t">Você recebe</div><div class="step-d">30% do primeiro mês via Pix até o dia 10. 10% recorrente todo mês enquanto o cliente ficar. Sem teto.</div></div>
+  </div>
+</section>
+
+<!-- EXEMPLOS PRÁTICOS -->
+<section style="background:var(--card2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:56px 20px">
+  <div style="max-width:720px;margin:0 auto">
+    <div class="sec-label" style="text-align:center">Na prática</div>
+    <h2 class="sec-title" style="text-align:center">O que falar na <em>hora H</em></h2>
+
+    <div class="exemplo">
+      <div class="exemplo-badge" style="background:rgba(37,211,102,.15);color:var(--green)">Exemplo 1 · Restaurante · Plano R$99</div>
+      <div class="exemplo-txt">Você chega no restaurante, abre o celular e mostra <strong style="color:#fff">tvmarataizes.digital/ciadopeixe</strong>. Fala: <em>"Olha como ficou a página deles. Tem vídeo, fotos, cardápio e botão para chamar no WhatsApp — e aparece no Google quando alguém pesquisa restaurante em Marataízes. Quer uma igual? R$99 por mês, sem contrato."</em> Ele viu o produto funcionando. Não tem como dizer que não sabe o que está comprando.</div>
     </div>
+
+    <div class="exemplo">
+      <div class="exemplo-badge" style="background:rgba(0,55,129,.2);color:#7ab0ff">Exemplo 2 · Construtora · TV Topo R$4.500</div>
+      <div class="exemplo-txt">Você chega na construtora e fala: <em>"A TV Marataízes tem 170 mil visualizações por mês no Sul do ES. Canal 300 da Soul TV, ao lado da CNN Brasil. Um anúncio na programação custa R$4.500 por mês. Quanto vocês gastam hoje em panfleto ou outdoor sem saber se alguém viu?"</em> Eles não têm resposta. Da TV, você mostra o relatório mensal com números reais.</div>
+    </div>
+
+    <div class="exemplo">
+      <div class="exemplo-badge" style="background:rgba(232,0,10,.1);color:#ff7777">Dica · Quando o cliente diz "vou pensar"</div>
+      <div class="exemplo-txt">Fala: <em>"Tudo bem. Só te aviso que o guia é livre — mas os planos de TV têm vagas limitadas por segmento. Já tem uma empresa do seu ramo me ligando essa semana."</em> Você não está mentindo — as vagas de TV são reais. E nenhum empresário quer ver o concorrente aparecer primeiro.</div>
+    </div>
+  </div>
+</section>
+
+<!-- REGRAS -->
+<section class="sec">
+  <div class="sec-label">Regras</div>
+  <h2 class="sec-title">Sem letra <em>miúda</em></h2>
+  <div class="regras-grid">
+    <div class="regra"><div class="regra-ico">💰</div><div class="regra-title">Comissão</div><div class="regra-desc"><strong style="color:#fff">30%</strong> do primeiro mês quando o cliente pagar.<br><strong style="color:#fff">10%</strong> recorrente todo mês enquanto ficar.</div></div>
+    <div class="regra"><div class="regra-ico">📅</div><div class="regra-title">Pagamento</div><div class="regra-desc">Via Pix até o dia <strong style="color:#fff">10 de cada mês</strong>. Você recebe extrato com todos os clientes ativos.</div></div>
+    <div class="regra"><div class="regra-ico">🤝</div><div class="regra-title">Sem contrato</div><div class="regra-desc">Acordo simples por WhatsApp. Sem meta mínima, sem multa. Para quando quiser.</div></div>
+    <div class="regra"><div class="regra-ico">🛠️</div><div class="regra-title">A TV faz tudo</div><div class="regra-desc">Você indica e manda os dados. A gente cria, publica e cuida do suporte. Você não precisa entender de tecnologia.</div></div>
+    <div class="regra"><div class="regra-ico">📲</div><div class="regra-title">Como registrar</div><div class="regra-desc">Manda o nome e telefone do cliente no WhatsApp <strong style="color:#fff">antes</strong> de ele fechar. Isso garante sua comissão.</div></div>
+    <div class="regra"><div class="regra-ico">🚫</div><div class="regra-title">O que não pode</div><div class="regra-desc">Não recebe pagamento direto do cliente. Não promete o que não está no plano. Não cobra valor diferente do tabelado.</div></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background:var(--card2);border-top:1px solid var(--border);padding:56px 20px">
+  <div style="max-width:720px;margin:0 auto">
+    <div class="sec-label" style="text-align:center">Dúvidas</div>
+    <h2 class="sec-title" style="text-align:center">Perguntas que você vai <em>fazer</em></h2>
+
+    <div class="faq-item"><div class="faq-q">Se o cliente cancelar, perco o que já recebi?</div><div class="faq-a">Não. O que já entrou é seu. A recorrência para no mês seguinte ao cancelamento, mas nenhum valor anterior é estornado.</div></div>
+    <div class="faq-item"><div class="faq-q">Precisa de CNPJ ou MEI?</div><div class="faq-a">Não. Você recebe como pessoa física via Pix normalmente. MEI só faz sentido quando o volume ficar grande e você quiser emitir nota.</div></div>
+    <div class="faq-item"><div class="faq-q">Se o cliente subir de plano, minha comissão sobe?</div><div class="faq-a">Sim. O 10% recorrente é sempre sobre o valor atual. Se ele sai do R$49 para o R$99, sua recorrência dobra automaticamente.</div></div>
+    <div class="faq-item"><div class="faq-q">Posso atuar nas 4 cidades ao mesmo tempo?</div><div class="faq-a">Sim. Marataízes, Itapemirim, Piúma e Presidente Kennedy — sem restrição de área. Quanto mais cidades, mais mercado.</div></div>
+    <div class="faq-item"><div class="faq-q">Tem limite de clientes por segmento no guia?</div><div class="faq-a">Não. O guia é livre — pode ter 10 restaurantes, 8 farmácias, quantos quiser. O limite existe só nos planos de TV, que é espaço de mídia real.</div></div>
+    <div class="faq-item"><div class="faq-q">Como começo?</div><div class="faq-a">Manda mensagem no WhatsApp da TV: <strong style="color:#fff">(28) 99903-6141</strong>. A gente registra seu nome em 5 minutos. Sem burocracia.</div></div>
   </div>
 </section>
 
 <!-- CTA FINAL -->
 <section class="cta-final">
   <h2>Pronto para <em>começar?</em></h2>
-  <p>Uma conversa de 5 minutos e você já pode começar a prospectar. Sem contrato, sem custo, sem risco.</p>
-  <a href="https://wa.me/5528999036141?text=Quero+ser+parceiro+comercial+da+TV+Marataízes" target="_blank" rel="noopener" class="btn-cta">
-    💬 Falar com a TV Marataízes
+  <p>Uma mensagem no WhatsApp e você já pode sair prospectando. Sem contrato, sem custo, sem risco.</p>
+  <a href="https://wa.me/5528999036141?text=Quero+ser+parceiro+da+TV+Marataízes" target="_blank" rel="noopener" class="btn-cta">
+    💬 Quero ser parceiro — (28) 99903-6141
   </a>
 </section>
 
 
-<!-- KIT DO PARCEIRO -->
-<section style="background:linear-gradient(135deg,#001030,#003272);padding:48px 20px">
-  <div style="max-width:860px;margin:0 auto">
-    <div class="sec-label" style="text-align:center">Kit do parceiro</div>
-    <h2 class="sec-title" style="text-align:center">O que você usa na <em>hora da venda</em></h2>
-    <p class="sec-sub" style="text-align:center">Abre essas páginas no celular e mostra para o cliente. O produto se vende sozinho.</p>
-
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:16px">
-      <a href="https://tvmarataizes.digital/ciadopeixe" target="_blank" rel="noopener"
-         style="background:rgba(255,255,255,.06);border:1px solid rgba(0,119,182,.4);border-radius:10px;padding:18px;display:block;transition:border-color .15s">
-        <div style="font-size:24px;margin-bottom:8px">🐟</div>
-        <div style="font-size:13px;font-weight:900;color:#fff;margin-bottom:4px">Cia do Peixe</div>
-        <div style="font-size:11px;color:var(--muted);margin-bottom:8px">Exemplo de página para restaurante · Plano R$99/mês</div>
-        <div style="font-size:11px;color:#48cae4;font-weight:700">tvmarataizes.digital/ciadopeixe →</div>
-      </a>
-      <a href="https://tvmarataizes.digital/cone" target="_blank" rel="noopener"
-         style="background:rgba(255,255,255,.06);border:1px solid rgba(200,98,10,.4);border-radius:10px;padding:18px;display:block;transition:border-color .15s">
-        <div style="font-size:24px;margin-bottom:8px">🍦</div>
-        <div style="font-size:13px;font-weight:900;color:#fff;margin-bottom:4px">Amor dentro do Cone</div>
-        <div style="font-size:11px;color:var(--muted);margin-bottom:8px">Exemplo de página para loja/delivery · Plano R$99/mês</div>
-        <div style="font-size:11px;color:#f5a623;font-weight:700">tvmarataizes.digital/cone →</div>
-      </a>
-      <a href="https://tvmarataizes.digital/penafama" target="_blank" rel="noopener"
-         style="background:rgba(255,255,255,.06);border:1px solid rgba(255,60,60,.4);border-radius:10px;padding:18px;display:block;transition:border-color .15s">
-        <div style="font-size:24px;margin-bottom:8px">👟</div>
-        <div style="font-size:13px;font-weight:900;color:#fff;margin-bottom:4px">Pé na Fama</div>
-        <div style="font-size:11px;color:var(--muted);margin-bottom:8px">Exemplo de página para loja de moda · Plano R$99/mês</div>
-        <div style="font-size:11px;color:#ff7777;font-weight:700">tvmarataizes.digital/penafama →</div>
-      </a>
-      <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener"
-         style="background:rgba(255,255,255,.06);border:1px solid rgba(245,197,24,.3);border-radius:10px;padding:18px;display:block;transition:border-color .15s">
-        <div style="font-size:24px;margin-bottom:8px">📋</div>
-        <div style="font-size:13px;font-weight:900;color:#fff;margin-bottom:4px">Página de planos</div>
-        <div style="font-size:11px;color:var(--muted);margin-bottom:8px">Mostra todos os preços e planos ao cliente</div>
-        <div style="font-size:11px;color:var(--gold);font-weight:700">tvmarataizes.digital/anunciar →</div>
-      </a>
-    </div>
-    <p style="text-align:center;font-size:12px;color:var(--muted)">
-      💡 Salva esses links nos favoritos do celular antes de sair para prospectar
-    </p>
-  </div>
-</section>
-
-<!-- FAQ COMPLETO -->
-<section style="max-width:760px;margin:0 auto;padding:56px 20px">
-  <div class="sec-label" style="text-align:center">Dúvidas frequentes</div>
-  <h2 class="sec-title" style="text-align:center">Tudo que você vai <em>perguntar</em></h2>
-  <p class="sec-sub" style="text-align:center">Sem enrolação. Resposta direta para cada dúvida.</p>
-
-  <div style="display:flex;flex-direction:column;gap:2px">
-
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:8px">
-      <div style="font-size:14px;font-weight:800;color:var(--gold);margin-bottom:8px">💰 Se o cliente cancelar, perco as comissões dos meses anteriores?</div>
-      <div style="font-size:13px;color:#c8d8e8;line-height:1.7">Não. O que você já recebeu é seu. A recorrência para quando o cliente cancela, mas nenhum valor pago anteriormente é estornado. Você só para de receber o 10% mensal a partir do mês seguinte ao cancelamento.</div>
-    </div>
-
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:8px">
-      <div style="font-size:14px;font-weight:800;color:var(--gold);margin-bottom:8px">📝 Como eu comprovo que fui eu que trouxe o cliente?</div>
-      <div style="font-size:13px;color:#c8d8e8;line-height:1.7">Você manda o nome e telefone do cliente pelo WhatsApp antes dele fechar. A gente registra a indicação no seu nome. Se o cliente entrar em contato direto com a TV sem você ter indicado antes, não conta. Regra simples: quem indica primeiro, fica com a comissão.</div>
-    </div>
-
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:8px">
-      <div style="font-size:14px;font-weight:800;color:var(--gold);margin-bottom:8px">📅 Como funciona o pagamento na prática?</div>
-      <div style="font-size:13px;color:#c8d8e8;line-height:1.7">O cliente paga via Pix ou boleto para a TV Marataízes. Confirmado o pagamento, sua comissão de 30% cai via Pix até o dia 10 do mês seguinte. A recorrência de 10% entra todo mês junto com o extrato dos seus clientes ativos.</div>
-    </div>
-
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:8px">
-      <div style="font-size:14px;font-weight:800;color:var(--gold);margin-bottom:8px">🏢 Precisa ter CNPJ ou MEI para participar?</div>
-      <div style="font-size:13px;color:#c8d8e8;line-height:1.7">Não é obrigatório para começar. Você pode receber como pessoa física via Pix normalmente. Se quiser emitir nota fiscal, aí sim precisa de MEI ou empresa — mas isso é opcional e só faz sentido quando o volume ficar grande.</div>
-    </div>
-
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:8px">
-      <div style="font-size:14px;font-weight:800;color:var(--gold);margin-bottom:8px">🚫 O cliente pode me pagar direto?</div>
-      <div style="font-size:13px;color:#c8d8e8;line-height:1.7">Não pode. O pagamento é sempre feito diretamente para a TV Marataízes. Você não recebe dinheiro do cliente — você recebe sua comissão da TV. Isso protege você e o cliente.</div>
-    </div>
-
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:8px">
-      <div style="font-size:14px;font-weight:800;color:var(--gold);margin-bottom:8px">📍 Posso atuar nas 4 cidades ao mesmo tempo?</div>
-      <div style="font-size:13px;color:#c8d8e8;line-height:1.7">Sim. Marataízes, Itapemirim, Piúma e Presidente Kennedy — sem restrição de área. Quanto mais cidades você cobrir, mais clientes você pode ter. Não tem exclusividade geográfica.</div>
-    </div>
-
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:8px">
-      <div style="font-size:14px;font-weight:800;color:var(--gold);margin-bottom:8px">📈 Se o cliente subir de plano, minha comissão sobe?</div>
-      <div style="font-size:13px;color:#c8d8e8;line-height:1.7">Sim. Sua recorrência de 10% é sempre sobre o valor que o cliente está pagando. Se ele começa no R$49 e sobe para R$99, sua recorrência dobra automaticamente — sem precisar fazer nada.</div>
-    </div>
-
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:8px">
-      <div style="font-size:14px;font-weight:800;color:var(--gold);margin-bottom:8px">🎯 Posso ter vários clientes no mesmo segmento?</div>
-      <div style="font-size:13px;color:#c8d8e8;line-height:1.7">Sim — sem limite. O guia aceita quantas empresas quiser por segmento. Podem ter 10 restaurantes, 8 farmácias, 5 salões — quanto mais, melhor. O limite por segmento existe só nos planos de TV (que é espaço de mídia real). No guia, é livre.</div>
-    </div>
-
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:8px">
-      <div style="font-size:14px;font-weight:800;color:var(--gold);margin-bottom:8px">📊 Como acompanho meus clientes e comissões?</div>
-      <div style="font-size:13px;color:#c8d8e8;line-height:1.7">Todo mês até o dia 5 você recebe um extrato via WhatsApp com: lista de clientes ativos, valor de cada um, sua comissão do mês e o Pix que vai cair até o dia 10. Transparência total.</div>
-    </div>
-
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:8px">
-      <div style="font-size:14px;font-weight:800;color:var(--gold);margin-bottom:8px">⚠️ Tem meta mínima ou obrigação de vender?</div>
-      <div style="font-size:13px;color:#c8d8e8;line-height:1.7">Zero. Não tem meta, não tem prazo, não tem multa. Você fecha quando puder, quanto puder. Se ficar um mês sem fechar ninguém, não acontece nada — a recorrência dos clientes que você já tem continua entrando normalmente.</div>
-    </div>
-
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:20px">
-      <div style="font-size:14px;font-weight:800;color:var(--gold);margin-bottom:8px">🤝 Como começo?</div>
-      <div style="font-size:13px;color:#c8d8e8;line-height:1.7">Manda mensagem no WhatsApp da TV Marataízes: <strong style="color:#fff">(28) 99903-6141</strong>. A gente registra seu nome como parceiro em 5 minutos. Aí você já pode sair prospectando. Sem burocracia, sem contrato para assinar.</div>
-    </div>
-
+<!-- BOTÃO FINAL PARA O VENDEDOR -->
+<section style="background:#000;border-top:2px solid var(--gold);padding:48px 20px;text-align:center">
+  <div style="max-width:600px;margin:0 auto">
+    <div style="font-size:13px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">📋 Já decidiu? Veja os planos completos</div>
+    <h2 style="font-size:clamp(20px,3vw,30px);font-weight:900;color:#fff;margin-bottom:8px">Mostra essa página para o <em style="color:var(--gold);font-style:normal">seu cliente</em></h2>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:28px">Todos os planos, preços, argumentos e botão de WhatsApp direto. Ele vê, entende e fecha.</p>
+    <a href="https://tvmarataizes.digital/anunciar/" target="_blank" rel="noopener"
+       style="display:inline-flex;align-items:center;justify-content:center;gap:12px;background:var(--gold);color:#000;padding:20px 40px;border-radius:8px;font-weight:900;font-size:18px;width:100%;max-width:480px;box-shadow:0 4px 24px rgba(245,197,24,.3);transition:opacity .15s">
+      📋 Abrir página de planos para o cliente
+    </a>
+    <p style="font-size:12px;color:#333;margin-top:14px">tvmarataizes.digital/anunciar/</p>
   </div>
 </section>
 
 <footer class="footer">
-  <p>© 2026 TV Marataízes · Parceiros Comerciais · Marataízes · Itapemirim · Piúma · Presidente Kennedy · (28) 99903-6141</p>
+  <p>© 2026 TV Marataízes · Programa de Parceiros · Marataízes · Itapemirim · Piúma · Presidente Kennedy</p>
 </footer>
 
 <script>
-var planoAtual = {valor: 99, comissao: 30};
-
-function selecionarPlano(valor, pct, el) {
-  planoAtual = {valor: valor, comissao: pct};
-  document.querySelectorAll('.plano').forEach(function(p){ p.classList.remove('ativo'); });
-  el.classList.add('ativo');
-  calcular();
+var plano = 99;
+function fmt(n){return 'R$'+Math.round(n).toLocaleString('pt-BR')}
+function sel(v,el){
+  plano=v;
+  document.querySelectorAll('.plano-btn').forEach(function(b){
+    b.style.background='var(--bg)';b.style.borderColor='var(--border)';
+  });
+  el.style.background='rgba(200,150,12,.1)';el.style.borderColor='var(--gold)';
+  calc();
 }
-
-function fmt(n) {
-  return 'R$' + n.toLocaleString('pt-BR', {minimumFractionDigits:0, maximumFractionDigits:0});
+function calc(){
+  var n=parseInt(document.getElementById('slider').value);
+  document.getElementById('slider-val').textContent=n+' cliente'+(n>1?'s':'');
+  var p1=Math.round(n*plano*0.30);
+  var rec=Math.round(n*plano*0.10);
+  var total=p1+(rec*11);
+  document.getElementById('r1').textContent=fmt(p1);
+  document.getElementById('r2').textContent=fmt(rec)+'/mês';
+  document.getElementById('r3').textContent=fmt(total);
+  document.getElementById('r-total').textContent=fmt(total);
+  var nomes={49:'R$49',99:'R$99',249:'R$249',1490:'R$1.490',2800:'R$2.800',4500:'R$4.500',6500:'R$6.500'};
+  document.getElementById('r-desc').textContent='Com '+n+' cliente'+(n>1?'s':'')+' no plano '+nomes[plano]+' em 12 meses';
 }
-
-function calcular() {
-  var clientes = parseInt(document.getElementById('slider-clientes').value);
-  var v = planoAtual.valor;
-  
-  var comPrimeiro = Math.round(v * 0.30 * clientes);
-  var recMensal  = Math.round(v * 0.10 * clientes);
-  var total12    = comPrimeiro + (recMensal * 11);
-
-  document.getElementById('slider-display').textContent = clientes + ' cliente' + (clientes > 1 ? 's' : '');
-  document.getElementById('res-primeiro-mes').textContent = fmt(comPrimeiro);
-  document.getElementById('res-recorrente').textContent   = fmt(recMensal) + '/mês';
-  document.getElementById('res-12meses').textContent      = fmt(total12);
-  document.getElementById('res-anual').textContent        = fmt(total12);
-  document.getElementById('res-clientes-txt').textContent = clientes + ' cliente' + (clientes > 1 ? 's' : '');
-
-  var nomes = {49:'Card no Guia', 99:'Página Exclusiva', 249:'Guia + TV', 1490:'TV Essencial', 2800:'TV Destaque', 4500:'TV Topo', 6500:'TV Exclusividade'};
-  document.getElementById('res-plano-txt').textContent = nomes[v] || 'selecionado';
-
-  // Tabela de progressão — 2 clientes por mês
-  var tbody = document.getElementById('prog-body');
-  tbody.innerHTML = '';
-  var totalClientes = 0;
-  var recAcum = 0;
-  var totalRecebido = 0;
-  var meses = Math.min(12, Math.ceil(clientes / 2) + 2);
-
-  for(var m = 1; m <= meses; m++) {
-    var novos = m <= Math.ceil(clientes/2) ? 2 : 0;
-    if(totalClientes + novos > clientes) novos = clientes - totalClientes;
-    totalClientes += novos;
-    var comMes = Math.round(novos * v * 0.30);
-    recAcum = Math.round(totalClientes * v * 0.10);
-    var ganhoMes = comMes + (m > 1 ? Math.round((totalClientes - novos) * v * 0.10) : 0);
-    totalRecebido += ganhoMes;
-
-    var tr = document.createElement('tr');
-    tr.innerHTML = '<td>Mês ' + m + '</td>' +
-      '<td>' + (novos > 0 ? '+' + novos + ' (' + totalClientes + ' total)' : totalClientes + ' total') + '</td>' +
-      '<td>' + fmt(comMes) + (recAcum > 0 && m > 1 ? ' + ' + fmt(Math.round((totalClientes-novos)*v*0.10)) + ' rec.' : '') + '</td>' +
-      '<td class="gold">' + fmt(recAcum) + '/mês</td>' +
-      '<td>' + fmt(totalRecebido) + '</td>';
-    tbody.appendChild(tr);
-  }
-}
-
-document.getElementById('slider-clientes').addEventListener('input', calcular);
-calcular();
+document.getElementById('slider').addEventListener('input',calc);
+calc();
 </script>
 </body>
 </html>
