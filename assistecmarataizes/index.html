@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Assistec Marataízes — Games, Informática e Assistência Técnica</title>
+<meta name="description" content="Assistec Marataízes — conserto de notebook, PlayStation, Xbox, Nintendo Switch, celular e venda de acessórios. Em frente à Prefeitura. (28) 99917-5612"/>
+<meta property="og:title" content="Assistec Marataízes — Games, Informática e Assistência Técnica"/>
+<meta property="og:description" content="Conserto de PS5, Xbox, notebooks, celulares e venda de acessórios em Marataízes ES."/>
+<meta property="og:url" content="https://tvmarataizes.digital/assistec/"/>
+<meta name="theme-color" content="#0a0a0f"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<style>
+:root {
+  --bg: #0a0a0f;
+  --bg2: #0f0f1a;
+  --card: #12121e;
+  --border: #1e1e32;
+  --accent: #00d4ff;
+  --accent2: #7b2fff;
+  --yellow: #ffd60a;
+  --text: #e8e8f0;
+  --muted: #6b6b8a;
+  --max: 1100px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* SCANLINE texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,212,255,0.015) 2px,
+    rgba(0,212,255,0.015) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* ─── HEADER ─── */
+header {
+  background: rgba(10,10,15,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-logo {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+.header-logo span { color: var(--accent); }
+
+.header-cta {
+  background: var(--accent);
+  color: #000;
+  font-weight: 600;
+  font-size: 0.8rem;
+  padding: 8px 16px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  transition: opacity .2s;
+}
+.header-cta:hover { opacity: .85; }
+
+/* ─── HERO ─── */
+.hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 80px 20px 60px;
+}
+
+/* Grid circuit background */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Glow blobs */
+.hero::after {
+  content: '';
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(123,47,255,0.18) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.glow-left {
+  position: absolute;
+  bottom: -100px;
+  left: -100px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(0,212,255,0.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: var(--max);
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,212,255,0.08);
+  border: 1px solid rgba(0,212,255,0.2);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+.hero h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: rgba(232,232,240,0.65);
+  margin-bottom: 32px;
+  max-width: 440px;
+  line-height: 1.7;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--accent), #0095b3);
+  color: #000;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 14px 24px;
+  border-radius: 8px;
+  letter-spacing: 0.03em;
+  transition: transform .2s, box-shadow .2s;
+  box-shadow: 0 0 30px rgba(0,212,255,0.3);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 50px rgba(0,212,255,0.45);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 14px 24px;
+  border-radius: 8px;
+  transition: border-color .2s, background .2s;
+}
+.btn-ghost:hover {
+  border-color: var(--accent);
+  background: rgba(0,212,255,0.06);
+}
+
+/* Hero visual — device mockup */
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.device-stack {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+}
+
+.device-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+}
+
+.device-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,212,255,0.06) 0%, rgba(123,47,255,0.06) 100%);
+  pointer-events: none;
+}
+
+.device-top {
+  background: linear-gradient(135deg, #0d1117 0%, #0f0f1a 100%);
+  padding: 28px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.device-icon {
+  width: 56px; height: 56px;
+  background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(123,47,255,0.15));
+  border: 1px solid rgba(0,212,255,0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+
+.device-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.device-name span { color: var(--accent); }
+
+.device-tag {
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.services-mini {
+  padding: 20px 28px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.svc-chip {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.78rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.svc-chip .ic { font-size: 1rem; }
+
+.stats-row {
+  padding: 16px 28px 24px;
+  display: flex;
+  gap: 24px;
+}
+
+.stat-item { text-align: center; }
+.stat-num {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+.stat-label { font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
+
+/* Floating badge */
+.float-badge {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  background: var(--yellow);
+  color: #000;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 8px 14px;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 20px rgba(255,214,10,0.4);
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* ─── INFO BAR ─── */
+.info-bar {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 20px;
+}
+
+.info-bar-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: rgba(232,232,240,0.7);
+}
+
+.info-item .ic { font-size: 1rem; }
+.info-item strong { color: var(--text); }
+
+/* ─── SERVICES ─── */
+.section {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 80px 20px;
+}
+
+.section-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 48px;
+}
+
+.section-title em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .services-grid { grid-template-columns: 1fr; }
+}
+
+.svc-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .25s, transform .25s;
+  cursor: default;
+}
+
+.svc-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  opacity: 0;
+  transition: opacity .25s;
+}
+
+.svc-card:hover {
+  border-color: rgba(0,212,255,0.3);
+  transform: translateY(-4px);
+}
+
+.svc-card:hover::before { opacity: 1; }
+
+.svc-emoji { font-size: 2.2rem; margin-bottom: 14px; }
+
+.svc-card h3 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: 0.03em;
+}
+
+.svc-card p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ─── PRODUTOS ─── */
+.products-bg {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 900px) {
+  .products-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.product-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform .2s, border-color .2s;
+}
+
+.product-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(0,212,255,0.25);
+}
+
+.product-img {
+  aspect-ratio: 1/1;
+  background: linear-gradient(135deg, #0d1117, #111120);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,212,255,0.05), rgba(123,47,255,0.05));
+}
+
+.product-info { padding: 14px; }
+
+.product-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.product-desc {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ─── ABOUT ─── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .about-grid { grid-template-columns: 1fr; }
+}
+
+.about-text p {
+  color: rgba(232,232,240,0.7);
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.highlight-list {
+  list-style: none;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.highlight-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+
+.highlight-list li::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.about-visual {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.about-stat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px 20px;
+  text-align: center;
+}
+
+.about-stat-num {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.about-stat-label {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* ─── LOCATION ─── */
+.location-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .location-grid { grid-template-columns: 1fr; }
+}
+
+.location-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.location-map {
+  background: linear-gradient(135deg, #0d1117 0%, #111120 100%);
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.location-map::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.location-pin {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.pin-dot {
+  width: 16px; height: 16px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 0 6px rgba(0,212,255,0.2), 0 0 30px rgba(0,212,255,0.6);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 6px rgba(0,212,255,0.2), 0 0 30px rgba(0,212,255,0.6); }
+  50% { box-shadow: 0 0 0 12px rgba(0,212,255,0.1), 0 0 50px rgba(0,212,255,0.8); }
+}
+
+.pin-label {
+  background: rgba(0,212,255,0.1);
+  border: 1px solid rgba(0,212,255,0.3);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.location-info { padding: 24px; }
+
+.location-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  align-items: flex-start;
+}
+
+.location-row:last-child { margin-bottom: 0; }
+
+.loc-icon {
+  width: 36px; height: 36px;
+  background: rgba(0,212,255,0.08);
+  border: 1px solid rgba(0,212,255,0.15);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.loc-label {
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 3px;
+}
+
+.loc-value {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* CTA box */
+.cta-box {
+  background: linear-gradient(135deg, rgba(0,212,255,0.06), rgba(123,47,255,0.06));
+  border: 1px solid rgba(0,212,255,0.15);
+  border-radius: 16px;
+  padding: 40px 36px;
+}
+
+.cta-box h3 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.cta-box h3 em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.cta-box p {
+  color: var(--muted);
+  margin-bottom: 28px;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.cta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-wpp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #25D366;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 14px 20px;
+  border-radius: 8px;
+  transition: opacity .2s, transform .2s;
+}
+
+.btn-wpp:hover { opacity: .9; transform: translateY(-2px); }
+
+.btn-call {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 14px 20px;
+  border-radius: 8px;
+  transition: background .2s;
+}
+
+.btn-call:hover { background: rgba(255,255,255,0.1); }
+
+/* ─── PROMO FOOTER ─── */
+.promo-footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.promo-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.promo-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.promo-sub {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+}
+
+.btn-anunciar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent2);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 12px 22px;
+  border-radius: 8px;
+  margin-right: 10px;
+  transition: opacity .2s;
+}
+.btn-anunciar:hover { opacity: .85; }
+
+.btn-portal {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.85rem;
+  padding: 12px 22px;
+  border-radius: 8px;
+  transition: border-color .2s;
+}
+.btn-portal:hover { border-color: var(--muted); }
+
+/* ─── FOOTER ─── */
+footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+}
+
+footer a { color: var(--accent); }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-text > * {
+  animation: fadeUp .6s ease both;
+}
+.hero-badge { animation-delay: .1s; }
+.hero h1 { animation-delay: .2s; }
+.hero-sub { animation-delay: .3s; }
+.hero-actions { animation-delay: .4s; }
+
+.hero-visual {
+  animation: fadeUp .7s ease .3s both;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-logo">📺 <span>TV Marataízes</span> · Guia Digital</div>
+  <a href="https://wa.me/5528999175612?text=Olá!+Vim+pelo+portal+TV+Marataízes+e+quero+falar+com+a+Assistec" class="header-cta">💬 Falar agora</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="glow-left"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">Assistência Técnica · Marataízes ES</div>
+      <h1>Conserta.<br>Vende.<br><em>Resolve.</em></h1>
+      <p class="hero-sub">Games, notebooks, celulares e acessórios. A Assistec é a referência em tecnologia no sul do ES — em frente à Prefeitura de Marataízes.</p>
+      <div class="hero-actions">
+        <a href="https://wa.me/5528999175612?text=Olá!+Vim+pelo+portal+TV+Marataízes+e+preciso+de+ajuda+com+um+equipamento" class="btn-primary">
+          💬 WhatsApp Agora
+        </a>
+        <a href="https://maps.google.com/?q=Avenida+Rubens+Rangel+1525+Santa+Rita+Marataízes+ES" target="_blank" class="btn-ghost">
+          📍 Como chegar
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="device-stack">
+        <div class="float-badge">⚡ Orçamento Grátis</div>
+        <div class="device-card">
+          <div class="device-top">
+            <div class="device-icon">🔧</div>
+            <div>
+              <div class="device-name"><span>ASSIS</span>TEC</div>
+              <div class="device-tag">Games · Informática · Assistência</div>
+            </div>
+          </div>
+          <div class="services-mini">
+            <div class="svc-chip"><span class="ic">🎮</span> PlayStation</div>
+            <div class="svc-chip"><span class="ic">🟩</span> Xbox</div>
+            <div class="svc-chip"><span class="ic">🔴</span> Nintendo</div>
+            <div class="svc-chip"><span class="ic">💻</span> Notebook</div>
+            <div class="svc-chip"><span class="ic">📱</span> Celular</div>
+            <div class="svc-chip"><span class="ic">🔊</span> Acessórios</div>
+          </div>
+          <div class="stats-row">
+            <div class="stat-item">
+              <div class="stat-num">844</div>
+              <div class="stat-label">Seguidores</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">4.8★</div>
+              <div class="stat-label">Google</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">100%</div>
+              <div class="stat-label">Garantia</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFO BAR -->
+<div class="info-bar">
+  <div class="info-bar-inner">
+    <div class="info-item"><span class="ic">📍</span> <span>Av. Rubens Rangel, 1525 — Santa Rita, <strong>em frente à Prefeitura</strong></span></div>
+    <div class="info-item"><span class="ic">🕐</span> <span>Seg – Sex · <strong>09h às 19h</strong></span></div>
+    <div class="info-item"><span class="ic">📞</span> <a href="tel:+5528999175612" style="color:var(--accent)"><strong>(28) 99917-5612</strong></a></div>
+    <div class="info-item"><span class="ic">📞</span> <a href="tel:+552835323432" style="color:var(--muted)"><strong>(28) 3532-3432</strong></a></div>
+  </div>
+</div>
+
+<!-- SERVIÇOS -->
+<div class="section">
+  <div class="section-tag">O que fazemos</div>
+  <h2 class="section-title">Especialistas em <em>tudo</em> que é tech</h2>
+  <div class="services-grid">
+    <div class="svc-card">
+      <div class="svc-emoji">🎮</div>
+      <h3>Consoles & Games</h3>
+      <p>Manutenção e reparo de PlayStation 3, 4 e 5, Xbox One e Series, Nintendo Switch. Troca de pasta térmica, limpeza, HDMI e muito mais.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-emoji">💻</div>
+      <h3>Notebooks & PCs</h3>
+      <p>Formatação, troca de HD/SSD, memória RAM, tela, teclado e manutenção preventiva. Diagnóstico rápido e orçamento sem compromisso.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-emoji">📱</div>
+      <h3>Celulares</h3>
+      <p>Troca de tela, bateria e conector de carga para as principais marcas. Atendimento rápido e peças de qualidade.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-emoji">🔊</div>
+      <h3>Acessórios & Periféricos</h3>
+      <p>Caixas de som Bluetooth, carregadores, cabos, capas e películas. Produtos selecionados com garantia.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-emoji">🛒</div>
+      <h3>Venda de Equipamentos</h3>
+      <p>Consoles seminovos e novos, games originais, controles e acessórios. Xbox One S, PS4, PS5 e muito mais.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-emoji">🔋</div>
+      <h3>Diagnóstico Gratuito</h3>
+      <p>Levou o equipamento, a gente verifica e passa orçamento sem cobrar nada. Só conserta se você aprovar.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUTOS -->
+<div class="products-bg">
+  <div class="section">
+    <div class="section-tag">Em estoque</div>
+    <h2 class="section-title">Produtos que <em>você encontra aqui</em></h2>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-img">🎮</div>
+        <div class="product-info">
+          <div class="product-name">Consoles</div>
+          <div class="product-desc">PS4, PS5, Xbox One S, Xbox Series</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">🔊</div>
+        <div class="product-info">
+          <div class="product-name">Caixas de Som</div>
+          <div class="product-desc">Bluetooth, wireless, JBL e similares</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">🔌</div>
+        <div class="product-info">
+          <div class="product-name">Carregadores</div>
+          <div class="product-desc">Turbo, wireless e acessórios</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">🖥️</div>
+        <div class="product-info">
+          <div class="product-name">Informática</div>
+          <div class="product-desc">SSD, memória RAM, cabos e peças</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SOBRE -->
+<div class="section">
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="section-tag">Sobre a Assistec</div>
+      <h2 class="section-title">A tech que <em>Marataízes</em> merece</h2>
+      <p>A Assistec nasceu para resolver. Localizada no coração de Marataízes, em frente à Prefeitura, é o ponto de referência da cidade para quem precisa consertar um console, um notebook ou comprar um acessório de qualidade.</p>
+      <p>Com atendimento ágil, preços justos e garantia em todos os serviços, a Assistec acumulou mais de 800 clientes satisfeitos e virou sinônimo de confiança no sul do Espírito Santo.</p>
+      <ul class="highlight-list">
+        <li>Orçamento gratuito e sem compromisso</li>
+        <li>Garantia em todos os reparos</li>
+        <li>Peças originais e de qualidade</li>
+        <li>Atendimento de segunda a sexta, 09h às 19h</li>
+        <li>Em frente à Prefeitura de Marataízes</li>
+      </ul>
+    </div>
+    <div class="about-visual">
+      <div class="about-stat">
+        <div class="about-stat-num">+800</div>
+        <div class="about-stat-label">Clientes atendidos</div>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat-num">4.8★</div>
+        <div class="about-stat-label">Avaliação Google</div>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat-num">PS·XB·SW</div>
+        <div class="about-stat-label">Consoles atendidos</div>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat-num">100%</div>
+        <div class="about-stat-label">Garantia no serviço</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LOCALIZAÇÃO -->
+<div class="products-bg">
+  <div class="section">
+    <div class="section-tag">Localização & Contato</div>
+    <h2 class="section-title">Fácil de <em>encontrar</em></h2>
+    <div class="location-grid">
+      <div class="location-card">
+        <div class="location-map">
+          <div class="location-pin">
+            <div class="pin-dot"></div>
+            <div class="pin-label">Assistec · Santa Rita</div>
+          </div>
+        </div>
+        <div class="location-info">
+          <div class="location-row">
+            <div class="loc-icon">📍</div>
+            <div>
+              <div class="loc-label">Endereço</div>
+              <div class="loc-value">Av. Rubens Rangel, 1525<br>Santa Rita — Marataízes, ES<br><small style="color:var(--accent)">Em frente à Prefeitura</small></div>
+            </div>
+          </div>
+          <div class="location-row">
+            <div class="loc-icon">📞</div>
+            <div>
+              <div class="loc-label">Telefone / WhatsApp</div>
+              <div class="loc-value">
+                <a href="tel:+5528999175612">(28) 99917-5612</a><br>
+                <a href="tel:+552835323432" style="color:var(--muted)">(28) 3532-3432</a>
+              </div>
+            </div>
+          </div>
+          <div class="location-row">
+            <div class="loc-icon">🕐</div>
+            <div>
+              <div class="loc-label">Horário</div>
+              <div class="loc-value">Seg – Sex · 09h às 19h</div>
+            </div>
+          </div>
+          <div style="margin-top:20px;">
+            <a href="https://maps.google.com/?q=Avenida+Rubens+Rangel+1525+Santa+Rita+Marataízes+ES" target="_blank" class="btn-ghost" style="width:100%; justify-content:center;">
+              📍 Abrir no Google Maps
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-box">
+        <h3>Seu equipamento<br><em>tem conserto.</em></h3>
+        <p>Manda uma mensagem pelo WhatsApp descrevendo o problema. A gente responde na hora e já agenda o diagnóstico gratuito.</p>
+        <div class="cta-actions">
+          <a href="https://wa.me/5528999175612?text=Olá!+Vim+pelo+portal+TV+Marataízes+e+preciso+de+um+orçamento" class="btn-wpp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Chamar no WhatsApp
+          </a>
+          <a href="tel:+5528999175612" class="btn-call">
+            📞 Ligar — (28) 99917-5612
+          </a>
+          <a href="https://instagram.com/assistecmarataizes" target="_blank" class="btn-call">
+            📸 @assistecmarataizes
+          </a>
+          <a href="mailto:assistec_marataizes@hotmail.com" class="btn-call">
+            ✉️ assistec_marataizes@hotmail.com
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROMO GUIA -->
+<div class="promo-footer">
+  <div class="promo-inner">
+    <div class="promo-title">📺 Esta é uma Página Exclusiva do Guia TV Marataízes</div>
+    <p class="promo-sub">A Assistec tem página própria aparecendo no Google quando alguém pesquisa <em>"assistência técnica em Marataízes"</em>. Quer sua empresa aqui também?</p>
+    <a href="https://wa.me/5528999036141?text=Quero+uma+página+exclusiva+como+a+da+Assistec!" class="btn-anunciar">💬 Quero minha página — R$99/mês</a>
+    <a href="https://tvmarataizes.digital/anunciar" class="btn-portal">Ver todos os planos →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>📺 <a href="https://www.tvmarataizes.digital/">TV Marataízes</a> · Guia Digital do Sul do ES · <a href="tel:+5528999175612">(28) 99917-5612</a> · <a href="https://wa.me/5528999175612">WhatsApp</a></p>
+</footer>
+
+</body>
+</html>
