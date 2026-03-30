@@ -235,22 +235,16 @@ footer a { color: #7EC8E3; text-decoration: none; }
         <a href="#series" class="btn-outline">Explorar séries</a>
       </div>
     </div>
-    <div class="hero-stats">
-      <div class="stat-card featured">
-        <div class="stat-num">237<span>k</span></div>
-        <div class="stat-label">Views — última campanha</div>
+    <div style="display:flex; flex-direction:column; gap:20px;">
+      <div style="background:white; border:1px solid var(--gray-100); border-radius:12px; padding:24px 28px;">
+        <div style="font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--teal); margin-bottom:10px;">O que é o ICAS TV</div>
+        <p style="font-size:15px; color:var(--gray-700); line-height:1.75; font-weight:300;">Um canal exclusivo de saúde para o Espírito Santo inteiro — produzido pelos médicos e especialistas do ICAS. Dicas, orientações e programas completos por especialidade, disponíveis para pacientes, famílias e profissionais a qualquer hora.</p>
       </div>
-      <div class="stat-card">
-        <div class="stat-num" style="color:var(--teal)">Canal <span style="color:var(--teal)">300</span></div>
-        <div class="stat-label">SOUL TV — Nacional</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num"><span>8</span>+</div>
-        <div class="stat-label">Especialidades médicas</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num"><span>11</span>k</div>
-        <div class="stat-label">Seguidores Instagram</div>
+
+      <div style="background:var(--navy); border-radius:12px; padding:28px 28px;">
+        <div style="font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#7EC8E3; margin-bottom:14px;">Alcance — Brasil e 197 países</div>
+        <p style="font-family:'Libre Baskerville', serif; font-size:19px; color:white; line-height:1.6; font-style:italic; margin-bottom:16px;">"Seu médico fala para o Sul do ES. A TV Marataízes leva essa voz para o Brasil inteiro — e para onde o Brasil chegar."</p>
+        <p style="font-size:13px; color:rgba(255,255,255,0.55); line-height:1.6;">Canal 300 SOUL TV · ao lado de CNN Brasil, Record News e TV UOL · pílulas segmentadas por cidade via Instagram</p>
       </div>
     </div>
   </div>
@@ -340,6 +334,34 @@ footer a { color: #7EC8E3; text-decoration: none; }
     </div>
     <div class="vod-grid">
 
+      <div class="vod-card" style="grid-column: span 1;">
+        <div class="vod-thumb" style="position:relative; aspect-ratio:16/9; background:#000;">
+          <iframe
+            src="https://player.castr.com/vod/u4KTNIVPlsv0lozd"
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+            allowfullscreen
+            allow="autoplay; fullscreen"
+          ></iframe>
+          <div class="vod-spec-badge" style="background:#B45309;color:white;z-index:2;pointer-events:none;">Pediatria</div>
+          <div class="vod-ep-badge" style="z-index:2;pointer-events:none;">EP 01 / 06</div>
+        </div>
+        <div class="vod-body">
+          <div class="vod-spec-label" style="color:#B45309">Pediatria</div>
+          <div class="vod-title">Reflexo de Moro: o que é e o que indica no desenvolvimento do bebê</div>
+          <div class="vod-doctor">
+            <div class="doc-avatar" style="background:#FEF3C7;color:#B45309">LB</div>
+            <div class="doc-info">
+              <div class="doc-name">Dr. Lucas Boechat</div>
+              <div class="doc-role">Pediatra — ICAS</div>
+            </div>
+          </div>
+          <div class="vod-footer">
+            <span class="vod-meta">⏱ 3 min</span>
+            <span class="vod-meta">👁 Modelo de produção</span>
+          </div>
+        </div>
+      </div>
+
       <div class="vod-card">
         <div class="vod-thumb">
           <div class="vod-thumb-bg" style="background:linear-gradient(135deg,#DBEAFE,#BFDBFE)">🫀</div>
@@ -384,34 +406,6 @@ footer a { color: #7EC8E3; text-decoration: none; }
           <div class="vod-footer">
             <span class="vod-meta">⏱ 14 min</span>
             <span class="vod-meta">👁 3.1k views</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="vod-card" style="grid-column: span 1;">
-        <div class="vod-thumb" style="position:relative; aspect-ratio:16/9; background:#000;">
-          <iframe
-            src="https://player.castr.com/vod/u4KTNIVPlsv0lozd"
-            style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
-            allowfullscreen
-            allow="autoplay; fullscreen"
-          ></iframe>
-          <div class="vod-spec-badge" style="background:#B45309;color:white;z-index:2;pointer-events:none;">Pediatria</div>
-          <div class="vod-ep-badge" style="z-index:2;pointer-events:none;">EP 01 / 06</div>
-        </div>
-        <div class="vod-body">
-          <div class="vod-spec-label" style="color:#B45309">Pediatria</div>
-          <div class="vod-title">Reflexo de Moro: o que é e o que indica no desenvolvimento do bebê</div>
-          <div class="vod-doctor">
-            <div class="doc-avatar" style="background:#FEF3C7;color:#B45309">LB</div>
-            <div class="doc-info">
-              <div class="doc-name">Dr. Lucas Boechat</div>
-              <div class="doc-role">Pediatra — ICAS</div>
-            </div>
-          </div>
-          <div class="vod-footer">
-            <span class="vod-meta">⏱ 3 min</span>
-            <span class="vod-meta">👁 Modelo de produção</span>
           </div>
         </div>
       </div>
@@ -657,12 +651,12 @@ footer a { color: #7EC8E3; text-decoration: none; }
         <div class="metric-row"><span class="metric-label">Canal nacional</span><span class="metric-value">SOUL TV 300</span></div>
       </div>
       <div class="metric-card">
-        <div class="metric-title">Cidades cobertas</div>
-        <div class="metric-row"><span class="metric-label">Marataízes</span><span class="metric-value" style="color:var(--teal)">✓ Ativo</span></div>
-        <div class="metric-row"><span class="metric-label">Itapemirim</span><span class="metric-value" style="color:var(--teal)">✓ Ativo</span></div>
-        <div class="metric-row"><span class="metric-label">Presidente Kennedy</span><span class="metric-value" style="color:var(--teal)">✓ Ativo</span></div>
-        <div class="metric-row"><span class="metric-label">Piúma</span><span class="metric-value" style="color:var(--teal)">✓ Ativo</span></div>
-        <div class="metric-row"><span class="metric-label">Outras cidades Sul ES</span><span class="metric-value" style="color:var(--gray-500)">Em expansão</span></div>
+        <div class="metric-title">Como é a produção</div>
+        <p style="font-size:14px; color:var(--gray-700); line-height:1.75; font-weight:300; margin-bottom:14px;">A TV Marataízes produz, edita e distribui cada episódio com equipe própria. O médico do ICAS grava na clínica ou em estúdio — sem precisar se preocupar com nada técnico. O conteúdo vai ao ar na grade, fica no VOD e vira pílula pro Instagram da cidade.</p>
+        <div class="metric-row"><span class="metric-label">Gravação</span><span class="metric-value" style="color:var(--teal)">Na clínica ou estúdio</span></div>
+        <div class="metric-row"><span class="metric-label">Edição</span><span class="metric-value" style="color:var(--teal)">TV Marataízes</span></div>
+        <div class="metric-row"><span class="metric-label">Distribuição</span><span class="metric-value" style="color:var(--teal)">TV + VOD + Instagram</span></div>
+        <div class="metric-row"><span class="metric-label">Cobertura</span><span class="metric-value" style="color:var(--teal)">Todo o ES + Nacional</span></div>
       </div>
     </div>
   </div>
@@ -670,10 +664,10 @@ footer a { color: #7EC8E3; text-decoration: none; }
 
 <div class="cta-wrap">
   <h2>Quer o ICAS na TV da sua cidade?</h2>
-  <p>Fale com a TV Marataízes e descubra como levar conteúdo de saúde de qualidade para a sua região.</p>
+  <p>Fale com a TV Marataízes para montar o programa ou agende diretamente no ICAS.</p>
   <div class="cta-btns">
-    <a href="https://wa.me/5528999036141" class="cta-white">Falar com TV Marataízes</a>
-    <a href="https://wa.me/5528999125739" class="cta-border">Agendar no ICAS</a>
+    <a href="https://wa.me/5528999036141" class="cta-white">📱 TV Marataízes — (28) 99903-6141</a>
+    <a href="https://wa.me/5528999125739" class="cta-border">📱 Agendar no ICAS — (28) 99912-5739</a>
   </div>
 </div>
 
