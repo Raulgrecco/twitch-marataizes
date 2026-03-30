@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parceria TV Marataizes + Portal Giliard</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root { --tv: #E8500A; --portal: #0A7C4E; --dark: #141414; --light: #F9F7F4; --mid: #6B6860; --border: #E2DDD8; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--dark); }
+.hero { background: var(--dark); color: white; padding: 60px 40px; text-align: center; }
+.hero-eyebrow { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--tv); margin-bottom: 16px; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 5vw, 48px); line-height: 1.15; margin-bottom: 20px; }
+.hero h1 span { color: var(--tv); }
+.hero p { font-size: 16px; color: #B0ADA8; max-width: 520px; margin: 0 auto; line-height: 1.7; }
+.badges { display: flex; justify-content: center; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
+.badge { padding: 6px 16px; border-radius: 100px; font-size: 13px; font-weight: 500; }
+.badge-tv { background: var(--tv); color: white; }
+.badge-portal { background: var(--portal); color: white; }
+section { padding: 48px 40px; max-width: 800px; margin: 0 auto; }
+.section-label { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--mid); margin-bottom: 24px; padding-bottom: 8px; border-bottom: 1.5px solid var(--border); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.card { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+.card-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 20px; }
+.card-icon-tv { background: #FEF0E9; }
+.card-icon-portal { background: #E8F5EF; }
+.card h3 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+.card ul { list-style: none; }
+.card ul li { font-size: 14px; color: var(--mid); line-height: 1.6; padding: 4px 0; padding-left: 16px; position: relative; }
+.card ul li::before { content: 'rightarrow'; position: absolute; left: 0; color: var(--border); font-size: 12px; }
+.flow { display: flex; flex-direction: column; }
+.flow-step { display: flex; gap: 20px; align-items: flex-start; }
+.flow-left { display: flex; flex-direction: column; align-items: center; }
+.flow-num { width: 36px; height: 36px; border-radius: 50%; background: var(--dark); color: white; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; flex-shrink: 0; }
+.flow-line { width: 1px; background: var(--border); flex: 1; min-height: 24px; margin: 4px 0; }
+.flow-content { padding-bottom: 28px; flex: 1; }
+.flow-content h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.flow-content p { font-size: 13px; color: var(--mid); line-height: 1.6; }
+.flow-tag { display: inline-block; font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 4px; margin-bottom: 6px; }
+.tag-tv { background: #FEF0E9; color: var(--tv); }
+.tag-portal { background: #E8F5EF; color: var(--portal); }
+.tag-ambos { background: #F0EEF8; color: #5B4DB5; }
+.pricing { display: flex; flex-direction: column; gap: 12px; }
+.price-card { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.price-card.featured { border: 2px solid var(--tv); }
+.price-name { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+.price-desc { font-size: 13px; color: var(--mid); }
+.price-right { text-align: right; }
+.price-value { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--dark); }
+.price-split { font-size: 12px; color: var(--mid); margin-top: 2px; }
+.tv-split { color: var(--tv); font-weight: 600; }
+.portal-split { color: var(--portal); font-weight: 600; }
+.featured-badge { display: inline-block; background: var(--tv); color: white; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 4px; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 4px; }
+.rules { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.rule { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; }
+.rule-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.rule-desc { font-size: 13px; color: var(--mid); line-height: 1.5; }
+.cta { background: var(--dark); color: white; border-radius: 20px; padding: 40px; text-align: center; margin: 0 40px 48px; }
+.cta h2 { font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 12px; }
+.cta p { color: #B0ADA8; font-size: 15px; line-height: 1.6; max-width: 480px; margin: 0 auto 24px; }
+.cta-btn { display: inline-block; background: var(--tv); color: white; padding: 14px 32px; border-radius: 100px; font-size: 15px; font-weight: 600; text-decoration: none; }
+@media (max-width: 600px) { .two-col, .rules { grid-template-columns: 1fr; } section { padding: 40px 24px; } .hero { padding: 48px 24px; } .cta { margin: 0 24px 48px; padding: 32px 24px; } }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-eyebrow">Proposta de parceria</div>
+  <h1>TV Marataizes<br>+ <span>Portal Giliard</span></h1>
+  <p>Voce cobre Itapemirim. A gente distribui em video. Juntos vendemos o Sul do ES.</p>
+  <div class="badges">
+    <span class="badge badge-tv">TV Marataizes</span>
+    <span class="badge badge-portal">Portal Marataizes e Itapemirim</span>
+  </div>
+</div>
+
+<section>
+  <div class="section-label">Como funciona na pratica — passo a passo</div>
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+      <div class="flow-content">
+        <span class="flow-tag tag-portal">Voce faz</span>
+        <h4>Publica uma materia no seu portal</h4>
+        <p>Normal, como sempre faz. Festival de Frutos do Mar, evento na cidade, noticia local — qualquer pauta de Itapemirim ou Itaipava.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+      <div class="flow-content">
+        <span class="flow-tag tag-portal">Voce faz</span>
+        <h4>Me manda a materia pelo WhatsApp</h4>
+        <p>So o link ou o texto. Dois segundos. Sem precisar fazer mais nada.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+      <div class="flow-content">
+        <span class="flow-tag tag-tv">TV faz</span>
+        <h4>Transformamos em video narrado</h4>
+        <p>A gente narra, edita com as fotos da materia, coloca o logo do seu portal como credito e sobe no VOD da TV Marataizes.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-left"><div class="flow-num">4</div><div class="flow-line"></div></div>
+      <div class="flow-content">
+        <span class="flow-tag tag-tv">TV faz</span>
+        <h4>Publica no site e no Instagram</h4>
+        <p>Video completo no site da TV. Trecho de 60 segundos no Instagram com credito do portal e link para a materia completa no seu site.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-left"><div class="flow-num">5</div></div>
+      <div class="flow-content">
+        <span class="flow-tag tag-ambos">Os dois ganham</span>
+        <h4>Resultado concreto</h4>
+        <p>Sua materia chega a 11 mil seguidores da TV. A TV tem cobertura de Itapemirim. Quando aparecer anunciante que queira as duas cidades — dividimos a receita.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Exemplo real — Festival de Frutos do Mar</div>
+  <div class="card" style="border-left: 3px solid var(--portal);">
+    <p style="font-size:14px; color: var(--mid); margin-bottom: 20px;">Voce ja publicou sobre o 19 Festival de Frutos do Mar de Itapemirim — 02 a 05 de abril em Itaipava. Veja como funcionaria:</p>
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div style="background:#F9F7F4; border-radius:10px; padding:14px 16px;">
+        <span class="flow-tag tag-portal" style="margin-bottom:6px; display:inline-block;">Voce</span>
+        <p style="font-size:13px; font-weight:600;">Manda o link da materia no WhatsApp</p>
+      </div>
+      <div style="text-align:center; color:var(--border); font-size:20px;">&#8595;</div>
+      <div style="background:#F9F7F4; border-radius:10px; padding:14px 16px;">
+        <span class="flow-tag tag-tv" style="margin-bottom:6px; display:inline-block;">TV faz</span>
+        <p style="font-size:13px; font-weight:600;">Video narrado de 90 segundos sobre o festival com logo do seu portal no canto da tela</p>
+      </div>
+      <div style="text-align:center; color:var(--border); font-size:20px;">&#8595;</div>
+      <div style="background:#F9F7F4; border-radius:10px; padding:14px 16px;">
+        <span class="flow-tag tag-ambos" style="margin-bottom:6px; display:inline-block;">Resultado</span>
+        <p style="font-size:13px; font-weight:600;">Patrocinadores do festival enxergam oportunidade de aparecer no video — anunciante em potencial para os dois</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">O que cada um ganha</div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-icon card-icon-portal">&#127760;</div>
+      <h3>Voce ganha</h3>
+      <ul>
+        <li>Video profissional das suas materias</li>
+        <li>11 mil seguidores da TV Marataizes</li>
+        <li>Presenca no Instagram da TV</li>
+        <li>Credencial parceiro da TV</li>
+        <li>30% da receita de anunciante regional</li>
+        <li>Zero custo extra</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-icon card-icon-tv">&#128250;</div>
+      <h3>TV ganha</h3>
+      <ul>
+        <li>Cobertura de Itapemirim sem sair de Marataizes</li>
+        <li>Mais conteudo no VOD e no site</li>
+        <li>Argumento para cobrar pacote regional</li>
+        <li>SEO regional mais forte</li>
+        <li>70% da receita de anunciante regional</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Pacotes para anunciante regional</div>
+  <div class="pricing">
+    <div class="price-card">
+      <div>
+        <div class="price-name">Pacote basico — Portal + TV</div>
+        <div class="price-desc">Card no portal · Video mensal · Credito na TV</div>
+      </div>
+      <div class="price-right">
+        <div class="price-value">R$ 800/mes</div>
+        <div class="price-split"><span class="tv-split">TV R$560</span> &middot; <span class="portal-split">Portal R$240</span></div>
+      </div>
+    </div>
+    <div class="price-card featured">
+      <div>
+        <div class="featured-badge">Mais vendido</div>
+        <div class="price-name">Intermediario — TV + Video semanal</div>
+        <div class="price-desc">Video toda semana · Instagram · Relatorio mensal</div>
+      </div>
+      <div class="price-right">
+        <div class="price-value">R$ 1.500/mes</div>
+        <div class="price-split"><span class="tv-split">TV R$1.050</span> &middot; <span class="portal-split">Portal R$450</span></div>
+      </div>
+    </div>
+    <div class="price-card">
+      <div>
+        <div class="price-name">Completo — TV + Video + Instagram</div>
+        <div class="price-desc">Cobertura total das duas cidades · Maxima visibilidade</div>
+      </div>
+      <div class="price-right">
+        <div class="price-value">R$ 2.800/mes</div>
+        <div class="price-split"><span class="tv-split">TV R$1.960</span> &middot; <span class="portal-split">Portal R$840</span></div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:12px; color:var(--mid); margin-top:12px; text-align:center;">Divisao: 70% TV Marataizes · 30% Portal · Pagamento via Pix ate dia 10 do mes seguinte</p>
+</section>
+
+<section>
+  <div class="section-label">Regras simples</div>
+  <div class="rules">
+    <div class="rule">
+      <div class="rule-title">Sem minimo de materias</div>
+      <div class="rule-desc">Manda quando tiver. Sem obrigacao de frequencia.</div>
+    </div>
+    <div class="rule">
+      <div class="rule-title">Credito garantido</div>
+      <div class="rule-desc">Logo do portal em todo video feito com sua materia.</div>
+    </div>
+    <div class="rule">
+      <div class="rule-title">Sem contrato formal</div>
+      <div class="rule-desc">Acordo por WhatsApp. Para quando quiser.</div>
+    </div>
+    <div class="rule">
+      <div class="rule-title">Anunciante registrado antes</div>
+      <div class="rule-desc">Quem fechar o anunciante avisa antes de assinar.</div>
+    </div>
+  </div>
+</section>
+
+<div class="cta">
+  <h2>Pronto para comecar?</h2>
+  <p>Manda a proxima materia pelo WhatsApp. A gente transforma em video e voce ja ve como funciona na pratica — sem assinar nada antes.</p>
+  <a href="https://wa.me/5528999036141" class="cta-btn">Falar com Raul — (28) 99903-6141</a>
+</div>
+
+</body>
+</html>
