@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICAS TV — Canal de Saúde do Sul do ES</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #003F7F;
+  --blue: #0066CC;
+  --blue-light: #E8F2FC;
+  --teal: #00869A;
+  --teal-light: #E6F4F6;
+  --white: #FFFFFF;
+  --gray-50: #F7F8FA;
+  --gray-100: #EEF0F3;
+  --gray-300: #C8CDD6;
+  --gray-500: #6B7280;
+  --gray-700: #374151;
+  --dark: #111827;
+  --accent: #E8500A;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--dark); overflow-x: hidden; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--navy); padding: 0 48px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+.nav-logo-icon { width: 36px; height: 36px; background: var(--white); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+.nav-logo-icon svg { width: 20px; height: 20px; }
+.nav-brand { font-size: 16px; font-weight: 600; color: var(--white); letter-spacing: .01em; }
+.nav-brand span { color: #7EC8E3; }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a { font-size: 13px; color: rgba(255,255,255,0.7); text-decoration: none; transition: color .2s; font-weight: 500; }
+.nav-links a:hover { color: white; }
+.nav-cta { background: var(--white); color: var(--navy); padding: 8px 20px; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none; transition: opacity .2s; }
+.nav-cta:hover { opacity: .9; }
+
+/* TOP BAR */
+.topbar { background: var(--blue); height: 36px; display: flex; align-items: center; justify-content: center; padding: 0 48px; margin-top: 64px; }
+.topbar p { font-size: 12px; color: rgba(255,255,255,0.9); font-weight: 500; letter-spacing: .02em; }
+.topbar a { color: white; font-weight: 700; text-decoration: none; }
+
+/* HERO */
+.hero { background: var(--gray-50); padding: 64px 48px 80px; border-bottom: 1px solid var(--gray-100); }
+.hero-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--teal); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 20px; }
+.live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); animation: blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+.hero h1 { font-family: 'Libre Baskerville', serif; font-size: clamp(32px,3.5vw,52px); line-height: 1.12; color: var(--navy); margin-bottom: 20px; }
+.hero h1 em { font-style: italic; color: var(--blue); }
+.hero p { font-size: 17px; color: var(--gray-500); line-height: 1.75; margin-bottom: 36px; font-weight: 300; max-width: 480px; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-navy { background: var(--navy); color: white; padding: 13px 28px; border-radius: 6px; font-size: 14px; font-weight: 600; text-decoration: none; transition: background .2s; }
+.btn-navy:hover { background: #002D5C; }
+.btn-outline { border: 1.5px solid var(--navy); color: var(--navy); padding: 12px 28px; border-radius: 6px; font-size: 14px; font-weight: 600; text-decoration: none; transition: all .2s; }
+.btn-outline:hover { background: var(--navy); color: white; }
+.hero-stats { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+.stat-card { background: var(--white); border: 1px solid var(--gray-100); border-radius: 10px; padding: 20px 24px; }
+.stat-num { font-family: 'Libre Baskerville', serif; font-size: 30px; color: var(--navy); font-weight: 700; line-height: 1; margin-bottom: 4px; }
+.stat-num span { color: var(--blue); }
+.stat-label { font-size: 12px; color: var(--gray-500); font-weight: 500; }
+.stat-card.featured { background: var(--navy); border-color: var(--navy); }
+.stat-card.featured .stat-num { color: white; }
+.stat-card.featured .stat-num span { color: #7EC8E3; }
+.stat-card.featured .stat-label { color: rgba(255,255,255,0.6); }
+
+/* SECTION */
+.section { padding: 72px 48px; max-width: 1160px; margin: 0 auto; }
+.section-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+.section-title { font-family: 'Libre Baskerville', serif; font-size: clamp(26px,3vw,40px); color: var(--navy); line-height: 1.18; margin-bottom: 12px; }
+.section-title em { font-style: italic; color: var(--blue); }
+.section-sub { font-size: 16px; color: var(--gray-500); line-height: 1.7; max-width: 520px; font-weight: 300; }
+.section-header { margin-bottom: 44px; }
+
+/* ESPECIALIDADES */
+.spec-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+.spec-card { background: var(--white); border: 1px solid var(--gray-100); border-radius: 10px; padding: 24px 20px; cursor: pointer; transition: all .2s; text-decoration: none; color: inherit; display: block; }
+.spec-card:hover { border-color: var(--blue); box-shadow: 0 4px 20px rgba(0,102,204,0.1); transform: translateY(-2px); }
+.spec-icon { font-size: 30px; margin-bottom: 14px; }
+.spec-name { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.spec-count { font-size: 12px; color: var(--gray-500); margin-bottom: 14px; }
+.spec-progress { height: 3px; background: var(--gray-100); border-radius: 100px; overflow: hidden; margin-bottom: 12px; }
+.spec-fill { height: 100%; background: var(--blue); border-radius: 100px; }
+.spec-tag { font-size: 11px; font-weight: 600; color: var(--blue); }
+
+/* VOD */
+.vod-wrap { background: var(--gray-50); border-top: 1px solid var(--gray-100); border-bottom: 1px solid var(--gray-100); padding: 72px 48px; }
+.vod-inner { max-width: 1160px; margin: 0 auto; }
+.filters { display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap; }
+.filter-btn { padding: 7px 18px; border-radius: 100px; font-size: 13px; font-weight: 500; border: 1.5px solid var(--gray-300); background: white; color: var(--gray-700); cursor: pointer; transition: all .2s; font-family: 'DM Sans', sans-serif; }
+.filter-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
+.filter-btn:hover:not(.active) { border-color: var(--blue); color: var(--blue); }
+.vod-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.vod-card { background: var(--white); border: 1px solid var(--gray-100); border-radius: 10px; overflow: hidden; transition: all .2s; cursor: pointer; }
+.vod-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.1); transform: translateY(-3px); }
+.vod-thumb { position: relative; aspect-ratio: 16/9; overflow: hidden; }
+.vod-thumb-bg { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 52px; }
+.vod-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background .2s; display: flex; align-items: center; justify-content: center; }
+.vod-card:hover .vod-overlay { background: rgba(0,0,0,0.25); }
+.play-circle { width: 52px; height: 52px; border-radius: 50%; background: var(--navy); opacity: 0; transform: scale(.8); transition: all .2s; display: flex; align-items: center; justify-content: center; }
+.vod-card:hover .play-circle { opacity: 1; transform: scale(1); }
+.play-circle svg { width: 18px; height: 18px; fill: white; margin-left: 3px; }
+.vod-spec-badge { position: absolute; top: 12px; left: 12px; padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.vod-ep-badge { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.65); color: white; font-size: 11px; padding: 3px 8px; border-radius: 4px; }
+.vod-body { padding: 16px 18px 20px; }
+.vod-spec-label { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 6px; }
+.vod-title { font-size: 14px; font-weight: 600; color: var(--dark); line-height: 1.45; margin-bottom: 12px; }
+.vod-doctor { display: flex; align-items: center; gap: 10px; padding-top: 12px; border-top: 1px solid var(--gray-100); }
+.doc-avatar { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+.doc-info { flex: 1; }
+.doc-name { font-size: 12px; font-weight: 600; color: var(--dark); }
+.doc-role { font-size: 11px; color: var(--gray-500); }
+.vod-footer { display: flex; justify-content: space-between; margin-top: 10px; }
+.vod-meta { font-size: 11px; color: var(--gray-500); }
+
+/* SERIES */
+.series-list { display: flex; flex-direction: column; gap: 14px; }
+.series-row { background: var(--white); border: 1px solid var(--gray-100); border-radius: 10px; padding: 22px 28px; display: flex; align-items: center; gap: 24px; transition: all .2s; cursor: pointer; }
+.series-row:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(0,102,204,0.08); }
+.series-icon-box { width: 52px; height: 52px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+.series-info { flex: 1; }
+.series-name { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
+.series-desc { font-size: 13px; color: var(--gray-500); }
+.series-right { display: flex; align-items: center; gap: 24px; flex-shrink: 0; }
+.series-count { text-align: center; }
+.series-num { font-family: 'Libre Baskerville', serif; font-size: 28px; color: var(--blue); font-weight: 700; line-height: 1; }
+.series-label { font-size: 11px; color: var(--gray-500); }
+.series-cta { background: var(--navy); color: white; padding: 9px 20px; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none; white-space: nowrap; transition: background .2s; }
+.series-cta:hover { background: #002D5C; }
+
+/* CLINICA */
+.clinic-section { background: var(--navy); padding: 72px 48px; }
+.clinic-inner { max-width: 1160px; margin: 0 auto; }
+.clinic-section .section-eyebrow { color: #7EC8E3; }
+.clinic-section .section-title { color: white; }
+.clinic-section .section-sub { color: rgba(255,255,255,0.6); }
+.clinic-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+.clinic-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 24px; transition: all .2s; cursor: pointer; }
+.clinic-card:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.25); }
+.clinic-icon { font-size: 32px; margin-bottom: 14px; }
+.clinic-name { font-size: 15px; font-weight: 600; color: white; margin-bottom: 6px; }
+.clinic-desc { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.55; margin-bottom: 14px; }
+.clinic-link { font-size: 12px; color: #7EC8E3; font-weight: 600; }
+
+/* SOBRE */
+.about-wrap { background: var(--teal-light); border-top: 1px solid rgba(0,134,154,0.1); border-bottom: 1px solid rgba(0,134,154,0.1); padding: 72px 48px; }
+.about-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+.about-text p { font-size: 15px; color: var(--gray-700); line-height: 1.8; margin-bottom: 14px; font-weight: 300; }
+.feature-list { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
+.feature-item { display: flex; align-items: flex-start; gap: 10px; }
+.feature-check { width: 18px; height: 18px; border-radius: 50%; background: var(--teal); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.feature-check svg { width: 10px; height: 10px; }
+.feature-text { font-size: 14px; color: var(--gray-700); line-height: 1.5; }
+.about-cards { display: flex; flex-direction: column; gap: 14px; }
+.metric-card { background: white; border: 1px solid var(--gray-100); border-radius: 10px; padding: 20px 24px; }
+.metric-card.highlight { background: var(--navy); border-color: var(--navy); }
+.metric-title { font-size: 12px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px; }
+.metric-card.highlight .metric-title { color: rgba(255,255,255,0.5); }
+.metric-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--gray-100); }
+.metric-card.highlight .metric-row { border-bottom-color: rgba(255,255,255,0.1); }
+.metric-row:last-child { border-bottom: none; }
+.metric-label { font-size: 13px; color: var(--gray-500); }
+.metric-card.highlight .metric-label { color: rgba(255,255,255,0.6); }
+.metric-value { font-size: 14px; font-weight: 700; color: var(--navy); }
+.metric-card.highlight .metric-value { color: #7EC8E3; }
+
+/* CTA */
+.cta-wrap { background: var(--blue); padding: 72px 48px; text-align: center; }
+.cta-wrap h2 { font-family: 'Libre Baskerville', serif; font-size: clamp(26px,3vw,42px); color: white; margin-bottom: 14px; }
+.cta-wrap p { font-size: 17px; color: rgba(255,255,255,0.75); max-width: 480px; margin: 0 auto 36px; font-weight: 300; }
+.cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.cta-white { background: white; color: var(--blue); padding: 13px 32px; border-radius: 6px; font-size: 15px; font-weight: 700; text-decoration: none; transition: opacity .2s; }
+.cta-white:hover { opacity: .9; }
+.cta-border { border: 2px solid rgba(255,255,255,0.5); color: white; padding: 12px 32px; border-radius: 6px; font-size: 15px; font-weight: 600; text-decoration: none; transition: border-color .2s; }
+.cta-border:hover { border-color: white; }
+
+/* FOOTER */
+footer { background: var(--navy); padding: 32px 48px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; border-top: 1px solid rgba(255,255,255,0.1); }
+footer p { font-size: 13px; color: rgba(255,255,255,0.5); }
+footer a { color: #7EC8E3; text-decoration: none; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color .2s; }
+.footer-links a:hover { color: white; }
+
+@media (max-width: 960px) {
+  .hero-inner, .about-inner { grid-template-columns: 1fr; gap: 40px; }
+  .spec-grid { grid-template-columns: repeat(2,1fr); }
+  .vod-grid { grid-template-columns: repeat(2,1fr); }
+  .clinic-grid { grid-template-columns: repeat(2,1fr); }
+  nav, .topbar, .hero, .section, .vod-wrap, .clinic-section, .about-wrap, .cta-wrap, footer { padding-left: 24px; padding-right: 24px; }
+  .series-row { flex-wrap: wrap; }
+}
+@media (max-width: 600px) {
+  .spec-grid, .clinic-grid { grid-template-columns: 1fr; }
+  .vod-grid { grid-template-columns: 1fr; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 20 20" fill="none"><path d="M10 2v7M10 9l5-4M10 9l-5-4M10 9v9" stroke="#003F7F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <span class="nav-brand">ICAS <span>TV</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="#especialidades">Especialidades</a>
+    <a href="#programas">Programas</a>
+    <a href="#series">Séries</a>
+    <a href="#clinica">Clínica</a>
+    <a href="#sobre">Sobre</a>
+  </div>
+  <a href="https://wa.me/5528999125739" class="nav-cta">Agendar consulta</a>
+</nav>
+
+<div class="topbar">
+  <p>Ao vivo agora no <strong>Canal 300 SOUL TV</strong> — disponível em todo o Brasil &nbsp;·&nbsp; <a href="https://tvmarataizes.digital">Assistir online</a></p>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow"><span class="live-dot"></span>Canal de saúde — Sul do Espírito Santo</div>
+      <h1>Saúde de qualidade,<br><em>para quem precisa.</em></h1>
+      <p>O maior acervo de conteúdo médico do Sul do ES. Programas, séries por especialidade e informação de saúde — produzidos pelos médicos do ICAS, disponíveis 24 horas.</p>
+      <div class="hero-actions">
+        <a href="#programas" class="btn-navy">Ver programas</a>
+        <a href="#series" class="btn-outline">Explorar séries</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card featured">
+        <div class="stat-num">237<span>k</span></div>
+        <div class="stat-label">Views — última campanha</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--teal)">Canal <span style="color:var(--teal)">300</span></div>
+        <div class="stat-label">SOUL TV — Nacional</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num"><span>8</span>+</div>
+        <div class="stat-label">Especialidades médicas</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num"><span>11</span>k</div>
+        <div class="stat-label">Seguidores Instagram</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="especialidades">
+  <div class="section-header">
+    <div class="section-eyebrow">Especialidades</div>
+    <h2 class="section-title">Cada área da saúde,<br><em>um acervo completo</em></h2>
+    <p class="section-sub">Selecione a especialidade e acesse todos os episódios organizados por tema.</p>
+  </div>
+  <div class="spec-grid">
+    <a href="#programas" class="spec-card">
+      <div class="spec-icon">🫀</div>
+      <div class="spec-name">Cardiologia</div>
+      <div class="spec-count">8 episódios · Série completa</div>
+      <div class="spec-progress"><div class="spec-fill" style="width:100%"></div></div>
+      <div class="spec-tag">Série completa →</div>
+    </a>
+    <a href="#programas" class="spec-card">
+      <div class="spec-icon">🧴</div>
+      <div class="spec-name">Dermatologia</div>
+      <div class="spec-count">10 episódios · Em produção</div>
+      <div class="spec-progress"><div class="spec-fill" style="width:60%; background:var(--teal)"></div></div>
+      <div class="spec-tag" style="color:var(--teal)">Em produção →</div>
+    </a>
+    <a href="#programas" class="spec-card">
+      <div class="spec-icon">👶</div>
+      <div class="spec-name">Pediatria</div>
+      <div class="spec-count">6 episódios · Série completa</div>
+      <div class="spec-progress"><div class="spec-fill" style="width:100%"></div></div>
+      <div class="spec-tag">Série completa →</div>
+    </a>
+    <a href="#programas" class="spec-card">
+      <div class="spec-icon">🥦</div>
+      <div class="spec-name">Nutrição</div>
+      <div class="spec-count">12 episódios · Série completa</div>
+      <div class="spec-progress"><div class="spec-fill" style="width:100%"></div></div>
+      <div class="spec-tag">Série completa →</div>
+    </a>
+    <a href="#programas" class="spec-card">
+      <div class="spec-icon">🧠</div>
+      <div class="spec-name">Neurologia</div>
+      <div class="spec-count">5 episódios · Em breve</div>
+      <div class="spec-progress"><div class="spec-fill" style="width:25%; background:#C8CDD6"></div></div>
+      <div class="spec-tag" style="color:var(--gray-500)">Em breve →</div>
+    </a>
+    <a href="#programas" class="spec-card">
+      <div class="spec-icon">🦴</div>
+      <div class="spec-name">Ortopedia</div>
+      <div class="spec-count">7 episódios · Série completa</div>
+      <div class="spec-progress"><div class="spec-fill" style="width:87%"></div></div>
+      <div class="spec-tag">Série completa →</div>
+    </a>
+    <a href="#programas" class="spec-card">
+      <div class="spec-icon">🧘</div>
+      <div class="spec-name">Fisioterapia</div>
+      <div class="spec-count">9 episódios · Em produção</div>
+      <div class="spec-progress"><div class="spec-fill" style="width:55%; background:var(--teal)"></div></div>
+      <div class="spec-tag" style="color:var(--teal)">Em produção →</div>
+    </a>
+    <a href="#clinica" class="spec-card">
+      <div class="spec-icon">🔬</div>
+      <div class="spec-name">Laboratório</div>
+      <div class="spec-count">Conheça os exames</div>
+      <div class="spec-progress"><div class="spec-fill" style="width:40%"></div></div>
+      <div class="spec-tag">Conhecer clínica →</div>
+    </a>
+  </div>
+</div>
+
+<div class="vod-wrap" id="programas">
+  <div class="vod-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Programas em vídeo</div>
+      <h2 class="section-title">Assista quando <em>quiser</em></h2>
+      <p class="section-sub">Biblioteca completa de conteúdo médico. Pause, avance, assista de novo — a qualquer hora.</p>
+    </div>
+    <div class="filters">
+      <button class="filter-btn active">Todos</button>
+      <button class="filter-btn">Cardiologia</button>
+      <button class="filter-btn">Dermatologia</button>
+      <button class="filter-btn">Pediatria</button>
+      <button class="filter-btn">Nutrição</button>
+      <button class="filter-btn">Ortopedia</button>
+      <button class="filter-btn">Fisioterapia</button>
+    </div>
+    <div class="vod-grid">
+
+      <div class="vod-card">
+        <div class="vod-thumb">
+          <div class="vod-thumb-bg" style="background:linear-gradient(135deg,#DBEAFE,#BFDBFE)">🫀</div>
+          <div class="vod-overlay"><div class="play-circle"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+          <div class="vod-spec-badge" style="background:var(--navy);color:white">Cardiologia</div>
+          <div class="vod-ep-badge">EP 01 / 08</div>
+        </div>
+        <div class="vod-body">
+          <div class="vod-spec-label" style="color:var(--navy)">Cardiologia</div>
+          <div class="vod-title">Pressão alta: quando buscar ajuda e como prevenir no dia a dia</div>
+          <div class="vod-doctor">
+            <div class="doc-avatar" style="background:var(--blue-light);color:var(--navy)">LC</div>
+            <div class="doc-info">
+              <div class="doc-name">Dr. Lucas Costa</div>
+              <div class="doc-role">Cardiologista — ICAS</div>
+            </div>
+          </div>
+          <div class="vod-footer">
+            <span class="vod-meta">⏱ 18 min</span>
+            <span class="vod-meta">👁 2.4k views</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="vod-card">
+        <div class="vod-thumb">
+          <div class="vod-thumb-bg" style="background:linear-gradient(135deg,#E0F2FE,#BAE6FD)">🧴</div>
+          <div class="vod-overlay"><div class="play-circle"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+          <div class="vod-spec-badge" style="background:var(--teal);color:white">Dermatologia</div>
+          <div class="vod-ep-badge">EP 01 / 10</div>
+        </div>
+        <div class="vod-body">
+          <div class="vod-spec-label" style="color:var(--teal)">Dermatologia</div>
+          <div class="vod-title">Protetor solar: mitos, verdades e como usar corretamente</div>
+          <div class="vod-doctor">
+            <div class="doc-avatar" style="background:var(--teal-light);color:var(--teal)">SC</div>
+            <div class="doc-info">
+              <div class="doc-name">Dra. Sâmela Cezarete</div>
+              <div class="doc-role">Dermatologista — ICAS</div>
+            </div>
+          </div>
+          <div class="vod-footer">
+            <span class="vod-meta">⏱ 14 min</span>
+            <span class="vod-meta">👁 3.1k views</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="vod-card">
+        <div class="vod-thumb">
+          <div class="vod-thumb-bg" style="background:linear-gradient(135deg,#FEF3C7,#FDE68A)">👶</div>
+          <div class="vod-overlay"><div class="play-circle"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+          <div class="vod-spec-badge" style="background:#B45309;color:white">Pediatria</div>
+          <div class="vod-ep-badge">EP 03 / 06</div>
+        </div>
+        <div class="vod-body">
+          <div class="vod-spec-label" style="color:#B45309">Pediatria</div>
+          <div class="vod-title">Febre na criança: quando é sinal de alerta e quando não é</div>
+          <div class="vod-doctor">
+            <div class="doc-avatar" style="background:#FEF3C7;color:#B45309">LB</div>
+            <div class="doc-info">
+              <div class="doc-name">Dr. Lucas Boechat</div>
+              <div class="doc-role">Pediatra — ICAS</div>
+            </div>
+          </div>
+          <div class="vod-footer">
+            <span class="vod-meta">⏱ 22 min</span>
+            <span class="vod-meta">👁 4.7k views</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="vod-card">
+        <div class="vod-thumb">
+          <div class="vod-thumb-bg" style="background:linear-gradient(135deg,#D1FAE5,#A7F3D0)">🥦</div>
+          <div class="vod-overlay"><div class="play-circle"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+          <div class="vod-spec-badge" style="background:#065F46;color:white">Nutrição</div>
+          <div class="vod-ep-badge">EP 05 / 12</div>
+        </div>
+        <div class="vod-body">
+          <div class="vod-spec-label" style="color:#065F46">Nutrição</div>
+          <div class="vod-title">Alimentação saudável com pouco dinheiro: guia prático completo</div>
+          <div class="vod-doctor">
+            <div class="doc-avatar" style="background:#D1FAE5;color:#065F46">SC</div>
+            <div class="doc-info">
+              <div class="doc-name">Sávio Costa</div>
+              <div class="doc-role">Nutricionista — ICAS</div>
+            </div>
+          </div>
+          <div class="vod-footer">
+            <span class="vod-meta">⏱ 16 min</span>
+            <span class="vod-meta">👁 5.2k views</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="vod-card">
+        <div class="vod-thumb">
+          <div class="vod-thumb-bg" style="background:linear-gradient(135deg,#EDE9FE,#DDD6FE)">🧘</div>
+          <div class="vod-overlay"><div class="play-circle"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+          <div class="vod-spec-badge" style="background:#5B21B6;color:white">Fisioterapia</div>
+          <div class="vod-ep-badge">EP 02 / 09</div>
+        </div>
+        <div class="vod-body">
+          <div class="vod-spec-label" style="color:#5B21B6">Fisioterapia</div>
+          <div class="vod-title">Dor nas costas: 5 exercícios que aliviam em casa em 10 minutos</div>
+          <div class="vod-doctor">
+            <div class="doc-avatar" style="background:#EDE9FE;color:#5B21B6">TG</div>
+            <div class="doc-info">
+              <div class="doc-name">Thabata Gil</div>
+              <div class="doc-role">Fisioterapeuta — ICAS</div>
+            </div>
+          </div>
+          <div class="vod-footer">
+            <span class="vod-meta">⏱ 20 min</span>
+            <span class="vod-meta">👁 6.8k views</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="vod-card">
+        <div class="vod-thumb">
+          <div class="vod-thumb-bg" style="background:linear-gradient(135deg,#DBEAFE,#C7D2FE)">🦴</div>
+          <div class="vod-overlay"><div class="play-circle"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+          <div class="vod-spec-badge" style="background:var(--blue);color:white">Ortopedia</div>
+          <div class="vod-ep-badge">EP 04 / 07</div>
+        </div>
+        <div class="vod-body">
+          <div class="vod-spec-label" style="color:var(--blue)">Ortopedia</div>
+          <div class="vod-title">Quando operar o joelho — e quando a fisioterapia resolve</div>
+          <div class="vod-doctor">
+            <div class="doc-avatar" style="background:var(--blue-light);color:var(--blue)">CS</div>
+            <div class="doc-info">
+              <div class="doc-name">Dr. Cristiano Scharra</div>
+              <div class="doc-role">Ortopedista — ICAS</div>
+            </div>
+          </div>
+          <div class="vod-footer">
+            <span class="vod-meta">⏱ 25 min</span>
+            <span class="vod-meta">👁 3.9k views</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="section" id="series">
+  <div class="section-header">
+    <div class="section-eyebrow">Séries por especialidade</div>
+    <h2 class="section-title">Do episódio 1 <em>ao final</em></h2>
+    <p class="section-sub">Cada especialidade tem sua própria série. Assista em ordem ou escolha o episódio que interessa.</p>
+  </div>
+  <div class="series-list">
+    <div class="series-row">
+      <div class="series-icon-box" style="background:var(--blue-light)">🫀</div>
+      <div class="series-info">
+        <div class="series-name">Série Cardiologia</div>
+        <div class="series-desc">Pressão, coração, ritmo cardíaco e prevenção — do básico ao avançado</div>
+      </div>
+      <div class="series-right">
+        <div class="series-count"><div class="series-num">8</div><div class="series-label">episódios</div></div>
+        <a href="#programas" class="series-cta">Assistir série</a>
+      </div>
+    </div>
+    <div class="series-row">
+      <div class="series-icon-box" style="background:var(--teal-light)">🧴</div>
+      <div class="series-info">
+        <div class="series-name">Série Dermatologia</div>
+        <div class="series-desc">Pele, cabelo, unhas — cuidados e tratamentos explicados com clareza</div>
+      </div>
+      <div class="series-right">
+        <div class="series-count"><div class="series-num">10</div><div class="series-label">episódios</div></div>
+        <a href="#programas" class="series-cta">Assistir série</a>
+      </div>
+    </div>
+    <div class="series-row">
+      <div class="series-icon-box" style="background:#FEF3C7">👶</div>
+      <div class="series-info">
+        <div class="series-name">Série Pediatria</div>
+        <div class="series-desc">Saúde infantil — vacinas, febre, alimentação e desenvolvimento</div>
+      </div>
+      <div class="series-right">
+        <div class="series-count"><div class="series-num">6</div><div class="series-label">episódios</div></div>
+        <a href="#programas" class="series-cta">Assistir série</a>
+      </div>
+    </div>
+    <div class="series-row">
+      <div class="series-icon-box" style="background:#D1FAE5">🥦</div>
+      <div class="series-info">
+        <div class="series-name">Série Nutrição</div>
+        <div class="series-desc">Alimentação saudável, dietas, suplementos e hábitos do dia a dia</div>
+      </div>
+      <div class="series-right">
+        <div class="series-count"><div class="series-num">12</div><div class="series-label">episódios</div></div>
+        <a href="#programas" class="series-cta">Assistir série</a>
+      </div>
+    </div>
+    <div class="series-row">
+      <div class="series-icon-box" style="background:#EDE9FE">🧘</div>
+      <div class="series-info">
+        <div class="series-name">Série Fisioterapia</div>
+        <div class="series-desc">Exercícios, reabilitação e prevenção de lesões para o dia a dia</div>
+      </div>
+      <div class="series-right">
+        <div class="series-count"><div class="series-num">9</div><div class="series-label">episódios</div></div>
+        <a href="#programas" class="series-cta">Assistir série</a>
+      </div>
+    </div>
+    <div class="series-row">
+      <div class="series-icon-box" style="background:var(--blue-light)">🦴</div>
+      <div class="series-info">
+        <div class="series-name">Série Ortopedia</div>
+        <div class="series-desc">Articulações, fraturas, postura e reabilitação ortopédica</div>
+      </div>
+      <div class="series-right">
+        <div class="series-count"><div class="series-num">7</div><div class="series-label">episódios</div></div>
+        <a href="#programas" class="series-cta">Assistir série</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="clinic-section" id="clinica">
+  <div class="clinic-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Conheça o ICAS</div>
+      <h2 class="section-title" style="color:white">Muito além dos <em style="color:#7EC8E3">vídeos</em></h2>
+      <p class="section-sub">O ICAS oferece atendimento completo em múltiplas especialidades no Sul do ES.</p>
+    </div>
+    <div class="clinic-grid">
+      <div class="clinic-card">
+        <div class="clinic-icon">🏥</div>
+        <div class="clinic-name">Clínica Médica</div>
+        <div class="clinic-desc">Atendimento clínico geral com equipe multidisciplinar capacitada</div>
+        <div class="clinic-link">Ver programas →</div>
+      </div>
+      <div class="clinic-card">
+        <div class="clinic-icon">🔬</div>
+        <div class="clinic-name">Laboratório</div>
+        <div class="clinic-desc">Exames laboratoriais completos com resultados ágeis e precisos</div>
+        <div class="clinic-link">Entender exames →</div>
+      </div>
+      <div class="clinic-card">
+        <div class="clinic-icon">📡</div>
+        <div class="clinic-name">Ultrassonografia</div>
+        <div class="clinic-desc">Diagnóstico por imagem de alta qualidade com equipamentos modernos</div>
+        <div class="clinic-link">Ver especialidade →</div>
+      </div>
+      <div class="clinic-card">
+        <div class="clinic-icon">🐴</div>
+        <div class="clinic-name">Equoterapia ICAS</div>
+        <div class="clinic-desc">Terapia assistida por equinos para reabilitação física e emocional</div>
+        <div class="clinic-link">Conhecer projeto →</div>
+      </div>
+      <div class="clinic-card">
+        <div class="clinic-icon">🏠</div>
+        <div class="clinic-name">ICAS Home Care</div>
+        <div class="clinic-desc">Cuidados médicos e de enfermagem profissional no conforto do lar</div>
+        <div class="clinic-link">Saber mais →</div>
+      </div>
+      <div class="clinic-card">
+        <div class="clinic-icon">🤝</div>
+        <div class="clinic-name">Credenciamento</div>
+        <div class="clinic-desc">Seja um profissional credenciado da rede ICAS em todo o Sul do ES</div>
+        <div class="clinic-link">Se credenciar →</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="about-wrap" id="sobre">
+  <div class="about-inner">
+    <div>
+      <div class="section-eyebrow">Sobre o canal</div>
+      <h2 class="section-title">ICAS TV +<br><em>TV Marataízes</em></h2>
+      <div style="margin-top:24px">
+        <p class="about-text">O Canal ICAS é uma parceria entre o Instituto Capixaba de Saúde e a TV Marataízes — o único canal independente do Sul do Espírito Santo, presente na SOUL TV Canal 300 ao lado de CNN Brasil, Record News e TV UOL.</p>
+        <p class="about-text" style="margin-top:12px">Os médicos e especialistas do ICAS transformam seu conhecimento em conteúdo acessível para toda a população do Sul do ES — e para quem acompanha o Canal 300 em todo o Brasil.</p>
+      </div>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="feature-text">Conteúdo produzido por médicos reais da região</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="feature-text">Distribuição nas cidades do consórcio CIM Expandida Sul</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="feature-text">Pílulas segmentadas por cidade via Instagram</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="feature-text">Acervo permanente disponível 24h sob demanda</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="feature-text">Alcance nacional pelo Canal 300 SOUL TV</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-cards">
+      <div class="metric-card highlight">
+        <div class="metric-title">Alcance TV Marataízes</div>
+        <div class="metric-row"><span class="metric-label">Views última campanha</span><span class="metric-value">237.649</span></div>
+        <div class="metric-row"><span class="metric-label">Pessoas alcançadas</span><span class="metric-value">69.932</span></div>
+        <div class="metric-row"><span class="metric-label">Seguidores Instagram</span><span class="metric-value">11.000+</span></div>
+        <div class="metric-row"><span class="metric-label">Canal nacional</span><span class="metric-value">SOUL TV 300</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-title">Cidades cobertas</div>
+        <div class="metric-row"><span class="metric-label">Marataízes</span><span class="metric-value" style="color:var(--teal)">✓ Ativo</span></div>
+        <div class="metric-row"><span class="metric-label">Itapemirim</span><span class="metric-value" style="color:var(--teal)">✓ Ativo</span></div>
+        <div class="metric-row"><span class="metric-label">Presidente Kennedy</span><span class="metric-value" style="color:var(--teal)">✓ Ativo</span></div>
+        <div class="metric-row"><span class="metric-label">Piúma</span><span class="metric-value" style="color:var(--teal)">✓ Ativo</span></div>
+        <div class="metric-row"><span class="metric-label">Outras cidades Sul ES</span><span class="metric-value" style="color:var(--gray-500)">Em expansão</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-wrap">
+  <h2>Quer o ICAS na TV da sua cidade?</h2>
+  <p>Fale com a TV Marataízes e descubra como levar conteúdo de saúde de qualidade para a sua região.</p>
+  <div class="cta-btns">
+    <a href="https://wa.me/5528999036141" class="cta-white">Falar com TV Marataízes</a>
+    <a href="https://wa.me/5528999125739" class="cta-border">Agendar no ICAS</a>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 ICAS TV — <a href="https://institutocapixabadesaude.com.br">Instituto Capixaba de Saúde</a> + <a href="https://tvmarataizes.digital">TV Marataízes</a> · Canal 300 SOUL TV</p>
+  <div class="footer-links">
+    <a href="https://institutocapixabadesaude.com.br">Site ICAS</a>
+    <a href="https://tvmarataizes.digital">TV Marataízes</a>
+    <a href="https://instagram.com/institutocapixabadesaude">Instagram</a>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
