@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICAS TV — Proposta Estratégica</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #00235A;
+  --blue: #0052CC;
+  --gold: #C9963A;
+  --gold-light: #F5E6C8;
+  --white: #FFFFFF;
+  --off: #F8F7F4;
+  --text: #1A1A2E;
+  --muted: #6B7280;
+  --border: #E5E0D8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes lineGrow { from { width:0; } to { width:100%; } }
+@keyframes countUp { from { opacity:0; transform:scale(.8); } to { opacity:1; transform:scale(1); } }
+.fade-up { animation: fadeUp .8s ease forwards; opacity:0; }
+.fade-up-1 { animation-delay:.1s; }
+.fade-up-2 { animation-delay:.25s; }
+.fade-up-3 { animation-delay:.4s; }
+.fade-up-4 { animation-delay:.55s; }
+.fade-up-5 { animation-delay:.7s; }
+
+/* COVER */
+.cover {
+  min-height: 100vh;
+  background: var(--navy);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 72px;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,150,58,0.15);
+  pointer-events: none;
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,150,58,0.08);
+  pointer-events: none;
+}
+.cover-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cover-label::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--gold);
+}
+.cover h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.05;
+  max-width: 820px;
+  margin-bottom: 40px;
+}
+.cover h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+.cover-sub {
+  font-size: 17px;
+  color: rgba(255,255,255,0.55);
+  max-width: 520px;
+  line-height: 1.8;
+  font-weight: 300;
+  margin-bottom: 56px;
+}
+.cover-meta {
+  display: flex;
+  gap: 48px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.cover-meta-item { }
+.cover-meta-label { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 4px; }
+.cover-meta-value { font-size: 14px; color: rgba(255,255,255,0.7); font-weight: 500; }
+.cover-scroll {
+  position: absolute;
+  bottom: 40px;
+  right: 72px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+}
+.scroll-line {
+  width: 40px;
+  height: 1px;
+  background: rgba(255,255,255,0.2);
+  position: relative;
+  overflow: hidden;
+}
+.scroll-line::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: var(--gold);
+  animation: slideRight 2s ease infinite;
+}
+@keyframes slideRight { 0%{left:-100%} 100%{left:100%} }
+
+/* SECTIONS */
+.section { padding: 96px 72px; max-width: 1200px; margin: 0 auto; }
+.section-full { padding: 96px 72px; }
+.eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--gold); }
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 54px);
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.section-title em { font-style: italic; color: var(--blue); }
+.section-body {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.85;
+  max-width: 600px;
+  font-weight: 300;
+  margin-bottom: 56px;
+}
+
+/* QUOTE BLOCK */
+.quote-block {
+  background: var(--navy);
+  padding: 72px;
+  position: relative;
+  overflow: hidden;
+}
+.quote-block::before {
+  content: '\201C';
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 240px;
+  color: rgba(201,150,58,0.08);
+  position: absolute;
+  top: -40px;
+  left: 40px;
+  line-height: 1;
+  pointer-events: none;
+}
+.quote-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 3vw, 36px);
+  color: var(--white);
+  line-height: 1.5;
+  font-style: italic;
+  max-width: 900px;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 1;
+}
+.quote-attr {
+  font-size: 13px;
+  color: var(--gold);
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+
+/* PROBLEM GRID */
+.problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
+.problem-card {
+  background: var(--white);
+  padding: 40px;
+}
+.problem-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 56px;
+  color: var(--gold);
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 12px;
+  opacity: .4;
+}
+.problem-title { font-size: 17px; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
+.problem-text { font-size: 14px; color: var(--muted); line-height: 1.7; font-weight: 300; }
+
+/* CRONOGRAMA */
+.timeline { position: relative; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+.tl-item {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 48px;
+  position: relative;
+}
+.tl-left { flex-shrink: 0; text-align: center; width: 56px; }
+.tl-dot {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  color: var(--gold);
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+.tl-dot.gold { background: var(--gold); color: var(--navy); }
+.tl-right { padding-top: 12px; flex: 1; }
+.tl-mes {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.tl-title { font-size: 18px; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
+.tl-items { display: flex; flex-direction: column; gap: 6px; }
+.tl-item-text {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  padding-left: 16px;
+  position: relative;
+}
+.tl-item-text::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 1px;
+  background: var(--gold);
+}
+
+/* VALORES */
+.values-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; background: var(--border); }
+.value-card {
+  background: var(--white);
+  padding: 40px 36px;
+  position: relative;
+}
+.value-card.featured { background: var(--navy); }
+.value-card.featured * { color: white !important; }
+.value-card.featured .value-price-sub { color: rgba(255,255,255,0.5) !important; }
+.value-card.featured .value-tag { background: var(--gold) !important; color: var(--navy) !important; }
+.value-card.featured .value-divider { border-color: rgba(255,255,255,0.1) !important; }
+.value-card.featured .value-item::before { background: var(--gold) !important; }
+.value-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  background: var(--gold-light);
+  color: var(--gold);
+  padding: 4px 12px;
+  border-radius: 2px;
+  margin-bottom: 24px;
+}
+.value-name { font-size: 20px; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
+.value-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.value-price-sub { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+.value-divider { border: none; border-top: 1px solid var(--border); margin-bottom: 24px; }
+.value-items { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+.value-item {
+  font-size: 13px;
+  color: var(--muted);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.5;
+}
+.value-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 1px;
+  background: var(--navy);
+}
+.value-btn {
+  display: block;
+  text-align: center;
+  padding: 13px 24px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1.5px solid var(--navy);
+  color: var(--navy);
+  transition: all .2s;
+  letter-spacing: .04em;
+}
+.value-btn:hover { background: var(--navy); color: white; }
+.value-btn.primary { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+.value-btn.primary:hover { background: #b8852e; border-color: #b8852e; }
+.value-note { font-size: 12px; color: var(--muted); margin-top: 10px; text-align: center; font-style: italic; }
+
+/* IMPLANTACAO */
+.impl-box {
+  background: var(--off);
+  border: 1px solid var(--border);
+  padding: 48px;
+  margin-bottom: 2px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.impl-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 72px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.impl-label { font-size: 13px; color: var(--muted); font-style: italic; margin-bottom: 20px; }
+.impl-parcel { font-size: 14px; color: var(--blue); font-weight: 500; }
+.impl-items { display: flex; flex-direction: column; gap: 12px; }
+.impl-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.impl-check {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--gold-light);
+  border: 1px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+  font-size: 10px;
+  color: var(--gold);
+  font-weight: 700;
+}
+.impl-text { font-size: 14px; color: var(--text); line-height: 1.5; }
+
+/* STATS */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  background: var(--border);
+}
+.stat-item { background: var(--navy); padding: 40px 32px; text-align: center; }
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 52px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-label { font-size: 12px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: .08em; }
+
+/* MANIFESTO */
+.manifesto { background: var(--off); padding: 96px 72px; }
+.manifesto-inner { max-width: 900px; margin: 0 auto; }
+.manifesto-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(20px, 2.5vw, 28px);
+  line-height: 1.7;
+  color: var(--navy);
+  font-weight: 400;
+}
+.manifesto-text strong { font-weight: 700; color: var(--navy); }
+.manifesto-text em { font-style: italic; color: var(--blue); }
+
+/* MERCADO */
+.market-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.market-card {
+  border: 1px solid var(--border);
+  padding: 32px 28px;
+}
+.market-icon { font-size: 28px; margin-bottom: 16px; }
+.market-title { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
+.market-text { font-size: 13px; color: var(--muted); line-height: 1.7; font-weight: 300; }
+
+/* MUNICIPIOS */
+.municipios { background: var(--navy); padding: 96px 72px; text-align: center; }
+.municipios-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 5vw, 64px);
+  color: var(--white);
+  font-weight: 600;
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+.municipios-title em { font-style: italic; color: var(--gold); }
+.municipios-sub { font-size: 17px; color: rgba(255,255,255,0.5); max-width: 560px; margin: 0 auto 56px; font-weight: 300; line-height: 1.8; }
+.mun-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; max-width: 800px; margin: 0 auto; }
+.mun-tag {
+  padding: 8px 20px;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.6);
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 100px;
+  transition: all .2s;
+}
+.mun-tag.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--navy);
+  font-weight: 700;
+}
+
+/* ASSINATURA */
+.signature { padding: 80px 72px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 32px; }
+.sig-left { }
+.sig-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; color: var(--navy); font-weight: 600; margin-bottom: 4px; }
+.sig-sub { font-size: 14px; color: var(--muted); }
+.sig-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+.sig-btn {
+  padding: 14px 32px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: .04em;
+  transition: all .2s;
+}
+.sig-btn-primary { background: var(--navy); color: white; }
+.sig-btn-primary:hover { background: var(--blue); }
+.sig-btn-secondary { border: 1.5px solid var(--navy); color: var(--navy); }
+.sig-btn-secondary:hover { background: var(--navy); color: white; }
+
+@media (max-width: 900px) {
+  .cover, .section, .section-full, .manifesto, .municipios, .signature { padding-left: 28px; padding-right: 28px; }
+  .problem-grid, .values-grid, .stats-row, .market-grid { grid-template-columns: 1fr; }
+  .impl-box { grid-template-columns: 1fr; }
+  .quote-block { padding: 48px 28px; }
+  .cover h1 { font-size: 40px; }
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-label fade-up fade-up-1">Proposta estratégica confidencial · 2026</div>
+  <h1 class="fade-up fade-up-2">O Espírito Santo<br>merece uma voz.<br><em>Essa voz é o ICAS TV.</em></h1>
+  <p class="cover-sub fade-up fade-up-3">Um canal de saúde de padrão internacional — produzido em Marataízes, distribuído em todo o Brasil, presente em 197 países. Nenhuma emissora no ES oferece isso. Até agora.</p>
+  <div class="cover-meta fade-up fade-up-4">
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">Apresentado por</div>
+      <div class="cover-meta-value">TV Marataízes</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">Parceiro estratégico</div>
+      <div class="cover-meta-value">Instituto Capixaba de Saúde — ICAS</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">Data</div>
+      <div class="cover-meta-value">Abril 2026</div>
+    </div>
+  </div>
+  <div class="cover-scroll fade-up fade-up-5">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<!-- QUOTE 1 — JOBS -->
+<div class="quote-block">
+  <p class="quote-text">"As pessoas que são loucas o suficiente para acreditar que podem mudar o mundo são as que realmente o mudam."</p>
+  <div class="quote-attr">Steve Jobs · Apple, 1997</div>
+</div>
+
+<!-- O PROBLEMA -->
+<div style="background:var(--off); padding:96px 0;">
+<div class="section">
+  <div class="eyebrow">O diagnóstico</div>
+  <h2 class="section-title">O Sul do ES tem saúde.<br><em>Não tem comunicação.</em></h2>
+  <p class="section-body">Médicos excelentes. Clínicas estruturadas. Consórcios que atendem dezenas de cidades. Mas o paciente não sabe disso. O governo não vê isso. O Brasil não conhece isso. O ICAS TV resolve exatamente esse vácuo.</p>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="problem-num">01</div>
+      <div class="problem-title">Invisibilidade institucional</div>
+      <div class="problem-text">O ICAS atende municípios via consórcio público mas não tem presença de mídia proporcional à sua relevância. Auditorias, governos e parceiros não enxergam o impacto real.</div>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">02</div>
+      <div class="problem-title">Paciente desinformado</div>
+      <div class="problem-text">A população do Sul do ES não sabe quais serviços estão disponíveis, quais médicos atendem, nem como prevenir doenças. Isso gera mais urgências e menos prevenção.</div>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">03</div>
+      <div class="problem-title">Médicos sem autoridade digital</div>
+      <div class="problem-text">Os especialistas do ICAS são referência regional mas não têm canal de expressão. Sem presença em mídia, a captação de pacientes depende apenas de indicação boca a boca.</div>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">04</div>
+      <div class="problem-title">Nenhuma emissora fez isso no ES</div>
+      <div class="problem-text">Nenhum canal de TV do Espírito Santo oferece comunicação em saúde com distribuição nacional. Esse espaço está vazio. Hoje, o ICAS pode ser o primeiro a ocupar.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- QUOTE 2 — DRUCKER -->
+<div class="quote-block">
+  <p class="quote-text">"O objetivo do marketing é conhecer e entender o cliente tão bem que o produto ou serviço se vende sozinho."</p>
+  <div class="quote-attr">Peter Drucker · Pai da Administração Moderna</div>
+</div>
+
+<!-- A SOLUÇÃO -->
+<div class="section">
+  <div class="eyebrow">A solução</div>
+  <h2 class="section-title">ICAS TV —<br><em>o canal que o ES precisava.</em></h2>
+  <p class="section-body">Uma plataforma de comunicação em saúde com três camadas simultâneas: TV ao vivo no Canal 300 SOUL TV, biblioteca VOD por especialidade acessível 24h, e pílulas segmentadas por cidade via Instagram. Tudo produzido pela TV Marataízes.</p>
+
+  <div class="stats-row">
+    <div class="stat-item">
+      <div class="stat-num">300</div>
+      <div class="stat-label">Canal nacional SOUL TV</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">197</div>
+      <div class="stat-label">Países de distribuição</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">237k</div>
+      <div class="stat-label">Views última campanha</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">24h</div>
+      <div class="stat-label">Conteúdo disponível VOD</div>
+    </div>
+  </div>
+</div>
+
+<!-- MERCADO -->
+<div style="background:var(--off); padding:96px 0;">
+<div class="section">
+  <div class="eyebrow">Segmentação de mercado</div>
+  <h2 class="section-title">Quatro públicos.<br><em>Uma plataforma.</em></h2>
+  <p class="section-body">O ICAS TV não é só para o paciente. É uma ferramenta de comunicação que atende simultaneamente quatro audiências estratégicas.</p>
+  <div class="market-grid">
+    <div class="market-card">
+      <div class="market-icon">🏥</div>
+      <div class="market-title">Pacientes e famílias</div>
+      <div class="market-text">Informação de saúde acessível, em linguagem simples, produzida por médicos reais da região. Prevenção, orientação e encaminhamento para consulta.</div>
+    </div>
+    <div class="market-card">
+      <div class="market-icon">🏛️</div>
+      <div class="market-title">Governo e auditores</div>
+      <div class="market-text">O ICAS TV é prova documental da atuação do consórcio. Cada episódio é um registro público de serviço prestado à comunidade — visível, verificável, rastreável.</div>
+    </div>
+    <div class="market-card">
+      <div class="market-icon">⚕️</div>
+      <div class="market-title">Médicos e especialistas</div>
+      <div class="market-text">Canal de autoridade para o corpo clínico do ICAS. Médico na TV vira referência regional. Captação de pacientes passa a ser ativa, não passiva.</div>
+    </div>
+    <div class="market-card">
+      <div class="market-icon">🌐</div>
+      <div class="market-title">Parceiros e investidores</div>
+      <div class="market-text">Presença no Canal 300 ao lado de CNN Brasil e Record News posiciona o ICAS como instituição de padrão nacional — atraindo parcerias e credibilidade institucional.</div>
+    </div>
+    <div class="market-card">
+      <div class="market-icon">📍</div>
+      <div class="market-title">Municípios consorciados</div>
+      <div class="market-text">Cada cidade parceira do consórcio aparece no canal. Prefeitos e secretários de saúde têm a visibilidade da ação de saúde pública diretamente na TV da cidade.</div>
+    </div>
+    <div class="market-card">
+      <div class="market-icon">🌍</div>
+      <div class="market-title">Brasil e mundo</div>
+      <div class="market-text">Via SOUL TV Canal 300 e distribuição digital, o ICAS passa a ser visto em todo o Brasil e em 197 países. Nenhuma emissora do ES oferece esse alcance hoje.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- QUOTE 3 — MARSHALL MCLUHAN -->
+<div class="quote-block">
+  <p class="quote-text">"O meio é a mensagem. O canal que você escolhe comunica tanto quanto o conteúdo que você transmite."</p>
+  <div class="quote-attr">Marshall McLuhan · Filósofo da Comunicação</div>
+</div>
+
+<!-- CRONOGRAMA -->
+<div class="section">
+  <div class="eyebrow">Cronograma de execução</div>
+  <h2 class="section-title">Do zero ao ar<br><em>em 90 dias.</em></h2>
+  <p class="section-body">Um processo estruturado em três fases — da criação da identidade do canal até a operação mensal contínua. Cada fase tem entregáveis claros e mensuráveis.</p>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot">1</div></div>
+      <div class="tl-right">
+        <div class="tl-mes">Mês 1 — Fundação</div>
+        <div class="tl-title">Identidade e primeiros episódios</div>
+        <div class="tl-items">
+          <div class="tl-item-text">Criação da identidade visual do ICAS TV — vinheta, template de tela, logo do canal</div>
+          <div class="tl-item-text">Roteiro dos primeiros episódios piloto por especialidade</div>
+          <div class="tl-item-text">Gravação dos episódios de Pediatria e Nutrição com médicos do ICAS</div>
+          <div class="tl-item-text">Setup do VOD no site com player embeddado</div>
+          <div class="tl-item-text">Criação do perfil @icastvbrasil no Instagram</div>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot">2</div></div>
+      <div class="tl-right">
+        <div class="tl-mes">Mês 2 — Expansão</div>
+        <div class="tl-title">Grade completa e distribuição</div>
+        <div class="tl-items">
+          <div class="tl-item-text">Gravação das demais especialidades — Cardiologia, Dermatologia, Ortopedia, Fisioterapia</div>
+          <div class="tl-item-text">Configuração da grade na SOUL TV Canal 300</div>
+          <div class="tl-item-text">Site ICAS TV no ar com biblioteca VOD organizada por especialidade</div>
+          <div class="tl-item-text">Primeiras 8 pílulas para Instagram das cidades do consórcio</div>
+          <div class="tl-item-text">Integração do link "ICAS TV" no menu do site institutocapixabadesaude.com.br</div>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot">3</div></div>
+      <div class="tl-right">
+        <div class="tl-mes">Mês 3 — Lançamento</div>
+        <div class="tl-title">Inauguração oficial e cobertura</div>
+        <div class="tl-items">
+          <div class="tl-item-text">Lançamento oficial do ICAS TV com cobertura jornalística da TV Marataízes</div>
+          <div class="tl-item-text">Primeiro programa ao vivo com Maurício Galante como apresentador institucional</div>
+          <div class="tl-item-text">Envio de press release para imprensa do ES e nacional</div>
+          <div class="tl-item-text">Relatório de audiência do primeiro mês — Canal 300 + VOD + Instagram</div>
+          <div class="tl-item-text">Apresentação aos municípios do consórcio com material de divulgação</div>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot gold">∞</div></div>
+      <div class="tl-right">
+        <div class="tl-mes">Mês 4 em diante — Operação</div>
+        <div class="tl-title">Canal ativo, crescendo mês a mês</div>
+        <div class="tl-items">
+          <div class="tl-item-text">Novo episódio por especialidade todo mês — banco de conteúdo cresce continuamente</div>
+          <div class="tl-item-text">Pílulas segmentadas por cidade — cada município do consórcio recebe conteúdo personalizado</div>
+          <div class="tl-item-text">Relatório mensal de audiência enviado ao ICAS — dados para auditorias e prestação de contas</div>
+          <div class="tl-item-text">Expansão gradual para novos municípios e novas especialidades</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- IMPLANTAÇÃO -->
+<div style="background:var(--off); padding:96px 0;">
+<div class="section">
+  <div class="eyebrow">Investimento</div>
+  <h2 class="section-title">Transparente.<br><em>Justo. Estruturado.</em></h2>
+  <p class="section-body">Dois momentos de investimento: a criação do canal e a sua operação contínua. Cada real investido tem entrega correspondente documentada.</p>
+
+  <div class="impl-box">
+    <div>
+      <div style="font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Taxa de implantação — única</div>
+      <div class="impl-price">R$ 18.000</div>
+      <div class="impl-label">Pagamento único — ou 3× de R$6.000</div>
+      <div class="impl-parcel">Inclui todos os 3 meses de criação do canal</div>
+    </div>
+    <div class="impl-items">
+      <div class="impl-item"><div class="impl-check">✓</div><div class="impl-text">Identidade visual completa do ICAS TV</div></div>
+      <div class="impl-item"><div class="impl-check">✓</div><div class="impl-text">Primeiros episódios piloto de todas as especialidades</div></div>
+      <div class="impl-item"><div class="impl-check">✓</div><div class="impl-text">Site VOD completo com biblioteca organizada</div></div>
+      <div class="impl-item"><div class="impl-check">✓</div><div class="impl-text">Setup na grade da SOUL TV Canal 300</div></div>
+      <div class="impl-item"><div class="impl-check">✓</div><div class="impl-text">Lançamento oficial com cobertura jornalística</div></div>
+      <div class="impl-item"><div class="impl-check">✓</div><div class="impl-text">Integração no site do ICAS — seção Na Mídia</div></div>
+    </div>
+  </div>
+
+  <div class="values-grid" style="margin-top:2px;">
+    <div class="value-card">
+      <div class="value-tag">Essencial</div>
+      <div class="value-name">Pacote Mensal</div>
+      <div class="value-price">R$ 4.500</div>
+      <div class="value-price-sub">por mês · a partir do mês 4</div>
+      <hr class="value-divider">
+      <div class="value-items">
+        <div class="value-item">1 episódio por especialidade/mês</div>
+        <div class="value-item">4 pílulas Instagram mensais</div>
+        <div class="value-item">VOD atualizado continuamente</div>
+        <div class="value-item">Relatório mensal de audiência</div>
+        <div class="value-item">Grade TV Marataízes incluída</div>
+      </div>
+      <a href="https://wa.me/5528999036141" class="value-btn">Começar com este</a>
+    </div>
+    <div class="value-card featured">
+      <div class="value-tag">Recomendado</div>
+      <div class="value-name">Expansão Regional</div>
+      <div class="value-price">R$ 7.500</div>
+      <div class="value-price-sub">por mês · a partir do mês 4</div>
+      <hr class="value-divider">
+      <div class="value-items">
+        <div class="value-item">2 episódios por especialidade/mês</div>
+        <div class="value-item">8 pílulas por mês por cidade</div>
+        <div class="value-item">VOD + Canal 300 nacional</div>
+        <div class="value-item">Relatório com dados por cidade</div>
+        <div class="value-item">Cobertura de eventos do ICAS</div>
+      </div>
+      <a href="https://wa.me/5528999036141" class="value-btn primary">Este é o ideal</a>
+      <div class="value-note">Mais escolhido por grupos de saúde</div>
+    </div>
+    <div class="value-card">
+      <div class="value-tag">Consórcio</div>
+      <div class="value-name">Cobertura Total</div>
+      <div class="value-price">R$ 12.000</div>
+      <div class="value-price-sub">por mês · a partir do mês 4</div>
+      <hr class="value-divider">
+      <div class="value-items">
+        <div class="value-item">Todas as cidades do consórcio</div>
+        <div class="value-item">16 pílulas segmentadas/mês</div>
+        <div class="value-item">Canal exclusivo por município</div>
+        <div class="value-item">Relatório para prestação de contas</div>
+        <div class="value-item">Apresentação a prefeitos e sec. saúde</div>
+      </div>
+      <a href="https://wa.me/5528999036141" class="value-btn">Máxima cobertura</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- MANIFESTO -->
+<div class="manifesto">
+  <div class="manifesto-inner">
+    <div class="eyebrow" style="justify-content:flex-start;">Por que isso é importante</div>
+    <div class="manifesto-text">
+      <strong>Comunicação em saúde não é luxo — é infraestrutura.</strong> Assim como estradas conectam cidades, a TV conecta o conhecimento médico à população que precisa dele.<br><br>
+      O ICAS TV não é um programa de televisão. É <em>o maior projeto de saúde pública do Sul do Espírito Santo que não usa dinheiro público</em> — porque é sustentado por quem acredita que informação salva vidas.<br><br>
+      Cada episódio que vai ao ar é uma mãe que aprendeu quando levar o filho ao pediatra. É um idoso que entendeu o que é pressão alta antes de ter um infarto. É um município que aparece no Canal 300 ao lado de CNN Brasil.<br><br>
+      <strong>Nenhuma emissora do ES fez isso antes. O ICAS tem a chance de ser o primeiro.</strong><br><br>
+      <em>E os municípios que fizerem parte do ICAS TV serão os municípios que a história do ES vai lembrar como os que chegaram antes.</em>
+    </div>
+  </div>
+</div>
+
+<!-- QUOTE 4 — NELSON MANDELA -->
+<div class="quote-block">
+  <p class="quote-text">"Educação é a arma mais poderosa que você pode usar para mudar o mundo."</p>
+  <div class="quote-attr">Nelson Mandela</div>
+</div>
+
+<!-- MUNICIPIOS -->
+<div class="municipios">
+  <div class="eyebrow" style="justify-content:center; color:var(--gold);">Os municípios que fazem a TV acontecer</div>
+  <h2 class="municipios-title">Cada cidade no ar.<br><em>Todo o ES unido.</em></h2>
+  <p class="municipios-sub">Os municípios parceiros do consórcio CIM Expandida Sul não são apenas beneficiários do canal — são co-criadores. Cada cidade que participa aparece no ICAS TV e contribui para que mais cidades tenham acesso ao mesmo serviço.</p>
+  <div class="mun-grid">
+    <div class="mun-tag active">Marataízes</div>
+    <div class="mun-tag active">Itapemirim</div>
+    <div class="mun-tag active">Piúma</div>
+    <div class="mun-tag active">Anchieta</div>
+    <div class="mun-tag active">Guarapari</div>
+    <div class="mun-tag">Iconha</div>
+    <div class="mun-tag">Rio Novo do Sul</div>
+    <div class="mun-tag">Alfredo Chaves</div>
+  </div>
+  <p style="font-size:13px; color:rgba(255,255,255,0.3); margin-top:32px; font-style:italic;">8 municípios do CIM Expandida Sul · Tags em destaque = já cobertos pela TV Marataízes</p>
+</div>
+
+<!-- ASSINATURA -->
+<div class="signature">
+  <div class="sig-left">
+    <div class="sig-title">Pronto para começar?</div>
+    <div class="sig-sub">TV Marataízes · (28) 99903-6141 · Segunda-feira, 14h</div>
+  </div>
+  <div class="sig-cta">
+    <a href="https://wa.me/5528999036141" class="sig-btn sig-btn-primary">Confirmar reunião</a>
+    <a href="https://institutocapixabadesaude.com.br" class="sig-btn sig-btn-secondary">Site do ICAS</a>
+  </div>
+</div>
+
+</body>
+</html>
