@@ -99,9 +99,6 @@ footer{
   color:#ccc;
 }
 
-/* ═══ CARROSSÉIS ESTILO GLOBOPLAY ═══ */
-
-/* Carrossel de destaque (programas principais) */
 .gp-featured {
   max-width: var(--max);
   margin: 0 auto;
@@ -128,7 +125,6 @@ footer{
 }
 .gp-row::-webkit-scrollbar { display: none; }
 
-/* Card de destaque */
 .gp-card {
   flex: 0 0 340px;
   background: var(--card);
@@ -190,7 +186,6 @@ footer{
 }
 .gp-card-btn:hover { opacity: .85; }
 
-/* Setas de navegação */
 .gp-arrow {
   position: absolute;
   top: 50%;
@@ -215,7 +210,6 @@ footer{
 .gp-arrow.prev { left: -8px; }
 .gp-arrow.next { right: -8px; }
 
-/* Carrossel de thumbs (16 programas) */
 .gp-thumbs-wrap {
   max-width: var(--max);
   margin: 0 auto;
@@ -409,14 +403,12 @@ footer{
   </div>
 </div>
 
-
-<!-- CARROSSEL DESTAQUE — GLOBOPLAY STYLE -->
+<!-- CARROSSEL DESTAQUE -->
 <div class="gp-featured">
   <h2>Programas da TV Marataízes</h2>
   <div class="gp-row-wrap">
     <button class="gp-arrow prev" id="gp-feat-prev" aria-label="Anterior">&#8249;</button>
     <div class="gp-row" id="gp-featured-row">
-
       <div class="gp-card">
         <a href="https://tvmarataizes.digital/diva/" style="text-decoration:none">
           <div class="gp-card-thumb"><img src="clima/diva.png" alt="O Divã do Abacaxi"></div>
@@ -427,7 +419,6 @@ footer{
           </div>
         </a>
       </div>
-
       <div class="gp-card">
         <a href="https://tvmarataizes.digital/marataizes-em-movimento" style="text-decoration:none">
           <div class="gp-card-thumb"><img src="clima/PREFEITO.png" alt="Marataízes está em movimento"></div>
@@ -438,7 +429,6 @@ footer{
           </div>
         </a>
       </div>
-
       <div class="gp-card">
         <a href="https://tvmarataizes.digital/expo-inovadora-2026" style="text-decoration:none">
           <div class="gp-card-thumb"><img src="clima/EXPO.png" alt="Cidade Expo Inovadora"></div>
@@ -449,7 +439,6 @@ footer{
           </div>
         </a>
       </div>
-
       <div class="gp-card">
         <a href="https://tvmarataizes.digital/leituraemcena/" style="text-decoration:none">
           <div class="gp-card-thumb"><img src="clima/Leitura.png" alt="Leitura em Cena"></div>
@@ -460,7 +449,6 @@ footer{
           </div>
         </a>
       </div>
-
       <div class="gp-card">
         <a href="https://tvmarataizes.digital/vitrine-marataizes.html" style="text-decoration:none">
           <div class="gp-card-thumb"><img src="clima/vitrine-thumb.png" alt="Vitrine Marataízes"></div>
@@ -471,14 +459,12 @@ footer{
           </div>
         </a>
       </div>
-
     </div>
     <button class="gp-arrow next" id="gp-feat-next" aria-label="Próximo">&#8250;</button>
   </div>
 </div>
 
-
-<!-- CARROSSEL THUMBS — GLOBOPLAY STYLE -->
+<!-- CARROSSEL THUMBS -->
 <div class="gp-thumbs-wrap">
   <div class="gp-thumbs-label">Mais programas</div>
   <div style="position:relative">
@@ -505,7 +491,6 @@ footer{
   </div>
 </div>
 
-
 <a class="cta" href="https://tvmarataizes.digital/anunciar/">ANUNCIE AQUI</a>
 
 <footer>
@@ -515,88 +500,54 @@ footer{
   📺 Mais de 200 canais gratuitos
 </footer>
 
-<!-- ============================================================
-     WATCHDOG v3 — TV MARATAÍZES
-     Corrige dessincronização áudio/vídeo no Chrome (áudio adiantado).
-     Zera src para about:blank antes de recarregar — força o Chrome
-     a destruir e recriar os pipelines de áudio e vídeo juntos.
-============================================================ -->
 <script>
 (function () {
   'use strict';
-
   var BASE_SRC = 'https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on';
-
   var SYNC_INTERVAL    = 4 * 60 * 1000;
   var HIDDEN_THRESHOLD = 8 * 1000;
   var RELOAD_BLANK_MS  = 400;
-
   var hiddenAt  = null;
   var syncTimer = null;
-
-  function getIframe() {
-    return document.getElementById('castr-player');
-  }
-
-  function freshSrc() {
-    return BASE_SRC + '&_t=' + Date.now();
-  }
-
+  function getIframe() { return document.getElementById('castr-player'); }
+  function freshSrc() { return BASE_SRC + '&_t=' + Date.now(); }
   function reloadPlayer() {
     var el = getIframe();
     if (!el) return;
     el.src = 'about:blank';
-    setTimeout(function () {
-      el.src = freshSrc();
-    }, RELOAD_BLANK_MS);
+    setTimeout(function () { el.src = freshSrc(); }, RELOAD_BLANK_MS);
   }
-
   function startSync() {
     clearInterval(syncTimer);
     syncTimer = setInterval(reloadPlayer, SYNC_INTERVAL);
   }
-
   document.addEventListener('visibilitychange', function () {
     if (document.visibilityState === 'hidden') {
       hiddenAt = Date.now();
     } else {
       if (hiddenAt !== null) {
         var elapsed = Date.now() - hiddenAt;
-        if (elapsed > HIDDEN_THRESHOLD) {
-          reloadPlayer();
-        }
+        if (elapsed > HIDDEN_THRESHOLD) { reloadPlayer(); }
         hiddenAt = null;
       }
     }
   });
-
-  window.addEventListener('focus', function () {
-    reloadPlayer();
-  });
-
+  window.addEventListener('focus', function () { reloadPlayer(); });
   var lastTick = Date.now();
   setInterval(function () {
     var now = Date.now();
-    if (now - lastTick > 4000) {
-      reloadPlayer();
-    }
+    if (now - lastTick > 4000) { reloadPlayer(); }
     lastTick = now;
   }, 1000);
-
   function init() {
     if (!getIframe()) { setTimeout(init, 500); return; }
     startSync();
   }
-
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-
+  } else { init(); }
 })();
 </script>
-
 
 <!-- PORTAL TV MARATAÍZES -->
 <style>
@@ -605,12 +556,6 @@ footer{
 #tvmz-portal a { text-decoration:none; color:inherit; }
 #tvmz-portal img { display:block; max-width:100%; }
 #tvmz-portal .cta { position:static !important; }
-
-
-
-
-
-
 #tvmz-portal{--red:#e8000a;--navy:#003781;--text:#1a1a1a;--muted:#666;--border:#ddd;--white:#fff;--bg:#f2f2f2;--green:#007a3d;--blue:#0066cc;--amber:#e67e00;--r:4px}
 #tvmz-portal .top-stripe {background:var(--red);height:4px}
 #tvmz-portal [data-tvmz="header"] {background:var(--navy);position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.25)}
@@ -658,16 +603,12 @@ footer{
 #tvmz-portal .sh h2 {font-size:13px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.3px}
 #tvmz-portal .sh a {margin-left:auto;font-size:11px;color:var(--red);font-weight:700}
 #tvmz-portal .box {background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:16px}
-
-
 #tvmz-portal .gg {display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px}
 #tvmz-portal .gi {background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:10px 6px;text-align:center;cursor:pointer;transition:border-color .15s,box-shadow .15s;display:block}
 #tvmz-portal .gi:hover {border-color:var(--red);box-shadow:0 2px 8px rgba(232,0,10,.1)}
 #tvmz-portal .ge {font-size:20px;margin-bottom:4px}
 #tvmz-portal .gn {font-size:11px;font-weight:700;color:var(--navy);margin-bottom:1px;line-height:1.2}
 #tvmz-portal .gk {font-size:9px;color:var(--muted)}
-
-
 #tvmz-portal .urg-grid {display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-bottom:12px}
 #tvmz-portal .urg {background:#fff5f5;border:1px solid #f5c0c0;border-left:4px solid var(--red);border-radius:var(--r);padding:10px 12px;display:flex;gap:10px;align-items:flex-start}
 #tvmz-portal .urg.verde {background:#f0fff5;border-color:#a0ddb5;border-left-color:var(--green)}
@@ -680,8 +621,6 @@ footer{
 #tvmz-portal .ud b {color:var(--red)}
 #tvmz-portal .urg.verde .ud b {color:var(--green)}
 #tvmz-portal .urg.azul .ud b {color:var(--navy)}
-
-
 #tvmz-portal .g2 {display:grid;grid-template-columns:1fr 1fr;gap:10px}
 #tvmz-portal .g3 {display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 #tvmz-portal .sg2 {display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:7px}
@@ -696,8 +635,6 @@ footer{
 #tvmz-portal .sd {font-size:11px;color:var(--muted)}
 #tvmz-portal .sd b {color:var(--text)}
 #tvmz-portal .sd a {color:var(--blue)}
-
-
 #tvmz-portal .tabs2 {display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:12px;overflow-x:auto;scrollbar-width:none}
 #tvmz-portal .tabs2::-webkit-scrollbar {display:none}
 #tvmz-portal .tb2 {padding:8px 16px;font-size:11px;font-weight:800;border:0;background:transparent;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;text-transform:uppercase;letter-spacing:.2px;white-space:nowrap}
@@ -713,8 +650,6 @@ footer{
 #tvmz-portal .pht {font-size:13px;font-weight:800;color:var(--navy);margin-bottom:3px}
 #tvmz-portal .phd {font-size:11px;color:var(--muted);line-height:1.7}
 #tvmz-portal .phd a {color:var(--blue)}
-
-
 #tvmz-portal .obra {display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
 #tvmz-portal .obra:last-child {border-bottom:0;padding-bottom:0}
 #tvmz-portal .od {width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
@@ -722,8 +657,6 @@ footer{
 #tvmz-portal .ot {font-size:12px;font-weight:700;color:var(--text);margin-bottom:1px}
 #tvmz-portal .odesc {font-size:11px;color:var(--muted);line-height:1.4}
 #tvmz-portal .odesc a {color:var(--blue)}
-
-
 #tvmz-portal .neg-list {display:flex;flex-direction:column;gap:8px}
 #tvmz-portal .neg-item {background:#fafafa;border:1px solid var(--border);border-radius:var(--r);padding:10px 12px;display:flex;gap:12px;align-items:flex-start;transition:box-shadow .15s}
 #tvmz-portal .neg-item:hover {box-shadow:0 2px 8px rgba(0,0,0,.08);border-color:#bbb}
@@ -736,8 +669,6 @@ footer{
 #tvmz-portal .neg-badge {font-size:9px;padding:2px 6px;border-radius:2px;font-weight:700;text-transform:uppercase;letter-spacing:.2px;margin-left:6px}
 #tvmz-portal .nb-g {background:#e6f4ec;color:#005c2e}
 #tvmz-portal .nb-a {background:#fff3e0;color:#a05000}
-
-
 #tvmz-portal .cities {display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
 #tvmz-portal .city {background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:16px 12px;text-align:center;border-top:3px solid var(--navy);transition:box-shadow .15s;cursor:pointer;display:block}
 #tvmz-portal .city:hover {box-shadow:0 3px 10px rgba(0,0,0,.08)}
@@ -745,8 +676,6 @@ footer{
 #tvmz-portal .cn {font-size:13px;font-weight:800;color:var(--navy);margin-bottom:2px}
 #tvmz-portal .cp {font-size:10px;color:var(--muted);margin-bottom:8px}
 #tvmz-portal .cl {font-size:10px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.3px}
-
-
 #tvmz-portal .cta {background:var(--navy);color:#fff;border-radius:var(--r);padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:24px}
 #tvmz-portal .cta h3 {font-size:18px;font-weight:800;margin-bottom:4px}
 #tvmz-portal .cta p {font-size:12px;color:rgba(255,255,255,.7);max-width:460px}
@@ -755,8 +684,6 @@ footer{
 #tvmz-portal .bwa:hover {background:#1ebe5d}
 #tvmz-portal .bgh {border:1.5px solid rgba(255,255,255,.4);color:#fff;padding:10px 20px;border-radius:3px;font-size:13px;font-weight:600}
 #tvmz-portal .bgh:hover {border-color:#fff}
-
-
 #tvmz-portal .side {}
 #tvmz-portal .sw3 {background:#fff;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:14px}
 #tvmz-portal .swh {background:var(--navy);color:#fff;padding:8px 12px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
@@ -771,16 +698,12 @@ footer{
 #tvmz-portal .em {text-align:center;padding:10px 4px;border:1px solid var(--border);border-radius:var(--r);background:#fafafa}
 #tvmz-portal .emn {font-size:26px;font-weight:900;line-height:1;margin-bottom:2px}
 #tvmz-portal .eml {font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase}
-
-
 #tvmz-portal .praias-grid {display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
 #tvmz-portal .praia-card {background:linear-gradient(135deg,#003781,#0055b3);border-radius:var(--r);padding:14px 12px;color:#fff;position:relative;overflow:hidden}
 #tvmz-portal .praia-card::before {content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.06)}
 #tvmz-portal .praia-ico {font-size:22px;margin-bottom:6px}
 #tvmz-portal .praia-nome {font-size:12px;font-weight:800;margin-bottom:2px}
 #tvmz-portal .praia-desc {font-size:10px;color:rgba(255,255,255,.7)}
-
-
 #tvmz-portal .faq-box {background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:16px}
 #tvmz-portal .faq-item {padding:10px 0;border-bottom:1px solid var(--border)}
 #tvmz-portal .faq-item:last-child {border-bottom:none;padding-bottom:0}
@@ -788,8 +711,6 @@ footer{
 #tvmz-portal .faq-a {font-size:12px;color:var(--muted);line-height:1.7}
 #tvmz-portal .faq-a a {color:var(--blue);font-weight:600}
 #tvmz-portal .faq-a b {color:var(--text)}
-
-
 #tvmz-portal [data-tvmz="footer"] {background:#111;color:rgba(255,255,255,.75);margin-top:8px}
 #tvmz-portal .ft {border-bottom:3px solid var(--red)}
 #tvmz-portal .fi {max-width:1200px;margin:0 auto;padding:28px 16px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
@@ -799,17 +720,12 @@ footer{
 #tvmz-portal .fc a {display:block;font-size:12px;color:rgba(255,255,255,.6);padding:3px 0;transition:color .15s}
 #tvmz-portal .fc a:hover {color:#fff}
 #tvmz-portal .fbot {max-width:1200px;margin:0 auto;padding:12px 16px;display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.3);border-top:1px solid rgba(255,255,255,.06);flex-wrap:wrap;gap:6px}
-
-
 @media(max-width:900px) {.two{grid-template-columns:1fr}.side{display:none}.cities{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}.fi{grid-template-columns:1fr 1fr;gap:20px}.cta{flex-direction:column;text-align:center}.bw{display:none}.urg-grid{grid-template-columns:1fr}}
 @media(max-width:600px) {.g2,.g3{grid-template-columns:1fr}.cities{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.fi{grid-template-columns:1fr;gap:16px}.hi{gap:8px}.sw2{flex:1}}
-
 </style>
+
 <div id="tvmz-portal">
-
-
 <div class="top-stripe"></div>
-
 <div data-tvmz="header">
   <div class="hi">
     <a href="https://www.tvmarataizes.digital/" class="logo-w" aria-label="TV Marataízes - Portal Digital">
@@ -828,7 +744,7 @@ footer{
 </div>
 
 <div class="cat" aria-label="Categorias do portal">
-    <div class="cat-i">
+  <div class="cat-i">
     <a href="#tvmz-portal" class="active">Início</a>
     <a href="#prefeitura">Saúde</a>
     <a href="#prefeitura">Empregos</a>
@@ -868,16 +784,11 @@ footer{
 
   <div class="main-content">
     <main id="main-content">
-      </div>
-                  
-
-      
 
       <!-- ═══════════ RESTAURANTES ═══════════ -->
       <section class="box" id="restaurantes" aria-labelledby="rest-heading">
         <div class="sh">
           <h2 id="rest-heading">🍽️ Restaurantes em Marataízes</h2>
-          
         </div>
         <div class="neg-list">
           <a href="https://tvmarataizes.digital/ciadopeixe" rel="noopener"
@@ -918,7 +829,6 @@ footer{
               <span class="neg-link">instagram.com/maritimo.marataizes</span>
             </div>
           </a>
-        </div>
           <a class="neg-item" href="https://www.instagram.com/gordinez_hamburgueria/" target="_blank" rel="noopener" style="display:flex">
             <div class="neg-ico">🍔</div>
             <div class="neg-info">
@@ -952,7 +862,138 @@ footer{
             </div>
           </a>
         </div>
-      
+
+        <!-- ═══ JAPONÊS E ORIENTAL ═══ -->
+        <div class="sh" style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">
+          <h2>🍱 Japonês e Oriental em Marataízes</h2>
+        </div>
+        <div class="neg-list">
+          <a href="https://www.tvmarataizes.digital/banzaisushi" rel="noopener"
+             style="display:block;background:linear-gradient(135deg,#001a40,#023e8a);border-radius:8px;padding:16px;margin-bottom:4px;text-decoration:none;border:2px solid #0077b6;position:relative;overflow:hidden">
+            <div style="position:absolute;top:0;right:0;background:#0077b6;color:#fff;font-size:10px;font-weight:900;padding:4px 12px;border-radius:0 6px 0 8px;letter-spacing:.5px;text-transform:uppercase">📄 Página Exclusiva</div>
+            <div style="display:flex;gap:12px;align-items:center;margin-top:4px">
+              <div style="font-size:32px;flex-shrink:0">🍣</div>
+              <div style="flex:1">
+                <div style="font-size:14px;font-weight:900;color:#f5c518;margin-bottom:3px">Banzai Sushi</div>
+                <div style="font-size:12px;color:rgba(255,255,255,.8);margin-bottom:6px">Culinária japonesa · Marataízes ES</div>
+                <div style="display:inline-flex;align-items:center;gap:6px;background:#25d366;color:#fff;font-size:11px;font-weight:800;padding:5px 12px;border-radius:4px">
+                  💬 Ver cardápio e contato →
+                </div>
+              </div>
+            </div>
+          </a>
+          <a class="neg-item" href="https://www.instagram.com/yakisobamaratabeach/" target="_blank" rel="noopener" style="display:flex">
+            <div class="neg-ico">🍣</div>
+            <div class="neg-info">
+              <div class="neg-name">YakisOba Culinária Oriental <span class="neg-badge nb-g">2.1k curtidas</span></div>
+              <div class="neg-desc">Sushi · sashimi · yakisoba · R. do Cajueiro, 80 — Arraias · Ter–Dom</div>
+              <span class="neg-link">instagram.com/yakisobamaratabeach</span>
+            </div>
+          </a>
+          <a class="neg-item" href="https://www.tripadvisor.com.br/Restaurant_Review-g968370-d8787213" target="_blank" rel="noopener" style="display:flex">
+            <div class="neg-ico">🍱</div>
+            <div class="neg-info">
+              <div class="neg-name">Japeria Temakeria Sushi Bar <span class="neg-badge nb-g">⭐ 4.0</span></div>
+              <div class="neg-desc">Japonesa · frutos do mar · Av. Rubens Rangel, 1031 — Arraias · (28) 3555-0407</div>
+              <span class="neg-link">TripAdvisor Marataízes</span>
+            </div>
+          </a>
+          <a class="neg-item" href="#" style="display:flex">
+            <div class="neg-ico">🍜</div>
+            <div class="neg-info">
+              <div class="neg-name">Jana Japa</div>
+              <div class="neg-desc">Culinária japonesa · Marataízes ES</div>
+              <span class="neg-link">Marataízes ES</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- ═══ PIZZARIAS ═══ -->
+        <div class="sh" style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">
+          <h2>🍕 Pizzarias em Marataízes</h2>
+        </div>
+        <div class="neg-list">
+          <a class="neg-item" href="https://baixinhopizzariamarataizes.goomer.app/" target="_blank" rel="noopener" style="display:flex">
+            <div class="neg-ico">🍕</div>
+            <div class="neg-info">
+              <div class="neg-name">Baixinho Pizzaria <span class="neg-badge nb-g">30+ anos</span></div>
+              <div class="neg-desc">Pizzaria e delivery · referência histórica de Marataízes · cardápio online</div>
+              <span class="neg-link">baixinhopizzariamarataizes.goomer.app</span>
+            </div>
+          </a>
+          <a class="neg-item" href="https://www.instagram.com/bunniesrestaurante/" target="_blank" rel="noopener" style="display:flex">
+            <div class="neg-ico">🍕</div>
+            <div class="neg-info">
+              <div class="neg-name">Bunnies Restaurante <span class="neg-badge nb-g">6k seguidores</span></div>
+              <div class="neg-desc">Grelhados · pizza · burger · espaço kids · Av. Rubens Rangel, 210 · Ter–Dom 18h–23h</div>
+              <span class="neg-link">instagram.com/bunniesrestaurante</span>
+            </div>
+          </a>
+          <a class="neg-item" href="https://www.instagram.com/siricascudo1/" target="_blank" rel="noopener" style="display:flex">
+            <div class="neg-ico">🍕</div>
+            <div class="neg-info">
+              <div class="neg-name">Siri Cascudo <span class="neg-badge nb-g">7.2k seguidores</span></div>
+              <div class="neg-desc">Lanchonete e pizzaria · em frente à rotatória da Barra · Ter–Dom · (28) 99927-8864</div>
+              <span class="neg-link">instagram.com/siricascudo1</span>
+            </div>
+          </a>
+          <a class="neg-item" href="https://restaurantguru.com/Kill-Lanchonete-Pizzaria-Marataizes" target="_blank" rel="noopener" style="display:flex">
+            <div class="neg-ico">🍕</div>
+            <div class="neg-info">
+              <div class="neg-name">Kill Lanchonete e Pizzaria <span class="neg-badge nb-g">⭐ 4.4</span></div>
+              <div class="neg-desc">Pizzaria e lanchonete · delivery · Av. Simão Soares, 364 — Barra · (27) 99950-1926</div>
+              <span class="neg-link">restaurantguru.com</span>
+            </div>
+          </a>
+          <a class="neg-item" href="https://www.facebook.com/portoseguropizzaria/" target="_blank" rel="noopener" style="display:flex">
+            <div class="neg-ico">🍕</div>
+            <div class="neg-info">
+              <div class="neg-name">Porto Seguro Pizzaria</div>
+              <div class="neg-desc">Delivery · Rua 21 de Abril, 198 — Esplanada · (28) 99976-9290</div>
+              <span class="neg-link">facebook.com/portoseguropizzaria</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- ═══ HAMBURGUERIAS ═══ -->
+        <div class="sh" style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">
+          <h2>🍔 Hamburguerias em Marataízes</h2>
+        </div>
+        <div class="neg-list">
+          <a class="neg-item" href="https://www.seugilhamburgueria.com.br/" target="_blank" rel="noopener" style="display:flex">
+            <div class="neg-ico">🍔</div>
+            <div class="neg-info">
+              <div class="neg-name">Seu Gil Hamburgueria <span class="neg-badge nb-g">12k · desde 1984</span></div>
+              <div class="neg-desc">Burger artesanal · 3 unidades: Praça da Barra · Centro · Itaóca-Itapemirim · todos os dias 18h–01h</div>
+              <span class="neg-link">seugilhamburgueria.com.br · (28) 99981-7849</span>
+            </div>
+          </a>
+          <a class="neg-item" href="https://www.facebook.com/crowdhamburgueria/" target="_blank" rel="noopener" style="display:flex">
+            <div class="neg-ico">🍔</div>
+            <div class="neg-info">
+              <div class="neg-name">Crowd Hamburgueria</div>
+              <div class="neg-desc">Hamburgueria artesanal · Av. Atlântica, 1200 — Centro · Marataízes</div>
+              <span class="neg-link">facebook.com/crowdhamburgueria</span>
+            </div>
+          </a>
+          <a class="neg-item" href="https://restaurantguru.com.br/Country-Hamburgueria-e-Petiscaria-Acai-e-Salada-de-Frutas-Marataizes" target="_blank" rel="noopener" style="display:flex">
+            <div class="neg-ico">🍔</div>
+            <div class="neg-info">
+              <div class="neg-name">Country Hamburgueria <span class="neg-badge nb-g">#10 de 259</span></div>
+              <div class="neg-desc">Burgers · petiscos · açaí · ao lado do Shopping Via Sul · 13h–00h · (28) 99974-6143</div>
+              <span class="neg-link">Marataízes ES</span>
+            </div>
+          </a>
+          <a class="neg-item" href="https://www.instagram.com/sartoriolanchonete/" target="_blank" rel="noopener" style="display:flex">
+            <div class="neg-ico">🍔</div>
+            <div class="neg-info">
+              <div class="neg-name">Sartorio <span class="neg-badge nb-g">3.9k seguidores</span></div>
+              <div class="neg-desc">Hambúrguer · porções · barcas · delivery rápido · 18h–00h · (28) 99903-9981</div>
+              <span class="neg-link">instagram.com/sartoriolanchonete</span>
+            </div>
+          </a>
+        </div>
+
         <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener"
            style="display:flex;align-items:center;gap:14px;background:#003781;border-radius:6px;padding:14px 18px;margin-top:14px;text-decoration:none;transition:opacity .15s"
            onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
@@ -969,7 +1010,6 @@ footer{
       <section class="box" id="doces" aria-labelledby="doc-heading">
         <div class="sh">
           <h2 id="doc-heading">🍦 Doces e Sobremesas em Marataízes</h2>
-          
         </div>
         <div class="neg-list">
           <a href="https://tvmarataizes.digital/cone" rel="noopener"
@@ -987,7 +1027,6 @@ footer{
             </div>
           </a>
         </div>
-      
         <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener"
            style="display:flex;align-items:center;gap:14px;background:#003781;border-radius:6px;padding:14px 18px;margin-top:14px;text-decoration:none;transition:opacity .15s"
            onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
@@ -1004,7 +1043,6 @@ footer{
       <section class="box" id="delivery" aria-labelledby="del-heading">
         <div class="sh">
           <h2 id="del-heading">🛵 Delivery em Marataízes</h2>
-          
         </div>
         <div class="neg-list">
           <a class="neg-item" href="https://www.chefmio.com.br/casadolanche" target="_blank" rel="noopener" style="display:flex">
@@ -1048,7 +1086,6 @@ footer{
             </div>
           </a>
         </div>
-      
         <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener"
            style="display:flex;align-items:center;gap:14px;background:#003781;border-radius:6px;padding:14px 18px;margin-top:14px;text-decoration:none;transition:opacity .15s"
            onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
@@ -1065,7 +1102,6 @@ footer{
       <section class="box" id="hospedagem" aria-labelledby="hos-heading">
         <div class="sh">
           <h2 id="hos-heading">🛏️ Pousadas e Hotéis em Marataízes</h2>
-          
         </div>
         <div class="neg-list">
           <a class="neg-item" href="https://pousadaportal.com.br/" target="_blank" rel="noopener" style="display:flex">
@@ -1085,7 +1121,6 @@ footer{
             </div>
           </a>
         </div>
-      
         <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener"
            style="display:flex;align-items:center;gap:14px;background:#003781;border-radius:6px;padding:14px 18px;margin-top:14px;text-decoration:none;transition:opacity .15s"
            onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
@@ -1102,7 +1137,6 @@ footer{
       <section class="box" id="supermercados" aria-labelledby="sup-heading">
         <div class="sh">
           <h2 id="sup-heading">🛒 Supermercados em Marataízes</h2>
-          
         </div>
         <div class="neg-list">
           <a class="neg-item" href="https://www.instagram.com/multishowmarataizes/" target="_blank" rel="noopener" style="display:flex">
@@ -1130,7 +1164,6 @@ footer{
             </div>
           </a>
         </div>
-      
         <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener"
            style="display:flex;align-items:center;gap:14px;background:#003781;border-radius:6px;padding:14px 18px;margin-top:14px;text-decoration:none;transition:opacity .15s"
            onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
@@ -1147,7 +1180,6 @@ footer{
       <section class="box" id="pets" aria-labelledby="pet-heading">
         <div class="sh">
           <h2 id="pet-heading">🐾 Pet Shop e Veterinário em Marataízes</h2>
-          
         </div>
         <div class="neg-list">
           <a class="neg-item" href="https://www.instagram.com/petcentermarataizes/" target="_blank" rel="noopener" style="display:flex">
@@ -1183,7 +1215,6 @@ footer{
             </div>
           </a>
         </div>
-      
         <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener"
            style="display:flex;align-items:center;gap:14px;background:#003781;border-radius:6px;padding:14px 18px;margin-top:14px;text-decoration:none;transition:opacity .15s"
            onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
@@ -1196,8 +1227,7 @@ footer{
         </a>
       </section>
 
-
-      <!-- ═══════════ INFORMÁTICA E ASSISTÊNCIA TÉCNICA ═══════════ -->
+      <!-- ═══════════ INFORMÁTICA ═══════════ -->
       <section class="box" id="informatica" aria-labelledby="info-heading">
         <div class="sh">
           <h2 id="info-heading">🖥️ Informática e Assistência Técnica em Marataízes</h2>
@@ -1218,7 +1248,6 @@ footer{
             </div>
           </a>
         </div>
-
         <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener"
            style="display:flex;align-items:center;gap:14px;background:#003781;border-radius:6px;padding:14px 18px;margin-top:14px;text-decoration:none;transition:opacity .15s"
            onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
@@ -1235,7 +1264,6 @@ footer{
       <section class="box" id="moda" aria-labelledby="mod-heading">
         <div class="sh">
           <h2 id="mod-heading">👗 Lojas de Moda em Marataízes</h2>
-          
         </div>
         <div class="neg-list">
           <a href="https://tvmarataizes.digital/penafama" rel="noopener"
@@ -1253,7 +1281,6 @@ footer{
             </div>
           </a>
         </div>
-      
         <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener"
            style="display:flex;align-items:center;gap:14px;background:#003781;border-radius:6px;padding:14px 18px;margin-top:14px;text-decoration:none;transition:opacity .15s"
            onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
@@ -1270,7 +1297,6 @@ footer{
       <section class="box" id="imoveis" aria-labelledby="imov-heading">
         <div class="sh">
           <h2 id="imov-heading">🏠 Imóveis em Marataízes</h2>
-          
         </div>
         <div class="neg-list">
           <a class="neg-item" href="https://www.aroldofilhoimoveis.com.br/" target="_blank" rel="noopener" style="display:flex">
@@ -1290,7 +1316,6 @@ footer{
             </div>
           </a>
         </div>
-      
         <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener"
            style="display:flex;align-items:center;gap:14px;background:#003781;border-radius:6px;padding:14px 18px;margin-top:14px;text-decoration:none;transition:opacity .15s"
            onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
@@ -1302,7 +1327,6 @@ footer{
           <span style="margin-left:auto;background:#25d366;color:#fff;font-size:11px;font-weight:800;padding:6px 12px;border-radius:4px;white-space:nowrap;flex-shrink:0">🔥 Faça parte</span>
         </a>
       </section>
-
 
       <!-- ═══════════ DENTISTAS ═══════════ -->
       <section class="box" id="dentistas" aria-labelledby="dent-heading">
@@ -1335,7 +1359,6 @@ footer{
             </div>
           </a>
         </div>
-      
         <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener"
            style="display:flex;align-items:center;gap:14px;background:#003781;border-radius:6px;padding:14px 18px;margin-top:14px;text-decoration:none;transition:opacity .15s"
            onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
@@ -1347,11 +1370,11 @@ footer{
           <span style="margin-left:auto;background:#25d366;color:#fff;font-size:11px;font-weight:800;padding:6px 12px;border-radius:4px;white-space:nowrap;flex-shrink:0">🔥 Faça parte</span>
         </a>
       </section>
+
       <!-- ═══════════ FARMÁCIAS ═══════════ -->
       <section class="box" id="farmacias" aria-labelledby="farm-heading">
         <div class="sh">
           <h2 id="farm-heading">💊 Farmácias em Marataízes</h2>
-          
         </div>
         <div class="sg2">
           <div class="sc2"><div class="stop"><span class="sn2">Rede Farmes — Centro</span><span class="stag tub">Rede</span></div><div class="sd">Av. Jones dos Santos Neves, 99 · <b>(28) 99909-6154</b><br><a href="https://redefarmes.com.br/nossas-lojas/rede-farmes-centro-i-marataizes/" target="_blank" rel="noopener">redefarmes.com.br</a></div></div>
@@ -1364,7 +1387,6 @@ footer{
         <div style="margin-top:10px">
           <a href="https://www.marataizes.es.gov.br/uploads/documento/20240515135241-farmacias-de-plantao-2024.pdf" target="_blank" rel="noopener" style="font-size:11px;color:var(--red);font-weight:700">📄 Farmácias de Plantão — PDF Prefeitura →</a>
         </div>
-      
         <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener"
            style="display:flex;align-items:center;gap:14px;background:#003781;border-radius:6px;padding:14px 18px;margin-top:14px;text-decoration:none;transition:opacity .15s"
            onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
@@ -1377,11 +1399,10 @@ footer{
         </a>
       </section>
 
-      <!-- ═══════════ ACADEMIA ═══════════ -->
+      <!-- ═══════════ ACADEMIAS ═══════════ -->
       <section class="box" id="academias" aria-labelledby="ac-heading">
         <div class="sh">
           <h2 id="ac-heading">💪 Academias em Marataízes</h2>
-          
         </div>
         <div class="neg-list">
           <a class="neg-item" href="https://www.facebook.com/AcademiaEspacoAzul/" target="_blank" rel="noopener" style="display:flex">
@@ -1393,7 +1414,6 @@ footer{
             </div>
           </a>
         </div>
-      
         <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener"
            style="display:flex;align-items:center;gap:14px;background:#003781;border-radius:6px;padding:14px 18px;margin-top:14px;text-decoration:none;transition:opacity .15s"
            onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
@@ -1406,10 +1426,10 @@ footer{
         </a>
       </section>
 
+      <!-- ═══════════ ÓTICAS ═══════════ -->
       <section class="box" id="oticas" aria-labelledby="ot-heading">
         <div class="sh">
           <h2 id="ot-heading">🕶️ Óticas em Marataízes</h2>
-          
         </div>
         <div class="neg-list">
           <a class="neg-item" href="https://www.instagram.com/oticabromana/" target="_blank" rel="noopener" style="display:flex">
@@ -1429,7 +1449,6 @@ footer{
             </div>
           </a>
         </div>
-      
         <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener"
            style="display:flex;align-items:center;gap:14px;background:#003781;border-radius:6px;padding:14px 18px;margin-top:14px;text-decoration:none;transition:opacity .15s"
            onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
@@ -1442,10 +1461,10 @@ footer{
         </a>
       </section>
 
+      <!-- ═══════════ BELEZA ═══════════ -->
       <section class="box" id="beleza" aria-labelledby="bel-heading">
         <div class="sh">
           <h2 id="bel-heading">✂️ Salões, Barbearias e Estética</h2>
-          
         </div>
         <div class="neg-list">
           <a class="neg-item" href="https://www.facebook.com/AcademiaEspacoAzul/" target="_blank" rel="noopener" style="display:flex">
@@ -1457,7 +1476,6 @@ footer{
             </div>
           </a>
         </div>
-      
         <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener"
            style="display:flex;align-items:center;gap:14px;background:#003781;border-radius:6px;padding:14px 18px;margin-top:14px;text-decoration:none;transition:opacity .15s"
            onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
@@ -1470,10 +1488,10 @@ footer{
         </a>
       </section>
 
+      <!-- ═══════════ AUTOMÓVEIS ═══════════ -->
       <section class="box" id="automoveis" aria-labelledby="aut-heading">
         <div class="sh">
           <h2 id="aut-heading">🚗 Automóveis e Autopeças em Marataízes</h2>
-          
         </div>
         <div class="neg-list">
           <a class="neg-item" href="https://www.instagram.com/grupoantonioautopecas/" target="_blank" rel="noopener" style="display:flex">
@@ -1485,7 +1503,6 @@ footer{
             </div>
           </a>
         </div>
-      
         <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener"
            style="display:flex;align-items:center;gap:14px;background:#003781;border-radius:6px;padding:14px 18px;margin-top:14px;text-decoration:none;transition:opacity .15s"
            onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
@@ -1497,10 +1514,11 @@ footer{
           <span style="margin-left:auto;background:#25d366;color:#fff;font-size:11px;font-weight:800;padding:6px 12px;border-radius:4px;white-space:nowrap;flex-shrink:0">🔥 Faça parte</span>
         </a>
       </section>
+
+      <!-- ═══════════ TURISMO ═══════════ -->
       <section class="box" id="turismo" aria-labelledby="tur-heading">
         <div class="sh">
           <h2 id="tur-heading">🌊 Praias e Turismo em Marataízes</h2>
-          
         </div>
         <div class="praias-grid">
           <div class="praia-card"><div class="praia-ico">🏖️</div><div class="praia-nome">Praia do Siri</div><div class="praia-desc">Lagoa e mar · natureza preservada</div></div>
@@ -1513,7 +1531,6 @@ footer{
         <div style="margin-top:12px;font-size:11px;color:var(--muted)">
           Marataízes tem 26 km de litoral com praias de águas mornas — a <b>Pérola Capixaba</b> do Espírito Santo. Pontos históricos: Ruínas do Trapiche (séc. XIX), Palácio das Águias (séc. XVIII) e Igreja Nossa Senhora dos Navegantes.
         </div>
-      
         <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener"
            style="display:flex;align-items:center;gap:14px;background:#003781;border-radius:6px;padding:14px 18px;margin-top:14px;text-decoration:none;transition:opacity .15s"
            onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
@@ -1530,17 +1547,13 @@ footer{
       <section class="box" id="prefeitura" aria-labelledby="pref-heading">
         <div class="sh">
           <h2 id="pref-heading">🏛️ Prefeituras da Região</h2>
-          
         </div>
-                <!-- Cards das cidades -->
         <div class="cities" style="margin-bottom:16px">
           <a href="https://www.marataizes.es.gov.br" target="_blank" rel="noopener" class="city"><div class="ce">🏖️</div><div class="cn">Marataízes</div><div class="cp">~45.000 hab · Pérola Capixaba</div><div class="cl">marataizes.es.gov.br →</div></a>
           <a href="https://www.itapemirim.es.gov.br" target="_blank" rel="noopener" class="city"><div class="ce">🏛️</div><div class="cn">Itapemirim</div><div class="cp">~39.800 hab · Porto histórico</div><div class="cl">itapemirim.es.gov.br →</div></a>
           <a href="https://www.piuma.es.gov.br" target="_blank" rel="noopener" class="city"><div class="ce">🐚</div><div class="cn">Piúma</div><div class="cp">~22.300 hab · Cidade das Conchas</div><div class="cl">piuma.es.gov.br →</div></a>
           <a href="https://presidentekennedy.es.gov.br" target="_blank" rel="noopener" class="city"><div class="ce">⚡</div><div class="cn">Presidente Kennedy</div><div class="cp">~11.200 hab · Polo de petróleo</div><div class="cl">presidentekennedy.es.gov.br →</div></a>
         </div>
-
-        <!-- Saúde e Empregos dentro de Prefeitura -->
         <div style="border-top:2px solid var(--border);margin:16px 0 14px"></div>
         <p style="font-size:11px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.3px;margin-bottom:10px">❤️ Saúde — UPA, Postos e Emergências</p>
         <div class="urg-grid">
@@ -1577,7 +1590,6 @@ footer{
           <div class="sc2"><div class="stop"><span class="sn2">US Pontal — Barra Itapemirim</span><span class="stag tub">UBS</span></div><div class="sd">Pontal — Barra do Itapemirim</div></div>
           <div class="sc2"><div class="stop"><span class="sn2">ESF Boa Vista do Sul</span><span class="stag tf">Rural</span></div><div class="sd">Boa Vista do Sul</div></div>
         </div>
-
         <div style="border-top:2px solid var(--border);margin:16px 0 14px"></div>
         <p style="font-size:11px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.3px;margin-bottom:10px">💼 Empregos em Marataízes</p>
         <div class="urg-grid">
@@ -1604,7 +1616,6 @@ footer{
           </div>
         </div>
         <div style="border-top:2px solid var(--border);margin:16px 0 0"></div>
-
         <div class="tabs2" role="tablist">
           <button class="tb2 active" onclick="tab(this,'mtz')" role="tab" aria-selected="true">🏖️ Marataízes</button>
           <button class="tb2" onclick="tab(this,'ita')" role="tab" aria-selected="false">🏛️ Itapemirim</button>
@@ -1664,56 +1675,44 @@ footer{
             <div class="ssc"><div class="ssn">🎨 Cultura (SEMCULT)</div><div class="ssd">Patrimônio histórico</div></div>
           </div>
         </div>
-      
         <div style="margin-top:18px;padding-top:14px;border-top:2px solid var(--border)">
           <p style="font-size:11px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.3px;margin-bottom:10px">❤️ Saúde — UPA, Postos e Emergências</p>
           <div class="urg-grid">
-          <div class="urg">
-            <div class="uico">🚨</div>
-            <div>
-              <div class="ut">UPA Marataízes — 24 horas</div>
-              <div class="ud"><b>Pronto-socorro:</b> <a href="tel:+552835325856">(28) 3532-5856</a><br><b>Sec. Saúde:</b> <a href="tel:+552835321876">(28) 3532-1876</a><br><b>Farmácia Básica:</b> <a href="tel:+552835321429">(28) 3532-1429</a><br>Rua Osvaldo Alves, S/N — Cidade Nova</div>
+            <div class="urg">
+              <div class="uico">🚨</div>
+              <div>
+                <div class="ut">UPA Marataízes — 24 horas</div>
+                <div class="ud"><b>Pronto-socorro:</b> <a href="tel:+552835325856">(28) 3532-5856</a><br><b>Sec. Saúde:</b> <a href="tel:+552835321876">(28) 3532-1876</a><br><b>Farmácia Básica:</b> <a href="tel:+552835321429">(28) 3532-1429</a><br>Rua Osvaldo Alves, S/N — Cidade Nova</div>
+              </div>
             </div>
-          </div>
-          <div class="urg azul">
-            <div class="uico">🏥</div>
-            <div>
-              <div class="ut">CEM 1 e CEM 2</div>
-              <div class="ud"><b>CEM 1:</b> <a href="tel:+552835327204">(28) 3532-7204</a><br><b>CEM 2:</b> <a href="tel:+552835322722">(28) 3532-2722</a><br>Centro de Especialidades Médicas</div>
+            <div class="urg azul">
+              <div class="uico">🏥</div>
+              <div>
+                <div class="ut">CEM 1 e CEM 2</div>
+                <div class="ud"><b>CEM 1:</b> <a href="tel:+552835327204">(28) 3532-7204</a><br><b>CEM 2:</b> <a href="tel:+552835322722">(28) 3532-2722</a><br>Centro de Especialidades Médicas</div>
+              </div>
             </div>
-          </div>
-          <div class="urg verde">
-            <div class="uico">🆘</div>
-            <div>
-              <div class="ut">Emergências</div>
-              <div class="ud">
-                <b>SAMU:</b> <a href="tel:192">192</a><br>
-                <b>Bombeiros:</b> <a href="tel:193">193</a><br>
-                <b>Polícia:</b> <a href="tel:190">190</a><br>
-                <b>Prefeitura:</b> <a href="tel:156">156</a>
+            <div class="urg verde">
+              <div class="uico">🆘</div>
+              <div>
+                <div class="ut">Emergências</div>
+                <div class="ud"><b>SAMU:</b> <a href="tel:192">192</a><br><b>Bombeiros:</b> <a href="tel:193">193</a><br><b>Polícia:</b> <a href="tel:190">190</a><br><b>Prefeitura:</b> <a href="tel:156">156</a></div>
               </div>
             </div>
           </div>
-        </div>
-        <p style="font-size:11px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.3px;margin:14px 0 8px">Postos de Saúde / UBS por Bairro</p>
-        <div class="sg2">
-          <div class="sc2"><div class="stop"><span class="sn2">Unidade Sanitária — Centro</span><span class="stag tub">UBS</span></div><div class="sd">Rua Aníbal Machado, 1 — Centro</div></div>
-          <div class="sc2"><div class="stop"><span class="sn2">UBS Lagoa Funda</span><span class="stag tub">UBS</span></div><div class="sd">Lagoa Funda · <b>(28) 3532-2284</b></div></div>
-          <div class="sc2"><div class="stop"><span class="sn2">Posto — Praia dos Cações</span><span class="stag tub">UBS</span></div><div class="sd">Praia dos Cações, S/N</div></div>
-          <div class="sc2"><div class="stop"><span class="sn2">ESF Lagoa Dantas</span><span class="stag te">ESF</span></div><div class="sd">Rua Principal · <b>(28) 3532-6682</b></div></div>
-          <div class="sc2"><div class="stop"><span class="sn2">USF Cidade Nova / Areias Negras</span><span class="stag te">ESF</span></div><div class="sd">Rua Alverino Silva</div></div>
-          <div class="sc2"><div class="stop"><span class="sn2">ESF Marataízes II</span><span class="stag te">ESF</span></div><div class="sd">Bairro Esplanada</div></div>
-          <div class="sc2"><div class="stop"><span class="sn2">US Pontal — Barra Itapemirim</span><span class="stag tub">UBS</span></div><div class="sd">Pontal — Barra do Itapemirim</div></div>
-          <div class="sc2"><div class="stop"><span class="sn2">ESF Boa Vista do Sul</span><span class="stag tf">Rural</span></div><div class="sd">Boa Vista do Sul</div></div>
-        </div>
+          <p style="font-size:11px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.3px;margin:14px 0 8px">Postos de Saúde / UBS por Bairro</p>
+          <div class="sg2">
+            <div class="sc2"><div class="stop"><span class="sn2">Unidade Sanitária — Centro</span><span class="stag tub">UBS</span></div><div class="sd">Rua Aníbal Machado, 1 — Centro</div></div>
+            <div class="sc2"><div class="stop"><span class="sn2">UBS Lagoa Funda</span><span class="stag tub">UBS</span></div><div class="sd">Lagoa Funda · <b>(28) 3532-2284</b></div></div>
+            <div class="sc2"><div class="stop"><span class="sn2">Posto — Praia dos Cações</span><span class="stag tub">UBS</span></div><div class="sd">Praia dos Cações, S/N</div></div>
+            <div class="sc2"><div class="stop"><span class="sn2">ESF Lagoa Dantas</span><span class="stag te">ESF</span></div><div class="sd">Rua Principal · <b>(28) 3532-6682</b></div></div>
+            <div class="sc2"><div class="stop"><span class="sn2">USF Cidade Nova / Areias Negras</span><span class="stag te">ESF</span></div><div class="sd">Rua Alverino Silva</div></div>
+            <div class="sc2"><div class="stop"><span class="sn2">ESF Marataízes II</span><span class="stag te">ESF</span></div><div class="sd">Bairro Esplanada</div></div>
+            <div class="sc2"><div class="stop"><span class="sn2">US Pontal — Barra Itapemirim</span><span class="stag tub">UBS</span></div><div class="sd">Pontal — Barra do Itapemirim</div></div>
+            <div class="sc2"><div class="stop"><span class="sn2">ESF Boa Vista do Sul</span><span class="stag tf">Rural</span></div><div class="sd">Boa Vista do Sul</div></div>
+          </div>
         </div>
       </section>
-
-      <!-- ═══════════ ÓTICAS ═══════════ -->
-
-      <!-- ═══════════ BELEZA ═══════════ -->
-
-      <!-- ═══════════ AUTOMÓVEIS ═══════════ -->
 
       <!-- ═══════════ FAQ SEO ═══════════ -->
       <section class="faq-box" aria-labelledby="faq-heading">
@@ -1747,6 +1746,7 @@ footer{
           <div class="faq-a">Marataízes fica a aproximadamente <b>127 km</b> de Vitória, capital do Espírito Santo, pela BR-101. Conhecida como a <b>Pérola Capixaba</b>, é a principal cidade praiana do sul do ES.</div>
         </div>
       </section>
+
       <!-- CTA ANUNCIE -->
       <div class="cta" id="anuncie">
         <div>
@@ -1771,31 +1771,21 @@ function tab(btn, id) {
 }
 </script>
 
-
 </div>
 
 <script>
-// ═══ CARROSSEL GLOBOPLAY ═══
 (function() {
   function initCarousel(rowId, prevId, nextId) {
     var row = document.getElementById(rowId);
     var prev = document.getElementById(prevId);
     var next = document.getElementById(nextId);
     if (!row) return;
-
     var scrollAmt = function() {
       var card = row.querySelector('.gp-card, .gp-thumb-item');
       return card ? card.offsetWidth + 16 : 280;
     };
-
-    if (next) next.addEventListener('click', function() {
-      row.scrollBy({ left: scrollAmt() * 2, behavior: 'smooth' });
-    });
-    if (prev) prev.addEventListener('click', function() {
-      row.scrollBy({ left: -scrollAmt() * 2, behavior: 'smooth' });
-    });
-
-    // Swipe touch
+    if (next) next.addEventListener('click', function() { row.scrollBy({ left: scrollAmt() * 2, behavior: 'smooth' }); });
+    if (prev) prev.addEventListener('click', function() { row.scrollBy({ left: -scrollAmt() * 2, behavior: 'smooth' }); });
     var startX = 0;
     row.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
     row.addEventListener('touchend', function(e) {
@@ -1803,14 +1793,12 @@ function tab(btn, id) {
       if (Math.abs(dx) > 40) row.scrollBy({ left: dx * 2, behavior: 'smooth' });
     }, { passive: true });
   }
-
   document.addEventListener('DOMContentLoaded', function() {
     initCarousel('gp-featured-row', 'gp-feat-prev', 'gp-feat-next');
     initCarousel('gp-thumbs-row',   'gp-thumb-prev', 'gp-thumb-next');
   });
 })();
 </script>
-
 
 <a href="#tvmz-portal" id="btn-guia-float"
    style="position:fixed;bottom:80px;left:16px;z-index:999;
@@ -1830,7 +1818,6 @@ function tab(btn, id) {
   if(!btn || !portal) return;
   window.addEventListener('scroll', function(){
     var portalTop = portal.getBoundingClientRect().top;
-    // Mostrar só quando o portal ainda não está visível
     btn.style.opacity = portalTop > window.innerHeight ? '1' : '0';
     btn.style.pointerEvents = portalTop > window.innerHeight ? 'auto' : 'none';
   }, {passive:true});
