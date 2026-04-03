@@ -1,495 +1,837 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Anuncie na TV Marataízes — Guia a partir de R$49 · TV a partir de R$1.490</title>
-<meta name="description" content="Entre no guia digital da TV Marataízes por R$49/mês ou apareça na TV por R$1.490/mês. A única emissora independente do Sul do ES. Soul TV Canal 300.">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://www.tvmarataizes.digital/anunciar/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anuncie — TV Marataízes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
-:root{
-  --navy:#003781;--red:#e8000a;--gold:#c8960c;--gold-light:#f5c518;
-  --bg:#06090f;--card:#0d1117;--card2:#0f1923;--border:#1a2535;
-  --text:#f0f4f8;--muted:#7a8fa8;--green:#25d366;--accent:#FF6F00;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6}
-a{text-decoration:none;color:inherit}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* HEADER */
-.hdr{background:rgba(6,9,15,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;gap:14px;height:56px;position:sticky;top:0;z-index:100}
-.logo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:16px}
-.logo-tag{background:var(--red);color:#fff;padding:2px 8px;border-radius:3px;font-size:12px;font-weight:900}
-.hdr-r{margin-left:auto;display:flex;gap:10px;align-items:center}
-.btn-wpp{background:var(--green);color:#fff;padding:8px 18px;border-radius:4px;font-size:12px;font-weight:800}
-.btn-wpp:hover{opacity:.88}
-.btn-ghost{color:var(--muted);font-size:12px;padding:7px 12px;border:1px solid var(--border);border-radius:4px}
-.btn-ghost:hover{border-color:#fff;color:#fff}
+  :root {
+    --black: #0A0A0A;
+    --off-black: #111111;
+    --dark: #181818;
+    --card: #1E1E1E;
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.15);
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dim: rgba(201,168,76,0.15);
+    --red-tv: #E8372A;
+    --red-dim: rgba(232,55,42,0.12);
+    --white: #FFFFFF;
+    --gray: #999999;
+    --gray-light: #CCCCCC;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'DM Serif Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
 
-/* HERO */
-.hero{text-align:center;padding:72px 24px 56px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 90% 55% at 50% 0%,rgba(0,55,129,.4) 0%,transparent 70%);pointer-events:none}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,150,12,.1);border:1px solid rgba(200,150,12,.3);color:var(--gold-light);font-size:11px;font-weight:800;padding:5px 14px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;margin-bottom:22px}
-.hero h1{font-size:clamp(28px,5vw,54px);font-weight:900;line-height:1.1;margin-bottom:18px;letter-spacing:-.5px}
-.hero h1 em{color:var(--gold-light);font-style:normal}
-.hero-sub{font-size:16px;color:var(--muted);max-width:520px;margin:0 auto 36px;line-height:1.7}
-.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn-main{display:inline-flex;align-items:center;gap:10px;background:var(--green);color:#fff;padding:15px 30px;border-radius:6px;font-weight:900;font-size:15px;box-shadow:0 4px 24px rgba(37,211,102,.25);transition:transform .15s}
-.btn-main:hover{transform:translateY(-2px)}
-.btn-sec{display:inline-flex;align-items:center;gap:8px;color:#fff;padding:15px 24px;border-radius:6px;font-weight:700;font-size:14px;border:1.5px solid rgba(255,255,255,.2)}
-.btn-sec:hover{border-color:rgba(255,255,255,.6)}
+  html { scroll-behavior: smooth; }
 
-/* ÂNCORAS NAV */
-.nav-pills{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;padding:0 24px 48px;margin-top:-8px}
-.nav-pill{background:var(--card2);border:1px solid var(--border);border-radius:20px;padding:7px 18px;font-size:12px;font-weight:700;color:var(--muted);transition:all .15s}
-.nav-pill:hover{border-color:var(--navy);color:#fff;background:rgba(0,55,129,.2)}
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
 
-/* SECTION */
-.sec{max-width:980px;margin:0 auto;padding:0 24px 72px}
-.sec-label{font-size:11px;font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;text-align:center}
-.sec-title{font-size:clamp(22px,3vw,36px);font-weight:900;text-align:center;margin-bottom:8px}
-.sec-title em{color:var(--gold-light);font-style:normal}
-.sec-sub{font-size:14px;color:var(--muted);text-align:center;max-width:480px;margin:0 auto 40px;line-height:1.7}
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem;
+    height: 64px;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--red-tv); }
+  .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+  .nav-links a {
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gray); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--red-tv) !important; color: var(--white) !important;
+    padding: 0.45rem 1.1rem; border-radius: 4px;
+  }
 
-/* DIVISOR SEÇÃO */
-.div-sec{max-width:980px;margin:0 auto 64px;border:none;border-top:1px solid var(--border);position:relative}
-.div-sec-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--bg);padding:0 16px;font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;white-space:nowrap}
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 7rem 2rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(232,55,42,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--red-tv);
+    border: 1px solid rgba(232,55,42,0.3);
+    padding: 0.35rem 0.9rem; border-radius: 2px;
+    margin-bottom: 2rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--red-tv);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    margin-bottom: 0.3em;
+  }
+  .hero h1 em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--gray-light);
+    max-width: 560px;
+    margin: 1.5rem auto 3rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  .hero-sub strong { color: var(--white); font-weight: 500; }
+  .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--red-tv); color: var(--white);
+    padding: 0.85rem 2.2rem; border-radius: 3px;
+    font-size: 0.9rem; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: #ff4436; transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent; color: var(--white);
+    padding: 0.85rem 2.2rem; border-radius: 3px;
+    border: 1px solid var(--border-strong);
+    font-size: 0.9rem; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; text-decoration: none;
+    transition: border-color 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--white); transform: translateY(-1px); }
 
-/* CARDS DE PLANO */
-.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
-.plan{background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:30px 26px;display:flex;flex-direction:column;position:relative;transition:border-color .2s,transform .2s}
-.plan:hover{border-color:#253550;transform:translateY(-3px)}
-.plan.hot{border-color:var(--gold);box-shadow:0 0 0 1px rgba(200,150,12,.15),0 8px 40px rgba(200,150,12,.08)}
-.plan.tv-card{border-color:rgba(0,55,129,.6);background:linear-gradient(135deg,#0a1220,#0f1a30)}
-.plan-crown{position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:900;padding:4px 16px;border-radius:20px;white-space:nowrap;letter-spacing:.5px;text-transform:uppercase}
-.crown-gold{background:linear-gradient(90deg,var(--gold),var(--gold-light));color:#000}
-.crown-blue{background:var(--navy);color:#fff}
+  /* STATS BAR */
+  .stats-bar {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem;
+    display: flex; justify-content: center; gap: 0;
+  }
+  .stat-item {
+    text-align: center; padding: 0 3rem;
+    border-right: 1px solid var(--border);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-number {
+    font-family: var(--font-display);
+    font-size: 2.5rem; letter-spacing: 0.03em;
+    color: var(--gold);
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gray);
+  }
 
-.plan-icon{font-size:32px;margin-bottom:14px}
-.plan-name{font-size:19px;font-weight:900;margin-bottom:5px}
-.plan-tagline{font-size:12px;color:var(--muted);margin-bottom:22px;line-height:1.5}
-.plan-price .amt{font-size:42px;font-weight:900;line-height:1;letter-spacing:-1px}
-.plan-price .per{font-size:13px;color:var(--muted)}
-.plan-saving{font-size:11px;color:var(--green);font-weight:700;margin:6px 0 24px}
+  /* SECTION */
+  .section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--gray);
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    line-height: 1;
+    letter-spacing: 0.03em;
+    margin-bottom: 1rem;
+  }
+  .section-title em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--gold);
+  }
+  .section-desc {
+    font-size: 1.05rem; color: var(--gray-light);
+    max-width: 540px; line-height: 1.7; font-weight: 300;
+    margin-bottom: 3.5rem;
+  }
 
-.feats{list-style:none;margin-bottom:28px;flex:1}
-.feats li{font-size:13px;color:#bfcfdf;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:10px;align-items:flex-start;line-height:1.5}
-.feats li:last-child{border-bottom:none}
-.ck{color:var(--green);font-weight:800;flex-shrink:0}
-.ck.g{color:var(--gold-light)}
+  /* DIVIDER */
+  .world-divider {
+    position: relative;
+    text-align: center;
+    padding: 5rem 2rem;
+    overflow: hidden;
+  }
+  .world-divider::before {
+    content: '';
+    position: absolute; left: 0; right: 0; top: 50%;
+    height: 1px; background: var(--border);
+  }
+  .world-divider-label {
+    position: relative; display: inline-block;
+    background: var(--black);
+    padding: 1.5rem 3rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 2px;
+  }
+  .world-divider-label p {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gray);
+    margin-bottom: 0.3rem;
+  }
+  .world-divider-label h3 {
+    font-family: var(--font-display);
+    font-size: 1.8rem; letter-spacing: 0.05em;
+    color: var(--gold);
+  }
 
-.plan-btn{display:block;text-align:center;padding:13px;border-radius:6px;font-weight:800;font-size:14px;transition:opacity .15s,transform .15s;margin-top:auto}
-.plan-btn:hover{opacity:.88;transform:translateY(-1px)}
-.bg-navy{background:var(--navy);color:#fff}
-.bg-green{background:var(--green);color:#fff;box-shadow:0 3px 14px rgba(37,211,102,.2)}
-.bg-gold{background:linear-gradient(90deg,var(--gold),var(--gold-light));color:#000}
-.bg-blue{background:linear-gradient(90deg,#003781,#0055c8);color:#fff}
+  /* GUIA PLANS */
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+  .plan-card {
+    background: var(--card);
+    padding: 2.2rem 2rem;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .plan-card:hover { background: #222222; }
+  .plan-card.featured {
+    background: #1A1A1A;
+  }
+  .plan-card.featured::before {
+    content: 'MAIS ESCOLHIDO';
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: var(--black);
+    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em;
+    padding: 0.3rem 1rem;
+    border-radius: 0 0 4px 4px;
+  }
+  .plan-tag {
+    display: inline-block;
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--gray);
+    border: 1px solid var(--border-strong);
+    padding: 0.2rem 0.6rem; border-radius: 2px;
+    margin-bottom: 1.2rem;
+  }
+  .plan-name {
+    font-family: var(--font-display);
+    font-size: 1.6rem; letter-spacing: 0.04em;
+    color: var(--white); margin-bottom: 0.5rem;
+  }
+  .plan-tagline {
+    font-size: 0.85rem; color: var(--gray);
+    margin-bottom: 1.8rem; font-weight: 300; line-height: 1.5;
+  }
+  .plan-price {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .plan-price-number {
+    font-family: var(--font-display);
+    font-size: 3rem; letter-spacing: 0.02em;
+    color: var(--white); line-height: 1;
+  }
+  .plan-price-currency {
+    font-size: 1.2rem; color: var(--gray); vertical-align: top;
+    margin-top: 0.4rem; display: inline-block;
+  }
+  .plan-price-period {
+    font-size: 0.8rem; color: var(--gray); display: block;
+    margin-top: 0.3rem; font-weight: 400;
+  }
+  .plan-features { list-style: none; margin-bottom: 2rem; }
+  .plan-features li {
+    font-size: 0.88rem; color: var(--gray-light);
+    padding: 0.55rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex; align-items: flex-start; gap: 0.7rem;
+    line-height: 1.4;
+  }
+  .plan-features li::before {
+    content: '—';
+    color: var(--gold); font-size: 0.75rem; flex-shrink: 0;
+    margin-top: 0.05rem;
+  }
+  .plan-features li.highlight { color: var(--white); }
+  .plan-features li.highlight::before { content: '★'; color: var(--gold); }
+  .plan-cta {
+    display: block; text-align: center;
+    padding: 0.8rem 1.5rem; border-radius: 3px;
+    font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; text-decoration: none;
+    transition: all 0.2s;
+  }
+  .plan-cta-ghost {
+    border: 1px solid var(--border-strong); color: var(--gray-light);
+  }
+  .plan-cta-ghost:hover {
+    border-color: var(--white); color: var(--white);
+  }
+  .plan-cta-gold {
+    background: var(--gold); color: var(--black);
+  }
+  .plan-cta-gold:hover { background: var(--gold-light); }
 
-/* STATS */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:40px}
-.stat{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:20px 16px;text-align:center}
-.stat-num{font-size:28px;font-weight:900;color:var(--gold-light);line-height:1;margin-bottom:4px}
-.stat-label{font-size:11px;color:var(--muted);line-height:1.4}
+  /* TV PLANS */
+  .tv-section {
+    background: var(--off-black);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 6rem 2rem;
+  }
+  .tv-inner { max-width: 1100px; margin: 0 auto; }
+  .tv-plans-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+  .tv-plan-card {
+    background: var(--dark);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2.5rem;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .tv-plan-card:hover { border-color: var(--border-strong); }
+  .tv-plan-card.tv-featured {
+    border-color: var(--gold);
+  }
+  .tv-plan-card.tv-featured::before {
+    content: 'MAIS COMPLETO';
+    position: absolute; top: -1px; right: 2rem;
+    background: var(--gold); color: var(--black);
+    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em;
+    padding: 0.3rem 1rem;
+    border-radius: 0 0 4px 4px;
+  }
+  .tv-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem; border-radius: 2px;
+    margin-bottom: 1.5rem;
+    background: var(--red-dim); color: var(--red-tv);
+    border: 1px solid rgba(232,55,42,0.2);
+  }
+  .tv-plan-name {
+    font-family: var(--font-display);
+    font-size: 2.2rem; letter-spacing: 0.04em;
+    color: var(--white); margin-bottom: 0.4rem;
+  }
+  .tv-plan-sub {
+    font-size: 0.88rem; color: var(--gray);
+    margin-bottom: 1.8rem; font-weight: 300; line-height: 1.5;
+    max-width: 380px;
+  }
+  .tv-price-row {
+    display: flex; align-items: baseline; gap: 0.4rem;
+    margin-bottom: 2rem; padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .tv-price-main {
+    font-family: var(--font-display);
+    font-size: 4rem; letter-spacing: 0.02em; color: var(--white);
+    line-height: 1;
+  }
+  .tv-price-detail {
+    font-size: 0.8rem; color: var(--gray); line-height: 1.4;
+  }
+  .tv-features { list-style: none; margin-bottom: 2.5rem; }
+  .tv-features li {
+    font-size: 0.9rem; color: var(--gray-light);
+    padding: 0.7rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex; align-items: flex-start; gap: 0.8rem;
+    line-height: 1.4;
+  }
+  .tv-features li::before {
+    content: '—';
+    color: var(--red-tv); font-size: 0.75rem; flex-shrink: 0;
+    margin-top: 0.05rem;
+  }
+  .tv-features li.tv-highlight {
+    color: var(--white); font-weight: 500;
+  }
+  .tv-features li.tv-highlight::before { content: '★'; color: var(--gold); }
+  .tv-cta {
+    display: block; text-align: center;
+    padding: 1rem 2rem; border-radius: 3px;
+    font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; text-decoration: none;
+    transition: all 0.2s;
+  }
+  .tv-cta-main {
+    background: var(--red-tv); color: var(--white);
+  }
+  .tv-cta-main:hover { background: #ff4436; }
+  .tv-cta-gold {
+    background: var(--gold); color: var(--black);
+  }
+  .tv-cta-gold:hover { background: var(--gold-light); }
 
-/* SEGMENTOS */
-.segs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
-.seg{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:16px 18px}
-.seg-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-.seg-ico{font-size:22px}
-.seg-name{font-size:14px;font-weight:800}
-.seg-price{font-size:12px;color:var(--gold-light);font-weight:700;margin-bottom:4px}
-.seg-desc{font-size:11px;color:var(--muted);line-height:1.5}
+  /* DIFFERENCE BAR */
+  .diff-bar {
+    background: var(--dark); border: 1px solid var(--border);
+    border-radius: 6px; padding: 2rem 2.5rem;
+    display: flex; align-items: center; gap: 3rem;
+    margin: 3rem 0;
+    flex-wrap: wrap;
+  }
+  .diff-col { flex: 1; min-width: 200px; }
+  .diff-col-title {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--gray);
+    margin-bottom: 0.8rem;
+  }
+  .diff-col ul { list-style: none; }
+  .diff-col ul li {
+    font-size: 0.88rem; color: var(--gray-light);
+    padding: 0.35rem 0;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .diff-sep {
+    text-align: center; min-width: 120px;
+    font-family: var(--font-serif);
+    font-style: italic; color: var(--gray);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .diff-sep strong {
+    display: block; font-family: var(--font-display);
+    font-style: normal; font-size: 2.5rem;
+    color: var(--gold); letter-spacing: 0.05em;
+    margin-bottom: 0.2rem;
+  }
 
-/* DEPOIMENTOS */
-.dep-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-.dep{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:24px}
-.dep-text{font-size:13px;color:#bfcfdf;line-height:1.7;margin-bottom:16px;font-style:italic}
-.dep-text::before{content:'"';font-size:32px;color:var(--gold);line-height:0;vertical-align:-12px;margin-right:4px}
-.dep-author{font-size:12px;font-weight:700;color:var(--muted)}
+  /* COMMITMENT */
+  .commitment {
+    background: var(--red-dim);
+    border: 1px solid rgba(232,55,42,0.2);
+    border-radius: 6px;
+    padding: 1.5rem 2rem;
+    display: flex; align-items: center; gap: 1.5rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+  }
+  .commitment-icon {
+    font-size: 2rem; flex-shrink: 0;
+  }
+  .commitment-text h4 {
+    font-size: 0.95rem; font-weight: 600; color: var(--white);
+    margin-bottom: 0.2rem;
+  }
+  .commitment-text p {
+    font-size: 0.85rem; color: var(--gray-light); font-weight: 300;
+  }
 
-/* COMPARATIVO */
-.comp-table{width:100%;border-collapse:collapse}
-.comp-table th{background:var(--card2);padding:12px 14px;font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;text-align:left;border-bottom:1px solid var(--border)}
-.comp-table th:first-child{width:38%}
-.comp-table td{padding:11px 14px;font-size:12px;border-bottom:1px solid rgba(255,255,255,.04);color:#bfcfdf}
-.comp-table tr:hover td{background:rgba(255,255,255,.02)}
-.cx{color:#253545}
-.hl-col{background:rgba(200,150,12,.05)}
-.hl-col td{color:var(--gold-light)}
+  /* HOW IT WORKS */
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 2rem; margin-top: 3rem;
+  }
+  .step { position: relative; }
+  .step-num {
+    font-family: var(--font-display);
+    font-size: 5rem; color: rgba(255,255,255,0.04);
+    position: absolute; top: -1rem; left: -0.5rem;
+    line-height: 1; pointer-events: none;
+  }
+  .step-content { position: relative; padding-top: 1rem; }
+  .step-title {
+    font-size: 1rem; font-weight: 600; color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  .step-desc { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
 
-/* COMO FUNCIONA */
-.steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
-.step{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:22px}
-.step-n{font-size:34px;font-weight:900;color:var(--gold-light);line-height:1;margin-bottom:10px}
-.step-t{font-size:14px;font-weight:800;margin-bottom:5px}
-.step-d{font-size:12px;color:var(--muted);line-height:1.7}
+  /* FINAL CTA */
+  .final-cta {
+    text-align: center;
+    padding: 8rem 2rem;
+    position: relative; overflow: hidden;
+  }
+  .final-cta::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(232,55,42,0.05) 0%, transparent 70%);
+  }
+  .final-cta h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 7vw, 6rem);
+    line-height: 0.95; letter-spacing: 0.03em;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .final-cta h2 em {
+    font-family: var(--font-serif);
+    font-style: italic; color: var(--gold);
+  }
+  .final-cta p {
+    font-size: 1.05rem; color: var(--gray-light);
+    max-width: 480px; margin: 0 auto 2.5rem;
+    font-weight: 300; position: relative;
+  }
+  .final-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; }
 
-/* FAQ */
-.faq-item{border-bottom:1px solid var(--border);padding:18px 0}
-.faq-q{font-size:14px;font-weight:700;margin-bottom:7px}
-.faq-a{font-size:13px;color:var(--muted);line-height:1.8}
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+  }
+  footer p {
+    font-size: 0.78rem; color: var(--gray);
+    letter-spacing: 0.05em;
+  }
+  footer a { color: var(--gray); text-decoration: none; }
+  footer a:hover { color: var(--white); }
 
-/* CTA FINAL */
-.cta-final{margin:0 24px 72px;background:linear-gradient(135deg,#001530,#003272);border-radius:16px;padding:56px 32px;text-align:center;border:1px solid rgba(0,80,200,.25)}
-.cta-final h2{font-size:clamp(22px,3vw,36px);font-weight:900;margin-bottom:12px}
-.cta-final h2 em{color:var(--gold-light);font-style:normal}
-.cta-final p{font-size:15px;color:rgba(255,255,255,.6);margin-bottom:32px;max-width:460px;margin-left:auto;margin-right:auto}
-.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn-cta-wpp{background:var(--green);color:#fff;padding:15px 34px;border-radius:6px;font-weight:900;font-size:15px}
-.btn-cta-tel{background:rgba(255,255,255,.08);color:#fff;padding:15px 22px;border-radius:6px;font-weight:700;font-size:13px;border:1px solid rgba(255,255,255,.15)}
-
-/* FOOTER */
-.footer{background:#000;border-top:1px solid var(--border);text-align:center;padding:28px;font-size:12px;color:var(--muted)}
-.footer a{color:#334455}
-.footer a:hover{color:#fff}
-
-@media(max-width:640px){
-  .plans-grid,.dep-grid,.segs-grid,.steps{grid-template-columns:1fr}
-  .hero-btns,.cta-btns{flex-direction:column;align-items:center}
-  .comp-table{font-size:11px}
-  .comp-table td,.comp-table th{padding:9px 7px}
-  .stats-grid{grid-template-columns:1fr 1fr}
-}
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .plans-grid { grid-template-columns: 1fr; }
+    .tv-plans-grid { grid-template-columns: 1fr; }
+    .steps-grid { grid-template-columns: 1fr 1fr; }
+    .stats-bar { flex-wrap: wrap; gap: 2rem; }
+    .stat-item { border-right: none; padding: 0 1.5rem; }
+    .diff-bar { flex-direction: column; }
+  }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="hdr">
-  <a href="https://www.tvmarataizes.digital/" class="logo">
-    <span class="logo-tag">TV</span> Marataízes
-  </a>
-  <div class="hdr-r">
-    <a href="https://www.tvmarataizes.digital/" class="btn-ghost">← Portal</a>
-    <a href="https://wa.me/5528999036141?text=Quero+anunciar+na+TV+Marataízes" target="_blank" rel="noopener" class="btn-wpp">💬 WhatsApp</a>
+<!-- NAV -->
+<nav>
+  <a href="https://tvmarataizes.digital" class="nav-logo">TV <span>Marataízes</span></a>
+  <div class="nav-links">
+    <a href="#guia">Guia Digital</a>
+    <a href="#tv">TV & Agência</a>
+    <a href="#como">Como funciona</a>
+    <a href="https://wa.me/5528999036141?text=Quero+anunciar+na+TV+Marataízes" class="nav-cta">Falar agora</a>
   </div>
-</header>
-
-<!-- BARRA URGÊNCIA -->
-<div style="background:var(--red);text-align:center;padding:10px 24px;font-size:13px;font-weight:800;letter-spacing:.3px">
-  🔥 Negócios locais já estão sendo encontrados aqui · <strong>Planos de TV com vagas limitadas por segmento</strong> · Guia digital sem limite
-  &nbsp;·&nbsp;
-  <a href="#guia" style="color:#fff;text-decoration:underline">Ver vagas disponíveis →</a>
-</div>
+</nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">📺 TV Marataízes · Soul TV Canal 300 · Sul do ES</div>
-  <h1>O guia digital de Marataízes<br>é da <em>TV Marataízes</em></h1>
-  <p class="hero-sub">Não é um portal qualquer. É o guia da única TV independente do Sul do ES — com 237k views por campanha, Canal 300 Soul TV e presença real na cidade. Sua empresa entra aqui ou fica de fora.</p>
-
-  <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:16px 24px;max-width:560px;margin:0 auto 32px;display:flex;flex-wrap:wrap;gap:20px;justify-content:center">
-    <div style="text-align:center"><div style="font-size:22px;font-weight:900;color:var(--gold-light)">237k</div><div style="font-size:11px;color:var(--muted)">views por campanha</div></div>
-    <div style="text-align:center"><div style="font-size:22px;font-weight:900;color:var(--gold-light)">8</div><div style="font-size:11px;color:var(--muted)">cidades cobertas</div></div>
-    <div style="text-align:center"><div style="font-size:22px;font-weight:900;color:var(--gold-light)">24h</div><div style="font-size:11px;color:var(--muted)">publicado no ar</div></div>
-    <div style="text-align:center"><div style="font-size:22px;font-weight:900;color:var(--gold-light)">Canal 300</div><div style="font-size:11px;color:var(--muted)">Soul TV nacional</div></div>
-  </div>
-  <div style="background:rgba(232,0,10,.1);border:1px solid rgba(232,0,10,.25);border-radius:8px;padding:12px 20px;max-width:520px;margin:0 auto 32px;font-size:13px;color:#ffaaaa;line-height:1.6">
-    ⚠️ <strong>Se seu concorrente estiver aqui e você não...</strong><br>
-    o cliente vai falar com ele — não com você. Toda semana.
-  </div>
-  <div class="hero-btns">
-    <a href="#guia" class="btn-main">🗺️ Ver Planos do Guia — a partir de R$49</a>
-    <a href="#tv" class="btn-sec">📺 Planos de TV</a>
-  </div>
-</section>
-
-<!-- ÂNCORAS -->
-<div class="nav-pills">
-  <a href="#guia" class="nav-pill">🗺️ Guia Digital</a>
-  <a href="#tv" class="nav-pill">📺 Planos de TV</a>
-  <a href="#numeros" class="nav-pill">📊 Números Reais</a>
-  <a href="#segmentos" class="nav-pill">🎯 Por Segmento</a>
-  <a href="#como" class="nav-pill">⚡ Como Funciona</a>
-  <a href="#faq" class="nav-pill">❓ Dúvidas</a>
-</div>
-
-<!-- ═══ GUIA DIGITAL ═══ -->
-<section class="sec" id="guia">
-  <div class="sec-label">O Guia Digital de Marataízes</div>
-  <h2 class="sec-title">Sua empresa no lugar onde<br><em>Marataízes pesquisa</em></h2>
-  <p class="sec-sub">Não é guia genérico — é o portal da TV Marataízes. Quem entra aqui aparece no Google associado à única emissora independente do Sul do ES. Toda semana novas empresas entrando.</p>
-
-  <div class="plans-grid">
-
-    <!-- CARD NO GUIA -->
-    <div class="plan">
-      <div class="plan-icon">🗺️</div>
-      <div class="plan-name">Card no Guia</div>
-      <div class="plan-tagline">Quando alguém pesquisar pelo seu segmento em Marataízes — você aparece, não o concorrente. Básico. Obrigatório.</div>
-      <div class="plan-price"><span class="amt">R$49</span><span class="per">/mês</span></div>
-      <div class="plan-saving">Sem contrato · cancela quando quiser · sem limite por segmento</div>
-      <ul class="feats">
-        <li><span class="ck">✓</span> Sua empresa aparece quando pesquisarem no Google</li>
-        <li><span class="ck">✓</span> Nome, endereço, telefone e Instagram</li>
-        <li><span class="ck">✓</span> Aparece nas buscas do Google</li>
-        <li><span class="ck">✓</span> Seção exclusiva do seu segmento</li>
-        <li><span class="ck">✓</span> Publicado em até 24 horas</li>
-        <li><span class="ck">✓</span> Atualização gratuita a qualquer hora</li>
-      </ul>
-      <a href="https://wa.me/5528999036141?text=Quero+o+Card+no+Guia+da+TV+Marataízes+-+R%2449%2Fmês" target="_blank" rel="noopener" class="plan-btn bg-navy">💬 Quero aparecer no Google agora</a>
-    </div>
-
-    <!-- PÁGINA EXCLUSIVA -->
-    <div class="plan hot">
-      <div class="plan-crown crown-gold">⭐ Mais vendido</div>
-      <div class="plan-icon">📄</div>
-      <div class="plan-name">Página Exclusiva</div>
-      <div class="plan-tagline">Não é listagem — é mini site com tráfego real. Vídeo, fotos, WhatsApp direto e URL própria no domínio da TV Marataízes.</div>
-      <div class="plan-price"><span class="amt">R$99</span><span class="per">/mês</span></div>
-      <div class="plan-saving">Agência cobra R$500–800/mês · você paga R$99 com audiência da TV inclusa</div>
-      <ul class="feats">
-        <li><span class="ck">✓</span> Tudo do plano Card +</li>
-        <li><span class="ck">✓</span> Página exclusiva: tvmarataizes.digital/sua-empresa</li>
-        <li><span class="ck">✓</span> Vídeo incorporado na página</li>
-        <li><span class="ck">✓</span> Fotos, história, horários e localização</li>
-        <li><span class="ck">✓</span> Botão WhatsApp direto na página</li>
-        <li><span class="ck g">★</span> Badge destaque no guia</li>
-        <li><span class="ck g">★</span> Menção no ticker do portal</li>
-      </ul>
-      <a href="https://wa.me/5528999036141?text=Quero+a+Página+Exclusiva+na+TV+Marataízes+-+R%2499%2Fmês" target="_blank" rel="noopener" class="plan-btn bg-green">💬 Quero minha página</a>
-    </div>
-
-    <!-- GUIA + TV -->
-    <div class="plan tv-card">
-      <div class="plan-crown crown-blue">📺 Entra na TV</div>
-      <div class="plan-icon">📺</div>
-      <div class="plan-name">Guia + Aparição na TV</div>
-      <div class="plan-tagline">Página exclusiva no portal mais stories semanais no Instagram da TV Marataízes. Dois canais, um preço.</div>
-      <div class="plan-price"><span class="amt">R$249</span><span class="per">/mês</span></div>
-      <div class="plan-saving">TV + portal + Google em um só plano</div>
-      <ul class="feats">
-        <li><span class="ck">✓</span> Tudo do plano Página Exclusiva +</li>
-        <li><span class="ck">✓</span> 2 stories/semana no Instagram da TV</li>
-        <li><span class="ck">✓</span> Alcance estimado: 5.000+ pessoas/mês</li>
-        <li><span class="ck">✓</span> Relatório mensal de visualizações</li>
-        <li><span class="ck g">★</span> Credencial "Na TV Marataízes" no card</li>
-      </ul>
-      <a href="https://wa.me/5528999036141?text=Quero+o+plano+Guia+%2B+TV+da+TV+Marataízes+-+R%24249%2Fmês" target="_blank" rel="noopener" class="plan-btn bg-blue">💬 Quero esse plano</a>
-    </div>
-
-  </div>
-
-  <!-- MINI COMPARATIVO GUIA -->
-  <div style="overflow-x:auto;margin-top:32px">
-    <table class="comp-table">
-      <thead>
-        <tr>
-          <th>O que inclui</th>
-          <th>🗺️ Card<br><small style="font-weight:400">R$49</small></th>
-          <th class="hl-col">📄 Página<br><small style="font-weight:400">R$99</small></th>
-          <th>📺 Guia+TV<br><small style="font-weight:400">R$249</small></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Card no portal</td><td class="ck">✓</td><td class="ck hl-col">✓</td><td class="ck">✓</td></tr>
-        <tr><td>Aparece no Google</td><td class="ck">✓</td><td class="ck hl-col">✓</td><td class="ck">✓</td></tr>
-        <tr><td>Página exclusiva com URL própria</td><td class="cx">—</td><td class="ck hl-col">✓</td><td class="ck">✓</td></tr>
-        <tr><td>Vídeo na página</td><td class="cx">—</td><td class="ck hl-col">✓</td><td class="ck">✓</td></tr>
-        <tr><td>Badge destaque no guia</td><td class="cx">—</td><td class="ck hl-col">✓</td><td class="ck">✓</td></tr>
-        <tr><td>Stories no Instagram da TV</td><td class="cx">—</td><td class="cx hl-col">—</td><td class="ck">2/sem</td></tr>
-        
-        <tr><td>Sem contrato</td><td class="ck">✓</td><td class="ck hl-col">✓</td><td class="ck">✓</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:20px">
-    💡 Novas empresas entrando toda semana · Plano trimestral com 10% de desconto · 
-    <a href="https://wa.me/5528999036141" style="color:var(--gold-light)">Consultar →</a>
+  <div class="hero-eyebrow">Canal 300 · Soul TV · Sul do ES · Ao vivo 24h</div>
+  <h1>Sua empresa<br>no <em>lugar certo</em></h1>
+  <p class="hero-sub">
+    A única TV independente do Sul do Espírito Santo.<br>
+    <strong>237 mil views por campanha.</strong> Escolha como quer aparecer.
   </p>
+  <div class="hero-actions">
+    <a href="#guia" class="btn-ghost">Guia Digital — a partir de R$99</a>
+    <a href="#tv" class="btn-primary">TV & Agência — a partir de R$6.500</a>
+  </div>
 </section>
 
-<!-- DIVISOR -->
-<div class="div-sec" style="max-width:980px;margin:0 auto 64px"><span class="div-sec-label">Quer mais? Entre na TV</span></div>
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <span class="stat-number">237K</span>
+    <span class="stat-label">Views por campanha</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number">69K</span>
+    <span class="stat-label">Pessoas alcançadas</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number">8</span>
+    <span class="stat-label">Cidades cobertas</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number">300</span>
+    <span class="stat-label">Canal Soul TV</span>
+  </div>
+</div>
 
-<!-- ═══ PLANOS DE TV ═══ -->
-<section class="sec" id="tv">
-  <div class="sec-label">Passo 2 — Apareça na programação</div>
-  <h2 class="sec-title">Planos de <em>TV</em></h2>
-  <p class="sec-sub">Sua marca na programação ao vivo do Canal 300 Soul TV — ao lado da CNN Brasil. TV + Instagram integrados, resultados mensuráveis.</p>
+<!-- GUIA SECTION -->
+<section class="section" id="guia">
+  <div class="section-label">Frente 1 · Presença digital</div>
+  <h2 class="section-title">Guia <em>Digital</em></h2>
+  <p class="section-desc">
+    Entre no portal da TV Marataízes. Seja encontrado quando alguém pesquisa pelo seu segmento na cidade. Sem produção, sem complexidade.
+  </p>
 
   <div class="plans-grid">
 
-    <div class="plan">
-      <div class="plan-icon">🌱</div>
-      <div class="plan-name">Essencial</div>
-      <div class="plan-tagline">Para MEI, lojista e profissional liberal que quer dar o primeiro passo na TV.</div>
-      <div class="plan-price"><span class="amt">R$1.490</span><span class="per">/mês</span></div>
-      <div class="plan-saving">Inclui Card no Guia + Página Exclusiva</div>
-      <ul class="feats">
-        <li><span class="ck">✓</span> Tudo do Plano Guia + TV (R$249) +</li>
-        <li><span class="ck">✓</span> 3 stories/semana integrados TV + redes (12/mês)</li>
-        <li><span class="ck">✓</span> 1 inserção semanal na programação (4/mês)</li>
-        <li><span class="ck">✓</span> Post fixo no feed da TV por 15 dias</li>
-        <li><span class="ck">✓</span> Relatório mensal de alcance e views</li>
-        <li><span class="ck">✓</span> Até 8 marcas por segmento</li>
-        <li><span class="ck g">★</span> Sem taxa de produção (comercial simples)</li>
+    <!-- PLANO 1 -->
+    <div class="plan-card">
+      <div class="plan-tag">Entrada</div>
+      <div class="plan-name">Presença</div>
+      <p class="plan-tagline">Seu negócio no portal da única TV do Sul do ES. Simples e imediato.</p>
+      <div class="plan-price">
+        <div class="plan-price-number">
+          <span class="plan-price-currency">R$</span>99
+        </div>
+        <span class="plan-price-period">por mês · sem fidelidade</span>
+      </div>
+      <ul class="plan-features">
+        <li>Nome da empresa no guia digital</li>
+        <li>WhatsApp direto para o cliente</li>
+        <li>Aparece nas buscas do Google</li>
+        <li>Categoria exclusiva do seu segmento</li>
+        <li>Publicado em até 24 horas</li>
       </ul>
-      <a href="https://wa.me/5528999036141?text=Quero+o+Plano+Essencial+da+TV+Marataízes+-+R%241.490%2Fmês" target="_blank" rel="noopener" class="plan-btn bg-navy">💬 Quero esse plano</a>
+      <a href="https://wa.me/5528999036141?text=Quero+o+Plano+Presença+R$99+-+TV+Marataízes" class="plan-cta plan-cta-ghost">Quero esse plano</a>
     </div>
 
-    <div class="plan hot">
-      <div class="plan-crown crown-gold">⭐ Mais escolhido</div>
-      <div class="plan-icon">⭐</div>
-      <div class="plan-name">Destaque</div>
-      <div class="plan-tagline">Para comércio estabelecido, clínicas e negócios que querem crescimento visível.</div>
-      <div class="plan-price"><span class="amt">R$2.800</span><span class="per">/mês</span></div>
-      <div class="plan-saving">Campanha impulsionada inclusa</div>
-      <ul class="feats">
-        <li><span class="ck">✓</span> 5 stories/semana TV + redes (20/mês)</li>
-        <li><span class="ck">✓</span> 2 inserções semanais na programação (8/mês)</li>
-        <li><span class="ck">✓</span> Menção ao vivo em programa 1x/mês</li>
-        <li><span class="ck">✓</span> Campanha impulsionada no Instagram (verba inclusa)</li>
-        <li><span class="ck">✓</span> Relatório completo: alcance, engajamento e leads</li>
-        <li><span class="ck">✓</span> Até 5 marcas por segmento</li>
-        <li><span class="ck g">★</span> Consultoria de pauta mensal</li>
+    <!-- PLANO 2 - FEATURED -->
+    <div class="plan-card featured">
+      <div class="plan-tag">Recomendado</div>
+      <div class="plan-name">Visibilidade</div>
+      <p class="plan-tagline">Seu negócio é <strong style="color:var(--gold)">agenciado pela TV Marataízes</strong>. Vídeo, página exclusiva e 4 stories por mês nas nossas redes.</p>
+      <div class="plan-price">
+        <div class="plan-price-number">
+          <span class="plan-price-currency">R$</span>249
+        </div>
+        <span class="plan-price-period">por mês · mínimo 6 meses</span>
+      </div>
+      <ul class="plan-features">
+        <li>Tudo do plano Presença</li>
+        <li class="highlight">Agenciado pela TV Marataízes</li>
+        <li class="highlight">Página exclusiva no portal da TV</li>
+        <li class="highlight">Vídeo de apresentação do local</li>
+        <li>4 stories/mês nas redes da TV</li>
+        <li>URL própria: tvmarataizes.digital/sua-empresa</li>
       </ul>
-      <a href="https://wa.me/5528999036141?text=Quero+o+Plano+Destaque+da+TV+Marataízes+-+R%242.800%2Fmês" target="_blank" rel="noopener" class="plan-btn bg-gold">💬 Quero esse plano</a>
+      <a href="https://wa.me/5528999036141?text=Quero+o+Plano+Visibilidade+R$249+-+TV+Marataízes" class="plan-cta plan-cta-gold">Quero esse plano</a>
     </div>
 
-    <div class="plan">
-      <div class="plan-icon">🏆</div>
-      <div class="plan-name">Topo</div>
-      <div class="plan-tagline">Para escolas, imobiliárias, planos de saúde e marcas que querem posicionamento forte.</div>
-      <div class="plan-price"><span class="amt">R$4.500</span><span class="per">/mês</span></div>
-      <div class="plan-saving">Segmentação avançada de campanhas</div>
-      <ul class="feats">
-        <li><span class="ck">✓</span> 7 stories/semana TV + redes (28/mês)</li>
-        <li><span class="ck">✓</span> 3 inserções semanais em horário nobre</li>
-        <li><span class="ck">✓</span> Presença em coberturas e eventos ao vivo</li>
-        <li><span class="ck">✓</span> Campanhas com segmentação avançada</li>
-        <li><span class="ck">✓</span> Relatório ROI, alcance e vendas estimadas</li>
-        <li><span class="ck">✓</span> Até 3 marcas por segmento</li>
-        <li><span class="ck g">★</span> Consultoria estratégica contínua</li>
+    <!-- PLANO 3 -->
+    <div class="plan-card">
+      <div class="plan-tag">Completo</div>
+      <div class="plan-name">Autoridade</div>
+      <p class="plan-tagline">Agenciado pela TV Marataízes com máxima frequência. 8 stories e 1 post no feed por mês — você é visto toda semana.</p>
+      <div class="plan-price">
+        <div class="plan-price-number">
+          <span class="plan-price-currency">R$</span>399
+        </div>
+        <span class="plan-price-period">por mês · mínimo 6 meses</span>
+      </div>
+      <ul class="plan-features">
+        <li>Tudo do plano Visibilidade</li>
+        <li class="highlight">8 stories/mês nas redes da TV</li>
+        <li class="highlight">1 post no feed da TV por mês</li>
+        <li>Menção no ticker do portal</li>
+        <li>Relatório mensal de visualizações</li>
       </ul>
-      <a href="https://wa.me/5528999036141?text=Quero+o+Plano+Topo+da+TV+Marataízes+-+R%244.500%2Fmês" target="_blank" rel="noopener" class="plan-btn bg-navy">💬 Quero esse plano</a>
-    </div>
-
-    <div class="plan tv-card">
-      <div class="plan-crown crown-blue">💎 Exclusivo</div>
-      <div class="plan-icon">💎</div>
-      <div class="plan-name">Exclusividade</div>
-      <div class="plan-tagline">Só sua marca no segmento. Máxima visibilidade. Nenhum concorrente aparece no canal.</div>
-      <div class="plan-price"><span class="amt">R$6.500</span><span class="per">/mês</span></div>
-      <div class="plan-saving">Exclusividade total no seu segmento</div>
-      <ul class="feats">
-        <li><span class="ck">✓</span> Tudo do Plano Topo +</li>
-        <li><span class="ck">✓</span> Exclusividade total no segmento</li>
-        <li><span class="ck">✓</span> Vinheta em todos os blocos da grade</li>
-        <li><span class="ck">✓</span> Participação ativa em transmissões ao vivo</li>
-        <li><span class="ck">✓</span> Produção de vídeo institucional mensal</li>
-        <li><span class="ck g">★</span> Ação especial no aniversário da empresa</li>
-        <li><span class="ck g">★</span> Priority account — atendimento direto</li>
-      </ul>
-      <a href="https://wa.me/5528999036141?text=Quero+o+Plano+Exclusividade+da+TV+Marataízes+-+R%246.500%2Fmês" target="_blank" rel="noopener" class="plan-btn bg-blue">💬 Quero esse plano</a>
+      <a href="https://wa.me/5528999036141?text=Quero+o+Plano+Autoridade+R$399+-+TV+Marataízes" class="plan-cta plan-cta-ghost">Quero esse plano</a>
     </div>
 
   </div>
-  <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:24px">💡 Plano trimestral com desconto de 10% disponível · Produção de comercial profissional opcional — consulte valores.</p>
-</section>
 
-<!-- ═══ NÚMEROS REAIS ═══ -->
-<section class="sec" id="numeros">
-  <div class="sec-label">Audiência verificada</div>
-  <h2 class="sec-title">Alcance real. <em>Números reais.</em></h2>
-  <p class="sec-sub">Dados reais da última campanha impulsionada. Números verificáveis — é isso que seu anúncio pode alcançar.</p>
-
-  <div class="stats-grid">
-    <div class="stat"><div class="stat-num">237.649</div><div class="stat-label">views na última campanha</div></div>
-    <div class="stat"><div class="stat-num">69.932</div><div class="stat-label">pessoas alcançadas</div></div>
-    <div class="stat"><div class="stat-num">50.385</div><div class="stat-label">engajamentos totais</div></div>
-    <div class="stat"><div class="stat-num">3.282</div><div class="stat-label">cliques no link</div></div>
-    <div class="stat"><div class="stat-num">2.878</div><div class="stat-label">visitas ao perfil</div></div>
-    <div class="stat"><div class="stat-num">1.126</div><div class="stat-label">novos seguidores</div></div>
-    <div class="stat"><div class="stat-num">8</div><div class="stat-label">cidades cobertas no Sul do ES</div></div>
-    <div class="stat"><div class="stat-num">Canal 300</div><div class="stat-label">Soul TV · ao lado da CNN Brasil</div></div>
-  </div>
-
-  <div class="dep-grid">
-    <div class="dep">
-      <p class="dep-text">A TV Marataízes foi o canal que trouxe reconhecimento real para nossa marca na região. As pessoas começaram a nos identificar como referência local — algo que anos de redes sociais não tinham conseguido.</p>
-      <div class="dep-author">Parceiro — Setor Moveleiro · Sul do ES</div>
-    </div>
-    <div class="dep">
-      <p class="dep-text">O formato integrado — TV e Instagram ao mesmo tempo — foi decisivo. A campanha chegou ao nosso público de uma forma que nenhum outro canal conseguia. Os números de engajamento foram surpreendentes.</p>
-      <div class="dep-author">Juliana Móveis · Anunciante ativo</div>
-    </div>
-    <div class="dep">
-      <p class="dep-text">Sabíamos que precisávamos de credibilidade televisiva e presença digital. A TV Marataízes entrega os dois em um só contrato, com relatórios mensais que deixam claro o retorno do investimento.</p>
-      <div class="dep-author">Parceiro — Setor de Saúde · Sul do ES</div>
+  <div class="commitment">
+    <div class="commitment-icon">⚡</div>
+    <div class="commitment-text">
+      <h4>Guia ≠ TV. Saiba a diferença.</h4>
+      <p>Os planos do guia aparecem no portal e nas redes sociais da TV Marataízes. A presença na programação do Canal 300 é exclusiva dos planos de TV & Agência abaixo.</p>
     </div>
   </div>
 </section>
 
-<!-- ═══ SEGMENTOS ═══ -->
-<section class="sec" id="segmentos">
-  <div class="sec-label">Por segmento</div>
-  <h2 class="sec-title">Cada negócio tem sua <em>estratégia</em></h2>
-  <p class="sec-sub">Selecionamos poucas marcas por segmento. Confira qual plano faz mais sentido para o seu mercado.</p>
-
-  <div class="segs-grid">
-    <div class="seg"><div class="seg-head"><span class="seg-ico">⚕️</span><span class="seg-name">Clínicas & Consultórios</span></div><div class="seg-price">R$2.800 – R$4.500/mês</div><div class="seg-desc">TV constrói autoridade. Público busca confiança antes de agendar.</div></div>
-    <div class="seg"><div class="seg-head"><span class="seg-ico">💊</span><span class="seg-name">Farmácias</span></div><div class="seg-price">R$49 – R$2.800/mês</div><div class="seg-desc">Do guia à TV. Proximidade com a comunidade é o maior ativo.</div></div>
-    <div class="seg"><div class="seg-head"><span class="seg-ico">🏘️</span><span class="seg-name">Imobiliárias</span></div><div class="seg-price">R$4.500 – R$6.500/mês</div><div class="seg-desc">Ticket alto exige confiança. TV gera leads qualificados.</div></div>
-    <div class="seg"><div class="seg-head"><span class="seg-ico">🍽️</span><span class="seg-name">Restaurantes</span></div><div class="seg-price">R$49 – R$2.800/mês</div><div class="seg-desc">Do card no guia à aparição na programação gastronômica.</div></div>
-    <div class="seg"><div class="seg-head"><span class="seg-ico">🏨</span><span class="seg-name">Pousadas & Turismo</span></div><div class="seg-price">R$99 – R$4.500/mês</div><div class="seg-desc">Sul do ES é destino em crescimento. TV é referência local.</div></div>
-    <div class="seg"><div class="seg-head"><span class="seg-ico">🎓</span><span class="seg-name">Escolas & Cursos</span></div><div class="seg-price">R$1.490 – R$4.500/mês</div><div class="seg-desc">Matrículas são críticas. TV gera visibilidade em massa em jan/fev e jul.</div></div>
-    <div class="seg"><div class="seg-head"><span class="seg-ico">🛒</span><span class="seg-name">Supermercados</span></div><div class="seg-price">R$49 – R$6.500/mês</div><div class="seg-desc">Do guia à exclusividade. Frequência alta = TV semanal converte.</div></div>
-    <div class="seg"><div class="seg-head"><span class="seg-ico">👗</span><span class="seg-name">Moda & Vestuário</span></div><div class="seg-price">R$49 – R$2.800/mês</div><div class="seg-desc">Stories com lançamentos geram venda direta via WhatsApp.</div></div>
-    <div class="seg"><div class="seg-head"><span class="seg-ico">⚰️</span><span class="seg-name">Funerárias</span></div><div class="seg-price">R$4.500/mês</div><div class="seg-desc">70% das famílias escolhem por familiaridade de marca. TV constrói isso.</div></div>
-    <div class="seg"><div class="seg-head"><span class="seg-ico">🚗</span><span class="seg-name">Automóveis & Peças</span></div><div class="seg-price">R$49 – R$4.500/mês</div><div class="seg-desc">Do card no guia ao live de lançamentos na TV.</div></div>
-    <div class="seg"><div class="seg-head"><span class="seg-ico">🔨</span><span class="seg-name">Construção & Material</span></div><div class="seg-price">R$2.800 – R$4.500/mês</div><div class="seg-desc">Sazonalidade alta. TV + Instagram amplifica promoções de fim de semana.</div></div>
-    <div class="seg"><div class="seg-head"><span class="seg-ico">⚖️</span><span class="seg-name">Advocacia & Jurídico</span></div><div class="seg-price">R$1.490 – R$2.800/mês</div><div class="seg-desc">Aparecer na TV regional eleva percepção de autoridade.</div></div>
-  </div>
-</section>
-
-<!-- ═══ COMO FUNCIONA ═══ -->
-<section class="sec" id="como">
-  <div class="sec-label">Processo</div>
-  <h2 class="sec-title">Do WhatsApp ao <em>ar em 24h</em></h2>
-  <p class="sec-sub">Simples. Sem burocracia. Você cuida do negócio, a gente cuida da divulgação.</p>
-  <div class="steps">
-    <div class="step"><div class="step-n">01</div><div class="step-t">Manda mensagem</div><div class="step-d">Clique em qualquer botão e fale pelo WhatsApp. Respondemos em até 2 horas úteis.</div></div>
-    <div class="step"><div class="step-n">02</div><div class="step-t">Manda os dados</div><div class="step-d">Nome, endereço, telefone e Instagram. Nada mais. Você não precisa criar nada.</div></div>
-    <div class="step"><div class="step-n">03</div><div class="step-t">Publicamos em 24h</div><div class="step-d">Seu card ou página vai ao ar em até 24 horas. Google indexa em poucos dias.</div></div>
-    <div class="step"><div class="step-n">04</div><div class="step-t">Cliente te encontra</div><div class="step-d">Quem pesquisa pelo seu segmento em Marataízes começa a ver o seu negócio.</div></div>
-  </div>
-</section>
-
-<!-- ═══ FAQ ═══ -->
-<section class="sec" id="faq">
-  <div class="sec-label">Dúvidas frequentes</div>
-  <h2 class="sec-title">Perguntas <em>respondidas</em></h2>
-  <div style="max-width:700px;margin:0 auto">
-    <div class="faq-item"><div class="faq-q">O plano de R$49 realmente aparece no Google?</div><div class="faq-a">Sim. O portal tvmarataizes.digital é indexado pelo Google. Quando alguém pesquisa "restaurante em Marataízes" ou "farmácia Marataízes ES", o portal aparece — e seu negócio junto com ele. O efeito cresce com o tempo.</div></div>
-    <div class="faq-item"><div class="faq-q">Precisa ter site ou Instagram para entrar?</div><div class="faq-a">Não é obrigatório. Basta nome, endereço e telefone. Se tiver Instagram ou WhatsApp, melhor — o card fica mais completo e gera mais cliques.</div></div>
-    <div class="faq-item"><div class="faq-q">Posso cancelar quando quiser?</div><div class="faq-a">Sim. Todos os planos são mensais, sem fidelidade mínima. Cancela mandando mensagem pelo WhatsApp e o card é removido no mês seguinte.</div></div>
-    <div class="faq-item"><div class="faq-q">Qual a diferença entre o Guia e os planos de TV?</div><div class="faq-a">O Guia é presença digital — você aparece no portal e no Google. Os planos de TV incluem inserções na programação ao vivo do Canal 300 Soul TV e campanhas no Instagram. São complementares: muita gente começa no Guia e sobe para a TV quando vê resultado.</div></div>
-    <div class="faq-item"><div class="faq-q">A TV Marataízes transmite onde?</div><div class="faq-a">Ao vivo 24h no tvmarataizes.digital e no Canal 300 da Soul TV — disponível em Smart TVs, Android e iOS, ao lado da CNN Brasil, Record News e TV UOL. Cobertura em 8 cidades do Sul do ES.</div></div>
-    <div class="faq-item"><div class="faq-q">Funciona para agências também?</div><div class="faq-a">Sim. Se seu cliente já tem agência, trabalhamos lado a lado. A agência cuida da estratégia, a TV Marataízes entrega o canal e a execução multiplataforma.</div></div>
-  </div>
-</section>
-
-<!-- CTA FINAL -->
-<div class="cta-final">
-  <h2>Ou sua empresa aparece aqui...<br><em>ou ela é esquecida.</em></h2>
-  <p>Fale agora pelo WhatsApp. Publicamos no guia em 24 horas. Ou converse sobre os planos de TV.</p>
-  <div class="cta-btns">
-    <a href="https://wa.me/5528999036141?text=Quero+anunciar+na+TV+Marataízes" target="_blank" rel="noopener" class="btn-cta-wpp">💬 Falar no WhatsApp — (28) 99903-6141</a>
-    <a href="tel:+552899903-6141" class="btn-cta-tel">📞 Ligar agora</a>
+<!-- DIVIDER -->
+<div class="world-divider">
+  <div class="world-divider-label">
+    <p>A partir daqui</p>
+    <h3>Outro nível</h3>
   </div>
 </div>
+
+<!-- TV SECTION -->
+<section class="tv-section" id="tv">
+  <div class="tv-inner">
+    <div class="section-label">Frente 2 · TV & Agência</div>
+    <h2 class="section-title">A <em>Macuca Produções</em><br>cuida de tudo</h2>
+    <p class="section-desc">
+      Você não contrata mídia. Você contrata uma agência que também é exibidora. Produção, estratégia, Canal 300 e redes sociais — tudo em um contrato.
+    </p>
+
+    <div class="diff-bar">
+      <div class="diff-col">
+        <div class="diff-col-title">Quem faz sozinho</div>
+        <ul>
+          <li>📱 Grava no celular</li>
+          <li>📊 Impulsiona sem estratégia</li>
+          <li>🤷 Não tem narrativa</li>
+          <li>📉 Perde para concorrente</li>
+        </ul>
+      </div>
+      <div class="diff-sep">
+        <strong>VS</strong>
+        Não é anúncio.<br>É construção<br>de marca.
+      </div>
+      <div class="diff-col">
+        <div class="diff-col-title">Com a TV Marataízes</div>
+        <ul>
+          <li>🎬 Produção profissional</li>
+          <li>📺 Canal 300 Soul TV</li>
+          <li>🎯 Estratégia integrada</li>
+          <li>📈 Presença que vende</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tv-plans-grid">
+
+      <!-- TV PLAN 1 -->
+      <div class="tv-plan-card">
+        <div class="tv-badge">TV · Agência · Produção</div>
+        <div class="tv-plan-name">Canal</div>
+        <p class="tv-plan-sub">Para o empresário que quer estar na TV e não quer se preocupar com mais nada. A Macuca Produções assume a conta.</p>
+        <div class="tv-price-row">
+          <div class="tv-price-main">6.500</div>
+          <div class="tv-price-detail">
+            R$ por mês<br>
+            <span style="color: var(--gray); font-size:0.75rem;">mínimo 6 meses</span>
+          </div>
+        </div>
+        <ul class="tv-features">
+          <li class="tv-highlight">Inserções semanais na grade do Canal 300</li>
+          <li class="tv-highlight">Macuca Produções como sua agência exclusiva</li>
+          <li>Produção de vídeo profissional mensal</li>
+          <li>Gestão completa das redes sociais</li>
+          <li>Campanha impulsionada inclusa</li>
+          <li>Stories semanais TV + Instagram integrados</li>
+          <li>Relatório mensal de alcance e leads</li>
+          <li>Página exclusiva no portal da TV</li>
+          <li>Atendimento direto com a produção</li>
+        </ul>
+        <a href="https://wa.me/5528999036141?text=Quero+o+Plano+Canal+R$6.500+-+TV+Marataízes" class="tv-cta tv-cta-main">Quero esse plano</a>
+      </div>
+
+      <!-- TV PLAN 2 - FEATURED -->
+      <div class="tv-plan-card tv-featured">
+        <div class="tv-badge">TV · Agência · Exclusividade</div>
+        <div class="tv-plan-name">Domínio</div>
+        <p class="tv-plan-sub">Exclusividade total no seu segmento. Nenhum concorrente aparece no canal. A Macuca Produções é sua agência e você é o único no ar.</p>
+        <div class="tv-price-row">
+          <div class="tv-price-main">9.500</div>
+          <div class="tv-price-detail">
+            R$ por mês<br>
+            <span style="color: var(--gray); font-size:0.75rem;">mínimo 6 meses</span>
+          </div>
+        </div>
+        <ul class="tv-features">
+          <li class="tv-highlight">Tudo do plano Canal</li>
+          <li class="tv-highlight">Exclusividade total no segmento — zero concorrência</li>
+          <li class="tv-highlight">Vinheta em todos os blocos da grade</li>
+          <li>Presença ativa em coberturas ao vivo</li>
+          <li>Participação em programas e eventos da TV</li>
+          <li>Produção de vídeo institucional mensal premium</li>
+          <li>Ação especial no aniversário da empresa</li>
+          <li>Consultoria estratégica contínua</li>
+          <li>Priority account — linha direta com a direção</li>
+        </ul>
+        <a href="https://wa.me/5528999036141?text=Quero+o+Plano+Domínio+R$9.500+-+TV+Marataízes" class="tv-cta tv-cta-gold">Quero esse plano</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="como">
+  <div class="section-label">Processo</div>
+  <h2 class="section-title">Do <em>WhatsApp</em><br>ao ar em 24h</h2>
+
+  <div class="steps-grid">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <div class="step-title">Fale pelo WhatsApp</div>
+        <p class="step-desc">Clique em qualquer botão. Respondemos em até 2 horas úteis. Sem formulário, sem burocracia.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-content">
+        <div class="step-title">Manda os dados</div>
+        <p class="step-desc">Nome, endereço, telefone e Instagram. Nada mais. Você não precisa criar nada — a gente cuida.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <div class="step-title">Publicamos em 24h</div>
+        <p class="step-desc">Seu card ou página vai ao ar. Google indexa em poucos dias. Para TV, agendamos a produção.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-content">
+        <div class="step-title">Clientes te encontram</div>
+        <p class="step-desc">Quem pesquisa pelo seu segmento em Marataízes passa a ver o seu negócio. Toda semana.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>Ou sua empresa<br>aparece aqui...<br><em>ou é esquecida.</em></h2>
+  <p>Seu concorrente já está olhando para isso. A decisão é sua.</p>
+  <div class="final-actions">
+    <a href="https://wa.me/5528999036141?text=Quero+entrar+no+Guia+-+TV+Marataízes" class="btn-ghost">Entrar no Guia — a partir de R$99</a>
+    <a href="https://wa.me/5528999036141?text=Quero+o+Plano+de+TV+e+Agência+-+TV+Marataízes" class="btn-primary">TV & Agência — falar agora</a>
+  </div>
+</section>
 
 <!-- FOOTER -->
-<footer class="footer">
-  <p>© 2026 TV Marataízes · Portal Digital da Pérola Capixaba · Marataízes ES · (28) 99903-6141</p>
-  <p style="margin-top:8px">
-    <a href="https://www.tvmarataizes.digital/">Portal</a> ·
-    <a href="https://www.tvmarataizes.digital/">Ao Vivo</a> ·
-    <a href="https://instagram.com/tvmarataizes" target="_blank" rel="noopener">Instagram</a> ·
+<footer>
+  <p>© 2026 TV Marataízes · Canal 300 Soul TV · Marataízes ES · (28) 99903-6141 ·
+    <a href="https://tvmarataizes.digital">Portal</a> ·
+    <a href="https://instagram.com/tvmarataizes">Instagram</a> ·
     <a href="https://wa.me/5528999036141">WhatsApp</a>
   </p>
 </footer>
