@@ -24,46 +24,87 @@ header{text-align:center;padding:14px;font-weight:800;}
 .player{aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden;}
 .player iframe{width:100%;height:100%;border:0}
 section{max-width:var(--max);margin:30px auto;padding:0 14px}
-.vitrine{display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:center;}
-@media(max-width:800px){.vitrine{grid-template-columns:1fr}}
-.vitrine img{border-radius:16px;aspect-ratio:16/9;object-fit:cover;}
 .btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 18px;border-radius:30px;font-weight:700;}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
-@media(max-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr)}}
-.thumb{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;aspect-ratio:16/9;}
-.thumb img{width:100%;height:100%;object-fit:cover}
 .cta{position:fixed;bottom:20px;right:20px;background:var(--accent);color:#fff;padding:14px 18px;border-radius:40px;font-weight:800;}
 footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 
+/* ── CARROSSEL DESTAQUE – estilo Globoplay ── */
 .gp-featured{max-width:var(--max);margin:0 auto;padding:0 14px 30px;}
 .gp-featured h2{font-size:18px;font-weight:800;color:#fff;margin-bottom:16px;padding-left:2px;}
 .gp-row-wrap{position:relative;}
-.gp-row{display:flex;gap:16px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px;}
+.gp-row{display:flex;gap:12px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px;}
 .gp-row::-webkit-scrollbar{display:none;}
-.gp-card{flex:0 0 340px;background:var(--card);border-radius:12px;overflow:hidden;cursor:pointer;position:relative;transition:transform .2s,box-shadow .2s;border:1px solid #1a1a1a;}
-.gp-card:hover{transform:scale(1.03);box-shadow:0 8px 32px rgba(0,0,0,.7);z-index:2;}
-.gp-card-thumb{aspect-ratio:16/9;overflow:hidden;}
-.gp-card-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s;}
+
+/* card novo: tudo dentro da imagem */
+.gp-card{
+  flex:0 0 220px;
+  border-radius:10px;
+  overflow:hidden;
+  cursor:pointer;
+  position:relative;
+  transition:transform .2s,box-shadow .2s;
+  border:1px solid #1a1a1a;
+  background:#000;
+}
+.gp-card:hover{transform:scale(1.04);box-shadow:0 8px 28px rgba(0,0,0,.8);z-index:2;}
+
+/* thumbnail ocupa o card inteiro */
+.gp-card-thumb{
+  position:relative;
+  aspect-ratio:16/9;
+  overflow:hidden;
+}
+.gp-card-thumb img{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform .3s;
+}
 .gp-card:hover .gp-card-thumb img{transform:scale(1.06);}
-.gp-card-info{padding:10px 12px 14px;}
-.gp-card-title{font-size:14px;font-weight:800;color:#fff;margin-bottom:4px;line-height:1.3;}
-.gp-card-desc{font-size:11px;color:#999;line-height:1.5;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.gp-card-btn{display:inline-block;background:var(--accent);color:#fff;padding:7px 14px;border-radius:20px;font-size:11px;font-weight:700;text-decoration:none;}
+
+/* gradiente sobre a imagem */
+.gp-card-thumb::after{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom, rgba(0,0,0,0) 30%, rgba(0,0,0,0.85) 100%);
+  pointer-events:none;
+}
+
+/* nome e botão sobre a imagem */
+.gp-card-overlay{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  padding:8px 10px 10px;
+  z-index:2;
+}
+.gp-card-title{
+  font-size:12px;font-weight:800;
+  color:#fff;
+  line-height:1.3;
+  margin-bottom:6px;
+  text-shadow:0 1px 4px rgba(0,0,0,.8);
+}
+.gp-card-btn{
+  display:inline-block;
+  background:var(--accent);
+  color:#fff;
+  padding:5px 12px;
+  border-radius:20px;
+  font-size:10px;font-weight:700;
+  text-decoration:none;
+}
 .gp-card-btn:hover{opacity:.85;}
-.gp-arrow{position:absolute;top:50%;transform:translateY(-60%);width:40px;height:60px;background:rgba(0,0,0,.75);border:none;border-radius:4px;color:#fff;font-size:20px;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:background .15s,opacity .15s;opacity:0;}
+
+.gp-arrow{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:56px;background:rgba(0,0,0,.75);border:none;border-radius:4px;color:#fff;font-size:20px;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:background .15s,opacity .15s;opacity:0;}
 .gp-row-wrap:hover .gp-arrow{opacity:1;}
 .gp-arrow:hover{background:rgba(0,0,0,.95);}
 .gp-arrow.prev{left:-8px;}
 .gp-arrow.next{right:-8px;}
-.gp-thumbs-wrap{max-width:var(--max);margin:0 auto;padding:0 14px 30px;position:relative;}
-.gp-thumbs-label{font-size:13px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;}
-.gp-thumbs{display:flex;gap:10px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;}
-.gp-thumbs::-webkit-scrollbar{display:none;}
-.gp-thumb-item{flex:0 0 200px;aspect-ratio:16/9;border-radius:8px;overflow:hidden;cursor:pointer;border:1px solid #222;transition:transform .2s,border-color .2s;}
-.gp-thumb-item:hover{transform:scale(1.04);border-color:#fff;}
-.gp-thumb-item img{width:100%;height:100%;object-fit:cover;display:block;}
-@media(max-width:600px){.gp-card{flex:0 0 260px;}.gp-thumb-item{flex:0 0 150px;}.gp-arrow{display:none;}}
+
+@media(max-width:600px){
+  .gp-card{flex:0 0 160px;}
+  .gp-arrow{display:none;}
+}
 </style>
 
 <meta name="keywords" content="Marataízes ES, portal Marataízes, TV Marataízes, notícias Marataízes, UPA Marataízes, SINE Marataízes, empregos Marataízes, restaurantes Marataízes, pousadas Marataízes, imóveis Marataízes, farmácias Marataízes, delivery Marataízes, praias Marataízes, Pérola Capixaba, sul Espírito Santo">
@@ -100,56 +141,94 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
   </div>
 </div>
 
-<!-- CARROSSEL DESTAQUE -->
+<!-- CARROSSEL DESTAQUE – novo estilo -->
 <div class="gp-featured">
   <h2>Programas da TV Marataízes</h2>
   <div class="gp-row-wrap">
     <button class="gp-arrow prev" id="gp-feat-prev" aria-label="Anterior">&#8249;</button>
     <div class="gp-row" id="gp-featured-row">
-      <div class="gp-card"><a href="https://tvmarataizes.digital/diva/" style="text-decoration:none"><div class="gp-card-thumb"><img src="clima/diva.png" alt="O Divã do Abacaxi"></div><div class="gp-card-info"><div class="gp-card-title">O Divã do Abacaxi</div><div class="gp-card-desc">Um abacaxi no divã. Conversas sobre o que todo mundo sente mas poucos conseguem nomear — ansiedade, dinheiro, redes sociais.</div><span class="gp-card-btn">Assistir episódios</span></div></a></div>
-      <div class="gp-card"><a href="https://tvmarataizes.digital/marataizes-em-movimento" style="text-decoration:none"><div class="gp-card-thumb"><img src="clima/PREFEITO.png" alt="Marataízes está em movimento"></div><div class="gp-card-info"><div class="gp-card-title">Marataízes está em movimento</div><div class="gp-card-desc">Um registro documental sobre articulação e desenvolvimento em Marataízes.</div><span class="gp-card-btn">Assistir aqui</span></div></a></div>
-      <div class="gp-card"><a href="https://tvmarataizes.digital/expo-inovadora-2026" style="text-decoration:none"><div class="gp-card-thumb"><img src="clima/EXPO.png" alt="Cidade Expo Inovadora"></div><div class="gp-card-info"><div class="gp-card-title">Cidade Expo Inovadora</div><div class="gp-card-desc">Bastidores e momentos mais importantes da Expo Inovadora — educação, tecnologia e oportunidades.</div><span class="gp-card-btn">Assistir aqui</span></div></a></div>
-      <div class="gp-card"><a href="https://tvmarataizes.digital/leituraemcena/" style="text-decoration:none"><div class="gp-card-thumb"><img src="clima/Leitura.png" alt="Leitura em Cena"></div><div class="gp-card-info"><div class="gp-card-title">Leitura em Cena</div><div class="gp-card-desc">Análise e comentário que conecta filmes, músicas e obras audiovisuais a contexto e pensamento crítico.</div><span class="gp-card-btn">Assistir episódios</span></div></a></div>
-      <div class="gp-card"><a href="https://tvmarataizes.digital/vitrine-marataizes.html" style="text-decoration:none"><div class="gp-card-thumb"><img src="clima/vitrine-thumb.png" alt="Vitrine Marataízes"></div><div class="gp-card-info"><div class="gp-card-title">Vitrine Marataízes</div><div class="gp-card-desc">Promoções, novidades, histórias e oportunidades do comércio local de Marataízes.</div><span class="gp-card-btn">Assistir episódios</span></div></a></div>
+
+      <div class="gp-card">
+        <a href="https://tvmarataizes.digital/diva/" style="text-decoration:none">
+          <div class="gp-card-thumb">
+            <img src="clima/diva.png" alt="O Divã do Abacaxi">
+            <div class="gp-card-overlay">
+              <div class="gp-card-title">O Divã do Abacaxi</div>
+              <span class="gp-card-btn">Assistir episódios</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gp-card">
+        <a href="https://tvmarataizes.digital/marataizes-em-movimento" style="text-decoration:none">
+          <div class="gp-card-thumb">
+            <img src="clima/PREFEITO.png" alt="Marataízes está em movimento">
+            <div class="gp-card-overlay">
+              <div class="gp-card-title">Marataízes está em movimento</div>
+              <span class="gp-card-btn">Assistir aqui</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gp-card">
+        <a href="https://tvmarataizes.digital/expo-inovadora-2026" style="text-decoration:none">
+          <div class="gp-card-thumb">
+            <img src="clima/EXPO.png" alt="Cidade Expo Inovadora">
+            <div class="gp-card-overlay">
+              <div class="gp-card-title">Cidade Expo Inovadora</div>
+              <span class="gp-card-btn">Assistir aqui</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gp-card">
+        <a href="https://tvmarataizes.digital/leituraemcena/" style="text-decoration:none">
+          <div class="gp-card-thumb">
+            <img src="clima/Leitura.png" alt="Leitura em Cena">
+            <div class="gp-card-overlay">
+              <div class="gp-card-title">Leitura em Cena</div>
+              <span class="gp-card-btn">Assistir episódios</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gp-card">
+        <a href="https://tvmarataizes.digital/vitrine-marataizes.html" style="text-decoration:none">
+          <div class="gp-card-thumb">
+            <img src="clima/vitrine-thumb.png" alt="Vitrine Marataízes">
+            <div class="gp-card-overlay">
+              <div class="gp-card-title">Vitrine Marataízes</div>
+              <span class="gp-card-btn">Assistir episódios</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
     </div>
     <button class="gp-arrow next" id="gp-feat-next" aria-label="Próximo">&#8250;</button>
   </div>
 </div>
 
-<!-- CARROSSEL THUMBS -->
-<div class="gp-thumbs-wrap">
-  <div class="gp-thumbs-label">Mais programas</div>
-  <div style="position:relative">
-    <button class="gp-arrow prev" id="gp-thumb-prev" aria-label="Anterior" style="top:45%">&#8249;</button>
-    <div class="gp-thumbs" id="gp-thumbs-row">
-      <div class="gp-thumb-item"><img src="clima/dicasdefilmes.png" alt="Dicas de Filmes"></div>
-      <div class="gp-thumb-item"><img src="clima/morocanoticiasdiarias.png" alt="Moroca Notícias Diárias"></div>
-      <div class="gp-thumb-item"><img src="clima/historiasdeamoremcena.png" alt="Histórias de Amor em Cena"></div>
-      <div class="gp-thumb-item"><img src="clima/rebrincar.png" alt="Rebrincar"></div>
-      <div class="gp-thumb-item"><img src="clima/caindonatela.png" alt="Caindo na Tela"></div>
-      <div class="gp-thumb-item"><img src="clima/naosaimosda5serie.png" alt="Não Saímos da 5ª Série"></div>
-      <div class="gp-thumb-item"><img src="clima/claudiarayallar.png" alt="Claudia Rayallar"></div>
-      <div class="gp-thumb-item"><img src="clima/fala_marataizes.png" alt="Fala Marataízes"></div>
-      <div class="gp-thumb-item"><img src="clima/rota_300.png" alt="Rota 300"></div>
-      <div class="gp-thumb-item"><img src="clima/RAULjuremavaiok.png" alt="Raul Jurema"></div>
-      <div class="gp-thumb-item"><img src="clima/tal_mae_tal_filha.png" alt="Tal Mãe Tal Filha"></div>
-      <div class="gp-thumb-item"><img src="clima/saude_mental.png" alt="Saúde Mental"></div>
-      <div class="gp-thumb-item"><img src="clima/classicos_da_tela.png" alt="Clássicos da Tela"></div>
-      <div class="gp-thumb-item"><img src="clima/eeee.png" alt="Programa"></div>
-      <div class="gp-thumb-item"><img src="clima/GOODTIMES.png" alt="Good Times"></div>
-      <div class="gp-thumb-item"><img src="clima/perguntatorta.png" alt="Pergunta Torta"></div>
-    </div>
-    <button class="gp-arrow next" id="gp-thumb-next" aria-label="Próximo" style="top:45%">&#8250;</button>
-  </div>
-</div>
+<!-- "Mais Programas" REMOVIDO -->
 
 <a class="cta" href="https://tvmarataizes.digital/anunciar/">ANUNCIE AQUI</a>
 
-<footer>
-  TV Marataízes também está na Soul TV<br>
-  Assista gratuitamente pelo aplicativo Soul TV — Canal 300<br>
-  Disponível para Smart TVs, Android e iOS<br>
-  📺 Mais de 200 canais gratuitos
+<footer style="text-align:center;padding:48px 20px 40px;background:#0a0a0a;border-top:1px solid #1a1a1a;">
+  <p style="font-size:22px;font-weight:900;color:#fff;margin:0 0 10px;line-height:1.3;max-width:640px;margin-left:auto;margin-right:auto;">
+    Quem assiste à TV Marataízes já sabe onde comprar.<br>
+    <span style="color:#FF6F00;">O seu negócio já está aqui?</span>
+  </p>
+  <p style="font-size:14px;color:#888;margin:0 0 24px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.6;">
+    Milhares de pessoas da região assistem, pesquisam e decidem onde gastar aqui — todos os dias. As vagas por segmento são limitadas.
+  </p>
+  <a href="https://tvmarataizes.digital/anunciar/" style="display:inline-block;background:#FF6F00;color:#fff;font-size:14px;font-weight:800;padding:14px 28px;border-radius:30px;text-decoration:none;letter-spacing:.3px;">
+    🔥 Quero aparecer antes do meu concorrente
+  </a>
+  <p style="font-size:11px;color:#444;margin:28px 0 0;">TV Marataízes · Soul TV Canal 300 · Smart TVs, Android e iOS · Mais de 200 canais gratuitos</p>
 </footer>
 
 <script>
@@ -208,8 +287,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 #tvmz-portal .sh h2{font-size:13px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.3px}
 #tvmz-portal .sh a{margin-left:auto;font-size:11px;color:var(--red);font-weight:700}
 #tvmz-portal .box{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:16px}
-
-/* neg-list (cards basicos) */
 #tvmz-portal .neg-list{display:flex;flex-direction:column;gap:8px}
 #tvmz-portal .neg-item{background:#fafafa;border:1px solid var(--border);border-radius:var(--r);padding:10px 12px;display:flex;gap:12px;align-items:flex-start;transition:box-shadow .15s}
 #tvmz-portal .neg-item:hover{box-shadow:0 2px 8px rgba(0,0,0,.08);border-color:#bbb}
@@ -222,50 +299,19 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 #tvmz-portal .nb-g{background:#e6f4ec;color:#005c2e}
 #tvmz-portal .nb-a{background:#fff3e0;color:#a05000}
 #tvmz-portal .nb-o{background:#fff0e0;color:#a04000}
-
-/* card agenciado - laranja escuro */
-.card-agenciado{
-  display:block;
-  background:#FFF8E1;
-  border-radius:8px;padding:16px;margin-bottom:4px;
-  text-decoration:none;
-  border:2px solid #F57F17;
-  position:relative;overflow:hidden;
-}
-.card-agenciado .badge-ag{
-  position:absolute;top:0;right:0;
-  background:#F57F17;color:#fff;
-  font-size:10px;font-weight:900;
-  padding:4px 12px;border-radius:0 6px 0 8px;
-  letter-spacing:.5px;text-transform:uppercase;
-}
+.card-agenciado{display:block;background:#FFF8E1;border-radius:8px;padding:16px;margin-bottom:4px;text-decoration:none;border:2px solid #F57F17;position:relative;overflow:hidden;}
+.card-agenciado .badge-ag{position:absolute;top:0;right:0;background:#F57F17;color:#fff;font-size:10px;font-weight:900;padding:4px 12px;border-radius:0 6px 0 8px;letter-spacing:.5px;text-transform:uppercase;}
 .card-agenciado .inner{display:flex;gap:12px;align-items:center;margin-top:4px}
 .card-agenciado .ico{font-size:32px;flex-shrink:0}
 .card-agenciado .nome{font-size:14px;font-weight:900;color:#E65100;margin-bottom:3px}
 .card-agenciado .desc{font-size:12px;color:#5D4037;margin-bottom:6px;line-height:1.5}
 .card-agenciado .btn-zap{display:inline-flex;align-items:center;gap:6px;background:#F57F17;color:#fff;font-size:11px;font-weight:800;padding:5px 12px;border-radius:4px}
-
-/* subtítulo de cidade dentro da seção */
-.city-sub{
-  margin-top:14px;padding-top:12px;border-top:1px solid var(--border);
-  margin-bottom:8px;
-  font-size:11px;font-weight:800;color:#888!important;
-  text-transform:uppercase;letter-spacing:.5px;
-}
-
-/* CTA entrar no guia - texto branco forçado */
-.cta-guia{
-  display:flex;align-items:center;gap:14px;
-  background:#003781;border-radius:6px;
-  padding:14px 18px;margin-top:14px;
-  text-decoration:none;transition:opacity .15s;
-}
+.city-sub{margin-top:14px;padding-top:12px;border-top:1px solid var(--border);margin-bottom:8px;font-size:11px;font-weight:800;color:#888!important;text-transform:uppercase;letter-spacing:.5px;}
+.cta-guia{display:flex;align-items:center;gap:14px;background:#003781;border-radius:6px;padding:14px 18px;margin-top:14px;text-decoration:none;transition:opacity .15s;}
 .cta-guia:hover{opacity:.88}
 .cta-guia .txt-main{font-size:13px;font-weight:900;color:#fff!important;margin-bottom:2px}
 .cta-guia .txt-sub{font-size:11px;color:rgba(255,255,255,.75)!important}
 .cta-guia .btn-fire{margin-left:auto;background:#25d366;color:#fff!important;font-size:11px;font-weight:800;padding:6px 12px;border-radius:4px;white-space:nowrap;flex-shrink:0}
-
-/* outros estilos mantidos */
 #tvmz-portal .sg2{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:7px}
 #tvmz-portal .sc2{background:#fafafa;border:1px solid var(--border);border-radius:var(--r);padding:9px 11px}
 #tvmz-portal .stop{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
@@ -277,7 +323,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 #tvmz-portal .sd{font-size:11px;color:var(--muted)}
 #tvmz-portal .sd b{color:var(--text)}
 #tvmz-portal .sd a{color:var(--blue)}
-
 #tvmz-portal .cta{background:var(--navy);color:#fff;border-radius:var(--r);padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:24px}
 #tvmz-portal .cta h3{font-size:18px;font-weight:800;margin-bottom:4px}
 #tvmz-portal .cta p{font-size:12px;color:rgba(255,255,255,.7);max-width:460px}
@@ -286,7 +331,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 #tvmz-portal .bwa:hover{background:#1ebe5d}
 #tvmz-portal .bgh{border:1.5px solid rgba(255,255,255,.4);color:#fff;padding:10px 20px;border-radius:3px;font-size:13px;font-weight:600}
 #tvmz-portal .bgh:hover{border-color:#fff}
-
 @media(max-width:900px){.bw{display:none}}
 @media(max-width:600px){.hi{gap:8px}.sw2{flex:1}}
 </style>
@@ -345,7 +389,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 <!-- ═══ RESTAURANTES ═══ -->
 <section class="box" id="restaurantes" aria-labelledby="rest-heading">
   <div class="sh"><h2 id="rest-heading">🍽️ Restaurantes — Marataízes · Itapemirim · Piúma</h2></div>
-
   <div class="city-sub">📍 Marataízes</div>
   <a href="https://tvmarataizes.digital/ciadopeixe" rel="noopener" class="card-agenciado" style="margin-bottom:8px">
     <div class="badge-ag">⭐ Agenciado TV Marataízes</div>
@@ -375,7 +418,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
     </a>
   </div>
-
   <div class="city-sub" style="border-top:1px solid var(--border);margin-top:10px;padding-top:10px">📍 Itapemirim</div>
   <div class="neg-list">
     <a class="neg-item" href="https://www.instagram.com/barerestaurantedopirote/" target="_blank" rel="noopener" style="display:flex">
@@ -397,7 +439,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
     </a>
   </div>
-
   <div class="city-sub" style="border-top:1px solid var(--border);margin-top:10px;padding-top:10px">📍 Piúma</div>
   <div class="neg-list">
     <a class="neg-item" href="https://www.ancoradourorestaurante.com.br/" target="_blank" rel="noopener" style="display:flex">
@@ -419,10 +460,7 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
     </a>
   </div>
-
-  <!-- JAPONÊS -->
   <div class="city-sub">🍱 Japonês e Oriental — Marataízes · Itapemirim · Piúma</div>
-
   <div class="city-sub" style="font-size:10px;margin-top:6px;border-top:none;padding-top:0">📍 Marataízes</div>
   <a href="https://www.tvmarataizes.digital/banzaisushi" rel="noopener" class="card-agenciado" style="margin-bottom:8px">
     <div class="badge-ag">⭐ Agenciado TV Marataízes</div>
@@ -452,7 +490,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">Marataízes ES</span></div>
     </a>
   </div>
-
   <div class="city-sub" style="font-size:10px;border-top:1px solid var(--border);margin-top:10px;padding-top:10px">📍 Itapemirim</div>
   <div class="neg-list">
     <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Japones+Itapemirim" target="_blank" rel="noopener" style="display:flex">
@@ -462,7 +499,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
     </a>
   </div>
-
   <div class="city-sub" style="font-size:10px;border-top:1px solid var(--border);margin-top:10px;padding-top:10px">📍 Piúma</div>
   <div class="neg-list">
     <a class="neg-item" href="https://japabrowpiuma.menudino.com/" target="_blank" rel="noopener" style="display:flex">
@@ -478,10 +514,7 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">Fale para entrar no guia →</span></div>
     </a>
   </div>
-
-  <!-- PIZZARIAS -->
   <div class="city-sub">🍕 Pizzarias — Marataízes · Itapemirim · Piúma</div>
-
   <div class="city-sub" style="font-size:10px;margin-top:6px;border-top:none;padding-top:0">📍 Marataízes</div>
   <div class="neg-list">
     <a class="neg-item" href="https://baixinhopizzariamarataizes.goomer.app/" target="_blank" rel="noopener" style="display:flex">
@@ -515,7 +548,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">facebook.com/portoseguropizzaria</span></div>
     </a>
   </div>
-
   <div class="city-sub" style="font-size:10px;border-top:1px solid var(--border);margin-top:10px;padding-top:10px">📍 Itapemirim</div>
   <div class="neg-list">
     <a class="neg-item" href="https://www.instagram.com/divina_pizzaria_hamburgueria/" target="_blank" rel="noopener" style="display:flex">
@@ -531,7 +563,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
     </a>
   </div>
-
   <div class="city-sub" style="font-size:10px;border-top:1px solid var(--border);margin-top:10px;padding-top:10px">📍 Piúma</div>
   <div class="neg-list">
     <a class="neg-item" href="https://www.ancoradourorestaurante.com.br/" target="_blank" rel="noopener" style="display:flex">
@@ -547,10 +578,7 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
     </a>
   </div>
-
-  <!-- HAMBURGUERIAS -->
   <div class="city-sub">🍔 Hamburguerias — Marataízes · Itapemirim · Piúma</div>
-
   <div class="city-sub" style="font-size:10px;margin-top:6px;border-top:none;padding-top:0">📍 Marataízes</div>
   <div class="neg-list">
     <a class="neg-item" href="https://www.seugilhamburgueria.com.br/" target="_blank" rel="noopener" style="display:flex">
@@ -584,7 +612,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">instagram.com/gordinez_hamburgueria</span></div>
     </a>
   </div>
-
   <div class="city-sub" style="font-size:10px;border-top:1px solid var(--border);margin-top:10px;padding-top:10px">📍 Itapemirim</div>
   <div class="neg-list">
     <a class="neg-item" href="https://www.facebook.com/hamburgueriaesorveteriatropical" target="_blank" rel="noopener" style="display:flex">
@@ -600,7 +627,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
     </a>
   </div>
-
   <div class="city-sub" style="font-size:10px;border-top:1px solid var(--border);margin-top:10px;padding-top:10px">📍 Piúma</div>
   <div class="neg-list">
     <a class="neg-item" href="https://www.facebook.com/p/La-chapa-hamburgueria-e-petiscaria-100063769111733/" target="_blank" rel="noopener" style="display:flex">
@@ -616,7 +642,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
     </a>
   </div>
-
   <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
     <span style="font-size:26px;flex-shrink:0">📲</span>
     <div><div class="txt-main">Restaurante ou bar na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
@@ -627,7 +652,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 <!-- ═══ DOCES ═══ -->
 <section class="box" id="doces" aria-labelledby="doc-heading">
   <div class="sh"><h2 id="doc-heading">🍦 Doces e Sobremesas — Marataízes · Itapemirim · Piúma</h2></div>
-
   <div class="city-sub">📍 Marataízes</div>
   <a href="https://tvmarataizes.digital/cone" rel="noopener" class="card-agenciado" style="margin-bottom:8px">
     <div class="badge-ag">⭐ Agenciado TV Marataízes</div>
@@ -645,7 +669,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
     </a>
   </div>
-
   <div class="city-sub">📍 Itapemirim</div>
   <div class="neg-list">
     <a class="neg-item" href="https://www.chefmio.com.br/ladeliziedoceria" target="_blank" rel="noopener" style="display:flex">
@@ -661,7 +684,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
     </a>
   </div>
-
   <div class="city-sub">📍 Piúma</div>
   <div class="neg-list">
     <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Doceria+Piuma" target="_blank" rel="noopener" style="display:flex">
@@ -671,7 +693,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
     </a>
   </div>
-
   <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
     <span style="font-size:26px;flex-shrink:0">📲</span>
     <div><div class="txt-main">Doceria ou confeitaria na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
@@ -682,7 +703,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 <!-- ═══ DELIVERY ═══ -->
 <section class="box" id="delivery" aria-labelledby="del-heading">
   <div class="sh"><h2 id="del-heading">🛵 Delivery — Marataízes · Itapemirim · Piúma</h2></div>
-
   <div class="city-sub">📍 Marataízes</div>
   <div class="neg-list">
     <a class="neg-item" href="https://www.chefmio.com.br/casadolanche" target="_blank" rel="noopener" style="display:flex">
@@ -704,7 +724,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">gordinez.sispedido.com</span></div>
     </a>
   </div>
-
   <div class="city-sub">📍 Itapemirim</div>
   <div class="neg-list">
     <a class="neg-item" href="https://www.instagram.com/claudiusrestaurante/" target="_blank" rel="noopener" style="display:flex">
@@ -720,7 +739,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">facebook.com/RESTAURANTEAVENIDAES</span></div>
     </a>
   </div>
-
   <div class="city-sub">📍 Piúma</div>
   <div class="neg-list">
     <a class="neg-item" href="https://www.ancoradourorestaurante.com.br/" target="_blank" rel="noopener" style="display:flex">
@@ -736,7 +754,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
     </a>
   </div>
-
   <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
     <span style="font-size:26px;flex-shrink:0">📲</span>
     <div><div class="txt-main">Delivery na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
@@ -747,7 +764,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 <!-- ═══ POUSADAS ═══ -->
 <section class="box" id="hospedagem" aria-labelledby="hos-heading">
   <div class="sh"><h2 id="hos-heading">🛏️ Pousadas e Hotéis — Marataízes · Itapemirim · Piúma</h2></div>
-
   <div class="city-sub">📍 Marataízes</div>
   <div class="neg-list">
     <a class="neg-item" href="https://pousadaportal.com.br/" target="_blank" rel="noopener" style="display:flex">
@@ -763,7 +779,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">pousadagravatais.com</span></div>
     </a>
   </div>
-
   <div class="city-sub">📍 Itapemirim</div>
   <div class="neg-list">
     <a class="neg-item" href="https://www.instagram.com/pousadaedenitaoca/" target="_blank" rel="noopener" style="display:flex">
@@ -779,7 +794,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">instagram.com/pousadacastelo</span></div>
     </a>
   </div>
-
   <div class="city-sub">📍 Piúma</div>
   <div class="neg-list">
     <a class="neg-item" href="https://www.instagram.com/pousadapolonini/" target="_blank" rel="noopener" style="display:flex">
@@ -795,7 +809,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">instagram.com/pousadadommanuel</span></div>
     </a>
   </div>
-
   <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
     <span style="font-size:26px;flex-shrink:0">📲</span>
     <div><div class="txt-main">Pousada ou hotel na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
@@ -806,7 +819,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 <!-- ═══ SUPERMERCADOS ═══ -->
 <section class="box" id="supermercados" aria-labelledby="sup-heading">
   <div class="sh"><h2 id="sup-heading">🛒 Supermercados — Marataízes · Itapemirim · Piúma</h2></div>
-
   <div class="city-sub">📍 Marataízes</div>
   <div class="neg-list">
     <a class="neg-item" href="https://www.instagram.com/multishowmarataizes/" target="_blank" rel="noopener" style="display:flex">
@@ -828,7 +840,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">instagram.com/supermercadosbomsabor</span></div>
     </a>
   </div>
-
   <div class="city-sub">📍 Itapemirim</div>
   <div class="neg-list">
     <a class="neg-item" href="https://www.instagram.com/thaisethalinesupermercado/" target="_blank" rel="noopener" style="display:flex">
@@ -844,7 +855,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
     </a>
   </div>
-
   <div class="city-sub">📍 Piúma</div>
   <div class="neg-list">
     <a class="neg-item" href="https://www.instagram.com/brsupermercados/" target="_blank" rel="noopener" style="display:flex">
@@ -860,7 +870,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">instagram.com/supermercadosbomsabor</span></div>
     </a>
   </div>
-
   <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
     <span style="font-size:26px;flex-shrink:0">📲</span>
     <div><div class="txt-main">Supermercado ou atacarejo na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
@@ -871,7 +880,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 <!-- ═══ PETS ═══ -->
 <section class="box" id="pets" aria-labelledby="pet-heading">
   <div class="sh"><h2 id="pet-heading">🐾 Pet Shop e Veterinário — Marataízes · Itapemirim · Piúma</h2></div>
-
   <div class="city-sub">📍 Marataízes</div>
   <div class="neg-list">
     <a class="neg-item" href="https://www.instagram.com/petcentermarataizes/" target="_blank" rel="noopener" style="display:flex">
@@ -887,7 +895,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">clinicaanjosdepatas.com.br</span></div>
     </a>
   </div>
-
   <div class="city-sub">📍 Itapemirim · Piúma</div>
   <div class="neg-list">
     <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Pet+Shop" target="_blank" rel="noopener" style="display:flex">
@@ -897,7 +904,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
     </a>
   </div>
-
   <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
     <span style="font-size:26px;flex-shrink:0">📲</span>
     <div><div class="txt-main">Pet shop ou veterinário na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
@@ -908,7 +914,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 <!-- ═══ MODA ═══ -->
 <section class="box" id="moda" aria-labelledby="mod-heading">
   <div class="sh"><h2 id="mod-heading">👗 Lojas de Moda — Marataízes · Itapemirim · Piúma</h2></div>
-
   <a href="https://tvmarataizes.digital/penafama" rel="noopener" class="card-agenciado">
     <div class="badge-ag">⭐ Agenciado TV Marataízes</div>
     <div class="inner"><div class="ico">👟</div><div>
@@ -917,7 +922,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="btn-zap">💬 Ver loja completa →</span>
     </div></div>
   </a>
-
   <div class="city-sub">📍 Itapemirim · Piúma</div>
   <div class="neg-list">
     <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Moda" target="_blank" rel="noopener" style="display:flex">
@@ -927,7 +931,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
     </a>
   </div>
-
   <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
     <span style="font-size:26px;flex-shrink:0">📲</span>
     <div><div class="txt-main">Loja de moda ou calçados na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
@@ -996,7 +999,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 <!-- ═══ FARMÁCIAS ═══ -->
 <section class="box" id="farmacias" aria-labelledby="farm-heading">
   <div class="sh"><h2 id="farm-heading">💊 Farmácias — Marataízes · Itapemirim · Piúma</h2></div>
-
   <div class="city-sub">📍 Marataízes</div>
   <div class="neg-list">
     <a class="neg-item" href="https://redefarmes.com.br/nossas-lojas/rede-farmes-centro-i-marataizes/" target="_blank" rel="noopener" style="display:flex">
@@ -1018,7 +1020,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">instagram.com/precobaixomarataizes</span></div>
     </a>
   </div>
-
   <div class="city-sub">📍 Itapemirim</div>
   <div class="neg-list">
     <a class="neg-item" href="https://redefarmes.com.br/nossas-lojas/itaipava-itapemirim/" target="_blank" rel="noopener" style="display:flex">
@@ -1040,7 +1041,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">facebook.com/FPBItapemirim2</span></div>
     </a>
   </div>
-
   <div class="city-sub">📍 Piúma</div>
   <div class="neg-list">
     <a class="neg-item" href="https://redefarmes.com.br/nossas-lojas/piuma-centro/" target="_blank" rel="noopener" style="display:flex">
@@ -1062,7 +1062,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">Fale para entrar no guia →</span></div>
     </a>
   </div>
-
   <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
     <span style="font-size:26px;flex-shrink:0">📲</span>
     <div><div class="txt-main">Farmácia na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
@@ -1101,7 +1100,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 <!-- ═══ BELEZA ═══ -->
 <section class="box" id="beleza" aria-labelledby="bel-heading">
   <div class="sh"><h2 id="bel-heading">✂️ Salões, Barbearias e Estética — Marataízes · Itapemirim · Piúma</h2></div>
-
   <div class="city-sub">📍 Marataízes</div>
   <div class="neg-list">
     <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Salão+Marataizes" target="_blank" rel="noopener" style="display:flex">
@@ -1111,7 +1109,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
     </a>
   </div>
-
   <div class="city-sub">📍 Piúma</div>
   <div class="neg-list">
     <a class="neg-item" href="https://www.facebook.com/EspacoJanyKacia/" target="_blank" rel="noopener" style="display:flex">
@@ -1121,7 +1118,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">facebook.com/EspacoJanyKacia</span></div>
     </a>
   </div>
-
   <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
     <span style="font-size:26px;flex-shrink:0">📲</span>
     <div><div class="txt-main">Salão ou barbearia na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
@@ -1132,7 +1128,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 <!-- ═══ INFORMÁTICA ═══ -->
 <section class="box" id="informatica" aria-labelledby="info-heading">
   <div class="sh"><h2 id="info-heading">🖥️ Informática e Assistência Técnica</h2></div>
-
   <a href="https://tvmarataizes.digital/assistecmarataizes/" rel="noopener" class="card-agenciado">
     <div class="badge-ag">⭐ Agenciado TV Marataízes</div>
     <div class="inner"><div class="ico">🎮</div><div>
@@ -1141,7 +1136,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="btn-zap">💬 Solicitar orçamento →</span>
     </div></div>
   </a>
-
   <div class="city-sub">📍 Itapemirim · Piúma</div>
   <div class="neg-list">
     <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Informatica" target="_blank" rel="noopener" style="display:flex">
@@ -1151,7 +1145,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
     </a>
   </div>
-
   <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
     <span style="font-size:26px;flex-shrink:0">📲</span>
     <div><div class="txt-main">Informática ou assistência técnica na região? Entre para o guia</div><div class="txt-sub">Sem limite por segmento · Apareça quando o cliente pesquisar no Google</div></div>
@@ -1177,7 +1170,6 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
   </a>
 </section>
 
-
 <!-- ═══ CTA ANUNCIE ═══ -->
 <div class="cta" id="anuncie">
   <div>
@@ -1190,26 +1182,16 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
   </div>
 </div>
 
-<script>
-function tab(btn,id){
-  document.querySelectorAll('.tb2').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-selected','false');});
-  document.querySelectorAll('.tp2').forEach(p=>p.classList.remove('active'));
-  btn.classList.add('active');btn.setAttribute('aria-selected','true');
-  document.getElementById(id).classList.add('active');
-}
-</script>
-
 </main>
-</div><!-- /wrap -->
-
-</div><!-- /tvmz-portal -->
+</div>
+</div>
 
 <script>
 (function(){
   function initCarousel(rowId,prevId,nextId){
     var row=document.getElementById(rowId),prev=document.getElementById(prevId),next=document.getElementById(nextId);
     if(!row)return;
-    var scrollAmt=function(){var card=row.querySelector('.gp-card,.gp-thumb-item');return card?card.offsetWidth+16:280;};
+    var scrollAmt=function(){var card=row.querySelector('.gp-card');return card?card.offsetWidth+12:220;};
     if(next)next.addEventListener('click',function(){row.scrollBy({left:scrollAmt()*2,behavior:'smooth'});});
     if(prev)prev.addEventListener('click',function(){row.scrollBy({left:-scrollAmt()*2,behavior:'smooth'});});
     var startX=0;
@@ -1218,7 +1200,6 @@ function tab(btn,id){
   }
   document.addEventListener('DOMContentLoaded',function(){
     initCarousel('gp-featured-row','gp-feat-prev','gp-feat-next');
-    initCarousel('gp-thumbs-row','gp-thumb-prev','gp-thumb-next');
   });
 })();
 </script>
