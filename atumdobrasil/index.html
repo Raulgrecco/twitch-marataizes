@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Atum do Brasil — Itapemirim · TV Marataízes</title>
+<meta name="description" content="Atum do Brasil — maior exportadora de peixes frescos do país. 30 anos de história em Itaóca, Itapemirim, ES. Pescados frescos e congelados com certificação SIF, HACCP e FDA."/>
+<link rel="canonical" href="https://tvmarataizes.digital/atumdobrasil"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+
+<style>
+:root{
+  --ocean:#003d5c;
+  --teal:#00838f;
+  --teal-light:#00bcd4;
+  --sand:#f5f0e8;
+  --white:#fff;
+  --dark:#0a1a20;
+  --accent:#e8a020;
+  --text:#1a2e38;
+  --muted:#5a7a87;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(0,29,44,0.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(0,188,212,0.15);
+  padding:12px 20px;display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.6)}
+.nav-logo strong{color:#fff;font-size:14px}
+.nav-logo .sep{color:var(--teal-light)}
+.nav-cta{background:var(--teal);color:#fff;padding:8px 18px;border-radius:20px;font-size:12px;font-weight:700;transition:background .2s}
+.nav-cta:hover{background:var(--teal-light)}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  background:linear-gradient(160deg, #001f30 0%, #003d5c 50%, #005a72 100%);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:100px 20px 60px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300bcd4' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(0,188,212,0.15);border:1px solid rgba(0,188,212,0.3);
+  color:var(--teal-light);font-size:11px;font-weight:700;
+  padding:5px 12px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase;
+  margin-bottom:20px;width:fit-content;
+}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(36px,7vw,72px);
+  font-weight:900;line-height:1.1;
+  max-width:700px;margin-bottom:16px;
+}
+.hero h1 span{color:var(--teal-light)}
+.hero-sub{
+  font-size:clamp(15px,2.5vw,18px);color:rgba(255,255,255,.7);
+  max-width:560px;line-height:1.7;margin-bottom:36px;
+}
+.hero-stats{display:flex;gap:32px;flex-wrap:wrap;margin-bottom:40px}
+.stat{border-left:2px solid var(--teal);padding-left:14px}
+.stat-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:var(--teal-light);line-height:1}
+.stat-label{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-top:3px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{
+  background:var(--teal);color:#fff;
+  padding:14px 28px;border-radius:30px;
+  font-size:14px;font-weight:700;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:all .2s;
+}
+.btn-primary:hover{background:var(--teal-light);transform:translateY(-2px)}
+.btn-ghost{
+  border:1.5px solid rgba(255,255,255,.3);color:#fff;
+  padding:14px 28px;border-radius:30px;
+  font-size:14px;font-weight:500;
+  transition:all .2s;
+}
+.btn-ghost:hover{border-color:var(--teal-light);color:var(--teal-light)}
+
+.hero-wave{
+  position:absolute;bottom:-2px;left:0;right:0;
+  height:80px;background:var(--sand);
+  clip-path:ellipse(55% 100% at 50% 100%);
+}
+
+/* ── SOBRE ── */
+.sobre{
+  background:var(--sand);color:var(--text);
+  padding:70px 20px;
+}
+.container{max-width:1100px;margin:0 auto}
+.section-tag{
+  font-size:11px;font-weight:700;color:var(--teal);
+  text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;
+}
+.sobre-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+@media(max-width:700px){.sobre-grid{grid-template-columns:1fr}}
+.sobre h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,4vw,42px);font-weight:900;
+  color:var(--ocean);line-height:1.2;margin-bottom:16px;
+}
+.sobre p{font-size:15px;line-height:1.8;color:#3a5a6a;margin-bottom:12px}
+.sobre-checks{margin-top:20px;display:flex;flex-direction:column;gap:10px}
+.check{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text)}
+.check-icon{background:var(--teal);color:#fff;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;margin-top:1px}
+.sobre-img-wrap{border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,61,92,.2)}
+.sobre-img-wrap img{width:100%;height:320px;object-fit:cover}
+
+/* ── PRODUTOS ── */
+.produtos{
+  background:var(--dark);padding:70px 20px;
+}
+.produtos h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,4vw,42px);font-weight:900;
+  color:#fff;margin-bottom:8px;
+}
+.produtos-sub{font-size:15px;color:rgba(255,255,255,.5);margin-bottom:40px;max-width:500px}
+.prod-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:16px;
+}
+.prod-card{
+  background:#0f2535;border:1px solid rgba(0,188,212,0.12);
+  border-radius:14px;overflow:hidden;
+  transition:transform .2s,box-shadow .2s,border-color .2s;
+  cursor:pointer;
+}
+.prod-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 16px 40px rgba(0,0,0,.4);
+  border-color:rgba(0,188,212,0.35);
+}
+.prod-img{height:180px;background:#0a1e2c;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:16px}
+.prod-img img{max-height:150px;object-fit:contain;transition:transform .3s}
+.prod-card:hover .prod-img img{transform:scale(1.06)}
+.prod-info{padding:14px 16px 16px}
+.prod-name{font-weight:700;font-size:15px;color:#fff;margin-bottom:4px}
+.prod-type{font-size:11px;color:var(--teal-light);text-transform:uppercase;letter-spacing:.5px}
+
+/* ── CERTIFICAÇÕES ── */
+.certs{
+  background:var(--ocean);padding:60px 20px;
+}
+.certs h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(24px,3.5vw,36px);font-weight:900;
+  color:#fff;margin-bottom:8px;text-align:center;
+}
+.certs-sub{font-size:14px;color:rgba(255,255,255,.6);text-align:center;margin-bottom:40px}
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;max-width:900px;margin:0 auto}
+.cert-item{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;padding:20px 16px;text-align:center;
+}
+.cert-icon{font-size:28px;margin-bottom:10px}
+.cert-name{font-weight:700;font-size:13px;color:#fff;margin-bottom:4px}
+.cert-desc{font-size:11px;color:rgba(255,255,255,.5);line-height:1.5}
+
+/* ── PRESENÇA ── */
+.presenca{
+  background:var(--sand);color:var(--text);padding:70px 20px;
+}
+.presenca h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(26px,4vw,40px);font-weight:900;
+  color:var(--ocean);margin-bottom:16px;
+}
+.presenca-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+@media(max-width:700px){.presenca-grid{grid-template-columns:1fr}}
+.presenca-text p{font-size:15px;line-height:1.8;color:#3a5a6a;margin-bottom:14px}
+.presenca-text strong{color:var(--ocean)}
+.presenca-highlight{
+  background:var(--ocean);color:#fff;
+  border-radius:14px;padding:28px 24px;
+  margin-top:20px;
+}
+.presenca-highlight p{font-size:15px;line-height:1.7;color:rgba(255,255,255,.85)}
+.presenca-highlight strong{color:var(--teal-light)}
+.presenca-numbers{display:flex;flex-direction:column;gap:16px}
+.pnum{
+  background:#fff;border:1px solid #e0e8ec;
+  border-radius:12px;padding:20px 22px;
+  display:flex;align-items:center;gap:16px;
+}
+.pnum-val{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:var(--teal);line-height:1}
+.pnum-lbl{font-size:13px;color:var(--muted);line-height:1.5}
+.pnum-lbl strong{color:var(--ocean);font-size:14px;display:block}
+
+/* ── CTA ── */
+.cta-section{
+  background:linear-gradient(135deg,var(--ocean),#005a72);
+  padding:70px 20px;text-align:center;
+}
+.cta-section h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(26px,4vw,40px);font-weight:900;
+  color:#fff;margin-bottom:12px;
+}
+.cta-section p{font-size:15px;color:rgba(255,255,255,.7);margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-wa{
+  background:#25d366;color:#fff;
+  padding:14px 28px;border-radius:30px;
+  font-size:14px;font-weight:700;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:all .2s;
+}
+.btn-wa:hover{background:#1ebe5d;transform:translateY(-2px)}
+.btn-site{
+  border:1.5px solid rgba(255,255,255,.4);color:#fff;
+  padding:14px 28px;border-radius:30px;font-size:14px;font-weight:500;
+  transition:all .2s;
+}
+.btn-site:hover{border-color:#fff}
+
+/* ── RODAPÉ MINI ── */
+.rodape{
+  background:#020e14;padding:24px 20px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+}
+.rodape-logo{font-size:13px;color:rgba(255,255,255,.4)}
+.rodape-logo strong{color:rgba(255,255,255,.7)}
+.rodape-back{
+  font-size:12px;color:var(--teal-light);
+  display:flex;align-items:center;gap:5px;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:500px){
+  .hero-stats{gap:20px}
+  .stat-num{font-size:26px}
+  .certs-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <span><strong>TV</strong> Marataízes</span>
+    <span class="sep">/</span>
+    <span>Guia · Itapemirim</span>
+  </div>
+  <a href="https://wa.me/5528999036141?text=Quero+conhecer+a+Atum+do+Brasil" target="_blank" rel="noopener" class="nav-cta">📲 Fale conosco</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container" style="position:relative;z-index:1">
+
+    <!-- LOGO -->
+    <div style="margin-bottom:28px;">
+      <img src="Captura_de_Tela_2026-04-05_a_s_16_10_03.png"
+        alt="Atum do Brasil"
+        style="height:64px;object-fit:contain;border-radius:8px;">
+    </div>
+
+    <!-- PLAYER VÍDEO ENTREVISTA -->
+    <div style="margin-bottom:36px;">
+      <div style="font-size:11px;font-weight:700;color:var(--teal-light);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;">
+        🎬 Raquel · Comercial Atum do Brasil
+      </div>
+      <div style="position:relative;width:100%;max-width:680px;aspect-ratio:16/9;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5);border:1px solid rgba(0,188,212,0.2);">
+        <iframe
+          src="https://player.castr.com/vod/PrtSQUIHHoZyEZCU"
+          style="position:absolute;inset:0;width:100%;height:100%;border:0;"
+          allow="autoplay; fullscreen"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <p style="font-size:12px;color:rgba(255,255,255,.35);margin-top:10px;max-width:680px;">
+        "Apoiamos o Festival todos os anos — porque acreditamos no potencial do litoral capixaba."
+      </p>
+    </div>
+
+    <div class="hero-tag">🐟 Itapemirim · ES · Desde 1995</div>
+    <h1>Do mar capixaba<br>para o <span>Brasil e o mundo.</span></h1>
+    <p class="hero-sub">
+      A Atum do Brasil nasceu em Itaóca, Itapemirim — e em 30 anos se tornou a maior exportadora de peixes frescos do país. Qualidade certificada, da pesca à mesa.
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">30</div>
+        <div class="stat-label">Anos no mercado</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1.800</div>
+        <div class="stat-label">Ton. pescados/ano</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Empregos gerados</div>
+      </div>
+    </div>
+    <div class="hero-btns">
+      <a href="https://www.atumdobrasil.com.br" target="_blank" rel="noopener" class="btn-primary">🌐 Ver site oficial</a>
+      <a href="#produtos" class="btn-ghost">Ver pescados →</a>
+    </div>
+  </div>
+  <div class="hero-wave"></div>
+</section>
+
+<!-- SOBRE -->
+<section class="sobre">
+  <div class="container">
+    <div class="sobre-grid">
+      <div>
+        <div class="section-tag">Nossa história</div>
+        <h2>Uma família. Um sonho. Três décadas de mar.</h2>
+        <p>
+          Fundada em 17 de maio de 1995, a Atum do Brasil nasceu do sonho de uma família ligada à pesca artesanal por gerações — e cresceu até se tornar referência nacional em qualidade de pescados.
+        </p>
+        <p>
+          Hoje ocupa mais de 5.500 m² em Itaóca, atende todo o Brasil e exporta para o exterior. Com 0,05% de água no pescado congelado — bem abaixo dos 20% permitidos por lei — entrega proteína pura na mesa do consumidor.
+        </p>
+        <div class="sobre-checks">
+          <div class="check"><div class="check-icon">✓</div><span>Maior exportadora de peixes frescos do Brasil</span></div>
+          <div class="check"><div class="check-icon">✓</div><span>Pesca não predatória e cadeia sustentável</span></div>
+          <div class="check"><div class="check-icon">✓</div><span>Linha Premium 0% água, embalada a vácuo</span></div>
+          <div class="check"><div class="check-icon">✓</div><span>200+ colaboradores diretos em Itapemirim</span></div>
+        </div>
+      </div>
+      <div class="sobre-img-wrap">
+        <img src="https://tvmarataizes.digital/clima/atumdobrasil-fabrica.jpg" alt="Fábrica Atum do Brasil em Itaóca"
+          onerror="this.style.background='linear-gradient(135deg,#003d5c,#00838f)';this.style.height='320px';this.removeAttribute('onerror')">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUTOS -->
+<section class="produtos" id="produtos">
+  <div class="container">
+    <div class="section-tag" style="color:var(--teal-light)">Nossos pescados</div>
+    <h2>Do atum ao salmão —<br>variedade com procedência</h2>
+    <p class="produtos-sub">Peixes frescos e congelados, capturados com responsabilidade e processados com os mais rígidos controles de qualidade.</p>
+
+    <div class="prod-grid">
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <img src="Salmao_Bandeja.png" alt="Salmão Bandeja 400gr">
+        </div>
+        <div class="prod-info">
+          <div class="prod-type">Produto embalado</div>
+          <div class="prod-name">Salmão Bandeja 400g</div>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <img src="Peixe_Bonito_.png" alt="Bonito">
+        </div>
+        <div class="prod-info">
+          <div class="prod-type">Fresco / Congelado</div>
+          <div class="prod-name">Bonito</div>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <img src="Posta_de_cac_a_o.png" alt="Cação Posta">
+        </div>
+        <div class="prod-info">
+          <div class="prod-type">Fresco / Congelado</div>
+          <div class="prod-name">Cação — Posta</div>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <img src="File_de_catua_.png" alt="Filé de Catuá">
+        </div>
+        <div class="prod-info">
+          <div class="prod-type">Produto embalado · 1kg</div>
+          <div class="prod-name">Filé de Catuá</div>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <img src="File_de_namorado_inteiro.png" alt="Filé de Namorado Inteiro">
+        </div>
+        <div class="prod-info">
+          <div class="prod-type">Premium · Vácuo</div>
+          <div class="prod-name">Filé de Namorado Inteiro</div>
+        </div>
+      </div>
+
+      <!-- Peixes do grid Peixes_5_ -->
+      <div class="prod-card">
+        <div class="prod-img">
+          <img src="Peixes_5_.png" alt="Linha de pescados — Corvina, Dentão, Cioba, Badejo, Atum" style="max-height:130px">
+        </div>
+        <div class="prod-info">
+          <div class="prod-type">Linha completa</div>
+          <div class="prod-name">Corvina · Dentão · Cioba · Badejo · Atum</div>
+        </div>
+      </div>
+
+    </div>
+
+    <p style="margin-top:24px;font-size:13px;color:rgba(255,255,255,.4);text-align:center;">
+      Linha completa disponível em <a href="https://www.atumdobrasil.com.br" target="_blank" style="color:var(--teal-light)">atumdobrasil.com.br</a>
+    </p>
+  </div>
+</section>
+
+<!-- CERTIFICAÇÕES -->
+<section class="certs">
+  <div class="container">
+    <div class="section-tag" style="color:var(--teal-light);text-align:center;margin-bottom:8px">Qualidade comprovada</div>
+    <h2>Certificações que garantem<br>o que está na sua mesa</h2>
+    <p class="certs-sub">Cada pescado sai da Atum do Brasil com rastreabilidade, controle e aprovação dos organismos mais exigentes do mundo.</p>
+    <div class="certs-grid">
+      <div class="cert-item">
+        <div class="cert-icon">🏛️</div>
+        <div class="cert-name">SIF</div>
+        <div class="cert-desc">Selo de Inspeção Federal — MAPA</div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon">🔬</div>
+        <div class="cert-name">HACCP</div>
+        <div class="cert-desc">Controle de Qualidade e Segurança Alimentar</div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon">🇺🇸</div>
+        <div class="cert-name">FDA</div>
+        <div class="cert-desc">Certificado de exportação para os EUA</div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon">🏆</div>
+        <div class="cert-name">SENAI Inovação</div>
+        <div class="cert-desc">3º e 4º Prêmio SENAI Inovação em Alimentos</div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon">🚚</div>
+        <div class="cert-name">Logística</div>
+        <div class="cert-desc">Prêmio de Eficiência Logística 2021</div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon">💧</div>
+        <div class="cert-name">0,05% água</div>
+        <div class="cert-desc">Lei permite 20% — eles usam 0,05%. 100% proteína.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESENÇA -->
+<section class="presenca">
+  <div class="container">
+    <div class="presenca-grid">
+      <div class="presenca-text">
+        <div class="section-tag">Raiz capixaba</div>
+        <h2>Nascida em Itaóca. Reconhecida no mundo.</h2>
+        <p>
+          A Atum do Brasil é parte da identidade do litoral sul capixaba. Nasceu na Praia de Itaóca, no município de Itapemirim — <strong>o maior polo pesqueiro do sul do Espírito Santo</strong> — e fincou raízes que sustentam centenas de famílias da região.
+        </p>
+        <p>
+          Ao valorizar a pesca artesanal e não predatória, a empresa cria um ciclo econômico sustentável que beneficia pescadores, colaboradores e consumidores em todo o Brasil.
+        </p>
+        <div class="presenca-highlight">
+          <p>
+            <strong>Presente no Festival Gastronômico de Frutos do Mar de Itaipava</strong> — contribuindo diretamente para o movimento, a geração de renda e a valorização da pesca local no litoral capixaba.
+          </p>
+        </div>
+      </div>
+      <div class="presenca-numbers">
+        <div class="pnum">
+          <div class="pnum-val">30</div>
+          <div class="pnum-lbl"><strong>Anos de história</strong>Fundada em 17 de maio de 1995</div>
+        </div>
+        <div class="pnum">
+          <div class="pnum-val">1.800</div>
+          <div class="pnum-lbl"><strong>Toneladas/ano</strong>De pescados processados e distribuídos</div>
+        </div>
+        <div class="pnum">
+          <div class="pnum-val">5.500</div>
+          <div class="pnum-lbl"><strong>m² de instalações</strong>Em Itaóca, Itapemirim, ES</div>
+        </div>
+        <div class="pnum">
+          <div class="pnum-val">500+</div>
+          <div class="pnum-lbl"><strong>Empregos</strong>200 diretos e 300+ indiretos na região</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="section-tag" style="color:var(--teal-light);margin-bottom:14px;display:inline-block">Fale com a Atum do Brasil</div>
+    <h2>É sabor. É saúde.<br>É Atum do Brasil.</h2>
+    <p>Quer saber mais sobre os produtos, representantes ou distribuição? Entre em contato direto com a empresa.</p>
+    <div class="cta-btns">
+      <a href="https://www.atumdobrasil.com.br" target="_blank" rel="noopener" class="btn-site">🌐 atumdobrasil.com.br</a>
+      <a href="https://www.instagram.com/atumdobrasil" target="_blank" rel="noopener" class="btn-wa" style="background:#E1306C">📸 Instagram</a>
+    </div>
+    <p style="margin-top:28px;font-size:12px;color:rgba(255,255,255,.3)">
+      Rua Sebastião Alves, 469 · Praia de Itaóca · Itapemirim · ES · 29330-000
+    </p>
+  </div>
+</section>
+
+<!-- RODAPÉ -->
+<div class="rodape">
+  <div class="rodape-logo">Página criada pela <strong>TV Marataízes</strong> · Guia da Cidade</div>
+  <a href="https://tvmarataizes.digital" class="rodape-back">← Voltar ao portal</a>
+</div>
+
+</body>
+</html>
