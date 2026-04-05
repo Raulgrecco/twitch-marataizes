@@ -55,7 +55,7 @@
   }
   .nav-cta:hover { background: var(--gold) !important; color: var(--dark) !important; }
 
-  #hero { position: relative; height: 100vh; display: flex; align-items: flex-end; padding: 0 60px 80px; overflow: hidden; }
+  #hero { position: relative; height: 100vh; display: flex; align-items: flex-end; padding: 0 60px 80px; overflow: hidden; } @media(max-width:900px){ #hero { padding: 0 20px 60px; } }
   .hero-bg {
     position: absolute; inset: 0;
     background:
@@ -184,6 +184,9 @@
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
   @media (max-width: 900px) {
+    .bastidores-grid { grid-template-columns:1fr 1fr !important; grid-template-rows:200px 200px 200px !important; }
+    .bastidores-grid > div:first-child { grid-row: auto !important; }
+    #bastidores > div:first-child { padding: 40px 20px 24px !important; }
     nav { padding: 16px 20px; }
     nav ul { display: none; }
     #hero { padding: 0 20px 60px; }
@@ -253,7 +256,7 @@
       <h2 class="manifesto-headline">CINEMA,<br>TV, <em>estratégia —</em><br>UMA MÁQUINA.</h2>
       <p class="manifesto-body">A Macuca nasceu no cinema e evoluiu para algo que nenhuma agência ou produtora do interior do Brasil possui: <strong>um ecossistema completo e integrado.</strong></p>
       <p class="manifesto-body">TV, cinema, publicidade, conteúdo, performance e estratégia funcionam juntos — <strong>sem atravessadores, sem perda de força, sem ruído.</strong></p>
-      <p class="manifesto-body">Quando sua marca entra aqui, ela não aparece. <strong>Ela domina território.</strong></p>
+      <p class="manifesto-body">Quando sua marca entra aqui, ela não aparece. <strong>Ela domina território.</strong><br><br>A única agência do ES que é também exibidora — com TV nacional, cinema aprovado em Cannes e mais de 600 comerciais nacionais na trajetória.</p>
     </div>
     <div class="manifesto-right reveal">
       <div class="manifesto-number">M</div>
@@ -430,7 +433,7 @@
   </div>
 
   <!-- GRID DE FOTOS -->
-  <div style="display:grid; grid-template-columns:2fr 1fr 1fr; grid-template-rows:280px 280px; gap:2px;">
+  <div class="bastidores-grid" style="display:grid; grid-template-columns:2fr 1fr 1fr; grid-template-rows:280px 280px; gap:2px;">
 
     <!-- Grande esquerda -->
     <div style="grid-row:1/3; position:relative; overflow:hidden;">
@@ -503,14 +506,15 @@
   <div style="max-width:1200px; margin:0 auto; position:relative; z-index:2;">
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;" class="reveal mobile-grid">
       <div>
-        <div style="font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.4em; text-transform:uppercase; color:rgba(8,8,8,0.5); margin-bottom:20px;">Para agências e parceiros</div>
-        <h2 style="font-family:'Bebas Neue',sans-serif; font-size:clamp(2.5rem,5vw,4.5rem); line-height:0.92; color:var(--dark); margin-bottom:24px;">A MACUCA NÃO<br>COMPETE COM<br>VOCÊ.</h2>
-        <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.3rem; color:rgba(8,8,8,0.7); line-height:1.6;">Somos a infraestrutura que faz a sua ideia ir ao ar.</p>
+        <div style="font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.4em; text-transform:uppercase; color:rgba(8,8,8,0.5); margin-bottom:20px;">A agência que também é emissora</div>
+        <h2 style="font-family:'Bebas Neue',sans-serif; font-size:clamp(2.5rem,5vw,4.5rem); line-height:0.92; color:var(--dark); margin-bottom:24px;">VOCÊ NÃO<br>CONTRATA MÍDIA.<br>VOCÊ CONTRATA<br>UMA AGÊNCIA.</h2>
+        <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.3rem; color:rgba(8,8,8,0.7); line-height:1.6;">Estratégia, criação, produção e veiculação — tudo sob um único teto. E ainda com TV nacional inclusa.</p>
       </div>
       <div>
-        <p style="font-size:1.05rem; line-height:1.85; color:rgba(8,8,8,0.75); margin-bottom:24px;">Agências, produtoras e profissionais independentes: a Macuca é a estrutura que potencializa qualquer campanha — com TV nacional, cinema, produção e distribuição sob um único teto.</p>
-        <p style="font-size:1.05rem; line-height:1.85; color:rgba(8,8,8,0.75); margin-bottom:36px;">Você cria a estratégia. Nós entregamos o alcance, a produção e a veiculação. <strong style="color:var(--dark);">Parceria, não concorrência.</strong></p>
-        <a href="https://wa.me/5528999036141" target="_blank" style="display:inline-block; background:var(--dark); color:var(--orange); text-decoration:none; padding:18px 32px; font-family:'Bebas Neue',sans-serif; font-size:1.4rem; letter-spacing:0.1em; transition:opacity 0.3s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">FALAR SOBRE PARCERIA →</a>
+        <p style="font-size:1.05rem; line-height:1.85; color:rgba(8,8,8,0.75); margin-bottom:20px;">A Macuca atua como <strong style="color:var(--dark);">agência de publicidade completa</strong> — com planejamento estratégico, criação, produção audiovisual profissional e gestão de marca contínua.</p>
+        <p style="font-size:1.05rem; line-height:1.85; color:rgba(8,8,8,0.75); margin-bottom:20px;">O que nenhuma outra agência do ES entrega: <strong style="color:var(--dark);">veiculação na TV que a própria agência opera</strong> — a TV Marataízes, única emissora independente do Sul do Espírito Santo, transmitindo pelo Canal 300 da Soul TV em todo o Brasil.</p>
+        <p style="font-size:1.05rem; line-height:1.85; color:rgba(8,8,8,0.75); margin-bottom:32px;">Enquanto outras agências compram mídia de terceiros, a Macuca <strong style="color:var(--dark);">é a mídia</strong>.</p>
+        <a href="https://wa.me/5528999036141" target="_blank" style="display:inline-block; background:var(--dark); color:var(--orange); text-decoration:none; padding:18px 32px; font-family:'Bebas Neue',sans-serif; font-size:1.4rem; letter-spacing:0.1em; transition:opacity 0.3s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">FALAR COM A AGÊNCIA →</a>
       </div>
     </div>
   </div>
@@ -522,17 +526,17 @@
     <div class="services-header reveal">
       <div>
         <div class="section-label">O que entregamos</div>
-        <h2 class="services-title">TUDO SOB<br>UM TETO</h2>
+        <h2 class="services-title">O QUE UMA<br>AGÊNCIA REAL<br>ENTREGA</h2>
       </div>
-      <p class="services-intro">Enquanto muitos vendem promessa digital, nós entregamos presença real: público, alcance, conversa e influência sobre o território capixaba.</p>
+      <p class="services-intro">Do briefing à veiculação. Criação, produção, gestão de redes, conteúdo editorial, campanhas de performance e presença na única TV independente do Sul do ES — tudo em um contrato, uma equipe, zero atravessadores.</p>
     </div>
     <div class="services-list reveal">
-      <div class="service-row"><span class="service-idx">01</span><span class="service-name">PATROCÍNIO DE TV</span><span class="service-tag">TV · Digital · Nacional</span></div>
-      <div class="service-row"><span class="service-idx">02</span><span class="service-name">PRODUÇÃO AUDIOVISUAL</span><span class="service-tag">Cinema · Publicidade · Série</span></div>
-      <div class="service-row"><span class="service-idx">03</span><span class="service-name">PROJETOS CULTURAIS</span><span class="service-tag">Rouanet · FES · Editais</span></div>
-      <div class="service-row"><span class="service-idx">04</span><span class="service-name">ESTRATÉGIA DE MARCA</span><span class="service-tag">Planejamento · Conteúdo · Performance</span></div>
-      <div class="service-row"><span class="service-idx">05</span><span class="service-name">STREAMING & DISTRIBUIÇÃO</span><span class="service-tag">Soul TV · OTT · Redes Sociais</span></div>
-      <div class="service-row"><span class="service-idx">06</span><span class="service-name">EVENTOS & ATIVAÇÕES</span><span class="service-tag">Ao Vivo · Cobertura · Transmissão</span></div>
+      <div class="service-row"><span class="service-idx">01</span><span class="service-name">AGÊNCIA DE PUBLICIDADE</span><span class="service-tag">Estratégia · Criação · Gestão de Marca</span></div>
+      <div class="service-row"><span class="service-idx">02</span><span class="service-name">TV PRÓPRIA — CANAL 300</span><span class="service-tag">Única emissora independente do Sul do ES</span></div>
+      <div class="service-row"><span class="service-idx">03</span><span class="service-name">PRODUÇÃO AUDIOVISUAL</span><span class="service-tag">Comerciais · Filmes · Séries · Institucional</span></div>
+      <div class="service-row"><span class="service-idx">04</span><span class="service-name">GESTÃO DE REDES SOCIAIS</span><span class="service-tag">Conteúdo · Performance · Campanhas Pagas</span></div>
+      <div class="service-row"><span class="service-idx">05</span><span class="service-name">PROJETOS CULTURAIS</span><span class="service-tag">Lei Rouanet · FES · BNDES · Editais Públicos</span></div>
+      <div class="service-row"><span class="service-idx">06</span><span class="service-name">EVENTOS & COBERTURAS AO VIVO</span><span class="service-tag">Transmissão · Ativação · Branded Content</span></div>
     </div>
   </div>
 </section>
@@ -543,8 +547,8 @@
     <div class="contact-grid">
       <div class="reveal">
         <div class="section-label">Fale com o Hub</div>
-        <h2 class="contact-title"><em>Quer ver sua marca aqui também?</em>ENTRE NO<br>TERRITÓRIO.</h2>
-        <p class="contact-subtitle">Cada campanha isolada dura poucos dias. Aqui, sua marca vira parte da programação, da conversa e da memória afetiva do público.</p>
+        <h2 class="contact-title"><em>Pronto para ter uma agência de verdade?</em>ENTRE NO<br>TERRITÓRIO.</h2>
+        <p class="contact-subtitle">Uma agência que pensa sua marca, produz seu conteúdo e veicula na única TV independente do Sul do ES. Tudo em um contrato. Tudo sob um teto.</p>
         <div class="contact-links">
           <a href="https://wa.me/5528999036141" class="contact-link" target="_blank"><span class="contact-link-label">WhatsApp</span><span class="contact-link-value">(28) 99903-6141</span></a>
           <a href="https://instagram.com/macucaproducoes" class="contact-link" target="_blank"><span class="contact-link-label">Instagram</span><span class="contact-link-value">@macucaproducoes</span></a>
