@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Voz da Cidade — TV Marataízes · Proposta Comercial 2026</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0d0d0d;
+  --paper:#f5f0e8;
+  --red:#c8001e;
+  --red-dim:#8a0014;
+  --gold:#b8932a;
+  --gold-light:#d4af5a;
+  --muted:#7a7060;
+  --border:#ddd5c0;
+  --white:#fff;
+  --navy:#1a2540;
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  font-size:15px;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+
+/* ── NOISE OVERLAY ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:.6;
+}
+
+/* ── HEADER ── */
+.site-header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(245,240,232,.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:14px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.site-logo{
+  font-family:'Playfair Display',serif;
+  font-size:16px;font-weight:700;
+  color:var(--ink);display:flex;align-items:center;gap:8px;
+}
+.site-logo .tag{
+  background:var(--red);color:#fff;
+  font-family:'DM Sans',sans-serif;
+  font-size:10px;font-weight:600;
+  padding:2px 8px;border-radius:2px;
+  letter-spacing:.5px;
+}
+.site-nav{display:flex;gap:24px}
+.site-nav a{
+  font-size:12px;font-weight:500;
+  color:var(--muted);letter-spacing:.3px;
+  text-decoration:none;transition:color .2s;
+}
+.site-nav a:hover{color:var(--ink)}
+
+/* ── HERO ── */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;align-items:center;
+  overflow:hidden;
+  padding:80px 32px;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:var(--ink);
+  z-index:0;
+}
+.hero-bg::after{
+  content:'';
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(200,0,30,.12), transparent),
+    radial-gradient(ellipse 40% 80% at 10% 80%, rgba(184,147,42,.08), transparent);
+}
+.hero-lines{
+  position:absolute;inset:0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,.03) 59px, rgba(255,255,255,.03) 60px),
+    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,.03) 59px, rgba(255,255,255,.03) 60px);
+}
+.hero-inner{
+  position:relative;z-index:2;
+  max-width:1100px;margin:0 auto;width:100%;
+}
+.hero-kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(200,0,30,.4);
+  color:rgba(200,0,30,.9);
+  font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  padding:6px 16px;border-radius:2px;margin-bottom:32px;
+}
+.hero-kicker::before{content:'●';font-size:8px;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(48px,9vw,100px);
+  font-weight:900;
+  line-height:1;
+  color:#fff;
+  margin-bottom:8px;
+  letter-spacing:-2px;
+}
+.hero h1 em{
+  color:var(--gold-light);
+  font-style:italic;
+}
+.hero-sub-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(18px,3vw,28px);
+  font-weight:400;font-style:italic;
+  color:rgba(255,255,255,.45);
+  margin-bottom:40px;
+}
+.hero-desc{
+  font-size:16px;color:rgba(255,255,255,.65);
+  max-width:540px;line-height:1.8;margin-bottom:48px;
+}
+.hero-desc strong{color:rgba(255,255,255,.9)}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--red);color:#fff;
+  padding:14px 28px;
+  font-size:13px;font-weight:600;letter-spacing:.3px;
+  border:none;border-radius:2px;cursor:pointer;
+  text-decoration:none;transition:background .2s;
+}
+.btn-primary:hover{background:var(--red-dim)}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;color:rgba(255,255,255,.7);
+  border:1px solid rgba(255,255,255,.2);
+  padding:14px 24px;
+  font-size:13px;font-weight:500;
+  border-radius:2px;cursor:pointer;
+  text-decoration:none;transition:all .2s;
+}
+.btn-ghost:hover{border-color:rgba(255,255,255,.5);color:#fff}
+
+.hero-scroll{
+  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:rgba(255,255,255,.3);font-size:11px;letter-spacing:.5px;
+}
+.hero-scroll::after{
+  content:'';display:block;width:1px;height:40px;
+  background:linear-gradient(to bottom,rgba(255,255,255,.3),transparent);
+  animation:scrollLine 1.5s ease-in-out infinite;
+}
+@keyframes scrollLine{0%{opacity:1;transform:scaleY(1)}100%{opacity:0;transform:scaleY(0.3)}}
+
+/* ── SECTION BASE ── */
+.section{padding:100px 32px;max-width:1100px;margin:0 auto;}
+.section-label{
+  font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  color:var(--red);margin-bottom:16px;display:flex;align-items:center;gap:10px;
+}
+.section-label::after{content:'';flex:0 0 40px;height:1px;background:var(--red)}
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(32px,5vw,56px);
+  font-weight:900;line-height:1.1;
+  letter-spacing:-1px;
+  margin-bottom:20px;
+}
+.section-title em{font-style:italic;color:var(--gold)}
+.section-body{font-size:16px;color:var(--muted);max-width:640px;line-height:1.9}
+
+/* ── DIVIDER ── */
+hr.fancy{border:none;border-top:1px solid var(--border);margin:0 32px}
+
+/* ── O PROBLEMA ── */
+.problema{
+  background:var(--ink);
+  padding:100px 32px;
+  position:relative;overflow:hidden;
+}
+.problema::before{
+  content:'"';
+  position:absolute;top:-60px;left:20px;
+  font-family:'Playfair Display',serif;
+  font-size:500px;line-height:1;
+  color:rgba(255,255,255,.02);
+  pointer-events:none;
+}
+.problema-inner{max-width:1100px;margin:0 auto}
+.problema .section-label{color:rgba(200,0,30,.8)}
+.problema .section-label::after{background:rgba(200,0,30,.8)}
+.problema .section-title{color:#fff}
+.problema-quote{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(20px,4vw,36px);
+  font-weight:700;font-style:italic;
+  color:rgba(255,255,255,.85);
+  border-left:3px solid var(--red);
+  padding-left:28px;
+  line-height:1.5;
+  max-width:760px;
+  margin:40px 0;
+}
+.problema-cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:1px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:4px;
+  overflow:hidden;
+  margin-top:48px;
+}
+.problema-card{
+  background:rgba(255,255,255,.02);
+  padding:28px 24px;
+  transition:background .2s;
+}
+.problema-card:hover{background:rgba(255,255,255,.05)}
+.problema-card .num{
+  font-family:'Playfair Display',serif;
+  font-size:48px;font-weight:900;
+  color:rgba(200,0,30,.4);
+  line-height:1;margin-bottom:12px;
+}
+.problema-card h3{font-size:14px;font-weight:600;color:#fff;margin-bottom:8px}
+.problema-card p{font-size:13px;color:rgba(255,255,255,.4);line-height:1.7}
+
+/* ── FORMATO ── */
+.formato{padding:100px 32px;background:var(--paper)}
+.formato-inner{max-width:1100px;margin:0 auto}
+.formato-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:32px;
+  margin-top:56px;
+}
+.formato-block{
+  border:1px solid var(--border);
+  border-radius:4px;
+  padding:32px;
+  background:#fff;
+  position:relative;
+  overflow:hidden;
+  transition:box-shadow .2s,transform .2s;
+}
+.formato-block:hover{
+  box-shadow:0 8px 40px rgba(0,0,0,.08);
+  transform:translateY(-3px);
+}
+.formato-block .icon{
+  font-size:36px;margin-bottom:20px;
+}
+.formato-block h3{
+  font-family:'Playfair Display',serif;
+  font-size:22px;font-weight:700;
+  margin-bottom:12px;
+}
+.formato-block p{font-size:14px;color:var(--muted);line-height:1.8}
+.formato-block ul{
+  margin-top:14px;
+  list-style:none;
+  display:flex;flex-direction:column;gap:8px;
+}
+.formato-block ul li{
+  font-size:13px;color:var(--muted);
+  display:flex;align-items:flex-start;gap:8px;
+}
+.formato-block ul li::before{
+  content:'→';color:var(--red);flex-shrink:0;font-weight:600;
+}
+.formato-block.featured{
+  background:var(--ink);
+  border-color:var(--ink);
+}
+.formato-block.featured h3{color:#fff}
+.formato-block.featured p{color:rgba(255,255,255,.55)}
+.formato-block.featured ul li{color:rgba(255,255,255,.55)}
+.formato-block.featured ul li::before{color:var(--gold-light)}
+
+/* ── CIDADES ── */
+.cidades{padding:100px 32px;background:var(--ink)}
+.cidades-inner{max-width:1100px;margin:0 auto}
+.cidades .section-title{color:#fff}
+.cidades .section-label{color:rgba(184,147,42,.8)}
+.cidades .section-label::after{background:rgba(184,147,42,.8)}
+.cidades-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:2px;
+  margin-top:56px;
+  background:rgba(255,255,255,.04);
+}
+.cidade-card{
+  background:rgba(255,255,255,.02);
+  padding:40px 36px;
+  border:1px solid rgba(255,255,255,.04);
+  transition:background .2s;
+  cursor:default;
+}
+.cidade-card:hover{background:rgba(255,255,255,.05)}
+.cidade-num{
+  font-family:'Playfair Display',serif;
+  font-size:72px;font-weight:900;
+  color:rgba(184,147,42,.15);
+  line-height:1;margin-bottom:8px;
+}
+.cidade-name{
+  font-family:'Playfair Display',serif;
+  font-size:28px;font-weight:700;
+  color:#fff;margin-bottom:8px;
+}
+.cidade-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;margin-bottom:20px}
+.cidade-tags{display:flex;flex-wrap:wrap;gap:6px}
+.cidade-tag{
+  font-size:10px;font-weight:600;letter-spacing:.3px;
+  padding:4px 10px;border-radius:2px;
+  background:rgba(255,255,255,.06);
+  color:rgba(255,255,255,.5);
+  border:1px solid rgba(255,255,255,.08);
+}
+.cidade-tag.active{
+  background:rgba(200,0,30,.15);
+  color:rgba(200,0,30,.8);
+  border-color:rgba(200,0,30,.2);
+}
+
+/* ── PREÇOS ── */
+.precos{padding:100px 32px;background:var(--paper)}
+.precos-inner{max-width:1100px;margin:0 auto}
+.precos-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2px;
+  margin-top:56px;
+  background:var(--border);
+}
+.preco-card{
+  background:var(--paper);
+  padding:40px 32px;
+  display:flex;flex-direction:column;
+  transition:background .2s;
+}
+.preco-card:hover{background:#fff}
+.preco-card.destaque{
+  background:var(--ink);
+  position:relative;
+}
+.preco-card.destaque::before{
+  content:'MAIS INDICADO';
+  position:absolute;top:0;left:50%;transform:translateX(-50%);
+  background:var(--red);color:#fff;
+  font-size:9px;font-weight:700;letter-spacing:1px;
+  padding:4px 14px;border-radius:0 0 4px 4px;
+}
+.preco-nivel{
+  font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:16px;
+}
+.preco-card.destaque .preco-nivel{color:rgba(255,255,255,.4)}
+.preco-nome{
+  font-family:'Playfair Display',serif;
+  font-size:22px;font-weight:700;
+  margin-bottom:24px;
+}
+.preco-card.destaque .preco-nome{color:#fff}
+.preco-valor{
+  font-family:'Playfair Display',serif;
+  font-size:52px;font-weight:900;
+  line-height:1;margin-bottom:6px;
+}
+.preco-card.destaque .preco-valor{color:#fff}
+.preco-recorrencia{
+  font-size:12px;color:var(--muted);margin-bottom:32px;
+  padding-bottom:32px;border-bottom:1px solid var(--border);
+}
+.preco-card.destaque .preco-recorrencia{
+  color:rgba(255,255,255,.35);border-color:rgba(255,255,255,.08);
+}
+.preco-lista{
+  list-style:none;
+  display:flex;flex-direction:column;gap:10px;
+  flex:1;margin-bottom:32px;
+}
+.preco-lista li{
+  font-size:13px;color:var(--muted);
+  display:flex;gap:10px;align-items:flex-start;
+}
+.preco-lista li::before{content:'✓';color:var(--gold);font-weight:700;flex-shrink:0}
+.preco-card.destaque .preco-lista li{color:rgba(255,255,255,.55)}
+.preco-card.destaque .preco-lista li::before{color:var(--gold-light)}
+.preco-btn{
+  display:block;text-align:center;
+  padding:13px;
+  font-size:13px;font-weight:600;letter-spacing:.3px;
+  border-radius:2px;text-decoration:none;
+  transition:all .2s;
+}
+.preco-btn-outline{
+  border:1px solid var(--border);color:var(--ink);
+}
+.preco-btn-outline:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.preco-btn-solid{
+  background:var(--red);color:#fff;
+}
+.preco-btn-solid:hover{background:var(--red-dim)}
+
+/* ── REGIONAL ── */
+.regional{
+  padding:100px 32px;
+  background:linear-gradient(135deg,var(--navy),#0d0d1a);
+  position:relative;overflow:hidden;
+}
+.regional::before{
+  content:'';position:absolute;
+  width:600px;height:600px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(200,0,30,.08),transparent);
+  top:-200px;right:-100px;
+}
+.regional-inner{max-width:1100px;margin:0 auto;position:relative;z-index:2}
+.regional .section-title{color:#fff}
+.regional .section-label{color:rgba(200,0,30,.7)}
+.regional .section-label::after{background:rgba(200,0,30,.7)}
+.regional-valor{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:4px;
+  padding:48px;
+  margin-top:48px;
+  display:flex;gap:48px;align-items:center;flex-wrap:wrap;
+}
+.regional-num{
+  flex-shrink:0;
+  font-family:'Playfair Display',serif;
+  font-size:clamp(52px,8vw,90px);
+  font-weight:900;color:#fff;
+  line-height:1;letter-spacing:-2px;
+}
+.regional-num span{
+  display:block;
+  font-size:clamp(16px,2.5vw,24px);
+  font-weight:400;font-style:italic;
+  color:rgba(255,255,255,.35);
+  letter-spacing:0;
+}
+.regional-body h3{
+  font-family:'Playfair Display',serif;
+  font-size:22px;font-weight:700;
+  color:#fff;margin-bottom:12px;
+}
+.regional-body p{font-size:14px;color:rgba(255,255,255,.45);line-height:1.8;margin-bottom:20px}
+.regional-includes{
+  display:flex;flex-wrap:wrap;gap:8px;
+}
+.regional-includes span{
+  font-size:11px;font-weight:600;letter-spacing:.3px;
+  padding:5px 12px;border-radius:2px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  color:rgba(255,255,255,.45);
+}
+.regional-includes span.hi{
+  background:rgba(200,0,30,.15);border-color:rgba(200,0,30,.25);
+  color:rgba(200,0,30,.8);
+}
+
+/* ── PROTEÇÃO ── */
+.protecao{padding:100px 32px;background:var(--paper)}
+.protecao-inner{max-width:1100px;margin:0 auto}
+.protecao-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:24px;
+  margin-top:56px;
+}
+.protecao-item{
+  padding:28px 24px;
+  border-left:3px solid var(--border);
+  transition:border-color .2s;
+}
+.protecao-item:hover{border-color:var(--gold)}
+.protecao-item h3{
+  font-size:15px;font-weight:600;margin-bottom:8px;
+}
+.protecao-item p{font-size:13px;color:var(--muted);line-height:1.7}
+
+/* ── CTA FINAL ── */
+.cta-final{
+  padding:120px 32px;
+  background:var(--red);
+  text-align:center;position:relative;overflow:hidden;
+}
+.cta-final::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 80% at 20% 50%,rgba(0,0,0,.15),transparent),
+    radial-gradient(ellipse 40% 60% at 80% 30%,rgba(0,0,0,.1),transparent);
+}
+.cta-final-inner{position:relative;z-index:2}
+.cta-final h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(36px,6vw,72px);
+  font-weight:900;color:#fff;
+  line-height:1.05;letter-spacing:-1.5px;
+  margin-bottom:20px;
+}
+.cta-final h2 em{font-style:italic;opacity:.6}
+.cta-final p{
+  font-size:16px;color:rgba(255,255,255,.75);
+  max-width:520px;margin:0 auto 40px;line-height:1.8;
+}
+.cta-final .btn-white{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;color:var(--red);
+  padding:16px 36px;border-radius:2px;
+  font-size:14px;font-weight:700;letter-spacing:.3px;
+  text-decoration:none;transition:all .2s;
+}
+.cta-final .btn-white:hover{background:var(--ink);color:#fff}
+
+/* ── FOOTER ── */
+.site-footer{
+  background:var(--ink);
+  padding:40px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+}
+.site-footer p{font-size:12px;color:rgba(255,255,255,.3)}
+.site-footer a{color:rgba(255,255,255,.4);font-size:12px;text-decoration:none}
+
+/* ── ANIMATIONS ── */
+.fade-up{
+  opacity:0;transform:translateY(24px);
+  transition:opacity .7s,transform .7s;
+}
+.fade-up.visible{opacity:1;transform:none}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .site-nav{display:none}
+  .formato-grid{grid-template-columns:1fr}
+  .cidades-grid{grid-template-columns:1fr}
+  .precos-grid{grid-template-columns:1fr}
+  .regional-valor{flex-direction:column;gap:24px}
+  .hero{min-height:auto;padding:100px 20px 80px}
+  .section{padding:64px 20px}
+  .problema,.cidades,.regional,.cta-final,.formato,.precos,.protecao{padding:64px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="site-logo">
+    <span class="tag">TV</span> Marataízes
+  </div>
+  <nav class="site-nav">
+    <a href="#formato">O Formato</a>
+    <a href="#cidades">As Cidades</a>
+    <a href="#precos">Investimento</a>
+    <a href="#contato">Falar agora</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-inner">
+    <div class="hero-kicker">Proposta Comercial · 2026</div>
+    <h1>Voz da<br><em>Cidade</em></h1>
+    <p class="hero-sub-title">A população fala. Quem quer representar, responde.</p>
+    <p class="hero-desc">
+      Um programa da <strong>TV Marataízes</strong> com episódios nas cidades da região — onde moradores trazem demandas reais e lideranças têm espaço para responder e se posicionar. Distribuição na TV, no portal e nas redes sociais de cada cidade.
+    </p>
+    <div class="hero-ctas">
+      <a href="https://wa.me/5528999036141?text=Quero+saber+mais+sobre+o+Voz+da+Cidade" target="_blank" class="btn-primary">💬 Falar com o Raul</a>
+      <a href="#formato" class="btn-ghost">Ver o formato →</a>
+    </div>
+  </div>
+  <div class="hero-scroll">SCROLL</div>
+</section>
+
+<!-- O PROBLEMA -->
+<section class="problema">
+  <div class="problema-inner">
+    <div class="section-label fade-up">O diagnóstico</div>
+    <h2 class="section-title fade-up" style="color:#fff">A população fala.<br><em>Ninguém escuta com câmera.</em></h2>
+
+    <blockquote class="problema-quote fade-up">
+      "As cidades do Sul do ES têm demandas reais. O que falta é uma plataforma que documente, distribua e dê voz — de forma contínua, não só em época de eleição."
+    </blockquote>
+
+    <div class="problema-cards">
+      <div class="problema-card fade-up">
+        <div class="num">01</div>
+        <h3>Sem cobertura local</h3>
+        <p>Marataízes, Piúma, Itapemirim e Kennedy não têm programa de TV próprio que mostre suas demandas ao vivo — semanalmente.</p>
+      </div>
+      <div class="problema-card fade-up">
+        <div class="num">02</div>
+        <h3>Lideranças invisíveis</h3>
+        <p>Quem quer representar a região não tem plataforma contínua de visibilidade — só panfleto em época de campanha.</p>
+      </div>
+      <div class="problema-card fade-up">
+        <div class="num">03</div>
+        <h3>Redes sem substância</h3>
+        <p>Post não tem peso. Presença na TV e no portal dá autoridade que nenhum feed de Instagram entrega.</p>
+      </div>
+      <div class="problema-card fade-up">
+        <div class="num">04</div>
+        <h3>O espaço está vazio</h3>
+        <p>Nenhuma emissora da região faz isso de forma estruturada. Esse espaço vai ser ocupado — a questão é por quem.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- O FORMATO -->
+<section class="formato" id="formato">
+  <div class="formato-inner">
+    <div class="section-label fade-up">Como funciona</div>
+    <h2 class="section-title fade-up">O formato que<br><em>protege e posiciona.</em></h2>
+    <p class="section-body fade-up">
+      Não é campanha eleitoral. É jornalismo local com espaço para participação. A TV não faz campanha — a TV abre espaço. Isso muda tudo juridicamente e comercialmente.
+    </p>
+
+    <div class="formato-grid">
+      <div class="formato-block fade-up">
+        <div class="icon">🎙️</div>
+        <h3>Episódios por cidade</h3>
+        <p>Cada cidade tem seu episódio — gravado no local, com moradores reais falando sobre demandas da comunidade.</p>
+        <ul>
+          <li>Gravação externa na cidade</li>
+          <li>Moradores como protagonistas</li>
+          <li>Problemas reais documentados</li>
+          <li>Durabilidade: arquivo permanente no portal</li>
+        </ul>
+      </div>
+
+      <div class="formato-block featured fade-up">
+        <div class="icon">📺</div>
+        <h3>Distribuição tripla</h3>
+        <p>Cada episódio é distribuído simultaneamente em três canais — TV ao vivo, portal digital e redes sociais.</p>
+        <ul>
+          <li>TV Marataízes — Canal 300 Soul TV, nacional</li>
+          <li>Portal tvmarataizes.digital — VOD 24h</li>
+          <li>Instagram — cortes de 60s por cidade</li>
+        </ul>
+      </div>
+
+      <div class="formato-block fade-up">
+        <div class="icon">🏛️</div>
+        <h3>Participação aberta</h3>
+        <p>Lideranças, pré-candidatos e gestores públicos são convidados para responder às demandas levantadas.</p>
+        <ul>
+          <li>Formato jornalístico, não partidário</li>
+          <li>Espaço aberto a múltiplos participantes</li>
+          <li>Quem entra primeiro aparece mais</li>
+          <li>Sem exclusividade por padrão</li>
+        </ul>
+      </div>
+
+      <div class="formato-block fade-up">
+        <div class="icon">📱</div>
+        <h3>Pílulas para redes</h3>
+        <p>Cada episódio gera de 4 a 8 recortes segmentados por tema — prontos para Instagram, Stories e WhatsApp.</p>
+        <ul>
+          <li>Cortes de 30 a 90 segundos</li>
+          <li>Legendados e formatados</li>
+          <li>Segmentados por cidade e tema</li>
+          <li>Entregues para uso imediato</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="fancy">
+
+<!-- AS CIDADES -->
+<section class="cidades" id="cidades">
+  <div class="cidades-inner">
+    <div class="section-label fade-up">Cobertura regional</div>
+    <h2 class="section-title fade-up">Quatro cidades.<br><em>Uma voz unificada.</em></h2>
+    <p class="fade-up" style="color:rgba(255,255,255,.45);font-size:16px;max-width:540px;line-height:1.8;margin-top:16px">
+      Cada cidade tem sua identidade, suas demandas, seu eleitorado. O Voz da Cidade respeita isso — episódio por episódio.
+    </p>
+
+    <div class="cidades-grid">
+      <div class="cidade-card fade-up">
+        <div class="cidade-num">01</div>
+        <div class="cidade-name">Marataízes</div>
+        <p class="cidade-desc">A Pérola Capixaba — maior cidade da região, sede da TV Marataízes. Polo turístico, pesqueiro e comercial do Sul do ES.</p>
+        <div class="cidade-tags">
+          <span class="cidade-tag active">🟢 TV Marataízes sediada aqui</span>
+          <span class="cidade-tag">Turismo</span>
+          <span class="cidade-tag">Polo Pesqueiro</span>
+          <span class="cidade-tag">Maior colégio eleitoral</span>
+        </div>
+      </div>
+
+      <div class="cidade-card fade-up">
+        <div class="cidade-num">02</div>
+        <div class="cidade-name">Piúma</div>
+        <p class="cidade-desc">A Cidade das Conchas — famosa pela Ilha do Gambá, Monte Aghá e turismo de natureza. Alta movimentação na temporada.</p>
+        <div class="cidade-tags">
+          <span class="cidade-tag active">🟢 Guia digital no ar</span>
+          <span class="cidade-tag">Turismo</span>
+          <span class="cidade-tag">Ilha do Gambá</span>
+          <span class="cidade-tag">Câmeras IZ1</span>
+        </div>
+      </div>
+
+      <div class="cidade-card fade-up">
+        <div class="cidade-num">03</div>
+        <div class="cidade-name">Itapemirim</div>
+        <p class="cidade-desc">Capital do Atum — polo pesqueiro nacional, Festival de Frutos do Mar de Itaipava e a maior exportadora de pescados do Brasil.</p>
+        <div class="cidade-tags">
+          <span class="cidade-tag active">🟢 Guia digital no ar</span>
+          <span class="cidade-tag">Polo Pesqueiro</span>
+          <span class="cidade-tag">Festival Itaipava</span>
+          <span class="cidade-tag">Atum do Brasil</span>
+        </div>
+      </div>
+
+      <div class="cidade-card fade-up">
+        <div class="cidade-num">04</div>
+        <div class="cidade-name">Presidente Kennedy</div>
+        <p class="cidade-desc">A menor do grupo — mas estratégica. Royalties do petróleo, população concentrada e eleitorado fiel. Destaque no Sul do ES.</p>
+        <div class="cidade-tags">
+          <span class="cidade-tag">Royalties petróleo</span>
+          <span class="cidade-tag">Eleitorado fiel</span>
+          <span class="cidade-tag">Interior do Sul ES</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREÇOS -->
+<section class="precos" id="precos">
+  <div class="precos-inner">
+    <div class="section-label fade-up">Investimento</div>
+    <h2 class="section-title fade-up">Transparente.<br><em>Justo. Escalável.</em></h2>
+    <p class="section-body fade-up">Três níveis de presença — de uma participação mensal recorrente a uma estrutura completa com episódios em todas as cidades.</p>
+
+    <div class="precos-grid">
+
+      <!-- PLANO 1 -->
+      <div class="preco-card fade-up">
+        <div class="preco-nivel">Nível 01</div>
+        <div class="preco-nome">Presença Regional</div>
+        <div class="preco-valor">R$ 4.500</div>
+        <div class="preco-recorrencia">por mês · mínimo 3 meses</div>
+        <ul class="preco-lista">
+          <li>Participação em 1 episódio/mês</li>
+          <li>4 pílulas para redes sociais</li>
+          <li>Presença no portal da TV</li>
+          <li>1 cidade por ciclo</li>
+          <li>Distribuição Canal 300</li>
+        </ul>
+        <a href="https://wa.me/5528999036141?text=Quero+o+plano+Presença+Regional+do+Voz+da+Cidade" target="_blank" class="preco-btn preco-btn-outline">Falar sobre este plano</a>
+      </div>
+
+      <!-- PLANO 2 — DESTAQUE -->
+      <div class="preco-card destaque fade-up">
+        <div class="preco-nivel">Nível 02</div>
+        <div class="preco-nome" style="color:#fff">Voz Ativa</div>
+        <div class="preco-valor">R$ 9.500</div>
+        <div class="preco-recorrencia">por mês · mínimo 3 meses</div>
+        <ul class="preco-lista">
+          <li>Participação em 2 episódios/mês</li>
+          <li>8 pílulas segmentadas por cidade</li>
+          <li>Presença em destaque no portal</li>
+          <li>2 cidades por ciclo</li>
+          <li>Distribuição Canal 300 + Instagram</li>
+          <li>Relatório mensal de alcance</li>
+        </ul>
+        <a href="https://wa.me/5528999036141?text=Quero+o+plano+Voz+Ativa+do+Voz+da+Cidade" target="_blank" class="preco-btn preco-btn-solid">Este é o ideal →</a>
+      </div>
+
+      <!-- PLANO 3 -->
+      <div class="preco-card fade-up">
+        <div class="preco-nivel">Nível 03</div>
+        <div class="preco-nome">Cobertura Total</div>
+        <div class="preco-valor">R$ 16.000</div>
+        <div class="preco-recorrencia">por mês · mínimo 3 meses</div>
+        <ul class="preco-lista">
+          <li>Episódio em cada uma das 4 cidades</li>
+          <li>16 pílulas segmentadas por cidade</li>
+          <li>Presença prioritária em todos episódios</li>
+          <li>Relatório detalhado por cidade</li>
+          <li>Conteúdo exclusivo adicional</li>
+          <li>Evento de lançamento com cobertura</li>
+        </ul>
+        <a href="https://wa.me/5528999036141?text=Quero+o+plano+Cobertura+Total+do+Voz+da+Cidade" target="_blank" class="preco-btn preco-btn-outline">Falar sobre este plano</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PACOTE REGIONAL -->
+<section class="regional">
+  <div class="regional-inner">
+    <div class="section-label fade-up">Pacote especial</div>
+    <h2 class="section-title fade-up">Para quem quer<br><em>as 4 cidades de uma vez.</em></h2>
+
+    <div class="regional-valor fade-up">
+      <div class="regional-num">
+        R$ 38.000
+        <span>Pacote fechado · 4 cidades</span>
+      </div>
+      <div class="regional-body">
+        <h3>Lançamento completo do Voz da Cidade</h3>
+        <p>Um episódio gravado em cada uma das 4 cidades + pílulas para cada cidade + distribuição completa na TV e nas redes. Pagamento único — ideal para quem quer marcar presença de forma definitiva antes da corrida eleitoral.</p>
+        <div class="regional-includes">
+          <span class="hi">4 episódios gravados</span>
+          <span class="hi">16+ pílulas segmentadas</span>
+          <span class="hi">Canal 300 nacional</span>
+          <span>Portal tvmarataizes.digital</span>
+          <span>Instagram por cidade</span>
+          <span>Relatório de alcance</span>
+          <span>Edição completa</span>
+          <span>Arquivo VOD permanente</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROTEÇÃO JURÍDICA -->
+<section class="protecao">
+  <div class="protecao-inner">
+    <div class="section-label fade-up">Segurança do formato</div>
+    <h2 class="section-title fade-up">Feito para durar.<br><em>Sem risco jurídico.</em></h2>
+    <p class="section-body fade-up">O Voz da Cidade foi estruturado com cuidado para ser uma plataforma de mídia — não propaganda eleitoral. Quatro princípios garantem isso.</p>
+
+    <div class="protecao-grid">
+      <div class="protecao-item fade-up">
+        <h3>🎙️ Caráter jornalístico</h3>
+        <p>O programa é protagonizado pela população. Lideranças participam como convidados respondendo a demandas reais — não como protagonistas de campanha.</p>
+      </div>
+      <div class="protecao-item fade-up">
+        <h3>🔓 Espaço aberto</h3>
+        <p>O formato não é exclusivo de nenhum partido ou candidato por padrão. A abertura para múltiplos participantes preserva o caráter editorial.</p>
+      </div>
+      <div class="protecao-item fade-up">
+        <h3>⚖️ Sem vínculo partidário</h3>
+        <p>A TV Marataízes é o veículo. Não há vinculação do programa a nenhuma sigla, legenda ou candidatura específica no conteúdo principal.</p>
+      </div>
+      <div class="protecao-item fade-up">
+        <h3>📋 Contrato de mídia</h3>
+        <p>A relação é comercial — contrato de prestação de serviço de mídia, não contrato de campanha. Isso muda tudo no enquadramento legal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final" id="contato">
+  <div class="cta-final-inner">
+    <h2>A cidade<br>está esperando<br><em>sua voz.</em></h2>
+    <p>Quem entra primeiro constrói autoridade antes de todo mundo. O espaço existe — a questão é quem vai ocupar.</p>
+    <a href="https://wa.me/5528999036141?text=Quero+saber+mais+sobre+o+Voz+da+Cidade" target="_blank" class="btn-white">💬 Falar com o Raul agora</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <p>TV Marataízes · Macuca Produções · (28) 99903-6141</p>
+  <a href="https://www.tvmarataizes.digital/" target="_blank">tvmarataizes.digital</a>
+</footer>
+
+<script>
+// Fade up on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, {threshold: 0.1, rootMargin: '0px 0px -40px 0px'});
+
+document.querySelectorAll('.fade-up').forEach((el, i) => {
+  el.style.transitionDelay = (i % 4) * 0.08 + 's';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
