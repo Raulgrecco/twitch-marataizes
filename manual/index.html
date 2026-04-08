@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual de Vendas — TV Marataízes</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--orange:#FF6F00;--navy:#003781;--black:#0a0a08;--white:#f8f6f1;--cream:#f2ede3;--gray:#6b6b62;--light:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--black);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.7}
+a{color:inherit;text-decoration:none}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:.9rem 2rem;box-shadow:0 2px 20px rgba(0,0,0,.3)}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:var(--white);letter-spacing:.05em}
+.nav-logo span{color:var(--orange)}
+.nav-links{display:flex;gap:1.5rem}
+.nav-links a{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.6);transition:color .2s}
+.nav-links a:hover{color:var(--orange)}
+@media(max-width:600px){.nav-links{display:none}}
+
+.hero{background:var(--navy);padding:7rem 2rem 4rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'MANUAL';position:absolute;font-family:'Syne',sans-serif;font-size:18vw;font-weight:800;color:rgba(255,255,255,.03);top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none}
+.hero-tag{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--orange);margin-bottom:1rem}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:800;color:var(--white);line-height:1;margin-bottom:.5rem}
+.hero-title span{color:var(--orange)}
+.hero-sub{font-size:.9rem;color:rgba(255,255,255,.5);margin-bottom:2.5rem}
+.hero-pills{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}
+.pill{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);border-radius:2px}
+.pill.orange{border-color:var(--orange);color:var(--orange)}
+
+.toc{background:var(--light);border-bottom:3px solid var(--orange);padding:1.5rem 2rem}
+.toc-inner{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.5rem}
+.toc a{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;padding:.4rem .9rem;background:var(--cream);color:var(--gray);border-radius:2px;transition:all .2s}
+.toc a:hover{background:var(--orange);color:var(--white)}
+
+.content{max-width:900px;margin:0 auto;padding:3rem 2rem}
+
+.section{margin-bottom:4rem}
+.section-num{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);font-family:'Syne',sans-serif;margin-bottom:.5rem}
+.section-title{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--navy);margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:3px solid var(--orange)}
+.section-body{font-size:.9rem;color:var(--gray);line-height:1.8;margin-bottom:1.5rem}
+
+h3{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--navy);margin:2rem 0 .75rem}
+
+.table-wrap{overflow-x:auto;margin-bottom:1.5rem}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th{background:var(--navy);color:var(--white);padding:.6rem .9rem;text-align:left;font-family:'Syne',sans-serif;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+td{padding:.6rem .9rem;border-bottom:1px solid #e8e4da;color:var(--black);vertical-align:top}
+tr:nth-child(even) td{background:rgba(0,0,0,.02)}
+.badge{display:inline-block;font-size:.6rem;padding:2px 7px;border-radius:2px;font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+.badge-g{background:#E8F5E9;color:#1B5E20}
+.badge-o{background:#FFF3E0;color:#E65100}
+.badge-b{background:#E3F2FD;color:#0D47A1}
+.badge-p{background:#F3E5F5;color:#4A148C}
+.total-row td{background:var(--orange)!important;color:var(--white)!important;font-weight:700;font-family:'Syne',sans-serif}
+
+.msg-box{background:var(--light);border:1px solid #e8e4da;border-left:4px solid var(--orange);border-radius:0 6px 6px 0;padding:1rem 1.25rem;margin:1rem 0;font-size:.88rem;color:#333;font-style:italic;line-height:1.7;position:relative}
+.msg-box::before{content:'ZAP';position:absolute;top:.75rem;right:.75rem;font-size:.55rem;font-weight:700;letter-spacing:.1em;color:var(--orange);font-style:normal;font-family:'Syne',sans-serif}
+
+.label-box{border-radius:6px;padding:1rem 1.25rem;margin:.75rem 0}
+.label-box.orange{background:#FFF3E0;border-left:4px solid var(--orange)}
+.label-box.blue{background:#E3F2FD;border-left:4px solid var(--navy)}
+.label-box.green{background:#E8F5E9;border-left:4px solid #1B5E20}
+.label-box .lb-tag{font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--orange);margin-bottom:.3rem;font-family:'Syne',sans-serif}
+.label-box.blue .lb-tag{color:var(--navy)}
+.label-box.green .lb-tag{color:#1B5E20}
+.label-box p{font-size:.88rem;color:#333;line-height:1.6}
+
+.objecao{background:var(--light);border:1px solid #e8e4da;border-radius:6px;padding:1.25rem;margin-bottom:1rem}
+.objecao-title{font-family:'Syne',sans-serif;font-weight:700;color:var(--navy);font-size:.95rem;margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid #e8e4da}
+
+.etiqueta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem;margin:1rem 0}
+.etiqueta{border-radius:6px;padding:.9rem;text-align:center}
+.etiqueta-cor{width:20px;height:20px;border-radius:50%;margin:0 auto .5rem}
+.etiqueta-nome{font-size:.8rem;font-weight:700;color:var(--navy);margin-bottom:.2rem;font-family:'Syne',sans-serif}
+.etiqueta-desc{font-size:.72rem;color:var(--gray)}
+
+.mes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0}
+.mes-card{background:var(--light);border:1px solid #e8e4da;border-radius:6px;padding:1.25rem}
+.mes-card.destaque{background:var(--navy);border-color:var(--navy)}
+.mes-card.destaque *{color:var(--white)!important}
+.mes-card.destaque .mes-total{color:var(--orange)!important}
+.mes-label{font-family:'Syne',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);margin-bottom:.75rem}
+.mes-item{font-size:.8rem;color:var(--black);padding:.3rem 0;border-bottom:1px solid #e8e4da}
+.mes-item:last-of-type{border-bottom:none}
+.mes-total{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:var(--orange);margin-top:.5rem}
+@media(max-width:600px){.mes-grid{grid-template-columns:1fr}}
+
+.regra-box{background:var(--navy);border-radius:6px;padding:1.5rem;margin:2rem 0}
+.regra-box .rb-title{font-family:'Syne',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:1rem}
+.regra-box .rb-item{font-size:.88rem;color:rgba(255,255,255,.8);padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;gap:.75rem}
+.regra-box .rb-item:last-child{border-bottom:none}
+.rb-num{color:var(--orange);font-weight:700;font-family:'Syne',sans-serif;flex-shrink:0}
+
+.virada-box{background:var(--orange);border-radius:6px;padding:1.5rem;margin:2rem 0}
+.virada-box .vt{font-family:'Syne',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:.5rem}
+.virada-box p{font-size:.95rem;color:var(--white);line-height:1.7}
+
+.divider{height:1px;background:#e8e4da;margin:3rem 0}
+
+footer{background:var(--navy);padding:2rem;text-align:center}
+footer p{font-size:.75rem;color:rgba(255,255,255,.4);line-height:1.8}
+footer span{color:var(--orange)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">TV <span>Marataízes</span></div>
+  <div class="nav-links">
+    <a href="#produtos">Produtos</a>
+    <a href="#scripts">Scripts</a>
+    <a href="#objecoes">Objeções</a>
+    <a href="#crm">CRM</a>
+    <a href="#metas">Metas</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">TV Marataízes · A TV do Abacaxi</div>
+  <h1 class="hero-title">Manual de <span>Vendas</span></h1>
+  <p class="hero-sub">Scripts · Objeções · CRM · Metas 90 dias</p>
+  <div class="hero-pills">
+    <span class="pill orange">WhatsApp</span>
+    <span class="pill">Guia R$99</span>
+    <span class="pill">Agenciado R$249</span>
+    <span class="pill">TV R$6.500+</span>
+    <span class="pill">Macuca Agência</span>
+  </div>
+</div>
+
+<div class="toc">
+  <div class="toc-inner">
+    <a href="#produtos">1. Produtos</a>
+    <a href="#scripts">2. Scripts WhatsApp</a>
+    <a href="#objecoes">3. Objeções</a>
+    <a href="#crm">4. CRM</a>
+    <a href="#metas">5. Metas 90 dias</a>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- SECAO 1 -->
+  <div class="section" id="produtos">
+    <div class="section-num">01</div>
+    <div class="section-title">A escada de produtos</div>
+    <p class="section-body">O comerciante entra pelo produto mais barato, vê resultado, e sobe naturalmente. Nunca tente vender TV para quem não conhece a TV Marataízes.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Produto</th><th>Preço</th><th>Perfil</th><th>Dificuldade</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Guia básico</strong></td><td>R$99/mês</td><td>Qualquer comércio local — entrada fácil, zero risco</td><td><span class="badge badge-g">Fácil</span></td></tr>
+          <tr><td><strong>Guia agenciado</strong></td><td>R$249/mês</td><td>Quem já está no básico e quer mais visibilidade</td><td><span class="badge badge-o">Médio</span></td></tr>
+          <tr><td><strong>TV</strong></td><td>R$6.500+</td><td>Empresas médias e grandes — ciclo de venda longo</td><td><span class="badge badge-b">Longo</span></td></tr>
+          <tr><td><strong>Macuca Agência</strong></td><td>A consultar</td><td>Quem quer ser gerenciado e não tem tempo para redes</td><td><span class="badge badge-p">Premium</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="label-box orange">
+      <div class="lb-tag">Regra de ouro</div>
+      <p>Nunca tente vender TV para quem não conhece a TV Marataízes. A escada existe para construir confiança antes do ticket alto.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECAO 2 -->
+  <div class="section" id="scripts">
+    <div class="section-num">02</div>
+    <div class="section-title">Scripts de WhatsApp</div>
+    <p class="section-body">A primeira mensagem abre a conversa — não vende. Venda acontece na segunda ou terceira troca. Nunca mande texto longo no primeiro contato.</p>
+
+    <h3>Degrau 1 — Guia básico R$99/mês</h3>
+    <p style="font-size:.85rem;color:var(--gray);margin-bottom:.75rem">Mensagem 1 — Abertura</p>
+    <div class="msg-box">Oi [nome], tudo bem? Sou o Raul da TV Marataízes — a TV do Abacaxi 🍍<br><br>Vi que seu [negócio] ainda não tá no nosso guia digital. Posso te mostrar como funciona?</div>
+    <p style="font-size:.85rem;color:var(--gray);margin:.75rem 0">Mensagem 2 — Se responder sim</p>
+    <div class="msg-box">O guia fica em tvmarataizes.digital — é onde a galera de Marataízes, Itapemirim e Piúma pesquisa restaurante, farmácia, pousada, tudo da região.<br><br>Você entra por R$99 por mês e aparece lá na frente quando alguém pesquisar [segmento dele]. Quer ver como ficaria o seu [negócio] no guia?</div>
+    <p style="font-size:.85rem;color:var(--gray);margin:.75rem 0">Mensagem 3 — Fechamento</p>
+    <div class="msg-box">Posso colocar hoje mesmo. Só preciso do nome do negócio, endereço e uma foto boa.<br><br>Primeira semana é grátis pra você ver o resultado antes de pagar. Topa?</div>
+
+    <h3>Degrau 2 — Guia agenciado R$249/mês</h3>
+    <p style="font-size:.85rem;color:var(--gray);margin-bottom:.75rem">Para quem já está no guia básico ou quer mais destaque.</p>
+    <div class="msg-box">[Nome], como tá indo o guia? Quero te mostrar uma coisa.<br><br>Tem comerciantes aqui com página própria dentro do site — foto, descrição completa, link pro WhatsApp, destaque na categoria. É R$249 por mês e aparece como "Agenciado TV Marataízes" — o primeiro que o cliente vê. Quer ver um exemplo?</div>
+    <p style="font-size:.85rem;color:var(--gray);margin:.75rem 0">Manda o link de um agenciado que já existe no guia como exemplo. Depois:</p>
+    <div class="msg-box">Você ficaria exatamente assim. Posso montar a sua página essa semana. Quer fechar?</div>
+
+    <h3>Degrau 3 — TV a partir de R$6.500</h3>
+    <p style="font-size:.85rem;color:var(--gray);margin-bottom:.75rem">Abordar apenas quem já está no guia e já viu resultado.</p>
+    <div class="msg-box">[Nome], você já tá aparecendo bem no guia. Quero te fazer uma pergunta rápida — você já pensou em ter um comercial rodando na TV Marataízes?<br><br>Não é o que você imagina. Me deixa te explicar em 2 minutos?</div>
+    <p style="font-size:.85rem;color:var(--gray);margin:.75rem 0">Se responder sim:</p>
+    <div class="msg-box">A TV Marataízes passa 24h no celular, no site e na Soul TV Canal 300 nas Smart TVs da região. Seu comercial roda pra quem é de Marataízes, Itapemirim e Piúma — exatamente seu cliente.<br><br>A Macuca produz o comercial e a gente cuida de tudo. Investimento a partir de R$6.500. Posso te mandar uma proposta?</div>
+
+    <h3>Degrau 4 — Macuca Agência</h3>
+    <p style="font-size:.85rem;color:var(--gray);margin-bottom:.75rem">Quando o comerciante reclama que não tem tempo para redes sociais.</p>
+    <div class="msg-box">[Nome], você falou que não tem tempo pra cuidar do Instagram. Deixa eu te fazer uma proposta diferente.<br><br>A Macuca cuida de tudo pra você — redes sociais, identidade visual, conteúdo, anúncio. Você foca no negócio, a gente cuida da comunicação. Posso te mandar o que a gente faz e quanto custa?</div>
+
+    <div class="regra-box">
+      <div class="rb-title">3 regras de ouro do WhatsApp</div>
+      <div class="rb-item"><span class="rb-num">1.</span><span>Sem resposta em 2 dias: mande apenas <em>"Oi [nome], viu minha mensagem?"</em></span></div>
+      <div class="rb-item"><span class="rb-num">2.</span><span>Respondeu mas não fechou: <em>"Posso ligar 5 minutos pra te explicar melhor?"</em> — voz fecha mais rápido que texto.</span></div>
+      <div class="rb-item"><span class="rb-num">3.</span><span>Nunca mande áudio longo no primeiro contato. Áudio funciona depois que a conversa já está aberta.</span></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECAO 3 -->
+  <div class="section" id="objecoes">
+    <div class="section-num">03</div>
+    <div class="section-title">Respostas a objeções</div>
+    <p class="section-body">Nunca discuta. Nunca insista mais de 2 vezes. Se disse não duas vezes, responda: <em>"Tudo bem! Qualquer hora que quiser, é só me chamar."</em></p>
+
+    <div class="objecao">
+      <div class="objecao-title">Não tenho interesse</div>
+      <div class="label-box orange" style="margin:0 0 .75rem"><div class="lb-tag">O que significa</div><p>Não entendeu o valor ainda.</p></div>
+      <div class="msg-box">Tudo bem! Só me diz uma coisa — você já aparece quando alguém pesquisa [sua categoria] em Marataízes no Google?<br><br>Pergunto porque é exatamente isso que o guia resolve. Se já aparece bem, realmente não precisa. Se não aparece — aí vale a gente conversar.</div>
+    </div>
+
+    <div class="objecao">
+      <div class="objecao-title">Tá caro</div>
+      <div class="label-box orange" style="margin:0 0 .75rem"><div class="lb-tag">O que significa</div><p>Não viu o retorno ainda.</p></div>
+      <div class="msg-box">Entendo. Me deixa fazer uma conta rápida com você.<br><br>R$99 por mês dá R$3,30 por dia. Se o guia te trouxer um cliente novo por semana — quanto você fatura com esse cliente? Se for mais de R$99, o guia já se paga. Se for menos, realmente não faz sentido pra você.</div>
+    </div>
+
+    <div class="objecao">
+      <div class="objecao-title">Vou pensar</div>
+      <div class="label-box orange" style="margin:0 0 .75rem"><div class="lb-tag">O que significa</div><p>Não sentiu urgência.</p></div>
+      <div class="msg-box">Claro, sem pressa. Só uma coisa — tem uma vaga aberta na sua categoria agora. Quando preencher, o próximo concorrente entra no lugar.<br><br>Quer que eu deixe reservada até [dia concreto]?</div>
+    </div>
+
+    <div class="objecao">
+      <div class="objecao-title">Já anuncio no Instagram</div>
+      <div class="msg-box">Ótimo, Instagram é importante. Mas o guia é diferente — ele pega quem já tá procurando ativamente [sua categoria] em Marataízes. É como aparecer no Google quando o cliente já quer comprar.<br><br>Um não cancela o outro. Na verdade, os dois juntos funcionam melhor.</div>
+    </div>
+
+    <div class="objecao">
+      <div class="objecao-title">Não sei se funciona</div>
+      <div class="msg-box">Faz sentido querer ver antes. Por isso a primeira semana é grátis — você entra, aparece no guia, e só paga se gostar do resultado.<br><br>Risco zero da sua parte. Topa testar?</div>
+    </div>
+
+    <div class="objecao">
+      <div class="objecao-title">Não tenho tempo agora</div>
+      <div class="msg-box">Sem problema. Quem cuida de tudo sou eu — você não precisa fazer nada. Só me manda o nome do negócio, endereço e uma foto, e eu coloco no ar.<br><br>Leva 5 minutos do seu lado. Quando seria um bom momento essa semana?</div>
+    </div>
+
+    <div class="objecao">
+      <div class="objecao-title">Já sou conhecido aqui</div>
+      <div class="msg-box">Com certeza, quem te conhece já te conhece. Mas o guia pega quem acabou de chegar na cidade, quem tá de passagem, quem é de Itapemirim e veio pra Marataízes — esse público não te conhece ainda.<br><br>É cliente novo, não cliente antigo.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECAO 4 -->
+  <div class="section" id="crm">
+    <div class="section-num">04</div>
+    <div class="section-title">CRM no WhatsApp Business</div>
+    <p class="section-body">Zero custo. Funciona no celular. Ativa o WhatsApp Business e cria essas 5 etiquetas.</p>
+
+    <div class="etiqueta-grid">
+      <div class="etiqueta" style="background:#FFFDE7;border:1px solid #F9A825">
+        <div class="etiqueta-cor" style="background:#FDD835"></div>
+        <div class="etiqueta-nome">Novo contato</div>
+        <div class="etiqueta-desc">Ainda não abordou</div>
+      </div>
+      <div class="etiqueta" style="background:#E3F2FD;border:1px solid #1565C0">
+        <div class="etiqueta-cor" style="background:#1E88E5"></div>
+        <div class="etiqueta-nome">Abordado</div>
+        <div class="etiqueta-desc">Mandou primeira mensagem</div>
+      </div>
+      <div class="etiqueta" style="background:#FFF3E0;border:1px solid var(--orange)">
+        <div class="etiqueta-cor" style="background:var(--orange)"></div>
+        <div class="etiqueta-nome">Em conversa</div>
+        <div class="etiqueta-desc">Respondeu, negociando</div>
+      </div>
+      <div class="etiqueta" style="background:#E8F5E9;border:1px solid #2E7D32">
+        <div class="etiqueta-cor" style="background:#43A047"></div>
+        <div class="etiqueta-nome">Cliente</div>
+        <div class="etiqueta-desc">Fechou, pagando</div>
+      </div>
+      <div class="etiqueta" style="background:#FFEBEE;border:1px solid #C62828">
+        <div class="etiqueta-cor" style="background:#E53935"></div>
+        <div class="etiqueta-nome">Não agora</div>
+        <div class="etiqueta-desc">Disse não ou sumiu</div>
+      </div>
+    </div>
+
+    <h3>Rotina diária — 20 minutos</h3>
+    <div class="label-box blue"><div class="lb-tag">Manhã — 10 minutos</div><p>Abre os contatos <strong>Em conversa</strong> e responde quem está esperando retorno.</p></div>
+    <div class="label-box orange"><div class="lb-tag">Tarde — 10 minutos</div><p>Pega 3 contatos <strong>Novo contato</strong> e manda a mensagem de abertura do Degrau 1. Só 3 por dia. Em 20 dias úteis você abordou 60 comerciantes sem pressão.</p></div>
+
+    <h3>O que fazer com os "Não agora"</h3>
+    <p class="section-body">Não apaga. Não esquece. A cada 30 dias manda:</p>
+    <div class="msg-box">Oi [nome], tudo bem? Só passando pra ver se mudou algo por aí. Qualquer hora que quiser entrar no guia é só me falar.</div>
+    <p style="font-size:.85rem;color:var(--gray)">O não de hoje é o sim de daqui 2 meses. O comerciante precisa ver você 3, 4 vezes antes de confiar.</p>
+
+    <h3>Lista de transmissão para clientes</h3>
+    <p class="section-body">Cria uma Lista de Transmissão só com quem já é cliente. A cada 15 dias manda:</p>
+    <div class="msg-box">Oi! Novidade no guia essa semana — [algo novo]. Qualquer dúvida tô por aqui.</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECAO 5 -->
+  <div class="section" id="metas">
+    <div class="section-num">05</div>
+    <div class="section-title">Metas 90 dias — R$5.000/mês</div>
+    <p class="section-body">Você + 1 pessoa vendendo. Meta: R$5.000 mensais recorrentes ao final do 3º mês.</p>
+
+    <h3>Mix necessário no mês 3</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Produto</th><th>Clientes</th><th>Preço</th><th>Receita</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Guia básico</strong></td><td>20 clientes</td><td>R$99/mês</td><td><strong style="color:#1B5E20">R$1.980</strong></td></tr>
+          <tr><td><strong>Guia agenciado</strong></td><td>6 clientes</td><td>R$249/mês</td><td><strong style="color:#1B5E20">R$1.494</strong></td></tr>
+          <tr><td><strong>TV</strong></td><td>1 negociando</td><td>R$6.500+</td><td><strong style="color:#1B5E20">R$1.526</strong></td></tr>
+          <tr class="total-row"><td>TOTAL MÊS 3</td><td>26 clientes</td><td></td><td>R$5.000</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Evolução mês a mês</h3>
+    <div class="mes-grid">
+      <div class="mes-card">
+        <div class="mes-label">Mês 1</div>
+        <div class="mes-item">8 clientes básico</div>
+        <div class="mes-item">1 cliente agenciado</div>
+        <div class="mes-item" style="color:var(--gray)">TV: 0</div>
+        <div class="mes-total">R$1.041</div>
+      </div>
+      <div class="mes-card">
+        <div class="mes-label">Mês 2</div>
+        <div class="mes-item">14 clientes básico</div>
+        <div class="mes-item">3 clientes agenciado</div>
+        <div class="mes-item" style="color:var(--gray)">TV: negociando</div>
+        <div class="mes-total">R$2.133</div>
+      </div>
+      <div class="mes-card destaque">
+        <div class="mes-label">Mês 3</div>
+        <div class="mes-item">20 clientes básico</div>
+        <div class="mes-item">6 clientes agenciado</div>
+        <div class="mes-item">TV: 1 fechando</div>
+        <div class="mes-total">R$5.000+</div>
+      </div>
+    </div>
+
+    <h3>Divisão de trabalho</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Raul</th><th>Parceiro de vendas</th></tr></thead>
+        <tbody>
+          <tr><td>Foco em agenciado e TV</td><td>Foco no guia básico</td></tr>
+          <tr><td>3 abordagens novas por dia</td><td>5 abordagens novas por dia</td></tr>
+          <tr><td>Cuida dos clientes maiores</td><td>Meta: 3 fechamentos por semana</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="virada-box">
+      <div class="vt">A virada</div>
+      <p>Quando fechar o primeiro cliente de TV, a meta de R$5.000 passa a ser batida só com 1 venda grande + base recorrente dos guias. A partir daí cada novo cliente de guia é lucro adicional, não sobrevivência.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p><span>tvmarataizes.digital</span> · (28) 99903-6141 · @tvmarataizes<br>TV Marataízes · A TV do Abacaxi 🍍 · Soul TV Canal 300</p>
+</footer>
+
+</body>
+</html>
