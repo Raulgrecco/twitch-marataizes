@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Olhares Raiz — Proposta de Patrocínio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0a0a08;
+  --white: #f8f6f0;
+  --cream: #f2ede3;
+  --green: #1a5c3a;
+  --green-light: #2d8a57;
+  --green-pale: #e8f2ec;
+  --gold: #c8a96e;
+  --gold-light: #e8d5a8;
+  --gray: #6b6b62;
+  --gray-light: #c4c0b4;
+  --border: rgba(10,10,8,0.1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--black);
+  font-family: 'Syne', sans-serif;
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 3rem;
+  background: rgba(242,237,227,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--black);
+}
+.nav-logo span { color: var(--green); }
+.nav-links { display: flex; gap: 2rem; }
+.nav-links a {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gray);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--green); }
+.nav-cta {
+  background: var(--green);
+  color: var(--white) !important;
+  padding: 0.5rem 1.2rem;
+  border-radius: 2px;
+}
+.nav-cta:hover { background: var(--green-light); color: var(--white) !important; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-left {
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 4rem 6rem 5rem;
+  position: relative;
+}
+
+.hero-left::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 40px,
+    rgba(255,255,255,0.02) 40px,
+    rgba(255,255,255,0.02) 41px
+  );
+}
+
+.hero-eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  font-weight: 300;
+  line-height: 0.95;
+  color: var(--white);
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--gray-light);
+  margin-bottom: 2.5rem;
+  line-height: 1.4;
+}
+
+.hero-desc {
+  font-size: 0.8rem;
+  line-height: 1.8;
+  color: rgba(248,246,240,0.6);
+  max-width: 380px;
+  margin-bottom: 3rem;
+}
+
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+}
+.badge {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid;
+}
+.badge-gold { border-color: var(--gold); color: var(--gold); }
+.badge-green { border-color: var(--green-light); color: var(--green-light); }
+.badge-white { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.5); }
+
+.hero-stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 2rem;
+}
+.hero-stat {
+  padding-right: 1.5rem;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+.hero-stat:last-child { border-right: none; padding-right: 0; padding-left: 1.5rem; }
+.hero-stat:nth-child(2) { padding-left: 1.5rem; }
+.hero-stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1;
+}
+.hero-stat-num sup { font-size: 1rem; vertical-align: super; }
+.hero-stat-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-light);
+  margin-top: 0.3rem;
+}
+
+/* HERO RIGHT */
+.hero-right {
+  background: var(--green);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 8rem 4rem 6rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-right::before {
+  content: '';
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.06);
+  top: -100px; right: -100px;
+}
+.hero-right::after {
+  content: '';
+  position: absolute;
+  width: 350px; height: 350px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.06);
+  bottom: -50px; left: -50px;
+}
+
+.fiscal-card {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 4px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 1.5rem;
+}
+
+.fiscal-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 1.5rem;
+}
+
+.fiscal-example {
+  margin-bottom: 1.5rem;
+}
+.fiscal-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.7);
+}
+.fiscal-line:last-child { border-bottom: none; }
+.fiscal-line strong {
+  color: var(--white);
+  font-weight: 500;
+}
+.fiscal-line .highlight {
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 1rem;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.fiscal-note {
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.approval-badge {
+  background: rgba(200,169,110,0.15);
+  border: 1px solid var(--gold);
+  border-radius: 2px;
+  padding: 1rem 1.5rem;
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.approval-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+.approval-text { font-size: 0.7rem; color: var(--gold-light); line-height: 1.4; }
+.approval-text strong { color: var(--gold); display: block; margin-bottom: 0.2rem; font-size: 0.75rem; }
+
+/* SECTIONS */
+section { padding: 6rem 5rem; }
+
+.section-tag {
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.section-tag::before {
+  content: '';
+  display: block;
+  width: 30px; height: 1px;
+  background: var(--green);
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  color: var(--black);
+}
+.section-title em { font-style: italic; color: var(--green); }
+
+.section-body {
+  font-size: 0.85rem;
+  line-height: 1.9;
+  color: var(--gray);
+  max-width: 600px;
+}
+
+/* WHAT section */
+.what-section {
+  background: var(--white);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding: 0;
+}
+
+.what-left {
+  padding: 6rem 4rem 6rem 5rem;
+  border-right: 1px solid var(--border);
+}
+
+.what-right {
+  padding: 6rem 5rem 6rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.city-list {
+  list-style: none;
+  margin-top: 2rem;
+}
+.city-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.82rem;
+  color: var(--black);
+}
+.city-item:last-child { border-bottom: none; }
+.city-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  color: var(--green);
+  width: 28px;
+  flex-shrink: 0;
+}
+.city-info { flex: 1; }
+.city-name { font-weight: 500; font-size: 0.85rem; }
+.city-detail { font-size: 0.7rem; color: var(--gray); margin-top: 0.1rem; }
+
+.impact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-top: 2rem;
+}
+.impact-item {
+  background: var(--white);
+  padding: 1.5rem;
+}
+.impact-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem;
+  font-weight: 300;
+  color: var(--green);
+  line-height: 1;
+}
+.impact-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-top: 0.3rem;
+}
+
+/* WHY section */
+.why-section {
+  background: var(--cream);
+  padding: 6rem 5rem;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-top: 3rem;
+}
+.benefit {
+  background: var(--cream);
+  padding: 2rem;
+  transition: background 0.3s;
+}
+.benefit:hover { background: var(--white); }
+.benefit-icon {
+  width: 36px; height: 36px;
+  border: 1px solid var(--green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+  font-size: 0.75rem;
+  color: var(--green);
+  font-weight: 700;
+}
+.benefit-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.02em;
+}
+.benefit-text {
+  font-size: 0.78rem;
+  line-height: 1.75;
+  color: var(--gray);
+}
+
+/* HOW section */
+.how-section {
+  background: var(--black);
+  padding: 6rem 5rem;
+  color: var(--white);
+}
+
+.how-section .section-tag { color: var(--gold); }
+.how-section .section-tag::before { background: var(--gold); }
+.how-section .section-title { color: var(--white); }
+.how-section .section-title em { color: var(--gold); }
+.how-section .section-body { color: rgba(248,246,240,0.6); }
+
+.steps-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  margin-top: 3rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.step {
+  padding: 2rem 1.5rem 2rem 0;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  position: relative;
+}
+.step:last-child { border-right: none; padding-right: 0; }
+.step-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.1);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+.step-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.03em;
+}
+.step-text {
+  font-size: 0.7rem;
+  line-height: 1.7;
+  color: rgba(248,246,240,0.5);
+}
+
+/* RETURNS */
+.returns-section {
+  background: var(--green);
+  padding: 6rem 5rem;
+  color: var(--white);
+}
+
+.returns-section .section-tag { color: var(--gold-light); }
+.returns-section .section-tag::before { background: var(--gold-light); }
+.returns-section .section-title { color: var(--white); }
+.returns-section .section-title em { color: var(--gold-light); }
+
+.returns-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.1);
+  margin-top: 3rem;
+}
+.return-item {
+  background: var(--green);
+  padding: 1.8rem 2rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  transition: background 0.3s;
+}
+.return-item:hover { background: var(--green-light); }
+.return-check {
+  width: 20px; height: 20px;
+  border: 1px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+  font-size: 0.6rem;
+  color: var(--gold);
+}
+.return-text {
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.8);
+}
+.return-text strong { color: var(--white); display: block; margin-bottom: 0.2rem; }
+
+/* PROPONENT */
+.proponent-section {
+  background: var(--white);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding: 0;
+}
+.proponent-left {
+  padding: 6rem 4rem 6rem 5rem;
+  border-right: 1px solid var(--border);
+}
+.proponent-right {
+  padding: 6rem 5rem 6rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pronac-card {
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 2rem;
+  margin-top: 2rem;
+}
+.pronac-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.75rem;
+}
+.pronac-row:last-child { border-bottom: none; }
+.pronac-key { color: var(--gray); }
+.pronac-val { color: var(--black); font-weight: 500; text-align: right; }
+.pronac-val.green { color: var(--green); }
+
+.bank-card {
+  background: var(--black);
+  border-radius: 4px;
+  padding: 2rem;
+  margin-top: 1.5rem;
+  color: var(--white);
+}
+.bank-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.2rem;
+}
+.bank-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.75rem;
+}
+.bank-row:last-child { border-bottom: none; }
+.bank-key { color: rgba(255,255,255,0.4); }
+.bank-val { color: var(--white); font-weight: 500; font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; }
+
+/* CTA FINAL */
+.cta-section {
+  background: var(--cream);
+  padding: 8rem 5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: 'OLHARES RAIZ';
+  position: absolute;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14vw;
+  font-weight: 300;
+  color: rgba(10,10,8,0.04);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.cta-tag {
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 1.5rem;
+}
+.cta-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 300;
+  color: var(--black);
+  line-height: 1.05;
+  margin-bottom: 1rem;
+}
+.cta-title em { font-style: italic; color: var(--green); }
+.cta-sub {
+  font-size: 0.82rem;
+  color: var(--gray);
+  line-height: 1.8;
+  max-width: 500px;
+  margin: 0 auto 3rem;
+}
+
+.cta-stats {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  margin-bottom: 3rem;
+}
+.cta-stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: var(--green);
+  line-height: 1;
+}
+.cta-stat-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-top: 0.3rem;
+}
+
+.cta-btn {
+  display: inline-block;
+  background: var(--green);
+  color: var(--white);
+  padding: 1rem 3rem;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--green);
+  transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+.cta-btn:hover {
+  background: transparent;
+  color: var(--green);
+}
+.cta-btn-outline {
+  display: inline-block;
+  background: transparent;
+  color: var(--black);
+  padding: 1rem 3rem;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--black);
+  transition: all 0.3s;
+  margin-left: 1rem;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+.cta-btn-outline:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+/* FOOTER */
+footer {
+  background: var(--black);
+  padding: 2.5rem 5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: var(--white);
+  font-weight: 300;
+}
+.footer-logo span { color: var(--gold); }
+.footer-info {
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.3);
+  text-align: right;
+  line-height: 1.7;
+}
+
+/* ANIMATIONS */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-in-delay-1 { transition-delay: 0.1s; }
+.fade-in-delay-2 { transition-delay: 0.2s; }
+.fade-in-delay-3 { transition-delay: 0.3s; }
+
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-left { padding: 7rem 1.5rem 3rem; }
+  .hero-right { padding: 3rem 1.5rem; }
+  section, .what-section, .proponent-section { padding: 3rem 1.5rem; }
+  .what-section, .proponent-section { grid-template-columns: 1fr; }
+  .what-left, .what-right, .proponent-left, .proponent-right { border: none; padding: 3rem 1.5rem; }
+  .benefits-grid, .steps-list { grid-template-columns: 1fr; }
+  .returns-grid { grid-template-columns: 1fr; }
+  .cta-stats { gap: 2rem; flex-wrap: wrap; }
+  footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+  .footer-info { text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Olhares <span>Raiz</span></div>
+  <div class="nav-links">
+    <a href="#projeto">O Projeto</a>
+    <a href="#beneficios">Benefícios</a>
+    <a href="#como">Como Funciona</a>
+    <a href="#dados">Dados Oficiais</a>
+    <a href="#contato" class="nav-cta">Patrocinar</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Proposta de Patrocínio · Lei Rouanet · 2026</div>
+    <h1 class="hero-title">
+      Olhares<br><em>Raiz</em>
+    </h1>
+    <p class="hero-subtitle">Formação Audiovisual no Sul do Espírito Santo</p>
+    <p class="hero-desc">
+      Cinco cidades. Cento e cinquenta jovens. Cinco curtas-metragens produzidos por quem nunca 
+      teve acesso à linguagem audiovisual. Um projeto aprovado pelo Ministério da Cultura, 
+      pronto para receber seu patrocínio.
+    </p>
+    <div class="hero-badges">
+      <span class="badge badge-gold">Artigo 18 · 100% dedutível</span>
+      <span class="badge badge-green">PRONAC 252599</span>
+      <span class="badge badge-white">Conta aberta · BB</span>
+    </div>
+    <div class="hero-stat-row">
+      <div class="hero-stat">
+        <div class="hero-stat-num">5</div>
+        <div class="hero-stat-label">Cidades atendidas</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">150</div>
+        <div class="hero-stat-label">Jovens formados</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">R$<sup></sup>151<span style="font-size:1.5rem">k</span></div>
+        <div class="hero-stat-label">Total a captar</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="fiscal-card">
+      <div class="fiscal-label">Simulação de Benefício Fiscal</div>
+      <div class="fiscal-example">
+        <div class="fiscal-line">
+          <span>IR devido pela empresa</span>
+          <strong>R$ 5.000.000</strong>
+        </div>
+        <div class="fiscal-line">
+          <span>Teto de incentivo (4%)</span>
+          <strong>R$ 200.000</strong>
+        </div>
+        <div class="fiscal-line">
+          <span>Valor aportado no projeto</span>
+          <strong>R$ 151.181</strong>
+        </div>
+        <div class="fiscal-line">
+          <span>Custo real para a empresa</span>
+          <span class="highlight">R$ 0,00</span>
+        </div>
+      </div>
+      <p class="fiscal-note">
+        O valor é 100% deduzido do imposto devido. Não é gasto adicional — 
+        é imposto que já seria pago, redirecionado para cultura.
+      </p>
+    </div>
+
+    <div class="approval-badge">
+      <div class="approval-dot"></div>
+      <div class="approval-text">
+        <strong>Captação autorizada · Conta aberta</strong>
+        Situação E10 · Portaria 0001/26 · Publicada no DOU em 06/01/2026
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- O PROJETO -->
+<section class="what-section" id="projeto">
+  <div class="what-left">
+    <div class="section-tag">O Projeto</div>
+    <h2 class="section-title">Formação <em>real</em> em territórios esquecidos</h2>
+    <p class="section-body">
+      O Olhares Raiz leva oficinas gratuitas de cinema para municípios do sul do Espírito Santo que 
+      não têm acesso a políticas culturais continuadas. Em 16 horas de formação, jovens aprendem 
+      roteiro, câmera, iluminação, som e edição — e produzem coletivamente um curta-metragem.
+    </p>
+    <p class="section-body" style="margin-top:1rem">
+      Todo o conteúdo gerado é publicado gratuitamente no YouTube com legendagem descritiva e 
+      audiodescrição. Nenhum produto é comercializado. O acesso é universal.
+    </p>
+
+    <ul class="city-list">
+      <li class="city-item">
+        <span class="city-num">01</span>
+        <div class="city-info">
+          <div class="city-name">Marataízes</div>
+          <div class="city-detail">16h de formação · até 30 participantes · 1 curta produzido</div>
+        </div>
+      </li>
+      <li class="city-item">
+        <span class="city-num">02</span>
+        <div class="city-info">
+          <div class="city-name">Itapemirim</div>
+          <div class="city-detail">16h de formação · até 30 participantes · 1 curta produzido</div>
+        </div>
+      </li>
+      <li class="city-item">
+        <span class="city-num">03</span>
+        <div class="city-info">
+          <div class="city-name">Piúma</div>
+          <div class="city-detail">16h de formação · até 30 participantes · 1 curta produzido</div>
+        </div>
+      </li>
+      <li class="city-item">
+        <span class="city-num">04</span>
+        <div class="city-info">
+          <div class="city-name">Presidente Kennedy</div>
+          <div class="city-detail">16h de formação · até 30 participantes · 1 curta produzido</div>
+        </div>
+      </li>
+      <li class="city-item">
+        <span class="city-num">05</span>
+        <div class="city-info">
+          <div class="city-name">Rio Novo do Sul</div>
+          <div class="city-detail">16h de formação · até 30 participantes · 1 curta produzido</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="what-right">
+    <div class="section-tag">Impacto direto</div>
+    <h2 class="section-title">Números que <em>importam</em></h2>
+    <div class="impact-grid">
+      <div class="impact-item">
+        <div class="impact-num">150</div>
+        <div class="impact-label">Participantes diretos</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num">80h</div>
+        <div class="impact-label">Total de formação</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num">5</div>
+        <div class="impact-label">Curtas produzidos</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num">∞</div>
+        <div class="impact-label">Acesso online gratuito</div>
+      </div>
+    </div>
+
+    <p class="section-body" style="margin-top:2rem">
+      Cada curta-metragem produzido pelos participantes é publicado com legendagem descritiva 
+      e audiodescrição. Os próprios alunos divulgam nas suas redes, famílias e escolas — 
+      gerando alcance orgânico e comunitário contínuo.
+    </p>
+
+    <p class="section-body" style="margin-top:1rem">
+      O projeto é realizado em parceria com escolas públicas e centros culturais locais, 
+      com certificação para todos os participantes e relatório audiovisual completo da execução.
+    </p>
+  </div>
+</section>
+
+<!-- BENEFÍCIOS -->
+<section class="why-section" id="beneficios">
+  <div class="section-tag">Por que patrocinar</div>
+  <h2 class="section-title">Quatro razões para <em>investir agora</em></h2>
+  <div class="benefits-grid">
+    <div class="benefit">
+      <div class="benefit-icon">01</div>
+      <div class="benefit-title">Benefício fiscal real</div>
+      <div class="benefit-text">
+        Enquadrado no Artigo 18, o patrocínio é 100% dedutível do IR devido, 
+        dentro do limite de 4%. Não há custo adicional — é imposto que já seria 
+        pago, redirecionado para cultura com retorno institucional.
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">02</div>
+      <div class="benefit-title">Visibilidade territorial</div>
+      <div class="benefit-text">
+        Marca presente em 5 municípios do sul do ES, em escolas públicas, 
+        nos curtas publicados no YouTube, nos certificados dos participantes 
+        e nas redes sociais de 150 jovens e suas famílias.
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">03</div>
+      <div class="benefit-title">ESG e responsabilidade</div>
+      <div class="benefit-text">
+        Ação diretamente ligada a educação, cultura, protagonismo juvenil e 
+        inclusão em territórios historicamente excluídos de políticas públicas 
+        culturais. Fortalece posicionamento socioambiental da empresa.
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">04</div>
+      <div class="benefit-title">Transparência total</div>
+      <div class="benefit-text">
+        Execução financeira fiscalizada pelo Ministério da Cultura via SALIC. 
+        A empresa patrocinadora não tem responsabilidade sobre a gestão — 
+        apenas declara o patrocínio no IR usando o comprovante de depósito identificado.
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">05</div>
+      <div class="benefit-title">Projeto pronto</div>
+      <div class="benefit-text">
+        Aprovado, com conta aberta no Banco do Brasil vinculada ao PRONAC. 
+        Não há burocracia para o patrocinador — só o depósito direto 
+        na conta do projeto — o sistema SALIC registra automaticamente o aporte.
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">06</div>
+      <div class="benefit-title">Legado duradouro</div>
+      <div class="benefit-text">
+        Os vídeos produzidos ficam disponíveis online indefinidamente. 
+        O proponente tem mais de 20 anos de atuação no audiovisual e é 
+        idealizador do Festival de Cinema de Marataízes — já aprovado na Rouanet.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="how-section" id="como">
+  <div class="section-tag">Como funciona</div>
+  <h2 class="section-title" style="color:var(--white)">Cinco passos para <em style="color:var(--gold)">patrocinar</em></h2>
+  <p class="section-body">O processo é simples, seguro e 100% regulamentado pelo Ministério da Cultura.</p>
+  <div class="steps-list">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Decisão do valor</div>
+      <div class="step-text">Empresa define o valor do aporte dentro do limite de 4% do IR devido. Pode ser o valor total ou parcial do projeto.</div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="padding-left:1.5rem">02</div>
+      <div class="step-title">Depósito direto</div>
+      <div class="step-text">Valor depositado diretamente na conta do projeto no Banco do Brasil. Agência 3207-7 · Conta 26.176-9.</div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="padding-left:1.5rem">03</div>
+      <div class="step-title">Comprovante automático</div>
+      <div class="step-text">O depósito identificado é registrado automaticamente no SALIC — esse é o comprovante legal do patrocínio, sem burocracia adicional.</div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="padding-left:1.5rem">04</div>
+      <div class="step-title">Declaração no IR</div>
+      <div class="step-text">Empresa declara o patrocínio no Imposto de Renda usando o comprovante de depósito identificado. Guarde o extrato por 6 anos.</div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="padding-left:1.5rem">05</div>
+      <div class="step-title">Execução e prestação</div>
+      <div class="step-text">Projeto executado com relatórios, fotos e vídeos disponíveis publicamente via SALIC e site do projeto.</div>
+    </div>
+  </div>
+</section>
+
+<!-- RETORNOS -->
+<section class="returns-section" id="retornos">
+  <div class="section-tag">Contrapartidas ao patrocinador</div>
+  <h2 class="section-title">O que sua marca <em>recebe</em></h2>
+  <div class="returns-grid">
+    <div class="return-item">
+      <div class="return-check">✓</div>
+      <div class="return-text">
+        <strong>Marca nos materiais de divulgação</strong>
+        Inserção do logotipo em todos os materiais das 5 oficinas, incluindo cartazes, banners digitais e posts nas redes sociais do projeto.
+      </div>
+    </div>
+    <div class="return-item">
+      <div class="return-check">✓</div>
+      <div class="return-text">
+        <strong>Crédito nos 5 curtas-metragens</strong>
+        Nome e marca da empresa nos créditos de todos os vídeos publicados no YouTube — acesso gratuito e permanente.
+      </div>
+    </div>
+    <div class="return-item">
+      <div class="return-check">✓</div>
+      <div class="return-text">
+        <strong>Presença no relatório audiovisual</strong>
+        Marca no minidocumentário institucional do projeto, que registra o impacto das oficinas e é publicado online.
+      </div>
+    </div>
+    <div class="return-item">
+      <div class="return-check">✓</div>
+      <div class="return-text">
+        <strong>Menção orgânica nas comunidades</strong>
+        150 jovens e seus familiares em 5 cidades reconhecem a empresa como viabilizadora de uma ação cultural transformadora.
+      </div>
+    </div>
+    <div class="return-item">
+      <div class="return-check">✓</div>
+      <div class="return-text">
+        <strong>Comprovante automático no SALIC</strong>
+        O depósito identificado na conta captação é registrado automaticamente no SALIC — é o comprovante legal para dedução no IR. Sem burocracia adicional.
+      </div>
+    </div>
+    <div class="return-item">
+      <div class="return-check">✓</div>
+      <div class="return-text">
+        <strong>Relatório técnico completo</strong>
+        Documento com metodologia, resultados, fotos, links dos vídeos e comprovações de todas as etapas realizadas.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DADOS OFICIAIS -->
+<section class="proponent-section" id="dados">
+  <div class="proponent-left">
+    <div class="section-tag">Dados Oficiais</div>
+    <h2 class="section-title">Projeto aprovado pelo <em>Ministério da Cultura</em></h2>
+    <p class="section-body">
+      O Olhares Raiz está formalmente aprovado e autorizado para captação total dos recursos. 
+      A conta bancária vinculada ao PRONAC foi aberta automaticamente pelo Ministério da Cultura 
+      no Banco do Brasil e está pronta para receber aportes.
+    </p>
+
+    <div class="pronac-card">
+      <div class="pronac-row">
+        <span class="pronac-key">PRONAC</span>
+        <span class="pronac-val">252599</span>
+      </div>
+      <div class="pronac-row">
+        <span class="pronac-key">Proponente</span>
+        <span class="pronac-val">Raul Grecco Reis da Silva</span>
+      </div>
+      <div class="pronac-row">
+        <span class="pronac-key">Área</span>
+        <span class="pronac-val">Audiovisual</span>
+      </div>
+      <div class="pronac-row">
+        <span class="pronac-key">Enquadramento</span>
+        <span class="pronac-val green">Artigo 18 · 100% dedutível</span>
+      </div>
+      <div class="pronac-row">
+        <span class="pronac-key">Período captação</span>
+        <span class="pronac-val">01/01/2026 – 30/09/2026</span>
+      </div>
+      <div class="pronac-row">
+        <span class="pronac-key">Valor autorizado</span>
+        <span class="pronac-val green">R$ 151.181,25</span>
+      </div>
+      <div class="pronac-row">
+        <span class="pronac-key">Situação</span>
+        <span class="pronac-val green">E10 – Captação total autorizada</span>
+      </div>
+      <div class="pronac-row">
+        <span class="pronac-key">Portaria</span>
+        <span class="pronac-val">0001/26 · DOU 06/01/2026</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="proponent-right">
+    <div class="section-tag">Dados Bancários</div>
+    <h2 class="section-title">Depósito <em>direto</em> na conta do projeto</h2>
+    <p class="section-body">
+      A conta foi aberta pelo Ministério da Cultura e está vinculada exclusivamente ao PRONAC 252599. 
+      O depósito pode ser realizado imediatamente.
+    </p>
+
+    <div class="bank-card">
+      <div class="bank-label">Conta Captação · Banco do Brasil</div>
+      <div class="bank-row">
+        <span class="bank-key">Banco</span>
+        <span class="bank-val">Banco do Brasil · 001</span>
+      </div>
+      <div class="bank-row">
+        <span class="bank-key">Agência</span>
+        <span class="bank-val">3207-7</span>
+      </div>
+      <div class="bank-row">
+        <span class="bank-key">Conta Captação</span>
+        <span class="bank-val">26.176-9</span>
+      </div>
+      <div class="bank-row">
+        <span class="bank-key">Conta Movimento</span>
+        <span class="bank-val">26.177-7</span>
+      </div>
+      <div class="bank-row">
+        <span class="bank-key">Titular</span>
+        <span class="bank-val" style="font-size:0.75rem;font-family:'Syne',sans-serif;font-weight:400">Raul Grecco Reis da Silva · PRONAC 252599</span>
+      </div>
+    </div>
+
+    <p style="font-size:0.7rem;color:var(--gray);line-height:1.7;margin-top:1rem">
+      Após o depósito identificado com o CNPJ da empresa, o aporte é registrado automaticamente no SALIC. 
+      Guarde o comprovante de depósito por 6 anos para comprovação fiscal.
+    </p>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section" id="contato">
+  <div class="cta-tag">Pronto para receber · Conta aberta · Captação autorizada</div>
+  <h2 class="cta-title">Invista em cultura.<br><em>Sem custo adicional.</em></h2>
+  <p class="cta-sub">
+    O Olhares Raiz está aprovado, com conta aberta no Banco do Brasil e autorizado para captação total. 
+    Seu patrocínio é 100% dedutível do Imposto de Renda e transforma a vida de 150 jovens no sul do Espírito Santo.
+  </p>
+  <div class="cta-stats">
+    <div>
+      <div class="cta-stat-num">100%</div>
+      <div class="cta-stat-label">Dedutível do IR</div>
+    </div>
+    <div>
+      <div class="cta-stat-num">R$151k</div>
+      <div class="cta-stat-label">Total a captar</div>
+    </div>
+    <div>
+      <div class="cta-stat-num">150</div>
+      <div class="cta-stat-label">Jovens impactados</div>
+    </div>
+    <div>
+      <div class="cta-stat-num">5</div>
+      <div class="cta-stat-label">Cidades do sul ES</div>
+    </div>
+  </div>
+  <a href="/cdn-cgi/l/email-protection#13707c7d6772677c537c7f7b7261766061727a693d707c7e3d7161" class="cta-btn">Quero patrocinar</a>
+  <a href="https://salic.cultura.gov.br" target="_blank" class="cta-btn-outline">Ver no SALIC</a>
+</section>
+
+<footer>
+  <div class="footer-logo">Olhares <span>Raiz</span> · PRONAC 252599</div>
+  <div class="footer-info">
+    Raul Grecco Reis da Silva · CPF 069.846.707-80<br>
+    Lei Federal de Incentivo à Cultura · Artigo 18 · Ministério da Cultura
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classLis
