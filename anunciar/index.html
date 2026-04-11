@@ -40,7 +40,6 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
@@ -70,7 +69,6 @@
     padding: 0.45rem 1.1rem; border-radius: 4px;
   }
 
-  /* HERO */
   .hero {
     min-height: 100vh;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -146,7 +144,6 @@
   }
   .btn-ghost:hover { border-color: var(--white); transform: translateY(-1px); }
 
-  /* STATS BAR */
   .stats-bar {
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
@@ -170,7 +167,6 @@
     color: var(--gray);
   }
 
-  /* SECTION */
   .section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
   .section-label {
     font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em;
@@ -195,7 +191,6 @@
     margin-bottom: 3.5rem;
   }
 
-  /* DIVIDER */
   .world-divider {
     position: relative;
     text-align: center;
@@ -225,7 +220,6 @@
     color: var(--gold);
   }
 
-  /* GUIA PLANS */
   .plans-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -243,9 +237,7 @@
     transition: background 0.2s;
   }
   .plan-card:hover { background: #222222; }
-  .plan-card.featured {
-    background: #1A1A1A;
-  }
+  .plan-card.featured { background: #1A1A1A; }
   .plan-card.featured::before {
     content: 'MAIS ESCOLHIDO';
     position: absolute; top: 0; left: 50%; transform: translateX(-50%);
@@ -311,18 +303,22 @@
     text-transform: uppercase; text-decoration: none;
     transition: all 0.2s;
   }
-  .plan-cta-ghost {
-    border: 1px solid var(--border-strong); color: var(--gray-light);
-  }
-  .plan-cta-ghost:hover {
-    border-color: var(--white); color: var(--white);
-  }
-  .plan-cta-gold {
-    background: var(--gold); color: var(--black);
-  }
+  .plan-cta-ghost { border: 1px solid var(--border-strong); color: var(--gray-light); }
+  .plan-cta-ghost:hover { border-color: var(--white); color: var(--white); }
+  .plan-cta-gold { background: var(--gold); color: var(--black); }
   .plan-cta-gold:hover { background: var(--gold-light); }
 
-  /* TV PLANS */
+  .url-pill {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-family: monospace;
+    background: rgba(201,168,76,0.12);
+    color: var(--gold);
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    margin-top: 0.2rem;
+  }
+
   .tv-section {
     background: var(--off-black);
     border-top: 1px solid var(--border);
@@ -345,9 +341,7 @@
     transition: border-color 0.2s;
   }
   .tv-plan-card:hover { border-color: var(--border-strong); }
-  .tv-plan-card.tv-featured {
-    border-color: var(--gold);
-  }
+  .tv-plan-card.tv-featured { border-color: var(--gold); }
   .tv-plan-card.tv-featured::before {
     content: 'MAIS COMPLETO';
     position: absolute; top: -1px; right: 2rem;
@@ -385,9 +379,7 @@
     font-size: 4rem; letter-spacing: 0.02em; color: var(--white);
     line-height: 1;
   }
-  .tv-price-detail {
-    font-size: 0.8rem; color: var(--gray); line-height: 1.4;
-  }
+  .tv-price-detail { font-size: 0.8rem; color: var(--gray); line-height: 1.4; }
   .tv-features { list-style: none; margin-bottom: 2.5rem; }
   .tv-features li {
     font-size: 0.9rem; color: var(--gray-light);
@@ -396,14 +388,8 @@
     display: flex; align-items: flex-start; gap: 0.8rem;
     line-height: 1.4;
   }
-  .tv-features li::before {
-    content: '—';
-    color: var(--red-tv); font-size: 0.75rem; flex-shrink: 0;
-    margin-top: 0.05rem;
-  }
-  .tv-features li.tv-highlight {
-    color: var(--white); font-weight: 500;
-  }
+  .tv-features li::before { content: '—'; color: var(--red-tv); font-size: 0.75rem; flex-shrink: 0; margin-top: 0.05rem; }
+  .tv-features li.tv-highlight { color: var(--white); font-weight: 500; }
   .tv-features li.tv-highlight::before { content: '★'; color: var(--gold); }
   .tv-cta {
     display: block; text-align: center;
@@ -412,128 +398,73 @@
     text-transform: uppercase; text-decoration: none;
     transition: all 0.2s;
   }
-  .tv-cta-main {
-    background: var(--red-tv); color: var(--white);
-  }
+  .tv-cta-main { background: var(--red-tv); color: var(--white); }
   .tv-cta-main:hover { background: #ff4436; }
-  .tv-cta-gold {
-    background: var(--gold); color: var(--black);
-  }
+  .tv-cta-gold { background: var(--gold); color: var(--black); }
   .tv-cta-gold:hover { background: var(--gold-light); }
 
-  /* DIFFERENCE BAR */
   .diff-bar {
     background: var(--dark); border: 1px solid var(--border);
     border-radius: 6px; padding: 2rem 2.5rem;
     display: flex; align-items: center; gap: 3rem;
-    margin: 3rem 0;
-    flex-wrap: wrap;
+    margin: 3rem 0; flex-wrap: wrap;
   }
   .diff-col { flex: 1; min-width: 200px; }
   .diff-col-title {
     font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em;
-    text-transform: uppercase; color: var(--gray);
-    margin-bottom: 0.8rem;
+    text-transform: uppercase; color: var(--gray); margin-bottom: 0.8rem;
   }
   .diff-col ul { list-style: none; }
-  .diff-col ul li {
-    font-size: 0.88rem; color: var(--gray-light);
-    padding: 0.35rem 0;
-    display: flex; align-items: center; gap: 0.6rem;
-  }
+  .diff-col ul li { font-size: 0.88rem; color: var(--gray-light); padding: 0.35rem 0; display: flex; align-items: center; gap: 0.6rem; }
   .diff-sep {
     text-align: center; min-width: 120px;
-    font-family: var(--font-serif);
-    font-style: italic; color: var(--gray);
-    font-size: 0.95rem;
-    line-height: 1.5;
+    font-family: var(--font-serif); font-style: italic; color: var(--gray);
+    font-size: 0.95rem; line-height: 1.5;
   }
   .diff-sep strong {
     display: block; font-family: var(--font-display);
     font-style: normal; font-size: 2.5rem;
-    color: var(--gold); letter-spacing: 0.05em;
-    margin-bottom: 0.2rem;
+    color: var(--gold); letter-spacing: 0.05em; margin-bottom: 0.2rem;
   }
 
-  /* COMMITMENT */
   .commitment {
-    background: var(--red-dim);
-    border: 1px solid rgba(232,55,42,0.2);
-    border-radius: 6px;
-    padding: 1.5rem 2rem;
+    background: var(--red-dim); border: 1px solid rgba(232,55,42,0.2);
+    border-radius: 6px; padding: 1.5rem 2rem;
     display: flex; align-items: center; gap: 1.5rem;
-    margin-top: 3rem;
-    flex-wrap: wrap;
+    margin-top: 3rem; flex-wrap: wrap;
   }
-  .commitment-icon {
-    font-size: 2rem; flex-shrink: 0;
-  }
-  .commitment-text h4 {
-    font-size: 0.95rem; font-weight: 600; color: var(--white);
-    margin-bottom: 0.2rem;
-  }
-  .commitment-text p {
-    font-size: 0.85rem; color: var(--gray-light); font-weight: 300;
-  }
+  .commitment-icon { font-size: 2rem; flex-shrink: 0; }
+  .commitment-text h4 { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 0.2rem; }
+  .commitment-text p { font-size: 0.85rem; color: var(--gray-light); font-weight: 300; }
 
-  /* HOW IT WORKS */
-  .steps-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 2rem; margin-top: 3rem;
-  }
+  .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3rem; }
   .step { position: relative; }
   .step-num {
-    font-family: var(--font-display);
-    font-size: 5rem; color: rgba(255,255,255,0.04);
-    position: absolute; top: -1rem; left: -0.5rem;
+    font-family: var(--font-display); font-size: 5rem;
+    color: rgba(255,255,255,0.04); position: absolute; top: -1rem; left: -0.5rem;
     line-height: 1; pointer-events: none;
   }
   .step-content { position: relative; padding-top: 1rem; }
-  .step-title {
-    font-size: 1rem; font-weight: 600; color: var(--white);
-    margin-bottom: 0.5rem;
-  }
+  .step-title { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
   .step-desc { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
 
-  /* FINAL CTA */
-  .final-cta {
-    text-align: center;
-    padding: 8rem 2rem;
-    position: relative; overflow: hidden;
-  }
+  .final-cta { text-align: center; padding: 8rem 2rem; position: relative; overflow: hidden; }
   .final-cta::before {
-    content: '';
-    position: absolute; inset: 0;
+    content: ''; position: absolute; inset: 0;
     background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(232,55,42,0.05) 0%, transparent 70%);
   }
   .final-cta h2 {
     font-family: var(--font-display);
     font-size: clamp(2.5rem, 7vw, 6rem);
     line-height: 0.95; letter-spacing: 0.03em;
-    margin-bottom: 1.5rem;
-    position: relative;
+    margin-bottom: 1.5rem; position: relative;
   }
-  .final-cta h2 em {
-    font-family: var(--font-serif);
-    font-style: italic; color: var(--gold);
-  }
-  .final-cta p {
-    font-size: 1.05rem; color: var(--gray-light);
-    max-width: 480px; margin: 0 auto 2.5rem;
-    font-weight: 300; position: relative;
-  }
+  .final-cta h2 em { font-family: var(--font-serif); font-style: italic; color: var(--gold); }
+  .final-cta p { font-size: 1.05rem; color: var(--gray-light); max-width: 480px; margin: 0 auto 2.5rem; font-weight: 300; position: relative; }
   .final-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; }
 
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 2rem;
-    text-align: center;
-  }
-  footer p {
-    font-size: 0.78rem; color: var(--gray);
-    letter-spacing: 0.05em;
-  }
+  footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; }
+  footer p { font-size: 0.78rem; color: var(--gray); letter-spacing: 0.05em; }
   footer a { color: var(--gray); text-decoration: none; }
   footer a:hover { color: var(--white); }
 
@@ -550,7 +481,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="https://tvmarataizes.digital" class="nav-logo">TV <span>Marataízes</span></a>
   <div class="nav-links">
@@ -561,7 +491,6 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-eyebrow">Canal 300 · Soul TV · Sul do ES · Ao vivo 24h</div>
   <h1>Sua empresa<br>no <em>lugar certo</em></h1>
@@ -575,7 +504,6 @@
   </div>
 </section>
 
-<!-- STATS -->
 <div class="stats-bar">
   <div class="stat-item">
     <span class="stat-number">237K</span>
@@ -595,7 +523,6 @@
   </div>
 </div>
 
-<!-- GUIA SECTION -->
 <section class="section" id="guia">
   <div class="section-label">Frente 1 · Presença digital</div>
   <h2 class="section-title">Guia <em>Digital</em></h2>
@@ -605,15 +532,12 @@
 
   <div class="plans-grid">
 
-    <!-- PLANO 1 -->
     <div class="plan-card">
       <div class="plan-tag">Entrada</div>
       <div class="plan-name">Presença</div>
       <p class="plan-tagline">Seu negócio no portal da única TV do Sul do ES. Simples e imediato.</p>
       <div class="plan-price">
-        <div class="plan-price-number">
-          <span class="plan-price-currency">R$</span>99
-        </div>
+        <div class="plan-price-number"><span class="plan-price-currency">R$</span>99</div>
         <span class="plan-price-period">por mês · sem fidelidade</span>
       </div>
       <ul class="plan-features">
@@ -626,37 +550,35 @@
       <a href="https://wa.me/5528999036141?text=Quero+o+Plano+Presença+R$99+-+TV+Marataízes" class="plan-cta plan-cta-ghost">Quero esse plano</a>
     </div>
 
-    <!-- PLANO 2 - FEATURED — MUDANÇA CIRÚRGICA AQUI -->
+    <!-- PLANO 249 — VERSÃO FINAL -->
     <div class="plan-card featured">
       <div class="plan-tag">Recomendado</div>
       <div class="plan-name">Visibilidade</div>
       <p class="plan-tagline">Seu negócio aparece nos <strong style="color:var(--gold)">stories da TV Marataízes toda semana</strong> — a cidade inteira vê.</p>
       <div class="plan-price">
-        <div class="plan-price-number">
-          <span class="plan-price-currency">R$</span>249
-        </div>
+        <div class="plan-price-number"><span class="plan-price-currency">R$</span>249</div>
         <span class="plan-price-period">por mês · mínimo 6 meses</span>
       </div>
       <ul class="plan-features">
         <li>Tudo do plano Presença</li>
         <li class="highlight">4 stories/mês nas redes da TV Marataízes</li>
-        <li class="highlight">Página exclusiva no portal da TV</li>
         <li class="highlight">Vídeo de apresentação do local</li>
+        <li class="highlight">
+          Página exclusiva indexada no Google<br>
+          <span class="url-pill">tvmarataizes.digital/seuestablecimento</span>
+        </li>
         <li>Apoiador em programa à sua escolha</li>
-        <li>URL própria: tvmarataizes.digital/sua-empresa</li>
+        <li>WhatsApp direto na sua página</li>
       </ul>
       <a href="https://wa.me/5528999036141?text=Quero+o+Plano+Visibilidade+R$249+-+TV+Marataízes" class="plan-cta plan-cta-gold">Quero esse plano</a>
     </div>
 
-    <!-- PLANO 3 -->
     <div class="plan-card">
       <div class="plan-tag">Completo</div>
       <div class="plan-name">Autoridade</div>
       <p class="plan-tagline">Máxima frequência. 8 stories e 1 post no feed por mês — você é visto toda semana, toda hora.</p>
       <div class="plan-price">
-        <div class="plan-price-number">
-          <span class="plan-price-currency">R$</span>399
-        </div>
+        <div class="plan-price-number"><span class="plan-price-currency">R$</span>399</div>
         <span class="plan-price-period">por mês · mínimo 6 meses</span>
       </div>
       <ul class="plan-features">
@@ -680,7 +602,6 @@
   </div>
 </section>
 
-<!-- DIVIDER -->
 <div class="world-divider">
   <div class="world-divider-label">
     <p>A partir daqui</p>
@@ -688,7 +609,6 @@
   </div>
 </div>
 
-<!-- TV SECTION -->
 <section class="tv-section" id="tv">
   <div class="tv-inner">
     <div class="section-label">Frente 2 · TV & Agência</div>
@@ -724,17 +644,13 @@
 
     <div class="tv-plans-grid">
 
-      <!-- TV PLAN 1 -->
       <div class="tv-plan-card">
         <div class="tv-badge">TV · Agência · Produção</div>
         <div class="tv-plan-name">Canal</div>
         <p class="tv-plan-sub">Para o empresário que quer estar na TV e não quer se preocupar com mais nada. A Macuca Produções assume a conta.</p>
         <div class="tv-price-row">
           <div class="tv-price-main">6.500</div>
-          <div class="tv-price-detail">
-            R$ por mês<br>
-            <span style="color: var(--gray); font-size:0.75rem;">mínimo 6 meses</span>
-          </div>
+          <div class="tv-price-detail">R$ por mês<br><span style="color: var(--gray); font-size:0.75rem;">mínimo 6 meses</span></div>
         </div>
         <ul class="tv-features">
           <li class="tv-highlight">Inserções semanais na grade do Canal 300</li>
@@ -750,17 +666,13 @@
         <a href="https://wa.me/5528999036141?text=Quero+o+Plano+Canal+R$6.500+-+TV+Marataízes" class="tv-cta tv-cta-main">Quero esse plano</a>
       </div>
 
-      <!-- TV PLAN 2 - FEATURED -->
       <div class="tv-plan-card tv-featured">
         <div class="tv-badge">TV · Agência · Exclusividade</div>
         <div class="tv-plan-name">Domínio</div>
         <p class="tv-plan-sub">Exclusividade total no seu segmento. Nenhum concorrente aparece no canal. A Macuca Produções é sua agência e você é o único no ar.</p>
         <div class="tv-price-row">
           <div class="tv-price-main">9.500</div>
-          <div class="tv-price-detail">
-            R$ por mês<br>
-            <span style="color: var(--gray); font-size:0.75rem;">mínimo 6 meses</span>
-          </div>
+          <div class="tv-price-detail">R$ por mês<br><span style="color: var(--gray); font-size:0.75rem;">mínimo 6 meses</span></div>
         </div>
         <ul class="tv-features">
           <li class="tv-highlight">Tudo do plano Canal</li>
@@ -780,11 +692,9 @@
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
 <section class="section" id="como">
   <div class="section-label">Processo</div>
   <h2 class="section-title">Do <em>WhatsApp</em><br>ao ar em 24h</h2>
-
   <div class="steps-grid">
     <div class="step">
       <div class="step-num">01</div>
@@ -817,7 +727,6 @@
   </div>
 </section>
 
-<!-- FINAL CTA -->
 <section class="final-cta">
   <h2>Ou sua empresa<br>aparece aqui...<br><em>ou é esquecida.</em></h2>
   <p>Seu concorrente já está olhando para isso. A decisão é sua.</p>
@@ -827,7 +736,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <p>© 2026 TV Marataízes · Canal 300 Soul TV · Marataízes ES · (28) 99903-6141 ·
     <a href="https://tvmarataizes.digital">Portal</a> ·
