@@ -8,78 +8,39 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --black: #0A0A0A;
-    --off-black: #111111;
-    --dark: #181818;
-    --card: #1E1E1E;
-    --border: rgba(255,255,255,0.08);
-    --border-strong: rgba(255,255,255,0.15);
-    --gold: #C9A84C;
-    --gold-light: #E8C97A;
-    --gold-dim: rgba(201,168,76,0.15);
-    --red-tv: #E8372A;
-    --red-dim: rgba(232,55,42,0.12);
-    --white: #FFFFFF;
-    --gray: #999999;
-    --gray-light: #CCCCCC;
+    --black: #0A0A0A; --off-black: #111111; --dark: #181818; --card: #1E1E1E;
+    --border: rgba(255,255,255,0.08); --border-strong: rgba(255,255,255,0.15);
+    --gold: #C9A84C; --gold-light: #E8C97A; --gold-dim: rgba(201,168,76,0.15);
+    --red-tv: #E8372A; --red-dim: rgba(232,55,42,0.12);
+    --white: #FFFFFF; --gray: #999999; --gray-light: #CCCCCC;
     --font-display: 'Bebas Neue', sans-serif;
     --font-serif: 'DM Serif Display', serif;
     --font-body: 'DM Sans', sans-serif;
   }
-
   html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--black);
-    color: var(--white);
-    font-family: var(--font-body);
-    font-size: 16px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
+  body { background: var(--black); color: var(--white); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0 2rem;
-    height: 64px;
-    background: rgba(10,10,10,0.95);
-    backdrop-filter: blur(12px);
+    padding: 0 2rem; height: 64px;
+    background: rgba(10,10,10,0.95); backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
-  .nav-logo {
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    letter-spacing: 0.05em;
-    color: var(--white);
-    text-decoration: none;
-  }
+  .nav-logo { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.05em; color: var(--white); text-decoration: none; }
   .nav-logo span { color: var(--red-tv); }
   .nav-links { display: flex; gap: 1.5rem; align-items: center; }
-  .nav-links a {
-    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--gray); text-decoration: none;
-    transition: color 0.2s;
-  }
+  .nav-links a { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray); text-decoration: none; transition: color 0.2s; }
   .nav-links a:hover { color: var(--white); }
-  .nav-cta {
-    background: var(--red-tv) !important; color: var(--white) !important;
-    padding: 0.45rem 1.1rem; border-radius: 4px;
-  }
+  .nav-cta { background: var(--red-tv) !important; color: var(--white) !important; padding: 0.45rem 1.1rem; border-radius: 4px; }
 
   .hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center;
-    padding: 7rem 2rem 5rem;
-    position: relative;
-    overflow: hidden;
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 7rem 2rem 5rem; position: relative; overflow: hidden;
   }
   .hero::before {
-    content: '';
-    position: absolute; inset: 0;
+    content: ''; position: absolute; inset: 0;
     background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(232,55,42,0.06) 0%, transparent 70%);
     pointer-events: none;
   }
@@ -87,378 +48,121 @@
     display: inline-flex; align-items: center; gap: 0.5rem;
     font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em;
     text-transform: uppercase; color: var(--red-tv);
-    border: 1px solid rgba(232,55,42,0.3);
-    padding: 0.35rem 0.9rem; border-radius: 2px;
-    margin-bottom: 2rem;
+    border: 1px solid rgba(232,55,42,0.3); padding: 0.35rem 0.9rem; border-radius: 2px; margin-bottom: 2rem;
   }
-  .hero-eyebrow::before {
-    content: '';
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--red-tv);
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.8); }
-  }
-  .hero h1 {
-    font-family: var(--font-display);
-    font-size: clamp(3.5rem, 9vw, 8rem);
-    line-height: 0.92;
-    letter-spacing: 0.02em;
-    color: var(--white);
-    margin-bottom: 0.3em;
-  }
-  .hero h1 em {
-    font-family: var(--font-serif);
-    font-style: italic;
-    color: var(--gold);
-  }
-  .hero-sub {
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
-    color: var(--gray-light);
-    max-width: 560px;
-    margin: 1.5rem auto 3rem;
-    font-weight: 300;
-    line-height: 1.7;
-  }
+  .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red-tv); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
+  .hero h1 { font-family: var(--font-display); font-size: clamp(3.5rem, 9vw, 8rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 0.3em; }
+  .hero h1 em { font-family: var(--font-serif); font-style: italic; color: var(--gold); }
+  .hero-sub { font-size: clamp(1rem, 2.5vw, 1.25rem); color: var(--gray-light); max-width: 560px; margin: 1.5rem auto 3rem; font-weight: 300; line-height: 1.7; }
   .hero-sub strong { color: var(--white); font-weight: 500; }
+
+  /* INSTAGRAM BADGE NO HERO */
+  .hero-insta-badge {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25);
+    padding: 0.5rem 1.1rem; border-radius: 3px; margin-bottom: 1.5rem;
+    font-size: 0.82rem; color: var(--gold-light); font-weight: 500;
+  }
+  .hero-insta-badge span { font-family: var(--font-display); font-size: 1.1rem; color: var(--gold); }
+
   .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-  .btn-primary {
-    background: var(--red-tv); color: var(--white);
-    padding: 0.85rem 2.2rem; border-radius: 3px;
-    font-size: 0.9rem; font-weight: 600; letter-spacing: 0.06em;
-    text-transform: uppercase; text-decoration: none;
-    transition: background 0.2s, transform 0.15s;
-    display: inline-block;
-  }
+  .btn-primary { background: var(--red-tv); color: var(--white); padding: 0.85rem 2.2rem; border-radius: 3px; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
   .btn-primary:hover { background: #ff4436; transform: translateY(-1px); }
-  .btn-ghost {
-    background: transparent; color: var(--white);
-    padding: 0.85rem 2.2rem; border-radius: 3px;
-    border: 1px solid var(--border-strong);
-    font-size: 0.9rem; font-weight: 500; letter-spacing: 0.06em;
-    text-transform: uppercase; text-decoration: none;
-    transition: border-color 0.2s, transform 0.15s;
-    display: inline-block;
-  }
+  .btn-ghost { background: transparent; color: var(--white); padding: 0.85rem 2.2rem; border-radius: 3px; border: 1px solid var(--border-strong); font-size: 0.9rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: border-color 0.2s, transform 0.15s; display: inline-block; }
   .btn-ghost:hover { border-color: var(--white); transform: translateY(-1px); }
 
-  .stats-bar {
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 2rem;
-    display: flex; justify-content: center; gap: 0;
-  }
-  .stat-item {
-    text-align: center; padding: 0 3rem;
-    border-right: 1px solid var(--border);
-  }
+  .stats-bar { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 2rem; display: flex; justify-content: center; gap: 0; }
+  .stat-item { text-align: center; padding: 0 3rem; border-right: 1px solid var(--border); }
   .stat-item:last-child { border-right: none; }
-  .stat-number {
-    font-family: var(--font-display);
-    font-size: 2.5rem; letter-spacing: 0.03em;
-    color: var(--gold);
-    display: block;
-  }
-  .stat-label {
-    font-size: 0.75rem; font-weight: 500;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--gray);
-  }
+  .stat-number { font-family: var(--font-display); font-size: 2.5rem; letter-spacing: 0.03em; color: var(--gold); display: block; }
+  .stat-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); }
 
   .section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
-  .section-label {
-    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em;
-    text-transform: uppercase; color: var(--gray);
-    margin-bottom: 0.8rem;
-  }
-  .section-title {
-    font-family: var(--font-display);
-    font-size: clamp(2.2rem, 5vw, 3.8rem);
-    line-height: 1;
-    letter-spacing: 0.03em;
-    margin-bottom: 1rem;
-  }
-  .section-title em {
-    font-family: var(--font-serif);
-    font-style: italic;
-    color: var(--gold);
-  }
-  .section-desc {
-    font-size: 1.05rem; color: var(--gray-light);
-    max-width: 540px; line-height: 1.7; font-weight: 300;
-    margin-bottom: 3.5rem;
-  }
+  .section-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); margin-bottom: 0.8rem; }
+  .section-title { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.8rem); line-height: 1; letter-spacing: 0.03em; margin-bottom: 1rem; }
+  .section-title em { font-family: var(--font-serif); font-style: italic; color: var(--gold); }
+  .section-desc { font-size: 1.05rem; color: var(--gray-light); max-width: 540px; line-height: 1.7; font-weight: 300; margin-bottom: 3.5rem; }
 
-  .world-divider {
-    position: relative;
-    text-align: center;
-    padding: 5rem 2rem;
-    overflow: hidden;
-  }
-  .world-divider::before {
-    content: '';
-    position: absolute; left: 0; right: 0; top: 50%;
-    height: 1px; background: var(--border);
-  }
-  .world-divider-label {
-    position: relative; display: inline-block;
-    background: var(--black);
-    padding: 1.5rem 3rem;
-    border: 1px solid var(--border-strong);
-    border-radius: 2px;
-  }
-  .world-divider-label p {
-    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--gray);
-    margin-bottom: 0.3rem;
-  }
-  .world-divider-label h3 {
-    font-family: var(--font-display);
-    font-size: 1.8rem; letter-spacing: 0.05em;
-    color: var(--gold);
-  }
+  .world-divider { position: relative; text-align: center; padding: 5rem 2rem; overflow: hidden; }
+  .world-divider::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--border); }
+  .world-divider-label { position: relative; display: inline-block; background: var(--black); padding: 1.5rem 3rem; border: 1px solid var(--border-strong); border-radius: 2px; }
+  .world-divider-label p { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); margin-bottom: 0.3rem; }
+  .world-divider-label h3 { font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 0.05em; color: var(--gold); }
 
-  .plans-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-    margin-bottom: 1rem;
-  }
-  .plan-card {
-    background: var(--card);
-    padding: 2.2rem 2rem;
-    position: relative;
-    transition: background 0.2s;
-  }
+  .plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-bottom: 1rem; }
+  .plan-card { background: var(--card); padding: 2.2rem 2rem; position: relative; transition: background 0.2s; }
   .plan-card:hover { background: #222222; }
   .plan-card.featured { background: #1A1A1A; }
-  .plan-card.featured::before {
-    content: 'MAIS ESCOLHIDO';
-    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-    background: var(--gold); color: var(--black);
-    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em;
-    padding: 0.3rem 1rem;
-    border-radius: 0 0 4px 4px;
-  }
-  .plan-tag {
-    display: inline-block;
-    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em;
-    text-transform: uppercase; color: var(--gray);
-    border: 1px solid var(--border-strong);
-    padding: 0.2rem 0.6rem; border-radius: 2px;
-    margin-bottom: 1.2rem;
-  }
-  .plan-name {
-    font-family: var(--font-display);
-    font-size: 1.6rem; letter-spacing: 0.04em;
-    color: var(--white); margin-bottom: 0.5rem;
-  }
-  .plan-tagline {
-    font-size: 0.85rem; color: var(--gray);
-    margin-bottom: 1.8rem; font-weight: 300; line-height: 1.5;
-  }
-  .plan-price {
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .plan-price-number {
-    font-family: var(--font-display);
-    font-size: 3rem; letter-spacing: 0.02em;
-    color: var(--white); line-height: 1;
-  }
-  .plan-price-currency {
-    font-size: 1.2rem; color: var(--gray); vertical-align: top;
-    margin-top: 0.4rem; display: inline-block;
-  }
-  .plan-price-period {
-    font-size: 0.8rem; color: var(--gray); display: block;
-    margin-top: 0.3rem; font-weight: 400;
-  }
+  .plan-card.featured::before { content: 'MAIS VENDIDO'; position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--black); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; padding: 0.3rem 1rem; border-radius: 0 0 4px 4px; }
+  .plan-tag { display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); border: 1px solid var(--border-strong); padding: 0.2rem 0.6rem; border-radius: 2px; margin-bottom: 1.2rem; }
+  .plan-name { font-family: var(--font-display); font-size: 1.6rem; letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.5rem; }
+  .plan-tagline { font-size: 0.85rem; color: var(--gray); margin-bottom: 1.8rem; font-weight: 300; line-height: 1.5; }
+  .plan-price { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+  .plan-price-number { font-family: var(--font-display); font-size: 3rem; letter-spacing: 0.02em; color: var(--white); line-height: 1; }
+  .plan-price-currency { font-size: 1.2rem; color: var(--gray); vertical-align: top; margin-top: 0.4rem; display: inline-block; }
+  .plan-price-period { font-size: 0.8rem; color: var(--gray); display: block; margin-top: 0.3rem; font-weight: 400; }
   .plan-features { list-style: none; margin-bottom: 2rem; }
-  .plan-features li {
-    font-size: 0.88rem; color: var(--gray-light);
-    padding: 0.55rem 0;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    display: flex; align-items: flex-start; gap: 0.7rem;
-    line-height: 1.4;
-  }
-  .plan-features li::before {
-    content: '—';
-    color: var(--gold); font-size: 0.75rem; flex-shrink: 0;
-    margin-top: 0.05rem;
-  }
+  .plan-features li { font-size: 0.88rem; color: var(--gray-light); padding: 0.55rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: flex-start; gap: 0.7rem; line-height: 1.4; }
+  .plan-features li::before { content: '—'; color: var(--gold); font-size: 0.75rem; flex-shrink: 0; margin-top: 0.05rem; }
   .plan-features li.highlight { color: var(--white); }
   .plan-features li.highlight::before { content: '★'; color: var(--gold); }
-  .plan-cta {
-    display: block; text-align: center;
-    padding: 0.8rem 1.5rem; border-radius: 3px;
-    font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em;
-    text-transform: uppercase; text-decoration: none;
-    transition: all 0.2s;
-  }
+  .plan-cta { display: block; text-align: center; padding: 0.8rem 1.5rem; border-radius: 3px; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
   .plan-cta-ghost { border: 1px solid var(--border-strong); color: var(--gray-light); }
   .plan-cta-ghost:hover { border-color: var(--white); color: var(--white); }
   .plan-cta-gold { background: var(--gold); color: var(--black); }
   .plan-cta-gold:hover { background: var(--gold-light); }
 
-  .url-pill {
-    display: inline-block;
-    font-size: 0.75rem;
-    font-family: monospace;
-    background: rgba(201,168,76,0.12);
-    color: var(--gold);
-    padding: 0.2rem 0.5rem;
-    border-radius: 3px;
-    margin-top: 0.2rem;
-  }
+  .url-pill { display: inline-block; font-size: 0.75rem; font-family: monospace; background: rgba(201,168,76,0.12); color: var(--gold); padding: 0.2rem 0.5rem; border-radius: 3px; margin-top: 0.2rem; }
 
-  .tv-section {
-    background: var(--off-black);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 6rem 2rem;
-  }
+  .commitment { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem 2rem; display: flex; align-items: center; gap: 1.5rem; margin-top: 3rem; flex-wrap: wrap; }
+  .commitment-icon { font-size: 2rem; flex-shrink: 0; }
+  .commitment-text h4 { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 0.2rem; }
+  .commitment-text p { font-size: 0.85rem; color: var(--gray-light); font-weight: 300; }
+
+  .tv-section { background: var(--off-black); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 6rem 2rem; }
   .tv-inner { max-width: 1100px; margin: 0 auto; }
-  .tv-plans-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-top: 3.5rem;
-  }
-  .tv-plan-card {
-    background: var(--dark);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 2.5rem;
-    position: relative;
-    transition: border-color 0.2s;
-  }
+  .tv-plans-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3.5rem; }
+  .tv-plan-card { background: var(--dark); border: 1px solid var(--border); border-radius: 6px; padding: 2.5rem; position: relative; transition: border-color 0.2s; }
   .tv-plan-card:hover { border-color: var(--border-strong); }
   .tv-plan-card.tv-featured { border-color: var(--gold); }
-  .tv-plan-card.tv-featured::before {
-    content: 'MAIS COMPLETO';
-    position: absolute; top: -1px; right: 2rem;
-    background: var(--gold); color: var(--black);
-    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em;
-    padding: 0.3rem 1rem;
-    border-radius: 0 0 4px 4px;
-  }
-  .tv-badge {
-    display: inline-flex; align-items: center; gap: 0.4rem;
-    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 0.3rem 0.8rem; border-radius: 2px;
-    margin-bottom: 1.5rem;
-    background: var(--red-dim); color: var(--red-tv);
-    border: 1px solid rgba(232,55,42,0.2);
-  }
-  .tv-plan-name {
-    font-family: var(--font-display);
-    font-size: 2.2rem; letter-spacing: 0.04em;
-    color: var(--white); margin-bottom: 0.4rem;
-  }
-  .tv-plan-sub {
-    font-size: 0.88rem; color: var(--gray);
-    margin-bottom: 1.8rem; font-weight: 300; line-height: 1.5;
-    max-width: 380px;
-  }
-  .tv-price-row {
-    display: flex; align-items: baseline; gap: 0.4rem;
-    margin-bottom: 2rem; padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .tv-price-main {
-    font-family: var(--font-display);
-    font-size: 4rem; letter-spacing: 0.02em; color: var(--white);
-    line-height: 1;
-  }
+  .tv-plan-card.tv-featured::before { content: 'MAIS COMPLETO'; position: absolute; top: -1px; right: 2rem; background: var(--gold); color: var(--black); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; padding: 0.3rem 1rem; border-radius: 0 0 4px 4px; }
+  .tv-badge { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 2px; margin-bottom: 1.5rem; background: var(--red-dim); color: var(--red-tv); border: 1px solid rgba(232,55,42,0.2); }
+  .tv-plan-name { font-family: var(--font-display); font-size: 2.2rem; letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.4rem; }
+  .tv-plan-sub { font-size: 0.88rem; color: var(--gray); margin-bottom: 1.8rem; font-weight: 300; line-height: 1.5; max-width: 380px; }
+  .tv-price-row { display: flex; align-items: baseline; gap: 0.4rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .tv-price-main { font-family: var(--font-display); font-size: 4rem; letter-spacing: 0.02em; color: var(--white); line-height: 1; }
   .tv-price-detail { font-size: 0.8rem; color: var(--gray); line-height: 1.4; }
   .tv-features { list-style: none; margin-bottom: 2.5rem; }
-  .tv-features li {
-    font-size: 0.9rem; color: var(--gray-light);
-    padding: 0.7rem 0;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    display: flex; align-items: flex-start; gap: 0.8rem;
-    line-height: 1.4;
-  }
+  .tv-features li { font-size: 0.9rem; color: var(--gray-light); padding: 0.7rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: flex-start; gap: 0.8rem; line-height: 1.4; }
   .tv-features li::before { content: '—'; color: var(--red-tv); font-size: 0.75rem; flex-shrink: 0; margin-top: 0.05rem; }
   .tv-features li.tv-highlight { color: var(--white); font-weight: 500; }
   .tv-features li.tv-highlight::before { content: '★'; color: var(--gold); }
-  .tv-cta {
-    display: block; text-align: center;
-    padding: 1rem 2rem; border-radius: 3px;
-    font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em;
-    text-transform: uppercase; text-decoration: none;
-    transition: all 0.2s;
-  }
+  .tv-cta { display: block; text-align: center; padding: 1rem 2rem; border-radius: 3px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
   .tv-cta-main { background: var(--red-tv); color: var(--white); }
   .tv-cta-main:hover { background: #ff4436; }
   .tv-cta-gold { background: var(--gold); color: var(--black); }
   .tv-cta-gold:hover { background: var(--gold-light); }
 
-  .diff-bar {
-    background: var(--dark); border: 1px solid var(--border);
-    border-radius: 6px; padding: 2rem 2.5rem;
-    display: flex; align-items: center; gap: 3rem;
-    margin: 3rem 0; flex-wrap: wrap;
-  }
+  .diff-bar { background: var(--dark); border: 1px solid var(--border); border-radius: 6px; padding: 2rem 2.5rem; display: flex; align-items: center; gap: 3rem; margin: 3rem 0; flex-wrap: wrap; }
   .diff-col { flex: 1; min-width: 200px; }
-  .diff-col-title {
-    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em;
-    text-transform: uppercase; color: var(--gray); margin-bottom: 0.8rem;
-  }
+  .diff-col-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); margin-bottom: 0.8rem; }
   .diff-col ul { list-style: none; }
   .diff-col ul li { font-size: 0.88rem; color: var(--gray-light); padding: 0.35rem 0; display: flex; align-items: center; gap: 0.6rem; }
-  .diff-sep {
-    text-align: center; min-width: 120px;
-    font-family: var(--font-serif); font-style: italic; color: var(--gray);
-    font-size: 0.95rem; line-height: 1.5;
-  }
-  .diff-sep strong {
-    display: block; font-family: var(--font-display);
-    font-style: normal; font-size: 2.5rem;
-    color: var(--gold); letter-spacing: 0.05em; margin-bottom: 0.2rem;
-  }
-
-  .commitment {
-    background: var(--red-dim); border: 1px solid rgba(232,55,42,0.2);
-    border-radius: 6px; padding: 1.5rem 2rem;
-    display: flex; align-items: center; gap: 1.5rem;
-    margin-top: 3rem; flex-wrap: wrap;
-  }
-  .commitment-icon { font-size: 2rem; flex-shrink: 0; }
-  .commitment-text h4 { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 0.2rem; }
-  .commitment-text p { font-size: 0.85rem; color: var(--gray-light); font-weight: 300; }
+  .diff-sep { text-align: center; min-width: 120px; font-family: var(--font-serif); font-style: italic; color: var(--gray); font-size: 0.95rem; line-height: 1.5; }
+  .diff-sep strong { display: block; font-family: var(--font-display); font-style: normal; font-size: 2.5rem; color: var(--gold); letter-spacing: 0.05em; margin-bottom: 0.2rem; }
 
   .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3rem; }
   .step { position: relative; }
-  .step-num {
-    font-family: var(--font-display); font-size: 5rem;
-    color: rgba(255,255,255,0.04); position: absolute; top: -1rem; left: -0.5rem;
-    line-height: 1; pointer-events: none;
-  }
+  .step-num { font-family: var(--font-display); font-size: 5rem; color: rgba(255,255,255,0.04); position: absolute; top: -1rem; left: -0.5rem; line-height: 1; pointer-events: none; }
   .step-content { position: relative; padding-top: 1rem; }
   .step-title { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
   .step-desc { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
 
   .final-cta { text-align: center; padding: 8rem 2rem; position: relative; overflow: hidden; }
-  .final-cta::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(232,55,42,0.05) 0%, transparent 70%);
-  }
-  .final-cta h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 7vw, 6rem);
-    line-height: 0.95; letter-spacing: 0.03em;
-    margin-bottom: 1.5rem; position: relative;
-  }
+  .final-cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(232,55,42,0.05) 0%, transparent 70%); }
+  .final-cta-pre { font-size: 1.1rem; color: var(--gold-light); font-weight: 500; margin-bottom: 1.5rem; position: relative; }
+  .final-cta h2 { font-family: var(--font-display); font-size: clamp(2.5rem, 7vw, 6rem); line-height: 0.95; letter-spacing: 0.03em; margin-bottom: 1.5rem; position: relative; }
   .final-cta h2 em { font-family: var(--font-serif); font-style: italic; color: var(--gold); }
   .final-cta p { font-size: 1.05rem; color: var(--gray-light); max-width: 480px; margin: 0 auto 2.5rem; font-weight: 300; position: relative; }
   .final-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; }
@@ -493,7 +197,13 @@
 
 <section class="hero">
   <div class="hero-eyebrow">Canal 300 · Soul TV · Sul do ES · Ao vivo 24h</div>
-  <h1>Sua empresa<br>no <em>lugar certo</em></h1>
+
+  <h1>Sua empresa<br>aparecendo toda semana<br>para <em>Marataízes</em></h1>
+
+  <div class="hero-insta-badge">
+    <span>200K+</span> visualizações mensais no Instagram da TV Marataízes
+  </div>
+
   <p class="hero-sub">
     A única TV independente do Sul do Espírito Santo.<br>
     <strong>237 mil views por campanha.</strong> Escolha como quer aparecer.
@@ -505,30 +215,16 @@
 </section>
 
 <div class="stats-bar">
-  <div class="stat-item">
-    <span class="stat-number">237K</span>
-    <span class="stat-label">Views por campanha</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-number">69K</span>
-    <span class="stat-label">Pessoas alcançadas</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-number">8</span>
-    <span class="stat-label">Cidades cobertas</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-number">300</span>
-    <span class="stat-label">Canal Soul TV</span>
-  </div>
+  <div class="stat-item"><span class="stat-number">237K</span><span class="stat-label">Views por campanha</span></div>
+  <div class="stat-item"><span class="stat-number">69K</span><span class="stat-label">Pessoas alcançadas</span></div>
+  <div class="stat-item"><span class="stat-number">8</span><span class="stat-label">Cidades cobertas</span></div>
+  <div class="stat-item"><span class="stat-number">300</span><span class="stat-label">Canal Soul TV</span></div>
 </div>
 
 <section class="section" id="guia">
   <div class="section-label">Frente 1 · Presença digital</div>
   <h2 class="section-title">Guia <em>Digital</em></h2>
-  <p class="section-desc">
-    Entre no portal da TV Marataízes. Seja encontrado quando alguém pesquisa pelo seu segmento na cidade. Sem produção, sem complexidade.
-  </p>
+  <p class="section-desc">Entre no portal da TV Marataízes. Seja encontrado quando alguém pesquisa pelo seu segmento na cidade. Sem produção, sem complexidade.</p>
 
   <div class="plans-grid">
 
@@ -552,9 +248,9 @@
 
     <!-- PLANO 249 — VERSÃO FINAL -->
     <div class="plan-card featured">
-      <div class="plan-tag">Recomendado</div>
+      <div class="plan-tag">O que mais traz cliente</div>
       <div class="plan-name">Visibilidade</div>
-      <p class="plan-tagline">Seu negócio aparece nos <strong style="color:var(--gold)">stories da TV Marataízes toda semana</strong> — a cidade inteira vê.</p>
+      <p class="plan-tagline">Seu negócio aparece nos <strong style="color:var(--gold)">Stories da TV toda semana</strong> — a cidade inteira vê.</p>
       <div class="plan-price">
         <div class="plan-price-number"><span class="plan-price-currency">R$</span>249</div>
         <span class="plan-price-period">por mês · mínimo 6 meses</span>
@@ -596,8 +292,8 @@
   <div class="commitment">
     <div class="commitment-icon">⚡</div>
     <div class="commitment-text">
-      <h4>Guia ≠ TV. Saiba a diferença.</h4>
-      <p>Os planos do guia aparecem no portal e nas redes sociais da TV Marataízes. A presença na programação do Canal 300 é exclusiva dos planos de TV & Agência abaixo.</p>
+      <h4>Guia + redes sociais da TV.</h4>
+      <p>Os planos acima combinam presença digital com visibilidade nas redes da TV Marataízes. A programação do Canal 300 faz parte dos planos completos abaixo.</p>
     </div>
   </div>
 </section>
@@ -613,9 +309,7 @@
   <div class="tv-inner">
     <div class="section-label">Frente 2 · TV & Agência</div>
     <h2 class="section-title">A <em>Macuca Produções</em><br>cuida de tudo</h2>
-    <p class="section-desc">
-      Você não contrata mídia. Você contrata uma agência que também é exibidora. Produção, estratégia, Canal 300 e redes sociais — tudo em um contrato.
-    </p>
+    <p class="section-desc">Você não contrata mídia. Você contrata uma agência que também é exibidora. Produção, estratégia, Canal 300 e redes sociais — tudo em um contrato.</p>
 
     <div class="diff-bar">
       <div class="diff-col">
@@ -627,10 +321,7 @@
           <li>📉 Perde para concorrente</li>
         </ul>
       </div>
-      <div class="diff-sep">
-        <strong>VS</strong>
-        Não é anúncio.<br>É construção<br>de marca.
-      </div>
+      <div class="diff-sep"><strong>VS</strong>Não é anúncio.<br>É construção<br>de marca.</div>
       <div class="diff-col">
         <div class="diff-col-title">Com a TV Marataízes</div>
         <ul>
@@ -728,6 +419,7 @@
 </section>
 
 <section class="final-cta">
+  <p class="final-cta-pre">Hoje, quem aparece nos Stories da TV Marataízes vende mais.</p>
   <h2>Ou sua empresa<br>aparece aqui...<br><em>ou é esquecida.</em></h2>
   <p>Seu concorrente já está olhando para isso. A decisão é sua.</p>
   <div class="final-actions">
