@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Itapemirim em Movimento — TV Marataízes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --itap-blue: #0D2B5E;
+  --itap-blue-mid: #1a3a6b;
+  --itap-blue-light: #2a5298;
+  --tv-orange: #E85D00;
+  --tv-gold: #F5A623;
+  --white: #FFFFFF;
+  --off-white: #F8F6F1;
+  --gray: #6B7280;
+  --gray-light: #E5E7EB;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Outfit', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--off-white);
+  color: var(--itap-blue);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* HERO */
+.hero {
+  background: var(--itap-blue);
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 5rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 80%, rgba(232,93,0,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 80% 20%, rgba(42,82,152,0.4) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, var(--off-white));
+}
+
+.parceria-badge {
+  display: inline-flex; align-items: center; gap: 1rem;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 0.7rem 1.5rem;
+  border-radius: 100px;
+  margin-bottom: 3rem;
+  position: relative; z-index: 1;
+}
+.parceria-badge .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--tv-orange);
+  animation: blink 2s infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; } 50% { opacity: 0.3; }
+}
+.parceria-badge span {
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; color: rgba(255,255,255,0.7);
+}
+
+.logos-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: 2rem; margin-bottom: 3rem;
+  position: relative; z-index: 1;
+}
+.logo-sep {
+  width: 1px; height: 48px;
+  background: rgba(255,255,255,0.2);
+}
+.logo-tv {
+  display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+}
+.logo-tv-icon {
+  width: 52px; height: 52px;
+  background: linear-gradient(135deg, var(--tv-orange), var(--tv-gold));
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; font-weight: 700; color: white;
+  font-family: var(--font-display);
+}
+.logo-tv-name {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: rgba(255,255,255,0.6);
+}
+.logo-itap {
+  display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+}
+.logo-itap-brasao {
+  font-size: 2.2rem; line-height: 1;
+}
+.logo-itap-name {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: rgba(255,255,255,0.6);
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 7vw, 6rem);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--white);
+  margin-bottom: 1rem;
+  position: relative; z-index: 1;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--tv-gold);
+}
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: rgba(255,255,255,0.65);
+  max-width: 560px;
+  margin: 0 auto 3rem;
+  font-weight: 300;
+  line-height: 1.8;
+  position: relative; z-index: 1;
+}
+.hero-sub strong { color: rgba(255,255,255,0.9); font-weight: 500; }
+
+/* NUMBERS */
+.numbers {
+  display: flex; gap: 3rem; justify-content: center;
+  flex-wrap: wrap;
+  position: relative; z-index: 1;
+}
+.number-item { text-align: center; }
+.number-val {
+  font-family: var(--font-display);
+  font-size: 2.4rem; font-weight: 700;
+  color: var(--tv-gold);
+  display: block; line-height: 1;
+}
+.number-label {
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em;
+  text-transform: uppercase; color: rgba(255,255,255,0.5);
+  margin-top: 0.3rem; display: block;
+}
+
+/* SECTIONS */
+.section { padding: 6rem 2rem; max-width: 1000px; margin: 0 auto; }
+.section-tag {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--tv-orange);
+  margin-bottom: 0.8rem; display: block;
+}
+.section h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700; line-height: 1.1;
+  color: var(--itap-blue);
+  margin-bottom: 1.2rem;
+}
+.section h2 em { font-style: italic; color: var(--tv-orange); }
+.section-lead {
+  font-size: 1.1rem; color: var(--gray);
+  max-width: 600px; line-height: 1.8;
+  font-weight: 300; margin-bottom: 3rem;
+}
+
+/* FRASE */
+.frase-destaque {
+  background: var(--itap-blue);
+  padding: 4rem 2rem;
+  text-align: center;
+}
+.frase-destaque blockquote {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-style: italic;
+  color: var(--white);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.4;
+}
+.frase-destaque blockquote em { color: var(--tv-gold); font-style: normal; }
+
+/* PROGRAMA CARDS */
+.programa-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+.programa-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid var(--gray-light);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.programa-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(13,43,94,0.08); }
+.programa-card.destaque {
+  background: var(--itap-blue);
+  border-color: var(--itap-blue);
+}
+.programa-card.destaque .card-titulo { color: var(--white); }
+.programa-card.destaque .card-desc { color: rgba(255,255,255,0.65); }
+.card-icon {
+  font-size: 1.8rem; margin-bottom: 1rem; display: block;
+}
+.card-titulo {
+  font-family: var(--font-display);
+  font-size: 1.2rem; font-weight: 700;
+  color: var(--itap-blue); margin-bottom: 0.5rem;
+}
+.card-desc {
+  font-size: 0.9rem; color: var(--gray);
+  line-height: 1.6; font-weight: 300;
+}
+.card-tag {
+  display: inline-block; margin-top: 1rem;
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--tv-orange);
+  border: 1px solid rgba(232,93,0,0.3);
+  padding: 0.25rem 0.7rem; border-radius: 100px;
+}
+.programa-card.destaque .card-tag {
+  color: var(--tv-gold); border-color: rgba(245,166,35,0.4);
+}
+
+/* PAUTA ITEMS */
+.pautas {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 2.5rem;
+  border: 1px solid var(--gray-light);
+  margin-bottom: 3rem;
+}
+.pauta-titulo {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--gray);
+  margin-bottom: 1.5rem; display: block;
+}
+.pauta-list { list-style: none; }
+.pauta-list li {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--gray-light);
+  font-size: 0.95rem; color: var(--itap-blue); font-weight: 400;
+}
+.pauta-list li:last-child { border-bottom: none; }
+.pauta-num {
+  font-family: var(--font-display);
+  font-size: 1.1rem; font-weight: 700;
+  color: var(--tv-orange); flex-shrink: 0;
+  width: 24px; line-height: 1.4;
+}
+
+/* INVESTIMENTO */
+.investimento-box {
+  background: linear-gradient(135deg, var(--itap-blue) 0%, var(--itap-blue-light) 100%);
+  border-radius: 20px;
+  padding: 3rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.investimento-box::before {
+  content: '';
+  position: absolute;
+  top: -50px; right: -50px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: rgba(232,93,0,0.08);
+}
+.inv-label {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em;
+  text-transform: uppercase; color: rgba(255,255,255,0.5);
+  margin-bottom: 0.5rem; display: block;
+}
+.inv-valor {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 700; color: var(--white);
+  line-height: 1; margin-bottom: 0.3rem;
+}
+.inv-periodo {
+  font-size: 1rem; color: rgba(255,255,255,0.5);
+  margin-bottom: 2rem;
+}
+.inv-includes {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem; margin-bottom: 2rem; text-align: left;
+}
+.inv-item {
+  display: flex; align-items: flex-start; gap: 0.6rem;
+  font-size: 0.88rem; color: rgba(255,255,255,0.75);
+}
+.inv-item::before { content: '✓'; color: var(--tv-gold); font-weight: 700; flex-shrink: 0; }
+.inv-nota {
+  font-size: 0.8rem; color: rgba(255,255,255,0.4);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 1.5rem; margin-top: 0.5rem;
+}
+
+/* CTA */
+.cta-section {
+  background: var(--tv-orange);
+  padding: 5rem 2rem;
+  text-align: center;
+}
+.cta-section h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700; color: var(--white);
+  margin-bottom: 1rem; line-height: 1.1;
+}
+.cta-section p {
+  font-size: 1.1rem; color: rgba(255,255,255,0.8);
+  margin-bottom: 2.5rem; font-weight: 300;
+}
+.cta-btn {
+  display: inline-block;
+  background: var(--white); color: var(--tv-orange);
+  padding: 1rem 2.5rem; border-radius: 8px;
+  font-size: 0.95rem; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
+
+/* FOOTER */
+footer {
+  background: var(--itap-blue);
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+footer p {
+  font-size: 0.8rem; color: rgba(255,255,255,0.35);
+  letter-spacing: 0.05em;
+}
+
+/* DIVIDER */
+.divider {
+  height: 1px; background: var(--gray-light);
+  max-width: 1000px; margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+  .programa-grid { grid-template-columns: 1fr; }
+  .inv-includes { grid-template-columns: 1fr; }
+  .numbers { gap: 2rem; }
+  .logos-row { gap: 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="parceria-badge">
+    <div class="dot"></div>
+    <span>Proposta de parceria institucional · 2026</span>
+  </div>
+
+  <div class="logos-row">
+    <div class="logo-itap">
+      <div class="logo-itap-brasao">🏛️</div>
+      <div class="logo-itap-name">Município de Itapemirim</div>
+    </div>
+    <div class="logo-sep"></div>
+    <div class="logo-tv">
+      <div class="logo-tv-icon">TV</div>
+      <div class="logo-tv-name">TV Marataízes</div>
+    </div>
+  </div>
+
+  <h1>Itapemirim<br><em>em Movimento</em></h1>
+  <p class="hero-sub">
+    Um programa de TV dedicado ao desenvolvimento econômico, turismo e empreendedorismo de Itapemirim —
+    <strong>produzido, distribuído e amplificado pela TV Marataízes.</strong>
+  </p>
+
+  <div class="numbers">
+    <div class="number-item">
+      <span class="number-val">237K</span>
+      <span class="number-label">Views por campanha</span>
+    </div>
+    <div class="number-item">
+      <span class="number-val">69K</span>
+      <span class="number-label">Pessoas alcançadas</span>
+    </div>
+    <div class="number-item">
+      <span class="number-val">Canal 300</span>
+      <span class="number-label">Soul TV · ao vivo 24h</span>
+    </div>
+    <div class="number-item">
+      <span class="number-val">8</span>
+      <span class="number-label">Cidades cobertas</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTEXTO -->
+<section class="section">
+  <span class="section-tag">O momento</span>
+  <h2>Itapemirim está crescendo.<br><em>Precisa aparecer.</em></h2>
+  <p class="section-lead">
+    MEI em expansão. Turismo rural se consolidando. Rota gastronômica ganhando forma. Litoral sendo descoberto.
+    Isso está acontecendo — mas a população ainda não vê. E o que não é visto, não é valorizado.
+  </p>
+  <p class="section-lead" style="margin-bottom:0;">
+    A TV Marataízes já cobre todo o sul do ES com audiência real no Canal 300 Soul TV, portal digital indexado no Google e presença ativa no Instagram.
+    A parceria com a Secretaria de Desenvolvimento transforma esse alcance em <strong>vitrine permanente</strong> do que Itapemirim está construindo.
+  </p>
+</section>
+
+<!-- FRASE -->
+<div class="frase-destaque">
+  <blockquote>
+    "O desenvolvimento que não aparece<br>não é percebido pela <em>população.</em>"
+  </blockquote>
+</div>
+
+<!-- O PROGRAMA -->
+<section class="section">
+  <span class="section-tag">O programa</span>
+  <h2>Itapemirim em <em>Movimento</em></h2>
+  <p class="section-lead">
+    Um programa semanal com linguagem de jornalismo de desenvolvimento — mostrando o que está acontecendo em Itapemirim.
+    Todo o conteúdo é alinhado previamente com a Secretaria antes da publicação.
+  </p>
+
+  <div class="programa-grid">
+    <div class="programa-card destaque">
+      <span class="card-icon">📺</span>
+      <div class="card-titulo">4 programas por mês</div>
+      <p class="card-desc">Episódios semanais cobrindo ações da secretaria, MEI, turismo, comércio local e empreendedores da cidade.</p>
+      <span class="card-tag">Canal 300 Soul TV + Portal</span>
+    </div>
+    <div class="programa-card">
+      <span class="card-icon">📱</span>
+      <div class="card-titulo">4 pílulas impulsionadas</div>
+      <p class="card-desc">Conteúdos curtos segmentados para a população de Itapemirim no Instagram — onde as pessoas realmente estão.</p>
+      <span class="card-tag">Instagram segmentado</span>
+    </div>
+    <div class="programa-card">
+      <span class="card-icon">♾️</span>
+      <div class="card-titulo">VOD permanente</div>
+      <p class="card-desc">Os episódios ficam disponíveis para sempre no portal. Não somem em 24 horas como stories comuns.</p>
+      <span class="card-tag">Acervo contínuo</span>
+    </div>
+    <div class="programa-card">
+      <span class="card-icon">📊</span>
+      <div class="card-titulo">Relatório mensal</div>
+      <p class="card-desc">Alcance, visualizações e engajamento — dados reais para acompanhar o impacto de cada ação comunicada.</p>
+      <span class="card-tag">Resultado mensurável</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PAUTAS -->
+<section class="section">
+  <span class="section-tag">Cobertura prevista</span>
+  <h2>O que o programa <em>vai cobrir</em></h2>
+  <p class="section-lead">Conectado diretamente à agenda da Secretaria de Desenvolvimento Econômico e Social de Itapemirim.</p>
+
+  <div class="pautas">
+    <span class="pauta-titulo">Agenda 2026 — temas prioritários</span>
+    <ul class="pauta-list">
+      <li><span class="pauta-num">01</span>Semana do MEI — maio 2026 · abertura, palestras e ações para microempreendedores</li>
+      <li><span class="pauta-num">02</span>Turismo de Experiências — Frade e Freira, litoral e ações do programa</li>
+      <li><span class="pauta-num">03</span>Empretec Turismo Rural — formação e desenvolvimento do interior</li>
+      <li><span class="pauta-num">04</span>Rota gastronômica — comércio Itaoca, Itaipava, marisqueiras e propriedades rurais</li>
+      <li><span class="pauta-num">05</span>Sala do Empreendedor — ações contínuas de apoio ao comércio local</li>
+    </ul>
+  </div>
+
+  <p style="font-size:0.9rem; color:var(--gray); font-style: italic;">
+    Não é uma campanha. É construção contínua de presença institucional — e passa a se posicionar antes que a informação circule sem contexto.
+  </p>
+</section>
+
+<!-- INVESTIMENTO -->
+<section class="section" style="padding-top:0;">
+  <span class="section-tag">Investimento</span>
+  <h2 style="margin-bottom:2rem;">Modelo de <em>parceria</em></h2>
+
+  <div class="investimento-box">
+    <span class="inv-label">Investimento mensal</span>
+    <div class="inv-valor">R$ 10.000</div>
+    <p class="inv-periodo">por mês · contrato mínimo de 6 meses</p>
+
+    <div class="inv-includes">
+      <div class="inv-item">4 programas mensais produzidos</div>
+      <div class="inv-item">4 pílulas impulsionadas no Instagram</div>
+      <div class="inv-item">Distribuição Canal 300 Soul TV</div>
+      <div class="inv-item">Portal tvmarataizes.digital</div>
+      <div class="inv-item">VOD permanente dos episódios</div>
+      <div class="inv-item">Alinhamento prévio de cada pauta</div>
+      <div class="inv-item">Cobertura de eventos e ações</div>
+      <div class="inv-item">Relatório mensal de resultados</div>
+    </div>
+
+    <p class="inv-nota">
+      Início em até 7 dias úteis após assinatura · Conteúdo alinhado previamente com a Secretaria antes de qualquer publicação
+    </p>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Itapemirim merece<br>aparecer do jeito certo.</h2>
+  <p>A TV Marataízes já está na região. A audiência já existe.<br>O próximo passo é ligar o sinal de Itapemirim.</p>
+  <a href="https://wa.me/5528999036141?text=Quero+saber+mais+sobre+o+programa+Itapemirim+em+Movimento" class="cta-btn">Falar com a TV Marataízes</a>
+</div>
+
+<footer>
+  <p>TV Marataízes · Canal 300 Soul TV · tvmarataizes.digital · (28) 99903-6141<br>
+  Marataízes · Itapemirim · Piúma · Presidente Kennedy · Espírito Santo</p>
+</footer>
+
+</body>
+</html>
