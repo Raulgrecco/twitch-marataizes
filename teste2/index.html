@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sul do ES — Turismo · Marataízes & Itapemirim</title>
+<title>Sul do Espírito Santo — Turismo · Marataízes · Itapemirim · Piúma · Presidente Kennedy</title>
+<meta name="description" content="Guia completo de turismo do Sul do Espírito Santo. Praias, pontos turísticos, gastronomia e experiências em Marataízes, Itapemirim, Piúma e Presidente Kennedy.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -25,137 +26,145 @@
 html { scroll-behavior: smooth; }
 body { background: var(--sand); color: var(--text); font-family: var(--font-body); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
 
-/* NAV */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 2rem; height: 60px;
   background: rgba(10,77,104,0.96); backdrop-filter: blur(10px);
 }
-.nav-brand { font-family: var(--font-display); font-size: 1.2rem; color: var(--white); text-decoration: none; letter-spacing: 0.05em; }
+.nav-brand { font-family: var(--font-display); font-size: 1.2rem; color: var(--white); text-decoration: none; }
 .nav-brand em { color: var(--gold); font-style: italic; }
-.nav-links { display: flex; gap: 1.5rem; }
-.nav-links a { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; }
+.nav-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.nav-links a { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
 .nav-links a:hover { color: var(--white); }
 
 /* HERO */
 .hero {
   min-height: 100vh;
-  background: linear-gradient(to bottom, rgba(10,77,104,0.7) 0%, rgba(10,77,104,0.3) 60%, var(--sand) 100%),
-    url('https://portalfacilarquivos.blob.core.windows.net/uploads/ITAPEMIRIM/img/{DD282C5E-4CAC-E0CD-7DB2-AAA03DA0CD62}/{DD282C5E-4CAC-E0CD-7DB2-AAA03DA0CD62}_374X290.jpeg') center/cover no-repeat;
+  background:
+    linear-gradient(to bottom, rgba(10,77,104,0.75) 0%, rgba(10,77,104,0.2) 70%, var(--sand) 100%),
+    url('https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/piuma-1.jpg') center/cover no-repeat;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 8rem 2rem 5rem;
-  position: relative;
+  text-align: center; padding: 8rem 2rem 6rem;
 }
 .hero-eyebrow {
   font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--gold); margin-bottom: 1.5rem;
-  border: 1px solid rgba(201,168,76,0.4); padding: 0.35rem 1rem; border-radius: 100px;
+  border: 1px solid rgba(201,168,76,0.4); padding: 0.35rem 1.2rem; border-radius: 100px;
   display: inline-block;
 }
 .hero h1 {
   font-family: var(--font-display);
   font-size: clamp(3rem, 8vw, 7rem);
-  font-weight: 600; line-height: 0.95;
-  color: var(--white); margin-bottom: 0.5rem;
+  font-weight: 600; line-height: 0.95; color: var(--white); margin-bottom: 0.5rem;
 }
 .hero h1 em { font-style: italic; color: var(--gold); }
-.hero-sub { font-size: 1.1rem; color: rgba(255,255,255,0.75); max-width: 500px; font-weight: 300; margin: 1.5rem auto 0; }
+.hero-sub { font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 540px; font-weight: 300; margin: 1.5rem auto 2.5rem; }
+
+/* CIDADES NAV */
+.cidades-nav {
+  display: flex; gap: 0; justify-content: center; flex-wrap: wrap;
+  background: var(--ocean); padding: 0;
+}
+.cidade-tab {
+  padding: 1rem 2rem; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em;
+  text-transform: uppercase; color: rgba(255,255,255,0.5);
+  text-decoration: none; border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+}
+.cidade-tab:hover { color: var(--white); border-bottom-color: var(--gold); }
 
 /* INTRO */
-.intro { max-width: 760px; margin: 0 auto; padding: 5rem 2rem; text-align: center; }
+.intro { max-width: 760px; margin: 0 auto; padding: 5rem 2rem 3rem; text-align: center; }
 .intro h2 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; color: var(--ocean); margin-bottom: 1rem; }
 .intro h2 em { font-style: italic; }
-.intro p { font-size: 1.05rem; color: var(--gray); font-weight: 300; line-height: 1.9; }
+.intro p { font-size: 1rem; color: var(--gray); font-weight: 300; line-height: 1.9; }
 
-/* CIDADE HEADER */
+/* CIDADE SECTION */
+.cidade-section { padding: 0 0 4rem; }
+.cidade-section:nth-child(even) { background: rgba(255,255,255,0.4); }
+
 .cidade-header {
   padding: 4rem 2rem 2rem;
   max-width: 1100px; margin: 0 auto;
-  border-top: 1px solid var(--sand-dark);
+  border-top: 2px solid var(--sand-dark);
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
 }
 .cidade-nome {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 7vw, 6rem);
-  font-weight: 600; color: var(--ocean);
-  line-height: 1; margin-bottom: 0.5rem;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 600; color: var(--ocean); line-height: 1;
 }
 .cidade-nome em { font-style: italic; color: var(--gold); }
-.cidade-desc { font-size: 1rem; color: var(--gray); font-weight: 300; max-width: 600px; }
-
-/* PRAIA GRID */
-.praias-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  max-width: 1100px; margin: 2rem auto 0;
-  padding: 0 2rem 4rem;
-}
-.praia-card {
-  background: var(--white);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 2px 20px rgba(10,77,104,0.06);
-  transition: transform 0.25s, box-shadow 0.25s;
-}
-.praia-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(10,77,104,0.12); }
-.praia-card.large { grid-column: span 2; }
-.praia-img {
-  width: 100%; aspect-ratio: 16/9;
-  object-fit: cover; display: block;
-  background: var(--sand-dark);
-}
-.praia-card.large .praia-img { aspect-ratio: 21/9; }
-.praia-body { padding: 1.5rem; }
-.praia-nome {
-  font-family: var(--font-display);
-  font-size: 1.4rem; font-weight: 600;
-  color: var(--ocean); margin-bottom: 0.5rem; line-height: 1.2;
-}
-.praia-texto { font-size: 0.88rem; color: var(--gray); font-weight: 300; line-height: 1.7; }
-.praia-tag {
-  display: inline-block; margin-top: 1rem;
-  font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+.cidade-meta { text-align: right; }
+.cidade-dist { font-size: 0.78rem; color: var(--gray); font-weight: 300; }
+.cidade-tag-list { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; justify-content: flex-end; }
+.cidade-tag {
+  font-size: 0.65rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--ocean-light); border: 1px solid rgba(46,134,171,0.3);
   padding: 0.2rem 0.6rem; border-radius: 100px;
 }
+.cidade-desc-box { max-width: 1100px; margin: 0 auto; padding: 0 2rem 2rem; }
+.cidade-desc { font-size: 1rem; color: var(--gray); font-weight: 300; max-width: 680px; }
 
-/* PONTO TURÍSTICO */
-.ponto-section {
-  background: var(--ocean);
-  padding: 5rem 2rem;
+/* PRAIAS GRID */
+.praias-grid {
+  display: grid; gap: 1.5rem;
+  max-width: 1100px; margin: 0 auto; padding: 0 2rem;
 }
-.ponto-inner { max-width: 1100px; margin: 0 auto; }
-.ponto-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: block; }
-.ponto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
-.ponto-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; overflow: hidden; }
-.ponto-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; background: rgba(255,255,255,0.05); }
-.ponto-body { padding: 1.5rem; }
-.ponto-nome { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
-.ponto-texto { font-size: 0.88rem; color: rgba(255,255,255,0.6); font-weight: 300; line-height: 1.7; }
+.praias-grid.cols3 { grid-template-columns: repeat(3, 1fr); }
+.praias-grid.cols2 { grid-template-columns: repeat(2, 1fr); }
 
-/* DIVISOR */
-.divisor { height: 1px; background: var(--sand-dark); max-width: 1100px; margin: 0 auto; }
-
-/* TV BADGE */
-.tv-badge {
-  background: var(--coral);
-  padding: 3rem 2rem;
-  text-align: center;
+.praia-card {
+  background: var(--white); border-radius: 16px; overflow: hidden;
+  box-shadow: 0 2px 20px rgba(10,77,104,0.06);
+  transition: transform 0.25s, box-shadow 0.25s;
 }
-.tv-badge p { font-size: 0.85rem; color: rgba(255,255,255,0.8); margin-bottom: 0.5rem; letter-spacing: 0.08em; text-transform: uppercase; }
-.tv-badge h3 { font-family: var(--font-display); font-size: 1.8rem; color: var(--white); font-style: italic; }
-.tv-badge a { display: inline-block; margin-top: 1.5rem; padding: 0.7rem 2rem; background: var(--white); color: var(--coral); border-radius: 6px; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; }
+.praia-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(10,77,104,0.12); }
+.praia-card.large { grid-column: span 2; }
+.praia-img {
+  width: 100%; object-fit: cover; display: block;
+  background: var(--sand-dark); aspect-ratio: 16/9;
+}
+.praia-card.large .praia-img { aspect-ratio: 21/9; }
+.praia-body { padding: 1.4rem; }
+.praia-nome { font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; color: var(--ocean); margin-bottom: 0.4rem; line-height: 1.2; }
+.praia-texto { font-size: 0.88rem; color: var(--gray); font-weight: 300; line-height: 1.7; }
+.praia-tag { display: inline-block; margin-top: 0.8rem; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ocean-light); border: 1px solid rgba(46,134,171,0.3); padding: 0.2rem 0.6rem; border-radius: 100px; }
 
-/* FOOTER */
+/* PONTOS TURÍSTICOS */
+.pontos-section { background: var(--ocean); padding: 4rem 2rem; margin: 2rem 0 0; }
+.pontos-inner { max-width: 1100px; margin: 0 auto; }
+.pontos-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; display: block; }
+.pontos-title { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 600; color: var(--white); margin-bottom: 2rem; }
+.pontos-title em { font-style: italic; color: var(--gold); }
+.pontos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.ponto-card { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; overflow: hidden; }
+.ponto-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; background: rgba(255,255,255,0.05); }
+.ponto-body { padding: 1.2rem; }
+.ponto-nome { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; color: var(--white); margin-bottom: 0.4rem; }
+.ponto-texto { font-size: 0.85rem; color: rgba(255,255,255,0.6); font-weight: 300; line-height: 1.6; }
+
+/* DIVIDER */
+.divider { height: 1px; background: var(--sand-dark); max-width: 1100px; margin: 0 auto; }
+
+/* BANNER TV */
+.tv-banner { background: var(--coral); padding: 3.5rem 2rem; text-align: center; }
+.tv-banner p { font-size: 0.8rem; color: rgba(255,255,255,0.75); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+.tv-banner h3 { font-family: var(--font-display); font-size: 1.8rem; color: var(--white); font-style: italic; margin-bottom: 1.5rem; }
+.tv-banner a { display: inline-block; padding: 0.75rem 2rem; background: var(--white); color: var(--coral); border-radius: 6px; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; }
+
 footer { background: var(--ocean); padding: 2rem; text-align: center; }
 footer p { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
 
 @media (max-width: 768px) {
   .nav-links { display: none; }
-  .praias-grid { grid-template-columns: 1fr; }
+  .praias-grid.cols3, .praias-grid.cols2 { grid-template-columns: 1fr; }
   .praia-card.large { grid-column: span 1; }
-  .ponto-grid { grid-template-columns: 1fr; }
+  .pontos-grid { grid-template-columns: 1fr; }
+  .cidade-header { flex-direction: column; align-items: flex-start; }
+  .cidade-meta { text-align: left; }
+  .cidade-tag-list { justify-content: flex-start; }
 }
 </style>
 </head>
@@ -166,189 +175,342 @@ footer p { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
   <div class="nav-links">
     <a href="#marataizes">Marataízes</a>
     <a href="#itapemirim">Itapemirim</a>
-    <a href="#pontos">Pontos Turísticos</a>
+    <a href="#piuma">Piúma</a>
+    <a href="#kennedy">Pres. Kennedy</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-eyebrow">Espírito Santo · Litoral Sul</div>
-  <h1>Mar, Serra<br>e <em>Cultura</em></h1>
-  <p class="hero-sub">Descubra as praias, pontos turísticos e experiências únicas de Marataízes e Itapemirim — o sul do ES que poucos conhecem.</p>
+  <h1>Mar, Serra<br>e <em>Aventura</em></h1>
+  <p class="hero-sub">O litoral mais autêntico do Espírito Santo. Quatro cidades, praias para todos os gostos, ilhas paradisíacas, história e gastronomia de frutos do mar.</p>
 </section>
+
+<!-- TABS CIDADES -->
+<div class="cidades-nav">
+  <a href="#marataizes" class="cidade-tab">Marataízes</a>
+  <a href="#itapemirim" class="cidade-tab">Itapemirim</a>
+  <a href="#piuma" class="cidade-tab">Piúma</a>
+  <a href="#kennedy" class="cidade-tab">Presidente Kennedy</a>
+</div>
 
 <!-- INTRO -->
 <div class="intro">
-  <h2>O sul do ES que <em>encanta</em></h2>
-  <p>Entre o litoral cristalino e as formações rochosas que cortam o céu, Marataízes e Itapemirim guardam um dos litorais mais preservados do Espírito Santo. Praias para todos os gostos, gastronomia de frutos do mar, trilhas, ilhas e uma hospitalidade que faz o visitante querer voltar.</p>
+  <h2>Quatro cidades,<br>um <em>litoral inesquecível</em></h2>
+  <p>Do agito de Marataízes à tranquilidade quase selvagem de Presidente Kennedy, passando pelas ilhas de Piúma e pelas formações rochosas de Itapemirim — o Sul do ES é um dos litorais mais completos e menos explorados do Brasil.</p>
 </div>
 
-<!-- MARATAÍZES -->
-<div id="marataizes">
+<!-- ======================== MARATAÍZES ======================== -->
+<div class="cidade-section" id="marataizes">
   <div class="cidade-header">
-    <div class="cidade-nome"><em>Marataízes</em></div>
-    <p class="cidade-desc">Cidade à beira-mar com praias urbanas e selvagens, orla revitalizada e uma das comunidades pesqueiras mais tradicionais do ES.</p>
+    <div>
+      <div class="cidade-nome"><em>Marataízes</em></div>
+    </div>
+    <div class="cidade-meta">
+      <div class="cidade-dist">90 km de Vitória · Litoral Sul do ES</div>
+      <div class="cidade-tag-list">
+        <span class="cidade-tag">Praias Urbanas</span>
+        <span class="cidade-tag">Gastronomia</span>
+        <span class="cidade-tag">Comunidade Pesqueira</span>
+      </div>
+    </div>
+  </div>
+  <div class="cidade-desc-box">
+    <p class="cidade-desc">Cidade à beira-mar com praias urbanas e selvagens, orla revitalizada e uma das comunidades pesqueiras mais tradicionais do ES. Ótima infraestrutura, vida noturna e frutos do mar frescos todo dia.</p>
   </div>
 
-  <div class="praias-grid">
-
+  <div class="praias-grid cols3">
     <div class="praia-card large">
-      <img class="praia-img" src="https://www.viagemsimples.com.br/wp-content/uploads/2023/01/praia-da-barra-marataizes.jpg" alt="Praia da Barra, Marataízes" onerror="this.style.background='#1a6b8a';this.alt='Praia da Barra'">
+      <img class="praia-img" src="https://www.aquiorla.com.br/wp-content/uploads/2022/07/praia-barra-marataizes.jpg" alt="Praia da Barra Marataízes" onerror="this.style.background='#1a6b8a'">
       <div class="praia-body">
         <div class="praia-nome">Praia da Barra</div>
-        <p class="praia-texto">Sinônimo de tradição e badalação em Marataízes. Extensa orla com bares, restaurantes e vegetação de restinga preservada. Ideal para esportes como futebol e vôlei de praia, a Praia da Barra é ponto de encontro de moradores e turistas durante todo o ano.</p>
+        <p class="praia-texto">Sinônimo de tradição em Marataízes. Extensa orla com bares, restaurantes e vegetação de restinga preservada. Ideal para esportes como futebol e vôlei de praia, é o principal ponto de encontro da cidade durante todo o ano.</p>
         <span class="praia-tag">Urbana · Esportes · Gastronomia</span>
       </div>
     </div>
-
     <div class="praia-card">
-      <img class="praia-img" src="https://www.viagemsimples.com.br/wp-content/uploads/2023/01/praia-dos-namorados-marataizes.jpg" alt="Praia dos Namorados" onerror="this.style.background='#2E86AB'">
+      <img class="praia-img" src="https://www.aquiorla.com.br/wp-content/uploads/2022/07/praia-siri-marataizes.jpg" alt="Praia do Siri" onerror="this.style.background='#0A4D68'">
+      <div class="praia-body">
+        <div class="praia-nome">Praia do Siri</div>
+        <p class="praia-texto">Uma das mais populares de Marataízes. Águas tranquilas com acesso direto à Lagoa do Siri — ideal para famílias com crianças. Restaurantes especializados em frutos do mar ao longo da orla.</p>
+        <span class="praia-tag">Família · Lagoa</span>
+      </div>
+    </div>
+    <div class="praia-card">
+      <img class="praia-img" src="https://www.aquiorla.com.br/wp-content/uploads/2022/07/praia-namorados-marataizes.jpg" alt="Praia dos Namorados" onerror="this.style.background='#2E86AB'">
       <div class="praia-body">
         <div class="praia-nome">Praia dos Namorados</div>
-        <p class="praia-texto">Localizada ao lado da foz do Rio Marataízes, oferece águas tranquilas e cristalinas. A proximidade com a Igreja Nossa Senhora dos Navegantes cria um ambiente único de paz e beleza natural.</p>
+        <p class="praia-texto">Localizada ao lado da foz do Rio Marataízes. Águas tranquilas e cristalinas próximas à Igreja Nossa Senhora dos Navegantes — ambiente único de beleza e paz.</p>
         <span class="praia-tag">Tranquila · Histórica</span>
       </div>
     </div>
-
     <div class="praia-card">
-      <img class="praia-img" src="https://www.aquiorla.com.br/wp-content/uploads/2022/07/praia-do-siri-marataizes.jpg" alt="Praia do Siri" onerror="this.style.background='#0A4D68'">
-      <div class="praia-body">
-        <div class="praia-nome">Praia do Siri</div>
-        <p class="praia-texto">Uma das mais populares de Marataízes. Águas tranquilas e acesso fácil à Lagoa do Siri, ideal para famílias com crianças. Restaurantes e quiosques com frutos do mar frescos ao longo da orla.</p>
-        <span class="praia-tag">Família · Lagoa · Gastronomia</span>
-      </div>
-    </div>
-
-    <div class="praia-card">
-      <img class="praia-img" src="https://www.viagemsimples.com.br/wp-content/uploads/2023/01/praia-da-cruz-marataizes.jpg" alt="Praia da Cruz" onerror="this.style.background='#1a6b8a'">
+      <img class="praia-img" src="https://www.aquiorla.com.br/wp-content/uploads/2022/07/praia-cruz-marataizes.jpg" alt="Praia da Cruz" onerror="this.style.background='#1a6b8a'">
       <div class="praia-body">
         <div class="praia-nome">Praia da Cruz</div>
-        <p class="praia-texto">200 metros de areia dourada emoldurada por pedras. Mar com poucas ondas, em tonalidades que variam do azul ao esverdeado. Quiosques e bares com petiscos e bebidas frescas ao longo da orla.</p>
-        <span class="praia-tag">Tranquila · Areia Dourada</span>
+        <p class="praia-texto">200 metros de areia dourada emoldurada por pedras. Mar com poucas ondas em tonalidades azul ao esverdeado. Quiosques com petiscos e bebidas frescas.</p>
+        <span class="praia-tag">Areia Dourada · Pedras</span>
       </div>
     </div>
-
     <div class="praia-card">
-      <img class="praia-img" src="https://www.viagemsimples.com.br/wp-content/uploads/2023/01/praia-da-areia-preta-marataizes.jpg" alt="Praia da Areia Preta" onerror="this.style.background='#2E86AB'">
+      <img class="praia-img" src="https://www.aquiorla.com.br/wp-content/uploads/2022/07/praia-areia-preta-marataizes.jpg" alt="Praia da Areia Preta" onerror="this.style.background='#0A4D68'">
       <div class="praia-body">
         <div class="praia-nome">Praia da Areia Preta</div>
-        <p class="praia-texto">Famosa pela areia que adquire tons escuros em certas áreas, criando contraste fascinante com as águas esverdeadas. Ambiente calmo e acolhedor, com pedras naturais e quiosques especializados em frutos do mar.</p>
+        <p class="praia-texto">Famosa pela areia que adquire tons escuros em contraste com as águas esverdeadas. Ambiente calmo e acolhedor com quiosques especializados em frutos do mar frescos.</p>
         <span class="praia-tag">Única · Frutos do Mar</span>
       </div>
     </div>
-
     <div class="praia-card">
-      <img class="praia-img" src="https://www.viagemsimples.com.br/wp-content/uploads/2023/01/praia-do-pontal-marataizes.jpg" alt="Praia do Pontal" onerror="this.style.background='#0A4D68'">
+      <img class="praia-img" src="https://www.aquiorla.com.br/wp-content/uploads/2022/07/praia-pontal-marataizes.jpg" alt="Praia do Pontal" onerror="this.style.background='#2E86AB'">
       <div class="praia-body">
         <div class="praia-nome">Praia do Pontal</div>
-        <p class="praia-texto">Visual rústico e autêntico, abriga uma comunidade tradicional de pescadores. Aproximadamente 1,5 km de extensão com água calma e transparente. Trilhas naturais com mirantes e biodiversidade local.</p>
+        <p class="praia-texto">Visual rústico com comunidade tradicional de pescadores. 1,5 km de extensão com água calma e trilhas naturais com mirantes para apreciar a biodiversidade local.</p>
         <span class="praia-tag">Rústica · Pesca · Trilhas</span>
       </div>
     </div>
-
   </div>
 </div>
 
-<div class="divisor"></div>
+<div class="divider"></div>
 
-<!-- ITAPEMIRIM -->
-<div id="itapemirim">
+<!-- ======================== ITAPEMIRIM ======================== -->
+<div class="cidade-section" id="itapemirim">
   <div class="cidade-header">
-    <div class="cidade-nome"><em>Itapemirim</em></div>
-    <p class="cidade-desc">História, natureza e litoral preservado. Uma das cidades mais encantadoras do sul capixaba, com praias de pedra, ilhas paradisíacas e monumentos naturais únicos.</p>
-  </div>
-
-  <div class="praias-grid">
-
-    <div class="praia-card large">
-      <img class="praia-img"
-        src="https://www.viagemsimples.com.br/wp-content/uploads/2022/12/praia-itaoca-itapemirim.jpg"
-        alt="Praia de Itaoca, Itapemirim"
-        onerror="this.src='https://www.aquiorla.com.br/wp-content/uploads/2022/07/itaoca-itapemirim.jpg'; this.onerror=null;">
-      <div class="praia-body">
-        <div class="praia-nome">Praia de Itaoca</div>
-        <p class="praia-texto">Com cerca de 2 km de extensão, é considerada um excelente local para esportes náuticos. Areias brancas e finas contrastam com as águas cristalinas. Infraestrutura completa com iluminação, ciclovia, restaurantes e pousadas. Ponto de partida para a Ilha dos Franceses.</p>
-        <span class="praia-tag">Esportes Náuticos · Ilha dos Franceses</span>
+    <div>
+      <div class="cidade-nome"><em>Itapemirim</em></div>
+    </div>
+    <div class="cidade-meta">
+      <div class="cidade-dist">95 km de Vitória · Litoral Sul do ES</div>
+      <div class="cidade-tag-list">
+        <span class="cidade-tag">Ilhas Paradisíacas</span>
+        <span class="cidade-tag">Formações Rochosas</span>
+        <span class="cidade-tag">Ecoturismo</span>
       </div>
     </div>
+  </div>
+  <div class="cidade-desc-box">
+    <p class="cidade-desc">História, natureza e litoral preservado. Praias de pedra, ilhas paradisíacas, formações rochosas únicas e o cartão-postal mais icônico do Sul do ES — a Pedra do Frade e a Freira.</p>
+  </div>
 
+  <div class="praias-grid cols3">
+    <div class="praia-card large">
+      <img class="praia-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/itapemirim-praia-itaoca.jpg" alt="Praia de Itaoca Itapemirim" onerror="this.style.background='#1a6b8a'">
+      <div class="praia-body">
+        <div class="praia-nome">Praia de Itaoca</div>
+        <p class="praia-texto">Com 2 km de extensão, ideal para esportes náuticos. Areias brancas e águas cristalinas com infraestrutura completa — iluminação, ciclovia, restaurantes e pousadas. Ponto de partida para a Ilha dos Franceses.</p>
+        <span class="praia-tag">Náutica · Ilha dos Franceses · Infraestrutura</span>
+      </div>
+    </div>
     <div class="praia-card">
-      <img class="praia-img" src="https://www.aquiorla.com.br/wp-content/uploads/2022/07/itaipava-itapemirim.jpg" alt="Praia de Itaipava" onerror="this.style.background='#2E86AB'">
+      <img class="praia-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/itapemirim-praia-itaipava.jpg" alt="Praia de Itaipava" onerror="this.style.background='#2E86AB'">
       <div class="praia-body">
         <div class="praia-nome">Praia de Itaipava</div>
-        <p class="praia-texto">Paraíso cercado por águas tranquilas esverdeadas e areias claras. Separada de Itaoca apenas por uma faixa de pedras. Perfeita para famílias com crianças e idosos. Quiosques com petiscos típicos da região.</p>
+        <p class="praia-texto">Paraíso com águas tranquilas esverdeadas. Separada de Itaoca por uma faixa de pedras. Perfeita para famílias com crianças e quiosques com petiscos típicos.</p>
         <span class="praia-tag">Família · Águas Calmas</span>
       </div>
     </div>
-
     <div class="praia-card">
-      <img class="praia-img" src="https://www.aquiorla.com.br/wp-content/uploads/2022/07/gamboa-itapemirim.jpg" alt="Praia da Gamboa" onerror="this.style.background='#0A4D68'">
+      <img class="praia-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/itapemirim-gamboa.jpg" alt="Praia da Gamboa" onerror="this.style.background='#0A4D68'">
       <div class="praia-body">
         <div class="praia-nome">Praia da Gamboa</div>
-        <p class="praia-texto">Emoldurada por rochas, é uma das mais bonitas da região. Ambiente bucólico com bares e restaurantes que servem petiscos típicos. Durante o verão, vira palco de shows e eventos que encantam visitantes.</p>
+        <p class="praia-texto">Emoldurada por rochas, uma das mais bonitas da região. Ambiente bucólico com bares e restaurantes. No verão vira palco de shows e eventos culturais.</p>
         <span class="praia-tag">Rochosa · Shows · Gastronomia</span>
       </div>
     </div>
-
   </div>
-</div>
 
-<!-- PONTOS TURÍSTICOS -->
-<div class="ponto-section" id="pontos">
-  <div class="ponto-inner">
-    <span class="ponto-label">Pontos turísticos</span>
-    <h2 style="font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);color:var(--white);font-weight:600;">Além das <em style="font-style:italic;color:var(--gold);">praias</em></h2>
-
-    <div class="ponto-grid">
-
-      <div class="ponto-card">
-        <img class="ponto-img"
-          src="https://viagensecaminhos.com/wp-content/uploads/2019/10/Frade-e-Freira-ES-1.jpg"
-          alt="Frade e Freira, Itapemirim"
-          onerror="this.style.background='rgba(255,255,255,0.1)'">
-        <div class="ponto-body">
-          <div class="ponto-nome">Pedra do Frade e a Freira</div>
-          <p class="ponto-texto">Cartão-postal mais emblemático da região. Formações rochosas de granito que se assemelham a um frade e uma freira, cercadas de lendas locais. Oferecem vista panorâmica das praias de Marataízes, Itapemirim e Piúma.</p>
+  <div class="pontos-section" style="margin-top:2rem;">
+    <div class="pontos-inner">
+      <span class="pontos-label">Pontos turísticos · Itapemirim</span>
+      <div class="pontos-title">Além das praias em <em>Itapemirim</em></div>
+      <div class="pontos-grid">
+        <div class="ponto-card">
+          <img class="ponto-img" src="https://viagensecaminhos.com/wp-content/uploads/2019/10/Frade-e-Freira-ES-1.jpg" alt="Frade e Freira" onerror="this.style.background='rgba(255,255,255,0.08)'">
+          <div class="ponto-body">
+            <div class="ponto-nome">Pedra do Frade e a Freira</div>
+            <p class="ponto-texto">Formações de granito que se assemelham a figuras religiosas. Vista panorâmica de Marataízes, Itapemirim e Piúma. Cercadas de lendas e histórias locais.</p>
+          </div>
+        </div>
+        <div class="ponto-card">
+          <img class="ponto-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/itapemirim-ilha-franceses.jpg" alt="Ilha dos Franceses" onerror="this.style.background='rgba(255,255,255,0.08)'">
+          <div class="ponto-body">
+            <div class="ponto-nome">Ilha dos Franceses</div>
+            <p class="ponto-texto">Paraíso natural com aves raras, águas para mergulho e pesca. Acesso por escuna ou canoa havaiana. Farol recém-revitalizado é atração à parte.</p>
+          </div>
+        </div>
+        <div class="ponto-card">
+          <img class="ponto-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/itapemirim-monte-agha.jpg" alt="Monte Agha" onerror="this.style.background='rgba(255,255,255,0.08)'">
+          <div class="ponto-body">
+            <div class="ponto-nome">Monte Agha</div>
+            <p class="ponto-texto">300 metros de altura para escalada, trekking e asa-delta. Vistas panorâmicas do litoral. Um dos pontos naturais mais procurados do sul capixaba.</p>
+          </div>
         </div>
       </div>
-
-      <div class="ponto-card">
-        <img class="ponto-img" src="https://www.aquiorla.com.br/wp-content/uploads/2022/07/ilha-dos-franceses-itapemirim.jpg" alt="Ilha dos Franceses" onerror="this.style.background='rgba(255,255,255,0.1)'">
-        <div class="ponto-body">
-          <div class="ponto-nome">Ilha dos Franceses</div>
-          <p class="ponto-texto">Paraíso natural em frente à Praia de Itaoca. Águas cristalinas para pesca e mergulho com aves raras. Acessível por escuna ou canoa havaiana. O farol recém-revitalizado é um dos principais atrativos da ilha.</p>
-        </div>
-      </div>
-
-      <div class="ponto-card">
-        <img class="ponto-img" src="https://www.aquiorla.com.br/wp-content/uploads/2022/07/monte-agha-itapemirim.jpg" alt="Monte Agha" onerror="this.style.background='rgba(255,255,255,0.1)'">
-        <div class="ponto-body">
-          <div class="ponto-nome">Monte Agha</div>
-          <p class="ponto-texto">Com 300 metros de altura, o "Monte de ver Deus" é destino para escalada, trekking e asa-delta. Trilhas com vistas panorâmicas impressionantes. Um dos pontos naturais mais procurados do sul do ES.</p>
-        </div>
-      </div>
-
-      <div class="ponto-card">
-        <img class="ponto-img" src="https://www.aquiorla.com.br/wp-content/uploads/2022/07/lagoa-guanandy-itapemirim.jpg" alt="Lagoa Guanandy" onerror="this.style.background='rgba(255,255,255,0.1)'">
-        <div class="ponto-body">
-          <div class="ponto-nome">Lagoa Guanandy</div>
-          <p class="ponto-texto">Área de proteção ambiental com equipes de salva-vidas. Mergulho, piquenique e observação de aves em meio a vegetação preservada. Espaço científico e recreativo que combina natureza e lazer.</p>
-        </div>
-      </div>
-
     </div>
   </div>
 </div>
 
-<!-- TV BADGE -->
-<div class="tv-badge">
-  <p>Conteúdo produzido por</p>
+<div class="divider"></div>
+
+<!-- ======================== PIÚMA ======================== -->
+<div class="cidade-section" id="piuma">
+  <div class="cidade-header">
+    <div>
+      <div class="cidade-nome"><em>Piúma</em></div>
+    </div>
+    <div class="cidade-meta">
+      <div class="cidade-dist">80 km de Vitória · Cidade das Conchas</div>
+      <div class="cidade-tag-list">
+        <span class="cidade-tag">8 km de Praias</span>
+        <span class="cidade-tag">4 Ilhas</span>
+        <span class="cidade-tag">Artesanato de Conchas</span>
+      </div>
+    </div>
+  </div>
+  <div class="cidade-desc-box">
+    <p class="cidade-desc">O menor município do ES guarda grandes belezas. Conhecida como a Cidade das Conchas, Piúma tem 8 km de praias, quatro ilhas paradisíacas e o Monte Aghá — cartão-postal que se avista de toda a orla. Fundada pelo Padre Anchieta em 1565.</p>
+  </div>
+
+  <div class="praias-grid cols3">
+    <div class="praia-card large">
+      <img class="praia-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/piuma-1.jpg" alt="Praia de Piúma" onerror="this.style.background='#1a6b8a'">
+      <div class="praia-body">
+        <div class="praia-nome">Praia de Piúma</div>
+        <p class="praia-texto">A praia central da cidade, famosa por suas incontáveis conchinhas espalhadas pela areia — característica que deu o apelido à cidade. Águas calmas com vista deslumbrante para as ilhas do Gambá, do Meio e dos Cabritos. Na maré baixa, é possível caminhar até a Ilha do Meio.</p>
+        <span class="praia-tag">Conchas · Ilhas · Família</span>
+      </div>
+    </div>
+    <div class="praia-card">
+      <img class="praia-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/piuma-corujao.jpg" alt="Praia do Corujão" onerror="this.style.background='#2E86AB'">
+      <div class="praia-body">
+        <div class="praia-nome">Praia do Corujão</div>
+        <p class="praia-texto">Uma das mais urbanizadas e movimentadas na alta temporada. Mar levemente agitado com coqueiros e amendoeiras que fornecem sombra natural. Ponto de partida para passeios à Ilha dos Cabritos.</p>
+        <span class="praia-tag">Urbana · Ilha dos Cabritos</span>
+      </div>
+    </div>
+    <div class="praia-card">
+      <img class="praia-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/piuma-maria-nenem.jpg" alt="Praia Maria Neném" onerror="this.style.background='#0A4D68'">
+      <div class="praia-body">
+        <div class="praia-nome">Praia Maria Neném</div>
+        <p class="praia-texto">Extensa e tranquila, fica abaixo do Monte Aghá. Ondas mansas e vegetação nativa preservada. Ideal para Kite Surf. Lotada apenas em alta temporada — perfeita para quem busca sossego.</p>
+        <span class="praia-tag">Tranquila · Kite Surf</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pontos-section" style="margin-top:2rem;">
+    <div class="pontos-inner">
+      <span class="pontos-label">Pontos turísticos · Piúma</span>
+      <div class="pontos-title">As <em>ilhas e o Monte</em></div>
+      <div class="pontos-grid">
+        <div class="ponto-card">
+          <img class="ponto-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/piuma-ilha-cabritos.jpg" alt="Ilha dos Cabritos" onerror="this.style.background='rgba(255,255,255,0.08)'">
+          <div class="ponto-body">
+            <div class="ponto-nome">Ilha dos Cabritos</div>
+            <p class="ponto-texto">Patrimônio paisagístico com vegetação nativa e trilhas rústicas. Praia pequena com águas cristalinas e fauna diversificada. Acesso por barco a 15 minutos do continente.</p>
+          </div>
+        </div>
+        <div class="ponto-card">
+          <img class="ponto-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/piuma-monte-agha.jpg" alt="Monte Aghá Piúma" onerror="this.style.background='rgba(255,255,255,0.08)'">
+          <div class="ponto-body">
+            <div class="ponto-nome">Monte Aghá</div>
+            <p class="ponto-texto">Cartão-postal de Piúma com 340 metros de altura. Do cume se avista toda a orla, as quatro ilhas e o Vale do Orobó. Trilha íngreme que vale cada passo — pôr do sol de tirar o fôlego.</p>
+          </div>
+        </div>
+        <div class="ponto-card">
+          <img class="ponto-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/piuma-artesanato.jpg" alt="Artesanato de Conchas Piúma" onerror="this.style.background='rgba(255,255,255,0.08)'">
+          <div class="ponto-body">
+            <div class="ponto-nome">Artesanato de Conchas</div>
+            <p class="ponto-texto">Patrimônio cultural transmitido entre gerações. Piúma é a maior produtora de conchas do país. O artesanato é admirado internacionalmente e pode ser encontrado em feiras e lojas pela cidade.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ======================== PRESIDENTE KENNEDY ======================== -->
+<div class="cidade-section" id="kennedy">
+  <div class="cidade-header">
+    <div>
+      <div class="cidade-nome">Presidente<br><em>Kennedy</em></div>
+    </div>
+    <div class="cidade-meta">
+      <div class="cidade-dist">116 km de Vitória · Extremo Sul do ES</div>
+      <div class="cidade-tag-list">
+        <span class="cidade-tag">16 km de Orla</span>
+        <span class="cidade-tag">Maior Mangue do Brasil</span>
+        <span class="cidade-tag">Natureza Intocada</span>
+      </div>
+    </div>
+  </div>
+  <div class="cidade-desc-box">
+    <p class="cidade-desc">No extremo sul do ES, Kennedy guarda praias quase intocadas, o maior mangue do país com capivaras, macacos e jacarés, uma igreja jesuíta do século XVII e a promessa de ver baleias jubartes de passagem para Abrolhos.</p>
+  </div>
+
+  <div class="praias-grid cols2">
+    <div class="praia-card large">
+      <img class="praia-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/presidente-kennedy-praia-maroba.jpg" alt="Praia de Marobá Presidente Kennedy" onerror="this.style.background='#1a6b8a'">
+      <div class="praia-body">
+        <div class="praia-nome">Praia de Marobá</div>
+        <p class="praia-texto">A praia mais popular do município. Cheia de falésias e castanheiras na orla, com uma lagoa natural de água doce que corre em paralelo ao mar — fenômeno único na região. Mar aberto com quiosques e restaurantes. Recebe cerca de mil pessoas por final de semana no verão.</p>
+        <span class="praia-tag">Falésias · Lagoa · Família</span>
+      </div>
+    </div>
+    <div class="praia-card">
+      <img class="praia-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/presidente-kennedy-praia-neves.jpg" alt="Praia das Neves" onerror="this.style.background='#2E86AB'">
+      <div class="praia-body">
+        <div class="praia-nome">Praia das Neves</div>
+        <p class="praia-texto">8 km de praia praticamente inexplorada. Mar calmo e areias claras com quiosques de sapê que dão charme especial ao local. A poucos metros da centenária Igreja de Nossa Senhora das Neves, construída pelos jesuítas no século XVII.</p>
+        <span class="praia-tag">Selvagem · Histórica · Quiosques de Sapê</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pontos-section" style="margin-top:2rem;">
+    <div class="pontos-inner">
+      <span class="pontos-label">Pontos turísticos · Presidente Kennedy</span>
+      <div class="pontos-title">História, natureza e <em>fauna selvagem</em></div>
+      <div class="pontos-grid">
+        <div class="ponto-card">
+          <img class="ponto-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/presidente-kennedy-igreja.jpg" alt="Igreja das Neves" onerror="this.style.background='rgba(255,255,255,0.08)'">
+          <div class="ponto-body">
+            <div class="ponto-nome">Igreja Nossa Senhora das Neves</div>
+            <p class="ponto-texto">Construída pelos jesuítas no século XVII. Marco do nascimento da cidade e parte do Caminho dos Santuários percorrido por Padre Anchieta. A imagem da padroeira veio de Portugal em 1750.</p>
+          </div>
+        </div>
+        <div class="ponto-card">
+          <img class="ponto-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/presidente-kennedy-mangue.jpg" alt="Mangue Presidente Kennedy" onerror="this.style.background='rgba(255,255,255,0.08)'">
+          <div class="ponto-body">
+            <div class="ponto-nome">Maior Mangue do Brasil</div>
+            <p class="ponto-texto">300 hectares de Mata Atlântica e restinga na divisa com o Rio de Janeiro. Capivaras, macacos, jacarés e aves raras. Área ideal para ecoturismo e observação da fauna silvestre.</p>
+          </div>
+        </div>
+        <div class="ponto-card">
+          <img class="ponto-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/presidente-kennedy-morro-serrinha.jpg" alt="Morro da Serrinha" onerror="this.style.background='rgba(255,255,255,0.08)'">
+          <div class="ponto-body">
+            <div class="ponto-nome">Morro da Serrinha</div>
+            <p class="ponto-texto">40 minutos de trekking até o cume com vista do Oceano Atlântico, da Pedra do Frade e a Freira, Monte Aghá e até a Pedra Azul nas montanhas capixabas. Baleias jubartes passam pela costa com destino a Abrolhos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BANNER TV -->
+<div class="tv-banner">
+  <p>Conteúdo produzido e distribuído por</p>
   <h3>TV Marataízes — Canal 300 Soul TV</h3>
-  <a href="https://tvmarataizes.digital">Acesse o portal</a>
+  <a href="https://tvmarataizes.digital">Acesse o portal completo</a>
 </div>
 
 <footer>
-  <p>TV Marataízes · tvmarataizes.digital · (28) 99903-6141 · Marataízes · Itapemirim · Piúma · Presidente Kennedy</p>
+  <p>TV Marataízes · tvmarataizes.digital · (28) 99903-6141<br>
+  Marataízes · Itapemirim · Piúma · Presidente Kennedy · Sul do Espírito Santo</p>
 </footer>
 
 </body>
