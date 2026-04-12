@@ -93,6 +93,7 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
   </div>
 </div>
 
+<!-- ═══ MODAL VOD ═══ -->
 <div id="vod-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;">
   <div style="position:relative;width:90%;max-width:960px;aspect-ratio:16/9;">
     <button onclick="closeVodModal()" style="position:absolute;top:-44px;right:0;background:none;border:none;color:#fff;font-size:32px;cursor:pointer;line-height:1;opacity:0.85;">✕</button>
@@ -100,38 +101,116 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
   </div>
 </div>
 
+<!-- CARROSSEL -->
 <div class="gp-featured">
   <h2>Programas da TV Marataízes</h2>
   <div class="gp-row-wrap">
     <button class="gp-arrow prev" id="gp-feat-prev" aria-label="Anterior">&#8249;</button>
     <div class="gp-row" id="gp-featured-row">
+
+      <!-- O Que Marataízes Quer? — VOD com modal (1º) -->
       <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/hfxCnhHwaVZDNLZB')">
-        <div class="gp-card-thumb"><img src="clima/oquequer.png" alt="O Que Marataízes Quer?">
-          <div class="gp-card-overlay"><div class="gp-card-title">O Que Marataízes Quer?</div><span class="gp-card-btn">▶ Assistir agora</span></div></div></div>
+        <div class="gp-card-thumb">
+          <img src="clima/oquequer.png" alt="O Que Marataízes Quer?">
+          <div class="gp-card-overlay">
+            <div class="gp-card-title">O Que Marataízes Quer?</div>
+            <span class="gp-card-btn">▶ Assistir agora</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Promo Festival Itaipava — VOD com modal (2º) -->
       <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/sth91gjVkvFqV8cz')">
-        <div class="gp-card-thumb"><img src="clima/promoitaipava.png" alt="Promo Festival Itaipava">
-          <div class="gp-card-overlay"><div class="gp-card-title">Promo Festival Itaipava</div><span class="gp-card-btn">▶ Assistir agora</span></div></div></div>
+        <div class="gp-card-thumb">
+          <img src="clima/promoitaipava.png" alt="Promo Festival Itaipava">
+          <div class="gp-card-overlay">
+            <div class="gp-card-title">Promo Festival Itaipava</div>
+            <span class="gp-card-btn">▶ Assistir agora</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dicas de Filmes — VOD com modal (3º) -->
       <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/YKobAzi1Va0pAD7r')">
-        <div class="gp-card-thumb"><img src="clima/dicasdefilmes.png" alt="Dicas de Filmes">
-          <div class="gp-card-overlay"><div class="gp-card-title">Dicas de Filmes</div><span class="gp-card-btn">▶ Assistir agora</span></div></div></div>
+        <div class="gp-card-thumb">
+          <img src="clima/dicasdefilmes.png" alt="Dicas de Filmes">
+          <div class="gp-card-overlay">
+            <div class="gp-card-title">Dicas de Filmes</div>
+            <span class="gp-card-btn">▶ Assistir agora</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rota 300 Ep. 4 — VOD com modal (4º) -->
       <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/CEqs408lv2OG2XXm')">
-        <div class="gp-card-thumb"><img src="clima/rota300.png" alt="Rota 300 Ep. 4">
-          <div class="gp-card-overlay"><div class="gp-card-title">Rota 300 · Ep. 4</div><span class="gp-card-btn">▶ Assistir agora</span></div></div></div>
-      <div class="gp-card"><a href="https://tvmarataizes.digital/diva/" style="text-decoration:none">
-        <div class="gp-card-thumb"><img src="clima/diva.png" alt="O Divã do Abacaxi">
-          <div class="gp-card-overlay"><div class="gp-card-title">O Divã do Abacaxi</div><span class="gp-card-btn">Assistir episódios</span></div></div></a></div>
-      <div class="gp-card"><a href="https://tvmarataizes.digital/marataizes-em-movimento" style="text-decoration:none">
-        <div class="gp-card-thumb"><img src="clima/PREFEITO.png" alt="Marataízes está em movimento">
-          <div class="gp-card-overlay"><div class="gp-card-title">Marataízes está em movimento</div><span class="gp-card-btn">Assistir aqui</span></div></div></a></div>
-      <div class="gp-card"><a href="https://tvmarataizes.digital/expo-inovadora-2026" style="text-decoration:none">
-        <div class="gp-card-thumb"><img src="clima/EXPO.png" alt="Cidade Expo Inovadora">
-          <div class="gp-card-overlay"><div class="gp-card-title">Cidade Expo Inovadora</div><span class="gp-card-btn">Assistir aqui</span></div></div></a></div>
-      <div class="gp-card"><a href="https://tvmarataizes.digital/leituraemcena/" style="text-decoration:none">
-        <div class="gp-card-thumb"><img src="clima/Leitura.png" alt="Leitura em Cena">
-          <div class="gp-card-overlay"><div class="gp-card-title">Leitura em Cena</div><span class="gp-card-btn">Assistir episódios</span></div></div></a></div>
-      <div class="gp-card"><a href="https://tvmarataizes.digital/vitrine-marataizes.html" style="text-decoration:none">
-        <div class="gp-card-thumb"><img src="clima/vitrine-thumb.png" alt="Vitrine Marataízes">
-          <div class="gp-card-overlay"><div class="gp-card-title">Vitrine Marataízes</div><span class="gp-card-btn">Assistir episódios</span></div></div></a></div>
+        <div class="gp-card-thumb">
+          <img src="clima/rota300.png" alt="Rota 300 Ep. 4">
+          <div class="gp-card-overlay">
+            <div class="gp-card-title">Rota 300 · Ep. 4</div>
+            <span class="gp-card-btn">▶ Assistir agora</span>
+          </div>
+        </div>
+      </div>
+      <div class="gp-card">
+        <a href="https://tvmarataizes.digital/diva/" style="text-decoration:none">
+          <div class="gp-card-thumb">
+            <img src="clima/diva.png" alt="O Divã do Abacaxi">
+            <div class="gp-card-overlay">
+              <div class="gp-card-title">O Divã do Abacaxi</div>
+              <span class="gp-card-btn">Assistir episódios</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gp-card">
+        <a href="https://tvmarataizes.digital/marataizes-em-movimento" style="text-decoration:none">
+          <div class="gp-card-thumb">
+            <img src="clima/PREFEITO.png" alt="Marataízes está em movimento">
+            <div class="gp-card-overlay">
+              <div class="gp-card-title">Marataízes está em movimento</div>
+              <span class="gp-card-btn">Assistir aqui</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gp-card">
+        <a href="https://tvmarataizes.digital/expo-inovadora-2026" style="text-decoration:none">
+          <div class="gp-card-thumb">
+            <img src="clima/EXPO.png" alt="Cidade Expo Inovadora">
+            <div class="gp-card-overlay">
+              <div class="gp-card-title">Cidade Expo Inovadora</div>
+              <span class="gp-card-btn">Assistir aqui</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gp-card">
+        <a href="https://tvmarataizes.digital/leituraemcena/" style="text-decoration:none">
+          <div class="gp-card-thumb">
+            <img src="clima/Leitura.png" alt="Leitura em Cena">
+            <div class="gp-card-overlay">
+              <div class="gp-card-title">Leitura em Cena</div>
+              <span class="gp-card-btn">Assistir episódios</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gp-card">
+        <a href="https://tvmarataizes.digital/vitrine-marataizes.html" style="text-decoration:none">
+          <div class="gp-card-thumb">
+            <img src="clima/vitrine-thumb.png" alt="Vitrine Marataízes">
+            <div class="gp-card-overlay">
+              <div class="gp-card-title">Vitrine Marataízes</div>
+              <span class="gp-card-btn">Assistir episódios</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
     </div>
     <button class="gp-arrow next" id="gp-feat-next" aria-label="Próximo">&#8250;</button>
   </div>
@@ -140,13 +219,55 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 <a class="cta" href="https://tvmarataizes.digital/anunciar/">ANUNCIE AQUI</a>
 
 <script>
-function openVodModal(src){var live=document.getElementById('castr-player');if(live){live._liveSrc=live.src;live.src='about:blank';}document.getElementById('vod-player').src=src+'?autoplay=1';var modal=document.getElementById('vod-modal');modal.style.display='flex';document.body.style.overflow='hidden';}
-function closeVodModal(){document.getElementById('vod-player').src='';var live=document.getElementById('castr-player');if(live&&live._liveSrc){live.src=live._liveSrc;}document.getElementById('vod-modal').style.display='none';document.body.style.overflow='';}
-document.getElementById('vod-modal').addEventListener('click',function(e){if(e.target===this)closeVodModal();});
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVodModal();});
-(function(){'use strict';var BASE_SRC='https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on';var SYNC_INTERVAL=4*60*1000,HIDDEN_THRESHOLD=8*1000,RELOAD_BLANK_MS=400,hiddenAt=null,syncTimer=null;function getIframe(){return document.getElementById('castr-player');}function freshSrc(){return BASE_SRC+'&_t='+Date.now();}function reloadPlayer(){var modal=document.getElementById('vod-modal');if(modal&&modal.style.display==='flex')return;var el=getIframe();if(!el)return;el.src='about:blank';setTimeout(function(){el.src=freshSrc();},RELOAD_BLANK_MS);}function startSync(){clearInterval(syncTimer);syncTimer=setInterval(reloadPlayer,SYNC_INTERVAL);}document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'){hiddenAt=Date.now();}else{if(hiddenAt!==null){var elapsed=Date.now()-hiddenAt;if(elapsed>HIDDEN_THRESHOLD){reloadPlayer();}hiddenAt=null;}}});window.addEventListener('focus',function(){reloadPlayer();});var lastTick=Date.now();setInterval(function(){var now=Date.now();if(now-lastTick>4000){reloadPlayer();}lastTick=now;},1000);function init(){if(!getIframe()){setTimeout(init,500);return;}startSync();}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}})();
+/* ── MODAL VOD ── */
+function openVodModal(src) {
+  var live = document.getElementById('castr-player');
+  if (live) { live._liveSrc = live.src; live.src = 'about:blank'; }
+  document.getElementById('vod-player').src = src + '?autoplay=1';
+  var modal = document.getElementById('vod-modal');
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeVodModal() {
+  document.getElementById('vod-player').src = '';
+  var live = document.getElementById('castr-player');
+  if (live && live._liveSrc) { live.src = live._liveSrc; }
+  document.getElementById('vod-modal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.getElementById('vod-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeVodModal();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeVodModal();
+});
+
+/* ── PLAYER AO VIVO ── */
+(function(){
+  'use strict';
+  var BASE_SRC='https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on';
+  var SYNC_INTERVAL=4*60*1000,HIDDEN_THRESHOLD=8*1000,RELOAD_BLANK_MS=400,hiddenAt=null,syncTimer=null;
+  function getIframe(){return document.getElementById('castr-player');}
+  function freshSrc(){return BASE_SRC+'&_t='+Date.now();}
+  function reloadPlayer(){
+    var modal=document.getElementById('vod-modal');
+    if(modal && modal.style.display==='flex') return; // não recarrega enquanto modal estiver aberto
+    var el=getIframe();if(!el)return;
+    el.src='about:blank';setTimeout(function(){el.src=freshSrc();},RELOAD_BLANK_MS);
+  }
+  function startSync(){clearInterval(syncTimer);syncTimer=setInterval(reloadPlayer,SYNC_INTERVAL);}
+  document.addEventListener('visibilitychange',function(){
+    if(document.visibilityState==='hidden'){hiddenAt=Date.now();}
+    else{if(hiddenAt!==null){var elapsed=Date.now()-hiddenAt;if(elapsed>HIDDEN_THRESHOLD){reloadPlayer();}hiddenAt=null;}}
+  });
+  window.addEventListener('focus',function(){reloadPlayer();});
+  var lastTick=Date.now();setInterval(function(){var now=Date.now();if(now-lastTick>4000){reloadPlayer();}lastTick=now;},1000);
+  function init(){if(!getIframe()){setTimeout(init,500);return;}startSync();}
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
+})();
 </script>
 
+<!-- ═══════════════════════════════════ PORTAL ═══════════════════════════════════ -->
 <style>
 #tvmz-portal{background:#f2f2f2!important;color:#1a1a1a!important;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.5;}
 #tvmz-portal *{box-sizing:border-box;color:inherit;}
@@ -210,6 +331,17 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVodModa
 .cta-guia .txt-main{font-size:13px;font-weight:900;color:#fff!important;margin-bottom:2px}
 .cta-guia .txt-sub{font-size:11px;color:rgba(255,255,255,.75)!important}
 .cta-guia .btn-fire{margin-left:auto;background:#25d366;color:#fff!important;font-size:11px;font-weight:800;padding:6px 12px;border-radius:4px;white-space:nowrap;flex-shrink:0}
+#tvmz-portal .sg2{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:7px}
+#tvmz-portal .sc2{background:#fafafa;border:1px solid var(--border);border-radius:var(--r);padding:9px 11px}
+#tvmz-portal .stop{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
+#tvmz-portal .sn2{font-size:12px;font-weight:700;color:var(--text)}
+#tvmz-portal .stag{font-size:9px;font-weight:800;padding:2px 6px;border-radius:2px;text-transform:uppercase;letter-spacing:.2px}
+#tvmz-portal .tub{background:#e6f0fa;color:#004b99}
+#tvmz-portal .te{background:#e6f4ec;color:#005c2e}
+#tvmz-portal .tf{background:#fff3e0;color:#a05000}
+#tvmz-portal .sd{font-size:11px;color:var(--muted)}
+#tvmz-portal .sd b{color:var(--text)}
+#tvmz-portal .sd a{color:var(--blue)}
 #tvmz-portal .cta{background:var(--navy);color:#fff;border-radius:var(--r);padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:24px}
 #tvmz-portal .cta h3{font-size:18px;font-weight:800;margin-bottom:4px}
 #tvmz-portal .cta p{font-size:12px;color:rgba(255,255,255,.7);max-width:460px}
@@ -226,16 +358,22 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVodModa
 <div class="top-stripe"></div>
 <div data-tvmz="header">
   <div class="hi">
-    <a href="https://www.tvmarataizes.digital/" class="logo-w"><span class="logo-fb"><span class="tag">TV</span>Marataízes</span></a>
-    <div class="sw2" role="search"><input type="text" placeholder="Buscar em Marataízes..." aria-label="Buscar no portal"><button aria-label="Pesquisar">🔍</button></div>
+    <a href="https://www.tvmarataizes.digital/" class="logo-w" aria-label="TV Marataízes - Portal Digital">
+      <span class="logo-fb"><span class="tag">TV</span>Marataízes</span>
+    </a>
+    <div class="sw2" role="search">
+      <input type="text" placeholder="Buscar em Marataízes..." aria-label="Buscar no portal">
+      <button aria-label="Pesquisar">🔍</button>
+    </div>
     <div class="hr">
-      <a href="#tvmz-portal" class="bw" style="background:#003781;border:1px solid rgba(255,255,255,.2)">📍 Guia</a>
-      <a href="https://wa.me/5528999036141" target="_blank" rel="noopener" class="bw">📲 WhatsApp</a>
+      <a href="#tvmz-portal" class="bw" style="background:#003781;border:1px solid rgba(255,255,255,.2)" aria-label="Guia da Cidade">📍 Guia</a>
+      <a href="https://wa.me/5528999036141" target="_blank" rel="noopener" class="bw" aria-label="WhatsApp TV Marataízes">📲 WhatsApp</a>
       <a href="#player" class="bl"><span class="dot"></span> Ao Vivo</a>
     </div>
   </div>
 </div>
-<div class="cat">
+
+<div class="cat" aria-label="Categorias do portal">
   <div class="cat-i">
     <a href="#tvmz-portal" class="active">Início</a>
     <a href="#restaurantes">Restaurantes</a>
@@ -257,211 +395,834 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVodModa
     <a href="#anuncie">Anuncie</a>
   </div>
 </div>
-<div class="tick">
+
+<div class="tick" role="marquee">
   <div class="tick-i">
     <span class="tlbl">Agora</span>
     <span class="ttxt">Anuncie na única TV independente do ES e apareça no Google quando seus clientes pesquisarem &nbsp;·&nbsp; <b>(28) 99903-6141</b> &nbsp;·&nbsp; UPA 24h: <b>(28) 3532-5856</b> &nbsp;·&nbsp; SAMU: <b>192</b></span>
   </div>
 </div>
+
 <div class="wrap">
 <main id="main-content">
 
-<section class="box" id="restaurantes">
-  <div class="sh"><h2>🍽️ Restaurantes — Marataízes · Itapemirim · Piúma</h2></div>
+<!-- ═══ RESTAURANTES ═══ -->
+<section class="box" id="restaurantes" aria-labelledby="rest-heading">
+  <div class="sh"><h2 id="rest-heading">🍽️ Restaurantes — Marataízes · Itapemirim · Piúma</h2></div>
   <div class="city-sub">📍 Marataízes</div>
-  <a href="https://tvmarataizes.digital/ciadopeixe" rel="noopener" class="card-agenciado" style="margin-bottom:8px"><div class="badge-ag">⭐ Agenciado TV Marataízes</div><div class="inner"><div class="ico">🐟</div><div><div class="nome">Restaurante Cia do Peixe</div><div class="desc">Frutos do mar · Av. Atlântica, 1800 · Aberto todos os dias 11h–17h · ⭐ 4.5</div><span class="btn-zap">💬 Ver cardápio e reservar →</span></div></div></a>
-  <a href="https://tvmarataizes.digital/quiosquedojogador/" rel="noopener" class="card-agenciado" style="margin-bottom:8px"><div class="badge-ag">⭐ Agenciado TV Marataízes</div><div class="inner"><div class="ico">⚽</div><div><div class="nome">Quiosque do Jogador</div><div class="desc">Cerveja gelada · Petiscos e porções · Telão com jogos ao vivo · Praça da Barra · Ter–Dom 18h–00h</div><span class="btn-zap">⚽ Ver petiscos e localização →</span></div></div></a>
+  <a href="https://tvmarataizes.digital/ciadopeixe" rel="noopener" class="card-agenciado" style="margin-bottom:8px">
+    <div class="badge-ag">⭐ Agenciado TV Marataízes</div>
+    <div class="inner"><div class="ico">🐟</div><div>
+      <div class="nome">Restaurante Cia do Peixe</div>
+      <div class="desc">Frutos do mar · Av. Atlântica, 1800 · Aberto todos os dias 11h–17h · ⭐ 4.5</div>
+      <span class="btn-zap">💬 Ver cardápio e reservar →</span>
+    </div></div>
+  </a>
+  <a href="https://tvmarataizes.digital/quiosquedojogador/" rel="noopener" class="card-agenciado" style="margin-bottom:8px">
+    <div class="badge-ag">⭐ Agenciado TV Marataízes</div>
+    <div class="inner"><div class="ico">⚽</div><div>
+      <div class="nome">Quiosque do Jogador</div>
+      <div class="desc">Cerveja gelada · Petiscos e porções · Telão com jogos ao vivo · Praça da Barra · Ter–Dom 18h–00h</div>
+      <span class="btn-zap">⚽ Ver petiscos e localização →</span>
+    </div></div>
+  </a>
   <div class="neg-list">
-    <a class="neg-item" href="https://www.instagram.com/restaurante_capitaogancho/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">⚓</div><div class="neg-info"><div class="neg-name">Capitão Gancho <span class="neg-badge nb-g">20k Instagram</span></div><div class="neg-desc">Pratos autorais · vista para o mar · R. Santa Catarina, 128 — Praia da Colônia · (28) 99925-8775</div><span class="neg-link">instagram.com/restaurante_capitaogancho</span></div></a>
-    <a class="neg-item" href="https://www.instagram.com/churrascariasaldaterra/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🥩</div><div class="neg-info"><div class="neg-name">Churrascaria Sal da Terra <span class="neg-badge nb-g">10k Instagram</span></div><div class="neg-desc">Melhor churrasco do Sul do ES · self-service almoço · Av. Rubens Rangel, 978</div><span class="neg-link">instagram.com/churrascariasaldaterra</span></div></a>
-    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Restaurante+Marataizes" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🍽️</div><div class="neg-info"><div class="neg-name">Seu restaurante aqui <span class="neg-badge nb-a">Vaga disponível</span></div><div class="neg-desc">Marataízes · Seja o próximo agenciado da TV Marataízes</div><span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div></a>
+    <a class="neg-item" href="https://www.instagram.com/restaurante_capitaogancho/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">⚓</div>
+      <div class="neg-info"><div class="neg-name">Capitão Gancho <span class="neg-badge nb-g">20k Instagram</span></div>
+      <div class="neg-desc">Pratos autorais · vista para o mar · R. Santa Catarina, 128 — Praia da Colônia · (28) 99925-8775</div>
+      <span class="neg-link">instagram.com/restaurante_capitaogancho</span></div>
+    </a>
+    <a class="neg-item" href="https://www.instagram.com/churrascariasaldaterra/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🥩</div>
+      <div class="neg-info"><div class="neg-name">Churrascaria Sal da Terra <span class="neg-badge nb-g">10k Instagram</span></div>
+      <div class="neg-desc">Melhor churrasco do Sul do ES · self-service almoço · Av. Rubens Rangel, 978</div>
+      <span class="neg-link">instagram.com/churrascariasaldaterra</span></div>
+    </a>
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Restaurante+Marataizes" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍽️</div>
+      <div class="neg-info"><div class="neg-name">Seu restaurante aqui <span class="neg-badge nb-a">Vaga disponível</span></div>
+      <div class="neg-desc">Marataízes · Seja o próximo agenciado da TV Marataízes</div>
+      <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
+    </a>
   </div>
   <div class="city-sub" style="border-top:1px solid var(--border);margin-top:10px;padding-top:10px">📍 Itapemirim</div>
-  <a href="https://tvmarataizes.digital/atumdobrasil" rel="noopener" class="card-agenciado" style="margin-bottom:8px"><div class="badge-ag">⭐ Agenciado TV Marataízes</div><div class="inner"><div class="ico">🐟</div><div><div class="nome">Atum do Brasil — Indústria de Pescados</div><div class="desc">Maior exportadora de peixes frescos do país · 30 anos em Itaóca · Pescados frescos e congelados · Certificação SIF, HACCP e FDA</div><span class="btn-zap">🐟 Conheça a empresa →</span></div></div></a>
+  <a href="https://tvmarataizes.digital/atumdobrasil" rel="noopener" class="card-agenciado" style="margin-bottom:8px">
+    <div class="badge-ag">⭐ Agenciado TV Marataízes</div>
+    <div class="inner"><div class="ico">🐟</div><div>
+      <div class="nome">Atum do Brasil — Indústria de Pescados</div>
+      <div class="desc">Maior exportadora de peixes frescos do país · 30 anos em Itaóca · Pescados frescos e congelados · Certificação SIF, HACCP e FDA</div>
+      <span class="btn-zap">🐟 Conheça a empresa →</span>
+    </div></div>
+  </a>
   <div class="neg-list">
-    <a class="neg-item" href="https://www.instagram.com/barerestaurantedopirote/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🤠</div><div class="neg-info"><div class="neg-name">Bar e Restaurante do Pirote <span class="neg-badge nb-g">17k Instagram</span></div><div class="neg-desc">Comida caseira · cerveja gelada · próximo à Pedra do Caramba · Qua–Dom</div><span class="neg-link">instagram.com/barerestaurantedopirote</span></div></a>
-    <a class="neg-item" href="https://www.instagram.com/cordilleraparrillabar/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🔥</div><div class="neg-info"><div class="neg-name">Cordillera Parrilla Bar <span class="neg-badge nb-g">9k Instagram</span></div><div class="neg-desc">Cortes nobres · chef vencedor do reality Na Brasa · Perim Center · Ter–Dom</div><span class="neg-link">instagram.com/cordilleraparrillabar</span></div></a>
-    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Restaurante+Itapemirim" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🍽️</div><div class="neg-info"><div class="neg-name">Seu restaurante aqui <span class="neg-badge nb-a">Vaga disponível</span></div><div class="neg-desc">Itapemirim · Seja o primeiro no guia da TV Marataízes</div><span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div></a>
+    <a class="neg-item" href="https://www.instagram.com/barerestaurantedopirote/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🤠</div>
+      <div class="neg-info"><div class="neg-name">Bar e Restaurante do Pirote <span class="neg-badge nb-g">17k Instagram</span></div>
+      <div class="neg-desc">Comida caseira · cerveja gelada · próximo à Pedra do Caramba · Qua–Dom</div>
+      <span class="neg-link">instagram.com/barerestaurantedopirote</span></div>
+    </a>
+    <a class="neg-item" href="https://www.instagram.com/cordilleraparrillabar/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🔥</div>
+      <div class="neg-info"><div class="neg-name">Cordillera Parrilla Bar <span class="neg-badge nb-g">9k Instagram</span></div>
+      <div class="neg-desc">Cortes nobres · chef vencedor do reality Na Brasa · Perim Center · Ter–Dom</div>
+      <span class="neg-link">instagram.com/cordilleraparrillabar</span></div>
+    </a>
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Restaurante+Itapemirim" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍽️</div>
+      <div class="neg-info"><div class="neg-name">Seu restaurante aqui <span class="neg-badge nb-a">Vaga disponível</span></div>
+      <div class="neg-desc">Itapemirim · Seja o primeiro no guia da TV Marataízes</div>
+      <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
+    </a>
   </div>
   <div class="city-sub" style="border-top:1px solid var(--border);margin-top:10px;padding-top:10px">📍 Piúma</div>
   <div class="neg-list">
-    <a class="neg-item" href="https://www.ancoradourorestaurante.com.br/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">⚓</div><div class="neg-info"><div class="neg-name">Ancoradouro Restaurante <span class="neg-badge nb-g">Frente ao mar</span></div><div class="neg-desc">Moqueca capixaba · pizza no forno a lenha · Av. Beira Mar, 1828 — Piúma</div><span class="neg-link">ancoradourorestaurante.com.br</span></div></a>
-    <a class="neg-item" href="https://www.instagram.com/rtarrastao/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🥩</div><div class="neg-info"><div class="neg-name">Restaurante Arrastão <span class="neg-badge nb-g">Seg–Sáb 11h–15h</span></div><div class="neg-desc">Self-service e churrascaria · cardápio mais completo da região · Piúma ES</div><span class="neg-link">instagram.com/rtarrastao</span></div></a>
-    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Restaurante+Piuma" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🍽️</div><div class="neg-info"><div class="neg-name">Seu restaurante aqui <span class="neg-badge nb-a">Vaga disponível</span></div><div class="neg-desc">Piúma · Seja o primeiro no guia da TV Marataízes</div><span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div></a>
+    <a class="neg-item" href="https://www.ancoradourorestaurante.com.br/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">⚓</div>
+      <div class="neg-info"><div class="neg-name">Ancoradouro Restaurante <span class="neg-badge nb-g">Frente ao mar</span></div>
+      <div class="neg-desc">Moqueca capixaba · pizza no forno a lenha · Av. Beira Mar, 1828 — Piúma</div>
+      <span class="neg-link">ancoradourorestaurante.com.br</span></div>
+    </a>
+    <a class="neg-item" href="https://www.instagram.com/rtarrastao/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🥩</div>
+      <div class="neg-info"><div class="neg-name">Restaurante Arrastão <span class="neg-badge nb-g">Seg–Sáb 11h–15h</span></div>
+      <div class="neg-desc">Self-service e churrascaria · cardápio mais completo da região · Piúma ES</div>
+      <span class="neg-link">instagram.com/rtarrastao</span></div>
+    </a>
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Restaurante+Piuma" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍽️</div>
+      <div class="neg-info"><div class="neg-name">Seu restaurante aqui <span class="neg-badge nb-a">Vaga disponível</span></div>
+      <div class="neg-desc">Piúma · Seja o primeiro no guia da TV Marataízes</div>
+      <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
+    </a>
   </div>
-  <div class="city-sub">🍱 Japonês e Oriental</div>
-  <a href="https://www.tvmarataizes.digital/banzaisushi" rel="noopener" class="card-agenciado" style="margin-bottom:8px"><div class="badge-ag">⭐ Agenciado TV Marataízes</div><div class="inner"><div class="ico">🍣</div><div><div class="nome">Banzai Sushi</div><div class="desc">Culinária japonesa · Marataízes ES</div><span class="btn-zap">💬 Ver cardápio e contato →</span></div></div></a>
+  <div class="city-sub">🍱 Japonês e Oriental — Marataízes · Itapemirim · Piúma</div>
+  <div class="city-sub" style="font-size:10px;margin-top:6px;border-top:none;padding-top:0">📍 Marataízes</div>
+  <a href="https://www.tvmarataizes.digital/banzaisushi" rel="noopener" class="card-agenciado" style="margin-bottom:8px">
+    <div class="badge-ag">⭐ Agenciado TV Marataízes</div>
+    <div class="inner"><div class="ico">🍣</div><div>
+      <div class="nome">Banzai Sushi</div>
+      <div class="desc">Culinária japonesa · Marataízes ES</div>
+      <span class="btn-zap">💬 Ver cardápio e contato →</span>
+    </div></div>
+  </a>
   <div class="neg-list">
-    <a class="neg-item" href="https://www.instagram.com/yakisobamaratabeach/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🍣</div><div class="neg-info"><div class="neg-name">YakisOba Culinária Oriental <span class="neg-badge nb-g">2.1k curtidas</span></div><div class="neg-desc">Sushi · sashimi · yakisoba · R. do Cajueiro, 80 — Arraias · Ter–Dom</div><span class="neg-link">instagram.com/yakisobamaratabeach</span></div></a>
-    <a class="neg-item" href="https://japabrowpiuma.menudino.com/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🍣</div><div class="neg-info"><div class="neg-name">Japa Brow <span class="neg-badge nb-g">Acaiaca · Piúma</span></div><div class="neg-desc">Restaurante japonês · bairro Acaiaca · Piúma ES</div><span class="neg-link">japabrowpiuma.menudino.com</span></div></a>
+    <a class="neg-item" href="https://www.instagram.com/yakisobamaratabeach/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍣</div>
+      <div class="neg-info"><div class="neg-name">YakisOba Culinária Oriental <span class="neg-badge nb-g">2.1k curtidas</span></div>
+      <div class="neg-desc">Sushi · sashimi · yakisoba · R. do Cajueiro, 80 — Arraias · Ter–Dom</div>
+      <span class="neg-link">instagram.com/yakisobamaratabeach</span></div>
+    </a>
+    <a class="neg-item" href="https://www.tripadvisor.com.br/Restaurant_Review-g968370-d8787213" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍱</div>
+      <div class="neg-info"><div class="neg-name">Japeria Temakeria Sushi Bar <span class="neg-badge nb-g">⭐ 4.0</span></div>
+      <div class="neg-desc">Japonesa · frutos do mar · Av. Rubens Rangel, 1031 — Arraias · (28) 3555-0407</div>
+      <span class="neg-link">TripAdvisor Marataízes</span></div>
+    </a>
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Jana+Japa" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍜</div>
+      <div class="neg-info"><div class="neg-name">Jana Japa</div>
+      <div class="neg-desc">Culinária japonesa · Marataízes ES</div>
+      <span class="neg-link">Marataízes ES</span></div>
+    </a>
   </div>
-  <div class="city-sub">🍕 Pizzarias</div>
+  <div class="city-sub" style="font-size:10px;border-top:1px solid var(--border);margin-top:10px;padding-top:10px">📍 Itapemirim</div>
   <div class="neg-list">
-    <a class="neg-item" href="https://baixinhopizzariamarataizes.goomer.app/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🍕</div><div class="neg-info"><div class="neg-name">Baixinho Pizzaria <span class="neg-badge nb-g">30+ anos</span></div><div class="neg-desc">Pizzaria e delivery · referência histórica de Marataízes</div><span class="neg-link">baixinhopizzariamarataizes.goomer.app</span></div></a>
-    <a class="neg-item" href="https://www.instagram.com/bunniesrestaurante/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🍕</div><div class="neg-info"><div class="neg-name">Bunnies Restaurante <span class="neg-badge nb-g">6k seguidores</span></div><div class="neg-desc">Grelhados · pizza · burger · espaço kids · Av. Rubens Rangel, 210 · Ter–Dom 18h–23h</div><span class="neg-link">instagram.com/bunniesrestaurante</span></div></a>
-    <a class="neg-item" href="https://www.instagram.com/siricascudo1/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🍕</div><div class="neg-info"><div class="neg-name">Siri Cascudo <span class="neg-badge nb-g">7.2k seguidores</span></div><div class="neg-desc">Lanchonete e pizzaria · em frente à rotatória da Barra · Ter–Dom · (28) 99927-8864</div><span class="neg-link">instagram.com/siricascudo1</span></div></a>
-    <a class="neg-item" href="https://www.instagram.com/divina_pizzaria_hamburgueria/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🍕</div><div class="neg-info"><div class="neg-name">Divina Pizzaria e Hamburgueria — Itapemirim</div><div class="neg-desc">Pizzas e burgers artesanais · delivery disponível · Itapemirim ES</div><span class="neg-link">instagram.com/divina_pizzaria_hamburgueria</span></div></a>
-    <a class="neg-item" href="https://www.ancoradourorestaurante.com.br/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🍕</div><div class="neg-info"><div class="neg-name">Ancoradouro — Pizza no Forno a Lenha — Piúma <span class="neg-badge nb-g">Desde 2014</span></div><div class="neg-desc">Pizzas e lasanhas no forno a lenha · Av. Beira Mar, 1828 — Piúma</div><span class="neg-link">ancoradourorestaurante.com.br</span></div></a>
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Japones+Itapemirim" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍣</div>
+      <div class="neg-info"><div class="neg-name">Seu japonês aqui <span class="neg-badge nb-a">Vaga disponível</span></div>
+      <div class="neg-desc">Itapemirim · Seja o primeiro da cidade no guia da TV Marataízes</div>
+      <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
+    </a>
   </div>
-  <div class="city-sub">🍔 Hamburguerias</div>
+  <div class="city-sub" style="font-size:10px;border-top:1px solid var(--border);margin-top:10px;padding-top:10px">📍 Piúma</div>
   <div class="neg-list">
-    <a class="neg-item" href="https://www.seugilhamburgueria.com.br/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🍔</div><div class="neg-info"><div class="neg-name">Seu Gil Hamburgueria <span class="neg-badge nb-g">12k · desde 1984</span></div><div class="neg-desc">Burger artesanal · 3 unidades: Praça da Barra · Centro · Itaóca-Itapemirim · 18h–01h</div><span class="neg-link">seugilhamburgueria.com.br · (28) 99981-7849</span></div></a>
-    <a class="neg-item" href="https://www.instagram.com/gordinez_hamburgueria/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🍔</div><div class="neg-info"><div class="neg-name">Gordinez Hamburgueria <span class="neg-badge nb-g">5k seguidores</span></div><div class="neg-desc">A melhor maionese de Marataízes · Cidade Nova · Ter–Dom 18h30–23h30</div><span class="neg-link">instagram.com/gordinez_hamburgueria</span></div></a>
-    <a class="neg-item" href="https://www.facebook.com/p/La-chapa-hamburgueria-e-petiscaria-100063769111733/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🍔</div><div class="neg-info"><div class="neg-name">La Chapa Hamburgueria — Piúma <span class="neg-badge nb-g">88% recomendado</span></div><div class="neg-desc">Burgers · petiscos · R. Pedro Bassul, s/n — Centro Piúma · (28) 99948-7435</div><span class="neg-link">facebook.com/La-chapa-hamburgueria</span></div></a>
+    <a class="neg-item" href="https://japabrowpiuma.menudino.com/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍣</div>
+      <div class="neg-info"><div class="neg-name">Japa Brow <span class="neg-badge nb-g">Acaiaca · Piúma</span></div>
+      <div class="neg-desc">Restaurante japonês · bairro Acaiaca · Piúma ES · cardápio online</div>
+      <span class="neg-link">japabrowpiuma.menudino.com</span></div>
+    </a>
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Japones+Piuma" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍜</div>
+      <div class="neg-info"><div class="neg-name">Os Gonzagas — Oriental e Petiscaria <span class="neg-badge nb-g">Piúma</span></div>
+      <div class="neg-desc">Petiscos · japonês · pizza · música ao vivo · Piúma ES</div>
+      <span class="neg-link">Fale para entrar no guia →</span></div>
+    </a>
   </div>
-  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia"><span style="font-size:26px;flex-shrink:0">📲</span><div><div class="txt-main">Restaurante ou bar na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div><span class="btn-fire">🔥 Faça parte</span></a>
+  <div class="city-sub">🍕 Pizzarias — Marataízes · Itapemirim · Piúma</div>
+  <div class="city-sub" style="font-size:10px;margin-top:6px;border-top:none;padding-top:0">📍 Marataízes</div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://baixinhopizzariamarataizes.goomer.app/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍕</div>
+      <div class="neg-info"><div class="neg-name">Baixinho Pizzaria <span class="neg-badge nb-g">30+ anos</span></div>
+      <div class="neg-desc">Pizzaria e delivery · referência histórica de Marataízes · cardápio online</div>
+      <span class="neg-link">baixinhopizzariamarataizes.goomer.app</span></div>
+    </a>
+    <a class="neg-item" href="https://www.instagram.com/bunniesrestaurante/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍕</div>
+      <div class="neg-info"><div class="neg-name">Bunnies Restaurante <span class="neg-badge nb-g">6k seguidores</span></div>
+      <div class="neg-desc">Grelhados · pizza · burger · espaço kids · Av. Rubens Rangel, 210 · Ter–Dom 18h–23h</div>
+      <span class="neg-link">instagram.com/bunniesrestaurante</span></div>
+    </a>
+    <a class="neg-item" href="https://www.instagram.com/siricascudo1/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍕</div>
+      <div class="neg-info"><div class="neg-name">Siri Cascudo <span class="neg-badge nb-g">7.2k seguidores</span></div>
+      <div class="neg-desc">Lanchonete e pizzaria · em frente à rotatória da Barra · Ter–Dom · (28) 99927-8864</div>
+      <span class="neg-link">instagram.com/siricascudo1</span></div>
+    </a>
+    <a class="neg-item" href="https://restaurantguru.com/Kill-Lanchonete-Pizzaria-Marataizes" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍕</div>
+      <div class="neg-info"><div class="neg-name">Kill Lanchonete e Pizzaria <span class="neg-badge nb-g">⭐ 4.4</span></div>
+      <div class="neg-desc">Pizzaria e lanchonete · delivery · Av. Simão Soares, 364 — Barra · (27) 99950-1926</div>
+      <span class="neg-link">restaurantguru.com</span></div>
+    </a>
+    <a class="neg-item" href="https://www.facebook.com/portoseguropizzaria/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍕</div>
+      <div class="neg-info"><div class="neg-name">Porto Seguro Pizzaria</div>
+      <div class="neg-desc">Delivery · Rua 21 de Abril, 198 — Esplanada · (28) 99976-9290</div>
+      <span class="neg-link">facebook.com/portoseguropizzaria</span></div>
+    </a>
+  </div>
+  <div class="city-sub" style="font-size:10px;border-top:1px solid var(--border);margin-top:10px;padding-top:10px">📍 Itapemirim</div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://www.instagram.com/divina_pizzaria_hamburgueria/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍕</div>
+      <div class="neg-info"><div class="neg-name">Divina Pizzaria e Hamburgueria</div>
+      <div class="neg-desc">Pizzas e burgers artesanais · delivery disponível · Itapemirim ES</div>
+      <span class="neg-link">instagram.com/divina_pizzaria_hamburgueria</span></div>
+    </a>
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Pizzaria+Itapemirim" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍕</div>
+      <div class="neg-info"><div class="neg-name">Sua pizzaria aqui <span class="neg-badge nb-a">Vaga disponível</span></div>
+      <div class="neg-desc">Itapemirim · Seja o primeiro no guia da TV Marataízes</div>
+      <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
+    </a>
+  </div>
+  <div class="city-sub" style="font-size:10px;border-top:1px solid var(--border);margin-top:10px;padding-top:10px">📍 Piúma</div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://www.ancoradourorestaurante.com.br/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍕</div>
+      <div class="neg-info"><div class="neg-name">Ancoradouro — Pizza no Forno a Lenha <span class="neg-badge nb-g">Desde 2014</span></div>
+      <div class="neg-desc">Pizzas e lasanhas no forno a lenha · Av. Beira Mar, 1828 — Piúma</div>
+      <span class="neg-link">ancoradourorestaurante.com.br</span></div>
+    </a>
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Pizzaria+Piuma" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍕</div>
+      <div class="neg-info"><div class="neg-name">Sua pizzaria aqui <span class="neg-badge nb-a">Vaga disponível</span></div>
+      <div class="neg-desc">Piúma · Seja o primeiro no guia da TV Marataízes</div>
+      <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
+    </a>
+  </div>
+  <div class="city-sub">🍔 Hamburguerias — Marataízes · Itapemirim · Piúma</div>
+  <div class="city-sub" style="font-size:10px;margin-top:6px;border-top:none;padding-top:0">📍 Marataízes</div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://www.seugilhamburgueria.com.br/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍔</div>
+      <div class="neg-info"><div class="neg-name">Seu Gil Hamburgueria <span class="neg-badge nb-g">12k · desde 1984</span></div>
+      <div class="neg-desc">Burger artesanal · 3 unidades: Praça da Barra · Centro · Itaóca-Itapemirim · 18h–01h</div>
+      <span class="neg-link">seugilhamburgueria.com.br · (28) 99981-7849</span></div>
+    </a>
+    <a class="neg-item" href="https://www.facebook.com/crowdhamburgueria/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍔</div>
+      <div class="neg-info"><div class="neg-name">Crowd Hamburgueria</div>
+      <div class="neg-desc">Hamburgueria artesanal · Av. Atlântica, 1200 — Centro · Marataízes</div>
+      <span class="neg-link">facebook.com/crowdhamburgueria</span></div>
+    </a>
+    <a class="neg-item" href="https://restaurantguru.com.br/Country-Hamburgueria-e-Petiscaria-Acai-e-Salada-de-Frutas-Marataizes" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍔</div>
+      <div class="neg-info"><div class="neg-name">Country Hamburgueria <span class="neg-badge nb-g">#10 de 259</span></div>
+      <div class="neg-desc">Burgers · petiscos · açaí · ao lado do Shopping Via Sul · 13h–00h · (28) 99974-6143</div>
+      <span class="neg-link">Marataízes ES</span></div>
+    </a>
+    <a class="neg-item" href="https://www.instagram.com/sartoriolanchonete/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍔</div>
+      <div class="neg-info"><div class="neg-name">Sartorio <span class="neg-badge nb-g">3.9k seguidores</span></div>
+      <div class="neg-desc">Hambúrguer · porções · barcas · delivery rápido · 18h–00h · (28) 99903-9981</div>
+      <span class="neg-link">instagram.com/sartoriolanchonete</span></div>
+    </a>
+    <a class="neg-item" href="https://www.instagram.com/gordinez_hamburgueria/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍔</div>
+      <div class="neg-info"><div class="neg-name">Gordinez Hamburgueria <span class="neg-badge nb-g">5k seguidores</span></div>
+      <div class="neg-desc">A melhor maionese de Marataízes · Cidade Nova · Ter–Dom 18h30–23h30</div>
+      <span class="neg-link">instagram.com/gordinez_hamburgueria</span></div>
+    </a>
+  </div>
+  <div class="city-sub" style="font-size:10px;border-top:1px solid var(--border);margin-top:10px;padding-top:10px">📍 Itapemirim</div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://www.facebook.com/hamburgueriaesorveteriatropical" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍔</div>
+      <div class="neg-info"><div class="neg-name">Hamburgueria e Sorveteria Tropical</div>
+      <div class="neg-desc">Lanches e sorvetes · ambiente familiar · Itapemirim ES</div>
+      <span class="neg-link">facebook.com/hamburgueriaesorveteriatropical</span></div>
+    </a>
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Hamburgueria+Itapemirim" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍔</div>
+      <div class="neg-info"><div class="neg-name">Sua hamburgueria aqui <span class="neg-badge nb-a">Vaga disponível</span></div>
+      <div class="neg-desc">Itapemirim · Seja o primeiro no guia da TV Marataízes</div>
+      <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
+    </a>
+  </div>
+  <div class="city-sub" style="font-size:10px;border-top:1px solid var(--border);margin-top:10px;padding-top:10px">📍 Piúma</div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://www.facebook.com/p/La-chapa-hamburgueria-e-petiscaria-100063769111733/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍔</div>
+      <div class="neg-info"><div class="neg-name">La Chapa Hamburgueria e Petiscaria <span class="neg-badge nb-g">88% recomendado</span></div>
+      <div class="neg-desc">Burgers · petiscos · R. Pedro Bassul, s/n — Centro Piúma · (28) 99948-7435</div>
+      <span class="neg-link">facebook.com/La-chapa-hamburgueria</span></div>
+    </a>
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Hamburgueria+Piuma" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍔</div>
+      <div class="neg-info"><div class="neg-name">Sua hamburgueria aqui <span class="neg-badge nb-a">Vaga disponível</span></div>
+      <div class="neg-desc">Piúma · Seja o primeiro no guia da TV Marataízes</div>
+      <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
+    </a>
+  </div>
+  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
+    <span style="font-size:26px;flex-shrink:0">📲</span>
+    <div><div class="txt-main">Restaurante ou bar na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
+    <span class="btn-fire">🔥 Faça parte</span>
+  </a>
 </section>
 
-<section class="box" id="doces">
-  <div class="sh"><h2>🍦 Doces e Sobremesas — Marataízes · Itapemirim · Piúma</h2></div>
-  <a href="https://tvmarataizes.digital/cone" rel="noopener" class="card-agenciado" style="margin-bottom:8px"><div class="badge-ag">⭐ Agenciado TV Marataízes</div><div class="inner"><div class="ico">🍦</div><div><div class="nome">Amor dentro do Cone</div><div class="desc">Brigadeiro · Nutella · Beijinho · Entrega com hora marcada em Marataízes</div><span class="btn-zap">💬 Ver cardápio e pedir →</span></div></div></a>
-  <div class="neg-list">
-    <a class="neg-item" href="https://www.chefmio.com.br/ladeliziedoceria" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🍫</div><div class="neg-info"><div class="neg-name">La Delizie Doceria <span class="neg-badge nb-g">Cachoeiro de Itapemirim</span></div><div class="neg-desc">Brigadeiros artesanais · delivery 60–120 min · Seg–Sáb 13h–20h · (28) 99944-1751</div><span class="neg-link">chefmio.com.br/ladeliziedoceria</span></div></a>
-    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Doceria" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🍰</div><div class="neg-info"><div class="neg-name">Sua doceria aqui <span class="neg-badge nb-a">Vaga disponível</span></div><div class="neg-desc">Marataízes · Itapemirim · Piúma · Seja o próximo agenciado da TV Marataízes</div><span class="neg-link">Fale pelo WhatsApp →</span></div></a>
-  </div>
-  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia"><span style="font-size:26px;flex-shrink:0">📲</span><div><div class="txt-main">Doceria ou confeitaria na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento</div></div><span class="btn-fire">🔥 Faça parte</span></a>
-</section>
-
-<section class="box" id="delivery">
-  <div class="sh"><h2>🛵 Delivery — Marataízes · Itapemirim · Piúma</h2></div>
-  <div class="neg-list">
-    <a class="neg-item" href="https://www.chefmio.com.br/casadolanche" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🍔</div><div class="neg-info"><div class="neg-name">Casa do Lanche <span class="neg-badge nb-g">Online</span></div><div class="neg-desc">Pizzaria e hambúrgueria · bairro Ilmenita · pedido online</div><span class="neg-link">chefmio.com.br/casadolanche</span></div></a>
-    <a class="neg-item" href="https://duzerodelivery.com.br" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🍕</div><div class="neg-info"><div class="neg-name">Duzero Delivery Food <span class="neg-badge nb-g">Online</span></div><div class="neg-desc">Pizzas e lanches · R. Eolina Alves Vieira, 304 B · aceita cartão</div><span class="neg-link">duzerodelivery.com.br</span></div></a>
-    <a class="neg-item" href="https://www.gordinez.sispedido.com/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🍔</div><div class="neg-info"><div class="neg-name">Gordinez Hamburgueria <span class="neg-badge nb-g">Online</span></div><div class="neg-desc">Delivery e mesa · Cidade Nova · Ter–Dom 18h30–23h30</div><span class="neg-link">gordinez.sispedido.com</span></div></a>
-    <a class="neg-item" href="https://www.instagram.com/claudiusrestaurante/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🍖</div><div class="neg-info"><div class="neg-name">Claudiu's Restaurante <span class="neg-badge nb-g">Itaoca ES</span></div><div class="neg-desc">Delivery disponível · Av. Itapemirim, Itaoca</div><span class="neg-link">instagram.com/claudiusrestaurante</span></div></a>
-    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Delivery" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🛵</div><div class="neg-info"><div class="neg-name">Seu delivery aqui <span class="neg-badge nb-a">Vaga disponível</span></div><div class="neg-desc">Marataízes · Itapemirim · Piúma</div><span class="neg-link">Fale pelo WhatsApp →</span></div></a>
-  </div>
-  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia"><span style="font-size:26px;flex-shrink:0">📲</span><div><div class="txt-main">Delivery na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento</div></div><span class="btn-fire">🔥 Faça parte</span></a>
-</section>
-
-<section class="box" id="hospedagem">
-  <div class="sh"><h2>🛏️ Pousadas e Hotéis — Marataízes · Itapemirim · Piúma</h2></div>
+<!-- ═══ DOCES ═══ -->
+<section class="box" id="doces" aria-labelledby="doc-heading">
+  <div class="sh"><h2 id="doc-heading">🍦 Doces e Sobremesas — Marataízes · Itapemirim · Piúma</h2></div>
   <div class="city-sub">📍 Marataízes</div>
+  <a href="https://tvmarataizes.digital/cone" rel="noopener" class="card-agenciado" style="margin-bottom:8px">
+    <div class="badge-ag">⭐ Agenciado TV Marataízes</div>
+    <div class="inner"><div class="ico">🍦</div><div>
+      <div class="nome">Amor dentro do Cone</div>
+      <div class="desc">Brigadeiro · Nutella · Beijinho · Entrega com hora marcada em Marataízes</div>
+      <span class="btn-zap">💬 Ver cardápio e pedir →</span>
+    </div></div>
+  </a>
   <div class="neg-list">
-    <a class="neg-item" href="https://pousadaportal.com.br/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🌊</div><div class="neg-info"><div class="neg-name">Pousada Portal da Barra <span class="neg-badge nb-g">Frente ao Mar</span></div><div class="neg-desc">16 aptos vista mar · café incluso · Rua Odaliska Soares, 31 · WA (28) 99966-2611</div><span class="neg-link">pousadaportal.com.br</span></div></a>
-    <a class="neg-item" href="https://www.pousadagravatais.com/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🌿</div><div class="neg-info"><div class="neg-name">Pousada dos Gravatais</div><div class="neg-desc">Beira do Rio Itapemirim · piscina · área arborizada · WA (28) 99959-9640</div><span class="neg-link">pousadagravatais.com</span></div></a>
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Doceria+Marataizes" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍰</div>
+      <div class="neg-info"><div class="neg-name">Sua doceria aqui <span class="neg-badge nb-a">Vaga disponível</span></div>
+      <div class="neg-desc">Marataízes · Seja o próximo agenciado da TV Marataízes</div>
+      <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
+    </a>
   </div>
   <div class="city-sub">📍 Itapemirim</div>
   <div class="neg-list">
-    <a class="neg-item" href="https://www.instagram.com/pousadaedenitaoca/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🏝️</div><div class="neg-info"><div class="neg-name">Pousada Eden Itaoca <span class="neg-badge nb-g">5.6k Instagram</span></div><div class="neg-desc">Itaoca Praia · Itapemirim ES · reservas online</div><span class="neg-link">instagram.com/pousadaedenitaoca</span></div></a>
-    <a class="neg-item" href="https://www.instagram.com/pousadacastelo/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🏰</div><div class="neg-info"><div class="neg-name">Pousada Castelo <span class="neg-badge nb-g">7.9k Instagram</span></div><div class="neg-desc">Próxima a uma das mais belas praias do ES · (28) 99961-4050</div><span class="neg-link">instagram.com/pousadacastelo</span></div></a>
+    <a class="neg-item" href="https://www.chefmio.com.br/ladeliziedoceria" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍫</div>
+      <div class="neg-info"><div class="neg-name">La Delizie Doceria <span class="neg-badge nb-g">Cachoeiro de Itapemirim</span></div>
+      <div class="neg-desc">Brigadeiros artesanais · delivery 60–120 min · Seg–Sáb 13h–20h · (28) 99944-1751</div>
+      <span class="neg-link">chefmio.com.br/ladeliziedoceria</span></div>
+    </a>
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Doceria+Itapemirim" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍰</div>
+      <div class="neg-info"><div class="neg-name">Sua doceria aqui <span class="neg-badge nb-a">Vaga disponível</span></div>
+      <div class="neg-desc">Itapemirim · Seja o primeiro no guia da TV Marataízes</div>
+      <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
+    </a>
   </div>
   <div class="city-sub">📍 Piúma</div>
   <div class="neg-list">
-    <a class="neg-item" href="https://www.instagram.com/pousadapolonini/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🌊</div><div class="neg-info"><div class="neg-name">Pousada Polonini <span class="neg-badge nb-g">30k Instagram</span></div><div class="neg-desc">À beira mar · Piúma ES · (28) 99917-1897</div><span class="neg-link">instagram.com/pousadapolonini</span></div></a>
-    <a class="neg-item" href="https://www.instagram.com/pousadadommanuel/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🏖️</div><div class="neg-info"><div class="neg-name">Pousada Dom Manuel <span class="neg-badge nb-g">8k · desde 1992</span></div><div class="neg-desc">Conforto e lazer desde 1992 · Piúma ES · (28) 99977-4964</div><span class="neg-link">instagram.com/pousadadommanuel</span></div></a>
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Doceria+Piuma" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍦</div>
+      <div class="neg-info"><div class="neg-name">Sua doceria ou sorveteria aqui <span class="neg-badge nb-a">Vaga disponível</span></div>
+      <div class="neg-desc">Piúma · Seja o primeiro no guia da TV Marataízes · apareça antes do concorrente</div>
+      <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
+    </a>
   </div>
-  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia"><span style="font-size:26px;flex-shrink:0">📲</span><div><div class="txt-main">Pousada ou hotel na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento</div></div><span class="btn-fire">🔥 Faça parte</span></a>
+  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
+    <span style="font-size:26px;flex-shrink:0">📲</span>
+    <div><div class="txt-main">Doceria ou confeitaria na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
+    <span class="btn-fire">🔥 Faça parte</span>
+  </a>
 </section>
 
-<section class="box" id="supermercados">
-  <div class="sh"><h2>🛒 Supermercados — Marataízes · Itapemirim · Piúma</h2></div>
-  <div class="neg-list">
-    <a class="neg-item" href="https://www.instagram.com/multishowmarataizes/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🛒</div><div class="neg-info"><div class="neg-name">Supermercado MS Marataízes <span class="neg-badge nb-g">48k Instagram</span></div><div class="neg-desc">Seg–Sáb 08h–20h · Dom 08h–12h30 · delivery disponível</div><span class="neg-link">instagram.com/multishowmarataizes</span></div></a>
-    <a class="neg-item" href="https://www.supermercadosbh.com.br/lojas/alto-marataizes/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🏪</div><div class="neg-info"><div class="neg-name">Supermercados BH — Alto Marataízes</div><div class="neg-desc">Atacado e varejo · Rod. Safra, s/n — Alto Marataízes · (28) 3199-1352</div><span class="neg-link">supermercadosbh.com.br</span></div></a>
-    <a class="neg-item" href="https://www.instagram.com/supermercadosbomsabor/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🏬</div><div class="neg-info"><div class="neg-name">Supermercados Bom Sabor <span class="neg-badge nb-g">27k Instagram</span></div><div class="neg-desc">Delivery Marataízes: (28) 99943-7963 · Piúma: (28) 3520-1500</div><span class="neg-link">instagram.com/supermercadosbomsabor</span></div></a>
-    <a class="neg-item" href="https://www.instagram.com/brsupermercados/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🏪</div><div class="neg-info"><div class="neg-name">BR Supermercados — Piúma <span class="neg-badge nb-g">55k Instagram</span></div><div class="neg-desc">Sempre o menor preço · promoções todos os dias · Piúma ES</div><span class="neg-link">instagram.com/brsupermercados</span></div></a>
-  </div>
-  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia"><span style="font-size:26px;flex-shrink:0">📲</span><div><div class="txt-main">Supermercado ou atacarejo na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento</div></div><span class="btn-fire">🔥 Faça parte</span></a>
-</section>
-
-<section class="box" id="pets">
-  <div class="sh"><h2>🐾 Pet Shop e Veterinário — Marataízes · Itapemirim · Piúma</h2></div>
-  <div class="neg-list">
-    <a class="neg-item" href="https://www.instagram.com/petcentermarataizes/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🐕</div><div class="neg-info"><div class="neg-name">Pet Center Marataízes</div><div class="neg-desc">Acessórios · banho e tosa · medicamentos · rações · vacinas · (28) 99903-6778</div><span class="neg-link">instagram.com/petcentermarataizes</span></div></a>
-    <a class="neg-item" href="https://clinicaanjosdepatas.com.br/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🏥</div><div class="neg-info"><div class="neg-name">Anjos de Patas — Clínica Veterinária</div><div class="neg-desc">Consultas · cirurgias · vacinas · banho e tosa · táxi dog · Marataízes e Mimoso do Sul</div><span class="neg-link">clinicaanjosdepatas.com.br</span></div></a>
-    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Pet+Shop" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🐾</div><div class="neg-info"><div class="neg-name">Seu pet shop aqui <span class="neg-badge nb-a">Vaga disponível</span></div><div class="neg-desc">Itapemirim · Piúma · Seja o primeiro</div><span class="neg-link">Fale pelo WhatsApp →</span></div></a>
-  </div>
-  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia"><span style="font-size:26px;flex-shrink:0">📲</span><div><div class="txt-main">Pet shop ou veterinário na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento</div></div><span class="btn-fire">🔥 Faça parte</span></a>
-</section>
-
-<section class="box" id="moda">
-  <div class="sh"><h2>👗 Lojas de Moda — Marataízes · Itapemirim · Piúma</h2></div>
-  <a href="https://tvmarataizes.digital/penafama" rel="noopener" class="card-agenciado"><div class="badge-ag">⭐ Agenciado TV Marataízes</div><div class="inner"><div class="ico">👟</div><div><div class="nome">Pé na Fama Barra</div><div class="desc">Calçados &amp; acessórios · 13,5K no Instagram · Entrega para todo o Brasil · Barra de Itapemirim</div><span class="btn-zap">💬 Ver loja completa →</span></div></div></a>
-  <div class="neg-list" style="margin-top:8px">
-    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Moda" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">👗</div><div class="neg-info"><div class="neg-name">Sua loja de moda aqui <span class="neg-badge nb-a">Vaga disponível</span></div><div class="neg-desc">Itapemirim · Piúma · Seja o primeiro</div><span class="neg-link">Fale pelo WhatsApp →</span></div></a>
-  </div>
-  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia"><span style="font-size:26px;flex-shrink:0">📲</span><div><div class="txt-main">Loja de moda ou calçados na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento</div></div><span class="btn-fire">🔥 Faça parte</span></a>
-</section>
-
-<section class="box" id="imoveis">
-  <div class="sh"><h2>🏠 Imóveis em Marataízes</h2></div>
-  <div class="neg-list">
-    <a class="neg-item" href="https://www.aroldofilhoimoveis.com.br/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🏡</div><div class="neg-info"><div class="neg-name">Aroldo Filho Imóveis <span class="neg-badge nb-g">CRECI 9619-F</span></div><div class="neg-desc">Imobiliária local · venda e aluguel · Rua Rio Grande do Norte, 307 · (28) 99915-5068</div><span class="neg-link">aroldofilhoimoveis.com.br</span></div></a>
-    <a class="neg-item" href="https://amenezes.com/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🔑</div><div class="neg-info"><div class="neg-name">A. Menezes Imobiliária</div><div class="neg-desc">Aluguel e venda · sem fiador</div><span class="neg-link">amenezes.com</span></div></a>
-  </div>
-  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia"><span style="font-size:26px;flex-shrink:0">📲</span><div><div class="txt-main">Imobiliária ou corretor na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento</div></div><span class="btn-fire">🔥 Faça parte</span></a>
-</section>
-
-<section class="box" id="dentistas">
-  <div class="sh"><h2>🦷 Dentistas — Marataízes · Itapemirim · Piúma</h2></div>
-  <div class="neg-list">
-    <a class="neg-item" href="https://www.instagram.com/oraldentsmarataizes/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🦷</div><div class="neg-info"><div class="neg-name">OralDents</div><div class="neg-desc">Av. Simão Soares, 1008 · (28) 99942-6279 · clínica odontológica completa</div><span class="neg-link">instagram.com/oraldentsmarataizes</span></div></a>
-    <a class="neg-item" href="https://odontocompany.com/marataizes" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🦷</div><div class="neg-info"><div class="neg-name">OdontoCompany Marataízes</div><div class="neg-desc">Av. Cristiano Dias Lopes Filho, 2184 · avaliação gratuita</div><span class="neg-link">odontocompany.com/marataizes</span></div></a>
-    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Dentista" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🦷</div><div class="neg-info"><div class="neg-name">Sua clínica aqui <span class="neg-badge nb-a">Vaga disponível</span></div><div class="neg-desc">Itapemirim · Piúma</div><span class="neg-link">Fale pelo WhatsApp →</span></div></a>
-  </div>
-  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia"><span style="font-size:26px;flex-shrink:0">📲</span><div><div class="txt-main">Clínica ou dentista na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento</div></div><span class="btn-fire">🔥 Faça parte</span></a>
-</section>
-
-<section class="box" id="farmacias">
-  <div class="sh"><h2>💊 Farmácias — Marataízes · Itapemirim · Piúma</h2></div>
+<!-- ═══ DELIVERY ═══ -->
+<section class="box" id="delivery" aria-labelledby="del-heading">
+  <div class="sh"><h2 id="del-heading">🛵 Delivery — Marataízes · Itapemirim · Piúma</h2></div>
   <div class="city-sub">📍 Marataízes</div>
-  <a href="https://tvmarataizes.digital/drogariabarrafarma/" rel="noopener" class="card-agenciado" style="margin-bottom:8px"><div class="badge-ag">⭐ Agenciado TV Marataízes</div><div class="inner"><div class="ico">💊</div><div><div class="nome">Barra Farma</div><div class="desc">Medicamentos · Cosméticos · Produtos bebê · Tele-entrega · Barra do Itapemirim · (28) 99999-8504</div><span class="btn-zap">💊 Ver produtos e tele-entrega →</span></div></div></a>
-  <a href="https://tvmarataizes.digital/medicalfarma/" rel="noopener" class="card-agenciado" style="margin-bottom:8px"><div class="badge-ag">⭐ Agenciado TV Marataízes</div><div class="inner"><div class="ico">⚕️</div><div><div class="nome">Medical Farma</div><div class="desc">Medicamentos · Cosméticos · Teste de Glicemia · Pressão Arterial · Na Rotatória da Barra · (28) 99908-7662</div><span class="btn-zap">⚕️ Ver produtos e serviços →</span></div></div></a>
   <div class="neg-list">
-    <a class="neg-item" href="https://redefarmes.com.br/nossas-lojas/rede-farmes-centro-i-marataizes/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">💊</div><div class="neg-info"><div class="neg-name">Rede Farmes — Centro <span class="neg-badge nb-g">Rede ES</span></div><div class="neg-desc">Av. Jones dos Santos Neves, 99 · (28) 99909-6154</div><span class="neg-link">redefarmes.com.br</span></div></a>
-    <a class="neg-item" href="https://redefarmes.com.br/nossas-lojas/cidade-nova-marataizes/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">💊</div><div class="neg-info"><div class="neg-name">Rede Farmes — Cidade Nova <span class="neg-badge nb-g">Rede ES</span></div><div class="neg-desc">Av. Rubens Rangel, 15 · (28) 3532-2292</div><span class="neg-link">redefarmes.com.br</span></div></a>
-    <a class="neg-item" href="https://www.instagram.com/precobaixomarataizes/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">💊</div><div class="neg-info"><div class="neg-name">Farmácia Preço Baixo <span class="neg-badge nb-g">Local</span></div><div class="neg-desc">Desconto 25% éticos · 30% genéricos · entrega · Marataízes</div><span class="neg-link">instagram.com/precobaixomarataizes</span></div></a>
+    <a class="neg-item" href="https://www.chefmio.com.br/casadolanche" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍔</div>
+      <div class="neg-info"><div class="neg-name">Casa do Lanche <span class="neg-badge nb-g">Online</span></div>
+      <div class="neg-desc">Pizzaria e hambúrgueria · bairro Ilmenita · pedido online</div>
+      <span class="neg-link">chefmio.com.br/casadolanche</span></div>
+    </a>
+    <a class="neg-item" href="https://duzerodelivery.com.br" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍕</div>
+      <div class="neg-info"><div class="neg-name">Duzero Delivery Food <span class="neg-badge nb-g">Online</span></div>
+      <div class="neg-desc">Pizzas e lanches · R. Eolina Alves Vieira, 304 B · aceita cartão</div>
+      <span class="neg-link">duzerodelivery.com.br</span></div>
+    </a>
+    <a class="neg-item" href="https://www.gordinez.sispedido.com/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍔</div>
+      <div class="neg-info"><div class="neg-name">Gordinez Hamburgueria <span class="neg-badge nb-g">Online</span></div>
+      <div class="neg-desc">Hambúrgueres artesanais · delivery e mesa · Cidade Nova · Ter–Dom 18h30–23h30</div>
+      <span class="neg-link">gordinez.sispedido.com</span></div>
+    </a>
   </div>
   <div class="city-sub">📍 Itapemirim</div>
   <div class="neg-list">
-    <a class="neg-item" href="https://redefarmes.com.br/nossas-lojas/itaipava-itapemirim/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">💊</div><div class="neg-info"><div class="neg-name">Rede Farmes — Vila de Itapemirim <span class="neg-badge nb-g">Rede ES</span></div><div class="neg-desc">Av. Cristiano Dias Lopes Filho, 151 — Vila de Itapemirim ES</div><span class="neg-link">redefarmes.com.br</span></div></a>
-    <a class="neg-item" href="https://www.facebook.com/drogariaitapemirim1/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">💊</div><div class="neg-info"><div class="neg-name">Drogaria Itapemirim <span class="neg-badge nb-g">Local</span></div><div class="neg-desc">Av. Cristiano Dias Lopes Filho, 66 — Centro Itapemirim · (28) 3529-6038</div><span class="neg-link">facebook.com/drogariaitapemirim1</span></div></a>
-    <a class="neg-item" href="https://www.facebook.com/FPBItapemirim2/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">💊</div><div class="neg-info"><div class="neg-name">Farmácia Preço Baixo — Itapemirim <span class="neg-badge nb-g">Local</span></div><div class="neg-desc">Itapemirim ES · (28) 3529-5915</div><span class="neg-link">facebook.com/FPBItapemirim2</span></div></a>
+    <a class="neg-item" href="https://www.instagram.com/claudiusrestaurante/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍖</div>
+      <div class="neg-info"><div class="neg-name">Claudiu's Restaurante <span class="neg-badge nb-g">Itaoca ES</span></div>
+      <div class="neg-desc">Delivery disponível · Av. Itapemirim, Itaoca · faça seu pedido pelo Instagram</div>
+      <span class="neg-link">instagram.com/claudiusrestaurante</span></div>
+    </a>
+    <a class="neg-item" href="https://www.facebook.com/RESTAURANTEAVENIDAES/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🍱</div>
+      <div class="neg-info"><div class="neg-name">Restaurante Avenida <span class="neg-badge nb-g">Itapemirim ES</span></div>
+      <div class="neg-desc">Cardápios variados todos os dias · Av. Beira Mar, Itapemirim · (28) 99952-2745</div>
+      <span class="neg-link">facebook.com/RESTAURANTEAVENIDAES</span></div>
+    </a>
   </div>
   <div class="city-sub">📍 Piúma</div>
   <div class="neg-list">
-    <a class="neg-item" href="https://redefarmes.com.br/nossas-lojas/piuma-centro/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">💊</div><div class="neg-info"><div class="neg-name">Rede Farmes — Piúma Centro <span class="neg-badge nb-g">Rede ES</span></div><div class="neg-desc">R. Paulino Scherrer, 13 — Centro Piúma ES</div><span class="neg-link">redefarmes.com.br</span></div></a>
-    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Farmacia+Piuma" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">💊</div><div class="neg-info"><div class="neg-name">Drogaria Guida — Piúma <span class="neg-badge nb-g">Beira Mar</span></div><div class="neg-desc">Av. Beira Mar — Piúma ES · disque entrega: (28) 99989-7269</div><span class="neg-link">Fale para entrar no guia →</span></div></a>
+    <a class="neg-item" href="https://www.ancoradourorestaurante.com.br/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">⚓</div>
+      <div class="neg-info"><div class="neg-name">Ancoradouro Restaurante <span class="neg-badge nb-g">Alta temporada todo dia</span></div>
+      <div class="neg-desc">Delivery e retirada · Piúma ES · Av. Beira Mar, 1828</div>
+      <span class="neg-link">ancoradourorestaurante.com.br</span></div>
+    </a>
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Delivery+Piuma" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🛵</div>
+      <div class="neg-info"><div class="neg-name">Seu delivery aqui <span class="neg-badge nb-a">Vaga disponível</span></div>
+      <div class="neg-desc">Piúma · Seja o primeiro delivery da cidade no guia da TV Marataízes</div>
+      <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
+    </a>
   </div>
-  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia"><span style="font-size:26px;flex-shrink:0">📲</span><div><div class="txt-main">Farmácia na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento</div></div><span class="btn-fire">🔥 Faça parte</span></a>
+  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
+    <span style="font-size:26px;flex-shrink:0">📲</span>
+    <div><div class="txt-main">Delivery na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
+    <span class="btn-fire">🔥 Faça parte</span>
+  </a>
 </section>
 
-<section class="box" id="academias">
-  <div class="sh"><h2>💪 Academias — Marataízes · Itapemirim · Piúma</h2></div>
+<!-- ═══ POUSADAS ═══ -->
+<section class="box" id="hospedagem" aria-labelledby="hos-heading">
+  <div class="sh"><h2 id="hos-heading">🛏️ Pousadas e Hotéis — Marataízes · Itapemirim · Piúma</h2></div>
+  <div class="city-sub">📍 Marataízes</div>
   <div class="neg-list">
-    <a class="neg-item" href="https://www.facebook.com/AcademiaEspacoAzul/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🏊</div><div class="neg-info"><div class="neg-name">Academia Espaço Azul <span class="neg-badge nb-g">23 anos</span></div><div class="neg-desc">Natação adulto e infantil · hidroginástica · Rua Antonio Vicente Rangel · (28) 3532-1637</div><span class="neg-link">facebook.com/AcademiaEspacoAzul</span></div></a>
-    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Academia" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">💪</div><div class="neg-info"><div class="neg-name">Sua academia aqui <span class="neg-badge nb-a">Vaga disponível</span></div><div class="neg-desc">Itapemirim · Piúma</div><span class="neg-link">Fale pelo WhatsApp →</span></div></a>
+    <a class="neg-item" href="https://pousadaportal.com.br/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🌊</div>
+      <div class="neg-info"><div class="neg-name">Pousada Portal da Barra <span class="neg-badge nb-g">Frente ao Mar</span></div>
+      <div class="neg-desc">16 aptos vista mar · café incluso · Rua Odaliska Soares, 31 · WA (28) 99966-2611</div>
+      <span class="neg-link">pousadaportal.com.br</span></div>
+    </a>
+    <a class="neg-item" href="https://www.pousadagravatais.com/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🌿</div>
+      <div class="neg-info"><div class="neg-name">Pousada dos Gravatais</div>
+      <div class="neg-desc">Beira do Rio Itapemirim · piscina · área arborizada · WA (28) 99959-9640</div>
+      <span class="neg-link">pousadagravatais.com</span></div>
+    </a>
   </div>
-  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia"><span style="font-size:26px;flex-shrink:0">📲</span><div><div class="txt-main">Academia ou esporte na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento</div></div><span class="btn-fire">🔥 Faça parte</span></a>
-</section>
-
-<section class="box" id="beleza">
-  <div class="sh"><h2>✂️ Salões, Barbearias e Estética — Marataízes · Itapemirim · Piúma</h2></div>
+  <div class="city-sub">📍 Itapemirim</div>
   <div class="neg-list">
-    <a class="neg-item" href="https://www.facebook.com/EspacoJanyKacia/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">💇</div><div class="neg-info"><div class="neg-name">Espaço Jany Kacia <span class="neg-badge nb-g">Piúma ES</span></div><div class="neg-desc">Salão de beleza e trajes festivos · R. Charles Chaplin, 105B — Jd. Maily · (28) 3520-2953</div><span class="neg-link">facebook.com/EspacoJanyKacia</span></div></a>
-    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Salão" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">✂️</div><div class="neg-info"><div class="neg-name">Seu salão aqui <span class="neg-badge nb-a">Vaga disponível</span></div><div class="neg-desc">Marataízes · Itapemirim · Piúma</div><span class="neg-link">Fale pelo WhatsApp →</span></div></a>
+    <a class="neg-item" href="https://www.instagram.com/pousadaedenitaoca/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🏝️</div>
+      <div class="neg-info"><div class="neg-name">Pousada Eden Itaoca <span class="neg-badge nb-g">5.6k Instagram</span></div>
+      <div class="neg-desc">Itaoca Praia · Itapemirim ES · reservas online · cuidado com os hóspedes</div>
+      <span class="neg-link">instagram.com/pousadaedenitaoca</span></div>
+    </a>
+    <a class="neg-item" href="https://www.instagram.com/pousadacastelo/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🏰</div>
+      <div class="neg-info"><div class="neg-name">Pousada Castelo <span class="neg-badge nb-g">7.9k Instagram</span></div>
+      <div class="neg-desc">Próxima a uma das mais belas praias do ES · (28) 99961-4050</div>
+      <span class="neg-link">instagram.com/pousadacastelo</span></div>
+    </a>
   </div>
-  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia"><span style="font-size:26px;flex-shrink:0">📲</span><div><div class="txt-main">Salão ou barbearia na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento</div></div><span class="btn-fire">🔥 Faça parte</span></a>
-</section>
-
-<section class="box" id="informatica">
-  <div class="sh"><h2>🖥️ Informática e Assistência Técnica</h2></div>
-  <a href="https://tvmarataizes.digital/assistecmarataizes/" rel="noopener" class="card-agenciado"><div class="badge-ag">⭐ Agenciado TV Marataízes</div><div class="inner"><div class="ico">🎮</div><div><div class="nome">Assistec Marataízes</div><div class="desc">Games · Notebooks · Celulares · Em frente à Prefeitura · ⭐ 4.8 Google</div><span class="btn-zap">💬 Solicitar orçamento →</span></div></div></a>
-  <div class="neg-list" style="margin-top:8px">
-    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Informatica" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">💻</div><div class="neg-info"><div class="neg-name">Sua assistência técnica aqui <span class="neg-badge nb-a">Vaga disponível</span></div><div class="neg-desc">Itapemirim · Piúma</div><span class="neg-link">Fale pelo WhatsApp →</span></div></a>
-  </div>
-  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia"><span style="font-size:26px;flex-shrink:0">📲</span><div><div class="txt-main">Informática ou assistência técnica na região? Entre para o guia</div><div class="txt-sub">Apareça quando o cliente pesquisar no Google</div></div><span class="btn-fire">🔥 Faça parte</span></a>
-</section>
-
-<section class="box" id="automoveis">
-  <div class="sh"><h2>🚗 Automóveis e Autopeças</h2></div>
+  <div class="city-sub">📍 Piúma</div>
   <div class="neg-list">
-    <a class="neg-item" href="https://www.instagram.com/grupoantonioautopecas/" target="_blank" rel="noopener" style="display:flex"><div class="neg-ico">🔧</div><div class="neg-info"><div class="neg-name">Grupo Antônio Autopeças <span class="neg-badge nb-g">5k Instagram</span></div><div class="neg-desc">Av. Rubens Rangel — Santa Rita · peças novas · (28) 99908-9388 · rede ES</div><span class="neg-link">instagram.com/grupoantonioautopecas</span></div></a>
+    <a class="neg-item" href="https://www.instagram.com/pousadapolonini/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🌊</div>
+      <div class="neg-info"><div class="neg-name">Pousada Polonini <span class="neg-badge nb-g">30k Instagram</span></div>
+      <div class="neg-desc">À beira mar · Piúma ES · (28) 99917-1897 · (28) 3520-1904</div>
+      <span class="neg-link">instagram.com/pousadapolonini</span></div>
+    </a>
+    <a class="neg-item" href="https://www.instagram.com/pousadadommanuel/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🏖️</div>
+      <div class="neg-info"><div class="neg-name">Pousada Dom Manuel <span class="neg-badge nb-g">8k · desde 1992</span></div>
+      <div class="neg-desc">Conforto e lazer desde 1992 · Piúma ES · (28) 99977-4964</div>
+      <span class="neg-link">instagram.com/pousadadommanuel</span></div>
+    </a>
   </div>
-  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia"><span style="font-size:26px;flex-shrink:0">📲</span><div><div class="txt-main">Mecânico ou autopeças na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento</div></div><span class="btn-fire">🔥 Faça parte</span></a>
+  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
+    <span style="font-size:26px;flex-shrink:0">📲</span>
+    <div><div class="txt-main">Pousada ou hotel na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
+    <span class="btn-fire">🔥 Faça parte</span>
+  </a>
 </section>
 
+<!-- ═══ SUPERMERCADOS ═══ -->
+<section class="box" id="supermercados" aria-labelledby="sup-heading">
+  <div class="sh"><h2 id="sup-heading">🛒 Supermercados — Marataízes · Itapemirim · Piúma</h2></div>
+  <div class="city-sub">📍 Marataízes</div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://www.instagram.com/multishowmarataizes/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🛒</div>
+      <div class="neg-info"><div class="neg-name">Supermercado MS Marataízes <span class="neg-badge nb-g">48k Instagram</span></div>
+      <div class="neg-desc">Seg–Sáb 08h–20h · Dom 08h–12h30 · delivery disponível</div>
+      <span class="neg-link">instagram.com/multishowmarataizes</span></div>
+    </a>
+    <a class="neg-item" href="https://www.supermercadosbh.com.br/lojas/alto-marataizes/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🏪</div>
+      <div class="neg-info"><div class="neg-name">Supermercados BH — Alto Marataízes</div>
+      <div class="neg-desc">Atacado e varejo · Rod. Safra, s/n — Alto Marataízes · (28) 3199-1352</div>
+      <span class="neg-link">supermercadosbh.com.br</span></div>
+    </a>
+    <a class="neg-item" href="https://www.instagram.com/supermercadosbomsabor/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🏬</div>
+      <div class="neg-info"><div class="neg-name">Supermercados Bom Sabor <span class="neg-badge nb-g">27k Instagram</span></div>
+      <div class="neg-desc">Delivery Marataízes: (28) 99943-7963 · Delivery Piúma: (28) 3520-1500</div>
+      <span class="neg-link">instagram.com/supermercadosbomsabor</span></div>
+    </a>
+  </div>
+  <div class="city-sub">📍 Itapemirim</div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://www.instagram.com/thaisethalinesupermercado/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🥩</div>
+      <div class="neg-info"><div class="neg-name">Supermario Açougue e Supermercado <span class="neg-badge nb-g">Itapemirim ES</span></div>
+      <div class="neg-desc">Açougue · água e gás · Seg–Sáb 07h30–19h · Dom 08h–12h</div>
+      <span class="neg-link">instagram.com/thaisethalinesupermercado</span></div>
+    </a>
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Supermercado+Itapemirim" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🛒</div>
+      <div class="neg-info"><div class="neg-name">Seu supermercado aqui <span class="neg-badge nb-a">Vaga disponível</span></div>
+      <div class="neg-desc">Itapemirim · Seja o primeiro a aparecer no guia da TV Marataízes</div>
+      <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
+    </a>
+  </div>
+  <div class="city-sub">📍 Piúma</div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://www.instagram.com/brsupermercados/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🏪</div>
+      <div class="neg-info"><div class="neg-name">BR Supermercados — Piúma <span class="neg-badge nb-g">55k Instagram</span></div>
+      <div class="neg-desc">Sempre o menor preço · promoções todos os dias · Piúma ES</div>
+      <span class="neg-link">instagram.com/brsupermercados</span></div>
+    </a>
+    <a class="neg-item" href="https://www.instagram.com/supermercadosbomsabor/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🛵</div>
+      <div class="neg-info"><div class="neg-name">Bom Sabor — Delivery Piúma <span class="neg-badge nb-g">27k Instagram</span></div>
+      <div class="neg-desc">Delivery direto para sua casa · (28) 3520-1500 · entre nos grupos de promoções</div>
+      <span class="neg-link">instagram.com/supermercadosbomsabor</span></div>
+    </a>
+  </div>
+  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
+    <span style="font-size:26px;flex-shrink:0">📲</span>
+    <div><div class="txt-main">Supermercado ou atacarejo na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
+    <span class="btn-fire">🔥 Faça parte</span>
+  </a>
+</section>
+
+<!-- ═══ PETS ═══ -->
+<section class="box" id="pets" aria-labelledby="pet-heading">
+  <div class="sh"><h2 id="pet-heading">🐾 Pet Shop e Veterinário — Marataízes · Itapemirim · Piúma</h2></div>
+  <div class="city-sub">📍 Marataízes</div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://www.instagram.com/petcentermarataizes/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🐕</div>
+      <div class="neg-info"><div class="neg-name">Pet Center Marataízes</div>
+      <div class="neg-desc">Acessórios · banho e tosa · medicamentos · rações · vacinas · (28) 99903-6778</div>
+      <span class="neg-link">instagram.com/petcentermarataizes</span></div>
+    </a>
+    <a class="neg-item" href="https://clinicaanjosdepatas.com.br/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🏥</div>
+      <div class="neg-info"><div class="neg-name">Anjos de Patas — Clínica Veterinária <span class="neg-badge nb-g">Site + Instagram</span></div>
+      <div class="neg-desc">Consultas · cirurgias · vacinas · banho e tosa · táxi dog · Marataízes e Mimoso do Sul</div>
+      <span class="neg-link">clinicaanjosdepatas.com.br</span></div>
+    </a>
+  </div>
+  <div class="city-sub">📍 Itapemirim · Piúma</div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Pet+Shop" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🐾</div>
+      <div class="neg-info"><div class="neg-name">Seu pet shop aqui <span class="neg-badge nb-a">Vaga disponível</span></div>
+      <div class="neg-desc">Itapemirim · Piúma · Seja o primeiro do seu segmento a aparecer na região</div>
+      <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
+    </a>
+  </div>
+  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
+    <span style="font-size:26px;flex-shrink:0">📲</span>
+    <div><div class="txt-main">Pet shop ou veterinário na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
+    <span class="btn-fire">🔥 Faça parte</span>
+  </a>
+</section>
+
+<!-- ═══ MODA ═══ -->
+<section class="box" id="moda" aria-labelledby="mod-heading">
+  <div class="sh"><h2 id="mod-heading">👗 Lojas de Moda — Marataízes · Itapemirim · Piúma</h2></div>
+  <a href="https://tvmarataizes.digital/penafama" rel="noopener" class="card-agenciado">
+    <div class="badge-ag">⭐ Agenciado TV Marataízes</div>
+    <div class="inner"><div class="ico">👟</div><div>
+      <div class="nome">Pé na Fama Barra</div>
+      <div class="desc">Calçados &amp; acessórios · 13,5K no Instagram · Entrega para todo o Brasil · Barra de Itapemirim</div>
+      <span class="btn-zap">💬 Ver loja completa →</span>
+    </div></div>
+  </a>
+  <div class="city-sub">📍 Itapemirim · Piúma</div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Moda" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">👗</div>
+      <div class="neg-info"><div class="neg-name">Sua loja de moda aqui <span class="neg-badge nb-a">Vaga disponível</span></div>
+      <div class="neg-desc">Itapemirim · Piúma · Seja o primeiro do seu segmento a aparecer no guia da TV</div>
+      <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
+    </a>
+  </div>
+  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
+    <span style="font-size:26px;flex-shrink:0">📲</span>
+    <div><div class="txt-main">Loja de moda ou calçados na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
+    <span class="btn-fire">🔥 Faça parte</span>
+  </a>
+</section>
+
+<!-- ═══ IMÓVEIS ═══ -->
+<section class="box" id="imoveis" aria-labelledby="imov-heading">
+  <div class="sh"><h2 id="imov-heading">🏠 Imóveis em Marataízes</h2></div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://www.aroldofilhoimoveis.com.br/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🏡</div>
+      <div class="neg-info"><div class="neg-name">Aroldo Filho Imóveis <span class="neg-badge nb-g">CRECI 9619-F</span></div>
+      <div class="neg-desc">Imobiliária local · venda e aluguel · Rua Rio Grande do Norte, 307 · (28) 99915-5068</div>
+      <span class="neg-link">aroldofilhoimoveis.com.br</span></div>
+    </a>
+    <a class="neg-item" href="https://amenezes.com/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🔑</div>
+      <div class="neg-info"><div class="neg-name">A. Menezes Imobiliária</div>
+      <div class="neg-desc">Aluguel e venda · diversas modalidades de garantia · sem fiador</div>
+      <span class="neg-link">amenezes.com</span></div>
+    </a>
+  </div>
+  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
+    <span style="font-size:26px;flex-shrink:0">📲</span>
+    <div><div class="txt-main">Imobiliária ou corretor na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
+    <span class="btn-fire">🔥 Faça parte</span>
+  </a>
+</section>
+
+<!-- ═══ DENTISTAS ═══ -->
+<section class="box" id="dentistas" aria-labelledby="dent-heading">
+  <div class="sh"><h2 id="dent-heading">🦷 Dentistas — Marataízes · Itapemirim · Piúma</h2></div>
+  <div class="city-sub">📍 Marataízes</div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://www.instagram.com/oraldentsmarataizes/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🦷</div>
+      <div class="neg-info"><div class="neg-name">OralDents</div>
+      <div class="neg-desc">Av. Simão Soares, 1008 · (28) 99942-6279 · clínica odontológica completa</div>
+      <span class="neg-link">instagram.com/oraldentsmarataizes</span></div>
+    </a>
+    <a class="neg-item" href="https://odontocompany.com/marataizes" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🦷</div>
+      <div class="neg-info"><div class="neg-name">OdontoCompany Marataízes</div>
+      <div class="neg-desc">Av. Cristiano Dias Lopes Filho, 2184 · avaliação gratuita</div>
+      <span class="neg-link">odontocompany.com/marataizes</span></div>
+    </a>
+  </div>
+  <div class="city-sub">📍 Itapemirim · Piúma</div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Dentista" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🦷</div>
+      <div class="neg-info"><div class="neg-name">Sua clínica aqui <span class="neg-badge nb-a">Vaga disponível</span></div>
+      <div class="neg-desc">Itapemirim · Piúma · Seja o primeiro dentista da sua região no guia da TV</div>
+      <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
+    </a>
+  </div>
+  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
+    <span style="font-size:26px;flex-shrink:0">📲</span>
+    <div><div class="txt-main">Clínica ou dentista na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
+    <span class="btn-fire">🔥 Faça parte</span>
+  </a>
+</section>
+
+<!-- ═══ FARMÁCIAS ═══ -->
+<section class="box" id="farmacias" aria-labelledby="farm-heading">
+  <div class="sh"><h2 id="farm-heading">💊 Farmácias — Marataízes · Itapemirim · Piúma</h2></div>
+  <div class="city-sub">📍 Marataízes</div>
+  <a href="https://tvmarataizes.digital/drogariabarrafarma/" rel="noopener" class="card-agenciado" style="margin-bottom:8px">
+    <div class="badge-ag">⭐ Agenciado TV Marataízes</div>
+    <div class="inner"><div class="ico">💊</div><div>
+      <div class="nome">Barra Farma</div>
+      <div class="desc">Medicamentos · Cosméticos · Produtos bebê · Tele-entrega · Barra do Itapemirim · (28) 99999-8504</div>
+      <span class="btn-zap">💊 Ver produtos e tele-entrega →</span>
+    </div></div>
+  </a>
+  <a href="https://tvmarataizes.digital/medicalfarma/" rel="noopener" class="card-agenciado" style="margin-bottom:8px">
+    <div class="badge-ag">⭐ Agenciado TV Marataízes</div>
+    <div class="inner"><div class="ico">⚕️</div><div>
+      <div class="nome">Medical Farma</div>
+      <div class="desc">Medicamentos · Cosméticos · Teste de Glicemia · Pressão Arterial · Na Rotatória da Barra · (28) 99908-7662</div>
+      <span class="btn-zap">⚕️ Ver produtos e serviços →</span>
+    </div></div>
+  </a>
+  <div class="neg-list">
+    <a class="neg-item" href="https://redefarmes.com.br/nossas-lojas/rede-farmes-centro-i-marataizes/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">💊</div>
+      <div class="neg-info"><div class="neg-name">Rede Farmes — Centro <span class="neg-badge nb-g">Rede ES</span></div>
+      <div class="neg-desc">Av. Jones dos Santos Neves, 99 · (28) 99909-6154</div>
+      <span class="neg-link">redefarmes.com.br</span></div>
+    </a>
+    <a class="neg-item" href="https://redefarmes.com.br/nossas-lojas/cidade-nova-marataizes/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">💊</div>
+      <div class="neg-info"><div class="neg-name">Rede Farmes — Cidade Nova <span class="neg-badge nb-g">Rede ES</span></div>
+      <div class="neg-desc">Av. Rubens Rangel, 15 · (28) 3532-2292</div>
+      <span class="neg-link">redefarmes.com.br</span></div>
+    </a>
+    <a class="neg-item" href="https://www.instagram.com/precobaixomarataizes/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">💊</div>
+      <div class="neg-info"><div class="neg-name">Farmácia Preço Baixo <span class="neg-badge nb-g">Local</span></div>
+      <div class="neg-desc">Desconto 25% éticos · 30% genéricos · entrega · Marataízes</div>
+      <span class="neg-link">instagram.com/precobaixomarataizes</span></div>
+    </a>
+  </div>
+  <div class="city-sub">📍 Itapemirim</div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://redefarmes.com.br/nossas-lojas/itaipava-itapemirim/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">💊</div>
+      <div class="neg-info"><div class="neg-name">Rede Farmes — Vila de Itapemirim <span class="neg-badge nb-g">Rede ES</span></div>
+      <div class="neg-desc">Av. Cristiano Dias Lopes Filho, 151 — Vila de Itapemirim ES</div>
+      <span class="neg-link">redefarmes.com.br</span></div>
+    </a>
+    <a class="neg-item" href="https://www.facebook.com/drogariaitapemirim1/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">💊</div>
+      <div class="neg-info"><div class="neg-name">Drogaria Itapemirim <span class="neg-badge nb-g">Local</span></div>
+      <div class="neg-desc">Av. Cristiano Dias Lopes Filho, 66 — Centro Itapemirim · (28) 3529-6038</div>
+      <span class="neg-link">facebook.com/drogariaitapemirim1</span></div>
+    </a>
+    <a class="neg-item" href="https://www.facebook.com/FPBItapemirim2/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">💊</div>
+      <div class="neg-info"><div class="neg-name">Farmácia Preço Baixo — Itapemirim <span class="neg-badge nb-g">Local</span></div>
+      <div class="neg-desc">Itapemirim ES · (28) 3529-5915</div>
+      <span class="neg-link">facebook.com/FPBItapemirim2</span></div>
+    </a>
+  </div>
+  <div class="city-sub">📍 Piúma</div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://redefarmes.com.br/nossas-lojas/piuma-centro/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">💊</div>
+      <div class="neg-info"><div class="neg-name">Rede Farmes — Piúma Centro <span class="neg-badge nb-g">Rede ES</span></div>
+      <div class="neg-desc">R. Paulino Scherrer, 13 — Centro Piúma ES</div>
+      <span class="neg-link">redefarmes.com.br</span></div>
+    </a>
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Farmacia+Piuma" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">💊</div>
+      <div class="neg-info"><div class="neg-name">Drogaria Guida — Piúma <span class="neg-badge nb-g">Beira Mar</span></div>
+      <div class="neg-desc">Av. Beira Mar — Piúma ES · disque entrega: (28) 99989-7269</div>
+      <span class="neg-link">Fale para entrar no guia →</span></div>
+    </a>
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Farmacia+Piuma" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">💊</div>
+      <div class="neg-info"><div class="neg-name">Farmácia Preço Baixo — Piúma <span class="neg-badge nb-g">Local</span></div>
+      <div class="neg-desc">Av. Maria Gonçalves Marvilla, 99 — Centro Piúma · (28) 3520-2865</div>
+      <span class="neg-link">Fale para entrar no guia →</span></div>
+    </a>
+  </div>
+  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
+    <span style="font-size:26px;flex-shrink:0">📲</span>
+    <div><div class="txt-main">Farmácia na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
+    <span class="btn-fire">🔥 Faça parte</span>
+  </a>
+</section>
+
+<!-- ═══ ACADEMIAS ═══ -->
+<section class="box" id="academias" aria-labelledby="ac-heading">
+  <div class="sh"><h2 id="ac-heading">💪 Academias — Marataízes · Itapemirim · Piúma</h2></div>
+  <div class="city-sub">📍 Marataízes</div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://www.facebook.com/AcademiaEspacoAzul/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🏊</div>
+      <div class="neg-info"><div class="neg-name">Academia Espaço Azul <span class="neg-badge nb-g">23 anos</span></div>
+      <div class="neg-desc">Natação adulto e infantil · hidroginástica · Rua Antonio Vicente Rangel · (28) 3532-1637</div>
+      <span class="neg-link">facebook.com/AcademiaEspacoAzul</span></div>
+    </a>
+  </div>
+  <div class="city-sub">📍 Itapemirim · Piúma</div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Academia" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">💪</div>
+      <div class="neg-info"><div class="neg-name">Sua academia aqui <span class="neg-badge nb-a">Vaga disponível</span></div>
+      <div class="neg-desc">Itapemirim · Piúma · Seja a primeira academia da sua cidade no guia da TV</div>
+      <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
+    </a>
+  </div>
+  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
+    <span style="font-size:26px;flex-shrink:0">📲</span>
+    <div><div class="txt-main">Academia ou esporte na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
+    <span class="btn-fire">🔥 Faça parte</span>
+  </a>
+</section>
+
+<!-- ═══ BELEZA ═══ -->
+<section class="box" id="beleza" aria-labelledby="bel-heading">
+  <div class="sh"><h2 id="bel-heading">✂️ Salões, Barbearias e Estética — Marataízes · Itapemirim · Piúma</h2></div>
+  <div class="city-sub">📍 Marataízes</div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Salão+Marataizes" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">✂️</div>
+      <div class="neg-info"><div class="neg-name">Seu salão aqui <span class="neg-badge nb-a">Vaga disponível</span></div>
+      <div class="neg-desc">Marataízes · Seja o primeiro do seu segmento a aparecer no guia da TV</div>
+      <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
+    </a>
+  </div>
+  <div class="city-sub">📍 Piúma</div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://www.facebook.com/EspacoJanyKacia/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">💇</div>
+      <div class="neg-info"><div class="neg-name">Espaço Jany Kacia <span class="neg-badge nb-g">Piúma ES</span></div>
+      <div class="neg-desc">Salão de beleza e trajes festivos · R. Charles Chaplin, 105B — Jd. Maily · (28) 3520-2953</div>
+      <span class="neg-link">facebook.com/EspacoJanyKacia</span></div>
+    </a>
+  </div>
+  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
+    <span style="font-size:26px;flex-shrink:0">📲</span>
+    <div><div class="txt-main">Salão ou barbearia na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
+    <span class="btn-fire">🔥 Faça parte</span>
+  </a>
+</section>
+
+<!-- ═══ INFORMÁTICA ═══ -->
+<section class="box" id="informatica" aria-labelledby="info-heading">
+  <div class="sh"><h2 id="info-heading">🖥️ Informática e Assistência Técnica</h2></div>
+  <a href="https://tvmarataizes.digital/assistecmarataizes/" rel="noopener" class="card-agenciado">
+    <div class="badge-ag">⭐ Agenciado TV Marataízes</div>
+    <div class="inner"><div class="ico">🎮</div><div>
+      <div class="nome">Assistec Marataízes</div>
+      <div class="desc">Games · Notebooks · Celulares · Em frente à Prefeitura · ⭐ 4.8 Google</div>
+      <span class="btn-zap">💬 Solicitar orçamento →</span>
+    </div></div>
+  </a>
+  <div class="city-sub">📍 Itapemirim · Piúma</div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://wa.me/5528999036141?text=Quero+entrar+no+guia+-+Informatica" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">💻</div>
+      <div class="neg-info"><div class="neg-name">Sua assistência técnica aqui <span class="neg-badge nb-a">Vaga disponível</span></div>
+      <div class="neg-desc">Itapemirim · Piúma · Seja o primeiro na sua cidade no guia da TV</div>
+      <span class="neg-link">Fale pelo WhatsApp e entre agora →</span></div>
+    </a>
+  </div>
+  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
+    <span style="font-size:26px;flex-shrink:0">📲</span>
+    <div><div class="txt-main">Informática ou assistência técnica na região? Entre para o guia</div><div class="txt-sub">Sem limite por segmento · Apareça quando o cliente pesquisar no Google</div></div>
+    <span class="btn-fire">🔥 Faça parte</span>
+  </a>
+</section>
+
+<!-- ═══ AUTOMÓVEIS ═══ -->
+<section class="box" id="automoveis" aria-labelledby="aut-heading">
+  <div class="sh"><h2 id="aut-heading">🚗 Automóveis e Autopeças</h2></div>
+  <div class="neg-list">
+    <a class="neg-item" href="https://www.instagram.com/grupoantonioautopecas/" target="_blank" rel="noopener" style="display:flex">
+      <div class="neg-ico">🔧</div>
+      <div class="neg-info"><div class="neg-name">Grupo Antônio Autopeças <span class="neg-badge nb-g">5k Instagram</span></div>
+      <div class="neg-desc">Av. Rubens Rangel — Santa Rita · peças novas · (28) 99908-9388 · rede ES</div>
+      <span class="neg-link">instagram.com/grupoantonioautopecas</span></div>
+    </a>
+  </div>
+  <a href="https://tvmarataizes.digital/anunciar" target="_blank" rel="noopener" class="cta-guia">
+    <span style="font-size:26px;flex-shrink:0">📲</span>
+    <div><div class="txt-main">Mecânico ou autopeças na região? Entre para o guia</div><div class="txt-sub">Vagas limitadas por segmento · Apareça antes do concorrente</div></div>
+    <span class="btn-fire">🔥 Faça parte</span>
+  </a>
+</section>
+
+<!-- ═══ CTA ANUNCIE ═══ -->
 <div class="cta" id="anuncie">
   <div>
     <h3>📺 Sua empresa aparece quando o cliente pesquisa no Google</h3>
@@ -476,468 +1237,6 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVodModa
 </main>
 </div>
 </div><!-- /tvmz-portal -->
-
-
-
-<!-- ═══════════════════════════════════════════════════
-     TURISMO · SUL DO ESPÍRITO SANTO
-     TV Marataízes — Praias, Trilhas e Pontos Turísticos
-════════════════════════════════════════════════════════ -->
-<style id="tvmz-turismo-styles">
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --ocean: #0A4D68; --ocean-mid: #1a6b8a; --ocean-light: #2E86AB;
-  --sand: #F5EDD6; --sand-dark: #E8D9B0; --coral: #E8372A; --gold: #C9A84C;
-  --white: #FFFFFF; --text: #1a2a1a; --gray: #6B7280;
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'Jost', sans-serif;
-}
-html { scroll-behavior: smooth; }
-body { background: var(--sand); color: var(--text); font-family: var(--font-body); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
-
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 2rem; height: 60px;
-  background: rgba(10,77,104,0.97); backdrop-filter: blur(10px);
-}
-.nav-brand { font-family: var(--font-display); font-size: 1.2rem; color: var(--white); text-decoration: none; }
-.nav-brand em { color: var(--gold); font-style: italic; }
-.nav-links { display: flex; gap: 1.5rem; }
-.nav-links a { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
-.nav-links a:hover { color: var(--white); }
-
-.hero {
-  min-height: 100vh;
-  background: linear-gradient(to bottom, rgba(10,77,104,0.8) 0%, rgba(10,77,104,0.3) 65%, var(--sand) 100%),
-    url('https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/marataizes-1.jpg') center/cover no-repeat;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 8rem 2rem 6rem;
-}
-.hero-eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; border: 1px solid rgba(201,168,76,0.4); padding: 0.35rem 1.2rem; border-radius: 100px; display: inline-block; }
-.hero h1 { font-family: var(--font-display); font-size: clamp(3rem, 8vw, 7rem); font-weight: 600; line-height: 0.95; color: var(--white); margin-bottom: 0.5rem; }
-.hero h1 em { font-style: italic; color: var(--gold); }
-.hero-sub { font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 540px; font-weight: 300; margin: 1.5rem auto 0; }
-
-/* ABAS */
-.abas-nav { background: var(--ocean); display: flex; justify-content: center; flex-wrap: wrap; }
-.aba-link { padding: 1rem 2rem; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; border-bottom: 3px solid transparent; transition: all 0.2s; }
-.aba-link:hover { color: var(--white); border-bottom-color: var(--gold); }
-
-/* CIDADE HEADER */
-.cidade-header { padding: 4rem 2rem 1.5rem; max-width: 1100px; margin: 0 auto; border-top: 2px solid var(--sand-dark); }
-.cidade-nome { font-family: var(--font-display); font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 600; color: var(--ocean); line-height: 1; margin-bottom: 0.8rem; }
-.cidade-nome em { font-style: italic; color: var(--gold); }
-.cidade-intro { font-size: 1rem; color: var(--gray); font-weight: 300; max-width: 700px; line-height: 1.8; }
-
-/* SECTION LABEL */
-.section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--coral); margin-bottom: 1rem; display: block; padding: 0 2rem; max-width: 1100px; margin-left: auto; margin-right: auto; margin-top: 3rem; }
-
-/* GRID PRAIAS */
-.praias-grid { display: grid; gap: 1.5rem; max-width: 1100px; margin: 1rem auto 0; padding: 0 2rem 3rem; }
-.g3 { grid-template-columns: repeat(3, 1fr); }
-.g2 { grid-template-columns: repeat(2, 1fr); }
-.span2 { grid-column: span 2; }
-
-.card { background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: 0 2px 20px rgba(10,77,104,0.05); transition: transform 0.25s, box-shadow 0.25s; }
-.card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(10,77,104,0.1); }
-.card-img { width: 100%; object-fit: cover; display: block; background: var(--sand-dark); aspect-ratio: 16/9; }
-.span2 .card-img { aspect-ratio: 21/9; }
-.card-body { padding: 1.4rem; }
-.card-nome { font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; color: var(--ocean); margin-bottom: 0.4rem; line-height: 1.2; }
-.card-texto { font-size: 0.88rem; color: var(--gray); font-weight: 300; line-height: 1.75; }
-.card-tag { display: inline-block; margin-top: 0.8rem; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ocean-light); border: 1px solid rgba(46,134,171,0.3); padding: 0.2rem 0.6rem; border-radius: 100px; }
-
-/* TRILHAS */
-.trilhas-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 1100px; margin: 1rem auto 3rem; padding: 0 2rem; }
-.trilha-card { background: var(--white); border-radius: 14px; padding: 1.8rem; border-left: 4px solid var(--ocean-light); box-shadow: 0 2px 16px rgba(10,77,104,0.05); }
-.trilha-nome { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; color: var(--ocean); margin-bottom: 0.3rem; }
-.trilha-meta { font-size: 0.75rem; color: var(--ocean-light); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.8rem; }
-.trilha-texto { font-size: 0.88rem; color: var(--gray); font-weight: 300; line-height: 1.75; }
-
-/* PONTOS TURÍSTICOS */
-.pontos-dark { background: var(--ocean); padding: 4rem 2rem; }
-.pontos-inner { max-width: 1100px; margin: 0 auto; }
-.pontos-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; display: block; }
-.pontos-titulo { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 600; color: var(--white); margin-bottom: 2rem; }
-.pontos-titulo em { font-style: italic; color: var(--gold); }
-.pontos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-.ponto-card { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; overflow: hidden; }
-.ponto-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; background: rgba(255,255,255,0.05); }
-.ponto-body { padding: 1.3rem; }
-.ponto-nome { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
-.ponto-texto { font-size: 0.85rem; color: rgba(255,255,255,0.6); font-weight: 300; line-height: 1.7; }
-
-.divider { height: 1px; background: var(--sand-dark); max-width: 1100px; margin: 0 auto; }
-
-.tv-banner { background: var(--coral); padding: 3.5rem 2rem; text-align: center; }
-.tv-banner p { font-size: 0.8rem; color: rgba(255,255,255,0.75); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
-.tv-banner h3 { font-family: var(--font-display); font-size: 1.8rem; color: var(--white); font-style: italic; margin-bottom: 1.5rem; }
-.tv-banner a { display: inline-block; padding: 0.75rem 2rem; background: var(--white); color: var(--coral); border-radius: 6px; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; text-decoration: none; }
-
-footer { background: var(--ocean); padding: 2rem; text-align: center; }
-footer p { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
-
-@media (max-width: 768px) {
-  .nav-links { display: none; }
-  .g3, .g2 { grid-template-columns: 1fr; }
-  .span2 { grid-column: span 1; }
-  .trilhas-grid, .pontos-grid { grid-template-columns: 1fr; }
-}
-/* reset de conflitos com o portal */
-.hero { position: relative !important; top: auto !important; }
-nav.turismo-nav { display: none; }
-</style>
-
-<div id="tvmz-turismo">
-<section class="hero">
-  <div class="hero-eyebrow">Espírito Santo · Litoral Sul</div>
-  <h1>Mar, Natureza<br>e <em>Aventura</em></h1>
-  <p class="hero-sub">Praias para todos os gostos, trilhas sinalizadas, ilhas paradisíacas e pontos históricos únicos — descubra o melhor do Sul do ES.</p>
-</section>
-
-<div class="abas-nav">
-  <a href="#marataizes" class="aba-link">Praias de Marataízes</a>
-  <a href="#itapemirim" class="aba-link">Praias de Itapemirim</a>
-  <a href="#trilhas" class="aba-link">Trilhas</a>
-  <a href="#pontos" class="aba-link">Pontos Turísticos</a>
-</div>
-
-<!-- ======= MARATAÍZES — PRAIAS ======= -->
-<div id="marataizes">
-  <div class="cidade-header">
-    <div class="cidade-nome"><em>Marataízes</em></div>
-    <p class="cidade-intro">Cidade à beira-mar com praias para todos os perfis — da urbana e badalada à selvagem e preservada. Infraestrutura completa, gastronomia de frutos do mar e comunidade pesqueira tradicional.</p>
-  </div>
-
-  <span class="section-label">Praias · Marataízes</span>
-
-  <div class="praias-grid g3">
-
-    <div class="card span2">
-      <img class="card-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/Praia da Barra.png" alt="Praia da Barra Marataízes">
-      <div class="card-body">
-        <div class="card-nome">Praia da Barra</div>
-        <p class="card-texto">A Praia da Barra, localizada em Marataízes, é sinônimo de tradição e badalação na região. Sua extensa orla se destaca não apenas pelo cenário paradisíaco, mas também pela rica infraestrutura que atende moradores e visitantes. A vegetação de restinga preservada serve como barreira natural contra as marés, tornando-a sustentável e preservada. A orla é espaço ideal para futebol e vôlei, e durante o inverno, a água mais calma a torna perfeita para um banho relaxante.</p>
-        <span class="card-tag">Tradição · Esportes · Gastronomia</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <img class="card-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/praia do siri.png" alt="Praia do Siri">
-      <div class="card-body">
-        <div class="card-nome">Praia do Siri</div>
-        <p class="card-texto">Uma das mais populares de Marataízes. A faixa de areia dourada e as águas tranquilas de poucas ondas tornam-na ideal para adultos e crianças. O acesso fácil à Lagoa do Siri — com águas calmas e seguras — é um dos principais atrativos. Restaurantes e quiosques com pratos típicos ao longo de toda a orla.</p>
-        <span class="card-tag">Família · Lagoa do Siri</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <img class="card-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/Praia da Cidade Nova.png" alt="Praia da Cidade Nova">
-      <div class="card-body">
-        <div class="card-nome">Praia da Cidade Nova</div>
-        <p class="card-texto">Extensão natural da Praia da Barra — juntas somam 2,5 km de orla. O calçadão estreito que liga as duas praias é propício para corridas e caminhadas. Diversos quiosques ao longo da extensão e faixa de vegetação nativa preservada que protege contra erosão e abriga fauna local.</p>
-        <span class="card-tag">Caminhada · Calçadão · Natureza</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <img class="card-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/Praia dos namorados Barra.png" alt="Praia dos Namorados">
-      <div class="card-body">
-        <div class="card-nome">Praia dos Namorados</div>
-        <p class="card-texto">Situada ao lado sul da foz do Rio Marataízes, oferece águas calmas e transparentes em ambiente íntimo e menos comercializado. A proximidade com a Igreja Nossa Senhora dos Navegantes cria um ambiente único de paz e reflexão. Um barzinho debaixo de uma ponte é o ponto de encontro informal de moradores e turistas.</p>
-        <span class="card-tag">Tranquila · Histórica · Pôr do Sol</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <img class="card-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/Praia da Cruz.png" alt="Praia da Cruz">
-      <div class="card-body">
-        <div class="card-nome">Praia da Cruz</div>
-        <p class="card-texto">Paraíso de areia dourada com 200 metros de extensão. A orla cercada por pedras cria contraste harmonioso entre a suavidade da areia e a robustez das rochas. Mar com poucas ondas e águas que variam de azuladas a esverdeadas ao longo do dia. Quiosques, bares e banheiros bem mantidos.</p>
-        <span class="card-tag">Areia Dourada · Pedras · Tranquila</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <img class="card-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/praia da areia preta.png" alt="Praia da Areia Preta">
-      <div class="card-body">
-        <div class="card-nome">Praia da Areia Preta</div>
-        <p class="card-texto">Conhecida pela areia que adquire cor escura em certas áreas, criando contraste fascinante com as águas esverdeadas. 600 metros de extensão com ambiente calmo e reservado. Pedras naturais adicionam rusticidade ao cenário. Quiosques especializados em frutos do mar frescos preparados com muito cuidado.</p>
-        <span class="card-tag">Única · Frutos do Mar · Rústica</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <img class="card-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/praia do centro.png" alt="Praia do Centro">
-      <div class="card-body">
-        <div class="card-nome">Praia do Centro</div>
-        <p class="card-texto">No coração de Marataízes, com águas calmas esverdeadas e larga faixa de areia fofa. Perfeita para famílias e para quem busca descanso tranquilo. Recentemente revitalizou sua orla, melhorando a infraestrutura. Bares, restaurantes, hotéis e pousadas nas proximidades.</p>
-        <span class="card-tag">Central · Família · Infraestrutura</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <img class="card-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/Praia das falesias.png" alt="Praia das Falésias">
-      <div class="card-body">
-        <div class="card-nome">Praia das Falésias</div>
-        <p class="card-texto">Uma das 10 melhores praias do ES. Localizada no Monumento Natural Municipal, as falésias de 30 a 40 metros em tons amarelados e alaranjados criam cenário único. Sem infraestrutura turística — refúgio perfeito para quem busca contato íntimo com a natureza. Mar azul intenso e águas tranquilas.</p>
-        <span class="card-tag">Preservada · Monumento Natural</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <img class="card-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/Praia do Itaputera.png" alt="Praia do Pontal">
-      <div class="card-body">
-        <div class="card-nome">Praia do Pontal</div>
-        <p class="card-texto">Visual rústico, autêntico e aconchegante. Abriga comunidade de pescadores tradicionais. 1,5 km de extensão na Costa do Sol com água calma e transparente. Decks de madeira na areia criam charme especial. Trilhas naturais levam a mirantes panorâmicos. Atrai surfistas pelo mar aberto.</p>
-        <span class="card-tag">Pescadores · Trilhas · Autêntica</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <img class="card-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/praia das pitas.png" alt="Praia das Pitas">
-      <div class="card-body">
-        <div class="card-nome">Praia das Pitas</div>
-        <p class="card-texto">Extensa faixa de areia clara com mar esverdeado, calmo e convidativo. Vegetação nativa ao redor preserva o local e mantém a harmonia com a natureza. Boa infraestrutura com quiosques equipados com mesas e guarda-sóis. Ambiente acolhedor e familiar que recebe bom número de turistas.</p>
-        <span class="card-tag">Familiar · Vegetação Nativa</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <img class="card-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/Praia da Rosa.png" alt="Praia da Rosa">
-      <div class="card-body">
-        <div class="card-nome">Praia da Rosa</div>
-        <p class="card-texto">Paraíso preservado com cerca de 500 metros entre a Praia das Pitas e a dos Cações. Cercada por mata nativa e árvores majestosas. Acesso pela praia ou por ladeira na Rodovia do Sol. Na maré baixa formam-se piscinas naturais com água cristalina. Areia fina e dourada com mar calmo.</p>
-        <span class="card-tag">Piscinas Naturais · Preservada</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <img class="card-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/Praia de Boa Vista do Sul e Lagoa da Boa Vista.png" alt="Praia de Boa Vista do Sul">
-      <div class="card-body">
-        <div class="card-nome">Praia de Boa Vista do Sul</div>
-        <p class="card-texto">Paraíso escondido cercado por morros com um povoado às margens da Lagoa da Boa Vista. Popular para windsurf pelos ventos constantes e água calma. Ótima para pesca costeira. À esquerda, a Praia do Micinho com falésias que se estendem ao horizonte. Pouco frequentada por turistas.</p>
-        <span class="card-tag">Windsurf · Lagoa · Escondida</span>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- ======= ITAPEMIRIM — PRAIAS ======= -->
-<div id="itapemirim">
-  <div class="cidade-header">
-    <div class="cidade-nome"><em>Itapemirim</em></div>
-    <p class="cidade-intro">História, natureza e litoral preservado. Praias emolduradas por rochas, ilha paradisíaca com farol e um dos cartões-postais mais icônicos do sul capixaba — a Pedra do Frade e a Freira.</p>
-  </div>
-
-  <span class="section-label">Praias · Itapemirim</span>
-
-  <div class="praias-grid g3">
-
-    <div class="card span2">
-      <img class="card-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/PRAIA DE ITAOCA.png" alt="Praia de Itaoca">
-      <div class="card-body">
-        <div class="card-nome">Praia de Itaoca</div>
-        <p class="card-texto">Na Praia de Itaoca, o relaxamento é garantido. Com cerca de 2 km de extensão, é considerada excelente para a prática de esportes náuticos, oferecendo águas calmas e cristalinas. As areias brancas, finas e macias formam contraste perfeito com as águas azuis. Infraestrutura completa: iluminação noturna, ciclovia, restaurantes, bares, quiosques, mercados e lojas. A parte rústica, emoldurada por grandes rochas, convida a fotos inesquecíveis. Ponto de partida para a Ilha dos Franceses.</p>
-        <span class="card-tag">Esportes Náuticos · Infraestrutura · Ilha dos Franceses</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <img class="card-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/PRAIA DE ITAIPAVA.png" alt="Praia de Itaipava">
-      <div class="card-body">
-        <div class="card-nome">Praia de Itaipava</div>
-        <p class="card-texto">Paraíso cercado por águas tranquilas e areias claras, colada à Praia de Itaoca e separada apenas por uma faixa de pedras que embeleza o local. As águas esverdeadas são perfeitas para famílias com crianças e idosos. Quiosques com mesas, guarda-sóis e banheiros ao longo de toda a extensão. Petiscos típicos da região e gastronomia variada.</p>
-        <span class="card-tag">Família · Águas Calmas · Gastronomia</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <img class="card-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/Praia da Gamboa.png" alt="Praia da Gamboa">
-      <div class="card-body">
-        <div class="card-nome">Praia da Gamboa</div>
-        <p class="card-texto">Paraíso oculto não muito afastado do centro de Itapemirim. Emoldurada por rochas, é uma das mais bonitas da região. A formação rochosa cria atmosfera única onde a água contrasta com as tonalidades das pedras. No verão, torna-se palco de shows e eventos. Bares e restaurantes com ampla variedade culinária, desde pratos regionais até opções diferenciadas.</p>
-        <span class="card-tag">Rochosa · Shows · Gastronomia</span>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- ======= TRILHAS ======= -->
-<div id="trilhas">
-  <div class="cidade-header">
-    <div class="cidade-nome">Trilhas e <em>Natureza</em></div>
-    <p class="cidade-intro">Marataízes e Itapemirim são verdadeiros tesouros naturais para o ecoturismo. Trilhas sinalizadas com diferentes níveis de dificuldade — para iniciantes, famílias e amantes da aventura. Rica biodiversidade com pássaros exóticos, lagartos, tartarugas e vegetação que varia de florestas tropicais a áreas de restinga.</p>
-  </div>
-
-  <span class="section-label">Trilhas · Marataízes</span>
-
-  <div class="trilhas-grid">
-    <div class="trilha-card">
-      <div class="trilha-nome">Circuito Nova Canaã</div>
-      <div class="trilha-meta">10,5 km · Moderado · Caminhada e MTB · Aberto o ano todo</div>
-      <p class="trilha-texto">Um dos principais destinos para atividades ao ar livre da região. Trilha bem definida e cuidada, adequada para níveis intermediários mas desafiadora para os mais experientes. Extensão suficiente para apreciar beleza natural e variedade de paisagens — de áreas verdes tranquilas a trechos acidentados. Acessível para pais com crianças e atletas experientes.</p>
-    </div>
-    <div class="trilha-card">
-      <div class="trilha-nome">Trilha Orla e Lago Guanandy</div>
-      <div class="trilha-meta">37,7 km · 8h13min · Caminhada e MTB</div>
-      <p class="trilha-texto">Percurso épico que combina caminhada e ciclismo de montanha. Começa com trechos pavimentados e logo se torna mais desafiador — com trechos rochosos, terrenos de terra e mata fechada. Ao longo do caminho, vistas panorâmicas do Lago Guanandy e diversas praias. Exige preparo físico adequado.</p>
-    </div>
-  </div>
-
-  <span class="section-label">Trilhas · Itapemirim</span>
-
-  <div class="trilhas-grid">
-    <div class="trilha-card">
-      <div class="trilha-nome">Trilha Monte Aghá</div>
-      <div class="trilha-meta">4,2 km · 1h48min · Moderado · Aberto o ano todo</div>
-      <p class="trilha-texto">Uma das mais populares e bem avaliadas. Perfeita para iniciantes e amantes de caminhada regular. Começa em área plana, passa por áreas verdes e florestais antes de chegar à parte elevada com vistas panorâmicas da região — especialmente impressionantes ao amanhecer ou entardecer. Diversidade de árvores e plantas nativas ao longo do percurso.</p>
-    </div>
-    <div class="trilha-card">
-      <div class="trilha-nome">Circuito João Francisco Vieira</div>
-      <div class="trilha-meta">24,1 km · 5h38min · Moderado · Aberto o ano todo</div>
-      <p class="trilha-texto">Percurso que une beleza natural às tradições locais. Inclui estradas de terra e trilhas mais íngremes, proporcionando diversidade de terreno. Aberto o ano todo, com condições que variam por estação. Preparo físico adequado e equipamentos são essenciais. Jornada que combina desafio com contemplação da paisagem regional.</p>
-    </div>
-    <div class="trilha-card">
-      <div class="trilha-nome">Trilha Córrego Medonho</div>
-      <div class="trilha-meta">5,3 km · 1h30min · Fácil · Aberto o ano todo</div>
-      <p class="trilha-texto">Percurso tranquilo e descomplicado em ambiente natural preservado. Classificada como fácil — acessível para praticamente todos os níveis de condicionamento físico. Conexão íntima com a natureza durante toda a caminhada. Opção ideal para quem está começando a explorar as trilhas da região.</p>
-    </div>
-    <div class="trilha-card">
-      <div class="trilha-nome">Trilha Monte Grande</div>
-      <div class="trilha-meta">2,9 km · 56min · Fácil · Terreno parcialmente pavimentado</div>
-      <p class="trilha-texto">Percurso com leve elevação constante que proporciona sensação de progressão. Atravessa rios e áreas florestais com flora diversificada. Comum avistar pássaros, insetos e animais selvagens. Vegetação oferece sombra em dias ensolarados. Acessível para caminhadas e passeios de bicicleta de montanha.</p>
-    </div>
-    <div class="trilha-card">
-      <div class="trilha-nome">Trilha Rio Itapemirim</div>
-      <div class="trilha-meta">1,8 km · 23min · Fácil · Aberto o ano todo</div>
-      <p class="trilha-texto">Uma das mais acessíveis do ES. Perfeita para iniciantes, famílias com crianças e casais. Caminhada rápida com paisagem tranquila às margens do rio. Vegetação diversificada com frequente observação de pássaros e animais silvestres. Levar água e proteção solar — especialmente nos dias mais quentes.</p>
-    </div>
-    <div class="trilha-card">
-      <div class="trilha-nome">Trilha Ilha do Cardoso</div>
-      <div class="trilha-meta">Acesso por barco · Fácil · Praias desertas e biodiversidade</div>
-      <p class="trilha-texto">Acesso por barco a uma ilha com praias de areias brancas e águas cristalinas. Trilhas bem definidas que levam a vistas panorâmicas, praias isoladas e áreas de vegetação exuberante. Rica biodiversidade com espécies de árvores, arbustos, flores silvestres e diversas aves — algumas endêmicas. Praias desertas ideais para relaxamento.</p>
-    </div>
-  </div>
-</div>
-
-<!-- ======= PONTOS TURÍSTICOS ======= -->
-<div id="pontos" class="pontos-dark">
-  <div class="pontos-inner">
-
-    <span class="pontos-label">Pontos Turísticos · Marataízes</span>
-    <div class="pontos-titulo">História e <em>cultura em Marataízes</em></div>
-    <div class="pontos-grid" style="margin-bottom:3rem;">
-      <div class="ponto-card">
-        <img class="ponto-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/Ruínas do Trapiche.png" alt="Trapiche Marataízes">
-        <div class="ponto-body">
-          <div class="ponto-nome">O Trapiche</div>
-          <p class="ponto-texto">Testemunho fascinante do passado industrial, concluído em 1883 como usina elétrica. Entrou em desuso na década de 1950. Localizado perto do Palácio das Águias e do Porto da Barra. Embora em ruínas, cada pedaço conta uma história silenciosa de transformação e progresso.</p>
-        </div>
-      </div>
-      <div class="ponto-card">
-        <img class="ponto-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/Palácio das Águias .png" alt="Palácio das Águias">
-        <div class="ponto-body">
-          <div class="ponto-nome">Palácio das Águias</div>
-          <p class="ponto-texto">Construído no século XIX com arquitetura colonial portuguesa. Transformado em Biblioteca Municipal — combinando preservação histórica com modernização. Aberto ao público das 8h às 16h. Centro de cultura e conhecimento que mantém viva a memória da região.</p>
-        </div>
-      </div>
-      <div class="ponto-card">
-        <img class="ponto-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/Porto da Barra do Rio Itapemirim.png" alt="Porto da Barra">
-        <div class="ponto-body">
-          <div class="ponto-nome">Porto da Barra do Rio Itapemirim</div>
-          <p class="ponto-texto">Cartão-postal de Marataízes próximo à ponte da ES-060. Barcos pesqueiros tradicionais, manguezal ao fundo e o pôr do sol mais bonito da cidade. Preserva a memória de uma colônia de pesca de tempos antigos. Centro ativo de pesca e herança cultural da região.</p>
-        </div>
-      </div>
-      <div class="ponto-card">
-        <img class="ponto-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/Lagoa do Siri.png" alt="Lagoa do Siri">
-        <div class="ponto-body">
-          <div class="ponto-nome">Lagoa do Siri</div>
-          <p class="ponto-texto">Pequena lagoa à beira-mar com coqueiros ao longo das margens. Águas claras e cristalinas com poucos riscos para banhistas — segura para famílias com crianças. Infraestrutura com pousadas e campings nas proximidades. Ambiente tranquilo ideal para descanso e descontração.</p>
-        </div>
-      </div>
-      <div class="ponto-card">
-        <img class="ponto-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/plantação Abacaxi.png" alt="Plantação de Abacaxi">
-        <div class="ponto-body">
-          <div class="ponto-nome">Plantação de Abacaxi</div>
-          <p class="ponto-texto">Vista panorâmica das extensas plantações que se tornam uma obra de arte natural. Contribuição significativa para a economia local com design regular e harmonioso que contrasta com o verde da vegetação. Manifesto da beleza natural e da agricultura sustentável da região.</p>
-        </div>
-      </div>
-      <div class="ponto-card">
-        <img class="ponto-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/Igreja Nossa Senhora dos Navegantes.png" alt="Igreja Nossa Senhora dos Navegantes">
-        <div class="ponto-body">
-          <div class="ponto-nome">Igreja Nossa Senhora dos Navegantes</div>
-          <p class="ponto-texto">Erguida no século XVIII, é a padroeira dos pescadores locais. Patrimônio histórico e cultural do município. Dez dias de comemorações anuais reúnem a comunidade em agradecimento pelos perigos superados no mar. Um dos mais antigos eventos religiosos do ES.</p>
-        </div>
-      </div>
-    </div>
-
-    <span class="pontos-label" style="color:var(--gold-light);">Pontos Turísticos · Itapemirim</span>
-    <div class="pontos-titulo">Natureza e <em>história em Itapemirim</em></div>
-    <div class="pontos-grid">
-      <div class="ponto-card">
-        <img class="ponto-img" src="https://viagensecaminhos.com/wp-content/uploads/2019/10/clima/Pedra do Frade e a Freira.png" alt="Frade e Freira">
-        <div class="ponto-body">
-          <div class="ponto-nome">Pedra do Frade e a Freira</div>
-          <p class="ponto-texto">Montanhas rochosas de granito que se assemelham a figuras religiosas — cartão-postal mais emblemático da região. A Pedra do Frade parece estar em oração, enquanto a Freira a acompanha com seus longos cabelos de granito. Vista panorâmica das praias de Marataízes, Itapemirim e Piúma. Cercadas de lendas e histórias locais.</p>
-        </div>
-      </div>
-      <div class="ponto-card">
-        <img class="ponto-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/Ilha dos Franceses.png" alt="Ilha dos Franceses">
-        <div class="ponto-body">
-          <div class="ponto-nome">Ilha dos Franceses</div>
-          <p class="ponto-texto">Paraíso natural em frente à Praia de Itaoca. Águas cristalinas para pesca e mergulho com aves raras. Via escuna — viagem tranquila e relaxante — ou canoa havaiana saindo da Praia de Itaoca — verdadeira aventura com reserva antecipada. O farol recém-revitalizado é atração histórica e turística.</p>
-        </div>
-      </div>
-      <div class="ponto-card">
-        <img class="ponto-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/Monte Agha — O Monte de Ver Deus.png" alt="Monte Agha">
-        <div class="ponto-body">
-          <div class="ponto-nome">Monte Agha — O Monte de Ver Deus</div>
-          <p class="ponto-texto">Ícone natural de 300 metros de altitude. Trilhas para caminhada, trekking e asa-delta. Vistas panorâmicas impressionantes de toda a região ao redor. Ideal para quem busca conexão com a natureza, ar puro e sossego. Cada atividade promove experiência única e memorável.</p>
-        </div>
-      </div>
-      <div class="ponto-card">
-        <img class="ponto-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/Lagoa Guanandy1.png" alt="Lagoa Guanandy">
-        <div class="ponto-body">
-          <div class="ponto-nome">Lagoa Guanandy</div>
-          <p class="ponto-texto">Área de proteção ambiental com salva-vidas e águas cristalinas. Ponto de estudo de pesquisadores biólogos pela biodiversidade. Mergulho com acompanhamento, piquenique ao ar livre e observação de aves em área amplamente arborizada. Espaço multifacetado de ciência, lazer e natureza.</p>
-        </div>
-      </div>
-      <div class="ponto-card">
-        <img class="ponto-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/Igreja Nossa Senhora do Amparo.png" alt="Igreja Nossa Senhora do Amparo">
-        <div class="ponto-body">
-          <div class="ponto-nome">Igreja Nossa Senhora do Amparo</div>
-          <p class="ponto-texto">Erguida há mais de 250 anos — principal marco histórico de Itapemirim. Elementos arquitetônicos do período romano e influência portuguesa. Interior com imagens religiosas de mais de 300 anos datando do século XVII. Tesouros culturais que narram a história da fé local.</p>
-        </div>
-      </div>
-      <div class="ponto-card">
-        <img class="ponto-img" src="https://descubraoespiritosanto.es.gov.br/assets/cidades/fotos/clima/Praia do Itaputera.png" alt="Praia do Itaputera">
-        <div class="ponto-body">
-          <div class="ponto-nome">Praia do Itaputera</div>
-          <p class="ponto-texto">Pequena praia de 80 metros numa ilha próxima à Praia dos Namorados. Acesso por píer entre a praia e o rio. Sem infraestrutura — levar alimentação e bebidas. Cenário paradisíaco com muita tranquilidade. Experiência única de contato com a natureza em estado puro.</p>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<div class="tv-banner">
-  <p>Conteúdo produzido e distribuído por</p>
-  <h3>TV Marataízes — Canal 300 Soul TV</h3>
-  <a href="https://tvmarataizes.digital">Acesse o portal completo</a>
-</div>
-</div>
-<!-- /TURISMO SUL ES -->
-
-
 
 <footer style="text-align:center;padding:48px 20px 40px;background:#0a0a0a;border-top:1px solid #1a1a1a;">
   <p style="font-size:22px;font-weight:900;color:#fff;margin:0 0 10px;line-height:1.3;max-width:640px;margin-left:auto;margin-right:auto;">
