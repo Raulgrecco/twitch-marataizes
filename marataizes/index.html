@@ -74,23 +74,19 @@
   ]
 }
 </script>
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-4XNK59E3GJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-4XNK59E3GJ');
-</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-4XNK59E3GJ');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--navy:#003781;--red:#e8000a;--orange:#FF6F00;--green:#25d366;--bg:#f5f5f5;--white:#fff;--text:#1a1a1a;--muted:#666;--border:#ddd}
-body{font-family:'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.6}
+:root{--navy:#003781;--red:#e8000a;--orange:#FF6F00;--green:#25d366;--bg:#f7f7f5;--white:#fff;--text:#1a1a1a;--muted:#666;--border:#e0e0e0}
+body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.65}
 a{text-decoration:none;color:inherit}
 img{max-width:100%;display:block}
 
 /* HEADER */
-.header{background:var(--navy);padding:0}
+.header{background:var(--navy)}
 .header-top{background:var(--red);text-align:center;padding:6px;font-size:11px;font-weight:700;color:#fff;letter-spacing:.5px}
 .header-main{max-width:1100px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .logo{display:flex;align-items:center;gap:10px;color:#fff;font-size:18px;font-weight:900}
@@ -106,52 +102,82 @@ img{max-width:100%;display:block}
 
 /* HERO */
 .hero{background:linear-gradient(135deg,var(--navy) 0%,#001f4d 100%);color:#fff;padding:60px 16px;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
-.hero-tag{display:inline-block;background:rgba(255,111,0,0.9);color:#fff;font-size:11px;font-weight:700;padding:5px 16px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase;margin-bottom:16px}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-tag{display:inline-block;background:rgba(255,111,0,.9);color:#fff;font-size:11px;font-weight:700;padding:5px 16px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase;margin-bottom:16px}
 .hero h1{font-size:clamp(28px,6vw,54px);font-weight:900;line-height:1.1;margin-bottom:12px}
 .hero h1 span{color:#FFB347}
-.hero-sub{font-size:clamp(14px,2.5vw,18px);color:rgba(255,255,255,0.75);max-width:600px;margin:0 auto 28px;line-height:1.6}
+.hero-sub{font-size:clamp(14px,2.5vw,18px);color:rgba(255,255,255,.75);max-width:600px;margin:0 auto 28px;line-height:1.6}
 .hero-stats{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-bottom:28px}
 .stat{text-align:center}
 .stat-num{font-size:28px;font-weight:900;color:#FFB347}
-.stat-label{font-size:11px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:.5px}
+.stat-label{font-size:11px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.5px}
 .hero-cta{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;padding:16px 32px;border-radius:30px;font-size:15px;font-weight:800}
+
+/* SUMÁRIO */
+.sumario{background:#fff;border-bottom:3px solid var(--red);position:sticky;top:0;z-index:50;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.sumario-inner{max-width:1100px;margin:0 auto;padding:0 16px;display:flex;overflow-x:auto;scrollbar-width:none;gap:0}
+.sumario-inner::-webkit-scrollbar{display:none}
+.sum-link{padding:14px 16px;font-size:12px;font-weight:700;color:var(--muted);white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-3px;letter-spacing:.02em;transition:all .2s}
+.sum-link:hover{color:var(--navy);border-bottom-color:var(--red)}
 
 /* WRAP */
 .wrap{max-width:1100px;margin:0 auto;padding:0 16px}
 
 /* SECTION */
 .section{padding:40px 0}
-.section-title{font-size:22px;font-weight:900;color:var(--navy);margin-bottom:6px;padding-bottom:10px;border-bottom:3px solid var(--red);display:flex;align-items:center;gap:10px}
-.section-sub{font-size:14px;color:var(--muted);margin-bottom:24px;margin-top:8px}
+.sec-title{font-size:22px;font-weight:900;color:var(--navy);padding-bottom:10px;border-bottom:3px solid var(--red);display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.sec-sub{font-size:14px;color:var(--muted);margin-bottom:24px}
 
-/* CARDS GRID */
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:20px}
-.card{background:#fff;border-radius:10px;padding:20px;border:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.card-icon{font-size:32px;margin-bottom:10px}
-.card-title{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:6px}
-.card-desc{font-size:13px;color:var(--muted);line-height:1.6}
-.card-tag{display:inline-block;margin-top:8px;background:#e8f0fe;color:#1a73e8;font-size:10px;font-weight:700;padding:3px 10px;border-radius:12px}
+/* INTRO BOX */
+.intro-box{background:#fff;border-radius:12px;padding:28px;border-left:4px solid var(--red);box-shadow:0 2px 8px rgba(0,0,0,.06);margin:32px 0 0}
 
-/* PRAIA CARDS */
-.praia-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:20px}
-.praia-card{background:#fff;border-radius:10px;border:1px solid var(--border);overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+/* GRID PRAIAS */
+.praias-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:20px}
+.praia-card{background:#fff;border-radius:10px;border:1px solid var(--border);overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s;display:block}
+.praia-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,55,129,.1)}
 .praia-header{background:linear-gradient(135deg,var(--navy),#0052a3);padding:16px;color:#fff}
 .praia-name{font-size:14px;font-weight:800;margin-bottom:4px}
-.praia-type{font-size:11px;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:.3px}
+.praia-type{font-size:11px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.3px}
 .praia-body{padding:14px}
-.praia-desc{font-size:12px;color:var(--muted);line-height:1.5}
+.praia-desc{font-size:12px;color:var(--muted);line-height:1.6}
 .praia-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
 .praia-tag{font-size:10px;background:#f0f4ff;color:#003781;padding:2px 8px;border-radius:10px;font-weight:600}
+.praia-ver{display:inline-flex;align-items:center;gap:4px;margin-top:10px;font-size:11px;font-weight:700;color:var(--orange)}
 
-/* NEGÓCIOS */
+/* PONTOS TURÍSTICOS */
+.pontos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:20px}
+.ponto-card{background:#fff;border-radius:10px;border:1px solid var(--border);padding:18px;box-shadow:0 2px 6px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s;display:block}
+.ponto-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,55,129,.1);border-color:#003781}
+.ponto-ico{font-size:28px;margin-bottom:10px}
+.ponto-name{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.ponto-desc{font-size:12px;color:var(--muted);line-height:1.6}
+.ponto-ver{display:inline-flex;align-items:center;gap:4px;margin-top:10px;font-size:11px;font-weight:700;color:var(--orange)}
+
+/* TRILHAS */
+.trilhas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:20px}
+.trilha-card{background:#fff;border-radius:10px;border-left:4px solid var(--orange);padding:18px;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.trilha-nome{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:4px}
+.trilha-meta{font-size:11px;color:var(--orange);font-weight:600;margin-bottom:8px}
+.trilha-desc{font-size:12px;color:var(--muted);line-height:1.6}
+
+/* RESTAURANTES */
 .neg-list{display:flex;flex-direction:column;gap:10px;margin-top:16px}
-.neg-item{background:#fff;border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.neg-item{background:#fff;border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;transition:border-color .2s,box-shadow .2s}
 .neg-item:hover{border-color:#aaa;box-shadow:0 2px 8px rgba(0,0,0,.08)}
 .neg-ico{font-size:24px;flex-shrink:0;margin-top:2px}
 .neg-name{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:3px}
 .neg-desc{font-size:12px;color:var(--muted);line-height:1.5}
 .badge-ag{display:inline-block;margin-top:6px;background:#FFF8E1;color:#E65100;font-size:10px;font-weight:700;padding:3px 10px;border-radius:12px;border:1px solid #F57F17}
+
+/* TV CTA */
+.tv-cta{background:linear-gradient(135deg,var(--navy),#001f4d);border-radius:14px;padding:32px;color:#fff;text-align:center;margin:32px 0}
+.tv-cta h3{font-size:20px;font-weight:900;margin-bottom:8px}
+.tv-cta p{font-size:14px;color:rgba(255,255,255,.7);margin-bottom:20px;max-width:480px;margin-left:auto;margin-right:auto}
+.tv-btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.btn-ao-vivo{background:var(--red);color:#fff;padding:12px 24px;border-radius:24px;font-size:13px;font-weight:800;display:flex;align-items:center;gap:6px}
+.btn-portal2{background:var(--orange);color:#fff;padding:12px 24px;border-radius:24px;font-size:13px;font-weight:700}
+.dot-live{width:8px;height:8px;background:#fff;border-radius:50%;animation:blink 1.2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
 
 /* FAQ */
 .faq{margin-top:20px;display:flex;flex-direction:column;gap:0}
@@ -161,20 +187,29 @@ img{max-width:100%;display:block}
 .faq-q{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:8px}
 .faq-a{font-size:13px;color:var(--muted);line-height:1.7}
 
+/* COMO CHEGAR */
+.chegar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:20px}
+.chegar-card{background:#fff;border-radius:8px;border:1px solid var(--border);padding:16px}
+.chegar-ico{font-size:24px;margin-bottom:8px}
+.chegar-title{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:4px}
+.chegar-desc{font-size:12px;color:var(--muted);line-height:1.6}
+
 /* CTA BOX */
 .cta-box{background:var(--navy);border-radius:12px;padding:32px;text-align:center;margin:40px 0;color:#fff}
 .cta-box h2{font-size:22px;font-weight:900;margin-bottom:8px}
-.cta-box p{font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto}
+.cta-box p{font-size:14px;color:rgba(255,255,255,.7);margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto}
 .cta-btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-.btn-main{background:var(--orange);color:#fff;padding:14px 28px;border-radius:30px;font-size:14px;font-weight:800}
-.btn-sec{background:var(--green);color:#fff;padding:14px 24px;border-radius:30px;font-size:14px;font-weight:700}
+.btn-main{background:var(--orange);color:#fff;padding:14px 28px;border-radius:30px;font-size:14px;font-weight:800;display:inline-block}
+.btn-sec{background:var(--green);color:#fff;padding:14px 24px;border-radius:30px;font-size:14px;font-weight:700;display:inline-block}
+
+/* LINKS CIDADES */
+.cidades-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid #eee}
 
 /* FOOTER */
 footer{background:#0a0a0a;color:#888;text-align:center;padding:32px 16px;font-size:13px}
 footer a{color:var(--orange);font-weight:600}
-footer .footer-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:16px}
+.footer-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:16px}
 
-/* RESPONSIVE */
 @media(max-width:600px){
   .header-btns{width:100%}
   .btn-portal,.btn-wa{flex:1;justify-content:center}
@@ -186,12 +221,11 @@ footer .footer-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap
 </head>
 <body>
 
+<!-- HEADER -->
 <div class="header">
   <div class="header-top">📺 TV MARATAÍZES · SOUL TV CANAL 300 · AO VIVO 24H · LITORAL SUL DO ESPÍRITO SANTO</div>
   <div class="header-main">
-    <a href="https://www.tvmarataizes.digital/" class="logo">
-      <span class="logo-tag">TV</span> Marataízes
-    </a>
+    <a href="https://www.tvmarataizes.digital/" class="logo"><span class="logo-tag">TV</span>Marataízes</a>
     <div class="header-btns">
       <a href="https://www.tvmarataizes.digital/" class="btn-portal">🏠 Portal Principal</a>
       <a href="https://wa.me/5528999036141" target="_blank" class="btn-wa">💬 WhatsApp</a>
@@ -199,6 +233,7 @@ footer .footer-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap
   </div>
 </div>
 
+<!-- BREADCRUMB -->
 <div class="breadcrumb">
   <div class="wrap">
     <a href="https://www.tvmarataizes.digital/">TV Marataízes</a>
@@ -207,6 +242,7 @@ footer .footer-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap
   </div>
 </div>
 
+<!-- HERO -->
 <div class="hero">
   <div class="hero-tag">🌊 Pérola Capixaba · Litoral Sul do ES</div>
   <h1>Marataízes ES<br><span>Guia Completo 2025</span></h1>
@@ -220,9 +256,25 @@ footer .footer-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap
   <a href="https://www.tvmarataizes.digital/" class="hero-cta">📺 Acessar o Portal da TV Marataízes →</a>
 </div>
 
+<!-- SUMÁRIO FIXO -->
+<nav class="sumario" aria-label="Seções do guia">
+  <div class="sumario-inner">
+    <a href="#intro" class="sum-link">Sobre</a>
+    <a href="#onde-fica" class="sum-link">Como Chegar</a>
+    <a href="#o-que-fazer" class="sum-link">O que Fazer</a>
+    <a href="#praias" class="sum-link">Praias</a>
+    <a href="#pontos" class="sum-link">Pontos Turísticos</a>
+    <a href="#trilhas" class="sum-link">Trilhas</a>
+    <a href="#restaurantes" class="sum-link">Restaurantes</a>
+    <a href="#tv" class="sum-link">TV ao Vivo</a>
+    <a href="#faq" class="sum-link">FAQ</a>
+  </div>
+</nav>
 
 <div class="wrap">
-  <div style="background:#fff;border-radius:12px;padding:28px 28px 20px;margin:32px 0 0;border-left:4px solid var(--red);box-shadow:0 2px 8px rgba(0,0,0,.06)">
+
+  <!-- INTRO -->
+  <div id="intro" class="intro-box">
     <p style="font-size:16px;line-height:1.8;color:#1a1a1a;margin-bottom:12px">
       Marataízes é um dos principais destinos do litoral sul do Espírito Santo, conhecida como a <strong>"Pérola Capixaba"</strong> pela produção do famoso abacaxi-pérola e pela beleza de suas praias e lagoas.
     </p>
@@ -232,143 +284,219 @@ footer .footer-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap
     <p style="font-size:15px;line-height:1.8;color:#444;margin-bottom:16px">
       Neste guia da TV Marataízes, você encontra <strong>restaurantes em Marataízes</strong>, pousadas, farmácias, serviços e tudo sobre <strong>turismo em Marataízes ES</strong>.
     </p>
-    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid #eee">
+    <div class="cidades-links">
       <span style="font-size:12px;color:#888;font-weight:600;align-self:center">Ver também:</span>
       <a href="https://www.tvmarataizes.digital/itapemirim/" style="background:#0077b6;color:#fff;padding:7px 16px;border-radius:20px;font-size:12px;font-weight:700">📍 Guia Itapemirim</a>
       <a href="https://www.tvmarataizes.digital/piuma/" style="background:#6d28d9;color:#fff;padding:7px 16px;border-radius:20px;font-size:12px;font-weight:700">📍 Guia Piúma</a>
       <a href="https://www.tvmarataizes.digital/" style="background:#FF6F00;color:#fff;padding:7px 16px;border-radius:20px;font-size:12px;font-weight:700">📺 Portal TV Marataízes</a>
-      <a href="https://www.tvmarataizes.digital/ciadopeixe" style="background:#e8000a;color:#fff;padding:7px 16px;border-radius:20px;font-size:12px;font-weight:700">🐟 Cia do Peixe</a>
     </div>
   </div>
-  <div style="margin:24px 0 0;border-radius:12px;overflow:hidden;border:1px solid #ddd;box-shadow:0 2px 8px rgba(0,0,0,.06)">
-    <div style="background:#003781;padding:12px 20px;display:flex;align-items:center;gap:10px">
-      <span style="font-size:18px">🗺️</span>
-      <span style="font-weight:800;color:#fff;font-size:14px">Marataízes ES — Localização</span>
-      <a href="https://maps.google.com/?q=Marataizes,ES" target="_blank" style="margin-left:auto;background:rgba(255,255,255,0.15);color:#fff;font-size:11px;font-weight:700;padding:5px 12px;border-radius:12px">Abrir no Maps →</a>
+
+  <!-- ONDE FICA -->
+  <div id="onde-fica" class="section">
+    <h2 class="sec-title">🗺️ Onde fica e Como Chegar em Marataízes</h2>
+    <p class="sec-sub">Marataízes fica a 127km de Vitória, no litoral sul do Espírito Santo</p>
+    <div style="border-radius:12px;overflow:hidden;border:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:24px">
+      <div style="background:var(--navy);padding:12px 20px;display:flex;align-items:center;gap:10px">
+        <span style="font-size:18px">🗺️</span>
+        <span style="font-weight:800;color:#fff;font-size:14px">Marataízes ES — Localização</span>
+        <a href="https://maps.google.com/?q=Marataizes,ES" target="_blank" style="margin-left:auto;background:rgba(255,255,255,.15);color:#fff;font-size:11px;font-weight:700;padding:5px 12px;border-radius:12px">Abrir no Maps →</a>
+      </div>
+      <iframe src="https://maps.google.com/maps?q=Marataizes,Espirito+Santo,Brasil&output=embed" width="100%" height="260" style="border:0;display:block" allowfullscreen="" loading="lazy" title="Mapa de Marataízes ES"></iframe>
     </div>
-    <iframe src="https://maps.google.com/maps?q=Marataizes,Espirito+Santo,Brasil&output=embed" width="100%" height="300" style="border:0;display:block" allowfullscreen="" loading="lazy" title="Mapa de Marataízes ES"></iframe>
+    <div class="chegar-grid">
+      <div class="chegar-card"><div class="chegar-ico">🚗</div><div class="chegar-title">De Vitória</div><div class="chegar-desc">BR-101 Sul → trevo de Safra → ES-060 (Rodovia do Sol). 127km, ~2h.</div></div>
+      <div class="chegar-card"><div class="chegar-ico">🚗</div><div class="chegar-title">De Cachoeiro</div><div class="chegar-desc">Rodovia ES-490 em direção à costa. 45km, ~50 minutos.</div></div>
+      <div class="chegar-card"><div class="chegar-ico">🚌</div><div class="chegar-title">De Ônibus</div><div class="chegar-desc">Viação Planeta, saída da Rodoviária de Vitória. ~3h de viagem.</div></div>
+      <div class="chegar-card"><div class="chegar-ico">✈️</div><div class="chegar-title">De Avião</div><div class="chegar-desc">Aeroporto de Vitória (VIX), ~130km. Alugue carro ou pegue ônibus.</div></div>
+    </div>
   </div>
-</div>
 
-
-  <!-- SOBRE -->
-  <div class="section">
-    <h2 class="section-title">🏙️ Sobre Marataízes</h2>
-    <p class="section-sub">Conheça a Pérola Capixaba do litoral sul do Espírito Santo</p>
-    <div class="cards">
-      <div class="card">
-        <div class="card-icon">🍍</div>
-        <div class="card-title">A Pérola Capixaba</div>
-        <div class="card-desc">Marataízes é famosa pela produção do abacaxi-pérola — uma das maiores do Brasil. A fruta é doce, suculenta e símbolo da cidade, encontrada nas plantações ao redor do município.</div>
-        <span class="card-tag">Maior produtora de abacaxi-pérola do Brasil</span>
-      </div>
-      <div class="card">
-        <div class="card-icon">🌊</div>
-        <div class="card-title">26km de Litoral</div>
-        <div class="card-desc">Com 26 quilômetros de praias, Marataízes tem desde praias urbanizadas e agitadas até trechos desertos com falésias cinematográficas. Para todos os gostos.</div>
-        <span class="card-tag">Praias para todos os perfis</span>
-      </div>
-      <div class="card">
-        <div class="card-icon">📜</div>
-        <div class="card-title">História Rica</div>
-        <div class="card-desc">Criada em 1992, desmembrada de Itapemirim, a cidade tem raízes históricas do século XIX. O Trapiche do Barão de Itapemirim (1860-1883) e o Palácio das Águias são patrimônios que contam essa história.</div>
-        <span class="card-tag">Patrimônio histórico do século XIX</span>
-      </div>
-      <div class="card">
-        <div class="card-icon">📺</div>
-        <div class="card-title">TV Marataízes</div>
-        <div class="card-desc">A TV Marataízes é a única emissora independente do Sul do ES, transmitindo ao vivo pelo Canal 300 da Soul TV para todo o Brasil. O portal reúne o guia digital da cidade.</div>
-        <span class="card-tag">Soul TV Canal 300 · Nacional</span>
-      </div>
+  <!-- O QUE FAZER -->
+  <div id="o-que-fazer" class="section">
+    <h2 class="sec-title">🎯 O que fazer em Marataízes ES</h2>
+    <p class="sec-sub">As experiências que não podem faltar no roteiro de Marataízes</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:16px">
+      <a href="/praias/praia-das-falesias" style="background:#fff;border-radius:10px;padding:16px;border:1px solid var(--border);display:block;transition:all .2s" onmouseover="this.style.borderColor='#003781'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:24px;margin-bottom:8px">🏖️</div>
+        <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:4px">Praia das Falésias</div>
+        <div style="font-size:11px;color:var(--muted)">Top 10 do ES — cenário único</div>
+      </a>
+      <a href="/pontos/lagoa-do-siri" style="background:#fff;border-radius:10px;padding:16px;border:1px solid var(--border);display:block;transition:all .2s" onmouseover="this.style.borderColor='#003781'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:24px;margin-bottom:8px">🦀</div>
+        <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:4px">Lagoa do Siri</div>
+        <div style="font-size:11px;color:var(--muted)">Lagoa cristalina à beira-mar</div>
+      </a>
+      <a href="/pontos/o-trapiche" style="background:#fff;border-radius:10px;padding:16px;border:1px solid var(--border);display:block;transition:all .2s" onmouseover="this.style.borderColor='#003781'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:24px;margin-bottom:8px">🏭</div>
+        <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:4px">Ruínas do Trapiche</div>
+        <div style="font-size:11px;color:var(--muted)">Patrimônio histórico de 1883</div>
+      </a>
+      <a href="/pontos/palacio-das-aguias" style="background:#fff;border-radius:10px;padding:16px;border:1px solid var(--border);display:block;transition:all .2s" onmouseover="this.style.borderColor='#003781'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:24px;margin-bottom:8px">🏛️</div>
+        <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:4px">Palácio das Águias</div>
+        <div style="font-size:11px;color:var(--muted)">Século XIX · Biblioteca Municipal</div>
+      </a>
+      <a href="/pontos/porto-da-barra" style="background:#fff;border-radius:10px;padding:16px;border:1px solid var(--border);display:block;transition:all .2s" onmouseover="this.style.borderColor='#003781'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:24px;margin-bottom:8px">🌅</div>
+        <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:4px">Porto da Barra</div>
+        <div style="font-size:11px;color:var(--muted)">O pôr do sol mais bonito da cidade</div>
+      </a>
+      <a href="/pontos/plantacao-de-abacaxi" style="background:#fff;border-radius:10px;padding:16px;border:1px solid var(--border);display:block;transition:all .2s" onmouseover="this.style.borderColor='#003781'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:24px;margin-bottom:8px">🍍</div>
+        <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:4px">Plantação de Abacaxi</div>
+        <div style="font-size:11px;color:var(--muted)">Arte natural e turismo rural</div>
+      </a>
     </div>
   </div>
 
   <!-- PRAIAS -->
-  <div class="section">
-    <h2 class="section-title">🏖️ Praias de Marataízes</h2>
-    <p class="section-sub">Do norte ao sul — 26km de praias para explorar</p>
-    <div class="praia-grid">
-      <div class="praia-card">
-        <div class="praia-header"><div class="praia-name">Praia da Barra</div><div class="praia-type">Praia Central · Urbanizada</div></div>
-        <div class="praia-body"><div class="praia-desc">A mais tradicional e badalada de Marataízes. Calçadão reformado, boa infraestrutura, quiosques e bares. Boa para banho no verão e surfe em outras épocas.</div><div class="praia-tags"><span class="praia-tag">Surf</span><span class="praia-tag">Vôlei</span><span class="praia-tag">Quiosques</span></div></div>
-      </div>
-      <div class="praia-card">
-        <div class="praia-header"><div class="praia-name">Lagoa do Siri</div><div class="praia-type">9km do Centro · Família</div></div>
-        <div class="praia-body"><div class="praia-desc">O ponto turístico mais famoso de Marataízes. Lagoa de água doce separada do mar por uma faixa de areia. Quiosques, restaurantes e águas calmas — perfeita para famílias.</div><div class="praia-tags"><span class="praia-tag">Água Doce</span><span class="praia-tag">Família</span><span class="praia-tag">Quiosques</span></div></div>
-      </div>
-      <div class="praia-card">
-        <div class="praia-header"><div class="praia-name">Praia das Falésias</div><div class="praia-type">Monumento Natural Municipal</div></div>
-        <div class="praia-body"><div class="praia-desc">Cenário cinematográfico. As falésias se estendem da Lagoa do Siri até Boa Vista do Sul, ao longo da Rodovia do Sol. Pouca infraestrutura, beleza selvagem total.</div><div class="praia-tags"><span class="praia-tag">Natureza</span><span class="praia-tag">Fotos</span><span class="praia-tag">Mirante</span></div></div>
-      </div>
-      <div class="praia-card">
-        <div class="praia-header"><div class="praia-name">Praia de Boa Vista do Sul</div><div class="praia-type">Surfe · Kitesurf</div></div>
-        <div class="praia-body"><div class="praia-desc">Cercada por morros e falésias, ideal para surfe, kitesurf e windsurfe. Rodeada por lagoas deslumbrantes. Uma das mais belas de todo o litoral capixaba.</div><div class="praia-tags"><span class="praia-tag">Surf</span><span class="praia-tag">Kitesurf</span><span class="praia-tag">Tranquila</span></div></div>
-      </div>
-      <div class="praia-card">
+  <div id="praias" class="section">
+    <h2 class="sec-title">🏖️ Praias de Marataízes</h2>
+    <p class="sec-sub">13 praias catalogadas — da urbana e agitada à selvagem e preservada</p>
+    <div class="praias-grid">
+
+      <a href="/praias/praia-da-barra" class="praia-card">
+        <div class="praia-header"><div class="praia-name">Praia da Barra</div><div class="praia-type">Central · Urbanizada</div></div>
+        <div class="praia-body"><div class="praia-desc">A mais tradicional e badalada de Marataízes. Calçadão reformado, quiosques, bares e boa infraestrutura.</div><div class="praia-tags"><span class="praia-tag">Surf</span><span class="praia-tag">Vôlei</span><span class="praia-tag">Quiosques</span></div><span class="praia-ver">Ver guia completo →</span></div>
+      </a>
+
+      <a href="/praias/praia-do-siri" class="praia-card">
+        <div class="praia-header"><div class="praia-name">Praia do Siri</div><div class="praia-type">Família · Lagoa do Siri</div></div>
+        <div class="praia-body"><div class="praia-desc">Acesso direto à Lagoa do Siri. Águas calmas e cristalinas — ideal para crianças e idosos.</div><div class="praia-tags"><span class="praia-tag">Família</span><span class="praia-tag">Lagoa</span></div><span class="praia-ver">Ver guia completo →</span></div>
+      </a>
+
+      <a href="/praias/praia-das-falesias" class="praia-card">
+        <div class="praia-header" style="background:linear-gradient(135deg,#c0392b,#e74c3c)"><div class="praia-name">Praia das Falésias ⭐</div><div class="praia-type">Top 10 do ES · Monumento Natural</div></div>
+        <div class="praia-body"><div class="praia-desc">Falésias de 30 a 40 metros em tons alaranjados. Cenário único no litoral capixaba.</div><div class="praia-tags"><span class="praia-tag">Natureza</span><span class="praia-tag">Fotos</span></div><span class="praia-ver">Ver guia completo →</span></div>
+      </a>
+
+      <a href="/praias/praia-da-cidade-nova" class="praia-card">
+        <div class="praia-header"><div class="praia-name">Praia da Cidade Nova</div><div class="praia-type">Calçadão · 2,5km de Orla</div></div>
+        <div class="praia-body"><div class="praia-desc">Extensão da Praia da Barra com calçadão para corrida e caminhada. Vegetação nativa preservada.</div><div class="praia-tags"><span class="praia-tag">Caminhada</span><span class="praia-tag">Ciclismo</span></div><span class="praia-ver">Ver guia completo →</span></div>
+      </a>
+
+      <a href="/praias/praia-dos-namorados" class="praia-card">
+        <div class="praia-header"><div class="praia-name">Praia dos Namorados</div><div class="praia-type">Tranquila · Romântica</div></div>
+        <div class="praia-body"><div class="praia-desc">Próxima à Igreja dos Navegantes. Águas calmas, ambiente íntimo e menos comercializado.</div><div class="praia-tags"><span class="praia-tag">Tranquila</span><span class="praia-tag">Pôr do Sol</span></div><span class="praia-ver">Ver guia completo →</span></div>
+      </a>
+
+      <a href="/praias/praia-da-cruz" class="praia-card">
+        <div class="praia-header"><div class="praia-name">Praia da Cruz</div><div class="praia-type">Areia Dourada · Pedras</div></div>
+        <div class="praia-body"><div class="praia-desc">200 metros de areia dourada emoldurada por pedras. Cenário fotogênico único.</div><div class="praia-tags"><span class="praia-tag">Fotogênica</span><span class="praia-tag">Pedras</span></div><span class="praia-ver">Ver guia completo →</span></div>
+      </a>
+
+      <a href="/praias/praia-da-areia-preta" class="praia-card">
+        <div class="praia-header"><div class="praia-name">Praia da Areia Preta</div><div class="praia-type">Única · Rústica</div></div>
+        <div class="praia-body"><div class="praia-desc">Areia que adquire tons escuros — fenômeno raro no litoral capixaba. 600m de extensão.</div><div class="praia-tags"><span class="praia-tag">Única</span><span class="praia-tag">Frutos do Mar</span></div><span class="praia-ver">Ver guia completo →</span></div>
+      </a>
+
+      <a href="/praias/praia-dos-cacoes" class="praia-card">
         <div class="praia-header"><div class="praia-name">Praia dos Cações</div><div class="praia-type">Tranquila · Local</div></div>
-        <div class="praia-body"><div class="praia-desc">Próxima ao centro mas frequentada mais por moradores locais. Beleza natural, águas propícias para banho e tranquilidade garantida. Leve água e alimentos.</div><div class="praia-tags"><span class="praia-tag">Tranquila</span><span class="praia-tag">Banho</span><span class="praia-tag">Local</span></div></div>
-      </div>
-      <div class="praia-card">
-        <div class="praia-header"><div class="praia-name">Praia do Pontal</div><div class="praia-type">Foz do Rio Itapemirim</div></div>
-        <div class="praia-body"><div class="praia-desc">À margem da foz do Rio Itapemirim, próxima à vila de pescadores. Isolada, sem infraestrutura, ideal para quem quer fugir do agito. Ótima para kitesurf.</div><div class="praia-tags"><span class="praia-tag">Pesca</span><span class="praia-tag">Kitesurf</span><span class="praia-tag">Isolada</span></div></div>
-      </div>
+        <div class="praia-body"><div class="praia-desc">Amendoeiras e coqueiros com sombra natural. Ambiente autêntico dos moradores locais.</div><div class="praia-tags"><span class="praia-tag">Tranquila</span><span class="praia-tag">Pescadores</span></div><span class="praia-ver">Ver guia completo →</span></div>
+      </a>
+
+      <a href="/praias/praia-de-boa-vista-do-sul" class="praia-card">
+        <div class="praia-header"><div class="praia-name">Praia de Boa Vista do Sul</div><div class="praia-type">Windsurf · Escondida</div></div>
+        <div class="praia-body"><div class="praia-desc">Paraíso escondido com Lagoa da Boa Vista ao lado. Popular para windsurf pelos ventos constantes.</div><div class="praia-tags"><span class="praia-tag">Windsurf</span><span class="praia-tag">Lagoa</span></div><span class="praia-ver">Ver guia completo →</span></div>
+      </a>
+
+      <a href="/praias/praia-do-pontal" class="praia-card">
+        <div class="praia-header"><div class="praia-name">Praia do Pontal</div><div class="praia-type">Pescadores · Trilhas</div></div>
+        <div class="praia-body"><div class="praia-desc">Visual rústico com comunidade pesqueira. Trilhas com mirantes panorâmicos. Mar aberto para surf.</div><div class="praia-tags"><span class="praia-tag">Surf</span><span class="praia-tag">Autêntica</span></div><span class="praia-ver">Ver guia completo →</span></div>
+      </a>
+
+      <a href="/praias/praia-das-pitas" class="praia-card">
+        <div class="praia-header"><div class="praia-name">Praia das Pitas</div><div class="praia-type">Familiar · Preservada</div></div>
+        <div class="praia-body"><div class="praia-desc">Extensa faixa de areia clara com vegetação nativa preservada e quiosques confortáveis.</div><div class="praia-tags"><span class="praia-tag">Família</span><span class="praia-tag">Natureza</span></div><span class="praia-ver">Ver guia completo →</span></div>
+      </a>
+
+      <a href="/praias/praia-da-rosa" class="praia-card">
+        <div class="praia-header"><div class="praia-name">Praia da Rosa</div><div class="praia-type">Piscinas Naturais · Escondida</div></div>
+        <div class="praia-body"><div class="praia-desc">500 metros numa ilha cercada por mata nativa. Piscinas naturais na maré baixa.</div><div class="praia-tags"><span class="praia-tag">Piscinas</span><span class="praia-tag">Secreta</span></div><span class="praia-ver">Ver guia completo →</span></div>
+      </a>
+
+      <a href="/praias/praia-do-itaputera" class="praia-card">
+        <div class="praia-header"><div class="praia-name">Praia do Itaputera</div><div class="praia-type">Ilha · Acesso por Píer</div></div>
+        <div class="praia-body"><div class="praia-desc">80 metros de praia numa ilha. Acesso por píer — natureza em estado puro, sem infraestrutura.</div><div class="praia-tags"><span class="praia-tag">Ilha</span><span class="praia-tag">Exclusiva</span></div><span class="praia-ver">Ver guia completo →</span></div>
+      </a>
+
     </div>
   </div>
 
   <!-- PONTOS TURÍSTICOS -->
-  <div class="section">
-    <h2 class="section-title">🗺️ Pontos Turísticos</h2>
-    <p class="section-sub">O que não pode faltar no roteiro de Marataízes</p>
-    <div class="cards">
-      <div class="card">
-        <div class="card-icon">🏚️</div>
-        <div class="card-title">Ruínas do Trapiche</div>
-        <div class="card-desc">Construído pelo Barão de Itapemirim entre 1860 e 1883 para suporte às exportações de açúcar, café e aguardente. Patrimônio arquitetônico da cidade, sendo revitalizado como parque turístico.</div>
-        <span class="card-tag">Patrimônio Histórico Sec. XIX</span>
-      </div>
-      <div class="card">
-        <div class="card-icon">🏛️</div>
-        <div class="card-title">Palácio das Águias</div>
-        <div class="card-desc">Construção do século XIX que serviu como armazém do porto e escritório da Alfândega. Hoje abriga a Biblioteca Municipal Nobertino Bahiense e é palco de eventos culturais.</div>
-        <span class="card-tag">Século XIX · Biblioteca Municipal</span>
-      </div>
-      <div class="card">
-        <div class="card-icon">⛪</div>
-        <div class="card-title">Igreja Nossa Senhora dos Navegantes</div>
-        <div class="card-desc">Construída em 1872, é uma das igrejas mais antigas e belas do Sul do ES. Com altares neogóticos, é um marco religioso e histórico da cidade. Imperdível para amantes de arquitetura.</div>
-        <span class="card-tag">1872 · Patrimônio Religioso</span>
-      </div>
-      <div class="card">
-        <div class="card-icon">⛰️</div>
-        <div class="card-title">Morro da Palha</div>
-        <div class="card-desc">O ponto mais alto de Marataízes. Vista panorâmica de toda a cidade e do litoral. O local ideal para apreciar o pôr do sol mais bonito da região — momento que fica na memória.</div>
-        <span class="card-tag">Mirante · Pôr do Sol</span>
-      </div>
-      <div class="card">
-        <div class="card-icon">🏝️</div>
-        <div class="card-title">Praia do Itaputera</div>
-        <div class="card-desc">Considerada uma das mais bonitas da região, localizada em uma ilha de mesmo nome. Acesso por barco, aguas cristalinas e beleza natural preservada.</div>
-        <span class="card-tag">Ilha · Acesso por barco</span>
-      </div>
-      <div class="card">
-        <div class="card-icon">🌊</div>
-        <div class="card-title">Orla Reurbanizada</div>
-        <div class="card-desc">A praia central de Marataízes passou por reurbanização completa: pista dupla, playground, skate park, quadra de areia e ciclovia. Considerada a obra do século na cidade.</div>
-        <span class="card-tag">Skate Park · Ciclovia · Playground</span>
-      </div>
+  <div id="pontos" class="section">
+    <h2 class="sec-title">🗺️ Pontos Turísticos de Marataízes</h2>
+    <p class="sec-sub">Patrimônio histórico, cultural e natural da Pérola Capixaba</p>
+    <div class="pontos-grid">
+      <a href="/pontos/o-trapiche" class="ponto-card">
+        <div class="ponto-ico">🏭</div>
+        <div class="ponto-name">Ruínas do Trapiche</div>
+        <div class="ponto-desc">Construído entre 1860-1883. Patrimônio histórico do século XIX em ruínas que contam a história da cidade.</div>
+        <span class="ponto-ver">Ver página completa →</span>
+      </a>
+      <a href="/pontos/palacio-das-aguias" class="ponto-card">
+        <div class="ponto-ico">🏛️</div>
+        <div class="ponto-name">Palácio das Águias</div>
+        <div class="ponto-desc">Construção do século XIX com arquitetura colonial portuguesa. Hoje abriga a Biblioteca Municipal. Aberto 8h–16h.</div>
+        <span class="ponto-ver">Ver página completa →</span>
+      </a>
+      <a href="/pontos/porto-da-barra" class="ponto-card">
+        <div class="ponto-ico">⚓</div>
+        <div class="ponto-name">Porto da Barra do Rio Itapemirim</div>
+        <div class="ponto-desc">Cartão-postal com barcos pesqueiros tradicionais, manguezal e o pôr do sol mais bonito de Marataízes.</div>
+        <span class="ponto-ver">Ver página completa →</span>
+      </a>
+      <a href="/pontos/lagoa-do-siri" class="ponto-card">
+        <div class="ponto-ico">🦀</div>
+        <div class="ponto-name">Lagoa do Siri</div>
+        <div class="ponto-desc">Lagoa à beira-mar com coqueiros, águas cristalinas e calmas. Pousadas e campings nas proximidades.</div>
+        <span class="ponto-ver">Ver página completa →</span>
+      </a>
+      <a href="/pontos/igreja-nossa-senhora-dos-navegantes" class="ponto-card">
+        <div class="ponto-ico">⛪</div>
+        <div class="ponto-name">Igreja Nossa Senhora dos Navegantes</div>
+        <div class="ponto-desc">Erguida no século XVIII. Padroeira dos pescadores. 10 dias de festa anual — um dos eventos mais antigos do ES.</div>
+        <span class="ponto-ver">Ver página completa →</span>
+      </a>
+      <a href="/pontos/plantacao-de-abacaxi" class="ponto-card">
+        <div class="ponto-ico">🍍</div>
+        <div class="ponto-name">Plantação de Abacaxi</div>
+        <div class="ponto-desc">Vista panorâmica das extensas plantações — obra de arte natural e base da economia local.</div>
+        <span class="ponto-ver">Ver página completa →</span>
+      </a>
     </div>
   </div>
 
+  <!-- TRILHAS -->
+  <div id="trilhas" class="section">
+    <h2 class="sec-title">🥾 Trilhas e Natureza em Marataízes</h2>
+    <p class="sec-sub">Ecoturismo com biodiversidade rica — pássaros, lagartos, tartarugas e vegetação de restinga</p>
+    <div class="trilhas-grid">
+      <div class="trilha-card">
+        <div class="trilha-nome">Circuito Nova Canaã</div>
+        <div class="trilha-meta">10,5 km · Moderado · Caminhada e MTB</div>
+        <div class="trilha-desc">Um dos principais destinos para atividades ao ar livre. Trilha bem definida, adequada para níveis intermediários. Acessível para famílias com crianças.</div>
+      </div>
+      <div class="trilha-card">
+        <div class="trilha-nome">Trilha Orla e Lago Guanandy</div>
+        <div class="trilha-meta">37,7 km · 8h13min · Caminhada e MTB</div>
+        <div class="trilha-desc">Percurso épico com trechos rochosos e mata fechada. Vistas panorâmicas do Lago Guanandy e diversas praias. Exige preparo físico.</div>
+      </div>
+    </div>
+    <p style="margin-top:14px;font-size:13px;color:var(--muted)">Mais trilhas em <a href="https://www.tvmarataizes.digital/itapemirim/" style="color:var(--navy);font-weight:700">Itapemirim →</a> Monte Agha, Córrego Medonho e outras 4 trilhas catalogadas.</p>
+  </div>
+
   <!-- RESTAURANTES -->
-  <div class="section">
-    <h2 class="section-title">🍽️ Restaurantes em Marataízes</h2>
-    <p class="section-sub">Os melhores lugares para comer em Marataízes ES</p>
+  <div id="restaurantes" class="section">
+    <h2 class="sec-title">🍽️ Restaurantes em Marataízes</h2>
+    <p class="sec-sub">Os melhores lugares para comer em Marataízes ES</p>
     <div class="neg-list">
       <a href="https://www.tvmarataizes.digital/ciadopeixe" class="neg-item" style="display:flex">
         <div class="neg-ico">🐟</div>
         <div>
           <div class="neg-name">Restaurante Cia do Peixe</div>
-          <div class="neg-desc">Frutos do mar frescos à beira-mar. Av. Atlântica, 1800 — Alto Lagoa Funda · ⭐ 4.5 no Google · Aberto todos os dias 11h–17h · (28) 99901-2288</div>
+          <div class="neg-desc">Frutos do mar frescos · Av. Atlântica, 1800 · ⭐ 4.5 no Google · Aberto todos os dias 11h–17h</div>
           <span class="badge-ag">⭐ Agenciado TV Marataízes — Ver página completa →</span>
         </div>
       </a>
@@ -376,184 +504,75 @@ footer .footer-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap
         <div class="neg-ico">⚓</div>
         <div>
           <div class="neg-name">Capitão Gancho</div>
-          <div class="neg-desc">Pratos autorais com vista para o mar · R. Santa Catarina, 128 — Praia da Colônia · 20K Instagram · (28) 99925-8775</div>
+          <div class="neg-desc">Pratos autorais com vista para o mar · R. Santa Catarina, 128 · 20K Instagram · (28) 99925-8775</div>
         </div>
       </a>
       <a href="https://www.instagram.com/churrascariasaldaterra/" target="_blank" class="neg-item" style="display:flex">
         <div class="neg-ico">🥩</div>
         <div>
           <div class="neg-name">Churrascaria Sal da Terra</div>
-          <div class="neg-desc">O melhor churrasco do Sul do ES · Self-service almoço · Av. Rubens Rangel, 978 · 10K Instagram</div>
+          <div class="neg-desc">O melhor churrasco do Sul do ES · Self-service almoço · Av. Rubens Rangel, 978</div>
         </div>
       </a>
     </div>
-    <div style="margin-top:16px;background:#fff;border-radius:8px;padding:16px;border:1px solid var(--border);text-align:center">
-      <p style="font-size:13px;color:var(--muted);margin-bottom:10px">Ver todos os restaurantes de Marataízes, Itapemirim e Piúma no guia completo da TV</p>
-      <a href="https://www.tvmarataizes.digital/#restaurantes" class="btn-main" style="display:inline-block">🍽️ Ver Guia Completo de Restaurantes →</a>
+    <div style="margin-top:14px;text-align:center">
+      <a href="https://www.tvmarataizes.digital/#restaurantes" class="btn-main">🍽️ Ver Guia Completo de Restaurantes →</a>
     </div>
   </div>
 
-  <!-- POUSADAS -->
-  <div class="section">
-    <h2 class="section-title">🛏️ Pousadas e Hotéis em Marataízes</h2>
-    <p class="section-sub">Onde se hospedar em Marataízes ES</p>
-    <div class="neg-list">
-      <a href="https://pousadaportal.com.br/" target="_blank" class="neg-item" style="display:flex">
-        <div class="neg-ico">🌊</div>
-        <div><div class="neg-name">Pousada Portal da Barra</div><div class="neg-desc">16 apartamentos vista mar · café da manhã incluso · R. Odaliska Soares, 31 · (28) 99966-2611</div></div>
-      </a>
-      <a href="https://www.pousadagravatais.com/" target="_blank" class="neg-item" style="display:flex">
-        <div class="neg-ico">🌿</div>
-        <div><div class="neg-name">Pousada dos Gravatais</div><div class="neg-desc">Beira do Rio Itapemirim · piscina · área arborizada · (28) 99959-9640</div></div>
-      </a>
-    </div>
-    <div style="margin-top:16px;text-align:center">
-      <a href="https://www.tvmarataizes.digital/#hospedagem" class="btn-main" style="display:inline-block">🛏️ Ver Todas as Pousadas →</a>
-    </div>
-  </div>
-
-  <!-- COMO CHEGAR -->
-  <div class="section">
-    <h2 class="section-title">🗺️ Como Chegar em Marataízes</h2>
-    <div class="cards" style="margin-top:16px">
-      <div class="card">
-        <div class="card-icon">🚗</div>
-        <div class="card-title">De Carro — De Vitória</div>
-        <div class="card-desc">BR-101 Sul até o trevo de Safra → ES-060 (Rodovia do Sol) → sentido Marataízes. Distância: 127km. Tempo: aproximadamente 2h.</div>
-      </div>
-      <div class="card">
-        <div class="card-icon">🚗</div>
-        <div class="card-title">De Carro — De Cachoeiro</div>
-        <div class="card-desc">Rodovia ES-490 em direção à costa. Distância: 45km. Tempo: aproximadamente 50 minutos.</div>
-      </div>
-      <div class="card">
-        <div class="card-icon">🚌</div>
-        <div class="card-title">De Ônibus</div>
-        <div class="card-desc">Viação Planeta oferece linha de Vitória a Marataízes. Saída da Rodoviária de Vitória. Duração aproximada: 3h. Verifique horários no site da empresa.</div>
-      </div>
-      <div class="card">
-        <div class="card-icon">✈️</div>
-        <div class="card-title">De Avião</div>
-        <div class="card-desc">Aeroporto de Vitória (VIX) é o mais próximo. De lá, alugar carro ou pegar ônibus até Marataízes. Distância do aeroporto: ~130km.</div>
+  <!-- TV AO VIVO -->
+  <div id="tv" class="section">
+    <div class="tv-cta">
+      <p style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px">Canal 300 Soul TV · Nacional</p>
+      <h3>📺 TV Marataízes — Ao Vivo 24h</h3>
+      <p>A única emissora independente do Sul do Espírito Santo. Assista ao vivo pelo Canal 300 da Soul TV em todas as Smart TVs do Brasil.</p>
+      <div class="tv-btns">
+        <a href="https://www.tvmarataizes.digital/" class="btn-ao-vivo"><span class="dot-live"></span> Assistir ao Vivo</a>
+        <a href="https://wa.me/5528999036141" target="_blank" class="btn-portal2">💬 Falar pelo WhatsApp</a>
       </div>
     </div>
   </div>
 
   <!-- FAQ -->
-  <div class="section">
-    <h2 class="section-title">❓ Perguntas Frequentes sobre Marataízes</h2>
+  <div id="faq" class="section">
+    <h2 class="sec-title">❓ Perguntas Frequentes sobre Marataízes</h2>
     <div class="faq">
-      <div class="faq-item"><div class="faq-q">O que fazer em Marataízes ES?</div><div class="faq-a">Visitar a Lagoa do Siri (9km do centro), a Praia das Falésias, as Ruínas do Trapiche, o Morro da Palha para ver o pôr do sol, a Igreja Nossa Senhora dos Navegantes (1872) e o Palácio das Águias. Além das praias, passeios de barco, surfe e kitesurfe são populares na cidade.</div></div>
-      <div class="faq-item"><div class="faq-q">Quais as melhores praias de Marataízes?</div><div class="faq-a">Praia da Barra (central, agitada), Lagoa do Siri (água doce, famílias), Praia das Falésias (natureza preservada), Praia de Boa Vista do Sul (surfe e kitesurf), Praia dos Cações (tranquila) e Praia do Pontal (pesca e kitesurf).</div></div>
-      <div class="faq-item"><div class="faq-q">Marataízes é perigosa? É segura para turistas?</div><div class="faq-a">Marataízes é uma cidade tranquila e segura para o turismo, especialmente nas áreas de praia e centro. Como em qualquer destino turístico, é recomendado tomar precauções básicas, especialmente à noite.</div></div>
-      <div class="faq-item"><div class="faq-q">Qual a melhor época para visitar Marataízes?</div><div class="faq-a">O verão (dezembro a março) é a alta temporada, com praias cheias e clima ideal. Mas Marataízes pode ser visitada o ano todo — o clima é tropical, amenizado pela brisa do mar. Na baixa temporada as praias ficam mais tranquilas e os preços mais acessíveis.</div></div>
-      <div class="faq-item"><div class="faq-q">Onde comer frutos do mar em Marataízes?</div><div class="faq-a">O Restaurante Cia do Peixe (Av. Atlântica, avaliação 4.5 no Google) é referência. O Capitão Gancho e a Churrascaria Sal da Terra também são muito recomendados. A culinária local é rica em moqueca capixaba, camarão, lula e peixes frescos.</div></div>
-      <div class="faq-item"><div class="faq-q">Marataízes tem TV local?</div><div class="faq-a">Sim! A TV Marataízes é a única emissora independente do Sul do Espírito Santo, transmitindo ao vivo pelo Canal 300 da Soul TV — ao lado de CNN Brasil, Record News e TV UOL — disponível em todas as Smart TVs do Brasil. Acesse também pelo portal tvmarataizes.digital.</div></div>
-    </div>
-  </div>
-
-  <!-- CTA PORTAL -->
-
-
-  <!-- EMPRESAS DA REGIÃO — MARATAÍZES -->
-  <div class="section" id="empresas-regiao">
-    <h2 class="section-title" style="border-color:var(--orange)">🏢 Empresas em destaque na região</h2>
-    <p class="section-sub">Negócios agenciados pela TV Marataízes que atendem Marataízes e toda a região</p>
-    
-  <!-- ATUM DO BRASIL — MARATAÍZES -->
-  <div style="background:#fff;border-radius:12px;border:2px solid #0077b6;overflow:hidden;margin:28px 0;box-shadow:0 2px 10px rgba(0,119,182,.1)">
-    <div style="background:linear-gradient(135deg,#003781,#0077b6);padding:12px 20px;display:flex;align-items:center;gap:10px">
-      <span style="font-size:20px">🐟</span>
-      <span style="font-size:11px;font-weight:700;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.5px">Pescados Frescos · Distribui na Região</span>
-      <span style="margin-left:auto;background:rgba(255,255,255,.15);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:12px">Maior Exportadora do Brasil</span>
-    </div>
-    <div style="padding:22px 24px">
-      <h3 style="font-size:17px;font-weight:900;color:#003781;margin-bottom:8px">Atum do Brasil — Pescados que chegam frescos em Marataízes</h3>
-      <p style="font-size:14px;color:#444;line-height:1.8;margin-bottom:12px">
-        Os restaurantes de <strong>frutos do mar em Marataízes</strong> têm um fornecedor de peso na região: a <strong>Atum do Brasil</strong>, sediada a poucos quilômetros, em Itaóca (Itapemirim). A maior exportadora de peixes frescos do Brasil distribui atum, namorado, cherne, pargo e linha completa de pescados para o litoral sul capixaba. 30 anos de mercado, 0,05% de água no pescado e certificação internacional garantem o que vai à mesa.
-      </p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <a href="https://www.tvmarataizes.digital/atumdobrasil" style="display:inline-flex;align-items:center;gap:6px;background:#0077b6;color:#fff;padding:10px 18px;border-radius:20px;font-size:13px;font-weight:800;text-decoration:none">🐟 Ver página completa →</a>
+      <div class="faq-item">
+        <div class="faq-q">O que fazer em Marataízes ES?</div>
+        <div class="faq-a">Visitar a <a href="/pontos/lagoa-do-siri" style="color:var(--navy);font-weight:600">Lagoa do Siri</a>, a <a href="/praias/praia-das-falesias" style="color:var(--navy);font-weight:600">Praia das Falésias</a>, as <a href="/pontos/o-trapiche" style="color:var(--navy);font-weight:600">Ruínas do Trapiche</a>, o Morro da Palha para ver o pôr do sol, a <a href="/pontos/igreja-nossa-senhora-dos-navegantes" style="color:var(--navy);font-weight:600">Igreja Nossa Senhora dos Navegantes</a> (século XVIII) e o <a href="/pontos/palacio-das-aguias" style="color:var(--navy);font-weight:600">Palácio das Águias</a>. Além das praias, passeios de barco, surfe e kitesurfe são populares na cidade.</div>
       </div>
-    </div>
-  </div>
-    
-  <!-- AMOR NO CONE — MARATAÍZES -->
-  <div style="background:#fff;border-radius:12px;border:2px solid #F57F17;overflow:hidden;margin:28px 0;box-shadow:0 2px 10px rgba(245,127,23,.1)">
-    <div style="background:linear-gradient(135deg,#E65100,#F57F17);padding:12px 20px;display:flex;align-items:center;gap:10px">
-      <span style="font-size:20px">🍦</span>
-      <span style="font-size:11px;font-weight:700;color:rgba(255,255,255,.8);text-transform:uppercase;letter-spacing:.5px">Doceria · Marataízes · ⭐ Agenciado TV</span>
-    </div>
-    <div style="padding:22px 24px">
-      <h3 style="font-size:17px;font-weight:900;color:#E65100;margin-bottom:8px">Amor dentro do Cone — Sucesso entre moradores e eventos em Marataízes</h3>
-      <p style="font-size:14px;color:#444;line-height:1.8;margin-bottom:12px">
-        Para quem busca uma <strong>doceria em Marataízes</strong> com entrega pontual e produtos diferenciados, o <strong>Amor dentro do Cone</strong> é referência. Brigadeiros artesanais, Nutella e beijinho — opções que fazem sucesso em festas, eventos locais e no dia a dia dos moradores da Pérola Capixaba. Entrega com hora marcada na cidade.
-      </p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <a href="https://www.tvmarataizes.digital/cone" style="display:inline-flex;align-items:center;gap:6px;background:#F57F17;color:#fff;padding:10px 18px;border-radius:20px;font-size:13px;font-weight:800;text-decoration:none">🍦 Ver cardápio e pedir →</a>
+      <div class="faq-item">
+        <div class="faq-q">Quais as melhores praias de Marataízes?</div>
+        <div class="faq-a"><a href="/praias/praia-da-barra" style="color:var(--navy);font-weight:600">Praia da Barra</a> (central, agitada), <a href="/pontos/lagoa-do-siri" style="color:var(--navy);font-weight:600">Lagoa do Siri</a> (água doce, famílias), <a href="/praias/praia-das-falesias" style="color:var(--navy);font-weight:600">Praia das Falésias</a> (natureza preservada), <a href="/praias/praia-de-boa-vista-do-sul" style="color:var(--navy);font-weight:600">Praia de Boa Vista do Sul</a> (surfe e kitesurf), <a href="/praias/praia-dos-cacoes" style="color:var(--navy);font-weight:600">Praia dos Cações</a> (tranquila) e <a href="/praias/praia-do-pontal" style="color:var(--navy);font-weight:600">Praia do Pontal</a> (pesca e kitesurf).</div>
       </div>
-    </div>
-  </div>
-    
-  <!-- MACUCA — MARATAÍZES -->
-  <div style="background:linear-gradient(135deg,#0a0a0a,#001f4d);border-radius:12px;padding:24px;margin:28px 0;display:flex;gap:20px;align-items:center;flex-wrap:wrap">
-    <div style="flex:1;min-width:220px">
-      <div style="font-size:11px;font-weight:700;color:#FF6F00;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Agência Sediada na Região · Sul do ES</div>
-      <h3 style="font-size:16px;font-weight:900;color:#fff;margin-bottom:8px">Macuca Produções — A agência que conhece Marataízes</h3>
-      <p style="font-size:13px;color:rgba(255,255,255,.65);line-height:1.7">
-        Sediada no Sul do ES e com a <strong style="color:#fff">TV Marataízes</strong> como veículo próprio, a <strong style="color:#FF6F00">Macuca Produções</strong> é a agência que mais conhece o mercado local. Para negócios em <strong style="color:#fff">Marataízes</strong> que querem crescer com tráfego pago, redes sociais e vídeo profissional.
-      </p>
-    </div>
-    <a href="https://www.macucaproducoes.com.br" target="_blank" rel="noopener"
-       style="display:inline-flex;align-items:center;gap:8px;background:#FF6F00;color:#fff;padding:12px 22px;border-radius:25px;font-size:13px;font-weight:800;text-decoration:none;flex-shrink:0;white-space:nowrap">
-      🚀 Conhecer a Macuca →
-    </a>
-  </div>
-  </div>
-
-  <!-- MACUCA MARATAÍZES -->
-  <div class="section" id="agencia-publicidade-marataizes">
-    <div style="background:linear-gradient(135deg,#0a0a0a 0%,#1a1a1a 100%);border-radius:16px;padding:40px 36px;border-left:4px solid #FF6F00;position:relative;overflow:hidden;">
-      <div style="position:absolute;right:-20px;top:-20px;font-size:120px;opacity:0.03;font-weight:900;color:#fff;line-height:1;pointer-events:none">M</div>
-      <div style="margin-bottom:6px;display:flex;align-items:center;gap:10px">
-        <span style="font-size:11px;font-weight:700;color:#FF6F00;text-transform:uppercase;letter-spacing:1px">Publicidade e Marketing · Sul do ES</span>
+      <div class="faq-item">
+        <div class="faq-q">Marataízes é perigosa? É segura para turistas?</div>
+        <div class="faq-a">Marataízes é uma cidade tranquila e segura para o turismo, especialmente nas áreas de praia e centro. Como em qualquer destino turístico, é recomendado tomar precauções básicas, especialmente à noite.</div>
       </div>
-      <h2 style="font-size:clamp(20px,3.5vw,30px);font-weight:900;color:#fff;line-height:1.2;margin-bottom:16px">
-        Quer anunciar em Marataízes<br>e ser encontrado no Google?
-      </h2>
-      <p style="font-size:15px;color:rgba(255,255,255,0.75);line-height:1.8;margin-bottom:14px">
-        Se você tem uma empresa em <strong style="color:#fff">Marataízes</strong> e quer aparecer no Google quando o cliente pesquisar, investir em <strong style="color:#fff">tráfego pago</strong> e ter uma <strong style="color:#fff">estratégia de marketing digital</strong> de verdade — existe uma agência que nasceu aqui, conhece a região e já atendeu as maiores marcas do Brasil.
-      </p>
-      <p style="font-size:15px;color:rgba(255,255,255,0.75);line-height:1.8;margin-bottom:14px">
-        A <strong style="color:#FF6F00">Macuca Produções</strong> é uma <strong style="color:#fff">agência de publicidade e propaganda</strong> com mais de 20 anos de mercado, com atuação em <strong style="color:#fff">Google Ads, Facebook Ads, Instagram Ads, SEO</strong>, gestão de redes sociais, <strong style="color:#fff">produção de vídeos comerciais</strong>, branding e criação de campanhas completas.
-      </p>
-      <p style="font-size:15px;color:rgba(255,255,255,0.75);line-height:1.8;margin-bottom:24px">
-        Única agência do Sul do ES que também opera uma <strong style="color:#fff">emissora de TV nacional</strong> — a TV Marataízes, Canal 300 da Soul TV. Quando outras agências compram mídia de terceiros, a Macuca <em style="color:#FF6F00">é a mídia</em>.
-      </p>
-      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px">
-        <span style="background:rgba(255,111,0,0.15);color:#FF6F00;border:1px solid rgba(255,111,0,0.3);font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px">Agência de Publicidade Sul ES</span>
-        <span style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.6);font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px">Tráfego Pago ES</span>
-        <span style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.6);font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px">Google Ads Espírito Santo</span>
-        <span style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.6);font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px">Produção de Vídeo ES</span>
-        <span style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.6);font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px">Marketing Digital Marataízes</span>
-        <span style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.6);font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px">Agência de Comunicação ES</span>
+      <div class="faq-item">
+        <div class="faq-q">Qual a melhor época para visitar Marataízes?</div>
+        <div class="faq-a">O verão (dezembro a março) é a alta temporada, com praias cheias e clima ideal. Mas Marataízes pode ser visitada o ano todo — o clima é tropical, amenizado pela brisa do mar. Na baixa temporada as praias ficam mais tranquilas e os preços mais acessíveis.</div>
       </div>
-      <p style="font-size:14px;font-style:italic;color:rgba(255,255,255,0.55);line-height:1.7;margin-bottom:20px;padding:14px 16px;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid rgba(255,111,0,0.4)">
-        Empresas que aparecem primeiro no Google vendem mais. Se você quer que seu negócio em <strong style="color:rgba(255,255,255,0.8)">Marataízes</strong> seja encontrado por turistas e moradores todos os dias, fale agora com a Macuca Produções e descubra como posicionar sua empresa no topo das buscas.
-      </p>
-      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
-        <a href="https://www.macucaproducoes.com.br" target="_blank" rel="noopener" 
-           style="display:inline-flex;align-items:center;gap:8px;background:#FF6F00;color:#fff;padding:14px 28px;border-radius:30px;font-size:14px;font-weight:800;text-decoration:none">
-          🚀 Conhecer a Macuca Produções →
-        </a>
-        <a href="https://wa.me/5528999036141?text=Quero+saber+sobre+publicidade+e+marketing+digital+em+Marataizes" target="_blank"
-           style="display:inline-flex;align-items:center;gap:8px;background:#25d366;color:#fff;padding:14px 22px;border-radius:30px;font-size:13px;font-weight:700;text-decoration:none">
-          💬 Falar agora
-        </a>
+      <div class="faq-item">
+        <div class="faq-q">Onde comer frutos do mar em Marataízes?</div>
+        <div class="faq-a">O <a href="https://www.tvmarataizes.digital/ciadopeixe" style="color:var(--navy);font-weight:600">Restaurante Cia do Peixe</a> (Av. Atlântica, avaliação 4.5 no Google) é referência. O Capitão Gancho e a Churrascaria Sal da Terra também são muito recomendados. A culinária local é rica em moqueca capixaba, camarão, lula e peixes frescos.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">O que é a Lagoa do Siri em Marataízes?</div>
+        <div class="faq-a">A <a href="/pontos/lagoa-do-siri" style="color:var(--navy);font-weight:600">Lagoa do Siri</a> é um dos principais pontos turísticos de Marataízes. É uma lagoa de água doce separada do mar por uma faixa de areia, com quiosques, bares e restaurantes. Ideal para famílias com crianças por suas águas calmas.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Marataízes é famosa por quê?</div>
+        <div class="faq-a">Marataízes é conhecida como a Pérola Capixaba por sua famosa produção de abacaxi-pérola — uma das maiores do Brasil. Também é famosa pelas Falésias, pela Lagoa do Siri, pelo patrimônio histórico do Trapiche e pelo belíssimo litoral de 26km.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Marataízes tem TV local?</div>
+        <div class="faq-a">Sim! A TV Marataízes é a única emissora independente do Sul do ES, transmitindo ao vivo pelo Canal 300 da Soul TV para todo o Brasil. Acesse também pelo portal <a href="https://www.tvmarataizes.digital/" style="color:var(--navy);font-weight:600">tvmarataizes.digital</a>.</div>
       </div>
     </div>
   </div>
 
+  <!-- CTA FINAL -->
   <div class="cta-box">
     <h2>📺 Explore o Guia Completo da TV Marataízes</h2>
     <p>Restaurantes, pousadas, farmácias, delivery e serviços de Marataízes, Itapemirim e Piúma — tudo em um único portal.</p>
