@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Windsor Hora — Corretor de Imóveis | Litoral Sul ES</title>
+<meta name="description" content="Windsor Hora, corretor referência no Litoral Sul do ES. Especialista em compra e venda em Marataízes e Cachoeiro. CRECI ES 013733F."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --card: #161616;
+  --orange: #E8622A;
+  --orange-light: #ff7a40;
+  --gold: #c9a96e;
+  --text: #f0ece4;
+  --muted: #888;
+  --border: rgba(255,255,255,0.07);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 60px 80px 80px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-right {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  filter: brightness(0.7);
+}
+
+.hero-right::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--bg) 0%, transparent 40%);
+}
+
+.logo-top {
+  width: 120px;
+  margin-bottom: 48px;
+  opacity: 0.9;
+}
+
+.hero-tag {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hero-tag::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--orange);
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(52px, 6vw, 86px);
+  font-weight: 900;
+  line-height: 1.0;
+  margin-bottom: 8px;
+}
+
+.hero h1 span {
+  color: var(--orange);
+  font-style: italic;
+}
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--muted);
+  margin-bottom: 40px;
+  letter-spacing: 1px;
+}
+
+.hero-creci {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(232,98,42,0.12);
+  border: 1px solid rgba(232,98,42,0.3);
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--orange-light);
+  margin-bottom: 48px;
+  letter-spacing: 1px;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+
+.stat-item strong {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+}
+
+.stat-item span {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: var(--orange);
+  color: #fff;
+  padding: 16px 32px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); }
+
+.btn-outline {
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--text);
+  padding: 16px 32px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.btn-outline:hover { border-color: rgba(255,255,255,0.5); transform: translateY(-2px); }
+
+/* ── FAIXA LARANJA ── */
+.strip {
+  background: var(--orange);
+  padding: 18px 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  overflow: hidden;
+}
+
+.strip-text {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.strip-divider {
+  width: 4px;
+  height: 4px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── SOBRE ── */
+.sobre {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding: 100px 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.sobre-img {
+  position: relative;
+  padding-right: 60px;
+}
+
+.sobre-img img {
+  width: 100%;
+  border-radius: 4px;
+  object-fit: cover;
+  aspect-ratio: 4/5;
+}
+
+.sobre-img::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: 80px;
+  bottom: 20px;
+  border: 1px solid rgba(232,98,42,0.3);
+  border-radius: 4px;
+  z-index: -1;
+}
+
+.sobre-content {
+  padding-left: 40px;
+}
+
+.section-tag {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-tag::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--orange);
+}
+
+.sobre-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 4vw, 54px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.sobre-content h2 em {
+  color: var(--orange);
+  font-style: italic;
+}
+
+.sobre-content p {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.sobre-destaque {
+  margin-top: 32px;
+  padding: 24px;
+  background: var(--card);
+  border-left: 3px solid var(--orange);
+  border-radius: 0 4px 4px 0;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+/* ── GALERIA ── */
+.galeria-section {
+  padding: 80px;
+  background: var(--surface);
+}
+
+.galeria-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.galeria-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 4vw, 54px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.galeria-header h2 em { color: var(--orange); font-style: italic; }
+
+.galeria-header p {
+  color: var(--muted);
+  font-size: 15px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.galeria-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  aspect-ratio: 3/4;
+  cursor: pointer;
+}
+
+.galeria-item.wide {
+  grid-column: span 2;
+  aspect-ratio: 16/9;
+}
+
+.galeria-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.galeria-item:hover img { transform: scale(1.05); }
+
+.galeria-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.galeria-item:hover .galeria-overlay { opacity: 1; }
+
+.galeria-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+/* ── GATILHOS / DIFERENCIAIS ── */
+.diferenciais {
+  padding: 100px 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.diferenciais-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.diferenciais-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 4vw, 54px);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.diferenciais-header h2 em { color: var(--orange); font-style: italic; }
+
+.diferenciais-header p { color: var(--muted); font-size: 15px; }
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card-dif {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 36px 28px;
+  transition: border-color 0.3s, transform 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-dif::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--orange);
+  transform: scaleX(0);
+  transition: transform 0.3s;
+  transform-origin: left;
+}
+
+.card-dif:hover {
+  border-color: rgba(232,98,42,0.3);
+  transform: translateY(-4px);
+}
+
+.card-dif:hover::before { transform: scaleX(1); }
+
+.card-icon {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.card-dif h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.card-dif p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── DEPOIMENTO / ESCASSEZ ── */
+.escassez {
+  background: var(--orange);
+  padding: 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.escassez::before {
+  content: '"';
+  position: absolute;
+  font-family: 'Playfair Display', serif;
+  font-size: 400px;
+  color: rgba(255,255,255,0.05);
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.escassez h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.2;
+  max-width: 800px;
+  margin: 0 auto 24px;
+  position: relative;
+}
+
+.escassez p {
+  font-size: 16px;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.escassez .btn-white {
+  background: #fff;
+  color: var(--orange);
+  padding: 18px 40px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.2s;
+  position: relative;
+}
+
+.escassez .btn-white:hover { transform: translateY(-3px); }
+
+/* ── CONTATO ── */
+.contato {
+  padding: 100px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.contato-info h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 4vw, 54px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.contato-info h2 em { color: var(--orange); font-style: italic; }
+
+.contato-info p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+
+.contato-links {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contato-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 24px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 14px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.contato-link:hover {
+  border-color: rgba(232,98,42,0.5);
+  transform: translateX(4px);
+}
+
+.contato-link .link-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.link-wa .link-icon { background: rgba(37,211,102,0.15); }
+.link-ig .link-icon { background: rgba(232,98,42,0.15); }
+
+.contato-link strong {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.contato-link small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.contato-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 48px 40px;
+  text-align: center;
+}
+
+.contato-foto {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+  margin: 0 auto 20px;
+  border: 3px solid var(--orange);
+  display: block;
+}
+
+.contato-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.contato-card .cargo {
+  font-size: 12px;
+  color: var(--orange);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.contato-card .creci-badge {
+  display: inline-block;
+  background: rgba(232,98,42,0.1);
+  border: 1px solid rgba(232,98,42,0.3);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  color: var(--orange-light);
+  margin-bottom: 24px;
+}
+
+.contato-card .regioes {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.contato-card .btn-wa-big {
+  background: #25d366;
+  color: #fff;
+  padding: 16px 32px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background 0.2s;
+}
+
+.contato-card .btn-wa-big:hover { background: #1ebe5d; }
+
+/* ── RODAPÉ ── */
+footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 40px 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+footer img { height: 36px; opacity: 0.7; }
+
+footer p {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+}
+
+footer .tv-credit {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+}
+
+footer .tv-credit a { color: var(--orange); text-decoration: none; }
+
+/* ── RESPONSIVO ── */
+@media(max-width: 900px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-right { height: 50vw; }
+  .hero-left { padding: 60px 24px; }
+  .hero-stats { gap: 24px; }
+  .strip { padding: 14px 24px; gap: 12px; }
+  .strip-text { font-size: 11px; }
+  .sobre { grid-template-columns: 1fr; padding: 60px 24px; }
+  .sobre-img { padding-right: 0; margin-bottom: 40px; }
+  .sobre-content { padding-left: 0; }
+  .galeria-section { padding: 60px 24px; }
+  .galeria-grid { grid-template-columns: 1fr 1fr; }
+  .galeria-item.wide { grid-column: span 2; }
+  .diferenciais { padding: 60px 24px; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .escassez { padding: 60px 24px; }
+  .contato { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
+  footer { padding: 30px 24px; flex-direction: column; text-align: center; }
+  footer .tv-credit { text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <img src="clima/LOGOWINDSOR.png" alt="Windsor Cardoso Hora" class="logo-top"/>
+    <div class="hero-tag">Corretor de Imóveis · CRECI ES 013733F</div>
+    <h1>Encontre o<br>imóvel <span>certo</span><br>no Sul do ES</h1>
+    <p class="hero-sub">Referência em Marataízes · Cachoeiro · Litoral Sul</p>
+    <div class="hero-creci">✓ &nbsp;APENAS COMPRA E VENDA · Especialista no que faz</div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <strong>8k+</strong>
+        <span>Seguidores</span>
+      </div>
+      <div class="stat-item">
+        <strong>Sul ES</strong>
+        <span>Região</span>
+      </div>
+      <div class="stat-item">
+        <strong>100%</strong>
+        <span>Dedicação</span>
+      </div>
+    </div>
+    <div class="hero-cta">
+      <a href="https://wa.me/5528999036141" class="btn-primary" target="_blank">
+        💬 Falar com Windsor
+      </a>
+      <a href="#imoveis" class="btn-outline">
+        🏡 Ver imóveis
+      </a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="clima/FOTO5WINDSOR.png" alt="Windsor Hora - Corretor"/>
+  </div>
+</section>
+
+<!-- FAIXA -->
+<div class="strip">
+  <span class="strip-text">Compra e Venda</span>
+  <span class="strip-divider"></span>
+  <span class="strip-text">Litoral Sul ES</span>
+  <span class="strip-divider"></span>
+  <span class="strip-text">Marataízes</span>
+  <span class="strip-divider"></span>
+  <span class="strip-text">Cachoeiro</span>
+  <span class="strip-divider"></span>
+  <span class="strip-text">CRECI ES 013733F</span>
+  <span class="strip-divider"></span>
+  <span class="strip-text">@windsorcorretor</span>
+</div>
+
+<!-- SOBRE -->
+<section class="sobre">
+  <div class="sobre-img">
+    <img src="clima/FOTO8WINDSOR.png" alt="Windsor Hora"/>
+  </div>
+  <div class="sobre-content">
+    <div class="section-tag">Quem é Windsor</div>
+    <h2>Diferente né?<br><em>Ele sabe.</em></h2>
+    <p>Natural de Cachoeiro de Itapemirim, Windsor Cardoso Hora construiu sua reputação no mercado imobiliário do Sul do Espírito Santo sendo exatamente o que o nome já diz: diferente.</p>
+    <p>Enquanto outros corretores vendem de tudo, Windsor escolheu ser especialista. <strong>Apenas compra e venda.</strong> Essa escolha permite que ele conheça cada detalhe do mercado, cada imóvel e cada cliente como ninguém.</p>
+    <p>Com mais de 8 mil seguidores no Instagram e uma presença digital que gera negócios reais, Windsor é a referência quando o assunto é imóvel no Litoral Sul do ES.</p>
+    <div class="sobre-destaque">
+      "Adoro estar em contato com meus amigos, clientes que viram amigos — e claro, a minha família."
+      <br><br>— Windsor Hora
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section class="galeria-section" id="imoveis">
+  <div class="galeria-header">
+    <div class="section-tag" style="justify-content:center">Portfólio</div>
+    <h2>Imóveis que já<br><em>passaram pelas mãos</em> do Windsor</h2>
+    <p>Do simples ao luxuoso. Da praia ao campo. Cada imóvel com a atenção que merece.</p>
+  </div>
+  <div class="galeria-grid">
+    <div class="galeria-item wide">
+      <img src="clima/FOTO6WINDSOR.png" alt="Luxo e Porteira Fechada"/>
+      <div class="galeria-overlay">
+        <span class="galeria-label">Um Verdadeiro Luxo · Porteira Fechada</span>
+      </div>
+    </div>
+    <div class="galeria-item">
+      <img src="clima/FOTO4WINDSOR.png" alt="Requinte"/>
+      <div class="galeria-overlay">
+        <span class="galeria-label">Requinte</span>
+      </div>
+    </div>
+    <div class="galeria-item">
+      <img src="clima/FOTO3WINDSOR.png" alt="Duplex Pé na Areia"/>
+      <div class="galeria-overlay">
+        <span class="galeria-label">Duplex Pé na Areia · Porteira Fechada</span>
+      </div>
+    </div>
+    <div class="galeria-item">
+      <img src="clima/FOTO2WINDSOR.png" alt="Um Achado"/>
+      <div class="galeria-overlay">
+        <span class="galeria-label">Um Achado: R$225 mil</span>
+      </div>
+    </div>
+    <div class="galeria-item wide">
+      <img src="clima/FOTO7WINDSOR.png" alt="Lagoa Funda Marataízes"/>
+      <div class="galeria-overlay">
+        <span class="galeria-label">Lagoa Funda · Marataízes</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section class="diferenciais">
+  <div class="diferenciais-header">
+    <div class="section-tag" style="justify-content:center">Por que Windsor</div>
+    <h2>O corretor que a cidade<br><em>já conhece e confia</em></h2>
+    <p>Estes são os motivos que fazem clientes indicarem Windsor para amigos e família</p>
+  </div>
+  <div class="cards-grid">
+    <div class="card-dif">
+      <div class="card-icon">🎯</div>
+      <h3>Especialista em Compra e Venda</h3>
+      <p>Windsor não faz aluguel. Essa escolha estratégica garante que cada energia, cada contato e cada hora do dia sejam dedicados exclusivamente a quem quer comprar ou vender.</p>
+    </div>
+    <div class="card-dif">
+      <div class="card-icon">📍</div>
+      <h3>Conhece o Litoral Sul como ninguém</h3>
+      <p>De Cachoeiro a Marataízes, passando pela Lagoa Funda e pelas praias do Sul. Windsor conhece cada bairro, cada rua, cada oportunidade que o mercado local oferece.</p>
+    </div>
+    <div class="card-dif">
+      <div class="card-icon">🤝</div>
+      <h3>Cliente que vira amigo</h3>
+      <p>Mais de 8 mil pessoas acompanham Windsor no Instagram porque ele gera valor, transparência e conexão real. Não é só uma venda — é uma relação que dura.</p>
+    </div>
+    <div class="card-dif">
+      <div class="card-icon">🏡</div>
+      <h3>De R$225 mil ao alto padrão</h3>
+      <p>Seja o seu primeiro imóvel ou uma mansão pé na areia, Windsor encontra. Portfólio completo do popular ao luxo, sempre com o mesmo comprometimento.</p>
+    </div>
+    <div class="card-dif">
+      <div class="card-icon">🔒</div>
+      <h3>Segurança jurídica</h3>
+      <p>CRECI ES 013733F ativo. Cada transação acompanhada do início ao fim, com toda a documentação correta para que você durma tranquilo depois da assinatura.</p>
+    </div>
+    <div class="card-dif">
+      <div class="card-icon">📲</div>
+      <h3>Atendimento direto e ágil</h3>
+      <p>Sem assistentes, sem secretárias. Você fala diretamente com Windsor. Quem viu o imóvel é quem te atende. Isso faz toda a diferença na hora de fechar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ESCASSEZ / CTA -->
+<section class="escassez">
+  <h2>O imóvel certo não espera.<br>E nem o comprador certo.</h2>
+  <p>As melhores oportunidades do Sul do ES passam primeiro pelo Windsor. Entre em contato agora e saia na frente.</p>
+  <a href="https://wa.me/5528999036141?text=Olá%20Windsor!%20Vi%20sua%20página%20e%20quero%20conhecer%20imóveis%20disponíveis." class="btn-white" target="_blank">
+    💬 Quero falar com Windsor agora
+  </a>
+</section>
+
+<!-- CONTATO -->
+<section class="contato" id="contato">
+  <div class="contato-info">
+    <div class="section-tag">Contato</div>
+    <h2>Pronto para dar<br><em>o próximo passo?</em></h2>
+    <p>Entre em contato pelo WhatsApp ou acompanhe Windsor no Instagram para ver as novidades do mercado imobiliário do Litoral Sul do ES.</p>
+    <div class="contato-links">
+      <a href="https://wa.me/5528999036141?text=Olá%20Windsor!%20Quero%20saber%20sobre%20imóveis." class="contato-link link-wa" target="_blank">
+        <div class="link-icon">💬</div>
+        <div>
+          <strong>WhatsApp</strong>
+          <small>Resposta rápida · Atendimento direto</small>
+        </div>
+      </a>
+      <a href="https://instagram.com/windsorcorretor" class="contato-link link-ig" target="_blank">
+        <div class="link-icon">📸</div>
+        <div>
+          <strong>@windsorcorretor</strong>
+          <small>8.291 seguidores · Imóveis todo dia</small>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="contato-card">
+    <img src="clima/FOTO5WINDSOR.png" alt="Windsor Hora" class="contato-foto"/>
+    <h3>Windsor Hora</h3>
+    <div class="cargo">Corretor de Imóveis</div>
+    <div class="creci-badge">CRECI ES 013733F</div>
+    <div class="regioes">
+      🟠 Apenas Compra e Venda<br>
+      📍 Marataízes · Cachoeiro · Litoral Sul ES
+    </div>
+    <a href="https://wa.me/5528999036141?text=Olá%20Windsor!%20Vi%20sua%20página%20e%20quero%20conhecer%20imóveis%20disponíveis." class="btn-wa-big" target="_blank">
+      💬 Falar agora no WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- RODAPÉ -->
+<footer>
+  <img src="clima/LOGOWINDSOR.png" alt="Windsor Hora"/>
+  <p>© 2025 Windsor Cardoso Hora · CRECI ES 013733F<br>Litoral Sul do Espírito Santo</p>
+  <div class="tv-credit">
+    Página criada por<br>
+    <a href="https://tvmarataizes.digital" target="_blank">TV Marataízes</a>
+  </div>
+</footer>
+
+</body>
+</html>
