@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roteiro — GS Auto Center</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --card: #111;
+  --border: #222;
+  --accent: #FF6F00;
+  --green: #00ff88;
+  --red: #ff3b3b;
+  --text: #e8e8e8;
+  --muted: #666;
+  --white: #fff;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Mono', monospace;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* HEADER */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,10,10,0.97);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-left { display: flex; align-items: center; gap: 16px; }
+.logo { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 800; color: var(--accent); letter-spacing: .05em; }
+.badge { background: var(--accent); color: #fff; font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: 2px; letter-spacing: .1em; text-transform: uppercase; }
+.badge-green { background: var(--green); color: #000; }
+.timer { font-size: 11px; color: var(--muted); }
+.nav { display: flex; gap: 6px; }
+.nav a { font-size: 10px; color: var(--muted); text-decoration: none; padding: 4px 10px; border: 1px solid var(--border); border-radius: 2px; transition: all .15s; letter-spacing: .05em; }
+.nav a:hover { color: var(--accent); border-color: var(--accent); }
+
+/* MAIN */
+.main { max-width: 860px; margin: 0 auto; padding: 32px 24px 80px; }
+
+/* BLOCO */
+.bloco {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.bloco:hover { border-color: #333; }
+.bloco-header {
+  background: #111;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+.bloco-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: .1em;
+  min-width: 32px;
+}
+.bloco-titulo {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--white);
+  flex: 1;
+}
+.bloco-tempo {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: .05em;
+}
+.bloco-body {
+  padding: 20px 24px;
+  border-top: 1px solid var(--border);
+}
+
+/* FALA */
+.fala {
+  background: #0d1a0d;
+  border: 1px solid #1a3a1a;
+  border-left: 3px solid var(--green);
+  border-radius: 4px;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #c8f0c8;
+}
+.fala strong { color: var(--green); }
+
+/* INSTRUCAO */
+.inst {
+  background: #1a1200;
+  border: 1px solid #3a2a00;
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 10px 16px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: #f0c060;
+}
+.inst strong { color: var(--accent); }
+
+/* ALERTA */
+.alerta {
+  background: #1a0d0d;
+  border: 1px solid #3a1a1a;
+  border-left: 3px solid var(--red);
+  border-radius: 4px;
+  padding: 10px 16px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: #f08080;
+}
+
+/* CHECKLIST */
+.check { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 12px;
+  background: #111;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background .15s;
+}
+.check-item:hover { background: #161616; }
+.check-item input { margin-top: 3px; accent-color: var(--green); }
+.check-item label { font-size: 13px; cursor: pointer; }
+.check-item.done label { text-decoration: line-through; color: var(--muted); }
+
+/* SEPARADOR */
+.sep {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0 16px;
+}
+.sep-line { flex: 1; height: 1px; background: var(--border); }
+.sep-txt { font-size: 10px; color: var(--muted); letter-spacing: .15em; text-transform: uppercase; }
+
+/* OBJECTIONS */
+.obj {
+  background: #111;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+.obj-q {
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--red);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.obj-q::after { content: '+'; font-size: 18px; color: var(--muted); }
+.obj-q.open::after { content: '−'; }
+.obj-a {
+  display: none;
+  padding: 14px 16px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  color: #c8f0c8;
+  line-height: 1.8;
+  background: #0d1a0d;
+}
+.obj-a.show { display: block; }
+
+/* NUMBERS */
+.numbers {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.num-card {
+  background: #111;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 16px;
+  text-align: center;
+}
+.num-val {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.num-label { font-size: 10px; color: var(--muted); letter-spacing: .05em; }
+
+/* PROPOSTA */
+.proposta {
+  background: linear-gradient(135deg, #1a0e00, #0d0d0d);
+  border: 1px solid #FF6F00;
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.proposta-titulo {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.proposta-linha {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #222;
+  font-size: 13px;
+}
+.proposta-linha:last-child { border-bottom: none; }
+.proposta-val { font-family: 'Syne', sans-serif; font-weight: 800; color: var(--white); }
+.proposta-total {
+  background: var(--accent);
+  color: #000;
+  border-radius: 4px;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+}
+
+/* SILENCIO */
+.silencio {
+  background: #000;
+  border: 2px dashed #333;
+  border-radius: 4px;
+  padding: 20px;
+  text-align: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: .2em;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 600px) {
+  .numbers { grid-template-columns: 1fr; }
+  .nav { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <span class="logo">TV MARATAÍZES</span>
+    <span class="badge">ROTEIRO INTERNO</span>
+    <span class="badge badge-green">GS AUTO CENTER · QUARTA 16H</span>
+  </div>
+  <nav class="nav">
+    <a href="#pre">Antes</a>
+    <a href="#abertura">Abertura</a>
+    <a href="#case">Case</a>
+    <a href="#proposta">Proposta</a>
+    <a href="#objecoes">Objeções</a>
+    <a href="#fechamento">Fechar</a>
+  </nav>
+</div>
+
+<div class="main">
+
+  <!-- PRÉ REUNIÃO -->
+  <div id="pre" class="bloco">
+    <div class="bloco-header">
+      <span class="bloco-num">00</span>
+      <span class="bloco-titulo">ANTES DE ENTRAR NA LOJA</span>
+      <span class="bloco-tempo">15 min antes</span>
+    </div>
+    <div class="bloco-body">
+      <div class="check">
+        <div class="check-item" onclick="this.classList.toggle('done')">
+          <input type="checkbox"> <label>Portal tvmarataizes.digital aberto no notebook — página de automóveis visível</label>
+        </div>
+        <div class="check-item" onclick="this.classList.toggle('done')">
+          <input type="checkbox"> <label>Site macucaproducoes.com.br aberto em outra aba</label>
+        </div>
+        <div class="check-item" onclick="this.classList.toggle('done')">
+          <input type="checkbox"> <label>Instagram gspneusautocenter aberto no celular</label>
+        </div>
+        <div class="check-item" onclick="this.classList.toggle('done')">
+          <input type="checkbox"> <label>Roteiro (essa página) aberta no celular — modo leitura</label>
+        </div>
+        <div class="check-item" onclick="this.classList.toggle('done')">
+          <input type="checkbox"> <label>Notebook com bateria cheia e carregador na bag</label>
+        </div>
+      </div>
+      <div class="inst"><strong>MINDSET:</strong> Você não é vendedor. Você é o único canal de mídia regional do Sul do ES. Eles precisam de você — não o contrário.</div>
+    </div>
+  </div>
+
+  <!-- CHEGADA -->
+  <div id="abertura" class="bloco">
+    <div class="bloco-header">
+      <span class="bloco-num">01</span>
+      <span class="bloco-titulo">CHEGADA — OS PRIMEIROS 2 MINUTOS</span>
+      <span class="bloco-tempo">0–2 min</span>
+    </div>
+    <div class="bloco-body">
+      <div class="inst"><strong>NÃO fale de produto ainda.</strong> Observe a loja, elogie algo específico e real. Organização, movimento, tamanho do pátio.</div>
+      <div class="fala">
+        "Cara, organização de pátio assim eu não vejo em muita loja por aqui não. Vocês abriram há quanto tempo mesmo?"
+      </div>
+      <div class="inst">Deixa ele falar. Sorri. Demonstra interesse genuíno. O dono ama quando alguém nota o que ele construiu.</div>
+    </div>
+  </div>
+
+  <!-- ABERTURA ESTRATÉGICA -->
+  <div class="bloco">
+    <div class="bloco-header">
+      <span class="bloco-num">02</span>
+      <span class="bloco-titulo">A VIRADA — OUÇA ANTES DE VENDER</span>
+      <span class="bloco-tempo">2–8 min</span>
+    </div>
+    <div class="bloco-body">
+      <div class="inst"><strong>Este é o movimento mais poderoso da reunião.</strong> Faça a pergunta e fique em silêncio absoluto.</div>
+      <div class="fala">
+        "Antes de qualquer coisa, você me disse que teve 3 agências e nenhuma adiantou. Me conta o que aconteceu — porque eu preciso saber onde elas erraram antes de te propor qualquer coisa."
+      </div>
+      <div class="alerta">SILÊNCIO TOTAL. Não complete a frase dele. Não sugira respostas. Deixa ele desabafar tudo.</div>
+      <div class="inst"><strong>Depois que ele terminar, use o espelho:</strong></div>
+      <div class="fala">
+        "Faz sentido. O que você está descrevendo é o problema clássico de agência — entregam post bonito, relatório de curtida e somem. Você pagou por presença e não teve resultado. É isso?"
+      </div>
+      <div class="inst">Ele vai dizer sim. Aí você fala:</div>
+      <div class="fala">
+        "Então a gente está alinhado. Porque o que eu faço não é isso."
+      </div>
+    </div>
+  </div>
+
+  <!-- CASE DO RIO -->
+  <div id="case" class="bloco">
+    <div class="bloco-header">
+      <span class="bloco-num">03</span>
+      <span class="bloco-titulo">O CASE DO RIO — A VIRADA EMOCIONAL</span>
+      <span class="bloco-tempo">8–15 min</span>
+    </div>
+    <div class="bloco-body">
+      <div class="inst">Tom de conversa. Não de pitch. Como se estivesse contando uma história a um amigo.</div>
+      <div class="fala">
+        "Deixa eu te contar uma história. Tinha uma rede de descartáveis na Zona Oeste do Rio — Bem-Vindo Descartáveis. Zero presença online. Zero. A gente começou a trabalhar com eles e hoje são a maior rede da Zona Oeste.<br><br>
+        Mas sabe o que mudou primeiro? Não foi o Instagram. Foi como eles passaram a se ver.<br><br>
+        Eles pararam de pensar como várias lojas e começaram a pensar como <strong>rede.</strong>"
+      </div>
+      <div class="silencio">PAUSA. 3 SEGUNDOS.</div>
+      <div class="fala">
+        "Quando você entrou aqui hoje, eu lembrei deles na época. Você tem 3 lojas. Seus concorrentes têm 1. Mas você ainda comunica como se tivesse 1.<br><br>
+        A GS não é uma loja de pneus. É a <strong>rede automotiva referência do Sul do ES.</strong> Só falta o Sul do ES saber disso."
+      </div>
+    </div>
+  </div>
+
+  <!-- O ARGUMENTO DO MONOPÓLIO -->
+  <div class="bloco">
+    <div class="bloco-header">
+      <span class="bloco-num">04</span>
+      <span class="bloco-titulo">O ARGUMENTO DO MONOPÓLIO DE MÍDIA</span>
+      <span class="bloco-tempo">15–20 min</span>
+    </div>
+    <div class="bloco-body">
+      <div class="fala">
+        "Agora deixa eu te contar algo que pouca gente percebeu ainda.<br><br>
+        O Sul do Espírito Santo inteiro — Marataízes, Itapemirim, Piúma, Presidente Kennedy, toda essa região — <strong>não tem TV local. Nenhuma.</strong><br><br>
+        A TV Marataízes é a única voz dessa região.<br><br>
+        Isso significa que quando a GS Auto Center aparecer na TV, não tem concorrente de mídia. Não tem outra emissora cobrindo o mesmo público. É você e o silêncio.<br><br>
+        Você quer lançar uma marca própria de peças. Marca se constrói com TV — não com Instagram. E você tem a oportunidade de ser <strong>a primeira rede automotiva do Sul do ES com presença na única TV da região.</strong>"
+      </div>
+      <div class="inst"><strong>AGORA abre o notebook.</strong> Mostra o portal tvmarataizes.digital. Depois vira pra ele a apresentação da GS.</div>
+    </div>
+  </div>
+
+  <!-- PROPOSTA -->
+  <div id="proposta" class="bloco">
+    <div class="bloco-header">
+      <span class="bloco-num">05</span>
+      <span class="bloco-titulo">A PROPOSTA</span>
+      <span class="bloco-tempo">20–30 min</span>
+    </div>
+    <div class="bloco-body">
+      <div class="inst">Apresenta os números assim — sem desculpar o preço:</div>
+      <div class="fala">
+        "Existem dois formatos. Vou te mostrar os dois e você decide qual faz mais sentido pro momento da GS."
+      </div>
+
+      <div class="proposta">
+        <div class="proposta-titulo">📺 PLANO CANAL — Marataízes</div>
+        <div class="proposta-linha"><span>TV + Agência + Produção completa</span><span class="proposta-val">R$6.500/mês</span></div>
+        <div class="proposta-linha"><span>Contrato mínimo</span><span class="proposta-val">6 meses</span></div>
+        <div class="proposta-linha"><span>Inserções semanais na grade</span><span class="proposta-val">✓</span></div>
+        <div class="proposta-linha"><span>Gestão completa das redes</span><span class="proposta-val">✓</span></div>
+        <div class="proposta-linha"><span>Produção de vídeo mensal</span><span class="proposta-val">✓</span></div>
+      </div>
+
+      <div class="proposta" style="border-color:#fff200;">
+        <div class="proposta-titulo" style="color:#fff200;">👑 PLANO DOMÍNIO — Exclusividade Total</div>
+        <div class="proposta-linha"><span>Marataízes + região</span><span class="proposta-val">R$9.500/mês</span></div>
+        <div class="proposta-linha"><span>Presidente Kennedy</span><span class="proposta-val">R$9.500/mês</span></div>
+        <div class="proposta-linha"><span>Exclusividade no segmento automotivo</span><span class="proposta-val">✓</span></div>
+        <div class="proposta-linha"><span>Zero concorrência no ar</span><span class="proposta-val">✓</span></div>
+        <div class="proposta-linha"><span>Vinheta em todos os blocos</span><span class="proposta-val">✓</span></div>
+        <div class="proposta-linha"><span>Participação em programas ao vivo</span><span class="proposta-val">✓</span></div>
+        <div class="proposta-linha"><span>Lançamento da marca própria de peças na TV</span><span class="proposta-val">✓</span></div>
+        <div class="proposta-total">
+          <span>TOTAL MENSAL</span>
+          <span>R$19.000/mês</span>
+        </div>
+      </div>
+
+      <div class="numbers">
+        <div class="num-card">
+          <div class="num-val">~4%</div>
+          <div class="num-label">do faturamento estimado do grupo</div>
+        </div>
+        <div class="num-card">
+          <div class="num-val">R$114k</div>
+          <div class="num-label">contrato 6 meses · Domínio</div>
+        </div>
+        <div class="num-card">
+          <div class="num-val">100%</div>
+          <div class="num-label">exclusividade automotiva Sul ES</div>
+        </div>
+      </div>
+
+      <div class="silencio">APRESENTOU O PREÇO — SILÊNCIO TOTAL.<br>NÃO JUSTIFIQUE. NÃO COMPLETE.</div>
+    </div>
+  </div>
+
+  <!-- OBJEÇÕES -->
+  <div id="objecoes" class="bloco">
+    <div class="bloco-header">
+      <span class="bloco-num">06</span>
+      <span class="bloco-titulo">OBJEÇÕES E RESPOSTAS</span>
+      <span class="bloco-tempo">conforme surgir</span>
+    </div>
+    <div class="bloco-body">
+      <div class="inst">Clique na objeção pra ver a resposta:</div>
+
+      <div class="obj">
+        <div class="obj-q" onclick="toggleObj(this)">"Tá caro."</div>
+        <div class="obj-a">"É o mesmo valor que você pagou pelas 3 agências juntas que não trouxeram resultado. A diferença é que aqui você tem TV, Google e exclusividade — e eu tenho interesse que você cresça porque minha reputação depende do seu resultado."</div>
+      </div>
+
+      <div class="obj">
+        <div class="obj-q" onclick="toggleObj(this)">"Preciso pensar."</div>
+        <div class="obj-a">"Claro. O que especificamente você precisa avaliar? Porque se for o investimento, eu posso mostrar o retorno esperado. Se for confiança na entrega, posso te mostrar o case do Rio agora."</div>
+      </div>
+
+      <div class="obj">
+        <div class="obj-q" onclick="toggleObj(this)">"Me dá um desconto."</div>
+        <div class="obj-a">"Desconto não tenho. O que posso fazer é começar pelo Canal a R$6.500 nos 2 primeiros meses pra você ver o resultado na prática. Mas a exclusividade de Kennedy e Marataízes juntas só garanto pra quem fechar hoje."</div>
+      </div>
+
+      <div class="obj">
+        <div class="obj-q" onclick="toggleObj(this)">"Já tive agência e não funcionou."</div>
+        <div class="obj-a">"Eu sei. Por isso comecei perguntando o que aconteceu. Agência faz post. Nós fazemos TV — e TV cria autoridade que Instagram não consegue. São produtos diferentes."</div>
+      </div>
+
+      <div class="obj">
+        <div class="obj-q" onclick="toggleObj(this)">"Vou chamar outra proposta pra comparar."</div>
+        <div class="obj-a">"Faz sentido comparar. Mas não vai achar outra TV no Sul do ES. Rádio, outdoor, agência digital — nenhum chega em 40 mil pessoas com o impacto que a TV tem. Quando quiser comparar, me chama que apresento o diferencial lado a lado."</div>
+      </div>
+
+      <div class="obj">
+        <div class="obj-q" onclick="toggleObj(this)">O GERENTE TRAVA (fala pro dono diretamente):</div>
+        <div class="obj-a">"[Nome do dono], você me disse que as 3 agências não trouxeram resultado. A pergunta não é se R$9.500 é caro — é se você pode se dar ao luxo de mais um ano sem autoridade de marca enquanto o Sul do ES cresce."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FECHAMENTO -->
+  <div id="fechamento" class="bloco">
+    <div class="bloco-header">
+      <span class="bloco-num">07</span>
+      <span class="bloco-titulo">FECHAMENTO</span>
+      <span class="bloco-tempo">30–45 min</span>
+    </div>
+    <div class="bloco-body">
+      <div class="fala">
+        "O que você precisa pra fechar aqui na quarta?"
+      </div>
+      <div class="silencio">SILÊNCIO ABSOLUTO. QUEM FALAR PRIMEIRO PERDE.</div>
+      <div class="inst"><strong>Se ele fechar:</strong> Parabéns, aperto de mão, já define a data da primeira gravação antes de sair da loja.</div>
+      <div class="inst"><strong>Se ele pedir prazo:</strong> "Tudo bem. Mas a exclusividade automotiva eu só consigo segurar até [data — máximo 48h]. Depois abre pra outros interessados."</div>
+      <div class="alerta"><strong>NUNCA saia da reunião sem uma data definida</strong> — seja de fechamento ou de follow-up com prazo claro.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleObj(el) {
+  el.classList.toggle('open');
+  const ans = el.nextElementSibling;
+  ans.classList.toggle('show');
+}
+</script>
+
+</body>
+</html>
