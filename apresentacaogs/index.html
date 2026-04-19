@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GS Auto Center × TV Marataízes</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --orange: #FF6F00;
+  --yellow: #FFD600;
+  --white: #fff;
+  --gray: #888;
+  --card: #111;
+  --border: #1e1e1e;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(255,111,0,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,111,0,0.1);
+  border: 1px solid rgba(255,111,0,0.3);
+  color: var(--orange);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border-radius: 100px;
+  margin-bottom: 32px;
+}
+.dot-live {
+  width: 7px; height: 7px;
+  background: var(--orange);
+  border-radius: 50%;
+  animation: blink 1.2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.1} }
+
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(56px, 12vw, 120px);
+  line-height: .9;
+  letter-spacing: .02em;
+  margin-bottom: 24px;
+}
+.hero h1 span { color: var(--orange); }
+.hero-sub {
+  font-size: clamp(16px, 2.5vw, 22px);
+  color: var(--gray);
+  font-weight: 300;
+  max-width: 600px;
+  line-height: 1.7;
+  margin-bottom: 48px;
+}
+.hero-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.hero-logo {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-logo img { height: 60px; object-fit: contain; }
+.hero-x {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  color: var(--orange);
+}
+
+/* SCROLL INDICATOR */
+.scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: #444;
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.scroll-arrow {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, var(--orange));
+  animation: scrolldown 1.5s ease-in-out infinite;
+}
+@keyframes scrolldown { 0%,100%{opacity:.2} 50%{opacity:1} }
+
+/* SECTION */
+section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 6vw, 64px);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.section-title span { color: var(--orange); }
+.section-sub {
+  font-size: 16px;
+  color: var(--gray);
+  font-weight: 300;
+  max-width: 560px;
+  line-height: 1.8;
+  margin-bottom: 48px;
+}
+
+/* DIVIDER */
+.divider { height: 1px; background: var(--border); max-width: 1100px; margin: 0 auto; }
+
+/* PROBLEM */
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 48px;
+}
+.problem-card {
+  background: #0d0d0d;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+}
+.problem-card.bad { border-color: #3a1a1a; }
+.problem-card.good { border-color: rgba(255,111,0,.4); background: rgba(255,111,0,.04); }
+.pc-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.pc-label.red { color: #ff4444; }
+.pc-label.orange { color: var(--orange); }
+.pc-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #ccc;
+  line-height: 1.6;
+}
+.pc-icon { flex-shrink: 0; margin-top: 2px; }
+
+/* CASE */
+.case-box {
+  background: linear-gradient(135deg, #0d1a0d, #0a0a0a);
+  border: 1px solid #1a4a1a;
+  border-radius: 16px;
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
+}
+.case-box::before {
+  content: '"';
+  position: absolute;
+  top: -20px;
+  left: 32px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 200px;
+  color: rgba(255,111,0,0.05);
+  line-height: 1;
+}
+.case-cidade {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #4caf50;
+  margin-bottom: 12px;
+}
+.case-quote {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 24px;
+}
+.case-desc {
+  font-size: 15px;
+  color: #999;
+  line-height: 1.8;
+  max-width: 600px;
+  margin-bottom: 32px;
+}
+.case-numbers {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.case-num { text-align: center; }
+.case-num-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 40px;
+  color: var(--orange);
+  line-height: 1;
+}
+.case-num-label {
+  font-size: 11px;
+  color: var(--gray);
+  letter-spacing: .05em;
+  margin-top: 4px;
+}
+
+/* O QUE VAI ACONTECER */
+.timeline {
+  position: relative;
+  padding-left: 32px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--orange), transparent);
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 40px;
+}
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -36px;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  background: var(--orange);
+  border-radius: 50%;
+  border: 2px solid var(--bg);
+}
+.tl-mes {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 6px;
+}
+.tl-titulo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.tl-desc {
+  font-size: 14px;
+  color: var(--gray);
+  line-height: 1.7;
+}
+
+/* ENTREGÁVEIS */
+.entregas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.entrega-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: border-color .2s, transform .2s;
+}
+.entrega-card:hover {
+  border-color: rgba(255,111,0,.4);
+  transform: translateY(-4px);
+}
+.entrega-icon { font-size: 28px; margin-bottom: 14px; }
+.entrega-titulo {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.entrega-desc { font-size: 12px; color: var(--gray); line-height: 1.7; }
+
+/* EXCLUSIVIDADE */
+.exclusivo-banner {
+  background: linear-gradient(135deg, #1a0800, #0a0a0a);
+  border: 2px solid var(--orange);
+  border-radius: 16px;
+  padding: 48px;
+  text-align: center;
+  margin-bottom: 48px;
+}
+.exclusivo-banner h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 6vw, 64px);
+  color: var(--orange);
+  margin-bottom: 16px;
+}
+.exclusivo-banner p {
+  font-size: 16px;
+  color: var(--gray);
+  max-width: 500px;
+  margin: 0 auto 32px;
+  line-height: 1.8;
+}
+.exclusivo-check {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.exc-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+}
+.exc-icon { color: var(--orange); font-size: 18px; }
+
+/* PROPOSTA */
+.planos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 48px;
+}
+.plano-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  position: relative;
+}
+.plano-card.destaque {
+  border-color: var(--orange);
+  background: linear-gradient(135deg, #1a0d00, #111);
+}
+.plano-recomendado {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--orange);
+  color: #000;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 4px 16px;
+  border-radius: 100px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.plano-nome {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 8px;
+}
+.plano-titulo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  color: var(--white);
+  margin-bottom: 24px;
+}
+.plano-preco {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.plano-periodo {
+  font-size: 12px;
+  color: var(--gray);
+  margin-bottom: 28px;
+}
+.plano-items { list-style: none; }
+.plano-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  color: #ccc;
+}
+.plano-item:last-child { border-bottom: none; }
+.plano-item::before { content: '✓'; color: var(--orange); font-weight: 700; flex-shrink: 0; }
+
+.plano-total {
+  background: var(--orange);
+  color: #000;
+  border-radius: 8px;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  font-weight: 800;
+  font-size: 15px;
+}
+
+/* MONOPOLIO */
+.monopolio {
+  background: #000;
+  border-top: 4px solid var(--orange);
+  padding: 80px 24px;
+  text-align: center;
+}
+.monopolio h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 8vw, 80px);
+  line-height: 1;
+  margin-bottom: 24px;
+}
+.monopolio h2 span { color: var(--orange); }
+.monopolio p {
+  font-size: 18px;
+  color: var(--gray);
+  max-width: 600px;
+  margin: 0 auto 48px;
+  line-height: 1.8;
+}
+.monopolio-mapa {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+.mapa-cidade {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 24px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.mapa-cidade.gs {
+  border-color: var(--orange);
+  background: rgba(255,111,0,.1);
+  color: var(--orange);
+}
+
+/* CTA FINAL */
+.cta-final {
+  background: linear-gradient(135deg, #1a0800, #0a0a0a);
+  padding: 80px 24px;
+  text-align: center;
+}
+.cta-final h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 6vw, 64px);
+  margin-bottom: 16px;
+}
+.cta-final p {
+  font-size: 16px;
+  color: var(--gray);
+  margin-bottom: 40px;
+}
+.cta-btn {
+  display: inline-block;
+  background: var(--orange);
+  color: #000;
+  font-weight: 800;
+  font-size: 16px;
+  padding: 18px 48px;
+  border-radius: 6px;
+  text-decoration: none;
+  letter-spacing: .05em;
+}
+
+/* TV LOGO */
+.tv-footer {
+  background: #050505;
+  border-top: 1px solid var(--border);
+  padding: 32px 24px;
+  text-align: center;
+}
+.tv-footer img { height: 48px; margin-bottom: 12px; }
+.tv-footer p { font-size: 12px; color: #444; }
+
+@media(max-width:768px){
+  .problem-grid, .planos, .entregas { grid-template-columns: 1fr; }
+  .case-numbers { gap: 20px; }
+  .exclusivo-check { gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">
+    <span class="dot-live"></span>
+    Proposta Exclusiva · Confidencial
+  </div>
+  <h1>GS AUTO CENTER<br><span>× TV MARATAÍZES</span></h1>
+  <p class="hero-sub">A única TV do Sul do Espírito Santo.<br>A rede automotiva que vai dominar a região.</p>
+  <div class="hero-logos">
+    <div class="hero-logo">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/LOGOGSAUTOCENTER.png" alt="GS Auto Center" onerror="this.style.display='none';this.parentNode.innerHTML='<span style=\'font-family:Bebas Neue,sans-serif;font-size:24px;color:#FF6F00\'>GS AUTO CENTER</span>'">
+    </div>
+    <div class="hero-x">×</div>
+    <div class="hero-logo">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Logo_TVMarataizes.png%20ajust%C3%A1vel%2C%20fundo%20transparente%20(500%20x%20500%20px).png" alt="TV Marataízes" onerror="this.style.display='none';this.parentNode.innerHTML='<span style=\'font-family:Bebas Neue,sans-serif;font-size:24px;color:#fff\'>TV MARATAÍZES</span>'">
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-arrow"></div>
+    continue
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- O PROBLEMA -->
+<section>
+  <div class="section-label">O diagnóstico</div>
+  <div class="section-title">Por que as <span>3 agências</span><br>não funcionaram</div>
+  <p class="section-sub">Não foi culpa do seu negócio. Foi o produto errado para o tamanho certo.</p>
+
+  <div class="problem-grid">
+    <div class="problem-card bad">
+      <div class="pc-label red">❌ O que agências fazem</div>
+      <div class="pc-item"><span class="pc-icon">—</span> Posts no Instagram sem estratégia de marca</div>
+      <div class="pc-item"><span class="pc-icon">—</span> Relatório de curtidas e engajamento</div>
+      <div class="pc-item"><span class="pc-icon">—</span> Você paga por presença, não por resultado</div>
+      <div class="pc-item"><span class="pc-icon">—</span> Comunicam loja por loja, não a rede</div>
+      <div class="pc-item"><span class="pc-icon">—</span> Zero autoridade de marca construída</div>
+    </div>
+    <div class="problem-card good">
+      <div class="pc-label orange">✓ O que nós fazemos</div>
+      <div class="pc-item"><span class="pc-icon">+</span> TV — o único canal que cria autoridade real</div>
+      <div class="pc-item"><span class="pc-icon">+</span> Construção de marca de rede, não de loja</div>
+      <div class="pc-item"><span class="pc-icon">+</span> Exclusividade — zero concorrência no ar</div>
+      <div class="pc-item"><span class="pc-icon">+</span> Google + TV + Redes integrados</div>
+      <div class="pc-item"><span class="pc-icon">+</span> Você aparece quando o cliente está decidindo</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CASE DO RIO -->
+<section>
+  <div class="section-label">Case real · Rio de Janeiro</div>
+  <div class="section-title">De zero a <span>maior rede</span><br>da Zona Oeste</div>
+
+  <div class="case-box">
+    <div class="case-cidade">🏙️ Rio de Janeiro · Zona Oeste</div>
+    <div class="case-quote">"Zero online.<br>Hoje a maior rede da região."</div>
+    <p class="case-desc">
+      Bem-Vindo Descartáveis entrou sem nenhuma presença digital. Sem Instagram, sem Google, sem nada. 
+      A virada aconteceu quando pararam de pensar como várias lojas e começaram a se comunicar como rede — com TV e estratégia de marca unificada.
+    </p>
+    <div class="case-numbers">
+      <div class="case-num">
+        <div class="case-num-val">0</div>
+        <div class="case-num-label">presença online antes</div>
+      </div>
+      <div class="case-num">
+        <div class="case-num-val">#1</div>
+        <div class="case-num-label">maior rede da Zona Oeste</div>
+      </div>
+      <div class="case-num">
+        <div class="case-num-val">TV</div>
+        <div class="case-num-label">o que criou a autoridade</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- O QUE VAI ACONTECER -->
+<section>
+  <div class="section-label">O plano</div>
+  <div class="section-title">O que vai acontecer<br>com a <span>GS</span></div>
+  <p class="section-sub">Mês a mês, construindo a maior marca automotiva do Sul do ES.</p>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-mes">Mês 1</div>
+      <div class="tl-titulo">Lançamento da rede na TV</div>
+      <p class="tl-desc">Gravação do vídeo institucional da GS Auto Center como rede. Primeira inserção na grade do Canal 300. Lançamento da página exclusiva no portal tvmarataizes.digital — que aparece no Google.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-mes">Mês 2</div>
+      <div class="tl-titulo">Campanha Pneus no ar em toda a região</div>
+      <p class="tl-desc">Spots focados nas promoções de pneus. Story semanal no Instagram da TV. Gestão das redes sociais com identidade de rede — não de loja.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-mes">Mês 3</div>
+      <div class="tl-titulo">Expansão para Presidente Kennedy</div>
+      <p class="tl-desc">Cobertura iniciada em Kennedy. Primeira rede automotiva com presença em TV nas duas praças. A concorrência local ainda não tem isso.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-mes">Mês 4–5</div>
+      <div class="tl-titulo">Lançamento da marca própria de peças na TV</div>
+      <p class="tl-desc">Quando lançar a linha de peças com a marca GS, a TV já está posicionada. O lançamento acontece com cobertura ao vivo, inserções especiais e campanha integrada.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-mes">Mês 6</div>
+      <div class="tl-titulo">GS como referência do Sul do ES</div>
+      <p class="tl-desc">Relatório completo de alcance. A GS Auto Center é conhecida em Marataízes, Itapemirim, Piúma e Kennedy como a rede automotiva da região. Zero concorrente no ar.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ENTREGÁVEIS -->
+<section>
+  <div class="section-label">O que está incluído</div>
+  <div class="section-title">Tudo que a <span>GS</span><br>vai receber</div>
+
+  <div class="entregas">
+    <div class="entrega-card">
+      <div class="entrega-icon">📺</div>
+      <div class="entrega-titulo">TV · Canal 300 Soul TV</div>
+      <p class="entrega-desc">Inserções semanais na grade. Vinheta em todos os blocos. Presença ao vivo em coberturas e eventos da região.</p>
+    </div>
+    <div class="entrega-card">
+      <div class="entrega-icon">🔍</div>
+      <div class="entrega-titulo">Google · Apareça na busca</div>
+      <p class="entrega-desc">Página exclusiva no portal tvmarataizes.digital. Quando alguém pesquisar "auto center Marataízes" a GS aparece.</p>
+    </div>
+    <div class="entrega-card">
+      <div class="entrega-icon">🎬</div>
+      <div class="entrega-titulo">Produção de Vídeo</div>
+      <p class="entrega-desc">Vídeo institucional mensal profissional. Spots para TV. Conteúdo para redes sociais produzido pela Macuca Produções.</p>
+    </div>
+    <div class="entrega-card">
+      <div class="entrega-icon">📱</div>
+      <div class="entrega-titulo">Gestão de Redes Sociais</div>
+      <p class="entrega-desc">Identidade de rede nos posts. Estratégia integrada com a TV. Stories semanais no Instagram da TV Marataízes.</p>
+    </div>
+    <div class="entrega-card">
+      <div class="entrega-icon">📊</div>
+      <div class="entrega-titulo">Relatório Mensal</div>
+      <p class="entrega-desc">Alcance, leads gerados, visualizações. Número real — não de curtidas. Resultado mensurável todo mês.</p>
+    </div>
+    <div class="entrega-card">
+      <div class="entrega-icon">🚀</div>
+      <div class="entrega-titulo">Consultoria Estratégica</div>
+      <p class="entrega-desc">Linha direta com a direção da TV. Apoio no lançamento da marca própria de peças. Priority account.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXCLUSIVIDADE -->
+<div style="padding: 80px 24px;">
+  <div class="exclusivo-banner">
+    <h2>EXCLUSIVIDADE TOTAL<br>NO SEGMENTO AUTOMOTIVO</h2>
+    <p>Enquanto a GS estiver com a TV Marataízes, nenhum outro auto center, mecânica ou borracharia entra no canal. Zero concorrência no ar.</p>
+    <div class="exclusivo-check">
+      <div class="exc-item"><span class="exc-icon">🚫</span> Nenhum concorrente na TV</div>
+      <div class="exc-item"><span class="exc-icon">🚫</span> Nenhum concorrente no portal</div>
+      <div class="exc-item"><span class="exc-icon">✅</span> Só a GS Auto Center</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- MONOPÓLIO -->
+<div class="monopolio">
+  <h2>O SUL DO ES<br><span>NÃO TEM</span><br>OUTRA TV</h2>
+  <p>Marataízes, Itapemirim, Piúma, Presidente Kennedy — toda essa região não tem nenhuma outra emissora local. A TV Marataízes é o único canal de mídia televisiva do Sul do Espírito Santo.</p>
+
+  <div class="monopolio-mapa">
+    <div class="mapa-cidade gs">📺 TV Marataízes · ÚNICA</div>
+    <div class="mapa-cidade">Marataízes</div>
+    <div class="mapa-cidade">Itapemirim</div>
+    <div class="mapa-cidade">Piúma</div>
+    <div class="mapa-cidade">Presidente Kennedy</div>
+    <div class="mapa-cidade">Região Sul ES</div>
+  </div>
+
+  <p style="font-size:20px;color:#fff;font-weight:600;">Quando a GS aparecer na TV,<br>não tem onde o concorrente se esconder.</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- PROPOSTA -->
+<section>
+  <div class="section-label">A proposta</div>
+  <div class="section-title">Escolha o <span>formato</span><br>certo para a GS</div>
+
+  <div class="planos">
+    <div class="plano-card">
+      <div class="plano-nome">Plano Canal</div>
+      <div class="plano-titulo">TV + Agência + Produção</div>
+      <div class="plano-preco">R$6.500</div>
+      <div class="plano-periodo">por mês · mínimo 6 meses · Marataízes</div>
+      <ul class="plano-items">
+        <li class="plano-item">Inserções semanais na grade Canal 300</li>
+        <li class="plano-item">Produção de vídeo profissional mensal</li>
+        <li class="plano-item">Gestão completa das redes sociais</li>
+        <li class="plano-item">Campanha impulsionada inclusa</li>
+        <li class="plano-item">Stories semanais TV + Instagram</li>
+        <li class="plano-item">Página exclusiva no portal</li>
+        <li class="plano-item">Relatório mensal de alcance e leads</li>
+      </ul>
+    </div>
+    <div class="plano-card destaque">
+      <div class="plano-recomendado">👑 Recomendado para a GS</div>
+      <div class="plano-nome">Plano Domínio</div>
+      <div class="plano-titulo">Exclusividade Total · 2 Praças</div>
+      <div class="plano-preco">R$19.000</div>
+      <div class="plano-periodo">por mês · Marataízes + Kennedy · mín. 6 meses</div>
+      <ul class="plano-items">
+        <li class="plano-item">Tudo do Plano Canal nas duas cidades</li>
+        <li class="plano-item">Exclusividade total no segmento automotivo</li>
+        <li class="plano-item">Zero concorrência no ar em 2 praças</li>
+        <li class="plano-item">Vinheta em todos os blocos da grade</li>
+        <li class="plano-item">Presença ativa em coberturas ao vivo</li>
+        <li class="plano-item">Lançamento da marca própria de peças na TV</li>
+        <li class="plano-item">Consultoria estratégica contínua</li>
+        <li class="plano-item">Priority account — linha direta com a direção</li>
+      </ul>
+      <div class="plano-total">
+        <span>6 meses · contrato total</span>
+        <span>R$114.000</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<div class="cta-final">
+  <h2>A vaga de exclusividade<br>automotiva está aberta.</h2>
+  <p>Quem fechar primeiro garante. Depois disso, abre para o mercado.</p>
+  <a href="https://wa.me/5528999036141" class="cta-btn">💬 Falar com a TV Marataízes</a>
+</div>
+
+<!-- FOOTER -->
+<div class="tv-footer">
+  <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Logo_TVMarataizes.png%20ajust%C3%A1vel%2C%20fundo%20transparente%20(500%20x%20500%20px).png" alt="TV Marataízes" onerror="this.style.display='none'">
+  <p>TV Marataízes · Canal 300 Soul TV · Sul do Espírito Santo<br>
+  Macuca Produções · (28) 99903-6141 · tvmarataizes.digital</p>
+</div>
+
+</body>
+</html>
