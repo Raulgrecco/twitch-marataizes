@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Juliana Móveis Marataízes — Sofás, Guarda-roupas, Colchões e Cozinhas</title>
+<meta name="description" content="Juliana Móveis em Marataízes ES. Sofás, guarda-roupas, painéis TV, colchões e cozinhas. Preço baixo, qualidade e bom atendimento. Em frente ao Fórum. (28) 99973-2882.">
+<link rel="canonical" href="https://tvmarataizes.digital/juliana/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FAF7F2;
+  --warm:#F3EDE3;
+  --border:#E5D9C8;
+  --brown:#3B2410;
+  --brown-mid:#7A5230;
+  --gold:#C9A84C;
+  --gold-lt:#E2C06A;
+  --red:#C0392B;
+  --text:#231A10;
+  --muted:#8C7355;
+  --white:#FFFFFF;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--brown);color:rgba(255,255,255,.65);font-size:11px;font-weight:500;letter-spacing:.04em;text-align:center;padding:8px 16px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.topbar a{color:var(--gold-lt);font-weight:700}
+
+/* ── HEADER ── */
+.header{background:var(--white);border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:72px;position:sticky;top:0;z-index:100;box-shadow:0 1px 16px rgba(59,36,16,.06)}
+.logo-wrap{display:flex;align-items:center;gap:14px}
+.logo-img{width:52px;height:52px;object-fit:contain;border-radius:50%}
+.logo-text .name{font-family:'Playfair Display',serif;font-size:21px;font-weight:900;color:var(--brown);line-height:1}
+.logo-text .sub{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.header-cta{background:var(--brown);color:var(--white);padding:11px 26px;border-radius:4px;font-size:13px;font-weight:700;letter-spacing:.04em;display:flex;align-items:center;gap:8px;transition:background .2s}
+.header-cta:hover{background:var(--brown-mid)}
+
+/* ── HERO ── */
+.hero{position:relative;height:96vh;min-height:600px;overflow:hidden;background:#0e0805;display:flex;align-items:flex-end}
+.hero-bg{position:absolute;inset:0;background-image:url('clima/juliana6.png');background-size:cover;background-position:center 30%;opacity:.52;transition:opacity 1.2s}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,8,5,.98) 0%,rgba(14,8,5,.55) 45%,rgba(14,8,5,.1) 100%)}
+.hero-content{position:relative;z-index:2;padding:0 64px 80px;max-width:820px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.14);border:1px solid rgba(201,168,76,.38);color:var(--gold-lt);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:6px 16px;border-radius:2px;margin-bottom:28px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(42px,6.5vw,80px);font-weight:900;color:var(--white);line-height:1.02;margin-bottom:22px}
+.hero h1 em{color:var(--gold-lt);font-style:italic}
+.hero-desc{font-size:17px;color:rgba(255,255,255,.6);line-height:1.85;max-width:500px;font-weight:300;margin-bottom:44px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-gold{background:var(--gold);color:var(--brown);padding:16px 36px;border-radius:3px;font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;transition:all .2s;box-shadow:0 4px 24px rgba(201,168,76,.25)}
+.btn-gold:hover{background:var(--gold-lt);transform:translateY(-2px)}
+.btn-outline{border:1.5px solid rgba(255,255,255,.35);color:var(--white);padding:16px 28px;border-radius:3px;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:8px;transition:all .2s}
+.btn-outline:hover{border-color:rgba(255,255,255,.75)}
+
+/* STATS flutuantes */
+.hero-stats{position:absolute;bottom:0;right:0;display:flex;background:rgba(255,255,255,.97);border-radius:8px 0 0 0}
+.hstat{padding:22px 32px;text-align:center;border-right:1px solid var(--border)}
+.hstat:last-child{border-right:none}
+.hstat-n{font-family:'Playfair Display',serif;font-size:30px;font-weight:900;color:var(--brown);line-height:1}
+.hstat-l{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+/* ── FAIXA VALORES ── */
+.valores{display:grid;grid-template-columns:repeat(4,1fr);background:var(--brown)}
+.valor{padding:32px 24px;border-right:1px solid rgba(255,255,255,.08);display:flex;align-items:flex-start;gap:14px}
+.valor:last-child{border-right:none}
+.valor-ico{font-size:24px;flex-shrink:0;margin-top:2px}
+.valor-title{font-size:12px;font-weight:800;color:var(--white);margin-bottom:4px;letter-spacing:.03em}
+.valor-desc{font-size:11px;color:rgba(255,255,255,.45);line-height:1.6}
+
+/* ── GALERIA ── */
+.galeria-sec{background:var(--warm)}
+.galeria-intro{max-width:1200px;margin:0 auto;padding:72px 40px 36px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.galeria-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:320px 320px;gap:3px}
+.gal{overflow:hidden;cursor:pointer;position:relative;background:#1a1208}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .55s cubic-bezier(.4,0,.2,1);display:block}
+.gal:hover img{transform:scale(1.07)}
+.gal.tall{grid-row:span 2}
+.gal::after{content:'';position:absolute;inset:0;background:rgba(59,36,16,0);transition:background .3s}
+.gal:hover::after{background:rgba(59,36,16,.12)}
+
+/* ── CATEGORIAS ── */
+.cats-sec{background:var(--white)}
+.cats-inner{max-width:1200px;margin:0 auto;padding:80px 40px}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:10px}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--brown);line-height:1.08;margin-bottom:14px}
+.sec-title em{color:var(--gold);font-style:italic}
+.sec-sub{font-size:15px;color:var(--muted);line-height:1.8;max-width:520px;font-weight:300}
+.cats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(172px,1fr));gap:16px;margin-top:48px}
+.cat{background:var(--cream);border:1.5px solid var(--border);border-radius:8px;padding:28px 18px;text-align:center;transition:all .25s;position:relative;overflow:hidden;cursor:pointer}
+.cat::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-lt));transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.cat:hover{border-color:var(--gold);box-shadow:0 6px 28px rgba(59,36,16,.08);transform:translateY(-3px)}
+.cat:hover::after{transform:scaleX(1)}
+.cat-ico{font-size:34px;margin-bottom:12px}
+.cat-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--brown);margin-bottom:4px}
+.cat-sub{font-size:11px;color:var(--muted);line-height:1.5}
+
+/* ── DIONÉA ── */
+.dionea-sec{background:var(--brown);position:relative;overflow:hidden}
+.dionea-sec::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;border:80px solid rgba(201,168,76,.05);border-radius:50%;pointer-events:none}
+.dionea-inner{max-width:1200px;margin:0 auto;padding:100px 40px;display:grid;grid-template-columns:420px 1fr;gap:100px;align-items:center}
+.dionea-img-box{position:relative;flex-shrink:0}
+.dionea-img{width:380px;height:420px;object-fit:cover;object-position:top center;border-radius:6px;box-shadow:0 24px 64px rgba(0,0,0,.45);display:block}
+.dionea-frame{position:absolute;top:-18px;left:-18px;right:18px;bottom:18px;border:2px solid rgba(201,168,76,.35);border-radius:6px;pointer-events:none}
+.dionea-badge{position:absolute;bottom:-22px;right:-22px;background:var(--gold);color:var(--brown);padding:18px 22px;border-radius:6px;text-align:center;box-shadow:0 8px 28px rgba(201,168,76,.4)}
+.dionea-badge-n{font-family:'Playfair Display',serif;font-size:34px;font-weight:900;line-height:1}
+.dionea-badge-t{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+.dionea-label{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:12px}
+.dionea-title{font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,46px);font-weight:900;color:var(--white);line-height:1.1;margin-bottom:24px}
+.dionea-title em{color:var(--gold-lt);font-style:italic}
+.dionea-text{font-size:15px;color:rgba(255,255,255,.6);line-height:1.95;font-weight:300;margin-bottom:22px}
+.dionea-quote{border-left:3px solid var(--gold);padding:4px 0 4px 22px;margin:32px 0}
+.dionea-quote p{font-family:'Playfair Display',serif;font-size:17px;font-style:italic;color:rgba(255,255,255,.82);line-height:1.75}
+.dionea-quote cite{font-size:11px;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;font-style:normal;font-weight:700;display:block;margin-top:8px}
+
+/* ── CONTATO ── */
+.contato-sec{background:var(--warm)}
+.contato-inner{max-width:1200px;margin:0 auto;padding:90px 40px;display:grid;grid-template-columns:1fr 400px;gap:70px;align-items:start}
+.info-cards{display:flex;flex-direction:column;gap:14px;margin-top:40px}
+.info-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;display:flex;gap:16px;align-items:flex-start}
+.info-ico{width:46px;height:46px;background:var(--brown);color:var(--gold);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.info-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.info-val{font-size:14px;font-weight:600;color:var(--brown);line-height:1.6}
+.info-val a{color:var(--brown)}
+.info-val small{font-size:12px;color:var(--muted);font-weight:400}
+
+/* CTA BOX */
+.cta-box{background:var(--brown);border-radius:10px;padding:44px 34px;text-align:center;position:sticky;top:88px}
+.cta-box-tag{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);display:block;margin-bottom:16px}
+.cta-box-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--white);line-height:1.25;margin-bottom:10px}
+.cta-box-sub{font-size:13px;color:rgba(255,255,255,.45);line-height:1.75;margin-bottom:30px;font-weight:300}
+.btn-zap{background:#25d366;color:var(--white);padding:16px 24px;border-radius:4px;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .2s;box-shadow:0 4px 18px rgba(37,211,102,.28);margin-bottom:12px}
+.btn-zap:hover{opacity:.9;transform:translateY(-2px)}
+.btn-insta{border:1.5px solid rgba(255,255,255,.18);color:var(--white);padding:14px 24px;border-radius:4px;font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s}
+.btn-insta:hover{border-color:rgba(255,255,255,.5)}
+.cta-note{font-size:11px;color:rgba(255,255,255,.25);margin-top:20px;line-height:1.6}
+
+/* ── MAPA ── */
+.mapa-wrap{background:var(--white);height:360px;overflow:hidden}
+.mapa-wrap iframe{width:100%;height:100%;border:0;filter:grayscale(.3) contrast(1.05)}
+
+/* ── TV BANNER ── */
+.tv-banner{background:linear-gradient(135deg,#003781,#001f4d);padding:56px 40px;text-align:center}
+.tv-banner p{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px}
+.tv-banner h3{font-family:'Playfair Display',serif;font-size:22px;color:var(--white);font-style:italic;margin-bottom:22px;line-height:1.4}
+.tv-links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.tv-links a{font-size:12px;font-weight:700;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.14);padding:9px 20px;border-radius:3px;transition:all .2s;letter-spacing:.04em}
+.tv-links a:hover{color:var(--white);border-color:rgba(255,255,255,.4)}
+
+/* ── FOOTER ── */
+.footer{background:#100804;color:rgba(255,255,255,.28);text-align:center;padding:30px;font-size:12px;line-height:1.8}
+.footer strong{color:var(--gold)}
+.footer a{color:rgba(255,255,255,.4)}
+
+/* ── FLOAT ── */
+.float-wpp{position:fixed;bottom:24px;right:24px;z-index:999;background:#25d366;color:#fff;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 4px 22px rgba(37,211,102,.45);transition:transform .2s;text-decoration:none}
+.float-wpp:hover{transform:scale(1.12)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .galeria-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .gal.tall{grid-row:span 1}
+  .gal img{height:280px;min-height:unset}
+  .dionea-inner{grid-template-columns:1fr;gap:48px}
+  .dionea-img{width:100%;height:320px}
+  .dionea-badge{right:16px;bottom:-16px}
+  .contato-inner{grid-template-columns:1fr}
+  .cta-box{position:static}
+}
+@media(max-width:768px){
+  .header{padding:0 20px}
+  .header-cta span{display:none}
+  .hero-content{padding:0 24px 60px}
+  .galeria-intro{padding:56px 24px 28px}
+  .cats-inner,.dionea-inner,.contato-inner{padding-left:24px;padding-right:24px}
+  .tv-banner{padding:48px 24px}
+  .valores{grid-template-columns:1fr 1fr}
+  .hero-stats{display:none}
+}
+@media(max-width:600px){
+  .galeria-grid{grid-template-columns:1fr}
+  .cats-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-btns{flex-direction:column}
+  .valores{grid-template-columns:1fr}
+  .hero h1{font-size:36px}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <span>📍 Av. Rubens Rangel, 600 — Cidade Nova · Em frente ao Fórum de Marataízes</span>
+  <span>📞 <a href="https://api.whatsapp.com/send/?phone=%2B5528999732882">(28) 99973-2882</a></span>
+  <span>⏰ Seg–Sáb · 08h às 18h</span>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo-wrap">
+    <img src="clima/LOGO JULIANA .png" alt="Juliana Móveis" class="logo-img" onerror="this.style.display='none'">
+    <div class="logo-text">
+      <div class="name">Juliana Móveis</div>
+      <div class="sub">Marataízes · ES</div>
+    </div>
+  </div>
+  <a href="https://api.whatsapp.com/send/?phone=%2B5528999732882&text=Olá!+Vim+pelo+portal+TV+Marataízes" target="_blank" rel="noopener" class="header-cta">
+    💬 <span>WhatsApp</span>
+  </a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">📺 Página Exclusiva · TV Marataízes · Guia Digital</div>
+    <h1>O lar que você<br>sempre <em>sonhou,</em><br>ao seu alcance.</h1>
+    <p class="hero-desc">Sofás, guarda-roupas, painéis TV, colchões e muito mais — com preço justo, qualidade garantida e o melhor atendimento do Sul do ES. Há mais de 20 anos transformando casas em lares.</p>
+    <div class="hero-btns">
+      <a href="https://api.whatsapp.com/send/?phone=%2B5528999732882&text=Olá!+Vim+pelo+portal+TV+Marataízes+e+quero+conhecer+os+produtos+da+Juliana+Móveis" target="_blank" rel="noopener" class="btn-gold">
+        💬 Falar no WhatsApp
+      </a>
+      <a href="#galeria" class="btn-outline">Ver a loja →</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-n">20+</div><div class="hstat-l">Anos de loja</div></div>
+    <div class="hstat"><div class="hstat-n">7,2k</div><div class="hstat-l">Seguidores</div></div>
+    <div class="hstat"><div class="hstat-n">100%</div><div class="hstat-l">Garantia</div></div>
+  </div>
+</section>
+
+<!-- FAIXA VALORES -->
+<div class="valores">
+  <div class="valor"><span class="valor-ico">💰</span><div><div class="valor-title">Preço Baixo</div><div class="valor-desc">Os melhores preços do Sul do ES — sem abrir mão da qualidade</div></div></div>
+  <div class="valor"><span class="valor-ico">⭐</span><div><div class="valor-title">Qualidade Garantida</div><div class="valor-desc">Produtos selecionados das melhores fábricas do Brasil</div></div></div>
+  <div class="valor"><span class="valor-ico">🤝</span><div><div class="valor-title">Bom Atendimento</div><div class="valor-desc">20 anos servindo famílias de Marataízes com dedicação</div></div></div>
+  <div class="valor"><span class="valor-ico">🚚</span><div><div class="valor-title">Entrega e Montagem</div><div class="valor-desc">Entregamos e montamos na sua casa com cuidado</div></div></div>
+</div>
+
+<!-- GALERIA -->
+<section class="galeria-sec" id="galeria">
+  <div class="galeria-intro">
+    <div>
+      <span class="sec-label">Nosso showroom</span>
+      <h2 class="sec-title">Venha nos <em>visitar</em></h2>
+      <p class="sec-sub">Um showroom completo com centenas de opções — sofás, guarda-roupas, painéis TV, cozinhas e muito mais. Em frente ao Fórum de Marataízes.</p>
+    </div>
+    <a href="https://api.whatsapp.com/send/?phone=%2B5528999732882" target="_blank" rel="noopener" class="btn-gold" style="flex-shrink:0">💬 Pedir orçamento</a>
+  </div>
+  <div class="galeria-grid">
+    <div class="gal tall"><img src="clima/juliana6.png" alt="Showroom Juliana Móveis — sofás e estofados"></div>
+    <div class="gal"><img src="clima/juliana5.png" alt="Sala de estar — sofás e mesa de centro"></div>
+    <div class="gal"><img src="clima/juliana3.png" alt="Guarda-roupas Juliana Móveis"></div>
+    <div class="gal"><img src="clima/juliana4.png" alt="Painel TV e rack ripado"></div>
+    <div class="gal"><img src="clima/juliana7.png" alt="Cozinha — armários e balcões"></div>
+  </div>
+  <div style="background:var(--warm);padding-bottom:72px"></div>
+</section>
+
+<!-- CATEGORIAS -->
+<section class="cats-sec">
+  <div class="cats-inner">
+    <span class="sec-label">O que você encontra aqui</span>
+    <h2 class="sec-title">Para cada <em>ambiente</em></h2>
+    <p class="sec-sub">Tudo para mobiliar sua casa completa — em um só lugar, com preço baixo e qualidade garantida.</p>
+    <div class="cats-grid">
+      <div class="cat"><div class="cat-ico">🛋️</div><div class="cat-name">Sofás</div><div class="cat-sub">Retrátil, reclinável, chaise, couro e muito mais</div></div>
+      <div class="cat"><div class="cat-ico">🚪</div><div class="cat-name">Guarda-roupas</div><div class="cat-sub">6, 8, 10 portas · com espelho · camarão</div></div>
+      <div class="cat"><div class="cat-ico">🍳</div><div class="cat-name">Cozinhas</div><div class="cat-sub">Armários, balcões e paneleiros completos</div></div>
+      <div class="cat"><div class="cat-ico">📺</div><div class="cat-name">Painéis TV</div><div class="cat-sub">Painéis ripados, racks e estantes modernas</div></div>
+      <div class="cat"><div class="cat-ico">🛏️</div><div class="cat-name">Colchões</div><div class="cat-sub">Casal, solteiro, queen e king — diversas marcas</div></div>
+      <div class="cat"><div class="cat-ico">🪑</div><div class="cat-name">Poltronas</div><div class="cat-sub">Decorativas, balanço e cadeiras de jantar</div></div>
+      <div class="cat"><div class="cat-ico">🪞</div><div class="cat-name">Quarto Completo</div><div class="cat-sub">Cama, guarda-roupa, criado e cômoda</div></div>
+      <div class="cat"><div class="cat-ico">🏠</div><div class="cat-name">Decoração</div><div class="cat-sub">Tapetes, almofadas, vasos e complementos</div></div>
+    </div>
+    <div style="text-align:center;margin-top:52px">
+      <a href="https://api.whatsapp.com/send/?phone=%2B5528999732882&text=Olá!+Vim+pelo+portal+TV+Marataízes+e+quero+informações+sobre+um+produto" target="_blank" rel="noopener" class="btn-gold" style="display:inline-flex">
+        💬 Perguntar sobre um produto →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- DIONÉA -->
+<section class="dionea-sec">
+  <div class="dionea-inner">
+    <div class="dionea-img-box">
+      <img src="clima/FOTO DIONEIA.png" alt="Dionéa Souza — fundadora da Juliana Móveis" class="dionea-img" onerror="this.src='clima/juliana2.png'">
+      <div class="dionea-frame"></div>
+      <div class="dionea-badge">
+        <div class="dionea-badge-n">20+</div>
+        <div class="dionea-badge-t">anos de história</div>
+      </div>
+    </div>
+    <div>
+      <span class="dionea-label">Quem está por trás</span>
+      <h2 class="dionea-title">Dionéa Souza<br>e a <em>Juliana Móveis</em></h2>
+      <p class="dionea-text">Há mais de 20 anos, Dionéa Souza construiu uma das lojas de móveis mais queridas de Marataízes. O que começou como um sonho se tornou referência para famílias de toda a região — de Itapemirim a Piúma, todo mundo conhece a Juliana Móveis.</p>
+      <p class="dionea-text">Preço baixo, qualidade e bom atendimento não são apenas slogans — são os valores que Dionéa pratica todos os dias, pessoalmente, recebendo cada cliente com atenção e cuidado.</p>
+      <div class="dionea-quote">
+        <p>"PREÇO BAIXO, QUALIDADE e BOM ATENDIMENTO! É assim que a gente trabalha há mais de 20 anos — e é assim que vai continuar."</p>
+        <cite>— Dionéa Souza, fundadora da Juliana Móveis</cite>
+      </div>
+      <a href="https://api.whatsapp.com/send/?phone=%2B5528999732882&text=Olá+Dionéa!+Vim+pelo+portal+TV+Marataízes." target="_blank" rel="noopener" class="btn-gold" style="display:inline-flex">
+        💬 Falar com a Dionéa
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="contato-sec">
+  <div class="contato-inner">
+    <div>
+      <span class="sec-label">Onde estamos</span>
+      <h2 class="sec-title">Fácil de <em>encontrar</em></h2>
+      <p class="sec-sub">Em frente ao Fórum de Marataízes — no coração da Cidade Nova. Venha nos visitar!</p>
+      <div class="info-cards">
+        <div class="info-card">
+          <div class="info-ico">📍</div>
+          <div>
+            <div class="info-label">Endereço</div>
+            <div class="info-val">Av. Rubens Rangel, Nº 600 — Térreo<br>Cidade Nova · Marataízes, ES<br><small>Em frente ao Fórum de Marataízes</small></div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-ico">📞</div>
+          <div>
+            <div class="info-label">WhatsApp</div>
+            <div class="info-val"><a href="https://api.whatsapp.com/send/?phone=%2B5528999732882">(28) 99973-2882</a></div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-ico">⏰</div>
+          <div>
+            <div class="info-label">Horário de Funcionamento</div>
+            <div class="info-val">Segunda a Sábado · 08h às 18h</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-ico">📸</div>
+          <div>
+            <div class="info-label">Instagram</div>
+            <div class="info-val">
+              <a href="https://www.instagram.com/julianamoveisltda" target="_blank" rel="noopener">@julianamoveisltda</a><br>
+              <small>7.262 seguidores · 484 publicações</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cta-box">
+      <span class="cta-box-tag">Atendimento agora</span>
+      <h3 class="cta-box-title">Pronto para mobiliar sua casa?</h3>
+      <p class="cta-box-sub">Fale agora com a Dionéa e a equipe da Juliana Móveis. Tire dúvidas, peça orçamento ou agende sua visita — tudo pelo WhatsApp.</p>
+      <a href="https://api.whatsapp.com/send/?phone=%2B5528999732882&text=Olá!+Vim+pelo+portal+TV+Marataízes+e+quero+um+orçamento" target="_blank" rel="noopener" class="btn-zap">
+        💬 Chamar no WhatsApp
+      </a>
+      <a href="https://www.instagram.com/julianamoveisltda" target="_blank" rel="noopener" class="btn-insta">
+        📸 Ver no Instagram
+      </a>
+      <p class="cta-note">Respondemos rápido · Seg–Sáb das 8h às 18h</p>
+    </div>
+  </div>
+</section>
+
+<!-- MAPA -->
+<div class="mapa-wrap">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3740.5!2d-40.8361!3d-21.0295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDAyJzA0LjciUyA0MMKwNTAnMTAuMCJX!5e0!3m2!1spt-BR!2sbr!4v1234567890"
+    allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+    title="Localização Juliana Móveis Marataízes">
+  </iframe>
+</div>
+
+<!-- TV BANNER -->
+<div class="tv-banner">
+  <p>Página exclusiva no Guia da</p>
+  <h3>TV Marataízes · Canal 300 Soul TV<br>O maior portal digital do Sul do ES</h3>
+  <div class="tv-links">
+    <a href="https://www.tvmarataizes.digital/">Portal TV Marataízes</a>
+    <a href="https://tvmarataizes.digital/anunciar">Quero minha página exclusiva</a>
+    <a href="https://wa.me/5528999036141">Falar com a TV — (28) 99903-6141</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p><strong>Juliana Móveis</strong> · Av. Rubens Rangel, 600 — Cidade Nova · Marataízes ES<br>
+  (28) 99973-2882 · <a href="https://www.instagram.com/julianamoveisltda">@julianamoveisltda</a><br>
+  Página produzida pela <a href="https://www.tvmarataizes.digital/">TV Marataízes</a> · Canal 300 Soul TV · Guia Digital do Sul do ES</p>
+</footer>
+
+<!-- FLOAT -->
+<a href="https://api.whatsapp.com/send/?phone=%2B5528999732882&text=Olá!+Vim+pelo+portal+TV+Marataízes" target="_blank" rel="noopener" class="float-wpp" aria-label="WhatsApp Juliana Móveis">💬</a>
+
+<script>
+// Reveal ao scroll
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:.12});
+document.querySelectorAll('.cat,.info-card,.valor').forEach(el=>{
+  el.style.cssText+='opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease';
+  io.observe(el);
+});
+</script>
+
+</body>
+</html>
