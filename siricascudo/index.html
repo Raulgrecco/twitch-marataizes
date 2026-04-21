@@ -9,12 +9,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
-  --pink: #E91E8C;
-  --pink-dark: #c4177a;
+  --blue: #1565C0;
+  --blue-light: #1976D2;
+  --blue-dark: #0D47A1;
   --yellow: #FFD600;
-  --dark: #1a0a00;
-  --bg: #fff8f0;
-  --muted: #7a5a3a;
+  --yellow-dark: #e6c000;
+  --dark: #0a1628;
+  --bg: #f0f4ff;
+  --card: #fff;
+  --muted: #4a5a7a;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -25,42 +28,29 @@ body { background: var(--bg); color: var(--dark); font-family: 'Nunito', sans-se
   display: flex; align-items: center; justify-content: space-between;
   padding: 12px 32px;
   background: #fff;
-  border-bottom: 2px solid rgba(233,30,140,0.1);
+  border-bottom: 2px solid rgba(21,101,192,0.12);
   position: sticky; top: 0; z-index: 100;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
 }
-.navbar-brand {
-  display: flex; align-items: center; gap: 14px;
-}
-.navbar-brand img { height: 72px; border-radius: 50%; box-shadow: 0 4px 16px rgba(233,30,140,0.2); }
+.navbar-brand { display: flex; align-items: center; gap: 14px; }
+.navbar-brand img { height: 72px; border-radius: 50%; box-shadow: 0 4px 16px rgba(21,101,192,0.2); }
 .navbar-brand-text { display: flex; flex-direction: column; line-height: 1.2; }
-.navbar-brand-name {
-  font-family: 'Fredoka One', cursive;
-  font-size: 22px; color: var(--dark); line-height: 1;
-}
-.navbar-brand-name span { color: var(--pink); }
-.navbar-brand-sub {
-  font-size: 11px; font-weight: 700; color: var(--muted);
-  letter-spacing: 1px; text-transform: uppercase;
-}
-.navbar-badge {
-  background: var(--pink); color: #fff;
-  font-size: 11px; font-weight: 900; letter-spacing: 1.5px;
-  text-transform: uppercase; padding: 7px 16px; border-radius: 40px;
-}
+.navbar-brand-name { font-family: 'Fredoka One', cursive; font-size: 22px; color: var(--dark); line-height: 1; }
+.navbar-brand-name span { color: var(--blue); }
+.navbar-brand-sub { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+.navbar-badge { background: var(--blue); color: #fff; font-size: 11px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; padding: 7px 16px; border-radius: 40px; }
 
-/* HERO - layout simples e robusto */
+/* HERO */
 .hero {
-  background: linear-gradient(160deg, #fff0f7 0%, #fff9e6 100%);
+  background: linear-gradient(160deg, #e8f0fe 0%, #fffde7 100%);
   padding: 48px 32px 0;
   text-align: center;
-  position: relative;
-  overflow: hidden;
+  position: relative; overflow: hidden;
 }
 .hero::before {
   content: '';
   position: absolute; inset: 0;
-  background-image: radial-gradient(circle, rgba(233,30,140,0.07) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(21,101,192,0.06) 1px, transparent 1px);
   background-size: 26px 26px;
   pointer-events: none;
 }
@@ -71,279 +61,118 @@ body { background: var(--bg); color: var(--dark); font-family: 'Nunito', sans-se
   text-transform: uppercase; padding: 6px 16px; border-radius: 40px;
   margin-bottom: 20px;
 }
-.hero h1 {
-  font-family: 'Fredoka One', cursive;
-  font-size: clamp(44px, 8vw, 80px);
-  line-height: 1.0; color: var(--dark); margin-bottom: 12px;
-  position: relative;
-}
-.hero h1 .accent { color: var(--pink); }
-.hero-sub {
-  font-size: 16px; color: var(--muted); font-weight: 700;
-  margin-bottom: 6px;
-}
-.hero-local {
-  font-size: 13px; color: var(--muted); font-weight: 700;
-  margin-bottom: 32px;
-}
-.hero-btns {
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
-  max-width: 360px; margin: 0 auto 40px;
-  position: relative;
-}
-.btn-wa {
-  width: 100%;
-  background: #25d366; color: #fff;
-  padding: 17px 24px; border-radius: 14px;
-  font-size: 17px; font-weight: 900; text-decoration: none;
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  box-shadow: 0 6px 24px rgba(37,211,102,0.35);
-  transition: transform 0.2s;
-}
+.hero h1 { font-family: 'Fredoka One', cursive; font-size: clamp(44px, 8vw, 80px); line-height: 1.0; color: var(--dark); margin-bottom: 12px; position: relative; }
+.hero h1 .accent { color: var(--blue); }
+.hero-sub { font-size: 16px; color: var(--muted); font-weight: 700; margin-bottom: 6px; }
+.hero-local { font-size: 13px; color: var(--muted); font-weight: 700; margin-bottom: 32px; }
+.hero-btns { display: flex; flex-direction: column; align-items: center; gap: 10px; max-width: 360px; margin: 0 auto 40px; position: relative; }
+.btn-wa { width: 100%; background: #25d366; color: #fff; padding: 17px 24px; border-radius: 14px; font-size: 17px; font-weight: 900; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 6px 24px rgba(37,211,102,0.35); transition: transform 0.2s; }
 .btn-wa:hover { transform: translateY(-2px); }
 .btn-row { display: flex; gap: 10px; width: 100%; }
-.btn-app {
-  flex: 1; background: var(--pink); color: #fff;
-  padding: 13px 10px; border-radius: 12px;
-  font-size: 13px; font-weight: 800; text-decoration: none;
-  display: flex; align-items: center; justify-content: center; gap: 6px;
-  box-shadow: 0 4px 14px rgba(233,30,140,0.25);
-  transition: transform 0.2s;
-}
+.btn-app { flex: 1; background: var(--blue); color: #fff; padding: 13px 10px; border-radius: 12px; font-size: 13px; font-weight: 800; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 4px 14px rgba(21,101,192,0.25); transition: transform 0.2s; }
 .btn-app:hover { transform: translateY(-2px); }
-.btn-site {
-  flex: 1; background: var(--yellow); color: var(--dark);
-  padding: 13px 10px; border-radius: 12px;
-  font-size: 13px; font-weight: 800; text-decoration: none;
-  display: flex; align-items: center; justify-content: center; gap: 6px;
-  box-shadow: 0 4px 14px rgba(255,214,0,0.3);
-  transition: transform 0.2s;
-}
+.btn-site { flex: 1; background: var(--yellow); color: var(--dark); padding: 13px 10px; border-radius: 12px; font-size: 13px; font-weight: 800; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 4px 14px rgba(255,214,0,0.3); transition: transform 0.2s; }
 .btn-site:hover { transform: translateY(-2px); }
-
-.hero-img-wrap {
-  max-width: 700px; margin: 0 auto;
-  border-radius: 24px 24px 0 0;
-  overflow: hidden;
-  box-shadow: 0 -8px 40px rgba(233,30,140,0.15);
-  position: relative;
-}
-.hero-img-wrap img {
-  width: 100%; display: block;
-  object-fit: contain;
-  background: #1a0a00;
-}
-.hero-delivery-badge {
-  position: absolute; bottom: 16px; left: 16px;
-  background: var(--yellow); color: var(--dark);
-  padding: 8px 14px; border-radius: 10px;
-  font-size: 12px; font-weight: 900;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
-  line-height: 1.4;
-}
+.hero-img-wrap { max-width: 700px; margin: 0 auto; border-radius: 24px 24px 0 0; overflow: hidden; box-shadow: 0 -8px 40px rgba(21,101,192,0.15); position: relative; }
+.hero-img-wrap img { width: 100%; display: block; object-fit: contain; background: #0a1628; }
+.hero-delivery-badge { position: absolute; bottom: 16px; left: 16px; background: var(--yellow); color: var(--dark); padding: 8px 14px; border-radius: 10px; font-size: 12px; font-weight: 900; box-shadow: 0 4px 14px rgba(0,0,0,0.15); line-height: 1.4; }
 .hero-delivery-badge small { display: block; font-size: 10px; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; }
 
 /* STRIP */
-.strip { background: var(--pink); padding: 14px 0; overflow: hidden; }
-.strip-track {
-  display: flex; gap: 0; width: max-content;
-  animation: scroll-strip 22s linear infinite;
-}
+.strip { background: var(--blue); padding: 14px 0; overflow: hidden; }
+.strip-track { display: flex; gap: 0; width: max-content; animation: scroll-strip 22s linear infinite; }
 @keyframes scroll-strip { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.strip-item {
-  display: flex; align-items: center; gap: 16px;
-  padding: 0 28px;
-  font-size: 12px; font-weight: 900; letter-spacing: 2px;
-  text-transform: uppercase; color: #fff; white-space: nowrap;
-}
+.strip-item { display: flex; align-items: center; gap: 16px; padding: 0 28px; font-size: 12px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: #fff; white-space: nowrap; }
 .strip-dot { width: 5px; height: 5px; background: var(--yellow); border-radius: 50%; flex-shrink: 0; }
 
 /* SOBRE */
-.sobre {
-  padding: 72px 32px;
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 56px; align-items: center;
-}
+.sobre { padding: 72px 32px; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
 .sobre-fotos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.sobre-foto-main {
-  grid-column: span 2;
-  border-radius: 18px; width: 100%;
-  aspect-ratio: 16/10; object-fit: cover;
-  box-shadow: 0 10px 36px rgba(233,30,140,0.13);
-}
-.sobre-foto-sm {
-  border-radius: 12px; width: 100%;
-  aspect-ratio: 1; object-fit: cover;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.09);
-}
-.tag-label {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: rgba(233,30,140,0.09); color: var(--pink);
-  font-size: 11px; font-weight: 900; letter-spacing: 2.5px;
-  text-transform: uppercase; padding: 6px 14px; border-radius: 40px;
-  margin-bottom: 18px; border: 1.5px solid rgba(233,30,140,0.18);
-}
-.sobre h2 {
-  font-family: 'Fredoka One', cursive;
-  font-size: clamp(30px, 4vw, 48px);
-  line-height: 1.1; margin-bottom: 18px;
-}
-.sobre h2 em { color: var(--pink); font-style: normal; }
+.sobre-foto-main { grid-column: span 2; border-radius: 18px; width: 100%; aspect-ratio: 16/10; object-fit: cover; box-shadow: 0 10px 36px rgba(21,101,192,0.15); }
+.sobre-foto-sm { border-radius: 12px; width: 100%; aspect-ratio: 1; object-fit: cover; box-shadow: 0 6px 18px rgba(0,0,0,0.09); }
+.tag-label { display: inline-flex; align-items: center; gap: 6px; background: rgba(21,101,192,0.09); color: var(--blue); font-size: 11px; font-weight: 900; letter-spacing: 2.5px; text-transform: uppercase; padding: 6px 14px; border-radius: 40px; margin-bottom: 18px; border: 1.5px solid rgba(21,101,192,0.18); }
+.sobre h2 { font-family: 'Fredoka One', cursive; font-size: clamp(30px, 4vw, 48px); line-height: 1.1; margin-bottom: 18px; }
+.sobre h2 em { color: var(--blue); font-style: normal; }
 .sobre p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
-.destaque-box {
-  background: var(--yellow); border-radius: 14px;
-  padding: 18px 20px; margin-top: 20px;
-  display: flex; align-items: center; gap: 12px;
-}
+.destaque-box { background: var(--yellow); border-radius: 14px; padding: 18px 20px; margin-top: 20px; display: flex; align-items: center; gap: 12px; }
 .destaque-box span { font-size: 28px; }
 .destaque-box p { font-size: 14px; font-weight: 800; color: var(--dark); margin: 0; line-height: 1.5; }
 
 /* VIDEO */
-.video-sec {
-  background: #1a0a00; padding: 64px 32px; text-align: center;
-}
+.video-sec { background: var(--dark); padding: 64px 32px; text-align: center; }
 .video-sec .tag-label { background: rgba(255,214,0,0.12); color: var(--yellow); border-color: rgba(255,214,0,0.25); margin-bottom: 14px; }
 .video-sec h2 { font-family: 'Fredoka One', cursive; font-size: clamp(28px, 4vw, 46px); color: var(--yellow); margin-bottom: 8px; }
 .video-sec p { color: rgba(255,255,255,0.55); font-size: 15px; margin-bottom: 32px; }
-.video-frame {
-  max-width: 780px; margin: 0 auto;
-  border-radius: 18px; overflow: hidden;
-  aspect-ratio: 16/9; position: relative;
-  box-shadow: 0 16px 50px rgba(233,30,140,0.28);
-}
+.video-frame { max-width: 780px; margin: 0 auto; border-radius: 18px; overflow: hidden; aspect-ratio: 16/9; position: relative; box-shadow: 0 16px 50px rgba(21,101,192,0.4); }
 .video-frame iframe { width: 100%; height: 100%; border: none; display: block; }
 
 /* GALERIA */
 .galeria { padding: 72px 32px; background: #fff; }
 .galeria-header { text-align: center; margin-bottom: 44px; }
 .galeria-header h2 { font-family: 'Fredoka One', cursive; font-size: clamp(28px, 4vw, 46px); margin-bottom: 8px; }
-.galeria-header h2 em { color: var(--pink); font-style: normal; }
+.galeria-header h2 em { color: var(--blue); font-style: normal; }
 .galeria-header p { color: var(--muted); font-size: 15px; }
-
-.galeria-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  max-width: 1050px; margin: 0 auto;
-}
-.gi {
-  border-radius: 14px; overflow: hidden;
-  position: relative; aspect-ratio: 1/1;
-}
+.galeria-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 1050px; margin: 0 auto; }
+.gi { border-radius: 14px; overflow: hidden; position: relative; aspect-ratio: 1/1; }
 .gi.wide { grid-column: span 2; aspect-ratio: 16/9; }
 .gi img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
 .gi:hover img { transform: scale(1.05); }
-.gi-label {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 100%);
-  padding: 28px 14px 12px;
-  color: #fff; font-size: 13px; font-weight: 800;
-  opacity: 0; transition: opacity 0.3s;
-}
+.gi-label { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 100%); padding: 28px 14px 12px; color: #fff; font-size: 13px; font-weight: 800; opacity: 0; transition: opacity 0.3s; }
 .gi:hover .gi-label { opacity: 1; }
 
 /* DIFERENCIAIS */
 .difs { padding: 72px 32px; background: var(--bg); }
 .difs-header { text-align: center; margin-bottom: 44px; }
 .difs-header h2 { font-family: 'Fredoka One', cursive; font-size: clamp(28px, 4vw, 46px); margin-bottom: 8px; }
-.difs-header h2 em { color: var(--pink); font-style: normal; }
+.difs-header h2 em { color: var(--blue); font-style: normal; }
 .difs-header p { color: var(--muted); font-size: 15px; }
 .difs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 1050px; margin: 0 auto; }
-.dif-card {
-  background: #fff; border-radius: 18px;
-  padding: 30px 22px;
-  border: 2px solid transparent;
-  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-}
-.dif-card:hover { border-color: rgba(233,30,140,0.18); transform: translateY(-4px); box-shadow: 0 10px 30px rgba(233,30,140,0.1); }
+.dif-card { background: #fff; border-radius: 18px; padding: 30px 22px; border: 2px solid transparent; transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s; }
+.dif-card:hover { border-color: rgba(21,101,192,0.18); transform: translateY(-4px); box-shadow: 0 10px 30px rgba(21,101,192,0.1); }
 .dif-icon { font-size: 36px; margin-bottom: 14px; display: block; }
 .dif-card h3 { font-family: 'Fredoka One', cursive; font-size: 19px; margin-bottom: 8px; }
 .dif-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
 
 /* CTA */
-.cta {
-  background: linear-gradient(135deg, var(--pink) 0%, #c4177a 100%);
-  padding: 72px 32px; text-align: center; position: relative; overflow: hidden;
-}
+.cta { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%); padding: 72px 32px; text-align: center; position: relative; overflow: hidden; }
 .cta::before { content: '🍕'; position: absolute; font-size: 260px; opacity: 0.06; top: -50px; right: -30px; pointer-events: none; }
 .cta h2 { font-family: 'Fredoka One', cursive; font-size: clamp(28px, 5vw, 52px); color: #fff; line-height: 1.1; margin-bottom: 14px; position: relative; }
 .cta p { font-size: 16px; color: rgba(255,255,255,0.85); margin-bottom: 36px; position: relative; font-weight: 700; }
-.btn-cta-big {
-  background: #fff; color: var(--pink);
-  padding: 18px 44px; border-radius: 14px;
-  font-size: 17px; font-weight: 900; text-decoration: none;
-  display: inline-flex; align-items: center; gap: 10px;
-  box-shadow: 0 6px 28px rgba(0,0,0,0.18);
-  transition: transform 0.2s; position: relative;
-}
+.btn-cta-big { background: var(--yellow); color: var(--dark); padding: 18px 44px; border-radius: 14px; font-size: 17px; font-weight: 900; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 6px 28px rgba(0,0,0,0.18); transition: transform 0.2s; position: relative; }
 .btn-cta-big:hover { transform: translateY(-3px); }
 
 /* CONTATO */
-.contato-wrap {
-  padding: 72px 32px;
-  background: #fff;
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 56px; align-items: start;
-}
+.contato-wrap { padding: 72px 32px; background: #fff; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
 .contato-info h2 { font-family: 'Fredoka One', cursive; font-size: clamp(28px, 3.5vw, 44px); line-height: 1.1; margin-bottom: 18px; }
-.contato-info h2 em { color: var(--pink); font-style: normal; }
+.contato-info h2 em { color: var(--blue); font-style: normal; }
 .contato-info p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 24px; }
 .info-blocks { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
-.info-block {
-  display: flex; align-items: flex-start; gap: 12px;
-  background: var(--bg); border-radius: 12px; padding: 14px 16px;
-}
+.info-block { display: flex; align-items: flex-start; gap: 12px; background: var(--bg); border-radius: 12px; padding: 14px 16px; }
 .info-block .ib-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
 .info-block strong { display: block; font-size: 14px; font-weight: 900; margin-bottom: 2px; }
 .info-block span { font-size: 13px; color: var(--muted); font-weight: 600; }
 .c-links { display: flex; flex-direction: column; gap: 10px; }
-.c-link {
-  display: flex; align-items: center; gap: 10px;
-  padding: 14px 18px; border-radius: 12px;
-  font-size: 14px; font-weight: 800; text-decoration: none;
-  transition: transform 0.2s;
-}
+.c-link { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border-radius: 12px; font-size: 14px; font-weight: 800; text-decoration: none; transition: transform 0.2s; }
 .c-link:hover { transform: translateX(4px); }
 .c-wa { background: #25d366; color: #fff; }
 .c-ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: #fff; }
-.c-app { background: var(--pink); color: #fff; }
+.c-app { background: var(--blue); color: #fff; }
 .c-site { background: var(--yellow); color: var(--dark); }
-
-.mapa-img {
-  border-radius: 18px; overflow: hidden;
-  box-shadow: 0 10px 36px rgba(233,30,140,0.12);
-}
+.mapa-img { border-radius: 18px; overflow: hidden; box-shadow: 0 10px 36px rgba(21,101,192,0.12); }
 .mapa-img a { display: block; }
 .mapa-img img { width: 100%; display: block; border-radius: 18px; transition: opacity 0.2s; }
 .mapa-img img:hover { opacity: 0.88; }
 
 /* FOOTER */
-footer {
-  background: var(--dark); padding: 32px;
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 16px; flex-wrap: wrap;
-}
+footer { background: var(--dark); padding: 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 footer img { height: 44px; border-radius: 50%; }
 footer p { font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 600; text-align: center; line-height: 1.6; }
 .foot-credit { font-size: 12px; color: rgba(255,255,255,0.4); text-align: right; font-weight: 600; }
 .foot-credit a { color: var(--yellow); text-decoration: none; font-weight: 800; }
 
 /* FLOAT WA */
-.float-wa {
-  position: fixed; bottom: 22px; right: 22px; z-index: 999;
-  background: #25d366; color: #fff;
-  width: 58px; height: 58px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 26px; text-decoration: none;
-  box-shadow: 0 6px 22px rgba(37,211,102,0.45);
-  animation: pulse-wa 2.5s infinite;
-}
-@keyframes pulse-wa {
-  0%,100% { box-shadow: 0 6px 22px rgba(37,211,102,0.45); }
-  50% { box-shadow: 0 6px 38px rgba(37,211,102,0.7); }
-}
+.float-wa { position: fixed; bottom: 22px; right: 22px; z-index: 999; background: #25d366; color: #fff; width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; text-decoration: none; box-shadow: 0 6px 22px rgba(37,211,102,0.45); animation: pulse-wa 2.5s infinite; }
+@keyframes pulse-wa { 0%,100% { box-shadow: 0 6px 22px rgba(37,211,102,0.45); } 50% { box-shadow: 0 6px 38px rgba(37,211,102,0.7); } }
 .float-wa:hover { transform: scale(1.1); }
 
 /* RESPONSIVO */
@@ -382,7 +211,7 @@ footer p { font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 600; text
 <!-- NAVBAR -->
 <nav class="navbar">
   <div class="navbar-brand">
-    <img src="../clima/SIRILOGO.png" alt="Siri Cascudo"/>
+    <img src="../clima/LOGOSIRINOVA.JPG" alt="Siri Cascudo"/>
     <div class="navbar-brand-text">
       <div class="navbar-brand-name">Siri <span>Cascudo</span></div>
       <div class="navbar-brand-sub">Lanchonete & Pizzaria</div>
@@ -397,7 +226,6 @@ footer p { font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 600; text
   <h1>Sabor de <span class="accent">verdade</span><br>na praça!</h1>
   <p class="hero-sub">Lanchonete e Pizzaria na Pracinha da Barra</p>
   <p class="hero-local">📍 Praça Antônio Jacques Soares · Marataízes · Terça a Domingo</p>
-
   <div class="hero-btns">
     <a href="https://wa.me/5528999945923?text=Olá!%20Quero%20fazer%20um%20pedido%20no%20Siri%20Cascudo!" class="btn-wa" target="_blank">
       💬 Pedir pelo WhatsApp agora
@@ -407,7 +235,6 @@ footer p { font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 600; text
       <a href="https://www.siricascudomarata.com.br/" class="btn-site" target="_blank">🌐 Acessar Site</a>
     </div>
   </div>
-
   <div class="hero-img-wrap">
     <img src="../clima/SIRI1mudanca.png" alt="Siri Cascudo novo endereço"/>
     <div class="hero-delivery-badge">
@@ -420,19 +247,21 @@ footer p { font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 600; text
 <!-- STRIP -->
 <div class="strip">
   <div class="strip-track">
-    <div class="strip-item">🍕 Pizza Artesanal <span class="strip-dot"></span></div>
+    <div class="strip-item">🍕 Pizzaria <span class="strip-dot"></span></div>
     <div class="strip-item">🍔 Lanches <span class="strip-dot"></span></div>
     <div class="strip-item">🚀 Delivery <span class="strip-dot"></span></div>
     <div class="strip-item">📍 Pracinha da Barra <span class="strip-dot"></span></div>
     <div class="strip-item">⭐ Desde 2014 <span class="strip-dot"></span></div>
     <div class="strip-item">🔥 Melhor do Sul ES <span class="strip-dot"></span></div>
+    <div class="strip-item">🍟 Torres de Batata <span class="strip-dot"></span></div>
     <div class="strip-item">📲 App Disponível <span class="strip-dot"></span></div>
-    <div class="strip-item">🍕 Pizza Artesanal <span class="strip-dot"></span></div>
+    <div class="strip-item">🍕 Pizzaria <span class="strip-dot"></span></div>
     <div class="strip-item">🍔 Lanches <span class="strip-dot"></span></div>
     <div class="strip-item">🚀 Delivery <span class="strip-dot"></span></div>
     <div class="strip-item">📍 Pracinha da Barra <span class="strip-dot"></span></div>
     <div class="strip-item">⭐ Desde 2014 <span class="strip-dot"></span></div>
     <div class="strip-item">🔥 Melhor do Sul ES <span class="strip-dot"></span></div>
+    <div class="strip-item">🍟 Torres de Batata <span class="strip-dot"></span></div>
     <div class="strip-item">📲 App Disponível <span class="strip-dot"></span></div>
   </div>
 </div>
@@ -441,18 +270,18 @@ footer p { font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 600; text
 <section class="sobre">
   <div class="sobre-fotos">
     <img src="../clima/SIRI2.png" alt="Siri Cascudo" class="sobre-foto-main"/>
-    <img src="../clima/SIRI3.png" alt="Lanches" class="sobre-foto-sm"/>
-    <img src="../clima/SIRI4.png" alt="Pizzas" class="sobre-foto-sm"/>
+    <img src="../clima/SIRI12.png" alt="Lanches" class="sobre-foto-sm"/>
+    <img src="../clima/SIRI13.png" alt="Especialidades" class="sobre-foto-sm"/>
   </div>
   <div class="sobre-txt">
     <div class="tag-label">🦀 Nossa história</div>
     <h2>Quem já conhece<br><em>não esquece.</em></h2>
-    <p>Desde 2014 na Pracinha da Barra, o Siri Cascudo virou ponto de encontro de Marataízes. Aqui todo mundo conhece: o lanche é generoso, a pizza é artesanal e o atendimento é de família.</p>
-    <p>Com mais de 8.200 seguidores no Instagram, nossa história é feita de cliente que vira amigo — e amigo que volta toda semana.</p>
-    <p>Se você procura sabor de verdade, feito com capricho e sem economizar nos ingredientes, o Siri Cascudo é o lugar certo.</p>
+    <p>Desde 2014, o Siri Cascudo é o cenário oficial dos melhores encontros em Marataízes. São mais de 10 anos construindo memórias e encontros, transformando clientes em amigos e servindo aquele sabor que você já conhece e confia.</p>
+    <p>Agora, nossa história ganha um novo capítulo em um lugar ainda mais especial: estamos esperando por você na Pracinha da Barra!</p>
+    <p>Vem conferir por que somos a lanchonete e pizzaria favorita do Litoral Sul Capixaba. Lanches generosos, pizzas, torres de batata e aquele atendimento em família que faz toda a diferença. Quem conhece vira fã, quem prova não esquece!</p>
     <div class="destaque-box">
       <span>🔥</span>
-      <p>A melhor lanchonete e pizzaria do Litoral Sul Capixaba — essa não é nossa palavra, é da nossa galera!</p>
+      <p>A lanchonete e pizzaria favorita do Litoral Sul Capixaba — essa não é nossa palavra, é da nossa galera!</p>
     </div>
   </div>
 </section>
@@ -480,8 +309,8 @@ footer p { font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 600; text
       <div class="gi-label">🍔 Lanche Especial</div>
     </div>
     <div class="gi">
-      <img src="../clima/SiRI6.png" alt="Pizza artesanal"/>
-      <div class="gi-label">🍕 Pizza Artesanal</div>
+      <img src="../clima/SiRI6.png" alt="Pizza"/>
+      <div class="gi-label">🍕 Pizza</div>
     </div>
     <div class="gi">
       <img src="../clima/SIRI7.png" alt="Combos"/>
@@ -492,20 +321,20 @@ footer p { font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 600; text
       <div class="gi-label">🌊 Na Pracinha</div>
     </div>
     <div class="gi wide">
+      <img src="../clima/SIRI14.png" alt="Especialidades"/>
+      <div class="gi-label">⭐ Especialidades</div>
+    </div>
+    <div class="gi">
       <img src="../clima/SIRI9.png" alt="Sabores"/>
-      <div class="gi-label">😋 Sabores incríveis</div>
+      <div class="gi-label">😋 Sabores</div>
     </div>
     <div class="gi">
       <img src="../clima/SIRI10.png" alt="Delivery"/>
       <div class="gi-label">🚀 Delivery</div>
     </div>
     <div class="gi">
-      <img src="../clima/SIRI2.png" alt="Cardápio"/>
-      <div class="gi-label">📋 Cardápio</div>
-    </div>
-    <div class="gi">
-      <img src="../clima/SIRI3.png" alt="Especiais"/>
-      <div class="gi-label">⭐ Especiais</div>
+      <img src="../clima/SIRI4.png" alt="Mais opções"/>
+      <div class="gi-label">🍟 Torres de Batata</div>
     </div>
   </div>
 </section>
@@ -520,13 +349,18 @@ footer p { font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 600; text
   <div class="difs-grid">
     <div class="dif-card">
       <span class="dif-icon">🍕</span>
-      <h3>Pizza de verdade</h3>
-      <p>Massa artesanal feita na hora, recheio generoso e borda crocante. Cada pizza é uma experiência.</p>
+      <h3>Pizza com gostinho de casa</h3>
+      <p>Sabores irresistíveis, recheio caprichado e aquela combinação certa que faz todo mundo pedir de novo.</p>
     </div>
     <div class="dif-card">
       <span class="dif-icon">🍔</span>
       <h3>Lanches que impressionam</h3>
-      <p>Ingredientes frescos, molhos especiais e aquela montagem que dá água na boca antes de morder.</p>
+      <p>Ingredientes frescos, molhos especiais e aquela montagem que dá água na boca antes mesmo de morder.</p>
+    </div>
+    <div class="dif-card">
+      <span class="dif-icon">🍟</span>
+      <h3>Torres de batata</h3>
+      <p>Crocantes, temperadas e generosas. As torres de batata do Siri Cascudo são um capítulo à parte no cardápio.</p>
     </div>
     <div class="dif-card">
       <span class="dif-icon">🚀</span>
@@ -534,19 +368,14 @@ footer p { font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 600; text
       <p>Pediu, chegou. Entregamos sem deixar o sabor esfriar. WhatsApp, App ou site — como preferir.</p>
     </div>
     <div class="dif-card">
-      <span class="dif-icon">📍</span>
-      <h3>Na pracinha da galera</h3>
-      <p>Ponto de encontro de Marataízes desde 2014. Localização perfeita na Pracinha da Barra.</p>
-    </div>
-    <div class="dif-card">
       <span class="dif-icon">📲</span>
       <h3>App próprio</h3>
-      <p>Baixa o app, monta seu pedido do jeito que quiser e acompanha tudo em tempo real.</p>
+      <p>Baixa o app, monta seu pedido do jeito que quiser e acompanha tudo em tempo real. Simples assim.</p>
     </div>
     <div class="dif-card">
       <span class="dif-icon">❤️</span>
       <h3>Atendimento de família</h3>
-      <p>Mais de 8 mil pessoas acompanham no Instagram. Siri Cascudo não vende só comida — cria memórias.</p>
+      <p>10 anos de história e mais de 8 mil pessoas no Instagram. O Siri Cascudo não vende só comida — cria memórias.</p>
     </div>
   </div>
 </section>
@@ -607,7 +436,7 @@ footer p { font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 600; text
 
 <!-- FOOTER -->
 <footer>
-  <img src="../clima/SIRILOGO.png" alt="Siri Cascudo"/>
+  <img src="../clima/LOGOSIRINOVA.JPG" alt="Siri Cascudo"/>
   <p>© 2025 Siri Cascudo Lanchonete e Pizzaria<br>Marataízes · Espírito Santo</p>
   <div class="foot-credit">
     Página criada por<br>
