@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Natufit Saladeria — Comida Saudável em Marataízes ES</title>
+<meta name="description" content="Natufit Saladeria em Marataízes ES. A sua melhor opção de comida saudável! Saladas, bowls e muito sabor. Seg–Sex 11h às 15h. Peça pelo WhatsApp ou site.">
+<link rel="canonical" href="https://tvmarataizes.digital/natufit/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,600;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════ */
+:root {
+  --cream:   #F7F3EC;
+  --cream2:  #EDE8DF;
+  --cream3:  #E4DDD1;
+  --bark:    #2A1F14;
+  --bark2:   #3D2E1E;
+  --moss:    #2D4A2D;
+  --moss2:   #3A5C38;
+  --leaf:    #5A8C3E;
+  --leaf2:   #7AB855;
+  --sage:    #8FAF7A;
+  --sage2:   #B5CF9E;
+  --earth:   #7A5C3A;
+  --sand:    #C4A882;
+  --white:   #FFFFFF;
+  --zap:     #25D366;
+  --red:     #D64545;
+
+  --f-disp:  'Playfair Display', Georgia, serif;
+  --f-serif: 'DM Serif Display', Georgia, serif;
+  --f-body:  'DM Sans', sans-serif;
+  --ease:    cubic-bezier(.16,1,.3,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--cream);
+  color:var(--bark);
+  font-family:var(--f-body);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* ── GRAIN TEXTURE ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;pointer-events:none;z-index:9999;
+  opacity:.022;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:256px;
+}
+
+/* ── TOPBAR ── */
+.topbar{
+  background:var(--moss);
+  color:rgba(255,255,255,.55);
+  font-size:11px;font-weight:500;
+  letter-spacing:.07em;
+  padding:9px 32px;
+  display:flex;align-items:center;justify-content:center;
+  gap:24px;flex-wrap:wrap;
+}
+.topbar a{color:var(--sage2);font-weight:700;transition:color .2s}
+.topbar a:hover{color:var(--white)}
+.t-sep{width:1px;height:11px;background:rgba(255,255,255,.15);flex-shrink:0}
+
+/* ── HEADER ── */
+.header{
+  background:rgba(247,243,236,.97);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--cream3);
+  padding:0 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  height:78px;
+  position:sticky;top:0;z-index:100;
+  transition:height .3s var(--ease), box-shadow .3s;
+}
+.logo-wrap{display:flex;align-items:center;gap:14px}
+.logo-img{
+  height:54px;width:auto;
+  object-fit:contain;
+  filter:drop-shadow(0 2px 8px rgba(45,74,45,.15));
+}
+.logo-text .name{
+  font-family:var(--f-disp);
+  font-size:22px;font-weight:700;
+  color:var(--moss);letter-spacing:.01em;line-height:1;
+}
+.logo-text .sub{
+  font-size:9px;font-weight:600;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--sage);margin-top:3px;
+}
+.h-nav{display:flex;gap:32px;align-items:center}
+.h-nav a{
+  font-size:12px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--earth);transition:color .2s;
+  position:relative;
+}
+.h-nav a::after{
+  content:'';position:absolute;
+  bottom:-3px;left:0;right:0;height:1.5px;
+  background:var(--leaf);
+  transform:scaleX(0);transition:transform .3s var(--ease);
+}
+.h-nav a:hover{color:var(--moss)}
+.h-nav a:hover::after{transform:scaleX(1)}
+.btn-pedido{
+  background:var(--moss);color:var(--white);
+  padding:11px 22px;border-radius:2px;
+  font-size:12px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  display:flex;align-items:center;gap:8px;
+  transition:all .25s;
+  box-shadow:0 4px 18px rgba(45,74,45,.2);
+}
+.btn-pedido:hover{background:var(--moss2);transform:translateY(-1px);box-shadow:0 8px 28px rgba(45,74,45,.3)}
+
+/* ── HERO — split editorial ── */
+.hero{
+  position:relative;
+  min-height:100svh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  overflow:hidden;
+  background:var(--cream);
+}
+
+/* Decorative botanical line top */
+.hero::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--leaf),transparent);
+  z-index:10;
+}
+
+/* LEFT — text panel */
+.hero-left{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  padding:80px 72px 80px 72px;
+  background:var(--cream);
+  overflow:hidden;
+}
+
+/* Decorative leaf shapes behind text */
+.hero-left::before{
+  content:'';
+  position:absolute;
+  top:-80px;right:-60px;
+  width:320px;height:320px;
+  background:radial-gradient(ellipse,rgba(90,140,62,.08) 0%,transparent 70%);
+  border-radius:50%;
+  pointer-events:none;
+}
+.hero-left::after{
+  content:'';
+  position:absolute;
+  bottom:-40px;left:-40px;
+  width:200px;height:200px;
+  background:radial-gradient(ellipse,rgba(196,168,130,.12) 0%,transparent 70%);
+  border-radius:50%;
+  pointer-events:none;
+}
+
+/* Leaf ornament CSS */
+.leaf-ornament{
+  position:absolute;
+  top:40px;right:40px;
+  font-size:80px;
+  opacity:.06;
+  transform:rotate(-20deg);
+  pointer-events:none;
+  user-select:none;
+  line-height:1;
+}
+
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:9px;font-weight:700;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--leaf);
+  border:1px solid rgba(90,140,62,.3);
+  padding:8px 18px;border-radius:1px;
+  margin-bottom:32px;width:fit-content;
+  opacity:0;animation:fadeUp .8s var(--ease) .2s forwards;
+}
+.tag-leaf{font-size:12px}
+
+.hero h1{
+  font-family:var(--f-disp);
+  font-size:clamp(44px,5.5vw,78px);
+  font-weight:400;
+  color:var(--moss);
+  line-height:1.04;
+  letter-spacing:-.01em;
+  margin-bottom:8px;
+  opacity:0;animation:fadeUp .9s var(--ease) .38s forwards;
+}
+.hero h1 em{
+  display:block;
+  font-style:italic;
+  font-weight:400;
+  color:var(--leaf);
+}
+.hero h1 strong{
+  display:block;
+  font-weight:700;
+  color:var(--bark);
+}
+
+.hero-sub-line{
+  font-family:var(--f-body);
+  font-size:12px;font-weight:500;
+  letter-spacing:.25em;text-transform:uppercase;
+  color:var(--sand);
+  margin-top:12px;margin-bottom:0;
+  opacity:0;animation:fadeUp .9s var(--ease) .52s forwards;
+}
+
+.hero-desc{
+  font-size:15px;
+  color:var(--earth);
+  line-height:1.9;font-weight:300;
+  max-width:420px;
+  margin:24px 0 36px;
+  opacity:0;animation:fadeUp .9s var(--ease) .64s forwards;
+}
+.hero-desc strong{color:var(--bark);font-weight:500}
+
+/* Pills */
+.hero-pills{
+  display:flex;gap:8px;flex-wrap:wrap;
+  margin-bottom:36px;
+  opacity:0;animation:fadeUp .9s var(--ease) .76s forwards;
+}
+.pill{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(45,74,45,.06);
+  border:1px solid rgba(45,74,45,.15);
+  color:var(--moss);
+  font-size:11px;font-weight:600;
+  padding:7px 14px;border-radius:100px;
+  letter-spacing:.04em;
+  transition:background .2s;
+}
+.pill:hover{background:rgba(45,74,45,.12)}
+
+/* Buttons */
+.hero-btns{
+  display:flex;gap:12px;flex-wrap:wrap;
+  opacity:0;animation:fadeUp .9s var(--ease) .88s forwards;
+}
+.btn-p{
+  background:var(--moss);color:var(--white);
+  padding:16px 30px;border-radius:2px;
+  font-size:12px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  display:flex;align-items:center;gap:10px;
+  transition:all .25s;
+  box-shadow:0 6px 28px rgba(45,74,45,.25);
+}
+.btn-p:hover{background:var(--moss2);transform:translateY(-2px);box-shadow:0 10px 36px rgba(45,74,45,.35)}
+.btn-g{
+  border:1.5px solid var(--cream3);
+  color:var(--earth);
+  padding:16px 24px;border-radius:2px;
+  font-size:12px;font-weight:500;
+  letter-spacing:.06em;
+  display:flex;align-items:center;gap:8px;
+  transition:all .25s;
+  background:var(--white);
+}
+.btn-g:hover{border-color:var(--sage);color:var(--moss)}
+
+/* Stats */
+.hero-stats{
+  display:flex;gap:0;
+  margin-top:52px;padding-top:28px;
+  border-top:1px solid var(--cream3);
+  opacity:0;animation:fadeUp .9s var(--ease) 1s forwards;
+}
+.hstat{flex:1}
+.hstat+.hstat{
+  padding-left:28px;
+  border-left:1px solid var(--cream3);
+}
+.hstat-n{
+  font-family:var(--f-disp);
+  font-size:36px;font-weight:700;
+  color:var(--moss);
+  display:block;line-height:1;
+}
+.hstat-l{
+  font-size:9px;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--sand);
+  display:block;margin-top:5px;
+}
+
+/* RIGHT — image mosaic */
+.hero-right{
+  position:relative;overflow:hidden;
+  background:var(--cream2);
+}
+.hero-mosaic{
+  position:absolute;inset:0;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:60% 40%;
+  gap:2px;
+}
+.hm{overflow:hidden;background:var(--cream2)}
+.hm img{
+  width:100%;height:100%;
+  object-fit:cover;
+  transition:transform .8s var(--ease),filter .5s;
+  display:block;
+  filter:saturate(.9) brightness(.95);
+}
+.hm:hover img{transform:scale(1.06);filter:saturate(1.05) brightness(1)}
+.hm.big{grid-column:span 2}
+
+/* Left vignette */
+.hero-right::before{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(to right,var(--cream) 0%,transparent 12%);
+  z-index:2;
+  pointer-events:none;
+}
+/* Bottom vignette */
+.hero-right::after{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(247,243,236,.5) 0%,transparent 30%);
+  z-index:2;
+  pointer-events:none;
+}
+
+/* ── MARQUEE ── */
+.marquee{
+  background:var(--moss);
+  overflow:hidden;padding:13px 0;white-space:nowrap;
+}
+.mq-track{display:inline-flex;animation:mq 22s linear infinite}
+.mq-item{
+  font-size:11px;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.75);
+  padding:0 28px;
+  display:inline-flex;align-items:center;gap:10px;
+}
+.mq-item::after{content:'🌿';font-size:11px;opacity:.6}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── VALORES ── */
+.vals-sec{background:var(--white)}
+.vals-inner{
+  max-width:1280px;margin:0 auto;
+  padding:72px 64px;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;
+  border:1px solid var(--cream3);
+}
+.val{
+  padding:40px 28px;
+  border-right:1px solid var(--cream3);
+  transition:background .3s;
+  position:relative;overflow:hidden;
+}
+.val::after{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--leaf),var(--sage2));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .4s var(--ease);
+}
+.val:hover{background:var(--cream)}
+.val:hover::after{transform:scaleX(1)}
+.val:last-child{border-right:none}
+.val-ico{
+  font-size:28px;
+  width:52px;height:52px;
+  background:rgba(45,74,45,.06);
+  border:1px solid rgba(45,74,45,.1);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:18px;
+}
+.val-title{
+  font-family:var(--f-disp);
+  font-size:17px;font-weight:600;
+  color:var(--moss);margin-bottom:8px;
+}
+.val-desc{
+  font-size:13px;
+  color:var(--earth);
+  line-height:1.75;font-weight:300;
+}
+
+/* ── SEC HELPERS ── */
+.sl{
+  display:block;
+  font-size:9px;font-weight:700;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--leaf);margin-bottom:12px;
+}
+.st{
+  font-family:var(--f-disp);
+  font-size:clamp(32px,4.5vw,58px);
+  font-weight:600;
+  color:var(--moss);
+  line-height:1.06;letter-spacing:-.01em;
+}
+.st em{font-style:italic;color:var(--leaf);font-weight:400}
+.sb{
+  font-size:15px;color:var(--earth);
+  line-height:1.85;font-weight:300;
+  max-width:480px;
+}
+
+/* ── GALERIA ── */
+.gal-sec{background:var(--cream2);position:relative}
+.gal-sec::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--sage),transparent);
+}
+.gal-head{
+  max-width:1280px;margin:0 auto;
+  padding:80px 64px 40px;
+  display:flex;align-items:flex-end;
+  justify-content:space-between;gap:32px;flex-wrap:wrap;
+}
+.gal-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  grid-template-rows:300px 300px;
+  gap:3px;
+}
+.gal{overflow:hidden;position:relative;background:var(--cream3);cursor:zoom-in}
+.gal img{
+  width:100%;height:100%;
+  object-fit:cover;
+  transition:transform .75s var(--ease),filter .5s;
+  display:block;
+  filter:saturate(.9) brightness(.95);
+}
+.gal:hover img{transform:scale(1.07);filter:saturate(1.05) brightness(1)}
+.gal.tall{grid-row:span 2}
+.gal.wide{grid-column:span 2}
+.g-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(42,31,20,.65) 0%,transparent 50%);
+  opacity:0;transition:opacity .4s;
+}
+.gal:hover .g-ov{opacity:1}
+.g-cap{
+  position:absolute;bottom:18px;left:20px;
+  opacity:0;transform:translateY(8px);
+  transition:all .4s var(--ease);
+}
+.gal:hover .g-cap{opacity:1;transform:translateY(0)}
+.g-cap span{
+  font-size:10px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--sage2);
+}
+
+/* ── DONOS — seção sobre ── */
+.owner-sec{
+  background:var(--cream);
+  position:relative;overflow:hidden;
+}
+.owner-sec::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--leaf),transparent);
+}
+/* Large botanical watermark */
+.owner-sec::after{
+  content:'🌿';
+  position:absolute;
+  right:-20px;top:50%;transform:translateY(-50%);
+  font-size:350px;opacity:.035;
+  pointer-events:none;user-select:none;
+  line-height:1;
+}
+.owner-inner{
+  max-width:1280px;margin:0 auto;
+  padding:100px 64px;
+  display:grid;
+  grid-template-columns:460px 1fr;
+  gap:96px;align-items:center;
+}
+.owner-img-col{position:relative}
+.owner-frame{position:relative;display:inline-block}
+.owner-img{
+  width:420px;height:520px;
+  object-fit:cover;object-position:top center;
+  display:block;position:relative;z-index:1;
+  filter:saturate(.95);
+}
+.owner-border{
+  position:absolute;
+  top:20px;left:20px;right:-20px;bottom:-20px;
+  border:1.5px solid var(--cream3);
+  z-index:0;pointer-events:none;
+}
+.owner-badge{
+  position:absolute;
+  bottom:-32px;right:-32px;
+  background:var(--moss);
+  color:var(--white);
+  padding:20px 26px;
+  text-align:center;z-index:2;
+  box-shadow:0 12px 36px rgba(45,74,45,.3);
+}
+.owner-badge-ico{font-size:28px;display:block;margin-bottom:4px}
+.owner-badge-t{
+  font-size:9px;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;
+  display:block;opacity:.8;
+  font-family:var(--f-body);
+}
+
+.owner-desc{
+  font-size:15px;color:var(--earth);
+  line-height:1.95;font-weight:300;margin-bottom:20px;
+}
+.owner-quote{
+  margin:32px 0;
+  padding:26px 32px;
+  border-left:3px solid var(--leaf);
+  background:rgba(45,74,45,.04);
+  position:relative;
+}
+.owner-quote::before{
+  content:'"';
+  font-family:var(--f-disp);
+  font-size:90px;color:var(--sage2);
+  opacity:.2;
+  position:absolute;top:-16px;left:18px;line-height:1;
+}
+.owner-quote p{
+  font-family:var(--f-disp);
+  font-size:19px;font-style:italic;
+  color:var(--moss);
+  line-height:1.75;
+  position:relative;z-index:1;
+}
+.owner-quote cite{
+  display:block;
+  font-size:9px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--leaf);
+  margin-top:12px;font-style:normal;
+}
+
+/* ── CARDÁPIO DESTAQUES ── */
+.menu-sec{background:var(--moss);position:relative;overflow:hidden}
+.menu-sec::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--sage2),transparent);
+}
+/* Big leaf bg */
+.menu-sec::after{
+  content:'🥗';
+  position:absolute;right:-40px;bottom:-40px;
+  font-size:280px;opacity:.04;
+  pointer-events:none;user-select:none;line-height:1;
+}
+.menu-inner{
+  max-width:1280px;margin:0 auto;
+  padding:88px 64px;
+}
+.menu-sec .sl{color:var(--sage2)}
+.menu-sec .st{color:var(--white)}
+.menu-sec .st em{color:var(--sage2)}
+
+.menu-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2px;margin-top:52px;
+}
+.menu-card{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+  padding:32px 24px;
+  transition:background .3s,border-color .3s;
+  position:relative;overflow:hidden;
+}
+.menu-card::after{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--leaf),var(--sage2));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .4s var(--ease);
+}
+.menu-card:hover{background:rgba(255,255,255,.07);border-color:rgba(181,207,158,.2)}
+.menu-card:hover::after{transform:scaleX(1)}
+.mc-ico{font-size:32px;margin-bottom:16px;display:block}
+.mc-name{
+  font-family:var(--f-disp);
+  font-size:20px;font-weight:600;
+  color:var(--white);margin-bottom:8px;line-height:1.2;
+}
+.mc-desc{font-size:12px;color:rgba(255,255,255,.45);line-height:1.7}
+.mc-tag{
+  display:inline-block;margin-top:14px;
+  font-size:9px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--sage2);
+  border:1px solid rgba(181,207,158,.2);
+  padding:4px 10px;border-radius:100px;
+}
+
+.menu-cta{
+  margin-top:52px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:24px;flex-wrap:wrap;
+  padding-top:44px;
+  border-top:1px solid rgba(255,255,255,.07);
+}
+.menu-cta p{font-size:14px;color:rgba(255,255,255,.4);font-weight:300}
+.menu-cta strong{color:rgba(255,255,255,.7);font-weight:600}
+
+/* ── CONTATO ── */
+.ct-sec{background:var(--cream2)}
+.ct-inner{
+  max-width:1280px;margin:0 auto;
+  padding:88px 64px;
+  display:grid;
+  grid-template-columns:1fr 380px;
+  gap:72px;align-items:start;
+}
+.info-cards{display:flex;flex-direction:column;gap:2px;margin-top:40px}
+.ic{
+  background:var(--white);
+  border:1px solid var(--cream3);
+  padding:22px 26px;
+  display:grid;grid-template-columns:50px 1fr;
+  gap:18px;align-items:center;
+  transition:border-color .25s;
+  position:relative;
+}
+.ic::before{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(to bottom,var(--leaf),var(--sage));
+  transform:scaleY(0);transform-origin:bottom;
+  transition:transform .35s var(--ease);
+}
+.ic:hover{border-color:rgba(90,140,62,.25)}
+.ic:hover::before{transform:scaleY(1)}
+.i-ico{
+  width:50px;height:50px;
+  background:rgba(45,74,45,.07);
+  border:1px solid rgba(45,74,45,.12);
+  color:var(--moss);
+  border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+}
+.i-lbl{
+  font-size:9px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--sand);margin-bottom:5px;
+}
+.i-val{
+  font-size:14px;font-weight:500;
+  color:var(--bark);line-height:1.65;
+}
+.i-val small{font-size:12px;color:var(--earth);font-weight:400}
+.i-val a{color:var(--bark)}
+
+/* CTA Box */
+.cta-box{
+  background:var(--moss);
+  border-top:3px solid var(--leaf2);
+  padding:44px 36px;
+  position:sticky;top:90px;
+}
+.cta-tag{
+  font-size:9px;font-weight:700;
+  letter-spacing:.24em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);
+  display:block;margin-bottom:16px;
+}
+.cta-title{
+  font-family:var(--f-disp);
+  font-size:26px;font-weight:600;
+  color:var(--white);line-height:1.25;
+  margin-bottom:10px;
+}
+.cta-sub{
+  font-size:13px;color:rgba(255,255,255,.42);
+  line-height:1.8;margin-bottom:28px;font-weight:300;
+}
+.btn-zap{
+  background:var(--zap);color:var(--white);
+  padding:15px 20px;border-radius:2px;
+  font-size:13px;font-weight:800;
+  letter-spacing:.04em;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:opacity .2s,transform .2s;
+  box-shadow:0 4px 20px rgba(37,211,102,.25);
+  margin-bottom:10px;
+}
+.btn-zap:hover{opacity:.9;transform:translateY(-2px)}
+.btn-site{
+  border:1px solid rgba(255,255,255,.18);
+  color:rgba(255,255,255,.6);
+  padding:13px 20px;border-radius:2px;
+  font-size:12px;font-weight:500;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:all .25s;
+}
+.btn-site:hover{border-color:rgba(255,255,255,.45);color:var(--white)}
+.cta-note{
+  font-size:10px;color:rgba(255,255,255,.2);
+  margin-top:18px;line-height:1.7;text-align:center;
+}
+
+/* ── MAPA ── */
+.mapa{height:360px;overflow:hidden;position:relative}
+.mapa::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--leaf),transparent);z-index:1;
+}
+.mapa iframe{
+  width:100%;height:100%;border:0;display:block;
+  filter:saturate(.55) sepia(.2) brightness(.9);
+}
+
+/* ── TV BANNER ── */
+.tv-banner{
+  background:var(--bark2);
+  border-top:1px solid rgba(255,255,255,.04);
+  padding:52px 48px;text-align:center;
+}
+.tv-banner p{
+  font-size:9px;font-weight:700;
+  letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(255,255,255,.2);margin-bottom:10px;
+}
+.tv-banner h3{
+  font-family:var(--f-disp);
+  font-size:20px;font-style:italic;
+  color:rgba(255,255,255,.45);
+  margin-bottom:26px;line-height:1.5;
+}
+.tv-links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.tv-links a{
+  font-size:11px;font-weight:600;
+  letter-spacing:.06em;
+  color:rgba(255,255,255,.32);
+  border:1px solid rgba(255,255,255,.08);
+  padding:10px 22px;border-radius:1px;
+  transition:all .25s;
+}
+.tv-links a:hover{color:var(--white);border-color:rgba(255,255,255,.28)}
+
+/* ── FOOTER ── */
+.footer{
+  background:var(--bark);
+  color:rgba(255,255,255,.22);
+  text-align:center;padding:28px;
+  font-size:11px;line-height:1.9;
+  letter-spacing:.03em;
+}
+.footer strong{color:var(--sage2)}
+.footer a{color:rgba(255,255,255,.3)}
+.footer a:hover{color:rgba(255,255,255,.6)}
+
+/* ── FLOAT ── */
+.f-wpp{
+  position:fixed;bottom:28px;right:28px;z-index:998;
+  background:var(--zap);color:var(--white);
+  width:62px;height:62px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px;
+  box-shadow:0 6px 30px rgba(37,211,102,.38);
+  transition:transform .25s var(--ease),box-shadow .25s;
+  text-decoration:none;
+}
+.f-wpp:hover{transform:scale(1.1) translateY(-2px);box-shadow:0 12px 42px rgba(37,211,102,.5)}
+.f-pulse{
+  position:fixed;bottom:28px;right:28px;z-index:997;
+  width:62px;height:62px;border-radius:50%;
+  background:var(--zap);opacity:0;
+  animation:pulse 2.5s ease-out 2.5s infinite;pointer-events:none;
+}
+@keyframes pulse{0%{transform:scale(1);opacity:.4}100%{transform:scale(2.3);opacity:0}}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(22px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  .hero{grid-template-columns:1fr}
+  .hero-right{display:none}
+  .hero-left{padding:72px 36px 88px;justify-content:flex-end;min-height:100svh}
+  .vals-inner{grid-template-columns:repeat(2,1fr)}
+  .owner-inner{grid-template-columns:1fr;gap:56px}
+  .owner-img{width:100%;height:380px}
+  .owner-badge{right:12px;bottom:-24px}
+  .ct-inner{grid-template-columns:1fr}
+  .cta-box{position:static}
+  .menu-grid{grid-template-columns:1fr 1fr}
+  .gal-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .gal.tall,.gal.wide{grid-row:span 1;grid-column:span 1}
+  .gal img{height:250px;min-height:unset}
+}
+@media(max-width:768px){
+  .header{padding:0 20px}
+  .h-nav{display:none}
+  .topbar{gap:12px;font-size:10px;padding:8px 16px}
+  .t-sep{display:none}
+  .hero-left{padding:56px 24px 72px}
+  .gal-head,.menu-inner,.owner-inner,.ct-inner{padding-left:24px;padding-right:24px}
+  .vals-inner{grid-template-columns:1fr;padding-left:24px;padding-right:24px}
+}
+@media(max-width:560px){
+  .hero h1{font-size:42px}
+  .hero-btns{flex-direction:column}
+  .gal-grid{grid-template-columns:1fr}
+  .gal img{height:220px}
+  .menu-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <span>🥗 Seg a Sex · 11h às 15h</span>
+  <span class="t-sep"></span>
+  <span>📍 Marataízes ES</span>
+  <span class="t-sep"></span>
+  <span>🌿 <a href="https://natufitsaladeria.com.br" target="_blank">natufitsaladeria.com.br</a></span>
+</div>
+
+<!-- HEADER -->
+<header class="header" id="topo">
+  <div class="logo-wrap">
+    <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logonatufit.png"
+         alt="Natufit Saladeria" class="logo-img"
+         onerror="this.style.display='none'">
+    <div class="logo-text">
+      <div class="name">Natufit</div>
+      <div class="sub">Saladeria · Marataízes ES</div>
+    </div>
+  </div>
+  <nav class="h-nav">
+    <a href="#cardapio">Cardápio</a>
+    <a href="#galeria">Galeria</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#contato">Contato</a>
+  </nav>
+  <a href="https://natufitsaladeria.com.br" target="_blank" rel="noopener" class="btn-pedido">
+    🥗 Fazer Pedido
+  </a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="leaf-ornament" aria-hidden="true">🌿</div>
+
+    <div class="hero-tag">
+      <span class="tag-leaf">🌱</span>
+      Guia Digital · TV Marataízes
+    </div>
+
+    <h1>
+      A sua melhor
+      <em>opção de</em>
+      <strong>comida saudável.</strong>
+    </h1>
+
+    <p class="hero-sub-line">Saladeria · Marataízes ES</p>
+
+    <p class="hero-desc">
+      Saladas frescas, bowls nutritivos e muito sabor em cada prato. Feito com carinho, ingredientes de qualidade e o compromisso de cuidar da sua saúde todo dia. <strong>Seg a Sex, das 11h às 15h.</strong>
+    </p>
+
+    <div class="hero-pills">
+      <span class="pill">🥗 Saladas Frescas</span>
+      <span class="pill">🥣 Bowls</span>
+      <span class="pill">💚 Saudável</span>
+      <span class="pill">🛵 Delivery</span>
+    </div>
+
+    <div class="hero-btns">
+      <a href="https://natufitsaladeria.com.br" target="_blank" rel="noopener" class="btn-p">
+        🥗 Fazer meu pedido
+      </a>
+      <a href="#galeria" class="btn-g">Ver os pratos →</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hstat"><span class="hstat-n">8,8k</span><span class="hstat-l">Seguidores</span></div>
+      <div class="hstat"><span class="hstat-n">566</span><span class="hstat-l">Publicações</span></div>
+      <div class="hstat"><span class="hstat-n">💚</span><span class="hstat-l">Sempre fresco</span></div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-mosaic">
+      <div class="hm big">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/natufit1.JPG" alt="Natufit — prato principal">
+      </div>
+      <div class="hm">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/fit3.JPG" alt="Natufit — salada">
+      </div>
+      <div class="hm">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/fit4.JPG" alt="Natufit — bowl">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="mq-track">
+    <span class="mq-item">Saladas Frescas</span>
+    <span class="mq-item">Bowls Nutritivos</span>
+    <span class="mq-item">Comida Saudável</span>
+    <span class="mq-item">Ingredientes Selecionados</span>
+    <span class="mq-item">Delivery Marataízes</span>
+    <span class="mq-item">Seg a Sex · 11h às 15h</span>
+    <span class="mq-item">Sabor e Saúde</span>
+    <span class="mq-item">Feito com Carinho</span>
+    <span class="mq-item">Saladas Frescas</span>
+    <span class="mq-item">Bowls Nutritivos</span>
+    <span class="mq-item">Comida Saudável</span>
+    <span class="mq-item">Ingredientes Selecionados</span>
+    <span class="mq-item">Delivery Marataízes</span>
+    <span class="mq-item">Seg a Sex · 11h às 15h</span>
+    <span class="mq-item">Sabor e Saúde</span>
+    <span class="mq-item">Feito com Carinho</span>
+  </div>
+</div>
+
+<!-- VALORES -->
+<div class="vals-sec">
+  <div class="vals-inner">
+    <div class="val reveal">
+      <div class="val-ico">🥬</div>
+      <div class="val-title">Ingredientes Frescos</div>
+      <div class="val-desc">Selecionamos os melhores ingredientes todos os dias — para garantir frescor e sabor em cada prato</div>
+    </div>
+    <div class="val reveal d1">
+      <div class="val-ico">💚</div>
+      <div class="val-title">Comida de Verdade</div>
+      <div class="val-desc">Feita na hora, com carinho e propósito. Sem conservantes, sem artifícios — só sabor e saúde</div>
+    </div>
+    <div class="val reveal d2">
+      <div class="val-ico">🛵</div>
+      <div class="val-title">Delivery Rápido</div>
+      <div class="val-desc">Peça pelo site ou WhatsApp e receba sua refeição fresquinha onde você estiver em Marataízes</div>
+    </div>
+    <div class="val reveal d3">
+      <div class="val-ico">🌿</div>
+      <div class="val-title">Opções Variadas</div>
+      <div class="val-desc">Saladas, bowls, proteínas e acompanhamentos — montamos o prato ideal para o seu estilo de vida</div>
+    </div>
+  </div>
+</div>
+
+<!-- GALERIA -->
+<section class="gal-sec" id="galeria">
+  <div class="gal-head">
+    <div class="reveal">
+      <span class="sl">Nossos pratos</span>
+      <div class="st">Saúde que <em>tem sabor</em></div>
+      <p class="sb" style="margin-top:14px">Cada prato preparado com dedicação, ingredientes frescos e muito verde. Venha conhecer ou faça seu pedido agora.</p>
+    </div>
+    <a href="https://natufitsaladeria.com.br" target="_blank" rel="noopener" class="btn-p reveal" style="flex-shrink:0">
+      🥗 Fazer pedido
+    </a>
+  </div>
+  <div class="gal-grid">
+    <div class="gal tall">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/natufit1.JPG" alt="Natufit prato destaque">
+      <div class="g-ov"></div>
+      <div class="g-cap"><span>Prato do Dia</span></div>
+    </div>
+    <div class="gal">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/fit1.JPG" alt="Salada fresca">
+      <div class="g-ov"></div>
+      <div class="g-cap"><span>Saladas</span></div>
+    </div>
+    <div class="gal">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/fit3.JPG" alt="Bowl nutritivo">
+      <div class="g-ov"></div>
+      <div class="g-cap"><span>Bowls</span></div>
+    </div>
+    <div class="gal">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/fit4.JPG" alt="Proteínas">
+      <div class="g-ov"></div>
+      <div class="g-cap"><span>Proteínas</span></div>
+    </div>
+    <div class="gal">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/fit5.JPG" alt="Ingredientes selecionados">
+      <div class="g-ov"></div>
+      <div class="g-cap"><span>Ingredientes Frescos</span></div>
+    </div>
+  </div>
+  <!-- Mais fotos -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:3px">
+    <div class="gal" style="height:220px">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/fit6.JPG" alt="Montagem do prato">
+      <div class="g-ov"></div>
+      <div class="g-cap"><span>Montagem</span></div>
+    </div>
+    <div class="gal" style="height:220px">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/fit10.JPG" alt="Variedade de saladas">
+      <div class="g-ov"></div>
+      <div class="g-cap"><span>Variedade</span></div>
+    </div>
+    <div class="gal" style="height:220px">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/fit11.JPG" alt="Pratos especiais">
+      <div class="g-ov"></div>
+      <div class="g-cap"><span>Especiais</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CARDÁPIO DESTAQUES -->
+<section class="menu-sec" id="cardapio">
+  <div class="menu-inner">
+    <div class="reveal">
+      <span class="sl">O que servimos</span>
+      <div class="st">Para cada <em>apetite</em></div>
+      <p style="font-size:15px;color:rgba(255,255,255,.4);line-height:1.85;font-weight:300;max-width:480px;margin-top:14px">Tudo feito na hora com ingredientes frescos — escolha o que você prefere e personalize do seu jeito.</p>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-card reveal">
+        <span class="mc-ico">🥗</span>
+        <div class="mc-name">Saladas Completas</div>
+        <div class="mc-desc">Folhas selecionadas, proteínas grelhadas, toppings crocantes e molhos artesanais. A salada que realmente alimenta.</div>
+        <span class="mc-tag">Carro-chefe</span>
+      </div>
+      <div class="menu-card reveal d1">
+        <span class="mc-ico">🥣</span>
+        <div class="mc-name">Bowls Nutritivos</div>
+        <div class="mc-desc">Base de grãos, legumes coloridos, proteína e temperos naturais. Completo, bonito e saboroso.</div>
+        <span class="mc-tag">Mais pedidos</span>
+      </div>
+      <div class="menu-card reveal d2">
+        <span class="mc-ico">🍗</span>
+        <div class="mc-name">Proteínas Grelhadas</div>
+        <div class="mc-desc">Frango, atum, ovo e opções vegetarianas. Todas temperadas e grelhadas na hora do seu pedido.</div>
+        <span class="mc-tag">Sempre fresco</span>
+      </div>
+      <div class="menu-card reveal d3">
+        <span class="mc-ico">🥤</span>
+        <div class="mc-name">Sucos Naturais</div>
+        <div class="mc-desc">Frutas da estação, combinações funcionais e opções energizantes para completar sua refeição.</div>
+        <span class="mc-tag">Natural</span>
+      </div>
+      <div class="menu-card reveal d1">
+        <span class="mc-ico">🍱</span>
+        <div class="mc-name">Marmitas Fit</div>
+        <div class="mc-desc">Opção prática para o dia a dia — monte a sua marmita com o que você mais gosta. Ideal para delivery.</div>
+        <span class="mc-tag">Delivery</span>
+      </div>
+      <div class="menu-card reveal d2">
+        <span class="mc-ico">🌱</span>
+        <div class="mc-name">Opções Veganas</div>
+        <div class="mc-desc">Linha completa sem proteína animal — saborosa, nutritiva e que não decepciona ninguém.</div>
+        <span class="mc-tag">Vegano</span>
+      </div>
+    </div>
+    <div class="menu-cta reveal">
+      <p>Cardápio completo e monte o seu prato em <strong>natufitsaladeria.com.br</strong></p>
+      <a href="https://natufitsaladeria.com.br" target="_blank" rel="noopener" class="btn-p">
+        🥗 Ver cardápio completo →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE — dona do restaurante -->
+<section class="owner-sec" id="sobre">
+  <div class="owner-inner">
+    <div class="owner-img-col reveal">
+      <div class="owner-frame">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/fitdona.JPG"
+             alt="Dona da Natufit Saladeria"
+             class="owner-img"
+             onerror="this.src='https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/natufit1.JPG'">
+        <div class="owner-border"></div>
+        <div class="owner-badge">
+          <span class="owner-badge-ico">🌿</span>
+          <span class="owner-badge-t">Feito com amor</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal d2">
+      <span class="sl">Quem está por trás</span>
+      <div class="st">A Natufit<br>e a <em>paixão pela saúde</em></div>
+      <p class="owner-desc" style="margin-top:24px">
+        A Natufit nasceu do desejo de oferecer uma alternativa real e saborosa à comida do dia a dia em Marataízes. Aqui, cada prato é preparado com cuidado, ingredientes frescos e o compromisso de que comer saudável pode — e deve — ser gostoso.
+      </p>
+      <p class="owner-desc">
+        Com mais de 8 mil seguidores fiéis no Instagram e centenas de pedidos entregues, a Natufit se tornou referência em comida saudável no Sul do ES. O segredo? Carinho em cada detalhe, do ingrediente ao prato na sua mesa.
+      </p>
+      <div class="owner-quote">
+        <p>A sua melhor opção de comida saudável — feita com carinho, ingredientes frescos e muito sabor em cada garfada.</p>
+        <cite>— Natufit Saladeria · Marataízes ES</cite>
+      </div>
+      <a href="https://natufitsaladeria.com.br" target="_blank" rel="noopener" class="btn-p" style="display:inline-flex">
+        🥗 Faça já o seu pedido →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="ct-sec" id="contato">
+  <div class="ct-inner">
+    <div>
+      <div class="reveal">
+        <span class="sl">Como pedir</span>
+        <div class="st">Simples e <em>rápido</em></div>
+        <p class="sb" style="margin-top:14px">Peça pelo site, Instagram ou WhatsApp e receba sua refeição fresquinha. Atendemos de Seg a Sex das 11h às 15h.</p>
+      </div>
+      <div class="info-cards">
+        <div class="ic reveal">
+          <div class="i-ico">🌐</div>
+          <div>
+            <div class="i-lbl">Site para pedidos</div>
+            <div class="i-val">
+              <a href="https://natufitsaladeria.com.br" target="_blank" rel="noopener">natufitsaladeria.com.br</a><br>
+              <small>Monte seu prato e finalize o pedido online</small>
+            </div>
+          </div>
+        </div>
+        <div class="ic reveal d1">
+          <div class="i-ico">📸</div>
+          <div>
+            <div class="i-lbl">Instagram</div>
+            <div class="i-val">
+              <a href="https://www.instagram.com/natufitsaladeria" target="_blank" rel="noopener">@natufitsaladeria</a><br>
+              <small>8.873 seguidores · 566 publicações</small>
+            </div>
+          </div>
+        </div>
+        <div class="ic reveal d2">
+          <div class="i-ico">⏰</div>
+          <div>
+            <div class="i-lbl">Horário</div>
+            <div class="i-val">Segunda a Sexta · 11h às 15h<br><small>Pedidos pelo site ou Instagram</small></div>
+          </div>
+        </div>
+        <div class="ic reveal d3">
+          <div class="i-ico">📍</div>
+          <div>
+            <div class="i-lbl">Localização</div>
+            <div class="i-val">Marataízes, ES<br><small>Delivery na cidade</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-box reveal">
+      <span class="cta-tag">Peça agora</span>
+      <div class="cta-title">Pronto para comer bem?</div>
+      <p class="cta-sub">Monte o prato ideal pelo site ou chame direto no WhatsApp. Entregamos fresquinho até você.</p>
+      <a href="https://natufitsaladeria.com.br" target="_blank" rel="noopener" class="btn-p" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:16px 20px;margin-bottom:10px;border-radius:2px">
+        🥗 Fazer pedido no site
+      </a>
+      <a href="https://www.instagram.com/natufitsaladeria" target="_blank" rel="noopener" class="btn-site">
+        📸 Ver no Instagram
+      </a>
+      <p class="cta-note">Seg a Sex · 11h às 15h · natufitsaladeria.com.br</p>
+    </div>
+  </div>
+</section>
+
+<!-- MAPA -->
+<div class="mapa">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3738.8!2d-40.8220!3d-21.0193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zTWFyYXRhw616ZXM!5e0!3m2!1spt-BR!2sbr!4v1713800000"
+    allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+    title="Natufit Saladeria — Marataízes ES">
+  </iframe>
+</div>
+
+<!-- TV BANNER -->
+<div class="tv-banner">
+  <p>Página exclusiva no Guia da</p>
+  <h3>TV Marataízes · Canal 300 Soul TV<br>O maior portal digital do Sul do ES</h3>
+  <div class="tv-links">
+    <a href="https://www.tvmarataizes.digital/">Portal TV Marataízes</a>
+    <a href="https://tvmarataizes.digital/anunciar">Quero minha página exclusiva</a>
+    <a href="https://wa.me/5528999036141">Falar com a TV — (28) 99903-6141</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>
+    <strong>Natufit Saladeria</strong> · Marataízes ES · Seg a Sex · 11h às 15h<br>
+    <a href="https://natufitsaladeria.com.br" target="_blank">natufitsaladeria.com.br</a> · <a href="https://www.instagram.com/natufitsaladeria" target="_blank">@natufitsaladeria</a><br>
+    Página produzida pela <a href="https://www.tvmarataizes.digital/">TV Marataízes</a> · Canal 300 Soul TV · Guia Digital do Sul do ES
+  </p>
+</footer>
+
+<!-- FLOAT -->
+<div class="f-pulse"></div>
+<a href="https://natufitsaladeria.com.br" target="_blank" rel="noopener" class="f-wpp" aria-label="Fazer pedido Natufit" style="background:var(--moss);font-size:22px">
+  🥗
+</a>
+
+<script>
+const io = new IntersectionObserver(e => {
+  e.forEach(x => { if(x.isIntersecting){x.target.classList.add('visible');io.unobserve(x.target)} });
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+const hdr = document.querySelector('.header');
+window.addEventListener('scroll',()=>{
+  if(window.scrollY>60){hdr.style.height='64px';hdr.style.boxShadow='0 2px 20px rgba(42,31,20,.1)'}
+  else{hdr.style.height='78px';hdr.style.boxShadow='none'}
+},{passive:true});
+</script>
+</body>
+</html>
