@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roteiro — GS Auto Center</title>
+<title>Roteiro Fechamento — GS Auto Center · Terça 16h</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -13,6 +13,7 @@
   --accent: #FF6F00;
   --green: #00ff88;
   --red: #ff3b3b;
+  --yellow: #fff200;
   --text: #e8e8e8;
   --muted: #666;
   --white: #fff;
@@ -29,250 +30,165 @@ body {
 
 /* HEADER */
 .header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  position: sticky; top: 0; z-index: 100;
   background: rgba(10,10,10,0.97);
   border-bottom: 1px solid var(--border);
   padding: 12px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: flex; align-items: center; justify-content: space-between;
 }
-.header-left { display: flex; align-items: center; gap: 16px; }
+.header-left { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .logo { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 800; color: var(--accent); letter-spacing: .05em; }
 .badge { background: var(--accent); color: #fff; font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: 2px; letter-spacing: .1em; text-transform: uppercase; }
 .badge-green { background: var(--green); color: #000; }
-.timer { font-size: 11px; color: var(--muted); }
+.badge-yellow { background: var(--yellow); color: #000; }
 .nav { display: flex; gap: 6px; }
 .nav a { font-size: 10px; color: var(--muted); text-decoration: none; padding: 4px 10px; border: 1px solid var(--border); border-radius: 2px; transition: all .15s; letter-spacing: .05em; }
 .nav a:hover { color: var(--accent); border-color: var(--accent); }
 
+/* STATUS BAR */
+.status-bar {
+  background: #0d1a0d;
+  border-bottom: 1px solid #1a3a1a;
+  padding: 10px 24px;
+  display: flex; gap: 24px; flex-wrap: wrap;
+}
+.status-item { display: flex; align-items: center; gap: 8px; font-size: 11px; }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; }
+.dot-green { background: var(--green); box-shadow: 0 0 6px var(--green); }
+.dot-amber { background: var(--accent); }
+.dot-red { background: var(--red); }
+.status-label { color: var(--muted); }
+.status-val { color: var(--green); font-weight: 500; }
+
+/* ALERTA TOPO */
+.top-alert {
+  background: linear-gradient(90deg, #1a0d00, #0d0d0d);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 14px 20px;
+  margin: 20px 0;
+  font-size: 13px;
+  color: #f0c060;
+  line-height: 1.7;
+}
+.top-alert strong { color: var(--accent); font-family: 'Syne', sans-serif; }
+
 /* MAIN */
-.main { max-width: 860px; margin: 0 auto; padding: 32px 24px 80px; }
+.main { max-width: 860px; margin: 0 auto; padding: 24px 24px 80px; }
 
 /* BLOCO */
-.bloco {
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  margin-bottom: 20px;
-  overflow: hidden;
-  transition: border-color .2s;
-}
+.bloco { border: 1px solid var(--border); border-radius: 6px; margin-bottom: 16px; overflow: hidden; transition: border-color .2s; }
 .bloco:hover { border-color: #333; }
-.bloco-header {
-  background: #111;
-  padding: 12px 20px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-  user-select: none;
-}
-.bloco-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--accent);
-  letter-spacing: .1em;
-  min-width: 32px;
-}
-.bloco-titulo {
-  font-family: 'Syne', sans-serif;
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--white);
-  flex: 1;
-}
-.bloco-tempo {
-  font-size: 10px;
-  color: var(--muted);
-  letter-spacing: .05em;
-}
-.bloco-body {
-  padding: 20px 24px;
-  border-top: 1px solid var(--border);
-}
+.bloco-header { background: #111; padding: 12px 20px; display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; }
+.bloco-num { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 800; color: var(--accent); letter-spacing: .1em; min-width: 32px; }
+.bloco-titulo { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800; color: var(--white); flex: 1; }
+.bloco-tempo { font-size: 10px; color: var(--muted); letter-spacing: .05em; }
+.bloco-body { padding: 20px 24px; border-top: 1px solid var(--border); }
 
 /* FALA */
 .fala {
-  background: #0d1a0d;
-  border: 1px solid #1a3a1a;
-  border-left: 3px solid var(--green);
-  border-radius: 4px;
-  padding: 14px 18px;
-  margin-bottom: 12px;
-  font-size: 14px;
-  line-height: 1.8;
-  color: #c8f0c8;
+  background: #0d1a0d; border: 1px solid #1a3a1a; border-left: 3px solid var(--green);
+  border-radius: 4px; padding: 14px 18px; margin-bottom: 12px;
+  font-size: 14px; line-height: 1.85; color: #c8f0c8;
 }
 .fala strong { color: var(--green); }
+.fala em { color: #a0d8a0; font-style: normal; }
+
+/* TAG DE ORIGEM */
+.fala-tag { font-size: 9px; color: var(--green); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 8px; opacity: .7; }
 
 /* INSTRUCAO */
 .inst {
-  background: #1a1200;
-  border: 1px solid #3a2a00;
-  border-left: 3px solid var(--accent);
-  border-radius: 4px;
-  padding: 10px 16px;
-  margin-bottom: 10px;
-  font-size: 12px;
-  color: #f0c060;
+  background: #1a1200; border: 1px solid #3a2a00; border-left: 3px solid var(--accent);
+  border-radius: 4px; padding: 10px 16px; margin-bottom: 10px;
+  font-size: 12px; color: #f0c060;
 }
 .inst strong { color: var(--accent); }
 
 /* ALERTA */
 .alerta {
-  background: #1a0d0d;
-  border: 1px solid #3a1a1a;
-  border-left: 3px solid var(--red);
-  border-radius: 4px;
-  padding: 10px 16px;
-  margin-bottom: 10px;
-  font-size: 12px;
-  color: #f08080;
+  background: #1a0d0d; border: 1px solid #3a1a1a; border-left: 3px solid var(--red);
+  border-radius: 4px; padding: 10px 16px; margin-bottom: 10px;
+  font-size: 12px; color: #f08080;
 }
+.alerta strong { color: var(--red); }
+
+/* INSIGHT — novo: o que funcionou na primeira reunião */
+.insight {
+  background: #0d0d1a; border: 1px solid #1a1a3a; border-left: 3px solid #7a7aff;
+  border-radius: 4px; padding: 10px 16px; margin-bottom: 10px;
+  font-size: 12px; color: #a0a0f0;
+}
+.insight strong { color: #9090ff; }
 
 /* CHECKLIST */
 .check { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
 .check-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 8px 12px;
-  background: #111;
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  cursor: pointer;
-  transition: background .15s;
+  display: flex; align-items: flex-start; gap: 10px; padding: 8px 12px;
+  background: #111; border: 1px solid var(--border); border-radius: 3px; cursor: pointer; transition: background .15s;
 }
 .check-item:hover { background: #161616; }
 .check-item input { margin-top: 3px; accent-color: var(--green); }
 .check-item label { font-size: 13px; cursor: pointer; }
 .check-item.done label { text-decoration: line-through; color: var(--muted); }
 
-/* SEPARADOR */
-.sep {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 24px 0 16px;
-}
-.sep-line { flex: 1; height: 1px; background: var(--border); }
-.sep-txt { font-size: 10px; color: var(--muted); letter-spacing: .15em; text-transform: uppercase; }
-
 /* OBJECTIONS */
-.obj {
-  background: #111;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  margin-bottom: 8px;
-  overflow: hidden;
-}
-.obj-q {
-  padding: 12px 16px;
-  font-size: 13px;
-  color: var(--red);
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+.obj { background: #111; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 8px; overflow: hidden; }
+.obj-q { padding: 12px 16px; font-size: 13px; color: var(--red); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
 .obj-q::after { content: '+'; font-size: 18px; color: var(--muted); }
 .obj-q.open::after { content: '−'; }
-.obj-a {
-  display: none;
-  padding: 14px 16px;
-  border-top: 1px solid var(--border);
-  font-size: 13px;
-  color: #c8f0c8;
-  line-height: 1.8;
-  background: #0d1a0d;
-}
+.obj-a { display: none; padding: 14px 16px; border-top: 1px solid var(--border); font-size: 13px; color: #c8f0c8; line-height: 1.8; background: #0d1a0d; }
 .obj-a.show { display: block; }
+.obj-origin { font-size: 9px; color: #7a7aff; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px; }
 
 /* NUMBERS */
-.numbers {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-.num-card {
-  background: #111;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 16px;
-  text-align: center;
-}
-.num-val {
-  font-family: 'Syne', sans-serif;
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--accent);
-  margin-bottom: 4px;
-}
+.numbers { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.num-card { background: #111; border: 1px solid var(--border); border-radius: 4px; padding: 16px; text-align: center; }
+.num-val { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--accent); margin-bottom: 4px; }
 .num-label { font-size: 10px; color: var(--muted); letter-spacing: .05em; }
 
 /* PROPOSTA */
-.proposta {
-  background: linear-gradient(135deg, #1a0e00, #0d0d0d);
-  border: 1px solid #FF6F00;
-  border-radius: 6px;
-  padding: 20px;
-  margin-bottom: 16px;
-}
-.proposta-titulo {
-  font-family: 'Syne', sans-serif;
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--accent);
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-.proposta-linha {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid #222;
-  font-size: 13px;
-}
+.proposta { background: linear-gradient(135deg, #1a0e00, #0d0d0d); border: 1px solid var(--accent); border-radius: 6px; padding: 20px; margin-bottom: 16px; }
+.proposta-titulo { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 800; color: var(--accent); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 12px; }
+.proposta-linha { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #222; font-size: 13px; }
 .proposta-linha:last-child { border-bottom: none; }
 .proposta-val { font-family: 'Syne', sans-serif; font-weight: 800; color: var(--white); }
-.proposta-total {
-  background: var(--accent);
-  color: #000;
-  border-radius: 4px;
-  padding: 12px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 12px;
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 15px;
-}
+.proposta-total { background: var(--accent); color: #000; border-radius: 4px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; margin-top: 12px; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 15px; }
 
 /* SILENCIO */
-.silencio {
-  background: #000;
-  border: 2px dashed #333;
-  border-radius: 4px;
-  padding: 20px;
-  text-align: center;
-  font-family: 'Syne', sans-serif;
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--accent);
-  letter-spacing: .2em;
-  margin-bottom: 12px;
-}
+.silencio { background: #000; border: 2px dashed #333; border-radius: 4px; padding: 20px; text-align: center; font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: var(--accent); letter-spacing: .2em; margin-bottom: 12px; }
+
+/* CONTEXTO BOX */
+.contexto { background: #0d0d0d; border: 1px solid #1a1a1a; border-radius: 6px; padding: 16px 20px; margin-bottom: 16px; }
+.contexto-titulo { font-size: 10px; color: #7a7aff; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 10px; }
+.contexto-item { display: flex; gap: 10px; font-size: 13px; padding: 5px 0; border-bottom: 1px solid #1a1a1a; }
+.contexto-item:last-child { border-bottom: none; }
+.contexto-key { color: var(--muted); min-width: 140px; flex-shrink: 0; }
+.contexto-val { color: var(--text); }
+
+/* TERMOMETRO */
+.termo { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.termo-label { font-size: 12px; color: var(--muted); min-width: 160px; }
+.termo-bar { flex: 1; height: 8px; background: #1a1a1a; border-radius: 99px; overflow: hidden; }
+.termo-fill { height: 100%; border-radius: 99px; }
+.termo-pct { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 800; min-width: 40px; text-align: right; }
+
+/* GRID 2 */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.mini-card { background: #111; border: 1px solid var(--border); border-radius: 4px; padding: 14px 16px; }
+.mini-card-label { font-size: 10px; color: var(--muted); letter-spacing: .06em; margin-bottom: 5px; }
+.mini-card-val { font-size: 14px; font-weight: 500; color: var(--white); line-height: 1.4; }
+.mini-card-sub { font-size: 11px; color: #888; margin-top: 4px; line-height: 1.5; }
+.border-green { border-left: 2px solid var(--green); }
+.border-amber { border-left: 2px solid var(--accent); }
+.border-red   { border-left: 2px solid var(--red); }
+.border-blue  { border-left: 2px solid #7a7aff; }
 
 @media (max-width: 600px) {
   .numbers { grid-template-columns: 1fr; }
+  .grid2 { grid-template-columns: 1fr; }
   .nav { display: none; }
+  .status-bar { gap: 12px; }
 }
 </style>
 </head>
@@ -281,128 +197,191 @@ body {
 <div class="header">
   <div class="header-left">
     <span class="logo">TV MARATAÍZES</span>
-    <span class="badge">ROTEIRO INTERNO</span>
-    <span class="badge badge-green">GS AUTO CENTER · QUARTA 16H</span>
+    <span class="badge">ROTEIRO V2</span>
+    <span class="badge badge-yellow">GS AUTO CENTER · TERÇA 16H</span>
+    <span class="badge badge-green">FECHAR</span>
   </div>
   <nav class="nav">
+    <a href="#contexto">Contexto</a>
     <a href="#pre">Antes</a>
     <a href="#abertura">Abertura</a>
-    <a href="#case">Case</a>
     <a href="#proposta">Proposta</a>
     <a href="#objecoes">Objeções</a>
     <a href="#fechamento">Fechar</a>
   </nav>
 </div>
 
+<div class="status-bar">
+  <div class="status-item"><div class="status-dot dot-green"></div><span class="status-label">temperatura:</span><span class="status-val">muito quente</span></div>
+  <div class="status-item"><div class="status-dot dot-green"></div><span class="status-label">preço:</span><span class="status-val">sem objeção</span></div>
+  <div class="status-item"><div class="status-dot dot-amber"></div><span class="status-label">risco:</span><span class="status-val">escopo ampliado</span></div>
+  <div class="status-item"><div class="status-dot dot-amber"></div><span class="status-label">variável:</span><span class="status-val">menino do marketing</span></div>
+  <div class="status-item"><div class="status-dot dot-green"></div><span class="status-label">objetivo terça:</span><span class="status-val">assinar contrato</span></div>
+</div>
+
 <div class="main">
+
+  <div class="top-alert">
+    <strong>MISSÃO TERÇA-FEIRA:</strong> Ele já viu R$19k e marcou a reunião. Ele passou o número pessoal. Ele abriu o projeto do pneu usado. A venda está feita — seu trabalho é não atrapalhar. <strong>Não liste serviços. Não justifique preço. Não abra escopo.</strong>
+  </div>
+
+  <!-- CONTEXTO -->
+  <div id="contexto" class="bloco">
+    <div class="bloco-header">
+      <span class="bloco-num">00</span>
+      <span class="bloco-titulo">CONTEXTO DA PRIMEIRA REUNIÃO — O QUE JÁ ACONTECEU</span>
+      <span class="bloco-tempo">leia antes</span>
+    </div>
+    <div class="bloco-body">
+      <div class="contexto">
+        <div class="contexto-titulo">sinais que ele deu</div>
+        <div class="contexto-item"><span class="contexto-key">Número pessoal</span><span class="contexto-val">Passou o dele — não o WhatsApp da loja. Abertura real.</span></div>
+        <div class="contexto-item"><span class="contexto-key">Projeto secreto</span><span class="contexto-val">Contou do pneu usado (nova loja, outro nome). Só fala isso pra parceiro.</span></div>
+        <div class="contexto-item"><span class="contexto-key">Preço</span><span class="contexto-val">Viu R$19k na landpage. Marcou terça. Sem travar.</span></div>
+        <div class="contexto-item"><span class="contexto-key">Instagram</span><span class="contexto-val">Resistiu à ideia de mudar. Território dele — não toque nisso.</span></div>
+        <div class="contexto-item"><span class="contexto-key">Gerente</span><span class="contexto-val">Estava lá, voltou pra reunião. Influenciador — precisa estar alinhado.</span></div>
+        <div class="contexto-item"><span class="contexto-key">Menino do marketing</span><span class="contexto-val">Jovem, atencioso, ouvindo tudo. Vai à terça. Inclua ele.</span></div>
+        <div class="contexto-item"><span class="contexto-key">Windman</span><span class="contexto-val">Case que funcionou. Ele reconheceu o nome e mudou de posição.</span></div>
+        <div class="contexto-item"><span class="contexto-key">Bem-Vindo Descartáveis</span><span class="contexto-val">Case regional. Ele se identificou com o antes/depois.</span></div>
+      </div>
+
+      <div style="margin-bottom:12px;">
+        <div class="contexto-titulo" style="color:var(--accent);margin-bottom:8px;">probabilidade de fechar</div>
+        <div class="termo">
+          <div class="termo-label">Se controlar o escopo</div>
+          <div class="termo-bar"><div class="termo-fill" style="width:91%;background:var(--green);"></div></div>
+          <div class="termo-pct" style="color:var(--green);">91%</div>
+        </div>
+        <div class="termo">
+          <div class="termo-label">Conservador</div>
+          <div class="termo-bar"><div class="termo-fill" style="width:78%;background:var(--accent);"></div></div>
+          <div class="termo-pct" style="color:var(--accent);">78%</div>
+        </div>
+        <div class="termo">
+          <div class="termo-label">Se listar tudo que faz</div>
+          <div class="termo-bar"><div class="termo-fill" style="width:42%;background:var(--red);"></div></div>
+          <div class="termo-pct" style="color:var(--red);">42%</div>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="mini-card border-green">
+          <div class="mini-card-label">fala que virou o jogo</div>
+          <div class="mini-card-val">"Eu não tô aqui pra vender pra você. Eu quero você porque você vai ser meu case de sucesso."</div>
+        </div>
+        <div class="mini-card border-blue">
+          <div class="mini-card-label">o que mudou a posição dele</div>
+          <div class="mini-card-val">Ver o Instagram da Windman e entender que ele já está no patamar certo pra dar o próximo passo.</div>
+        </div>
+        <div class="mini-card border-amber">
+          <div class="mini-card-label">escopo que entrou sem contrato</div>
+          <div class="mini-card-val">Pneu usado (nova loja), marca própria de peças, oficina. Fechar na terça antes de detalhar mais.</div>
+        </div>
+        <div class="mini-card border-red">
+          <div class="mini-card-label">o que não tocar</div>
+          <div class="mini-card-val">Instagram dele. Ele defende o território. Não entre nessa briga — deixa o IG dele, cria um novo pra rede.</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- PRÉ REUNIÃO -->
   <div id="pre" class="bloco">
     <div class="bloco-header">
-      <span class="bloco-num">00</span>
-      <span class="bloco-titulo">ANTES DE ENTRAR NA LOJA</span>
+      <span class="bloco-num">01</span>
+      <span class="bloco-titulo">ANTES DE ENTRAR — 15 MIN ANTES</span>
       <span class="bloco-tempo">15 min antes</span>
     </div>
     <div class="bloco-body">
+      <div class="inst"><strong>LIGUE PRA ELE:</strong> "Tô a caminho, confirmo às 16h." 20 segundos. Mostra organização, reativa o vínculo.</div>
       <div class="check">
         <div class="check-item" onclick="this.classList.toggle('done')">
-          <input type="checkbox"> <label>Portal tvmarataizes.digital aberto no notebook — página de automóveis visível</label>
+          <input type="checkbox"> <label>Ligar pra confirmar — 20 segundos, sem pitch</label>
         </div>
         <div class="check-item" onclick="this.classList.toggle('done')">
-          <input type="checkbox"> <label>Site macucaproducoes.com.br aberto em outra aba</label>
+          <input type="checkbox"> <label>Portal tvmarataizes.digital aberto — página de automóveis</label>
         </div>
         <div class="check-item" onclick="this.classList.toggle('done')">
-          <input type="checkbox"> <label>Instagram gspneusautocenter aberto no celular</label>
+          <input type="checkbox"> <label>Apresentação da GS aberta e pronta</label>
         </div>
         <div class="check-item" onclick="this.classList.toggle('done')">
-          <input type="checkbox"> <label>Roteiro (essa página) aberta no celular — modo leitura</label>
+          <input type="checkbox"> <label>Instagram da Windman aberto no celular (backup)</label>
+        </div>
+        <div class="check-item" onclick="this.classList.toggle('done')">
+          <input type="checkbox"> <label>Contrato impresso ou no notebook pronto pra assinar</label>
         </div>
         <div class="check-item" onclick="this.classList.toggle('done')">
           <input type="checkbox"> <label>Notebook com bateria cheia e carregador na bag</label>
         </div>
       </div>
-      <div class="inst"><strong>MINDSET:</strong> Você não é vendedor. Você é o único canal de mídia regional do Sul do ES. Eles precisam de você — não o contrário.</div>
+      <div class="inst"><strong>MINDSET:</strong> A venda já está quase feita. Você não é vendedor hoje — é o parceiro estratégico que chegou pra fechar. Eles precisam de você.</div>
     </div>
   </div>
 
-  <!-- CHEGADA -->
+  <!-- ABERTURA -->
   <div id="abertura" class="bloco">
     <div class="bloco-header">
-      <span class="bloco-num">01</span>
-      <span class="bloco-titulo">CHEGADA — OS PRIMEIROS 2 MINUTOS</span>
-      <span class="bloco-tempo">0–2 min</span>
+      <span class="bloco-num">02</span>
+      <span class="bloco-titulo">ABERTURA — OS PRIMEIROS 3 MINUTOS</span>
+      <span class="bloco-tempo">0–3 min</span>
     </div>
     <div class="bloco-body">
-      <div class="inst"><strong>NÃO fale de produto ainda.</strong> Observe a loja, elogie algo específico e real. Organização, movimento, tamanho do pátio.</div>
+      <div class="inst"><strong>INCLUA O MENINO DO MARKETING logo de cara.</strong> Olha pra ele, aperto de mão, fala o nome dele se souber.</div>
+
       <div class="fala">
-        "Cara, organização de pátio assim eu não vejo em muita loja por aqui não. Vocês abriram há quanto tempo mesmo?"
+        <div class="fala-tag">✦ fala de abertura</div>
+        "Boa tarde. Antes de qualquer coisa — [nome do menino], você vai aprender muito nesse processo. Eu precisava de um cara com o seu perfil do lado de vocês."
       </div>
-      <div class="inst">Deixa ele falar. Sorri. Demonstra interesse genuíno. O dono ama quando alguém nota o que ele construiu.</div>
+
+      <div class="insight"><strong>POR QUÊ FUNCIONA:</strong> Ele vira aliado imediatamente. Se sentir incluído, vai pressionar o dono a fechar — não o contrário.</div>
+
+      <div class="inst"><strong>Depois, direto ao ponto com o dono:</strong></div>
+
+      <div class="fala">
+        <div class="fala-tag">✦ retomada — sem enrolar</div>
+        "Olha, eu não vim repetir o que a gente já conversou. Você já viu os números, já viu como funciona. Hoje eu vim aqui pra uma coisa só: tomar uma decisão juntos. Pra um lado ou pro outro — sem enrolar."
+      </div>
+
+      <div class="inst"><strong>Pausa. Deixa ele responder.</strong> Se ele falar de pneu usado, instagram, ou qualquer outro assunto — ouça, e devolva:</div>
+
+      <div class="fala">
+        <div class="fala-tag">✦ resposta curinga — para qualquer desvio de assunto</div>
+        "Faz sentido. E tudo isso entra dentro da estratégia da rede. Mas antes de a gente chegar lá, me confirma uma coisa: você entendeu que o que a gente tá construindo não é campanha — é a GS como <strong>a rede automotiva do Sul do ES</strong>?"
+      </div>
     </div>
   </div>
 
-  <!-- ABERTURA ESTRATÉGICA -->
+  <!-- SE TOCAR NO INSTAGRAM -->
   <div class="bloco">
     <div class="bloco-header">
-      <span class="bloco-num">02</span>
-      <span class="bloco-titulo">A VIRADA — OUÇA ANTES DE VENDER</span>
-      <span class="bloco-tempo">2–8 min</span>
-    </div>
-    <div class="bloco-body">
-      <div class="inst"><strong>Este é o movimento mais poderoso da reunião.</strong> Faça a pergunta e fique em silêncio absoluto.</div>
-      <div class="fala">
-        "Antes de qualquer coisa, você me disse que teve 3 agências e nenhuma adiantou. Me conta o que aconteceu — porque eu preciso saber onde elas erraram antes de te propor qualquer coisa."
-      </div>
-      <div class="alerta">SILÊNCIO TOTAL. Não complete a frase dele. Não sugira respostas. Deixa ele desabafar tudo.</div>
-      <div class="inst"><strong>Depois que ele terminar, use o espelho:</strong></div>
-      <div class="fala">
-        "Faz sentido. O que você está descrevendo é o problema clássico de agência — entregam post bonito, relatório de curtida e somem. Você pagou por presença e não teve resultado. É isso?"
-      </div>
-      <div class="inst">Ele vai dizer sim. Aí você fala:</div>
-      <div class="fala">
-        "Então a gente está alinhado. Porque o que eu faço não é isso."
-      </div>
-    </div>
-  </div>
-
-  <!-- CASE DO RIO -->
-  <div id="case" class="bloco">
-    <div class="bloco-header">
       <span class="bloco-num">03</span>
-      <span class="bloco-titulo">O CASE DO RIO — A VIRADA EMOCIONAL</span>
-      <span class="bloco-tempo">8–15 min</span>
+      <span class="bloco-titulo">SE ELE TOCAR NO INSTAGRAM</span>
+      <span class="bloco-tempo">quando surgir</span>
     </div>
     <div class="bloco-body">
-      <div class="inst">Tom de conversa. Não de pitch. Como se estivesse contando uma história a um amigo.</div>
+      <div class="insight"><strong>DA PRIMEIRA REUNIÃO:</strong> Ele resistiu quando você sugeriu mudar o Instagram. É território dele — não entre em conflito.</div>
       <div class="fala">
-        "Deixa eu te contar uma história. Tinha uma rede de descartáveis na Zona Oeste do Rio — Bem-Vindo Descartáveis. Zero presença online. Zero. A gente começou a trabalhar com eles e hoje são a maior rede da Zona Oeste.<br><br>
-        Mas sabe o que mudou primeiro? Não foi o Instagram. Foi como eles passaram a se ver.<br><br>
-        Eles pararam de pensar como várias lojas e começaram a pensar como <strong>rede.</strong>"
+        <div class="fala-tag">✦ contorno — sem abrir briga</div>
+        "O Instagram de vocês continua do jeito que está — isso é de vocês. O que a gente vai criar é um canal novo, pra rede — separado, com a linguagem de quem domina a região. Um não cancela o outro."
       </div>
-      <div class="silencio">PAUSA. 3 SEGUNDOS.</div>
-      <div class="fala">
-        "Quando você entrou aqui hoje, eu lembrei deles na época. Você tem 3 lojas. Seus concorrentes têm 1. Mas você ainda comunica como se tivesse 1.<br><br>
-        A GS não é uma loja de pneus. É a <strong>rede automotiva referência do Sul do ES.</strong> Só falta o Sul do ES saber disso."
-      </div>
+      <div class="alerta"><strong>NÃO sugira mudar o Instagram atual.</strong> Nunca mais. Deixa ele como está. Cria paralelo.</div>
     </div>
   </div>
 
-  <!-- O ARGUMENTO DO MONOPÓLIO -->
+  <!-- SE TOCAR NO PNEU USADO -->
   <div class="bloco">
     <div class="bloco-header">
       <span class="bloco-num">04</span>
-      <span class="bloco-titulo">O ARGUMENTO DO MONOPÓLIO DE MÍDIA</span>
-      <span class="bloco-tempo">15–20 min</span>
+      <span class="bloco-titulo">SE ELE TOCAR NO PNEU USADO</span>
+      <span class="bloco-tempo">quando surgir</span>
     </div>
     <div class="bloco-body">
+      <div class="insight"><strong>DA PRIMEIRA REUNIÃO:</strong> Ele te contou do projeto secreto. Quer dizer que confia. Mas não detalhe o escopo — isso fecha contrato depois, não antes.</div>
       <div class="fala">
-        "Agora deixa eu te contar algo que pouca gente percebeu ainda.<br><br>
-        O Sul do Espírito Santo inteiro — Marataízes, Itapemirim, Piúma, Presidente Kennedy, toda essa região — <strong>não tem TV local. Nenhuma.</strong><br><br>
-        A TV Marataízes é a única voz dessa região.<br><br>
-        Isso significa que quando a GS Auto Center aparecer na TV, não tem concorrente de mídia. Não tem outra emissora cobrindo o mesmo público. É você e o silêncio.<br><br>
-        Você quer lançar uma marca própria de peças. Marca se constrói com TV — não com Instagram. E você tem a oportunidade de ser <strong>a primeira rede automotiva do Sul do ES com presença na única TV da região.</strong>"
+        <div class="fala-tag">✦ resposta — sem abrir execução</div>
+        "Esse projeto já está dentro da estratégia. Uma nova operação da GS já nasce com comunicação — não vai ser mais uma loja desconhecida. Mas isso a gente estrutura depois que a gente assina. Primeiro a gente consolida a base."
       </div>
-      <div class="inst"><strong>AGORA abre o notebook.</strong> Mostra o portal tvmarataizes.digital. Depois vira pra ele a apresentação da GS.</div>
+      <div class="alerta"><strong>NÃO detalhe nome, operação, impulsionamento ou cronograma</strong> do pneu usado. Isso é pós-contrato.</div>
     </div>
   </div>
 
@@ -411,12 +390,14 @@ body {
     <div class="bloco-header">
       <span class="bloco-num">05</span>
       <span class="bloco-titulo">A PROPOSTA</span>
-      <span class="bloco-tempo">20–30 min</span>
+      <span class="bloco-tempo">15–30 min</span>
     </div>
     <div class="bloco-body">
-      <div class="inst">Apresenta os números assim — sem desculpar o preço:</div>
+      <div class="inst"><strong>Apresenta assim — sem pedir desculpa pelo preço:</strong></div>
+
       <div class="fala">
-        "Existem dois formatos. Vou te mostrar os dois e você decide qual faz mais sentido pro momento da GS."
+        <div class="fala-tag">✦ introdução da proposta</div>
+        "Tenho dois formatos. Te mostro os dois e você me diz qual faz mais sentido pro momento da GS."
       </div>
 
       <div class="proposta">
@@ -424,19 +405,19 @@ body {
         <div class="proposta-linha"><span>TV + Agência + Produção completa</span><span class="proposta-val">R$6.500/mês</span></div>
         <div class="proposta-linha"><span>Contrato mínimo</span><span class="proposta-val">6 meses</span></div>
         <div class="proposta-linha"><span>Inserções semanais na grade</span><span class="proposta-val">✓</span></div>
-        <div class="proposta-linha"><span>Gestão completa das redes</span><span class="proposta-val">✓</span></div>
+        <div class="proposta-linha"><span>Gestão completa das redes da rede</span><span class="proposta-val">✓</span></div>
         <div class="proposta-linha"><span>Produção de vídeo mensal</span><span class="proposta-val">✓</span></div>
       </div>
 
-      <div class="proposta" style="border-color:#fff200;">
-        <div class="proposta-titulo" style="color:#fff200;">👑 PLANO DOMÍNIO — Exclusividade Total</div>
+      <div class="proposta" style="border-color:var(--yellow);">
+        <div class="proposta-titulo" style="color:var(--yellow);">👑 PLANO DOMÍNIO — Exclusividade Total · Recomendado</div>
         <div class="proposta-linha"><span>Marataízes + região</span><span class="proposta-val">R$9.500/mês</span></div>
         <div class="proposta-linha"><span>Presidente Kennedy</span><span class="proposta-val">R$9.500/mês</span></div>
         <div class="proposta-linha"><span>Exclusividade no segmento automotivo</span><span class="proposta-val">✓</span></div>
         <div class="proposta-linha"><span>Zero concorrência no ar</span><span class="proposta-val">✓</span></div>
         <div class="proposta-linha"><span>Vinheta em todos os blocos</span><span class="proposta-val">✓</span></div>
         <div class="proposta-linha"><span>Participação em programas ao vivo</span><span class="proposta-val">✓</span></div>
-        <div class="proposta-linha"><span>Lançamento da marca própria de peças na TV</span><span class="proposta-val">✓</span></div>
+        <div class="proposta-linha"><span>Estratégia de expansão integrada à marca GS</span><span class="proposta-val">✓</span></div>
         <div class="proposta-total">
           <span>TOTAL MENSAL</span>
           <span>R$19.000/mês</span>
@@ -458,7 +439,7 @@ body {
         </div>
       </div>
 
-      <div class="silencio">APRESENTOU O PREÇO — SILÊNCIO TOTAL.<br>NÃO JUSTIFIQUE. NÃO COMPLETE.</div>
+      <div class="silencio">APRESENTOU O PREÇO.<br>SILÊNCIO TOTAL.<br>NÃO JUSTIFIQUE. NÃO COMPLETE.</div>
     </div>
   </div>
 
@@ -474,32 +455,46 @@ body {
 
       <div class="obj">
         <div class="obj-q" onclick="toggleObj(this)">"Tá caro."</div>
-        <div class="obj-a">"É o mesmo valor que você pagou pelas 3 agências juntas que não trouxeram resultado. A diferença é que aqui você tem TV, Google e exclusividade — e eu tenho interesse que você cresça porque minha reputação depende do seu resultado."</div>
+        <div class="obj-a">
+          <div class="obj-origin">⚠ objeção esperada — já surgiu indiretamente na primeira reunião</div>
+          "É o mesmo valor que você pagou pelas agências que não trouxeram resultado. A diferença é que aqui você tem TV, exclusividade de região, e eu tenho interesse direto no seu crescimento — porque você é meu case."
+        </div>
       </div>
 
       <div class="obj">
         <div class="obj-q" onclick="toggleObj(this)">"Preciso pensar."</div>
-        <div class="obj-a">"Claro. O que especificamente você precisa avaliar? Porque se for o investimento, eu posso mostrar o retorno esperado. Se for confiança na entrega, posso te mostrar o case do Rio agora."</div>
+        <div class="obj-a">"Claro. O que especificamente você precisa avaliar? Se for o investimento, posso mostrar o retorno esperado. Se for confiança na entrega, a gente pode começar pelo Canal a R$6.500 — você vê o resultado em 60 dias antes de escalar."</div>
       </div>
 
       <div class="obj">
         <div class="obj-q" onclick="toggleObj(this)">"Me dá um desconto."</div>
-        <div class="obj-a">"Desconto não tenho. O que posso fazer é começar pelo Canal a R$6.500 nos 2 primeiros meses pra você ver o resultado na prática. Mas a exclusividade de Kennedy e Marataízes juntas só garanto pra quem fechar hoje."</div>
+        <div class="obj-a">"Desconto não tenho — o valor é pelo posicionamento, não pelos serviços. O que posso fazer é começar pelo Canal nos 2 primeiros meses. Mas a exclusividade automotiva de Kennedy e Marataízes juntas só garanto pra quem fechar hoje."</div>
       </div>
 
       <div class="obj">
-        <div class="obj-q" onclick="toggleObj(this)">"Já tive agência e não funcionou."</div>
-        <div class="obj-a">"Eu sei. Por isso comecei perguntando o que aconteceu. Agência faz post. Nós fazemos TV — e TV cria autoridade que Instagram não consegue. São produtos diferentes."</div>
+        <div class="obj-q" onclick="toggleObj(this)">"O Instagram já tá bom, não vou mudar."</div>
+        <div class="obj-a">
+          <div class="obj-origin">⚠ surgiu na primeira reunião — use essa resposta</div>
+          "O Instagram de vocês fica como está — é de vocês. O que a gente vai criar é separado, pra rede. Um canal institucional da GS como marca. Não cancela nada que já existe."
+        </div>
+      </div>
+
+      <div class="obj">
+        <div class="obj-q" onclick="toggleObj(this)">"Mas e o projeto do pneu usado, entra nisso?"</div>
+        <div class="obj-a">
+          <div class="obj-origin">⚠ ele vai perguntar — resposta pronta</div>
+          "Entra. Qualquer nova operação da GS já nasce dentro da estratégia da rede. Mas isso a gente detalha depois que a gente assina — porque o plano muda dependendo do que você decidir sobre o formato."
+        </div>
       </div>
 
       <div class="obj">
         <div class="obj-q" onclick="toggleObj(this)">"Vou chamar outra proposta pra comparar."</div>
-        <div class="obj-a">"Faz sentido comparar. Mas não vai achar outra TV no Sul do ES. Rádio, outdoor, agência digital — nenhum chega em 40 mil pessoas com o impacto que a TV tem. Quando quiser comparar, me chama que apresento o diferencial lado a lado."</div>
+        <div class="obj-a">"Faz sentido. Mas não vai achar outra TV no Sul do ES. Rádio, digital, outdoor — nenhum cria autoridade de marca como a TV. E exclusividade automotiva regional é única. Quando quiser comparar lado a lado, me chama."</div>
       </div>
 
       <div class="obj">
-        <div class="obj-q" onclick="toggleObj(this)">O GERENTE TRAVA (fala pro dono diretamente):</div>
-        <div class="obj-a">"[Nome do dono], você me disse que as 3 agências não trouxeram resultado. A pergunta não é se R$9.500 é caro — é se você pode se dar ao luxo de mais um ano sem autoridade de marca enquanto o Sul do ES cresce."</div>
+        <div class="obj-q" onclick="toggleObj(this)">O gerente trava — fala pro dono diretamente:</div>
+        <div class="obj-a">"[Nome do dono], você me disse que já pagou por agências que não trouxeram resultado. A pergunta não é se R$9.500 é caro — é se você pode se dar ao luxo de mais um ano sem autoridade de marca enquanto o Sul do ES cresce."</div>
       </div>
     </div>
   </div>
@@ -508,17 +503,34 @@ body {
   <div id="fechamento" class="bloco">
     <div class="bloco-header">
       <span class="bloco-num">07</span>
-      <span class="bloco-titulo">FECHAMENTO</span>
+      <span class="bloco-titulo">FECHAMENTO — A PERGUNTA QUE FECHA</span>
       <span class="bloco-tempo">30–45 min</span>
     </div>
     <div class="bloco-body">
+      <div class="inst"><strong>Quando sentir que ele está pronto, faz a pergunta:</strong></div>
+
       <div class="fala">
-        "O que você precisa pra fechar aqui na quarta?"
+        <div class="fala-tag">✦ a pergunta de fechamento</div>
+        "O que você precisa pra fechar aqui hoje?"
       </div>
-      <div class="silencio">SILÊNCIO ABSOLUTO. QUEM FALAR PRIMEIRO PERDE.</div>
-      <div class="inst"><strong>Se ele fechar:</strong> Parabéns, aperto de mão, já define a data da primeira gravação antes de sair da loja.</div>
-      <div class="inst"><strong>Se ele pedir prazo:</strong> "Tudo bem. Mas a exclusividade automotiva eu só consigo segurar até [data — máximo 48h]. Depois abre pra outros interessados."</div>
-      <div class="alerta"><strong>NUNCA saia da reunião sem uma data definida</strong> — seja de fechamento ou de follow-up com prazo claro.</div>
+
+      <div class="silencio">SILÊNCIO ABSOLUTO.<br>QUEM FALAR PRIMEIRO PERDE.</div>
+
+      <div class="inst"><strong>Se ele fechar:</strong> Aperto de mão. Define a data da primeira gravação antes de sair. Não saia sem isso.</div>
+
+      <div class="inst"><strong>Se ele pedir prazo:</strong></div>
+      <div class="fala">
+        <div class="fala-tag">✦ urgência real — sem pressão artificial</div>
+        "Tudo bem. Mas a exclusividade automotiva eu só consigo segurar por 48h — depois abre pra outros interessados da região."
+      </div>
+
+      <div class="alerta"><strong>NUNCA saia sem uma data.</strong> Fechamento ou follow-up com prazo definido. "A gente se fala" não existe.</div>
+
+      <div class="inst" style="margin-top:16px;"><strong>FRASE FINAL — se precisar de uma última virada:</strong></div>
+      <div class="fala">
+        <div class="fala-tag">✦ frase de encerramento</div>
+        "Depois de vocês, eu cobro 100 mil pra qualquer empresa do porte que aparecer. Vocês estão entrando no preço de quem ainda vai virar case — não no preço de quem já é."
+      </div>
     </div>
   </div>
 
@@ -530,6 +542,17 @@ function toggleObj(el) {
   const ans = el.nextElementSibling;
   ans.classList.toggle('show');
 }
+document.querySelectorAll('.check-item').forEach(item => {
+  item.addEventListener('click', function(e) {
+    if (e.target.tagName !== 'INPUT') {
+      const cb = this.querySelector('input');
+      cb.checked = !cb.checked;
+      this.classList.toggle('done', cb.checked);
+    } else {
+      this.classList.toggle('done', e.target.checked);
+    }
+  });
+});
 </script>
 
 </body>
