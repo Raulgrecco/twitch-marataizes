@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>D+ Chicken — Frango Frito Crocante · Marataízes ES · +12 mil pedidos</title>
+<meta name="description" content="D+ Chicken em Marataízes ES. Frango frito crocante por fora e suculento por dentro. +12 mil pedidos entregues. Av. Rubens Rangel, em frente à Academia Movimente-se. Peça online!">
+<link rel="canonical" href="https://tvmarataizes.digital/dmaischicken/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --black:   #080600;
+  --dark:    #0E0A00;
+  --dark2:   #140E00;
+  --dark3:   #1C1400;
+  --dark4:   #241A00;
+  --yellow:  #F5C000;
+  --yellow2: #FFD020;
+  --yellow3: #FFE060;
+  --orange:  #E06000;
+  --orange2: #F07820;
+  --red:     #C02010;
+  --red2:    #D83020;
+  --cream:   #FFF8E8;
+  --smoke:   #8A7040;
+  --white:   #FFFFFF;
+  --zap:     #25D366;
+
+  --f-hero:  'Bebas Neue', Impact, sans-serif;
+  --f-cond:  'Barlow Condensed', sans-serif;
+  --f-body:  'Barlow', sans-serif;
+  --ease:    cubic-bezier(.16,1,.3,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--black);
+  color:var(--white);
+  font-family:var(--f-body);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* grain */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
+  opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px;
+}
+
+/* ── TOPBAR ── */
+.topbar{
+  background:var(--yellow);
+  color:var(--black);
+  font-family:var(--f-cond);
+  font-size:12px;font-weight:800;letter-spacing:.08em;
+  padding:9px 32px;
+  display:flex;align-items:center;justify-content:center;
+  gap:24px;flex-wrap:wrap;
+}
+.topbar a{color:var(--red);font-weight:900;transition:color .2s}
+.topbar a:hover{color:var(--black)}
+.t-sep{width:1px;height:11px;background:rgba(0,0,0,.2);flex-shrink:0}
+
+/* ── HEADER ── */
+.header{
+  background:rgba(8,6,0,.97);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom:2px solid var(--yellow);
+  padding:0 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  height:76px;position:sticky;top:0;z-index:100;
+  transition:height .3s var(--ease),box-shadow .3s;
+}
+.logo-wrap{display:flex;align-items:center;gap:12px}
+.logo-img{
+  height:54px;width:auto;object-fit:contain;
+  filter:drop-shadow(0 0 16px rgba(245,192,0,.4));
+}
+.logo-text .name{
+  font-family:var(--f-hero);
+  font-size:26px;color:var(--yellow);
+  letter-spacing:.06em;line-height:1;
+}
+.logo-text .sub{
+  font-family:var(--f-cond);
+  font-size:9px;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--orange2);margin-top:3px;
+}
+.h-nav{display:flex;gap:32px;align-items:center}
+.h-nav a{
+  font-family:var(--f-cond);
+  font-size:12px;font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.4);transition:color .2s;
+}
+.h-nav a:hover{color:var(--yellow)}
+.btn-pedido{
+  background:var(--yellow);
+  color:var(--black);
+  padding:11px 22px;border-radius:2px;
+  font-family:var(--f-cond);
+  font-size:13px;font-weight:900;
+  letter-spacing:.1em;text-transform:uppercase;
+  display:flex;align-items:center;gap:8px;
+  transition:all .25s;
+  box-shadow:0 4px 20px rgba(245,192,0,.3);
+}
+.btn-pedido:hover{background:var(--yellow2);transform:translateY(-1px);box-shadow:0 8px 32px rgba(245,192,0,.5)}
+
+/* ── HERO ── */
+.hero{
+  position:relative;
+  min-height:100svh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  overflow:hidden;
+  background:var(--dark);
+}
+
+/* Yellow top stripe animated */
+.hero::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--red),var(--orange),var(--yellow),var(--yellow3),var(--yellow),var(--orange),var(--red));
+  z-index:10;
+  background-size:200% 100%;
+  animation:slideGrad 3s linear infinite;
+}
+@keyframes slideGrad{
+  from{background-position:0% 0%}
+  to{background-position:200% 0%}
+}
+
+/* LEFT */
+.hero-left{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  padding:80px 56px 80px 72px;
+  background:var(--dark);
+  overflow:hidden;
+}
+.hero-left::before{
+  content:'';position:absolute;
+  top:15%;left:-80px;
+  width:480px;height:480px;
+  background:radial-gradient(ellipse,rgba(245,192,0,.07) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+/* Big 🍗 watermark */
+.hero-wm{
+  position:absolute;
+  right:52%;bottom:20px;
+  font-size:clamp(120px,18vw,240px);
+  opacity:.06;pointer-events:none;user-select:none;line-height:1;
+}
+
+.hero-logo{
+  margin-bottom:28px;
+  opacity:0;animation:fadeUp .8s var(--ease) .15s forwards;
+}
+.hero-logo img{
+  height:100px;width:auto;object-fit:contain;
+  filter:drop-shadow(0 0 28px rgba(245,192,0,.4));
+}
+
+.hero-tag{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--f-cond);
+  font-size:10px;font-weight:800;
+  letter-spacing:.26em;text-transform:uppercase;
+  color:var(--yellow2);
+  border:1px solid rgba(245,192,0,.3);
+  padding:8px 18px;border-radius:1px;
+  margin-bottom:24px;width:fit-content;
+  opacity:0;animation:fadeUp .8s var(--ease) .3s forwards;
+}
+.tag-dot{
+  width:6px;height:6px;
+  background:var(--yellow);border-radius:50%;
+  animation:blink 1.2s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
+
+.hero h1{
+  font-family:var(--f-hero);
+  font-size:clamp(58px,8.5vw,120px);
+  color:var(--white);
+  line-height:.88;letter-spacing:.03em;
+  opacity:0;animation:fadeUp .9s var(--ease) .45s forwards;
+}
+.hero h1 .y{
+  display:block;
+  background:linear-gradient(135deg,var(--yellow),var(--yellow3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero h1 .r{
+  display:block;
+  color:var(--red2);
+  font-size:.65em;
+  font-family:var(--f-cond);
+  font-weight:900;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  -webkit-text-fill-color:var(--red2);
+  background:none;
+  margin-top:12px;
+}
+
+/* Badge +12mil */
+.hero-badge{
+  display:inline-flex;align-items:center;gap:16px;
+  background:rgba(245,192,0,.08);
+  border:1px solid rgba(245,192,0,.2);
+  padding:16px 22px;
+  margin:24px 0 28px;
+  opacity:0;animation:fadeUp .9s var(--ease) .6s forwards;
+}
+.hb-n{
+  font-family:var(--f-hero);
+  font-size:44px;
+  background:linear-gradient(135deg,var(--yellow),var(--yellow3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  line-height:1;
+}
+.hb-sep{width:1px;height:50px;background:rgba(255,255,255,.1)}
+.hb-t{
+  font-family:var(--f-cond);
+  font-size:13px;font-weight:700;
+  color:rgba(255,255,255,.55);line-height:1.5;
+}
+.hb-t strong{color:var(--yellow2);font-weight:900;display:block;font-size:15px}
+
+.hero-desc{
+  font-family:var(--f-cond);
+  font-size:17px;font-weight:400;
+  color:rgba(255,255,255,.42);
+  line-height:1.8;max-width:440px;
+  margin-bottom:32px;
+  opacity:0;animation:fadeUp .9s var(--ease) .74s forwards;
+}
+.hero-desc strong{color:var(--yellow2);font-weight:700}
+
+.hero-pills{
+  display:flex;gap:8px;flex-wrap:wrap;
+  margin-bottom:32px;
+  opacity:0;animation:fadeUp .9s var(--ease) .86s forwards;
+}
+.pill{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(245,192,0,.08);
+  border:1px solid rgba(245,192,0,.2);
+  color:var(--yellow2);
+  font-family:var(--f-cond);
+  font-size:12px;font-weight:800;
+  padding:7px 14px;border-radius:100px;
+  letter-spacing:.06em;text-transform:uppercase;
+  transition:background .2s;
+}
+.pill:hover{background:rgba(245,192,0,.18)}
+
+.hero-btns{
+  display:flex;gap:12px;flex-wrap:wrap;
+  opacity:0;animation:fadeUp .9s var(--ease) .98s forwards;
+}
+.btn-p{
+  background:var(--yellow);color:var(--black);
+  padding:16px 32px;border-radius:2px;
+  font-family:var(--f-cond);
+  font-size:14px;font-weight:900;
+  letter-spacing:.1em;text-transform:uppercase;
+  display:flex;align-items:center;gap:10px;
+  transition:all .25s;
+  box-shadow:0 6px 32px rgba(245,192,0,.3);
+}
+.btn-p:hover{background:var(--yellow2);transform:translateY(-2px);box-shadow:0 10px 42px rgba(245,192,0,.5)}
+.btn-g{
+  border:1px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.55);
+  padding:16px 24px;border-radius:2px;
+  font-family:var(--f-cond);
+  font-size:13px;font-weight:700;
+  letter-spacing:.07em;text-transform:uppercase;
+  display:flex;align-items:center;gap:8px;
+  transition:all .25s;
+}
+.btn-g:hover{border-color:rgba(245,192,0,.4);color:var(--yellow2)}
+
+/* RIGHT — photos */
+.hero-right{position:relative;overflow:hidden}
+.hero-grid{
+  position:absolute;inset:0;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;
+  gap:3px;
+}
+.hg{overflow:hidden;background:var(--dark3)}
+.hg img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .8s var(--ease),filter .5s;
+  display:block;
+  filter:saturate(.85) brightness(.75);
+}
+.hg:hover img{transform:scale(1.06);filter:saturate(1.05) brightness(.9)}
+.hg.wide{grid-column:span 2}
+.hero-right::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to right,var(--dark) 0%,transparent 14%),
+             linear-gradient(to top,rgba(8,6,0,.65) 0%,transparent 35%);
+  z-index:2;pointer-events:none;
+}
+.hero-right::after{
+  content:'';position:absolute;
+  top:10%;bottom:10%;right:0;width:3px;
+  background:linear-gradient(to bottom,transparent,var(--yellow),transparent);
+  opacity:.5;
+}
+
+/* ── MARQUEE ── */
+.marquee{
+  background:var(--yellow);
+  overflow:hidden;padding:13px 0;white-space:nowrap;
+}
+.mq-track{display:inline-flex;animation:mq 18s linear infinite}
+.mq-item{
+  font-family:var(--f-cond);
+  font-size:12px;font-weight:900;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--black);
+  padding:0 28px;
+  display:inline-flex;align-items:center;gap:10px;
+}
+.mq-item::after{content:'🍗';font-size:12px}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── DIFERENCIAIS ── */
+.dif-sec{background:var(--dark2);position:relative}
+.dif-sec::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--yellow),transparent);
+}
+.dif-inner{
+  max-width:1280px;margin:0 auto;
+  padding:80px 64px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:2px;
+}
+.dif-card{
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.04);
+  padding:36px 24px;
+  transition:background .3s,border-color .3s;
+  position:relative;overflow:hidden;
+}
+.dif-card::after{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--red),var(--orange),var(--yellow));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .4s var(--ease);
+}
+.dif-card:hover{background:rgba(245,192,0,.05);border-color:rgba(245,192,0,.14)}
+.dif-card:hover::after{transform:scaleX(1)}
+.dif-ico{
+  font-size:32px;
+  width:56px;height:56px;
+  background:rgba(245,192,0,.08);
+  border:1px solid rgba(245,192,0,.15);
+  border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:18px;
+}
+.dif-title{
+  font-family:var(--f-cond);
+  font-size:17px;font-weight:900;
+  color:var(--white);letter-spacing:.05em;text-transform:uppercase;
+  margin-bottom:8px;
+}
+.dif-desc{
+  font-size:13px;
+  color:rgba(255,255,255,.35);
+  line-height:1.75;font-weight:300;
+}
+
+/* ── GALERIA ── */
+.gal-sec{background:var(--dark3);position:relative}
+.gal-sec::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--orange),transparent);
+}
+.gal-head{
+  max-width:1280px;margin:0 auto;
+  padding:80px 64px 40px;
+  display:flex;align-items:flex-end;
+  justify-content:space-between;gap:32px;flex-wrap:wrap;
+}
+.sl{
+  display:block;font-family:var(--f-cond);
+  font-size:10px;font-weight:800;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--yellow);margin-bottom:12px;
+}
+.st{
+  font-family:var(--f-hero);
+  font-size:clamp(36px,5vw,68px);
+  color:var(--white);line-height:.95;letter-spacing:.03em;
+}
+.st em{
+  background:linear-gradient(135deg,var(--yellow),var(--yellow3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;font-style:normal;
+}
+.sb{
+  font-family:var(--f-cond);
+  font-size:16px;color:rgba(255,255,255,.38);
+  line-height:1.8;max-width:480px;
+}
+.gal-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  grid-template-rows:300px 300px;
+  gap:3px;
+}
+.gal{overflow:hidden;position:relative;background:var(--dark4);cursor:zoom-in}
+.gal img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .75s var(--ease),filter .5s;
+  display:block;filter:saturate(.85) brightness(.8);
+}
+.gal:hover img{transform:scale(1.08);filter:saturate(1.1) brightness(.95)}
+.gal.tall{grid-row:span 2}
+.g-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(8,6,0,.8) 0%,transparent 55%);
+  opacity:0;transition:opacity .4s;
+}
+.gal:hover .g-ov{opacity:1}
+.g-cap{
+  position:absolute;bottom:18px;left:20px;
+  opacity:0;transform:translateY(8px);
+  transition:all .4s var(--ease);
+}
+.gal:hover .g-cap{opacity:1;transform:translateY(0)}
+.g-cap span{
+  font-family:var(--f-cond);
+  font-size:11px;font-weight:900;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--yellow2);
+}
+
+/* ── SOBRE / DONA ── */
+.sobre-sec{background:var(--dark);position:relative;overflow:hidden}
+.sobre-sec::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--red),var(--orange),var(--yellow),var(--orange),var(--red));
+}
+.sobre-sec::after{
+  content:'🍗';
+  position:absolute;right:-30px;top:50%;
+  transform:translateY(-50%);
+  font-size:360px;opacity:.04;
+  pointer-events:none;user-select:none;line-height:1;
+}
+.sobre-inner{
+  max-width:1280px;margin:0 auto;
+  padding:100px 64px;
+  display:grid;
+  grid-template-columns:420px 1fr;
+  gap:96px;align-items:center;
+}
+.sobre-img-col{position:relative}
+.sobre-frame{position:relative;display:inline-block}
+.sobre-img{
+  width:380px;height:480px;
+  object-fit:cover;object-position:top center;
+  display:block;position:relative;z-index:1;
+  filter:saturate(.9) brightness(.85);
+}
+.sobre-border{
+  position:absolute;
+  top:16px;left:16px;right:-16px;bottom:-16px;
+  border:2px solid rgba(245,192,0,.2);
+  z-index:0;pointer-events:none;
+}
+.sobre-badge{
+  position:absolute;
+  bottom:-28px;right:-28px;
+  background:var(--yellow);
+  color:var(--black);
+  padding:18px 22px;
+  text-align:center;z-index:2;
+  box-shadow:0 12px 36px rgba(245,192,0,.35);
+}
+.sobre-badge-n{
+  font-family:var(--f-hero);
+  font-size:36px;line-height:1;display:block;
+}
+.sobre-badge-t{
+  font-family:var(--f-cond);
+  font-size:9px;font-weight:900;
+  letter-spacing:.16em;text-transform:uppercase;
+  display:block;margin-top:3px;opacity:.8;
+}
+
+.sobre-desc{
+  font-family:var(--f-cond);
+  font-size:16px;font-weight:400;
+  color:rgba(255,255,255,.42);
+  line-height:1.85;margin-bottom:18px;
+}
+.sobre-quote{
+  margin:32px 0;padding:24px 28px;
+  border-left:4px solid var(--yellow);
+  background:rgba(245,192,0,.05);position:relative;
+}
+.sobre-quote::before{
+  content:'"';
+  font-family:var(--f-hero);
+  font-size:100px;color:var(--yellow);
+  opacity:.12;
+  position:absolute;top:-18px;left:14px;line-height:1;
+}
+.sobre-quote p{
+  font-family:var(--f-cond);
+  font-size:18px;font-style:italic;font-weight:700;
+  color:rgba(255,255,255,.82);
+  line-height:1.65;position:relative;z-index:1;
+  text-transform:uppercase;letter-spacing:.04em;
+}
+.sobre-quote cite{
+  display:block;font-family:var(--f-cond);
+  font-size:9px;font-weight:800;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--yellow);margin-top:12px;font-style:normal;
+}
+
+/* ── CONTATO ── */
+.ct-sec{background:var(--dark2);position:relative}
+.ct-sec::before{
+  content:'';display:block;height:3px;
+  background:linear-gradient(90deg,var(--red),var(--orange),var(--yellow),var(--orange),var(--red));
+}
+.ct-inner{
+  max-width:1280px;margin:0 auto;
+  padding:88px 64px;
+  display:grid;grid-template-columns:1fr 380px;
+  gap:72px;align-items:start;
+}
+.info-cards{display:flex;flex-direction:column;gap:2px;margin-top:40px}
+.ic{
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.05);
+  padding:22px 26px;
+  display:grid;grid-template-columns:50px 1fr;
+  gap:18px;align-items:center;
+  transition:border-color .25s;position:relative;
+}
+.ic::before{
+  content:'';position:absolute;
+  left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(to bottom,var(--yellow),var(--orange));
+  transform:scaleY(0);transform-origin:bottom;
+  transition:transform .35s var(--ease);
+}
+.ic:hover{border-color:rgba(245,192,0,.2)}
+.ic:hover::before{transform:scaleY(1)}
+.i-ico{
+  width:50px;height:50px;
+  background:rgba(245,192,0,.08);
+  border:1px solid rgba(245,192,0,.15);
+  color:var(--yellow2);
+  border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+}
+.i-lbl{
+  font-family:var(--f-cond);
+  font-size:9px;font-weight:800;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--smoke);margin-bottom:5px;
+}
+.i-val{
+  font-family:var(--f-cond);
+  font-size:15px;font-weight:600;
+  color:var(--white);line-height:1.65;
+}
+.i-val small{font-size:12px;color:var(--smoke);font-weight:400;font-family:var(--f-body)}
+.i-val a{color:var(--white)}
+
+/* CTA Box */
+.cta-box{
+  background:var(--yellow);
+  padding:44px 36px;
+  position:sticky;top:88px;
+  border-top:3px solid var(--orange);
+}
+.cta-tag{
+  font-family:var(--f-cond);
+  font-size:9px;font-weight:900;
+  letter-spacing:.26em;text-transform:uppercase;
+  color:rgba(0,0,0,.4);
+  display:block;margin-bottom:16px;
+}
+.cta-title{
+  font-family:var(--f-hero);
+  font-size:42px;color:var(--black);
+  line-height:.95;letter-spacing:.03em;
+  margin-bottom:10px;
+}
+.cta-sub{
+  font-family:var(--f-cond);
+  font-size:14px;color:rgba(0,0,0,.55);
+  line-height:1.8;margin-bottom:28px;font-weight:600;
+}
+.btn-wpp{
+  background:var(--zap);color:var(--white);
+  padding:16px 20px;border-radius:2px;
+  font-family:var(--f-cond);
+  font-size:14px;font-weight:900;
+  letter-spacing:.08em;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:all .25s;
+  box-shadow:0 4px 24px rgba(37,211,102,.25);
+  margin-bottom:10px;
+}
+.btn-wpp:hover{opacity:.9;transform:translateY(-2px)}
+.btn-site{
+  background:var(--black);color:var(--yellow);
+  padding:14px 20px;border-radius:2px;
+  font-family:var(--f-cond);
+  font-size:13px;font-weight:900;
+  letter-spacing:.08em;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:all .25s;
+}
+.btn-site:hover{background:var(--dark2)}
+.btn-ig{
+  border:1.5px solid rgba(0,0,0,.2);
+  color:rgba(0,0,0,.6);
+  padding:13px 20px;border-radius:2px;
+  font-family:var(--f-cond);
+  font-size:12px;font-weight:800;
+  letter-spacing:.08em;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:all .25s;margin-top:10px;
+}
+.btn-ig:hover{border-color:rgba(0,0,0,.5);color:var(--black)}
+.cta-note{
+  font-family:var(--f-cond);
+  font-size:10px;color:rgba(0,0,0,.35);
+  margin-top:18px;line-height:1.7;text-align:center;letter-spacing:.05em;
+}
+
+/* ── MAPA ── */
+.mapa{height:360px;overflow:hidden;position:relative}
+.mapa::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--red),var(--orange),var(--yellow),var(--orange),var(--red));
+  z-index:1;
+}
+.mapa iframe{
+  width:100%;height:100%;border:0;display:block;
+  filter:saturate(.4) hue-rotate(20deg) brightness(.6);
+}
+
+/* ── TV BANNER ── */
+.tv-banner{
+  background:var(--black);
+  border-top:1px solid rgba(255,255,255,.04);
+  padding:52px 48px;text-align:center;
+}
+.tv-banner p{
+  font-family:var(--f-cond);
+  font-size:9px;font-weight:800;
+  letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(255,255,255,.2);margin-bottom:10px;
+}
+.tv-banner h3{
+  font-family:var(--f-hero);
+  font-size:20px;
+  color:rgba(255,255,255,.4);
+  margin-bottom:26px;line-height:1.4;letter-spacing:.06em;
+}
+.tv-links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.tv-links a{
+  font-family:var(--f-cond);
+  font-size:11px;font-weight:700;letter-spacing:.06em;
+  color:rgba(255,255,255,.3);
+  border:1px solid rgba(255,255,255,.08);
+  padding:10px 22px;border-radius:1px;transition:all .25s;
+}
+.tv-links a:hover{color:var(--white);border-color:rgba(255,255,255,.28)}
+
+/* ── FOOTER ── */
+.footer{
+  background:var(--black);
+  color:rgba(255,255,255,.18);
+  text-align:center;padding:28px;
+  font-family:var(--f-cond);
+  font-size:11px;line-height:1.9;letter-spacing:.04em;
+  border-top:1px solid rgba(255,255,255,.03);
+}
+.footer strong{color:var(--yellow2)}
+.footer a{color:rgba(255,255,255,.28)}
+.footer a:hover{color:rgba(255,255,255,.55)}
+
+/* ── FLOAT ── */
+.f-wpp{
+  position:fixed;bottom:28px;right:28px;z-index:998;
+  background:var(--zap);color:var(--white);
+  width:62px;height:62px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px;
+  box-shadow:0 6px 30px rgba(37,211,102,.38);
+  transition:transform .25s var(--ease),box-shadow .25s;
+  text-decoration:none;
+}
+.f-wpp:hover{transform:scale(1.1) translateY(-2px);box-shadow:0 12px 42px rgba(37,211,102,.5)}
+.f-pulse{
+  position:fixed;bottom:28px;right:28px;z-index:997;
+  width:62px;height:62px;border-radius:50%;
+  background:var(--zap);opacity:0;
+  animation:pulse 2.5s ease-out 2.5s infinite;pointer-events:none;
+}
+@keyframes pulse{0%{transform:scale(1);opacity:.4}100%{transform:scale(2.3);opacity:0}}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(22px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  .hero{grid-template-columns:1fr;min-height:100svh}
+  .hero-right{display:none}
+  .hero-left{padding:72px 36px 88px;justify-content:flex-end;min-height:100svh}
+  .dif-inner{grid-template-columns:repeat(2,1fr);padding-left:24px;padding-right:24px}
+  .sobre-inner{grid-template-columns:1fr;gap:56px}
+  .sobre-img{width:100%;height:380px}
+  .sobre-badge{right:12px;bottom:-20px}
+  .ct-inner{grid-template-columns:1fr}
+  .cta-box{position:static}
+  .gal-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .gal.tall{grid-row:span 1}
+  .gal img{height:250px;min-height:unset}
+}
+@media(max-width:768px){
+  .header{padding:0 20px}
+  .h-nav{display:none}
+  .topbar{gap:12px;font-size:10px;padding:8px 16px}
+  .t-sep{display:none}
+  .hero-left{padding:56px 24px 72px}
+  .hero-logo img{height:80px}
+  .gal-head,.sobre-inner,.ct-inner,.dif-inner{padding-left:24px;padding-right:24px}
+}
+@media(max-width:560px){
+  .hero h1{font-size:58px}
+  .hero-btns{flex-direction:column}
+  .gal-grid{grid-template-columns:1fr}
+  .gal img{height:220px}
+  .dif-inner{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <span>🍗 +12 MIL PEDIDOS ENTREGUES COM EXCELÊNCIA</span>
+  <span class="t-sep"></span>
+  <span>📍 Av. Rubens Rangel — Em frente à Academia Movimente-se · Marataízes</span>
+  <span class="t-sep"></span>
+  <span>🌐 <a href="https://dmaischickenfrito.com.br" target="_blank">dmaischickenfrito.com.br</a></span>
+</div>
+
+<!-- HEADER -->
+<header class="header" id="topo">
+  <div class="logo-wrap">
+    <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/chlogo.png"
+         alt="D+ Chicken" class="logo-img"
+         onerror="this.style.display='none'">
+    <div class="logo-text">
+      <div class="name">D+ Chicken</div>
+      <div class="sub">Frango Frito · Marataízes ES</div>
+    </div>
+  </div>
+  <nav class="h-nav">
+    <a href="#galeria">Fotos</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#contato">Contato</a>
+  </nav>
+  <a href="https://dmaischickenfrito.com.br" target="_blank" rel="noopener" class="btn-pedido">
+    🍗 Pedir Online
+  </a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-logo">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/chlogo.png" alt="D+ Chicken">
+    </div>
+
+    <div class="hero-tag">
+      <span class="tag-dot"></span>
+      Guia Digital · TV Marataízes
+    </div>
+
+    <h1>
+      Frango
+      <span class="y">Frito</span>
+      <span class="r">🍗 Crocante Por Fora · Suculento Por Dentro</span>
+    </h1>
+
+    <div class="hero-badge">
+      <div>
+        <span class="hb-n">+12mil</span>
+      </div>
+      <div class="hb-sep"></div>
+      <p class="hb-t">
+        <strong>pedidos entregues</strong>
+        com excelência em Marataízes
+      </p>
+    </div>
+
+    <p class="hero-desc">
+      <strong>Crocante por fora, suculento por dentro.</strong> O frango frito que Marataízes aprovou — peça online e receba em casa ou venha buscar!
+    </p>
+
+    <div class="hero-pills">
+      <span class="pill">🍗 Frango Frito</span>
+      <span class="pill">🏆 +12mil Pedidos</span>
+      <span class="pill">🛵 Delivery</span>
+      <span class="pill">📍 Marataízes</span>
+    </div>
+
+    <div class="hero-btns">
+      <a href="https://dmaischickenfrito.com.br" target="_blank" rel="noopener" class="btn-p">
+        🍗 Pedir Online Agora
+      </a>
+      <a href="#galeria" class="btn-g">Ver o cardápio →</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-grid">
+      <div class="hg wide">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ch1.png" alt="D+ Chicken frango frito">
+      </div>
+      <div class="hg">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ch2.png" alt="D+ Chicken crocante">
+      </div>
+      <div class="hg">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ch3.png" alt="D+ Chicken combo">
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-wm" aria-hidden="true">🍗</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="mq-track">
+    <span class="mq-item">Frango Frito</span>
+    <span class="mq-item">Crocante</span>
+    <span class="mq-item">Suculento</span>
+    <span class="mq-item">+12mil Pedidos</span>
+    <span class="mq-item">Delivery</span>
+    <span class="mq-item">Marataízes ES</span>
+    <span class="mq-item">D+ Chicken</span>
+    <span class="mq-item">Peça Online</span>
+    <span class="mq-item">Frango Frito</span>
+    <span class="mq-item">Crocante</span>
+    <span class="mq-item">Suculento</span>
+    <span class="mq-item">+12mil Pedidos</span>
+    <span class="mq-item">Delivery</span>
+    <span class="mq-item">Marataízes ES</span>
+    <span class="mq-item">D+ Chicken</span>
+    <span class="mq-item">Peça Online</span>
+  </div>
+</div>
+
+<!-- DIFERENCIAIS -->
+<div class="dif-sec">
+  <div class="dif-inner">
+    <div class="dif-card reveal">
+      <div class="dif-ico">🍗</div>
+      <div class="dif-title">Crocante por Fora</div>
+      <div class="dif-desc">A casquinha perfeita — crocante, dourada e irresistível. O resultado de uma técnica que a D+ domina</div>
+    </div>
+    <div class="dif-card reveal d1">
+      <div class="dif-ico">💧</div>
+      <div class="dif-title">Suculento por Dentro</div>
+      <div class="dif-desc">Frango macio e cheio de sabor por dentro. A combinação perfeita que faz todo mundo pedir de novo</div>
+    </div>
+    <div class="dif-card reveal d2">
+      <div class="dif-ico">🏆</div>
+      <div class="dif-title">+12 Mil Pedidos</div>
+      <div class="dif-desc">Mais de 12 mil pedidos entregues com excelência — a aprovação de Marataízes fala por si só</div>
+    </div>
+    <div class="dif-card reveal d3">
+      <div class="dif-ico">🛵</div>
+      <div class="dif-title">Peça Online</div>
+      <div class="dif-desc">Delivery rápido pelo site — seu frango frito chega crocante e quentinho onde você estiver</div>
+    </div>
+  </div>
+</div>
+
+<!-- GALERIA -->
+<section class="gal-sec" id="galeria">
+  <div class="gal-head">
+    <div class="reveal">
+      <span class="sl">Nosso cardápio</span>
+      <div class="st">Frango frito <em>de verdade</em></div>
+      <p class="sb" style="margin-top:14px">Veja por que a D+ Chicken acumulou mais de 12 mil pedidos em Marataízes.</p>
+    </div>
+    <a href="https://dmaischickenfrito.com.br" target="_blank" rel="noopener" class="btn-p reveal" style="flex-shrink:0">
+      🍗 Pedir agora
+    </a>
+  </div>
+  <div class="gal-grid">
+    <div class="gal tall">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ch1.png" alt="D+ Chicken destaque">
+      <div class="g-ov"></div>
+      <div class="g-cap"><span>Frango Frito</span></div>
+    </div>
+    <div class="gal">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ch2.png" alt="Crocante">
+      <div class="g-ov"></div>
+      <div class="g-cap"><span>Crocante</span></div>
+    </div>
+    <div class="gal">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ch3.png" alt="Combo D+">
+      <div class="g-ov"></div>
+      <div class="g-cap"><span>Combo</span></div>
+    </div>
+    <div class="gal">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ch4.png" alt="D+ Chicken pedido">
+      <div class="g-ov"></div>
+      <div class="g-cap"><span>Pedido</span></div>
+    </div>
+    <div class="gal">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ch6.png" alt="D+ Chicken variedade">
+      <div class="g-ov"></div>
+      <div class="g-cap"><span>Variedade</span></div>
+    </div>
+  </div>
+  <!-- Segunda linha -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin-top:3px">
+    <div class="gal" style="height:200px">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ch7.png" alt="D+ Chicken sabor">
+      <div class="g-ov"></div>
+      <div class="g-cap"><span>Sabor</span></div>
+    </div>
+    <div class="gal" style="height:200px">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ch5.png" alt="D+ Chicken prato">
+      <div class="g-ov"></div>
+      <div class="g-cap"><span>Prato Completo</span></div>
+    </div>
+    <div class="gal" style="height:200px;background:var(--dark);display:flex;align-items:center;justify-content:center;">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/chlogo.png"
+           alt="D+ Chicken logo"
+           style="object-fit:contain;padding:24px;height:160px;width:auto;filter:drop-shadow(0 0 20px rgba(245,192,0,.4))">
+      <div class="g-ov"></div>
+      <div class="g-cap"><span>D+ Chicken</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE / DONA -->
+<section class="sobre-sec" id="sobre">
+  <div class="sobre-inner">
+    <div class="sobre-img-col reveal">
+      <div class="sobre-frame">
+        <div class="sobre-border"></div>
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/chodono.png"
+             alt="D+ Chicken — Dona"
+             class="sobre-img"
+             onerror="this.src='https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ch1.png'">
+        <div class="sobre-badge">
+          <span class="sobre-badge-n">+12k</span>
+          <span class="sobre-badge-t">pedidos entregues</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal d2">
+      <span class="sl">Quem está por trás</span>
+      <div class="st">A <em>D+ Chicken</em><br>e a excelência</div>
+      <p class="sobre-desc" style="margin-top:24px">
+        A D+ Chicken nasceu do compromisso de entregar o melhor frango frito de Marataízes — crocante por fora, suculento por dentro, sempre com excelência. Mais de 12 mil pedidos depois, a história se conta sozinha.
+      </p>
+      <p class="sobre-desc">
+        Com atendimento online, delivery rápido e um cardápio que agrada todo mundo, a D+ virou referência na cidade. Cada pedido é preparado com o mesmo cuidado do primeiro.
+      </p>
+      <div class="sobre-quote">
+        <p>Frango frito crocante por fora e suculento por dentro — +12 mil pedidos entregues com excelência.</p>
+        <cite>— D+ Chicken · Marataízes ES</cite>
+      </div>
+      <a href="https://dmaischickenfrito.com.br" target="_blank" rel="noopener" class="btn-p" style="display:inline-flex">
+        🍗 Fazer meu pedido →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="ct-sec" id="contato">
+  <div class="ct-inner">
+    <div>
+      <div class="reveal">
+        <span class="sl">Onde estamos</span>
+        <div class="st">Fácil de <em>encontrar</em></div>
+        <p class="sb" style="margin-top:14px">Em frente à Academia Movimente-se, ao lado da 40 Sabores — na Av. Rubens Rangel, Marataízes.</p>
+      </div>
+      <div class="info-cards">
+        <div class="ic reveal">
+          <div class="i-ico">📍</div>
+          <div>
+            <div class="i-lbl">Endereço</div>
+            <div class="i-val">Avenida Rubens Rangel<br>Em frente à Academia Movimente-se<br><small>Ao lado da 40 Sabores · Marataízes ES</small></div>
+          </div>
+        </div>
+        <div class="ic reveal d1">
+          <div class="i-ico">🌐</div>
+          <div>
+            <div class="i-lbl">Pedido Online</div>
+            <div class="i-val">
+              <a href="https://dmaischickenfrito.com.br" target="_blank" rel="noopener">dmaischickenfrito.com.br</a><br>
+              <small>Peça online e receba em casa</small>
+            </div>
+          </div>
+        </div>
+        <div class="ic reveal d2">
+          <div class="i-ico">📸</div>
+          <div>
+            <div class="i-lbl">Instagram</div>
+            <div class="i-val">
+              <a href="https://www.instagram.com/dmaischickenfrito" target="_blank" rel="noopener">@dmaischickenfrito</a><br>
+              <small>5.648 seguidores · 341 publicações</small>
+            </div>
+          </div>
+        </div>
+        <div class="ic reveal d3">
+          <div class="i-ico">🏆</div>
+          <div>
+            <div class="i-lbl">Conquista</div>
+            <div class="i-val">+12 mil pedidos entregues<br><small>Com excelência em Marataízes ES</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-box reveal">
+      <span class="cta-tag">Bora pedir?</span>
+      <div class="cta-title">Com fome de frango?</div>
+      <p class="cta-sub">Peça online pelo site e receba seu frango frito crocante em casa. Rápido, fácil e delicioso!</p>
+      <a href="https://dmaischickenfrito.com.br" target="_blank" rel="noopener" class="btn-site">
+        🍗 Pedir em dmaischickenfrito.com.br
+      </a>
+      <a href="https://wa.me/5528999769290" target="_blank" rel="noopener" class="btn-wpp" style="margin-top:10px">
+        💬 WhatsApp
+      </a>
+      <a href="https://www.instagram.com/dmaischickenfrito" target="_blank" rel="noopener" class="btn-ig">
+        📸 Ver no Instagram
+      </a>
+      <p class="cta-note">Av. Rubens Rangel · Em frente à Academia Movimente-se · Marataízes ES</p>
+    </div>
+  </div>
+</section>
+
+<!-- MAPA -->
+<div class="mapa">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3738.8!2d-40.8220!3d-21.0220!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zRCsgQ2hpY2tlbg!5e0!3m2!1spt-BR!2sbr!4v1713900000"
+    allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+    title="D+ Chicken — Marataízes ES">
+  </iframe>
+</div>
+
+<!-- TV BANNER -->
+<div class="tv-banner">
+  <p>Página exclusiva no Guia da</p>
+  <h3>TV MARATAÍZES · CANAL 300 SOUL TV · O MAIOR PORTAL DIGITAL DO SUL DO ES</h3>
+  <div class="tv-links">
+    <a href="https://www.tvmarataizes.digital/">Portal TV Marataízes</a>
+    <a href="https://tvmarataizes.digital/anunciar">Quero minha página exclusiva</a>
+    <a href="https://wa.me/5528999036141">Falar com a TV — (28) 99903-6141</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>
+    <strong>D+ Chicken</strong> · Frango Frito Crocante · Av. Rubens Rangel — Em frente à Academia Movimente-se · Marataízes ES<br>
+    <a href="https://dmaischickenfrito.com.br" target="_blank">dmaischickenfrito.com.br</a> · <a href="https://www.instagram.com/dmaischickenfrito" target="_blank">@dmaischickenfrito</a><br>
+    Página produzida pela <a href="https://www.tvmarataizes.digital/">TV Marataízes</a> · Canal 300 Soul TV · Guia Digital do Sul do ES
+  </p>
+</footer>
+
+<!-- FLOAT -->
+<div class="f-pulse"></div>
+<a href="https://dmaischickenfrito.com.br" target="_blank" rel="noopener" class="f-wpp"
+   aria-label="Pedir D+ Chicken online"
+   style="background:var(--yellow);box-shadow:0 6px 30px rgba(245,192,0,.4);font-size:22px;color:var(--black)">
+  🍗
+</a>
+
+<script>
+const io = new IntersectionObserver(e => {
+  e.forEach(x => { if(x.isIntersecting){x.target.classList.add('visible');io.unobserve(x.target)} });
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+const hdr = document.querySelector('.header');
+window.addEventListener('scroll',()=>{
+  if(window.scrollY>60){hdr.style.height='62px';hdr.style.boxShadow='0 2px 24px rgba(0,0,0,.8)'}
+  else{hdr.style.height='76px';hdr.style.boxShadow='none'}
+},{passive:true});
+</script>
+</body>
+</html>
