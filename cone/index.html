@@ -3,394 +3,1160 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Amor dentro do Cone — Cones Recheados em Marataízes | Entrega com Hora Marcada</title>
-<meta name="description" content="Cones recheados artesanais em Marataízes ES. Brigadeiro R$12,99 · Nutella R$13,99 · Combo 3 por R$37. Entrega com hora marcada em toda Marataízes. Peça pelo WhatsApp.">
-<meta name="robots" content="index, follow">
-<meta property="og:title" content="Amor dentro do Cone — Cones Recheados em Marataízes">
-<meta property="og:description" content="O cone mais gostoso de Marataízes. Entrega com hora marcada. A partir de R$12,99.">
-<meta property="og:image" content="https://tvmarataizes.digital/clima/brigadeiro.jpeg">
-<link rel="canonical" href="https://tvmarataizes.digital/cone">
+<title>Amor dentro do Cone — Cones Trufados Gourmet · Marataízes ES</title>
+<meta name="description" content="Amor dentro do Cone em Marataízes ES. Cones trufados gourmet artesanais — Brigadeiro, Maracujá, Ninho com Nutella e Beijinho. Peça pelo iFood ou WhatsApp com entrega marcada.">
+<link rel="canonical" href="https://tvmarataizes.digital/cone/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+
 <style>
-:root{
-  --brown:#3d1a00;
-  --caramel:#c8620a;
-  --cream:#fff8f0;
-  --gold:#f5a623;
-  --dark:#1a0a00;
-  --text:#2a1200;
-  --muted:#7a5a40;
-  --green:#25d366;
-  --white:#ffffff;
+:root {
+  --rose:     #C8768A;
+  --rose2:    #D98898;
+  --rose3:    #EAB4BE;
+  --blush:    #F5E0E6;
+  --blush2:   #FAF0F3;
+  --blush3:   #FEF8FA;
+  --gold:     #B89050;
+  --gold2:    #D4AE6A;
+  --gold3:    #EDD090;
+  --choco:    #2A1408;
+  --choco2:   #3C200E;
+  --cream:    #FAF6F0;
+  --cream2:   #F0E8DC;
+  --cream3:   #E4D4C4;
+  --sand:     #9A8070;
+  --white:    #FFFFFF;
+  --zap:      #25D366;
+  --ifood:    #EA1D2C;
+
+  --f-disp:   'Playfair Display', Georgia, serif;
+  --f-ital:   'Cormorant Garamond', Georgia, serif;
+  --f-body:   'DM Sans', sans-serif;
+  --ease:     cubic-bezier(.16,1,.3,1);
 }
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--cream);color:var(--text);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6}
+body{
+  background:var(--blush3);
+  color:var(--choco);
+  font-family:var(--f-body);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
 a{text-decoration:none;color:inherit}
 img{display:block;max-width:100%}
 
-/* HEADER */
-.hdr{background:var(--brown);padding:0 20px;display:flex;align-items:center;gap:12px;height:54px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.3)}
-.hdr-logo{display:flex;align-items:center;gap:8px;color:#fff;font-weight:900;font-size:15px}
-.hdr-tag{background:var(--caramel);color:#fff;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:900}
-.hdr-r{margin-left:auto;display:flex;gap:8px}
-.btn-wpp-sm{background:var(--green);color:#fff;padding:7px 14px;border-radius:4px;font-size:12px;font-weight:800}
-.btn-back{color:rgba(255,255,255,.5);font-size:12px;padding:7px 10px;border:1px solid rgba(255,255,255,.2);border-radius:4px}
+/* grain suave */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
+  opacity:.018;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:256px;
+}
 
-/* HERO */
-.hero{background:linear-gradient(160deg,var(--brown) 0%,#6b2d00 100%);color:#fff;padding:52px 20px 44px;text-align:center;position:relative;overflow:hidden}
-.hero::after{content:'🍦';position:absolute;right:-20px;bottom:-20px;font-size:180px;opacity:.08;transform:rotate(-15deg);pointer-events:none}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.4);color:var(--gold);font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase;margin-bottom:18px}
-.hero h1{font-size:clamp(26px,5vw,48px);font-weight:900;line-height:1.15;margin-bottom:14px}
-.hero h1 em{color:var(--gold);font-style:normal}
-.hero-sub{font-size:15px;color:rgba(255,255,255,.75);max-width:480px;margin:0 auto 28px;line-height:1.7}
-.hero-urgencia{background:rgba(232,0,10,.15);border:1px solid rgba(232,0,10,.35);border-radius:8px;padding:10px 18px;font-size:13px;color:#ffaaaa;max-width:400px;margin:0 auto 28px;font-weight:700}
-.btn-hero{display:inline-flex;align-items:center;gap:10px;background:var(--green);color:#fff;padding:16px 32px;border-radius:8px;font-weight:900;font-size:16px;box-shadow:0 4px 20px rgba(37,211,102,.35);transition:transform .15s}
-.btn-hero:hover{transform:translateY(-2px)}
-.hero-note{margin-top:14px;font-size:12px;color:rgba(255,255,255,.45)}
+/* ── TOPBAR ── */
+.topbar{
+  background:var(--rose);
+  color:rgba(255,255,255,.7);
+  font-family:var(--f-body);
+  font-size:11px;font-weight:500;letter-spacing:.07em;
+  padding:9px 32px;
+  display:flex;align-items:center;justify-content:center;
+  gap:24px;flex-wrap:wrap;
+}
+.topbar a{color:var(--white);font-weight:700;transition:opacity .2s}
+.topbar a:hover{opacity:.8}
+.t-sep{width:1px;height:11px;background:rgba(255,255,255,.25);flex-shrink:0}
 
-/* VÍDEO */
-.video-sec{background:var(--dark);padding:48px 20px}
-.video-inner{max-width:700px;margin:0 auto}
-.video-label{text-align:center;font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
-.video-title{text-align:center;font-size:clamp(18px,3vw,26px);font-weight:900;color:#fff;margin-bottom:24px}
-.video-wrap{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.5)}
-.video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+/* ── HEADER ── */
+.header{
+  background:rgba(254,248,250,.97);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--blush);
+  padding:0 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  height:78px;position:sticky;top:0;z-index:100;
+  transition:height .3s var(--ease),box-shadow .3s;
+}
+.header::after{
+  content:'';position:absolute;
+  bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--rose),var(--gold2),var(--rose),transparent);
+}
+.logo-wrap{display:flex;align-items:center;gap:14px}
+.logo-text .name{
+  font-family:var(--f-disp);
+  font-size:19px;font-weight:700;
+  color:var(--rose);letter-spacing:.01em;line-height:1;
+}
+.logo-text .sub{
+  font-size:9px;font-weight:500;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);margin-top:4px;
+}
+.h-nav{display:flex;gap:28px;align-items:center}
+.h-nav a{
+  font-size:11px;font-weight:500;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--sand);transition:color .2s;
+  position:relative;
+}
+.h-nav a::after{
+  content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;
+  background:var(--rose);transform:scaleX(0);transition:transform .3s var(--ease);
+}
+.h-nav a:hover{color:var(--rose)}
+.h-nav a:hover::after{transform:scaleX(1)}
+.btn-ifood{
+  background:var(--ifood);color:var(--white);
+  padding:10px 20px;border-radius:24px;
+  font-size:12px;font-weight:700;
+  letter-spacing:.04em;
+  display:flex;align-items:center;gap:7px;
+  transition:all .25s;
+  box-shadow:0 4px 16px rgba(234,29,44,.25);
+}
+.btn-ifood:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(234,29,44,.4)}
 
-/* PRODUTOS */
-.produtos-sec{max-width:900px;margin:0 auto;padding:56px 20px}
-.sec-label{font-size:11px;font-weight:800;color:var(--caramel);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;text-align:center}
-.sec-title{font-size:clamp(22px,3vw,34px);font-weight:900;text-align:center;margin-bottom:6px}
-.sec-title em{color:var(--caramel);font-style:normal}
-.sec-sub{font-size:14px;color:var(--muted);text-align:center;max-width:460px;margin:0 auto 40px;line-height:1.7}
+/* ── HERO ── */
+.hero{
+  position:relative;
+  min-height:100svh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  overflow:hidden;
+  background:var(--blush3);
+}
 
-.produtos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+/* Delicate top border */
+.hero::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent,var(--rose3),var(--gold2),var(--rose3),transparent);
+  z-index:10;
+}
 
-.produto{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(61,26,0,.1);transition:transform .2s,box-shadow .2s}
-.produto:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(61,26,0,.15)}
-.produto-img{aspect-ratio:4/3;overflow:hidden;position:relative}
-.produto-img img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
-.produto:hover .produto-img img{transform:scale(1.05)}
-.produto-badge{position:absolute;top:12px;right:12px;background:var(--caramel);color:#fff;font-size:10px;font-weight:900;padding:4px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
-.produto-body{padding:18px 20px 20px}
-.produto-name{font-size:18px;font-weight:900;color:var(--brown);margin-bottom:6px}
-.produto-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px}
-.produto-footer{display:flex;align-items:center;justify-content:space-between}
-.produto-price{font-size:26px;font-weight:900;color:var(--caramel);line-height:1}
-.produto-price small{font-size:13px;color:var(--muted);font-weight:400}
-.btn-pedir{background:var(--green);color:#fff;padding:9px 18px;border-radius:6px;font-size:13px;font-weight:800;display:flex;align-items:center;gap:6px;transition:opacity .15s}
-.btn-pedir:hover{opacity:.88}
+/* LEFT */
+.hero-left{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  padding:80px 60px 80px 72px;
+  overflow:hidden;
+}
+/* Soft rose circle bg */
+.hero-left::before{
+  content:'';position:absolute;
+  top:-100px;right:-80px;
+  width:500px;height:500px;
+  background:radial-gradient(ellipse,rgba(200,118,138,.07) 0%,transparent 70%);
+  border-radius:50%;pointer-events:none;
+}
+/* Gold dot bottom left */
+.hero-left::after{
+  content:'';position:absolute;
+  bottom:60px;left:60px;
+  width:60px;height:60px;
+  border:1.5px solid rgba(200,118,138,.2);
+  border-radius:50%;pointer-events:none;
+}
 
-/* COMBO DESTAQUE */
-.combo-sec{background:linear-gradient(135deg,var(--brown),#7a3500);padding:48px 20px;text-align:center}
-.combo-inner{max-width:600px;margin:0 auto}
-.combo-ico{font-size:64px;margin-bottom:16px}
-.combo-title{font-size:clamp(24px,4vw,38px);font-weight:900;color:#fff;margin-bottom:10px}
-.combo-title em{color:var(--gold);font-style:normal}
-.combo-desc{font-size:15px;color:rgba(255,255,255,.75);margin-bottom:8px;line-height:1.6}
-.combo-preco-wrap{display:flex;align-items:center;justify-content:center;gap:16px;margin:20px 0 28px;flex-wrap:wrap}
-.combo-de{font-size:18px;color:rgba(255,255,255,.4);text-decoration:line-through}
-.combo-por{font-size:52px;font-weight:900;color:var(--gold);line-height:1}
-.combo-economia{background:rgba(37,211,102,.15);border:1px solid rgba(37,211,102,.3);color:#7fffaa;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px}
-.btn-combo{display:inline-flex;align-items:center;gap:10px;background:var(--green);color:#fff;padding:16px 36px;border-radius:8px;font-weight:900;font-size:16px;box-shadow:0 4px 20px rgba(37,211,102,.3)}
+/* Decorative script watermark */
+.hero-wm{
+  position:absolute;
+  right:52%;bottom:30px;
+  font-family:var(--f-ital);
+  font-size:clamp(80px,14vw,180px);
+  font-style:italic;font-weight:300;
+  color:var(--rose);
+  opacity:.04;
+  pointer-events:none;user-select:none;line-height:1;
+  white-space:nowrap;letter-spacing:-.02em;
+}
 
-/* ENTREGA */
-.entrega-sec{max-width:800px;margin:0 auto;padding:56px 20px}
-.entrega-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:32px}
-.entrega-card{background:#fff;border-radius:12px;padding:22px 20px;box-shadow:0 2px 12px rgba(61,26,0,.08);text-align:center}
-.entrega-ico{font-size:36px;margin-bottom:10px}
-.entrega-title{font-size:15px;font-weight:900;color:var(--brown);margin-bottom:6px}
-.entrega-desc{font-size:13px;color:var(--muted);line-height:1.6}
-.entrega-valor{font-size:20px;font-weight:900;color:var(--caramel);margin-top:8px}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:9px;font-weight:500;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:20px;
+  opacity:0;animation:fadeUp .8s var(--ease) .2s forwards;
+}
+.eyebrow-line{width:32px;height:1px;background:var(--gold);opacity:.5}
 
-/* GATILHOS / POR QUE */
-.porq-sec{background:var(--brown);padding:56px 20px;color:#fff}
-.porq-inner{max-width:800px;margin:0 auto}
-.porq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:32px}
-.porq-item{border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:22px}
-.porq-ico{font-size:32px;margin-bottom:10px}
-.porq-title{font-size:15px;font-weight:800;margin-bottom:6px}
-.porq-desc{font-size:12px;color:rgba(255,255,255,.65);line-height:1.7}
+.hero h1{
+  font-family:var(--f-disp);
+  font-size:clamp(42px,5.5vw,76px);
+  font-weight:400;
+  color:var(--choco);
+  line-height:1.02;letter-spacing:-.01em;
+  opacity:0;animation:fadeUp .9s var(--ease) .35s forwards;
+}
+.hero h1 em{
+  display:block;
+  font-style:italic;font-weight:400;
+  color:var(--rose);
+}
+.hero h1 strong{
+  display:block;font-weight:700;
+  color:var(--choco);
+}
 
-/* INSTA */
-.insta-sec{background:#fff;padding:40px 20px;text-align:center;border-top:1px solid #f0e0d0}
-.insta-inner{max-width:500px;margin:0 auto}
-.btn-insta{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;padding:14px 28px;border-radius:8px;font-weight:800;font-size:15px;margin-top:16px}
+/* Rose tagline */
+.hero-tagline{
+  font-family:var(--f-ital);
+  font-size:18px;font-style:italic;font-weight:300;
+  color:var(--rose2);letter-spacing:.03em;
+  margin-top:10px;
+  opacity:0;animation:fadeUp .9s var(--ease) .5s forwards;
+}
 
-/* CTA FINAL */
-.cta-final{background:linear-gradient(135deg,#1a0500,var(--brown));padding:64px 20px;text-align:center}
-.cta-final h2{font-size:clamp(24px,4vw,40px);font-weight:900;color:#fff;margin-bottom:12px}
-.cta-final h2 em{color:var(--gold);font-style:normal}
-.cta-final p{font-size:15px;color:rgba(255,255,255,.65);max-width:460px;margin:0 auto 32px;line-height:1.7}
-.cta-final-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn-final-wpp{background:var(--green);color:#fff;padding:16px 36px;border-radius:8px;font-weight:900;font-size:16px;box-shadow:0 4px 20px rgba(37,211,102,.3);display:flex;align-items:center;gap:10px}
+.hero-desc{
+  font-size:15px;color:var(--sand);
+  line-height:1.9;font-weight:300;
+  max-width:420px;
+  margin:24px 0 32px;
+  opacity:0;animation:fadeUp .9s var(--ease) .65s forwards;
+}
+.hero-desc strong{color:var(--choco2);font-weight:500}
 
-/* FOOTER */
-.footer{background:#0d0500;text-align:center;padding:24px;font-size:12px;color:rgba(255,255,255,.3)}
-.footer a{color:rgba(255,255,255,.2)}
-.footer-tv{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:8px;font-size:13px;color:rgba(255,255,255,.5)}
-.footer-tv-tag{background:#e8000a;color:#fff;padding:1px 6px;border-radius:2px;font-size:10px;font-weight:900}
+/* Price pills */
+.hero-pills{
+  display:flex;gap:8px;flex-wrap:wrap;
+  margin-bottom:32px;
+  opacity:0;animation:fadeUp .9s var(--ease) .78s forwards;
+}
+.pill{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--blush);
+  border:1px solid rgba(200,118,138,.2);
+  color:var(--rose);
+  font-size:11px;font-weight:500;
+  padding:7px 14px;border-radius:100px;
+  letter-spacing:.04em;transition:background .2s;
+}
+.pill:hover{background:var(--blush2)}
 
-@media(max-width:600px){
-  .produtos-grid{grid-template-columns:1fr}
-  .entrega-grid,.porq-grid{grid-template-columns:1fr 1fr}
-  .cta-final-btns{flex-direction:column;align-items:center}
-  .combo-por{font-size:40px}
+.hero-btns{
+  display:flex;gap:12px;flex-wrap:wrap;
+  opacity:0;animation:fadeUp .9s var(--ease) .9s forwards;
+}
+.btn-primary-rose{
+  background:var(--rose);color:var(--white);
+  padding:15px 28px;border-radius:2px;
+  font-size:12px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;
+  display:flex;align-items:center;gap:10px;
+  transition:all .25s;
+  box-shadow:0 6px 28px rgba(200,118,138,.28);
+}
+.btn-primary-rose:hover{background:var(--rose2);transform:translateY(-2px);box-shadow:0 10px 36px rgba(200,118,138,.4)}
+.btn-ifood-hero{
+  background:var(--ifood);color:var(--white);
+  padding:15px 26px;border-radius:2px;
+  font-size:12px;font-weight:700;
+  letter-spacing:.06em;
+  display:flex;align-items:center;gap:8px;
+  transition:all .25s;
+  box-shadow:0 6px 24px rgba(234,29,44,.25);
+}
+.btn-ifood-hero:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(234,29,44,.4)}
+
+/* Stats */
+.hero-stats{
+  display:flex;gap:0;
+  margin-top:44px;padding-top:24px;
+  border-top:1px solid rgba(200,118,138,.15);
+  opacity:0;animation:fadeUp .9s var(--ease) 1.02s forwards;
+}
+.hstat{flex:1}
+.hstat+.hstat{padding-left:24px;border-left:1px solid rgba(200,118,138,.15)}
+.hstat-n{
+  font-family:var(--f-disp);
+  font-size:32px;font-weight:700;
+  color:var(--rose);display:block;line-height:1;
+}
+.hstat-l{
+  font-size:9px;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--sand);display:block;margin-top:5px;
+}
+
+/* RIGHT — photos */
+.hero-right{position:relative;overflow:hidden}
+.hero-mosaic{
+  position:absolute;inset:0;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;
+  gap:3px;
+}
+.hm{overflow:hidden;background:var(--cream2)}
+.hm img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .8s var(--ease),filter .5s;
+  display:block;filter:saturate(.9) brightness(.95);
+}
+.hm:hover img{transform:scale(1.06);filter:saturate(1.05) brightness(1)}
+.hm.wide{grid-column:span 2}
+.hero-right::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to right,var(--blush3) 0%,transparent 12%),
+             linear-gradient(to top,rgba(254,248,250,.5) 0%,transparent 30%);
+  z-index:2;pointer-events:none;
+}
+
+/* ── MARQUEE ── */
+.marquee{
+  background:var(--rose);
+  overflow:hidden;padding:12px 0;white-space:nowrap;
+}
+.mq-track{display:inline-flex;animation:mq 24s linear infinite}
+.mq-item{
+  font-family:var(--f-ital);
+  font-size:14px;font-style:italic;font-weight:400;
+  letter-spacing:.08em;
+  color:rgba(255,255,255,.8);
+  padding:0 28px;
+  display:inline-flex;align-items:center;gap:10px;
+}
+.mq-item::after{content:'✦';font-style:normal;font-size:10px;opacity:.5}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── CARDÁPIO — principal ── */
+.menu-sec{
+  background:var(--white);
+  position:relative;
+}
+.menu-sec::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--rose3),transparent);
+}
+.menu-inner{
+  max-width:1200px;margin:0 auto;
+  padding:96px 64px;
+}
+.sec-eyebrow{
+  display:block;
+  font-size:9px;font-weight:500;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:12px;
+}
+.sec-title{
+  font-family:var(--f-disp);
+  font-size:clamp(32px,4.5vw,56px);
+  font-weight:400;color:var(--choco);
+  line-height:1.04;letter-spacing:-.01em;
+  margin-bottom:8px;
+}
+.sec-title em{font-style:italic;color:var(--rose);font-weight:400}
+.sec-sub{
+  font-family:var(--f-ital);
+  font-size:17px;font-style:italic;font-weight:300;
+  color:var(--sand);line-height:1.7;
+  max-width:500px;margin-top:8px;
+}
+
+/* Cards dos cones */
+.cones-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:3px;
+  margin-top:52px;
+}
+.cone-card{
+  background:var(--blush3);
+  border:1px solid var(--blush);
+  padding:40px 36px;
+  position:relative;overflow:hidden;
+  transition:all .3s var(--ease);
+}
+.cone-card::before{
+  content:'';position:absolute;
+  top:0;left:0;bottom:0;width:3px;
+  background:linear-gradient(to bottom,var(--rose),var(--gold2));
+  transform:scaleY(0);transform-origin:top;
+  transition:transform .4s var(--ease);
+}
+.cone-card:hover{
+  background:var(--white);
+  box-shadow:0 8px 40px rgba(200,118,138,.1);
+  transform:translateY(-2px);
+}
+.cone-card:hover::before{transform:scaleY(1)}
+
+.cone-img-wrap{
+  width:100%;
+  height:220px;
+  overflow:hidden;
+  border-radius:2px;
+  margin-bottom:28px;
+  background:var(--cream2);
+}
+.cone-img-wrap img{
+  width:100%;height:100%;
+  object-fit:cover;
+  transition:transform .6s var(--ease),filter .4s;
+  filter:saturate(.9) brightness(.95);
+}
+.cone-card:hover .cone-img-wrap img{
+  transform:scale(1.05);
+  filter:saturate(1.05) brightness(1);
+}
+
+.cone-flavor{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:9px;font-weight:600;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--rose);
+  border:1px solid rgba(200,118,138,.25);
+  padding:5px 12px;border-radius:100px;
+  margin-bottom:14px;
+}
+.cone-name{
+  font-family:var(--f-disp);
+  font-size:22px;font-weight:600;
+  color:var(--choco);
+  line-height:1.2;margin-bottom:14px;
+}
+.cone-name em{font-style:italic;color:var(--rose)}
+.cone-desc{
+  font-family:var(--f-ital);
+  font-size:15px;font-style:italic;font-weight:300;
+  color:var(--sand);line-height:1.85;
+  margin-bottom:24px;
+}
+.cone-hook{
+  font-size:13px;font-weight:600;
+  color:var(--rose);
+  letter-spacing:.02em;
+  margin-bottom:22px;
+  font-style:normal;
+}
+.cone-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;
+  padding-top:20px;
+  border-top:1px solid var(--blush);
+}
+.cone-price{
+  font-family:var(--f-disp);
+  font-size:28px;font-weight:700;
+  color:var(--choco);line-height:1;
+}
+.cone-price span{
+  font-size:14px;font-weight:400;
+  color:var(--sand);
+  font-family:var(--f-body);
+  display:block;margin-top:2px;
+}
+.btn-cone-ifood{
+  background:var(--ifood);color:var(--white);
+  padding:12px 20px;border-radius:2px;
+  font-size:12px;font-weight:700;
+  letter-spacing:.06em;
+  display:flex;align-items:center;gap:8px;
+  transition:all .25s;white-space:nowrap;
+  box-shadow:0 4px 16px rgba(234,29,44,.2);
+}
+.btn-cone-ifood:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(234,29,44,.35)}
+
+/* ── SOBRE / ARTESANAL ── */
+.artisan-sec{
+  background:var(--blush2);
+  position:relative;overflow:hidden;
+}
+.artisan-sec::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--rose3),transparent);
+}
+/* Large decorative letter */
+.artisan-sec::after{
+  content:'♡';
+  position:absolute;right:-20px;top:50%;
+  transform:translateY(-50%);
+  font-size:400px;color:var(--rose);opacity:.04;
+  pointer-events:none;user-select:none;line-height:1;
+}
+.artisan-inner{
+  max-width:1200px;margin:0 auto;
+  padding:96px 64px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;align-items:center;
+}
+.artisan-text{}
+.artisan-desc{
+  font-family:var(--f-ital);
+  font-size:17px;font-style:italic;font-weight:300;
+  color:var(--choco2);line-height:1.95;
+  margin-bottom:20px;
+}
+.artisan-quote{
+  margin:32px 0;padding:28px 32px;
+  border-left:3px solid var(--rose);
+  background:rgba(200,118,138,.05);
+  position:relative;
+}
+.artisan-quote::before{
+  content:'"';
+  font-family:var(--f-ital);
+  font-size:100px;color:var(--rose);
+  opacity:.12;
+  position:absolute;top:-18px;left:16px;line-height:1;
+}
+.artisan-quote p{
+  font-family:var(--f-disp);
+  font-size:20px;font-style:italic;
+  color:var(--rose);line-height:1.7;
+  position:relative;z-index:1;
+}
+.artisan-quote cite{
+  display:block;font-size:9px;font-weight:600;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-top:12px;font-style:normal;
+}
+
+/* Artisan photo grid */
+.artisan-photos{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:280px 200px;
+  gap:3px;
+  position:relative;
+}
+.ap{overflow:hidden;background:var(--cream2)}
+.ap img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .7s var(--ease),filter .5s;
+  display:block;filter:saturate(.9) brightness(.9);
+}
+.ap:hover img{transform:scale(1.06);filter:saturate(1.05) brightness(1)}
+.ap.wide{grid-column:span 2}
+/* Rose frame */
+.artisan-photos::after{
+  content:'';position:absolute;
+  top:-10px;left:-10px;right:10px;bottom:10px;
+  border:1.5px solid rgba(200,118,138,.2);
+  z-index:0;pointer-events:none;
+}
+
+/* ── DIFERENCIAIS ── */
+.dif-sec{background:var(--white);position:relative}
+.dif-sec::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--rose3),transparent);
+}
+.dif-inner{
+  max-width:1200px;margin:0 auto;
+  padding:72px 64px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  border:1px solid var(--blush);
+}
+.dif-card{
+  padding:36px 24px;
+  border-right:1px solid var(--blush);
+  transition:background .3s;
+  position:relative;overflow:hidden;
+}
+.dif-card::after{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--rose),var(--gold2));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .4s var(--ease);
+}
+.dif-card:hover{background:var(--blush3)}
+.dif-card:hover::after{transform:scaleX(1)}
+.dif-card:last-child{border-right:none}
+.dif-ico{
+  font-size:28px;
+  width:52px;height:52px;
+  background:var(--blush);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:16px;
+}
+.dif-title{
+  font-family:var(--f-disp);
+  font-size:16px;font-weight:600;
+  color:var(--choco);margin-bottom:8px;
+}
+.dif-desc{
+  font-size:12px;color:var(--sand);
+  line-height:1.75;font-weight:300;
+}
+
+/* ── CONTATO ── */
+.ct-sec{background:var(--blush2);position:relative}
+.ct-sec::before{
+  content:'';display:block;height:3px;
+  background:linear-gradient(90deg,var(--rose),var(--gold2),var(--rose));
+}
+.ct-inner{
+  max-width:1200px;margin:0 auto;
+  padding:88px 64px;
+  display:grid;grid-template-columns:1fr 360px;
+  gap:72px;align-items:start;
+}
+.info-cards{display:flex;flex-direction:column;gap:2px;margin-top:40px}
+.ic{
+  background:var(--white);
+  border:1px solid var(--blush);
+  padding:22px 26px;
+  display:grid;grid-template-columns:48px 1fr;
+  gap:16px;align-items:center;
+  transition:border-color .25s;position:relative;
+}
+.ic::before{
+  content:'';position:absolute;
+  left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(to bottom,var(--rose),var(--gold2));
+  transform:scaleY(0);transform-origin:bottom;
+  transition:transform .35s var(--ease);
+}
+.ic:hover{border-color:rgba(200,118,138,.3)}
+.ic:hover::before{transform:scaleY(1)}
+.i-ico{
+  width:48px;height:48px;
+  background:var(--blush);color:var(--rose);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+}
+.i-lbl{font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+.i-val{font-size:14px;font-weight:500;color:var(--choco);line-height:1.65}
+.i-val small{font-size:12px;color:var(--sand);font-weight:300}
+.i-val a{color:var(--choco)}
+
+/* CTA Box */
+.cta-box{
+  background:var(--rose);
+  padding:44px 36px;
+  position:sticky;top:90px;
+}
+.cta-tag{
+  font-size:9px;font-weight:600;
+  letter-spacing:.24em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);
+  display:block;margin-bottom:16px;
+}
+.cta-title{
+  font-family:var(--f-disp);
+  font-size:28px;font-weight:700;
+  color:var(--white);line-height:1.2;
+  margin-bottom:8px;
+}
+.cta-title em{font-style:italic;font-weight:400}
+.cta-sub{
+  font-family:var(--f-ital);
+  font-size:15px;font-style:italic;
+  color:rgba(255,255,255,.65);
+  line-height:1.8;margin-bottom:28px;font-weight:300;
+}
+.btn-ifood-cta{
+  background:var(--ifood);color:var(--white);
+  padding:15px 20px;border-radius:2px;
+  font-size:13px;font-weight:700;
+  letter-spacing:.06em;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:all .25s;
+  box-shadow:0 4px 20px rgba(0,0,0,.2);
+  margin-bottom:10px;
+}
+.btn-ifood-cta:hover{opacity:.92;transform:translateY(-2px)}
+.btn-wpp-cta{
+  background:var(--zap);color:var(--white);
+  padding:14px 20px;border-radius:2px;
+  font-size:13px;font-weight:700;
+  letter-spacing:.04em;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:all .25s;
+  box-shadow:0 4px 16px rgba(0,0,0,.15);
+  margin-bottom:10px;
+}
+.btn-wpp-cta:hover{opacity:.9;transform:translateY(-2px)}
+.btn-ig-cta{
+  border:1px solid rgba(255,255,255,.25);
+  color:rgba(255,255,255,.7);
+  padding:13px 20px;border-radius:2px;
+  font-size:12px;font-weight:500;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:all .25s;
+}
+.btn-ig-cta:hover{border-color:rgba(255,255,255,.55);color:var(--white)}
+.cta-note{
+  font-size:10px;color:rgba(255,255,255,.3);
+  margin-top:18px;line-height:1.7;text-align:center;letter-spacing:.04em;
+}
+
+/* ── TV BANNER ── */
+.tv-banner{
+  background:var(--choco);
+  border-top:1px solid rgba(255,255,255,.04);
+  padding:52px 48px;text-align:center;
+}
+.tv-banner p{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:10px}
+.tv-banner h3{font-family:var(--f-disp);font-size:19px;font-style:italic;color:rgba(255,255,255,.42);margin-bottom:26px;line-height:1.5}
+.tv-links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.tv-links a{font-size:11px;font-weight:500;letter-spacing:.06em;color:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.08);padding:10px 22px;border-radius:1px;transition:all .25s}
+.tv-links a:hover{color:var(--white);border-color:rgba(255,255,255,.28)}
+
+/* ── FOOTER ── */
+.footer{
+  background:var(--choco);
+  color:rgba(255,255,255,.2);
+  text-align:center;padding:28px;
+  font-size:11px;line-height:1.9;letter-spacing:.03em;
+  border-top:1px solid rgba(255,255,255,.04);
+}
+.footer strong{color:var(--rose3)}
+.footer a{color:rgba(255,255,255,.3)}
+.footer a:hover{color:rgba(255,255,255,.6)}
+
+/* ── FLOAT ── */
+.f-ifood{
+  position:fixed;bottom:28px;right:28px;z-index:998;
+  background:var(--ifood);color:var(--white);
+  width:62px;height:62px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;
+  box-shadow:0 6px 28px rgba(234,29,44,.4);
+  transition:transform .25s var(--ease),box-shadow .25s;
+  text-decoration:none;font-weight:800;
+}
+.f-ifood:hover{transform:scale(1.1) translateY(-2px);box-shadow:0 12px 36px rgba(234,29,44,.55)}
+.f-pulse{
+  position:fixed;bottom:28px;right:28px;z-index:997;
+  width:62px;height:62px;border-radius:50%;
+  background:var(--ifood);opacity:0;
+  animation:pulse 2.5s ease-out 3s infinite;pointer-events:none;
+}
+@keyframes pulse{0%{transform:scale(1);opacity:.35}100%{transform:scale(2.2);opacity:0}}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  .hero{grid-template-columns:1fr;min-height:100svh}
+  .hero-right{display:none}
+  .hero-left{padding:72px 36px 88px;justify-content:flex-end;min-height:100svh}
+  .cones-grid{grid-template-columns:1fr}
+  .artisan-inner{grid-template-columns:1fr;gap:56px}
+  .artisan-photos{height:320px;grid-template-rows:1fr 1fr}
+  .dif-inner{grid-template-columns:1fr 1fr;border:none;gap:2px}
+  .ct-inner{grid-template-columns:1fr}
+  .cta-box{position:static}
+}
+@media(max-width:768px){
+  .header{padding:0 20px}
+  .h-nav{display:none}
+  .topbar{gap:12px;font-size:10px;padding:8px 16px}
+  .t-sep{display:none}
+  .hero-left{padding:56px 24px 72px}
+  .menu-inner,.artisan-inner,.ct-inner,.dif-inner{padding-left:24px;padding-right:24px}
+}
+@media(max-width:560px){
+  .hero h1{font-size:40px}
+  .hero-btns{flex-direction:column}
+  .dif-inner{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
+<!-- TOPBAR -->
+<div class="topbar">
+  <span>🍫 Cones Trufados Gourmet Artesanais</span>
+  <span class="t-sep"></span>
+  <span>📍 Marataízes ES · Entrega com hora marcada</span>
+  <span class="t-sep"></span>
+  <span>🛵 <a href="https://www.ifood.com.br/delivery/marataizes-es/amor-dentro-do-cone-e-madame-rosti--alto-lagoa-funda/417314a2-55d2-4476-a96b-ac6137c88679" target="_blank">Peça pelo iFood</a></span>
+</div>
+
 <!-- HEADER -->
-<header class="hdr">
-  <div class="hdr-logo">
-    <span class="hdr-tag">TV</span> Marataízes
+<header class="header" id="topo">
+  <div class="logo-wrap">
+    <div class="logo-text">
+      <div class="name">Amor dentro do Cone</div>
+      <div class="sub">Confeitaria Artesanal · Marataízes ES</div>
+    </div>
   </div>
-  <div class="hdr-r">
-    <a href="https://www.tvmarataizes.digital/" class="btn-back">← Portal</a>
-    <a href="https://wa.me/5521983165333?text=Quero+pedir+um+cone+do+Amor+dentro+do+Cone!" target="_blank" rel="noopener" class="btn-wpp-sm">💬 Pedir agora</a>
-  </div>
+  <nav class="h-nav">
+    <a href="#cardapio">Cardápio</a>
+    <a href="#sobre">Nossa História</a>
+    <a href="#contato">Contato</a>
+  </nav>
+  <a href="https://www.ifood.com.br/delivery/marataizes-es/amor-dentro-do-cone-e-madame-rosti--alto-lagoa-funda/417314a2-55d2-4476-a96b-ac6137c88679" target="_blank" rel="noopener" class="btn-ifood">
+    🛵 Pedir no iFood
+  </a>
 </header>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">🍦 Marataízes ES · Entrega com hora marcada</div>
-  <h1>O cone mais gostoso<br>que você vai <em>provar hoje</em></h1>
-  <p class="hero-sub">Cones artesanais recheados com muito amor. Brigadeiro clássico, Nutella cremosa e muito mais. Cada mordida é uma experiência.</p>
-  <div class="hero-urgencia">
-    ⏰ Entrega com hora marcada — você escolhe quando chega
-  </div>
-  <a href="https://wa.me/5521983165333?text=Oi!+Quero+pedir+um+cone+do+Amor+dentro+do+Cone!" target="_blank" rel="noopener" class="btn-hero">
-    💬 Pedir pelo WhatsApp agora
-  </a>
-  <p class="hero-note">Entrega em toda Marataízes · R$4,99 o frete</p>
-</section>
-
-<!-- VÍDEO -->
-<section class="video-sec">
-  <div class="video-inner">
-    <div class="video-label">Assista e se apaixone</div>
-    <h2 class="video-title">Veja como é feito com amor ❤️</h2>
-    <div class="video-wrap">
-      <iframe
-        src="https://player.castr.com/vod/ArWZw6XJIwJePaJj"
-        allow="autoplay; fullscreen"
-        allowfullscreen>
-      </iframe>
-    </div>
-  </div>
-</section>
-
-<!-- PRODUTOS -->
-<section class="produtos-sec">
-  <div class="sec-label">Cardápio</div>
-  <h2 class="sec-title">Escolha o seu <em>favorito</em></h2>
-  <p class="sec-sub">Cones recheados artesanais, feitos na hora. Impossível comer só um.</p>
-
-  <div class="produtos-grid">
-
-    <div class="produto">
-      <div class="produto-img">
-        <img src="https://tvmarataizes.digital/clima/brigadeiro.jpeg" alt="Cone de Brigadeiro">
-        <div class="produto-badge">🤎 Clássico</div>
-      </div>
-      <div class="produto-body">
-        <div class="produto-name">Cone de Brigadeiro</div>
-        <div class="produto-desc">O clássico que nunca decepciona. Brigadeiro cremoso, derretendo em cada camada, dentro de um cone crocante. Quem prova, pede de novo.</div>
-        <div class="produto-footer">
-          <div class="produto-price">R$12,99</div>
-          <a href="https://wa.me/5521983165333?text=Quero+1+Cone+de+Brigadeiro+por+R%2412%2C99!" target="_blank" rel="noopener" class="btn-pedir">💬 Pedir</a>
-        </div>
-      </div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-line"></span>
+      Confeitaria Artesanal · Marataízes ES
+      <span class="eyebrow-line"></span>
     </div>
 
-    <div class="produto">
-      <div class="produto-img">
-        <img src="https://tvmarataizes.digital/clima/nutela.jpeg" alt="Cone de Nutella">
-        <div class="produto-badge" style="background:#5a2d0c">🍫 Premium</div>
-      </div>
-      <div class="produto-body">
-        <div class="produto-name">Cone de Nutella</div>
-        <div class="produto-desc">Nutella de verdade, generosa, escorregando pelo cone. Aquela sobremesa que você merece depois de um dia longo. Cremosa, irresistível.</div>
-        <div class="produto-footer">
-          <div class="produto-price">R$13,99</div>
-          <a href="https://wa.me/5521983165333?text=Quero+1+Cone+de+Nutella+por+R%2413%2C99!" target="_blank" rel="noopener" class="btn-pedir">💬 Pedir</a>
-        </div>
-      </div>
+    <h1>
+      Amor
+      <em>dentro do</em>
+      <strong>Cone.</strong>
+    </h1>
+
+    <p class="hero-tagline">Crocante. Cremoso. Irresistível.</p>
+
+    <p class="hero-desc">
+      <strong>Cones trufados gourmet</strong> feitos à mão com o maior carinho — casquinha crocante banhada no chocolate, recheios cremosos que derretem na boca e coberturas que finalizam cada mordida com perfeição.
+    </p>
+
+    <div class="hero-pills">
+      <span class="pill">🍫 Brigadeiro · R$17,90</span>
+      <span class="pill">🌟 Maracujá · R$17,90</span>
+      <span class="pill">✨ Ninho & Nutella · R$18,90</span>
+      <span class="pill">🥥 Beijinho · R$17,90</span>
     </div>
 
-    <div class="produto">
-      <div class="produto-img">
-        <img src="https://tvmarataizes.digital/clima/beijinho.jpeg" alt="Cone de Beijinho">
-        <div class="produto-badge" style="background:#8b6914">🤍 Especial</div>
-      </div>
-      <div class="produto-body">
-        <div class="produto-name">Cone de Beijinho</div>
-        <div class="produto-desc">Coco, leite condensado e aquele sabor que lembra infância. O beirinho de colher, agora dentro do cone mais caprichado de Marataízes.</div>
-        <div class="produto-footer">
-          <div class="produto-price">R$12,99</div>
-          <a href="https://wa.me/5521983165333?text=Quero+1+Cone+de+Beijinho+por+R%2412%2C99!" target="_blank" rel="noopener" class="btn-pedir">💬 Pedir</a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- COMBO DESTAQUE -->
-<section class="combo-sec">
-  <div class="combo-inner">
-    <div class="combo-ico">🍦🍦🍦</div>
-    <h2 class="combo-title">Combo 3 Cones<br>por apenas <em>R$37</em></h2>
-    <p class="combo-desc">Escolha 3 sabores, monta do jeito que quiser. Perfeito para compartilhar — ou não.</p>
-    <div class="combo-preco-wrap">
-      <div class="combo-de">R$40,97</div>
-      <div class="combo-por">R$37</div>
-      <div class="combo-economia">Você economiza R$3,97</div>
-    </div>
-    <a href="https://wa.me/5521983165333?text=Quero+o+Combo+3+Cones+por+R%2437!" target="_blank" rel="noopener" class="btn-combo">
-      💬 Quero o Combo agora
-    </a>
-  </div>
-</section>
-
-<!-- ENTREGA -->
-<section class="entrega-sec">
-  <div class="sec-label">Entrega</div>
-  <h2 class="sec-title" style="text-align:center">Você escolhe a <em>hora que chega</em></h2>
-  <p class="sec-sub" style="text-align:center;color:var(--muted);max-width:440px;margin:0 auto 8px">Sem surpresa, sem espera. Você marca a hora, a gente entrega.</p>
-
-  <div class="entrega-grid">
-    <div class="entrega-card">
-      <div class="entrega-ico">🛵</div>
-      <div class="entrega-title">Entrega com hora marcada</div>
-      <div class="entrega-desc">Você escolhe o horário. A gente respeita e entrega no combinado.</div>
-      <div class="entrega-valor">Toda Marataízes</div>
-    </div>
-    <div class="entrega-card">
-      <div class="entrega-ico">💰</div>
-      <div class="entrega-title">Frete acessível</div>
-      <div class="entrega-desc">Entrega por R$4,99 ou a combinar dependendo da localização.</div>
-      <div class="entrega-valor">R$4,99</div>
-    </div>
-    <div class="entrega-card">
-      <div class="entrega-ico">📍</div>
-      <div class="entrega-title">Toda Marataízes</div>
-      <div class="entrega-desc">Barra do Itapemirim, Centro, Cidade Nova, Ilmenita e mais.</div>
-      <div class="entrega-valor">Consulte seu bairro</div>
-    </div>
-    <div class="entrega-card">
-      <div class="entrega-ico">⚡</div>
-      <div class="entrega-title">Atendimento rápido</div>
-      <div class="entrega-desc">Resposta no WhatsApp em minutos. Peça agora e programe a entrega.</div>
-      <div class="entrega-valor">(21) 98316-5333</div>
-    </div>
-  </div>
-</section>
-
-<!-- POR QUE ESCOLHER -->
-<section class="porq-sec">
-  <div class="porq-inner">
-    <div style="font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;text-align:center">Por que a gente?</div>
-    <h2 style="font-size:clamp(20px,3vw,32px);font-weight:900;text-align:center;margin-bottom:6px">Feito com <em style="color:var(--gold);font-style:normal">amor de verdade</em></h2>
-    <p style="font-size:14px;color:rgba(255,255,255,.6);text-align:center;max-width:440px;margin:0 auto">Não é cone de fábrica. É artesanal, feito no momento, com ingredientes de qualidade.</p>
-
-    <div class="porq-grid">
-      <div class="porq-item">
-        <div class="porq-ico">🤎</div>
-        <div class="porq-title">100% artesanal</div>
-        <div class="porq-desc">Cada cone feito na hora, com recheio generoso e ingredientes selecionados. Sem conservante, sem industrial.</div>
-      </div>
-      <div class="porq-item">
-        <div class="porq-ico">⏰</div>
-        <div class="porq-title">Você escolhe a hora</div>
-        <div class="porq-desc">Nada de esperar sem saber quando chega. Você marca, a gente cumpre. Simples e respeitoso.</div>
-      </div>
-      <div class="porq-item">
-        <div class="porq-ico">😍</div>
-        <div class="porq-title">Impossível comer só um</div>
-        <div class="porq-desc">Quem pede uma vez, vira cliente. O sabor fala por si — é aquele negócio que você recomenda pra todo mundo.</div>
-      </div>
-      <div class="porq-item">
-        <div class="porq-ico">💬</div>
-        <div class="porq-title">Atendimento humano</div>
-        <div class="porq-desc">Fala direto com quem faz. Sem robô, sem formulário. WhatsApp, combinado rapidinho.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- INSTAGRAM -->
-<section class="insta-sec">
-  <div class="insta-inner">
-    <div style="font-size:28px;margin-bottom:8px">📸</div>
-    <h3 style="font-size:20px;font-weight:900;color:var(--brown);margin-bottom:6px">Veja mais no Instagram</h3>
-    <p style="font-size:13px;color:var(--muted)">Fotos dos cones, bastidores e aquelas imagens que dão água na boca</p>
-    <a href="https://www.instagram.com/amordentrodocone/" target="_blank" rel="noopener" class="btn-insta">
-      📷 @amordentrodocone
-    </a>
-  </div>
-</section>
-
-<!-- CTA FINAL -->
-<section class="cta-final">
-  <h2>Tá com vontade?<br><em>Pede agora.</em></h2>
-  <p>Entrega com hora marcada em toda Marataízes. O cone mais gostoso da cidade chega na sua porta.</p>
-  <div class="cta-final-btns">
-    <a href="https://wa.me/5521983165333?text=Oi!+Quero+pedir+um+cone+do+Amor+dentro+do+Cone+com+entrega+com+hora+marcada!" target="_blank" rel="noopener" class="btn-final-wpp">
-      💬 Pedir pelo WhatsApp — (21) 98316-5333
-    </a>
-  </div>
-  <p style="margin-top:16px;font-size:12px;color:rgba(255,255,255,.35)">Brigadeiro R$12,99 · Nutella R$13,99 · Combo 3 por R$37 · Frete R$4,99</p>
-</section>
-
-
-<!-- PLANO EXCLUSIVO — CTA ANUNCIANTE -->
-<section style="background:linear-gradient(135deg,#003781,#005bb5);padding:48px 20px;text-align:center">
-  <div style="max-width:600px;margin:0 auto">
-    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(245,197,24,.15);border:1px solid rgba(245,197,24,.35);color:#f5c518;font-size:11px;font-weight:800;padding:4px 14px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px">📺 TV Marataízes · Guia Digital</div>
-    <h2 style="font-size:clamp(20px,3vw,30px);font-weight:900;color:#fff;margin-bottom:8px;line-height:1.2">Esta é uma <span style="color:#f5c518">Página Exclusiva</span><br>do portal TV Marataízes</h2>
-    <p style="font-size:14px;color:rgba(255,255,255,.7);margin-bottom:24px;line-height:1.6">O Amor dentro do Cone tem vídeo, fotos, cardápio e botão de WhatsApp — tudo em uma página só, aparecendo no Google quando alguém pesquisa doces em Marataízes.</p>
-
-    <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:24px;margin-bottom:24px;text-align:left">
-      <div style="font-size:13px;font-weight:900;color:#f5c518;margin-bottom:14px">📄 Plano Página Exclusiva — R$99/mês</div>
-      <div style="font-size:13px;color:rgba(255,255,255,.85);font-style:italic;margin-bottom:16px">Economiza R$200+ vs contratar agência</div>
-      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
-        <li style="font-size:13px;color:#d0e8ff;display:flex;gap:8px"><span style="color:#25d366;font-weight:800">✓</span> Tudo do plano Card +</li>
-        <li style="font-size:13px;color:#d0e8ff;display:flex;gap:8px"><span style="color:#25d366;font-weight:800">✓</span> Página exclusiva: tvmarataizes.digital/cone</li>
-        <li style="font-size:13px;color:#d0e8ff;display:flex;gap:8px"><span style="color:#25d366;font-weight:800">✓</span> Vídeo incorporado na página</li>
-        <li style="font-size:13px;color:#d0e8ff;display:flex;gap:8px"><span style="color:#25d366;font-weight:800">✓</span> Fotos, história, horários e localização</li>
-        <li style="font-size:13px;color:#d0e8ff;display:flex;gap:8px"><span style="color:#25d366;font-weight:800">✓</span> Botão WhatsApp direto na página</li>
-        <li style="font-size:13px;color:#f5c518;display:flex;gap:8px"><span style="color:#f5c518;font-weight:800">★</span> Badge destaque no guia</li>
-        <li style="font-size:13px;color:#f5c518;display:flex;gap:8px"><span style="color:#f5c518;font-weight:800">★</span> Menção no ticker do portal</li>
-      </ul>
-    </div>
-
-    <p style="font-size:13px;color:rgba(255,255,255,.55);margin-bottom:20px">Quer uma página como essa para o seu negócio?</p>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <a href="https://wa.me/5528999036141?text=Quero+uma+página+exclusiva+como+a+do+Amor+dentro+do+Cone!" target="_blank" rel="noopener"
-         style="background:#25d366;color:#fff;padding:14px 28px;border-radius:6px;font-weight:900;font-size:14px;display:flex;align-items:center;gap:8px">
-        💬 Quero minha página — R$99/mês
+    <div class="hero-btns">
+      <a href="https://www.ifood.com.br/delivery/marataizes-es/amor-dentro-do-cone-e-madame-rosti--alto-lagoa-funda/417314a2-55d2-4476-a96b-ac6137c88679" target="_blank" rel="noopener" class="btn-ifood-hero">
+        🛵 Pedir no iFood agora
       </a>
-      <a href="https://tvmarataizes.digital/anunciar/" 
-         style="background:rgba(255,255,255,.1);color:#fff;padding:14px 20px;border-radius:6px;font-weight:700;font-size:13px;border:1px solid rgba(255,255,255,.2)">
-        Ver todos os planos →
+      <a href="#cardapio" class="btn-primary-rose">
+        Ver o cardápio →
       </a>
     </div>
+
+    <div class="hero-stats">
+      <div class="hstat"><span class="hstat-n">4</span><span class="hstat-l">Sabores únicos</span></div>
+      <div class="hstat"><span class="hstat-n">🍫</span><span class="hstat-l">Artesanal</span></div>
+      <div class="hstat"><span class="hstat-n">💝</span><span class="hstat-l">Feito com amor</span></div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-mosaic">
+      <div class="hm wide">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/brigadeiro.jpeg" alt="Cone Trufado Brigadeiro">
+      </div>
+      <div class="hm">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/nutela.jpeg" alt="Cone Ninho Nutella">
+      </div>
+      <div class="hm">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/maracuja.jpeg" alt="Cone Maracujá">
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-wm" aria-hidden="true">Cone</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="mq-track">
+    <span class="mq-item">Brigadeiro Tradicional</span>
+    <span class="mq-item">Brigadeiro de Maracujá</span>
+    <span class="mq-item">Ninho com Nutella</span>
+    <span class="mq-item">Beijinho de Coco</span>
+    <span class="mq-item">Crocante por Fora</span>
+    <span class="mq-item">Cremoso por Dentro</span>
+    <span class="mq-item">Feito com Amor</span>
+    <span class="mq-item">Entrega em Marataízes</span>
+    <span class="mq-item">Brigadeiro Tradicional</span>
+    <span class="mq-item">Brigadeiro de Maracujá</span>
+    <span class="mq-item">Ninho com Nutella</span>
+    <span class="mq-item">Beijinho de Coco</span>
+    <span class="mq-item">Crocante por Fora</span>
+    <span class="mq-item">Cremoso por Dentro</span>
+    <span class="mq-item">Feito com Amor</span>
+    <span class="mq-item">Entrega em Marataízes</span>
+  </div>
+</div>
+
+<!-- CARDÁPIO -->
+<section class="menu-sec" id="cardapio">
+  <div class="menu-inner">
+    <div class="reveal">
+      <span class="sec-eyebrow">Cones Trufados Gourmet</span>
+      <div class="sec-title">Escolha o seu <em>favorito</em></div>
+      <p class="sec-sub">Cada cone é uma obra artesanal — casquinha banhada no chocolate, recheio cremoso feito no ponto e cobertura que transforma cada mordida em memória.</p>
+    </div>
+
+    <div class="cones-grid">
+
+      <!-- BRIGADEIRO TRADICIONAL -->
+      <div class="cone-card reveal">
+        <div class="cone-img-wrap">
+          <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/brigadeiro.jpeg" alt="Cone Brigadeiro Tradicional">
+        </div>
+        <div class="cone-flavor">🍫 Clássico</div>
+        <div class="cone-name">Cone Trufado<br><em>Brigadeiro Tradicional</em></div>
+        <p class="cone-desc">
+          Casquinha super crocante, banhada no chocolate por dentro e por fora — garantindo muito mais sabor em cada mordida. Recheada com brigadeiro tradicional cremoso, feito no ponto perfeito, e finalizada com granulado generoso.
+        </p>
+        <p class="cone-hook">Uma explosão de sabor do começo ao fim — impossível comer um só. 🍫</p>
+        <div class="cone-footer">
+          <div class="cone-price">
+            R$ 17,90
+            <span>por unidade</span>
+          </div>
+          <a href="https://www.ifood.com.br/delivery/marataizes-es/amor-dentro-do-cone-e-madame-rosti--alto-lagoa-funda/417314a2-55d2-4476-a96b-ac6137c88679?prato=8f8926df-adde-43ea-b6de-eb44b8a9fcf7"
+             target="_blank" rel="noopener" class="btn-cone-ifood">
+            🛵 Pedir no iFood
+          </a>
+        </div>
+      </div>
+
+      <!-- MARACUJÁ -->
+      <div class="cone-card reveal d1">
+        <div class="cone-img-wrap">
+          <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/maracuja.jpeg" alt="Cone Brigadeiro de Maracujá">
+        </div>
+        <div class="cone-flavor">🌟 Tropical</div>
+        <div class="cone-name">Cone Trufado<br><em>Brigadeiro de Maracujá</em></div>
+        <p class="cone-desc">
+          Casquinha crocante banhada no chocolate por dentro e por fora. Recheada com brigadeiro de maracujá super cremoso — aquele toque levemente azedinho que equilibra o doce na medida certa — e finalizada com cobertura especial.
+        </p>
+        <p class="cone-hook">Doce e cítrico na combinação perfeita. Quem prova nunca esquece. 🌟</p>
+        <div class="cone-footer">
+          <div class="cone-price">
+            R$ 17,90
+            <span>por unidade</span>
+          </div>
+          <a href="https://www.ifood.com.br/delivery/marataizes-es/amor-dentro-do-cone-e-madame-rosti--alto-lagoa-funda/417314a2-55d2-4476-a96b-ac6137c88679?prato=07297cc1-76b5-490e-9dad-28634a5842ec"
+             target="_blank" rel="noopener" class="btn-cone-ifood">
+            🛵 Pedir no iFood
+          </a>
+        </div>
+      </div>
+
+      <!-- NINHO + NUTELLA -->
+      <div class="cone-card reveal d2">
+        <div class="cone-img-wrap">
+          <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/nutela.jpeg" alt="Cone Ninho com Nutella">
+        </div>
+        <div class="cone-flavor">✨ Premium</div>
+        <div class="cone-name">Cone Trufado<br><em>Ninho com Nutella</em></div>
+        <p class="cone-desc">
+          Casquinha crocante banhada no chocolate. Recheada com brigadeiro de Leite Ninho super cremoso e uma generosa camada de Nutella — a combinação perfeita entre o doce suave e o chocolate intenso.
+        </p>
+        <p class="cone-hook">Cremoso, crocante e impossível resistir. O mais pedido da casa. ✨</p>
+        <div class="cone-footer">
+          <div class="cone-price">
+            R$ 18,90
+            <span>por unidade</span>
+          </div>
+          <a href="https://www.ifood.com.br/delivery/marataizes-es/amor-dentro-do-cone-e-madame-rosti--alto-lagoa-funda/417314a2-55d2-4476-a96b-ac6137c88679?prato=a734bde3-a720-4ddf-994a-aef6df5e8962"
+             target="_blank" rel="noopener" class="btn-cone-ifood">
+            🛵 Pedir no iFood
+          </a>
+        </div>
+      </div>
+
+      <!-- BEIJINHO -->
+      <div class="cone-card reveal d3">
+        <div class="cone-img-wrap">
+          <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/beijinho.jpeg" alt="Cone Trufado Beijinho">
+        </div>
+        <div class="cone-flavor">🥥 Clássico</div>
+        <div class="cone-name">Cone Trufado<br><em>Beijinho de Coco</em></div>
+        <p class="cone-desc">
+          Casquinha crocante banhada no chocolate por dentro e por fora. Recheada com beijinho super cremoso feito com coco e leite condensado, finalizado com cobertura de coco ralado.
+        </p>
+        <p class="cone-hook">Doce na medida certa, com aquele gostinho clássico que conquista de primeira. 🥥</p>
+        <div class="cone-footer">
+          <div class="cone-price">
+            R$ 17,90
+            <span>por unidade</span>
+          </div>
+          <a href="https://www.ifood.com.br/delivery/marataizes-es/amor-dentro-do-cone-e-madame-rosti--alto-lagoa-funda/417314a2-55d2-4476-a96b-ac6137c88679?prato=4b851474-1b60-4a23-af55-1b3fdd962526"
+             target="_blank" rel="noopener" class="btn-cone-ifood">
+            🛵 Pedir no iFood
+          </a>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
+
+<!-- ARTESANAL / SOBRE -->
+<section class="artisan-sec" id="sobre">
+  <div class="artisan-inner">
+    <div class="reveal">
+      <span class="sec-eyebrow">Nossa história</span>
+      <div class="sec-title">Feito com <em>amor</em>,<br>entregue com carinho</div>
+      <p class="artisan-desc" style="margin-top:22px">
+        O Amor dentro do Cone nasceu da paixão por confeitaria artesanal e da vontade de criar algo especial para Marataízes. Cada cone é preparado à mão, com ingredientes selecionados e o cuidado de quem coloca amor em cada detalhe.
+      </p>
+      <p class="artisan-desc">
+        Da casquinha banhada no chocolate ao recheio no ponto certo — cada etapa é feita com dedicação para que você receba uma experiência completa em cada mordida.
+      </p>
+      <div class="artisan-quote">
+        <p>Cada cone é feito com amor — do início ao fim, da casquinha à cobertura.</p>
+        <cite>— Amor dentro do Cone · Marataízes ES</cite>
+      </div>
+      <a href="https://www.ifood.com.br/delivery/marataizes-es/amor-dentro-do-cone-e-madame-rosti--alto-lagoa-funda/417314a2-55d2-4476-a96b-ac6137c88679" target="_blank" rel="noopener" class="btn-ifood-hero" style="display:inline-flex">
+        🛵 Pedir no iFood agora →
+      </a>
+    </div>
+
+    <div class="artisan-photos reveal d2">
+      <div class="ap wide">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/brigadeiro.jpeg" alt="Brigadeiro artesanal">
+      </div>
+      <div class="ap">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/beijinho.jpeg" alt="Beijinho coco">
+      </div>
+      <div class="ap">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/maracuja.jpeg" alt="Maracujá">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<div class="dif-sec">
+  <div class="dif-inner">
+    <div class="dif-card reveal">
+      <div class="dif-ico">🍫</div>
+      <div class="dif-title">Casquinha Banhada</div>
+      <div class="dif-desc">Chocolate por dentro e por fora — a casquinha que garante crocância e sabor em cada mordida</div>
+    </div>
+    <div class="dif-card reveal d1">
+      <div class="dif-ico">💝</div>
+      <div class="dif-title">Recheio Artesanal</div>
+      <div class="dif-desc">Feito no ponto certo, com ingredientes selecionados — cremoso, consistente e irresistível</div>
+    </div>
+    <div class="dif-card reveal d2">
+      <div class="dif-ico">🛵</div>
+      <div class="dif-title">Entrega Marcada</div>
+      <div class="dif-desc">Pelo iFood ou WhatsApp — seu cone chega fresquinho e perfeito, no horário combinado</div>
+    </div>
+    <div class="dif-card reveal d3">
+      <div class="dif-ico">🎁</div>
+      <div class="dif-title">Perfeito para Presentear</div>
+      <div class="dif-desc">Uma caixa de cones trufados é o presente mais especial que você pode dar — ou se dar</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTATO -->
+<section class="ct-sec" id="contato">
+  <div class="ct-inner">
+    <div>
+      <div class="reveal">
+        <span class="sec-eyebrow">Como pedir</span>
+        <div class="sec-title">Simples e <em>delicioso</em></div>
+        <p class="artisan-desc" style="font-size:15px;margin-top:14px">
+          Peça pelo iFood com delivery ou retire pessoalmente. Também aceitamos pedidos pelo WhatsApp com entrega com hora marcada.
+        </p>
+      </div>
+      <div class="info-cards">
+        <div class="ic reveal">
+          <div class="i-ico">🛵</div>
+          <div>
+            <div class="i-lbl">iFood — Delivery</div>
+            <div class="i-val">
+              <a href="https://www.ifood.com.br/delivery/marataizes-es/amor-dentro-do-cone-e-madame-rosti--alto-lagoa-funda/417314a2-55d2-4476-a96b-ac6137c88679" target="_blank" rel="noopener">Amor dentro do Cone no iFood</a><br>
+              <small>Delivery ou retirada no local</small>
+            </div>
+          </div>
+        </div>
+        <div class="ic reveal d1">
+          <div class="i-ico">📞</div>
+          <div>
+            <div class="i-lbl">WhatsApp — Hora Marcada</div>
+            <div class="i-val">
+              <a href="https://wa.me/5528999036141">Fazer pedido pelo WhatsApp</a><br>
+              <small>Entrega com hora marcada em Marataízes</small>
+            </div>
+          </div>
+        </div>
+        <div class="ic reveal d2">
+          <div class="i-ico">📍</div>
+          <div>
+            <div class="i-lbl">Localização</div>
+            <div class="i-val">Marataízes, ES<br><small>Delivery + Retirada no local</small></div>
+          </div>
+        </div>
+        <div class="ic reveal d3">
+          <div class="i-ico">🍫</div>
+          <div>
+            <div class="i-lbl">Sabores disponíveis</div>
+            <div class="i-val">Brigadeiro · Maracujá · Ninho+Nutella · Beijinho<br><small>A partir de R$17,90</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-box reveal">
+      <span class="cta-tag">Pronta para pedir?</span>
+      <div class="cta-title">Com vontade<br>de um <em>cone?</em></div>
+      <p class="cta-sub">Escolha o seu sabor favorito e peça agora pelo iFood ou WhatsApp. Seu cone artesanal chega fresquinho!</p>
+      <a href="https://www.ifood.com.br/delivery/marataizes-es/amor-dentro-do-cone-e-madame-rosti--alto-lagoa-funda/417314a2-55d2-4476-a96b-ac6137c88679" target="_blank" rel="noopener" class="btn-ifood-cta">
+        🛵 Pedir no iFood agora
+      </a>
+      <a href="https://wa.me/5528999036141?text=Olá!+Vim+pelo+portal+TV+Marataízes+e+quero+pedir+cones+trufados" target="_blank" rel="noopener" class="btn-wpp-cta">
+        💬 Pedir pelo WhatsApp
+      </a>
+      <a href="https://www.instagram.com/amordentrodocone" target="_blank" rel="noopener" class="btn-ig-cta">
+        📸 Ver no Instagram
+      </a>
+      <p class="cta-note">Delivery · Retirada · Entrega com hora marcada · Marataízes ES</p>
+    </div>
+  </div>
+</section>
+
+<!-- TV BANNER -->
+<div class="tv-banner">
+  <p>Página exclusiva no Guia da</p>
+  <h3>TV Marataízes · Canal 300 Soul TV<br>O maior portal digital do Sul do ES</h3>
+  <div class="tv-links">
+    <a href="https://www.tvmarataizes.digital/">Portal TV Marataízes</a>
+    <a href="https://tvmarataizes.digital/anunciar">Quero minha página exclusiva</a>
+    <a href="https://wa.me/5528999036141">Falar com a TV — (28) 99903-6141</a>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-tv">
-    <span class="footer-tv-tag">TV</span>
-    Marataízes · Guia Digital do Sul do ES
-  </div>
   <p>
-    <a href="https://www.tvmarataizes.digital/">tvmarataizes.digital</a> ·
-    <a href="https://www.instagram.com/amordentrodocone/" target="_blank" rel="noopener">@amordentrodocone</a> ·
-    <a href="https://wa.me/5521983165333">WhatsApp</a>
+    <strong>Amor dentro do Cone</strong> · Cones Trufados Gourmet Artesanais · Marataízes ES<br>
+    <a href="https://www.ifood.com.br/delivery/marataizes-es/amor-dentro-do-cone-e-madame-rosti--alto-lagoa-funda/417314a2-55d2-4476-a96b-ac6137c88679" target="_blank">iFood</a> · <a href="https://www.instagram.com/amordentrodocone" target="_blank">@amordentrodocone</a><br>
+    Página produzida pela <a href="https://www.tvmarataizes.digital/">TV Marataízes</a> · Canal 300 Soul TV · Guia Digital do Sul do ES
   </p>
 </footer>
 
+<!-- FLOAT -->
+<div class="f-pulse"></div>
+<a href="https://www.ifood.com.br/delivery/marataizes-es/amor-dentro-do-cone-e-madame-rosti--alto-lagoa-funda/417314a2-55d2-4476-a96b-ac6137c88679"
+   target="_blank" rel="noopener" class="f-ifood" aria-label="Pedir no iFood">
+  🛵
+</a>
+
+<script>
+const io = new IntersectionObserver(e => {
+  e.forEach(x => { if(x.isIntersecting){x.target.classList.add('visible');io.unobserve(x.target)} });
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+const hdr = document.querySelector('.header');
+window.addEventListener('scroll',()=>{
+  if(window.scrollY>60){hdr.style.height='64px';hdr.style.boxShadow='0 2px 20px rgba(200,118,138,.12)'}
+  else{hdr.style.height='78px';hdr.style.boxShadow='none'}
+},{passive:true});
+</script>
 </body>
 </html>
