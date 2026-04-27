@@ -111,7 +111,11 @@ select.form-control option{background:var(--bg3)}
     <div class="logo-mark"><svg viewBox="0 0 16 16" fill="none"><polygon points="4,2 14,8 4,14" fill="#000"/></svg></div>
     <div><div class="logo-text">TV MARATAÍZES</div><div class="logo-sub">GESTÃO DE CLIENTES</div></div>
   </div>
-  <div class="header-actions"><button class="btn btn-primary btn-sm" onclick="openModal()">+ Cliente</button></div>
+  <div class="header-actions">
+    <button class="btn btn-ghost btn-sm" onclick="exportarDados()" title="Exportar backup">⬇️ Exportar</button>
+    <label class="btn btn-ghost btn-sm" title="Importar backup" style="cursor:pointer">⬆️ Importar<input type="file" accept=".json" onchange="importarDados(event)" style="display:none"></label>
+    <button class="btn btn-primary btn-sm" onclick="openModal()">+ Cliente</button>
+  </div>
 </header>
 <div class="container">
   <div class="hoje-banner" id="hoje-banner"></div>
@@ -507,6 +511,38 @@ function setFilter(filter,el){
 function render(){renderHoje();renderStats();renderCards();if(currentTab==='stories')renderStories();if(currentTab==='financeiro')renderFinanceiro();}
 
 document.getElementById('modal-overlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+// ── EXPORTAR / IMPORTAR ──
+function exportarDados(){
+  const data=JSON.stringify(clientes,null,2);
+  const blob=new Blob([data],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  const hoje_str=new Date().toLocaleDateString('pt-BR').replace(/\//g,'-');
+  a.href=url;a.download='tvmarataizes-clientes-'+hoje_str+'.json';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('⬇️ Backup exportado!');
+}
+
+function importarDados(event){
+  const file=event.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const dados=JSON.parse(e.target.result);
+      if(!Array.isArray(dados)){alert('Arquivo inválido.');return;}
+      if(!confirm('Isso vai substituir todos os dados atuais. Confirma?'))return;
+      clientes=dados;
+      saveClientes(clientes);render();
+      showToast('⬆️ '+dados.length+' clientes importados!');
+    }catch(err){alert('Erro ao ler o arquivo. Verifique se é um backup válido.');}
+  };
+  reader.readAsText(file);
+  event.target.value='';
+}
+
 render();
 </script>
 </body>
