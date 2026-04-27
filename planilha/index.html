@@ -8,25 +8,13 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0A0A0A;
-  --bg2:#111111;
-  --bg3:#1A1A1A;
-  --border:#222;
-  --border2:#2A2A2A;
-  --yellow:#F5C842;
-  --yellow2:#FFD95A;
-  --red:#FF3B3B;
-  --green:#22C55E;
-  --orange:#FF8C00;
-  --gray:#555;
-  --text:#F0F0F0;
-  --text2:#888;
-  --text3:#444;
+  --bg:#0A0A0A;--bg2:#111111;--bg3:#1A1A1A;--border:#222;--border2:#2A2A2A;
+  --yellow:#F5C842;--yellow2:#FFD95A;--red:#FF3B3B;--green:#22C55E;
+  --blue:#3B82F6;--blue2:#60A5FA;--orange:#FF8C00;--gray:#555;
+  --text:#F0F0F0;--text2:#888;--text3:#444;
 }
 html{font-size:15px}
 body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden}
-
-/* HEADER */
 header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
 .logo{display:flex;align-items:center;gap:10px}
 .logo-mark{width:30px;height:30px;background:var(--yellow);border-radius:6px;display:flex;align-items:center;justify-content:center}
@@ -34,11 +22,7 @@ header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 1.5
 .logo-text{font-size:.85rem;font-weight:700;letter-spacing:.05em}
 .logo-sub{font-size:.65rem;color:var(--text2);font-family:'DM Mono',monospace;letter-spacing:.1em}
 .header-actions{display:flex;gap:.5rem}
-
-/* LAYOUT */
 .container{max-width:1200px;margin:0 auto;padding:1.5rem}
-
-/* HOJE BANNER */
 .hoje-banner{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1.5rem}
 .hoje-title{font-size:.65rem;font-weight:700;letter-spacing:.2em;color:var(--yellow);font-family:'DM Mono',monospace;margin-bottom:1rem;text-transform:uppercase}
 .hoje-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
@@ -48,22 +32,18 @@ header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 1.5
 .hoje-item{font-size:.8rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem}
 .hoje-item-name{font-weight:600;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hoje-empty{font-size:.75rem;color:var(--text3);font-family:'DM Mono',monospace}
-
-/* TABS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1.5rem}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center}
+.stat-num{font-size:1.6rem;font-weight:800;line-height:1}
+.stat-label{font-size:.6rem;color:var(--text2);font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;margin-top:.3rem}
 .tabs{display:flex;gap:.25rem;margin-bottom:1.5rem;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:.25rem}
 .tab{flex:1;padding:.6rem;text-align:center;font-size:.75rem;font-weight:700;letter-spacing:.05em;border-radius:7px;cursor:pointer;border:none;background:transparent;color:var(--text2);transition:all .2s}
 .tab.active{background:var(--yellow);color:#000}
-
-/* FILTERS */
 .filters{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
 .filter-btn{padding:.4rem .9rem;border-radius:20px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-size:.7rem;font-family:'Syne',sans-serif;font-weight:600;cursor:pointer;letter-spacing:.05em;transition:all .2s}
 .filter-btn.active{border-color:var(--yellow);color:var(--yellow)}
-.filter-btn:hover{border-color:var(--text2)}
-
-/* CARDS */
 .cards{display:flex;flex-direction:column;gap:.75rem}
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .2s}
-.card:hover{border-color:var(--border2)}
 .card-header{display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;cursor:pointer}
 .card-status-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 .card-info{flex:1;min-width:0}
@@ -73,11 +53,9 @@ header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 1.5
 .badge{font-size:.6rem;font-weight:700;letter-spacing:.08em;padding:.2rem .55rem;border-radius:20px;font-family:'DM Mono',monospace;text-transform:uppercase;white-space:nowrap}
 .badge-yellow{background:rgba(245,200,66,.15);color:var(--yellow);border:1px solid rgba(245,200,66,.3)}
 .badge-red{background:rgba(255,59,59,.12);color:var(--red);border:1px solid rgba(255,59,59,.25)}
-.badge-green{background:rgba(34,197,94,.12);color:var(--green);border:1px solid rgba(34,197,94,.25)}
+.badge-blue{background:rgba(59,130,246,.15);color:var(--blue2);border:1px solid rgba(59,130,246,.3)}
 .badge-gray{background:rgba(85,85,85,.2);color:var(--gray);border:1px solid rgba(85,85,85,.3)}
 .badge-orange{background:rgba(255,140,0,.12);color:var(--orange);border:1px solid rgba(255,140,0,.25)}
-
-/* CARD BODY */
 .card-body{display:none;border-top:1px solid var(--border);padding:1rem 1.25rem}
 .card-body.open{display:block}
 .card-details{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.75rem;margin-bottom:1rem}
@@ -85,23 +63,25 @@ header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 1.5
 .detail-item span{font-size:.8rem;font-weight:600}
 .card-obs{background:var(--bg3);border-radius:6px;padding:.6rem .75rem;font-size:.75rem;color:var(--text2);margin-bottom:1rem;line-height:1.5;font-family:'DM Mono',monospace}
 .card-actions{display:flex;gap:.5rem;flex-wrap:wrap}
-
-/* BUTTONS */
+.pago-info{background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.25);border-radius:8px;padding:.6rem .85rem;margin-bottom:.6rem;font-size:.78rem;font-family:'DM Mono',monospace;color:var(--blue2);display:flex;align-items:center;gap:.5rem;font-weight:600}
+.prox-venc{background:var(--bg3);border-radius:8px;padding:.5rem .85rem;margin-bottom:.75rem;font-size:.72rem;font-family:'DM Mono',monospace;color:var(--text2)}
+.btn-alert-avisar{background:rgba(245,200,66,.2)!important;color:var(--yellow)!important;border:2px solid var(--yellow)!important;animation:pulse-yellow 1.5s infinite;margin-bottom:.5rem}
+.btn-alert-cobrar{background:rgba(255,59,59,.2)!important;color:var(--red)!important;border:2px solid var(--red)!important;animation:pulse-red 1.5s infinite;margin-bottom:.5rem}
+@keyframes pulse-yellow{0%,100%{box-shadow:0 0 0 0 rgba(245,200,66,.5)}50%{box-shadow:0 0 0 8px rgba(245,200,66,0)}}
+@keyframes pulse-red{0%,100%{box-shadow:0 0 0 0 rgba(255,59,59,.5)}50%{box-shadow:0 0 0 8px rgba(255,59,59,0)}}
 .btn{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1rem;border-radius:8px;border:none;cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;font-size:.75rem;letter-spacing:.03em;transition:all .2s;text-decoration:none;white-space:nowrap}
-.btn-primary{background:var(--yellow);color:#000}
-.btn-primary:hover{background:var(--yellow2)}
-.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border2)}
-.btn-ghost:hover{border-color:var(--text);color:var(--text)}
-.btn-green{background:rgba(34,197,94,.15);color:var(--green);border:1px solid rgba(34,197,94,.3)}
-.btn-green:hover{background:rgba(34,197,94,.25)}
-.btn-red{background:rgba(255,59,59,.1);color:var(--red);border:1px solid rgba(255,59,59,.25)}
-.btn-red:hover{background:rgba(255,59,59,.2)}
-.btn-wa{background:#075E54;color:#fff}
-.btn-wa:hover{background:#128C7E}
+.btn-primary{background:var(--yellow);color:#000}.btn-primary:hover{background:var(--yellow2)}
+.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border2)}.btn-ghost:hover{border-color:var(--text);color:var(--text)}
+.btn-blue{background:rgba(59,130,246,.2);color:var(--blue2);border:1px solid rgba(59,130,246,.4)}.btn-blue:hover{background:rgba(59,130,246,.35)}
+.btn-red{background:rgba(255,59,59,.1);color:var(--red);border:1px solid rgba(255,59,59,.25)}.btn-red:hover{background:rgba(255,59,59,.2)}
+.btn-wa{background:#075E54;color:#fff}.btn-wa:hover{background:#128C7E}
 .btn-sm{padding:.35rem .7rem;font-size:.68rem}
 .btn-icon{width:34px;height:34px;padding:0;justify-content:center}
-
-/* MODAL */
+.story-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem}
+.story-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem}
+.story-card-name{font-weight:700;font-size:.85rem;margin-bottom:.3rem}
+.story-card-day{font-size:.7rem;color:var(--text2);font-family:'DM Mono',monospace;margin-bottom:.75rem}
+.story-today{border-color:var(--yellow)}
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem}
 .modal-overlay.open{display:flex}
 .modal{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
@@ -109,8 +89,6 @@ header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 1.5
 .modal-title{font-size:1rem;font-weight:700}
 .modal-body{padding:1.5rem}
 .modal-footer{padding:1rem 1.5rem;border-top:1px solid var(--border);display:flex;gap:.5rem;justify-content:flex-end}
-
-/* FORM */
 .form-group{margin-bottom:1rem}
 .form-group label{display:block;font-size:.68rem;font-weight:700;letter-spacing:.1em;color:var(--text2);font-family:'DM Mono',monospace;text-transform:uppercase;margin-bottom:.4rem}
 .form-control{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:.65rem .85rem;color:var(--text);font-family:'Syne',sans-serif;font-size:.85rem;outline:none;transition:border-color .2s}
@@ -118,101 +96,44 @@ header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 1.5
 .form-control::placeholder{color:var(--text3)}
 select.form-control option{background:var(--bg3)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
-
-/* STATS */
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1.5rem}
-.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center}
-.stat-num{font-size:1.6rem;font-weight:800;line-height:1}
-.stat-label{font-size:.6rem;color:var(--text2);font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;margin-top:.3rem}
-
-/* STORY VIEW */
-.story-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem}
-.story-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem}
-.story-card-name{font-weight:700;font-size:.85rem;margin-bottom:.3rem}
-.story-card-day{font-size:.7rem;color:var(--text2);font-family:'DM Mono',monospace;margin-bottom:.75rem}
-.story-today{border-color:var(--yellow)}
-
-/* TOAST */
-.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--bg3);border:1px solid var(--green);color:var(--green);padding:.75rem 1.25rem;border-radius:10px;font-size:.8rem;font-weight:700;z-index:999;transform:translateY(100px);opacity:0;transition:all .3s}
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--bg3);border:1px solid var(--blue);color:var(--blue2);padding:.75rem 1.25rem;border-radius:10px;font-size:.8rem;font-weight:700;z-index:999;transform:translateY(100px);opacity:0;transition:all .3s}
 .toast.show{transform:translateY(0);opacity:1}
-
-/* EMPTY */
 .empty{text-align:center;padding:3rem 1rem;color:var(--text3)}
 .empty-icon{font-size:2rem;margin-bottom:.75rem}
 .empty-text{font-size:.85rem;font-family:'DM Mono',monospace}
-
-/* SCROLLBAR */
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
-
-@media(max-width:600px){
-  .stats-row{grid-template-columns:repeat(2,1fr)}
-  .form-row{grid-template-columns:1fr}
-  .card-badges{display:none}
-  header{padding:0 1rem}
-}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+@media(max-width:600px){.stats-row{grid-template-columns:repeat(2,1fr)}.form-row{grid-template-columns:1fr}.card-badges{display:none}header{padding:0 1rem}}
 </style>
 </head>
 <body>
-
 <header>
   <div class="logo">
-    <div class="logo-mark">
-      <svg viewBox="0 0 16 16" fill="none">
-        <polygon points="4,2 14,8 4,14" fill="#000"/>
-      </svg>
-    </div>
-    <div>
-      <div class="logo-text">TV MARATAÍZES</div>
-      <div class="logo-sub">GESTÃO DE CLIENTES</div>
-    </div>
+    <div class="logo-mark"><svg viewBox="0 0 16 16" fill="none"><polygon points="4,2 14,8 4,14" fill="#000"/></svg></div>
+    <div><div class="logo-text">TV MARATAÍZES</div><div class="logo-sub">GESTÃO DE CLIENTES</div></div>
   </div>
-  <div class="header-actions">
-    <button class="btn btn-primary btn-sm" onclick="openModal()">+ Cliente</button>
-  </div>
+  <div class="header-actions"><button class="btn btn-primary btn-sm" onclick="openModal()">+ Cliente</button></div>
 </header>
-
 <div class="container">
-
-  <!-- HOJE -->
   <div class="hoje-banner" id="hoje-banner"></div>
-
-  <!-- STATS -->
   <div class="stats-row" id="stats-row"></div>
-
-  <!-- TABS -->
   <div class="tabs">
     <button class="tab active" onclick="setTab('clientes',this)">Clientes</button>
     <button class="tab" onclick="setTab('stories',this)">Stories</button>
     <button class="tab" onclick="setTab('financeiro',this)">Financeiro</button>
   </div>
-
-  <!-- CLIENTES VIEW -->
   <div id="view-clientes">
     <div class="filters">
       <button class="filter-btn active" onclick="setFilter('todos',this)">Todos</button>
       <button class="filter-btn" onclick="setFilter('avisar',this)">🟡 Avisar</button>
       <button class="filter-btn" onclick="setFilter('cobrar',this)">🔴 Cobrar</button>
       <button class="filter-btn" onclick="setFilter('atrasado',this)">⚫ Atrasado</button>
-      <button class="filter-btn" onclick="setFilter('pago',this)">🟢 Pago</button>
+      <button class="filter-btn" onclick="setFilter('pago',this)">🔵 Pago</button>
     </div>
     <div class="cards" id="cards-list"></div>
   </div>
-
-  <!-- STORIES VIEW -->
-  <div id="view-stories" style="display:none">
-    <div class="story-grid" id="story-grid"></div>
-  </div>
-
-  <!-- FINANCEIRO VIEW -->
-  <div id="view-financeiro" style="display:none">
-    <div id="financeiro-content"></div>
-  </div>
-
+  <div id="view-stories" style="display:none"><div class="story-grid" id="story-grid"></div></div>
+  <div id="view-financeiro" style="display:none"><div id="financeiro-content"></div></div>
 </div>
-
-<!-- MODAL CADASTRO -->
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal">
     <div class="modal-header">
@@ -220,17 +141,9 @@ select.form-control option{background:var(--bg3)}
       <button class="btn btn-ghost btn-icon btn-sm" onclick="closeModal()">✕</button>
     </div>
     <div class="modal-body">
-      <input type="hidden" id="edit-id">
-      <div class="form-group">
-        <label>Nome</label>
-        <input class="form-control" id="f-nome" placeholder="Nome do cliente ou estabelecimento">
-      </div>
-      <div class="form-group">
-        <label>WhatsApp</label>
-        <input class="form-control" id="f-whatsapp" placeholder="5528999999999" type="tel">
-      </div>
-      <div class="form-group">
-        <label>Plano</label>
+      <div class="form-group"><label>Nome</label><input class="form-control" id="f-nome" placeholder="Nome do cliente ou estabelecimento"></div>
+      <div class="form-group"><label>WhatsApp</label><input class="form-control" id="f-whatsapp" placeholder="5528999999999" type="tel"></div>
+      <div class="form-group"><label>Plano</label>
         <select class="form-control" id="f-plano">
           <option value="249">R$ 249 — Dinheiro</option>
           <option value="125+125">R$ 125 + R$ 125 Permuta</option>
@@ -238,19 +151,10 @@ select.form-control option{background:var(--bg3)}
         </select>
       </div>
       <div class="form-row">
-        <div class="form-group">
-          <label>Data de Entrada</label>
-          <input class="form-control" id="f-entrada" type="date">
-        </div>
-        <div class="form-group">
-          <label>Dia do Story</label>
-          <input class="form-control" id="f-story-dia" placeholder="Ex: toda quarta ou dia 15">
-        </div>
+        <div class="form-group"><label>Data de Entrada</label><input class="form-control" id="f-entrada" type="date"></div>
+        <div class="form-group"><label>Dia do Story</label><input class="form-control" id="f-story-dia" placeholder="Ex: toda quarta ou dia 15"></div>
       </div>
-      <div class="form-group">
-        <label>Observações</label>
-        <textarea class="form-control" id="f-obs" rows="2" placeholder="Permuta: almoço, produto, etc."></textarea>
-      </div>
+      <div class="form-group"><label>Observações</label><textarea class="form-control" id="f-obs" rows="2" placeholder="Permuta: almoço, produto, etc."></textarea></div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
@@ -258,346 +162,304 @@ select.form-control option{background:var(--bg3)}
     </div>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
-
 <script>
-// ══════════════════════════════════════════
-// STORAGE
-// ══════════════════════════════════════════
-const STORAGE_KEY = 'tvmara_clientes_v2';
+const STORAGE_KEY='tvmara_clientes_v3';
+const PIX='CNPJ 59.245.417/0001-67';
+const MESES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 
-function loadClientes(){
-  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY))||[]; }
-  catch(e){ return []; }
-}
-function saveClientes(list){ localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); }
+function loadClientes(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||[];}catch(e){return[];}}
+function saveClientes(list){localStorage.setItem(STORAGE_KEY,JSON.stringify(list));}
 
-let clientes = loadClientes();
-let currentFilter = 'todos';
-let currentTab = 'clientes';
-let editingId = null;
+let clientes=loadClientes();
+let currentFilter='todos';
+let currentTab='clientes';
+let editingId=null;
 
-// ══════════════════════════════════════════
-// UTILS
-// ══════════════════════════════════════════
-function hoje(){ return new Date(); }
+function hoje(){return new Date();}
+function getDayOfMonth(){return hoje().getDate();}
+function getDayOfWeek(){return hoje().toLocaleDateString('pt-BR',{weekday:'long'});}
+function mesNome(date){return MESES[date.getMonth()];}
+function uuid(){return Date.now().toString(36)+Math.random().toString(36).slice(2);}
 
-function getDayOfMonth(){ return hoje().getDate(); }
-function getDayOfWeek(){ return hoje().toLocaleDateString('pt-BR',{weekday:'long'}); }
-
-function getVencimento(cliente){
-  if(!cliente.entrada) return null;
-  const entrada = new Date(cliente.entrada);
-  const h = hoje();
-  const venc = new Date(h.getFullYear(), h.getMonth(), entrada.getDate());
-  if(venc < h) venc.setMonth(venc.getMonth()+1);
+function getVencimento(c){
+  if(!c.entrada)return null;
+  const entrada=new Date(c.entrada+'T00:00:00');
+  const h=hoje();
+  let venc=new Date(h.getFullYear(),h.getMonth(),entrada.getDate());
+  const hd=new Date(h.getFullYear(),h.getMonth(),h.getDate());
+  if(venc<hd)venc.setMonth(venc.getMonth()+1);
   return venc;
 }
 
+function getProximoVencimento(c){
+  if(!c.entrada)return null;
+  const entrada=new Date(c.entrada+'T00:00:00');
+  const h=hoje();
+  return new Date(h.getFullYear(),h.getMonth()+1,entrada.getDate());
+}
+
 function getDiffDays(date){
-  const h = new Date(); h.setHours(0,0,0,0);
-  const d = new Date(date); d.setHours(0,0,0,0);
+  const h=new Date();h.setHours(0,0,0,0);
+  const d=new Date(date);d.setHours(0,0,0,0);
   return Math.round((d-h)/(1000*60*60*24));
 }
 
-function getStatus(cliente){
-  if(cliente.pago){
-    const pago = new Date(cliente.pago);
-    const h = hoje();
-    const mesAtual = h.getFullYear()*12 + h.getMonth();
-    const mesPago = pago.getFullYear()*12 + pago.getMonth();
-    if(mesPago >= mesAtual) return 'pago';
-  }
-  const venc = getVencimento(cliente);
-  if(!venc) return 'pago';
-  const diff = getDiffDays(venc);
-  if(diff < 0) return 'atrasado';
-  if(diff === 0) return 'cobrar';
-  if(diff <= 2) return 'avisar';
-  return 'pago';
+function isPagoMesAtual(c){
+  if(!c.pagamentos||!c.pagamentos.length)return false;
+  const h=hoje();
+  return c.pagamentos.some(p=>{const d=new Date(p);return d.getFullYear()===h.getFullYear()&&d.getMonth()===h.getMonth();});
+}
+
+function getStatus(c){
+  if(isPagoMesAtual(c))return'pago';
+  const venc=getVencimento(c);
+  if(!venc)return'ok';
+  const diff=getDiffDays(venc);
+  if(diff<0)return'atrasado';
+  if(diff===0)return'cobrar';
+  if(diff<=2)return'avisar';
+  return'ok';
 }
 
 function statusBadge(status){
-  const map = {
-    pago:['🟢 Pago','badge-green'],
-    avisar:['🟡 Avisar','badge-yellow'],
-    cobrar:['🔴 Cobrar hoje','badge-red'],
-    atrasado:['⚫ Atrasado','badge-gray']
-  };
+  const map={pago:['🔵 Pago','badge-blue'],avisar:['🟡 Avisar','badge-yellow'],cobrar:['🔴 Cobrar hoje','badge-red'],atrasado:['⚫ Atrasado','badge-gray'],ok:['✓ Em dia','badge-gray']};
   return map[status]||['—','badge-gray'];
 }
 
-function planLabel(p){
-  if(p==='249') return 'R$249 Dinheiro';
-  if(p==='125+125') return 'R$125+Permuta';
-  if(p==='permuta') return 'Permuta Integral';
-  return p;
-}
-
-function planValue(p){
-  if(p==='249') return 249;
-  if(p==='125+125') return 125;
-  return 0;
-}
-
-function waLink(numero, msg){
-  return `https://wa.me/${numero}?text=${encodeURIComponent(msg)}`;
-}
+function planLabel(p){return p==='249'?'R$249 Dinheiro':p==='125+125'?'R$125+Permuta':p==='permuta'?'Permuta Integral':p;}
+function planValue(p){return p==='249'?249:p==='125+125'?125:0;}
+function waLink(n,m){return'https://wa.me/'+n+'?text='+encodeURIComponent(m);}
 
 function isStoryHoje(dia){
-  if(!dia) return false;
-  const d = dia.toLowerCase();
-  const dw = getDayOfWeek().toLowerCase();
-  const dm = getDayOfMonth();
-  if(d.includes(dw.slice(0,3))) return true;
-  const num = parseInt(d.replace(/\D/g,''));
-  if(!isNaN(num) && num === dm) return true;
+  if(!dia)return false;
+  const d=dia.toLowerCase();
+  const dw=getDayOfWeek().toLowerCase();
+  const dm=getDayOfMonth();
+  if(d.includes(dw.slice(0,3)))return true;
+  const num=parseInt(d.replace(/\D/g,''));
+  if(!isNaN(num)&&num===dm)return true;
   return false;
 }
 
-function uuid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2); }
-
-function showToast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2500);
-}
-
 function formatDate(str){
-  if(!str) return '—';
-  const d = new Date(str+'T00:00:00');
+  if(!str)return'—';
+  const d=new Date(str+'T00:00:00');
   return d.toLocaleDateString('pt-BR');
 }
 
-// ══════════════════════════════════════════
-// HOJE BANNER
-// ══════════════════════════════════════════
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+function msgAvisar(nome){return'Fala, '+nome+'! Tudo certo? 😊\n\nPassando pra te avisar que seu plano na TV Marataízes vence em 2 dias.\n\nQualquer dúvida me chama 👍';}
+
+function msgCobrar(nome,venc){
+  const mes=mesNome(venc);
+  const dia=venc.getDate();
+  return'Fala, '+nome+'! 🎉\n\nParabéns — você tem sua página no Guia da TV Marataízes!\n\nHoje, dia '+dia+' de '+mes+', é o vencimento do seu plano.\n\nO PIX para hoje é:\n'+PIX+'\n\nMe confirma por aqui quando pagar 🙏';
+}
+
+function msgStory(nome){return'Fala, '+nome+'! Seu story já está no ar hoje na TV Marataízes 🚀 Dá uma conferida lá no Instagram 👀';}
+
+// ── HOJE ──
 function renderHoje(){
-  const avisar = clientes.filter(c=>getStatus(c)==='avisar');
-  const cobrar = clientes.filter(c=>getStatus(c)==='cobrar');
-  const atrasado = clientes.filter(c=>getStatus(c)==='atrasado');
-  const stories = clientes.filter(c=>isStoryHoje(c.storyDia));
+  const avisar=clientes.filter(c=>getStatus(c)==='avisar');
+  const cobrar=clientes.filter(c=>getStatus(c)==='cobrar');
+  const atrasado=clientes.filter(c=>getStatus(c)==='atrasado');
+  const stories=clientes.filter(c=>isStoryHoje(c.storyDia));
 
-  function list(arr, type){
-    if(!arr.length) return '<span class="hoje-empty">Nenhum</span>';
-    return arr.map(c=>`
-      <div class="hoje-item">
-        <span class="hoje-item-name">${c.nome}</span>
-        ${type==='story'&&c.whatsapp?`<a href="${waLink(c.whatsapp,'Fala, '+c.nome+'! Seu story já está no ar hoje na TV Marataízes 🚀 Dá uma conferida lá no Instagram 👀')}" target="_blank" class="btn btn-wa btn-sm btn-icon" title="Enviar WhatsApp">📲</a>`:''}
-        ${type==='cobrar'&&c.whatsapp?`<a href="${waLink(c.whatsapp,'Fala, '+c.nome+'! Hoje é o vencimento do seu plano na TV Marataízes. Me confirma por aqui, por favor 👍')}" target="_blank" class="btn btn-red btn-sm btn-icon" title="Cobrar">💬</a>`:''}
-        ${type==='avisar'&&c.whatsapp?`<a href="${waLink(c.whatsapp,'Fala, '+c.nome+'! Tudo certo? Passando pra te avisar que seu plano na TV Marataízes vence em 2 dias. Qualquer dúvida me chama 👍')}" target="_blank" class="btn btn-ghost btn-sm btn-icon" title="Avisar">💬</a>`:''}
-      </div>`).join('');
+  function list(arr,type){
+    if(!arr.length)return'<span class="hoje-empty">Nenhum</span>';
+    return arr.map(c=>{
+      const venc=getVencimento(c);
+      return'<div class="hoje-item"><span class="hoje-item-name">'+c.nome+'</span>'+
+        (type==='story'&&c.whatsapp?'<a href="'+waLink(c.whatsapp,msgStory(c.nome))+'" target="_blank" class="btn btn-wa btn-sm btn-icon">📲</a>':'')+
+        (type==='cobrar'&&c.whatsapp?'<a href="'+waLink(c.whatsapp,msgCobrar(c.nome,venc))+'" target="_blank" class="btn btn-red btn-sm btn-icon">💰</a>':'')+
+        (type==='avisar'&&c.whatsapp?'<a href="'+waLink(c.whatsapp,msgAvisar(c.nome))+'" target="_blank" class="btn btn-ghost btn-sm btn-icon">💬</a>':'')+
+      '</div>';
+    }).join('');
   }
 
-  document.getElementById('hoje-banner').innerHTML = `
-    <div class="hoje-title">📅 Hoje — ${hoje().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'})}</div>
-    <div class="hoje-grid">
-      <div class="hoje-card">
-        <div class="hoje-card-label">🟡 Avisar (${avisar.length})</div>
-        <div class="hoje-card-list">${list(avisar,'avisar')}</div>
-      </div>
-      <div class="hoje-card">
-        <div class="hoje-card-label">🔴 Cobrar hoje (${cobrar.length})</div>
-        <div class="hoje-card-list">${list(cobrar,'cobrar')}</div>
-      </div>
-      <div class="hoje-card">
-        <div class="hoje-card-label">⚫ Atrasados (${atrasado.length})</div>
-        <div class="hoje-card-list">${list(atrasado,'')}</div>
-      </div>
-      <div class="hoje-card">
-        <div class="hoje-card-label">📸 Stories hoje (${stories.length})</div>
-        <div class="hoje-card-list">${list(stories,'story')}</div>
-      </div>
-    </div>`;
+  document.getElementById('hoje-banner').innerHTML=
+    '<div class="hoje-title">📅 Hoje — '+hoje().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'})+'</div>'+
+    '<div class="hoje-grid">'+
+    '<div class="hoje-card"><div class="hoje-card-label">🟡 Avisar ('+avisar.length+')</div><div class="hoje-card-list">'+list(avisar,'avisar')+'</div></div>'+
+    '<div class="hoje-card"><div class="hoje-card-label">🔴 Cobrar hoje ('+cobrar.length+')</div><div class="hoje-card-list">'+list(cobrar,'cobrar')+'</div></div>'+
+    '<div class="hoje-card"><div class="hoje-card-label">⚫ Atrasados ('+atrasado.length+')</div><div class="hoje-card-list">'+list(atrasado,'')+'</div></div>'+
+    '<div class="hoje-card"><div class="hoje-card-label">📸 Stories hoje ('+stories.length+')</div><div class="hoje-card-list">'+list(stories,'story')+'</div></div>'+
+    '</div>';
 }
 
-// ══════════════════════════════════════════
-// STATS
-// ══════════════════════════════════════════
+// ── STATS ──
 function renderStats(){
-  const total = clientes.length;
-  const receita = clientes.reduce((a,c)=>a+planValue(c.plano),0);
-  const pagos = clientes.filter(c=>getStatus(c)==='pago').length;
-  const atrasados = clientes.filter(c=>getStatus(c)==='atrasado').length;
-
-  document.getElementById('stats-row').innerHTML = `
-    <div class="stat-card"><div class="stat-num" style="color:var(--yellow)">${total}</div><div class="stat-label">Clientes</div></div>
-    <div class="stat-card"><div class="stat-num" style="color:var(--green)">R$${receita.toLocaleString('pt-BR')}</div><div class="stat-label">Receita/Mês</div></div>
-    <div class="stat-card"><div class="stat-num" style="color:var(--green)">${pagos}</div><div class="stat-label">Em dia</div></div>
-    <div class="stat-card"><div class="stat-num" style="color:var(--red)">${atrasados}</div><div class="stat-label">Atrasados</div></div>`;
+  const total=clientes.length;
+  const receita=clientes.reduce((a,c)=>a+planValue(c.plano),0);
+  const pagos=clientes.filter(c=>getStatus(c)==='pago').length;
+  const atrasados=clientes.filter(c=>getStatus(c)==='atrasado').length;
+  document.getElementById('stats-row').innerHTML=
+    '<div class="stat-card"><div class="stat-num" style="color:var(--yellow)">'+total+'</div><div class="stat-label">Clientes</div></div>'+
+    '<div class="stat-card"><div class="stat-num" style="color:var(--blue2)">R$'+receita.toLocaleString('pt-BR')+'</div><div class="stat-label">Receita/Mês</div></div>'+
+    '<div class="stat-card"><div class="stat-num" style="color:var(--blue2)">'+pagos+'</div><div class="stat-label">Pagos</div></div>'+
+    '<div class="stat-card"><div class="stat-num" style="color:var(--red)">'+atrasados+'</div><div class="stat-label">Atrasados</div></div>';
 }
 
-// ══════════════════════════════════════════
-// CARDS
-// ══════════════════════════════════════════
+// ── CARDS ──
 function renderCards(){
-  const list = document.getElementById('cards-list');
-  let filtered = clientes;
-  if(currentFilter!=='todos') filtered = clientes.filter(c=>getStatus(c)===currentFilter);
+  const list=document.getElementById('cards-list');
+  let filtered=clientes;
+  if(currentFilter!=='todos')filtered=clientes.filter(c=>getStatus(c)===currentFilter);
+  if(!filtered.length){list.innerHTML='<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">Nenhum cliente neste filtro</div></div>';return;}
 
-  if(!filtered.length){
-    list.innerHTML = `<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">Nenhum cliente neste filtro</div></div>`;
-    return;
-  }
+  list.innerHTML=filtered.map(c=>{
+    const status=getStatus(c);
+    const [badgeText,badgeClass]=statusBadge(status);
+    const venc=getVencimento(c);
+    const proxVenc=getProximoVencimento(c);
+    const vencStr=venc?venc.toLocaleDateString('pt-BR'):'—';
+    const dotColor={pago:'var(--blue)',avisar:'var(--yellow)',cobrar:'var(--red)',atrasado:'var(--gray)',ok:'var(--text3)'}[status];
+    const mesAtual=mesNome(hoje());
+    const proxMes=proxVenc?mesNome(proxVenc):'—';
+    const proxDia=proxVenc?proxVenc.getDate():'?';
+    const pagoMes=isPagoMesAtual(c);
 
-  list.innerHTML = filtered.map(c=>{
-    const status = getStatus(c);
-    const [badgeText, badgeClass] = statusBadge(status);
-    const venc = getVencimento(c);
-    const vencStr = venc ? venc.toLocaleDateString('pt-BR') : '—';
-    const dotColor = {pago:'var(--green)',avisar:'var(--yellow)',cobrar:'var(--red)',atrasado:'var(--gray)'}[status];
+    let pagoHtml='';
+    if(pagoMes){
+      pagoHtml='<div class="pago-info">🔵 '+mesAtual+' — PAGO ✓</div>'+
+        '<div class="prox-venc">📅 Próximo vencimento: dia '+proxDia+' de '+proxMes+'</div>';
+    }
 
-    const msgAvisar = `Fala, ${c.nome}! Tudo certo? Passando pra te avisar que seu plano na TV Marataízes vence em 2 dias. Qualquer dúvida me chama 👍`;
-    const msgCobrar = `Fala, ${c.nome}! Hoje é o vencimento do seu plano na TV Marataízes. Me confirma por aqui, por favor 👍`;
-    const msgStory = `Fala, ${c.nome}! Seu story já está no ar hoje na TV Marataízes 🚀 Dá uma conferida lá no Instagram 👀`;
-    const resumo = `📋 ${c.nome}\nPlano: ${planLabel(c.plano)}\nVencimento: ${vencStr}\nStory: ${c.storyDia||'—'}\nStatus: ${badgeText}${c.obs?'\nObs: '+c.obs:''}`;
+    let alertHtml='';
+    if(status==='avisar'&&c.whatsapp){
+      alertHtml='<a href="'+waLink(c.whatsapp,msgAvisar(c.nome))+'" target="_blank" class="btn btn-alert-avisar btn-sm" style="width:100%;justify-content:center">🟡 Enviar aviso de vencimento — 2 dias</a>';
+    }
+    if(status==='cobrar'&&c.whatsapp){
+      alertHtml='<a href="'+waLink(c.whatsapp,msgCobrar(c.nome,venc))+'" target="_blank" class="btn btn-alert-cobrar btn-sm" style="width:100%;justify-content:center">🔴 Cobrar agora + enviar PIX</a>';
+    }
 
-    return `
-    <div class="card" id="card-${c.id}">
-      <div class="card-header" onclick="toggleCard('${c.id}')">
-        <div class="card-status-dot" style="background:${dotColor}"></div>
-        <div class="card-info">
-          <div class="card-name">${c.nome}</div>
-          <div class="card-meta">${planLabel(c.plano)} · Vence ${vencStr}</div>
-        </div>
-        <div class="card-badges">
-          <span class="badge ${badgeClass}">${badgeText}</span>
-          ${isStoryHoje(c.storyDia)?'<span class="badge badge-orange">📸 Story hoje</span>':''}
-        </div>
-      </div>
-      <div class="card-body" id="body-${c.id}">
-        <div class="card-details">
-          <div class="detail-item"><label>WhatsApp</label><span>${c.whatsapp||'—'}</span></div>
-          <div class="detail-item"><label>Plano</label><span>${planLabel(c.plano)}</span></div>
-          <div class="detail-item"><label>Entrada</label><span>${formatDate(c.entrada)}</span></div>
-          <div class="detail-item"><label>Vencimento</label><span>${vencStr}</span></div>
-          <div class="detail-item"><label>Dia do Story</label><span>${c.storyDia||'—'}</span></div>
-          <div class="detail-item"><label>Status</label><span>${badgeText}</span></div>
-        </div>
-        ${c.obs?`<div class="card-obs">📝 ${c.obs}</div>`:''}
-        <div class="card-actions">
-          ${c.whatsapp?`
-            <a href="${waLink(c.whatsapp,msgAvisar)}" target="_blank" class="btn btn-ghost btn-sm">💬 Avisar</a>
-            <a href="${waLink(c.whatsapp,msgCobrar)}" target="_blank" class="btn btn-red btn-sm">🔴 Cobrar</a>
-            <a href="${waLink(c.whatsapp,msgStory)}" target="_blank" class="btn btn-wa btn-sm">📸 Story no ar</a>
-          `:''}
-          <button class="btn btn-green btn-sm" onclick="marcarPago('${c.id}')">✅ Pago</button>
-          <button class="btn btn-ghost btn-sm" onclick="copyResumo('${c.id}',\`${resumo.replace(/`/g,"'")}\`)">📋 Copiar</button>
-          <button class="btn btn-ghost btn-sm" onclick="editCliente('${c.id}')">✏️ Editar</button>
-          <button class="btn btn-red btn-sm" onclick="deleteCliente('${c.id}')">🗑️</button>
-        </div>
-      </div>
-    </div>`;
+    const resumo=c.nome+'\nPlano: '+planLabel(c.plano)+'\nVencimento: '+vencStr+'\nStatus: '+badgeText+'\nStory: '+(c.storyDia||'—')+(c.obs?'\nObs: '+c.obs:'');
+
+    return '<div class="card" id="card-'+c.id+'">'+
+      '<div class="card-header" onclick="toggleCard(\''+c.id+'\')">'+
+        '<div class="card-status-dot" style="background:'+dotColor+'"></div>'+
+        '<div class="card-info"><div class="card-name">'+c.nome+'</div><div class="card-meta">'+planLabel(c.plano)+' · Vence '+vencStr+'</div></div>'+
+        '<div class="card-badges"><span class="badge '+badgeClass+'">'+badgeText+'</span>'+(isStoryHoje(c.storyDia)?'<span class="badge badge-orange">📸 Story hoje</span>':'')+'</div>'+
+      '</div>'+
+      '<div class="card-body" id="body-'+c.id+'">'+
+        pagoHtml+
+        (alertHtml?alertHtml+'<div style="height:.5rem"></div>':'')+
+        '<div class="card-details">'+
+          '<div class="detail-item"><label>WhatsApp</label><span>'+(c.whatsapp||'—')+'</span></div>'+
+          '<div class="detail-item"><label>Plano</label><span>'+planLabel(c.plano)+'</span></div>'+
+          '<div class="detail-item"><label>Entrada</label><span>'+formatDate(c.entrada)+'</span></div>'+
+          '<div class="detail-item"><label>Vencimento</label><span>'+vencStr+'</span></div>'+
+          '<div class="detail-item"><label>Dia do Story</label><span>'+(c.storyDia||'—')+'</span></div>'+
+          '<div class="detail-item"><label>Status</label><span>'+badgeText+'</span></div>'+
+        '</div>'+
+        (c.obs?'<div class="card-obs">📝 '+c.obs+'</div>':'')+
+        '<div class="card-actions">'+
+          (c.whatsapp&&status!=='avisar'&&status!=='cobrar'?'<a href="'+waLink(c.whatsapp,msgAvisar(c.nome))+'" target="_blank" class="btn btn-ghost btn-sm">💬 Avisar</a>':'')+
+          (c.whatsapp?'<a href="'+waLink(c.whatsapp,venc?msgCobrar(c.nome,venc):'')+'" target="_blank" class="btn btn-red btn-sm">💰 Cobrar+PIX</a>':'')+
+          (c.whatsapp?'<a href="'+waLink(c.whatsapp,msgStory(c.nome))+'" target="_blank" class="btn btn-wa btn-sm">📸 Story no ar</a>':'')+
+          '<button class="btn btn-blue btn-sm" onclick="marcarPago(\''+c.id+'\')">🔵 Marcar Pago</button>'+
+          '<button class="btn btn-ghost btn-sm" onclick="copyText(\''+encodeURIComponent(resumo)+'\')">📋 Copiar</button>'+
+          '<button class="btn btn-ghost btn-sm" onclick="editCliente(\''+c.id+'\')">✏️ Editar</button>'+
+          '<button class="btn btn-red btn-sm" onclick="deleteCliente(\''+c.id+'\')">🗑️</button>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
   }).join('');
 }
 
-function toggleCard(id){
-  const body = document.getElementById('body-'+id);
-  body.classList.toggle('open');
-}
+function toggleCard(id){document.getElementById('body-'+id).classList.toggle('open');}
 
-// ══════════════════════════════════════════
-// STORIES VIEW
-// ══════════════════════════════════════════
+// ── STORIES ──
 function renderStories(){
-  const grid = document.getElementById('story-grid');
-  if(!clientes.length){
-    grid.innerHTML = `<div class="empty"><div class="empty-icon">📸</div><div class="empty-text">Nenhum cliente cadastrado</div></div>`;
-    return;
-  }
-  grid.innerHTML = clientes.map(c=>{
-    const isHoje = isStoryHoje(c.storyDia);
-    const msg = `Fala, ${c.nome}! Seu story já está no ar hoje na TV Marataízes 🚀 Dá uma conferida lá no Instagram 👀`;
-    return `
-    <div class="story-card ${isHoje?'story-today':''}">
-      <div class="story-card-name">${c.nome} ${isHoje?'📸':''}</div>
-      <div class="story-card-day">${c.storyDia||'Sem dia definido'}</div>
-      ${isHoje&&c.whatsapp?`<a href="${waLink(c.whatsapp,msg)}" target="_blank" class="btn btn-wa btn-sm" style="width:100%;justify-content:center">📲 Story no ar</a>`:''}
-    </div>`;
+  const grid=document.getElementById('story-grid');
+  if(!clientes.length){grid.innerHTML='<div class="empty"><div class="empty-icon">📸</div><div class="empty-text">Nenhum cliente</div></div>';return;}
+  grid.innerHTML=clientes.map(c=>{
+    const isHoje=isStoryHoje(c.storyDia);
+    return'<div class="story-card '+(isHoje?'story-today':'')+'">'+
+      '<div class="story-card-name">'+c.nome+(isHoje?' 📸':'')+'</div>'+
+      '<div class="story-card-day">'+(c.storyDia||'Sem dia definido')+'</div>'+
+      (isHoje&&c.whatsapp?'<a href="'+waLink(c.whatsapp,msgStory(c.nome))+'" target="_blank" class="btn btn-wa btn-sm" style="width:100%;justify-content:center">📲 Story no ar</a>':'')+
+    '</div>';
   }).join('');
 }
 
-// ══════════════════════════════════════════
-// FINANCEIRO VIEW
-// ══════════════════════════════════════════
+// ── FINANCEIRO ──
 function renderFinanceiro(){
-  const cash = clientes.filter(c=>c.plano==='249'||c.plano==='125+125');
-  const permuta = clientes.filter(c=>c.plano==='permuta');
-  const totalCash = clientes.reduce((a,c)=>a+planValue(c.plano),0);
+  const cash=clientes.filter(c=>c.plano==='249'||c.plano==='125+125');
+  const permuta=clientes.filter(c=>c.plano==='permuta');
+  const totalCash=clientes.reduce((a,c)=>a+planValue(c.plano),0);
+  const pagosCash=clientes.filter(c=>isPagoMesAtual(c)).reduce((a,c)=>a+planValue(c.plano),0);
 
-  const rows = clientes.map(c=>{
-    const status = getStatus(c);
-    const [badgeText,badgeClass] = statusBadge(status);
-    return `<div class="card" style="margin-bottom:.5rem">
-      <div class="card-header" style="cursor:default">
-        <div class="card-info">
-          <div class="card-name">${c.nome}</div>
-          <div class="card-meta">${planLabel(c.plano)}</div>
-        </div>
-        <span class="badge ${badgeClass}">${badgeText}</span>
-      </div>
-    </div>`;
+  const rows=clientes.map(c=>{
+    const status=getStatus(c);
+    const[badgeText,badgeClass]=statusBadge(status);
+    const venc=getVencimento(c);
+    return'<div class="card" style="margin-bottom:.5rem"><div class="card-header" style="cursor:default">'+
+      '<div class="card-info"><div class="card-name">'+c.nome+'</div><div class="card-meta">'+planLabel(c.plano)+(venc?' · Vence '+venc.toLocaleDateString('pt-BR'):'')+'</div></div>'+
+      '<span class="badge '+badgeClass+'">'+badgeText+'</span></div></div>';
   }).join('');
 
-  document.getElementById('financeiro-content').innerHTML = `
-    <div class="stats-row" style="margin-bottom:1.5rem">
-      <div class="stat-card"><div class="stat-num" style="color:var(--green)">R$${totalCash}</div><div class="stat-label">Cash/Mês</div></div>
-      <div class="stat-card"><div class="stat-num" style="color:var(--yellow)">${cash.length}</div><div class="stat-label">Pagantes</div></div>
-      <div class="stat-card"><div class="stat-num" style="color:var(--orange)">${permuta.length}</div><div class="stat-label">Permuta</div></div>
-      <div class="stat-card"><div class="stat-num" style="color:var(--text)">${clientes.length}</div><div class="stat-label">Total</div></div>
-    </div>
-    ${rows}`;
+  document.getElementById('financeiro-content').innerHTML=
+    '<div class="stats-row" style="margin-bottom:1.5rem">'+
+    '<div class="stat-card"><div class="stat-num" style="color:var(--blue2)">R$'+totalCash+'</div><div class="stat-label">Previsto/Mês</div></div>'+
+    '<div class="stat-card"><div class="stat-num" style="color:var(--blue2)">R$'+pagosCash+'</div><div class="stat-label">Recebido</div></div>'+
+    '<div class="stat-card"><div class="stat-num" style="color:var(--yellow)">'+cash.length+'</div><div class="stat-label">Pagantes</div></div>'+
+    '<div class="stat-card"><div class="stat-num" style="color:var(--orange)">'+permuta.length+'</div><div class="stat-label">Permuta</div></div>'+
+    '</div>'+
+    '<div style="background:var(--bg3);border-radius:8px;padding:.75rem 1rem;margin-bottom:1rem;font-size:.75rem;font-family:\'DM Mono\',monospace;color:var(--text2)">🔑 PIX: '+PIX+'</div>'+
+    rows;
 }
 
-// ══════════════════════════════════════════
-// ACTIONS
-// ══════════════════════════════════════════
+// ── ACTIONS ──
 function marcarPago(id){
-  const idx = clientes.findIndex(c=>c.id===id);
-  if(idx<0) return;
-  clientes[idx].pago = new Date().toISOString();
-  saveClientes(clientes);
-  render();
-  showToast('✅ Marcado como pago!');
+  const idx=clientes.findIndex(c=>c.id===id);
+  if(idx<0)return;
+  if(!clientes[idx].pagamentos)clientes[idx].pagamentos=[];
+  const h=hoje();
+  clientes[idx].pagamentos=clientes[idx].pagamentos.filter(p=>{
+    const d=new Date(p);return!(d.getFullYear()===h.getFullYear()&&d.getMonth()===h.getMonth());
+  });
+  clientes[idx].pagamentos.push(new Date().toISOString());
+  saveClientes(clientes);render();
+  showToast('🔵 '+mesNome(hoje())+' marcado como PAGO!');
 }
 
 function deleteCliente(id){
-  if(!confirm('Excluir cliente?')) return;
-  clientes = clientes.filter(c=>c.id!==id);
-  saveClientes(clientes);
-  render();
+  if(!confirm('Excluir cliente?'))return;
+  clientes=clientes.filter(c=>c.id!==id);
+  saveClientes(clientes);render();
   showToast('🗑️ Cliente removido');
 }
 
-function copyResumo(id, text){
+function copyText(encoded){
+  const text=decodeURIComponent(encoded);
   navigator.clipboard.writeText(text).then(()=>showToast('📋 Copiado!')).catch(()=>{
-    const el = document.createElement('textarea');
-    el.value = text; document.body.appendChild(el);
-    el.select(); document.execCommand('copy');
-    document.body.removeChild(el);
-    showToast('📋 Copiado!');
+    const el=document.createElement('textarea');el.value=text;document.body.appendChild(el);
+    el.select();document.execCommand('copy');document.body.removeChild(el);showToast('📋 Copiado!');
   });
 }
 
-// ══════════════════════════════════════════
-// MODAL
-// ══════════════════════════════════════════
+// ── MODAL ──
 function openModal(id=null){
-  editingId = id;
-  document.getElementById('modal-title').textContent = id ? 'Editar Cliente' : 'Novo Cliente';
+  editingId=id;
+  document.getElementById('modal-title').textContent=id?'Editar Cliente':'Novo Cliente';
   if(id){
-    const c = clientes.find(x=>x.id===id);
+    const c=clientes.find(x=>x.id===id);
     if(c){
-      document.getElementById('f-nome').value = c.nome||'';
-      document.getElementById('f-whatsapp').value = c.whatsapp||'';
-      document.getElementById('f-plano').value = c.plano||'249';
-      document.getElementById('f-entrada').value = c.entrada||'';
-      document.getElementById('f-story-dia').value = c.storyDia||'';
-      document.getElementById('f-obs').value = c.obs||'';
+      document.getElementById('f-nome').value=c.nome||'';
+      document.getElementById('f-whatsapp').value=c.whatsapp||'';
+      document.getElementById('f-plano').value=c.plano||'249';
+      document.getElementById('f-entrada').value=c.entrada||'';
+      document.getElementById('f-story-dia').value=c.storyDia||'';
+      document.getElementById('f-obs').value=c.obs||'';
     }
-  } else {
+  }else{
     document.getElementById('f-nome').value='';
     document.getElementById('f-whatsapp').value='';
     document.getElementById('f-plano').value='249';
@@ -608,74 +470,43 @@ function openModal(id=null){
   document.getElementById('modal-overlay').classList.add('open');
 }
 
-function closeModal(){
-  document.getElementById('modal-overlay').classList.remove('open');
-  editingId = null;
-}
-
-function editCliente(id){ openModal(id); }
+function closeModal(){document.getElementById('modal-overlay').classList.remove('open');editingId=null;}
+function editCliente(id){openModal(id);}
 
 function saveCliente(){
-  const nome = document.getElementById('f-nome').value.trim();
-  if(!nome){ alert('Nome obrigatório'); return; }
-  const data = {
-    nome,
-    whatsapp: document.getElementById('f-whatsapp').value.trim(),
-    plano: document.getElementById('f-plano').value,
-    entrada: document.getElementById('f-entrada').value,
-    storyDia: document.getElementById('f-story-dia').value.trim(),
-    obs: document.getElementById('f-obs').value.trim(),
-  };
+  const nome=document.getElementById('f-nome').value.trim();
+  if(!nome){alert('Nome obrigatório');return;}
+  const data={nome,whatsapp:document.getElementById('f-whatsapp').value.trim(),plano:document.getElementById('f-plano').value,entrada:document.getElementById('f-entrada').value,storyDia:document.getElementById('f-story-dia').value.trim(),obs:document.getElementById('f-obs').value.trim()};
   if(editingId){
-    const idx = clientes.findIndex(c=>c.id===editingId);
-    if(idx>=0){ clientes[idx]={...clientes[idx],...data}; }
-  } else {
-    clientes.unshift({id:uuid(),...data,pago:null});
+    const idx=clientes.findIndex(c=>c.id===editingId);
+    if(idx>=0)clientes[idx]={...clientes[idx],...data};
+  }else{
+    clientes.unshift({id:uuid(),...data,pagamentos:[]});
   }
-  saveClientes(clientes);
-  closeModal();
-  render();
-  showToast(editingId?'✏️ Cliente atualizado!':'✅ Cliente cadastrado!');
+  saveClientes(clientes);closeModal();render();
+  showToast(editingId?'✏️ Atualizado!':'✅ Cliente cadastrado!');
 }
 
-// ══════════════════════════════════════════
-// TABS & FILTERS
-// ══════════════════════════════════════════
-function setTab(tab, el){
-  currentTab = tab;
+function setTab(tab,el){
+  currentTab=tab;
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
-  document.getElementById('view-clientes').style.display = tab==='clientes'?'block':'none';
-  document.getElementById('view-stories').style.display = tab==='stories'?'block':'none';
-  document.getElementById('view-financeiro').style.display = tab==='financeiro'?'block':'none';
-  if(tab==='stories') renderStories();
-  if(tab==='financeiro') renderFinanceiro();
+  document.getElementById('view-clientes').style.display=tab==='clientes'?'block':'none';
+  document.getElementById('view-stories').style.display=tab==='stories'?'block':'none';
+  document.getElementById('view-financeiro').style.display=tab==='financeiro'?'block':'none';
+  if(tab==='stories')renderStories();
+  if(tab==='financeiro')renderFinanceiro();
 }
 
-function setFilter(filter, el){
-  currentFilter = filter;
+function setFilter(filter,el){
+  currentFilter=filter;
   document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  el.classList.add('active');
-  renderCards();
+  el.classList.add('active');renderCards();
 }
 
-// ══════════════════════════════════════════
-// RENDER
-// ══════════════════════════════════════════
-function render(){
-  renderHoje();
-  renderStats();
-  renderCards();
-  if(currentTab==='stories') renderStories();
-  if(currentTab==='financeiro') renderFinanceiro();
-}
+function render(){renderHoje();renderStats();renderCards();if(currentTab==='stories')renderStories();if(currentTab==='financeiro')renderFinanceiro();}
 
-// close modal on overlay click
-document.getElementById('modal-overlay').addEventListener('click', function(e){
-  if(e.target===this) closeModal();
-});
-
-// INIT
+document.getElementById('modal-overlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
 render();
 </script>
 </body>
