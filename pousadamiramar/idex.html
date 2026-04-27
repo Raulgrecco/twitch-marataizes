@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pousada Miramar — Antiestresse · Marataízes ES · Beira de Praia</title>
+<meta name="description" content="Pousada Miramar Antiestresse em Marataízes ES. Quartos com varanda, sacada, vista piscina e muito mais. Reserve agora pelo WhatsApp: (28) 99999-4808.">
+<link rel="canonical" href="https://tvmarataizes.digital/pousadamiramar/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ocean:    #0A2E4A;
+  --ocean2:   #0E3D62;
+  --ocean3:   #1A5280;
+  --sea:      #1A7BA0;
+  --sea2:     #2A9DC4;
+  --sky:      #5BB8D4;
+  --foam:     #B8E4F0;
+  --foam2:    #D8F0F8;
+  --sand:     #E8C878;
+  --sand2:    #F0D898;
+  --sand3:    #FAF0D0;
+  --beach:    #FDF8EC;
+  --white:    #FFFFFF;
+  --bark:     #2A1808;
+  --zap:      #25D366;
+
+  --f-disp:   'Fraunces', Georgia, serif;
+  --f-body:   'DM Sans', sans-serif;
+  --ease:     cubic-bezier(.16,1,.3,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--beach);
+  color:var(--ocean);
+  font-family:var(--f-body);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* grain suave */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
+  opacity:.018;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:256px;
+}
+
+/* ── TOPBAR ── */
+.topbar{
+  background:var(--ocean);
+  color:rgba(255,255,255,.6);
+  font-size:12px;font-weight:500;letter-spacing:.06em;
+  padding:9px 32px;
+  display:flex;align-items:center;justify-content:center;
+  gap:24px;flex-wrap:wrap;
+}
+.topbar a{color:var(--sand);font-weight:700;transition:color .2s}
+.topbar a:hover{color:var(--white)}
+.t-sep{width:1px;height:11px;background:rgba(255,255,255,.15);flex-shrink:0}
+
+/* ── HEADER ── */
+.header{
+  background:rgba(253,248,236,.97);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(26,82,128,.12);
+  padding:0 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  height:78px;position:sticky;top:0;z-index:100;
+  transition:height .3s var(--ease),box-shadow .3s;
+}
+.header::after{
+  content:'';position:absolute;
+  bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--sea),var(--sand),var(--sea),transparent);
+}
+.logo-wrap{display:flex;align-items:center;gap:14px}
+.logo-img{
+  height:56px;width:auto;object-fit:contain;
+}
+.logo-text .name{
+  font-family:var(--f-disp);
+  font-size:20px;font-weight:600;
+  color:var(--ocean);letter-spacing:.01em;line-height:1;
+}
+.logo-text .sub{
+  font-size:9px;font-weight:500;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--sea);margin-top:3px;
+}
+.h-nav{display:flex;gap:28px;align-items:center}
+.h-nav a{
+  font-size:12px;font-weight:500;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ocean3);transition:color .2s;
+  position:relative;
+}
+.h-nav a::after{
+  content:'';position:absolute;bottom:-3px;left:0;right:0;height:1.5px;
+  background:var(--sea);transform:scaleX(0);transition:transform .3s var(--ease);
+}
+.h-nav a:hover{color:var(--ocean)}
+.h-nav a:hover::after{transform:scaleX(1)}
+.btn-reservar{
+  background:var(--zap);color:var(--white);
+  padding:11px 22px;border-radius:2px;
+  font-size:12px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  display:flex;align-items:center;gap:8px;
+  transition:all .25s;
+  box-shadow:0 4px 16px rgba(37,211,102,.25);
+}
+.btn-reservar:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(37,211,102,.4)}
+
+/* ── HERO ── */
+.hero{
+  position:relative;
+  min-height:100svh;
+  overflow:hidden;
+  background:var(--ocean);
+  display:flex;align-items:flex-end;
+}
+
+/* Ocean gradient background */
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(180deg, #071E30 0%, #0A2E4A 35%, #0E3D62 65%, #1A5280 100%);
+}
+
+/* Stars/sparkles */
+.hero-bg::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle 1px at 10% 20%, rgba(255,255,255,.7) 0%, transparent 100%),
+    radial-gradient(circle 1px at 25% 15%, rgba(255,255,255,.5) 0%, transparent 100%),
+    radial-gradient(circle 1px at 45% 10%, rgba(255,255,255,.6) 0%, transparent 100%),
+    radial-gradient(circle 1px at 65% 18%, rgba(255,255,255,.4) 0%, transparent 100%),
+    radial-gradient(circle 1px at 80% 12%, rgba(255,255,255,.7) 0%, transparent 100%),
+    radial-gradient(circle 2px at 92% 22%, rgba(232,200,120,.8) 0%, transparent 100%),
+    radial-gradient(circle 1px at 35% 25%, rgba(255,255,255,.4) 0%, transparent 100%),
+    radial-gradient(circle 1px at 70% 8%, rgba(255,255,255,.5) 0%, transparent 100%);
+}
+
+/* Sun glow */
+.hero-sun{
+  position:absolute;
+  top:8%;right:15%;
+  width:120px;height:120px;
+  background:radial-gradient(ellipse,rgba(232,200,120,.35) 0%,rgba(232,200,120,.1) 40%,transparent 70%);
+  border-radius:50%;
+  animation:sunPulse 4s ease-in-out infinite;
+}
+.hero-sun::after{
+  content:'';position:absolute;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  width:40px;height:40px;
+  background:radial-gradient(ellipse,rgba(232,200,120,.9) 0%,rgba(240,216,152,.6) 60%,transparent 100%);
+  border-radius:50%;
+}
+@keyframes sunPulse{
+  0%,100%{transform:scale(1);opacity:.9}
+  50%{transform:scale(1.08);opacity:1}
+}
+
+/* Palm tree CSS */
+.palm-left{
+  position:absolute;
+  bottom:0;left:-20px;
+  width:180px;height:420px;
+  pointer-events:none;
+}
+.palm-right{
+  position:absolute;
+  bottom:0;right:-20px;
+  width:160px;height:380px;
+  pointer-events:none;
+  transform:scaleX(-1);
+}
+
+/* Wave bottom */
+.hero-wave{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:140px;
+  overflow:hidden;
+}
+.hero-wave svg{
+  position:absolute;bottom:0;
+  width:100%;
+}
+
+/* Photo overlay */
+.hero-photos{
+  position:absolute;
+  right:5%;top:12%;bottom:18%;
+  width:42%;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;
+  gap:6px;
+  z-index:2;
+}
+.hp{overflow:hidden;border-radius:3px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.hp img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .8s var(--ease),filter .5s;
+  display:block;
+  filter:saturate(.9) brightness(.85);
+}
+.hp:hover img{transform:scale(1.06);filter:saturate(1) brightness(.95)}
+.hp.tall{grid-row:span 2}
+/* Vignette left */
+.hero-photos::before{
+  content:'';position:absolute;
+  left:-60px;top:0;bottom:0;width:80px;
+  background:linear-gradient(to right,var(--ocean) 0%,transparent 100%);
+  z-index:2;
+}
+
+/* HERO CONTENT */
+.hero-content{
+  position:relative;z-index:3;
+  padding:0 72px 120px;
+  max-width:680px;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:12px;
+  font-size:10px;font-weight:500;
+  letter-spacing:.28em;text-transform:uppercase;
+  color:var(--sand);
+  margin-bottom:24px;
+  opacity:0;animation:fadeUp .8s var(--ease) .2s forwards;
+}
+.eyebrow-wave{font-size:16px;animation:waveHand .8s ease-in-out infinite alternate}
+@keyframes waveHand{from{transform:rotate(-10deg)}to{transform:rotate(10deg)}}
+
+.hero h1{
+  font-family:var(--f-disp);
+  font-size:clamp(50px,6.5vw,88px);
+  font-weight:300;
+  color:var(--white);
+  line-height:1.02;letter-spacing:-.02em;
+  opacity:0;animation:fadeUp .9s var(--ease) .35s forwards;
+}
+.hero h1 em{
+  display:block;
+  font-style:italic;font-weight:400;
+  color:var(--sand);
+}
+.hero h1 strong{
+  display:block;font-weight:600;
+}
+
+.hero-sub{
+  font-family:var(--f-disp);
+  font-size:18px;font-style:italic;font-weight:300;
+  color:rgba(255,255,255,.5);
+  margin-top:10px;
+  opacity:0;animation:fadeUp .9s var(--ease) .5s forwards;
+}
+
+.hero-desc{
+  font-size:15px;color:rgba(255,255,255,.5);
+  line-height:1.85;font-weight:300;
+  max-width:440px;
+  margin:22px 0 34px;
+  opacity:0;animation:fadeUp .9s var(--ease) .65s forwards;
+}
+.hero-desc strong{color:rgba(255,255,255,.85);font-weight:500}
+
+.hero-pills{
+  display:flex;gap:8px;flex-wrap:wrap;
+  margin-bottom:34px;
+  opacity:0;animation:fadeUp .9s var(--ease) .78s forwards;
+}
+.pill{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.75);
+  font-size:11px;font-weight:500;
+  padding:7px 14px;border-radius:100px;
+  letter-spacing:.04em;transition:background .2s;
+}
+.pill:hover{background:rgba(255,255,255,.14)}
+
+.hero-btns{
+  display:flex;gap:12px;flex-wrap:wrap;
+  opacity:0;animation:fadeUp .9s var(--ease) .9s forwards;
+}
+.btn-primary{
+  background:var(--zap);color:var(--white);
+  padding:16px 30px;border-radius:2px;
+  font-size:13px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  display:flex;align-items:center;gap:10px;
+  transition:all .25s;
+  box-shadow:0 6px 28px rgba(37,211,102,.3);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(37,211,102,.45)}
+.btn-ghost{
+  border:1px solid rgba(255,255,255,.25);
+  color:rgba(255,255,255,.7);
+  padding:16px 24px;border-radius:2px;
+  font-size:13px;font-weight:500;
+  letter-spacing:.06em;
+  display:flex;align-items:center;gap:8px;
+  transition:all .25s;
+}
+.btn-ghost:hover{border-color:rgba(255,255,255,.5);color:var(--white)}
+
+/* Stats bar */
+.hero-stats{
+  position:absolute;
+  bottom:0;right:0;
+  display:flex;
+  background:rgba(10,46,74,.95);
+  border-top:1px solid rgba(255,255,255,.08);
+  border-left:1px solid rgba(255,255,255,.08);
+  z-index:4;
+}
+.hstat{
+  padding:18px 28px;
+  border-right:1px solid rgba(255,255,255,.06);
+  text-align:center;
+}
+.hstat:last-child{border-right:none}
+.hstat-n{
+  font-family:var(--f-disp);
+  font-size:28px;font-weight:600;
+  color:var(--sand);
+  display:block;line-height:1;
+}
+.hstat-l{
+  font-size:9px;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);
+  display:block;margin-top:4px;
+}
+
+/* ── WAVE DIVIDER ── */
+.wave-div{
+  background:var(--ocean);
+  line-height:0;
+  overflow:hidden;
+}
+.wave-div svg{display:block}
+
+/* ── MARQUEE ── */
+.marquee{
+  background:var(--sea);
+  overflow:hidden;padding:12px 0;white-space:nowrap;
+}
+.mq-track{display:inline-flex;animation:mq 22s linear infinite}
+.mq-item{
+  font-family:var(--f-disp);
+  font-size:14px;font-style:italic;font-weight:400;
+  letter-spacing:.06em;
+  color:rgba(255,255,255,.85);
+  padding:0 28px;
+  display:inline-flex;align-items:center;gap:10px;
+}
+.mq-item::after{content:'🌊';font-style:normal;font-size:12px;opacity:.6}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── QUARTOS ── */
+.quartos-sec{background:var(--beach);position:relative}
+.quartos-sec::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--sea),var(--sand),var(--sea),transparent);
+}
+.quartos-inner{
+  max-width:1280px;margin:0 auto;
+  padding:96px 64px;
+}
+.sec-eyebrow{
+  display:block;font-size:9px;font-weight:600;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--sea);margin-bottom:12px;
+}
+.sec-title{
+  font-family:var(--f-disp);
+  font-size:clamp(32px,4.5vw,56px);
+  font-weight:300;color:var(--ocean);
+  line-height:1.04;letter-spacing:-.01em;
+}
+.sec-title em{font-style:italic;color:var(--sea);font-weight:400}
+.sec-sub{
+  font-size:15px;color:var(--ocean3);
+  line-height:1.85;font-weight:300;
+  max-width:480px;margin-top:10px;
+}
+
+.quartos-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:3px;
+  margin-top:52px;
+}
+.quarto-card{
+  position:relative;overflow:hidden;
+  background:var(--ocean);
+  cursor:pointer;
+  aspect-ratio:3/4;
+}
+.quarto-card img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .8s var(--ease),filter .5s;
+  display:block;
+  filter:saturate(.85) brightness(.8);
+}
+.quarto-card:hover img{transform:scale(1.08);filter:saturate(1) brightness(.9)}
+.qc-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,46,74,.9) 0%,rgba(10,46,74,.3) 45%,transparent 70%);
+  transition:opacity .4s;
+}
+.qc-content{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:28px 24px;
+  transform:translateY(8px);
+  transition:transform .4s var(--ease);
+}
+.quarto-card:hover .qc-content{transform:translateY(0)}
+.qc-tag{
+  display:inline-block;
+  font-size:9px;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--sand);
+  border:1px solid rgba(232,200,120,.35);
+  padding:4px 10px;border-radius:100px;
+  margin-bottom:8px;
+}
+.qc-name{
+  font-family:var(--f-disp);
+  font-size:22px;font-weight:400;
+  color:var(--white);line-height:1.2;
+  margin-bottom:6px;
+}
+.qc-name em{font-style:italic;color:var(--foam)}
+.qc-desc{
+  font-size:12px;color:rgba(255,255,255,.55);
+  line-height:1.65;font-weight:300;
+  opacity:0;transition:opacity .4s var(--ease);
+}
+.quarto-card:hover .qc-desc{opacity:1}
+.qc-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:14px;
+  background:var(--zap);color:var(--white);
+  padding:10px 18px;border-radius:2px;
+  font-size:11px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  opacity:0;transform:translateY(6px);
+  transition:all .4s var(--ease);
+}
+.quarto-card:hover .qc-btn{opacity:1;transform:translateY(0)}
+
+/* Large featured room */
+.quartos-featured{
+  margin-top:3px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:3px;
+}
+.qf{
+  position:relative;overflow:hidden;
+  background:var(--ocean);
+  cursor:pointer;
+  height:360px;
+}
+.qf img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .8s var(--ease),filter .5s;
+  display:block;filter:saturate(.85) brightness(.8);
+}
+.qf:hover img{transform:scale(1.06);filter:saturate(1) brightness(.9)}
+.qf-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,46,74,.85) 0%,transparent 60%);
+}
+.qf-content{
+  position:absolute;bottom:24px;left:24px;right:24px;
+}
+.qf-name{
+  font-family:var(--f-disp);
+  font-size:26px;font-weight:400;
+  color:var(--white);line-height:1.2;margin-bottom:8px;
+}
+.qf-name em{font-style:italic;color:var(--foam)}
+.qf-desc{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;font-weight:300}
+
+/* ── EXPERIÊNCIA ── */
+.exp-sec{
+  background:var(--ocean);
+  position:relative;overflow:hidden;
+}
+/* water effect bg */
+.exp-sec::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(26,123,160,.3) 0%,transparent 70%),
+    radial-gradient(ellipse 60% 80% at 80% 30%, rgba(14,61,98,.5) 0%,transparent 60%);
+  pointer-events:none;
+}
+.exp-inner{
+  max-width:1280px;margin:0 auto;
+  padding:96px 64px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;align-items:center;
+  position:relative;z-index:1;
+}
+.exp-sec .sec-eyebrow{color:var(--foam)}
+.exp-sec .sec-title{color:var(--white)}
+.exp-sec .sec-title em{color:var(--sand)}
+.exp-sec .sec-sub{color:rgba(255,255,255,.45)}
+
+.exp-feats{
+  display:flex;flex-direction:column;gap:2px;
+  margin-top:40px;
+}
+.ef{
+  display:flex;align-items:center;gap:18px;
+  padding:18px 20px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+  border-left:3px solid var(--sea);
+  transition:background .25s;
+}
+.ef:hover{background:rgba(255,255,255,.07)}
+.ef-ico{font-size:22px;flex-shrink:0}
+.ef-title{
+  font-family:var(--f-disp);
+  font-size:16px;font-weight:500;
+  color:var(--white);margin-bottom:3px;
+}
+.ef-desc{font-size:12px;color:rgba(255,255,255,.4);line-height:1.5;font-weight:300}
+
+.exp-img-col{position:relative}
+.exp-img-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:240px 180px;
+  gap:4px;
+}
+.ei{overflow:hidden;background:var(--ocean2)}
+.ei img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .7s var(--ease),filter .5s;
+  filter:saturate(.8) brightness(.75);
+}
+.ei:hover img{transform:scale(1.06);filter:saturate(.95) brightness(.88)}
+.ei.wide{grid-column:span 2}
+/* golden frame */
+.exp-img-grid::after{
+  content:'';position:absolute;
+  top:-8px;left:-8px;right:8px;bottom:8px;
+  border:1.5px solid rgba(232,200,120,.2);
+  z-index:0;pointer-events:none;
+}
+
+/* ── LOCALIZAÇÃO ── */
+.loc-sec{background:var(--beach);position:relative}
+.loc-sec::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--sea),var(--sand),var(--sea),transparent);
+}
+.loc-inner{
+  max-width:1280px;margin:0 auto;
+  padding:88px 64px;
+  display:grid;
+  grid-template-columns:1fr 380px;
+  gap:72px;align-items:start;
+}
+.info-cards{display:flex;flex-direction:column;gap:2px;margin-top:40px}
+.ic{
+  background:var(--white);
+  border:1px solid rgba(26,82,128,.1);
+  padding:20px 24px;
+  display:grid;grid-template-columns:48px 1fr;
+  gap:16px;align-items:center;
+  transition:border-color .25s;position:relative;
+}
+.ic::before{
+  content:'';position:absolute;
+  left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(to bottom,var(--sea),var(--sand));
+  transform:scaleY(0);transform-origin:bottom;
+  transition:transform .35s var(--ease);
+}
+.ic:hover{border-color:rgba(26,123,160,.3)}
+.ic:hover::before{transform:scaleY(1)}
+.i-ico{
+  width:48px;height:48px;
+  background:var(--foam2);
+  color:var(--sea);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+}
+.i-lbl{font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--sea);margin-bottom:4px}
+.i-val{font-size:14px;font-weight:500;color:var(--ocean);line-height:1.6}
+.i-val small{font-size:12px;color:var(--ocean3);font-weight:300}
+.i-val a{color:var(--ocean)}
+
+/* CTA Box */
+.cta-box{
+  background:var(--ocean);
+  padding:44px 36px;
+  position:sticky;top:90px;
+  border-top:3px solid var(--sand);
+}
+.cta-tag{font-size:9px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.3);display:block;margin-bottom:16px}
+.cta-title{
+  font-family:var(--f-disp);
+  font-size:26px;font-weight:400;
+  color:var(--white);line-height:1.25;margin-bottom:8px;
+}
+.cta-title em{font-style:italic;color:var(--sand)}
+.cta-sub{font-size:13px;color:rgba(255,255,255,.42);line-height:1.8;margin-bottom:28px;font-weight:300}
+.btn-wpp-cta{
+  background:var(--zap);color:var(--white);
+  padding:15px 20px;border-radius:2px;
+  font-size:13px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:all .25s;
+  box-shadow:0 4px 20px rgba(37,211,102,.25);
+  margin-bottom:10px;
+}
+.btn-wpp-cta:hover{opacity:.9;transform:translateY(-2px)}
+.btn-maps{
+  border:1px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.5);
+  padding:13px 20px;border-radius:2px;
+  font-size:12px;font-weight:500;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:all .25s;
+}
+.btn-maps:hover{border-color:rgba(255,255,255,.4);color:var(--white)}
+.cta-note{font-size:10px;color:rgba(255,255,255,.2);margin-top:18px;line-height:1.7;text-align:center;letter-spacing:.04em}
+
+/* ── MAPA ── */
+.mapa{height:380px;overflow:hidden;position:relative}
+.mapa::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent,var(--sea),var(--sand),var(--sea),transparent);z-index:1;
+}
+.mapa iframe{width:100%;height:100%;border:0;display:block;filter:saturate(.6) hue-rotate(180deg) brightness(.75)}
+
+/* ── TV BANNER ── */
+.tv-banner{
+  background:var(--ocean);
+  border-top:1px solid rgba(255,255,255,.04);
+  padding:52px 48px;text-align:center;
+}
+.tv-banner p{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:10px}
+.tv-banner h3{font-family:var(--f-disp);font-size:19px;font-style:italic;color:rgba(255,255,255,.42);margin-bottom:26px;line-height:1.5}
+.tv-links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.tv-links a{font-size:11px;font-weight:500;letter-spacing:.06em;color:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.08);padding:10px 22px;border-radius:1px;transition:all .25s}
+.tv-links a:hover{color:var(--white);border-color:rgba(255,255,255,.28)}
+
+/* ── FOOTER ── */
+.footer{
+  background:var(--ocean);
+  color:rgba(255,255,255,.22);
+  text-align:center;padding:28px;
+  font-size:11px;line-height:1.9;letter-spacing:.03em;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+.footer strong{color:var(--sand)}
+.footer a{color:rgba(255,255,255,.3)}
+.footer a:hover{color:rgba(255,255,255,.6)}
+
+/* ── FLOAT ── */
+.f-wpp{
+  position:fixed;bottom:28px;right:28px;z-index:998;
+  background:var(--zap);color:var(--white);
+  width:62px;height:62px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px;
+  box-shadow:0 6px 30px rgba(37,211,102,.38);
+  transition:transform .25s var(--ease),box-shadow .25s;
+  text-decoration:none;
+}
+.f-wpp:hover{transform:scale(1.1) translateY(-2px);box-shadow:0 12px 42px rgba(37,211,102,.5)}
+.f-pulse{
+  position:fixed;bottom:28px;right:28px;z-index:997;
+  width:62px;height:62px;border-radius:50%;
+  background:var(--zap);opacity:0;
+  animation:pulse 2.5s ease-out 2.5s infinite;pointer-events:none;
+}
+@keyframes pulse{0%{transform:scale(1);opacity:.4}100%{transform:scale(2.3);opacity:0}}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  .hero{align-items:flex-end}
+  .hero-photos{display:none}
+  .hero-content{padding:0 36px 100px;max-width:100%}
+  .quartos-grid{grid-template-columns:1fr 1fr}
+  .quartos-featured{grid-template-columns:1fr}
+  .exp-inner{grid-template-columns:1fr;gap:56px}
+  .loc-inner{grid-template-columns:1fr}
+  .cta-box{position:static}
+}
+@media(max-width:768px){
+  .header{padding:0 20px}
+  .h-nav{display:none}
+  .topbar{gap:12px;font-size:10px;padding:8px 16px}
+  .t-sep{display:none}
+  .hero-content{padding:0 24px 80px}
+  .quartos-inner,.exp-inner,.loc-inner{padding-left:24px;padding-right:24px}
+  .hero-stats{display:none}
+}
+@media(max-width:560px){
+  .hero h1{font-size:48px}
+  .hero-btns{flex-direction:column}
+  .quartos-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <span>🌊 Pousada Antiestresse à Beira de Praia · Marataízes ES</span>
+  <span class="t-sep"></span>
+  <span>📞 <a href="https://wa.me/5528999994808">(28) 99999-4808</a></span>
+  <span class="t-sep"></span>
+  <span>🏖️ Reservas pelo WhatsApp</span>
+</div>
+
+<!-- HEADER -->
+<header class="header" id="topo">
+  <div class="logo-wrap">
+    <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Logopousadamiramar.png"
+         alt="Pousada Miramar" class="logo-img">
+    <div class="logo-text">
+      <div class="name">Pousada Miramar</div>
+      <div class="sub">Antiestresse · Marataízes ES</div>
+    </div>
+  </div>
+  <nav class="h-nav">
+    <a href="#quartos">Quartos</a>
+    <a href="#experiencia">Experiência</a>
+    <a href="#localizacao">Localização</a>
+  </nav>
+  <a href="https://wa.me/5528999994808?text=Olá!+Vim+pelo+portal+TV+Marataízes+e+quero+fazer+uma+reserva+na+Pousada+Miramar" target="_blank" rel="noopener" class="btn-reservar">
+    💬 Reservar agora
+  </a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-sun"></div>
+
+  <!-- Palm trees CSS SVG -->
+  <svg class="palm-left" viewBox="0 0 180 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M90 420 Q88 380 86 340 Q84 300 88 260" stroke="#1A3A10" stroke-width="12" stroke-linecap="round" fill="none"/>
+    <path d="M88 280 Q60 240 30 220 Q50 225 70 250 Q75 260 80 270" fill="#2A5018" opacity="0.8"/>
+    <path d="M88 270 Q110 220 140 200 Q120 210 100 240 Q94 252 90 265" fill="#2A5018" opacity="0.8"/>
+    <path d="M87 290 Q55 265 25 260 Q45 268 68 282 Q76 286 84 293" fill="#2A5018" opacity="0.6"/>
+    <path d="M89 260 Q85 220 80 185 Q85 210 90 240" fill="#2A5018" opacity="0.7"/>
+  </svg>
+
+  <svg class="palm-right" viewBox="0 0 160 380" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M80 380 Q78 345 76 310 Q74 275 78 240" stroke="#1A3A10" stroke-width="11" stroke-linecap="round" fill="none"/>
+    <path d="M78 255 Q50 215 22 198 Q42 203 62 228 Q68 238 74 250" fill="#2A5018" opacity="0.8"/>
+    <path d="M78 245 Q100 200 128 182 Q110 192 92 220 Q86 232 82 245" fill="#2A5018" opacity="0.8"/>
+    <path d="M77 268 Q46 245 18 242 Q38 250 60 262 Q68 266 76 272" fill="#2A5018" opacity="0.6"/>
+  </svg>
+
+  <!-- Hero photos -->
+  <div class="hero-photos">
+    <div class="hp tall">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Quarto1.png" alt="Quarto Pousada Miramar">
+    </div>
+    <div class="hp">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Quartosacada.png" alt="Quarto com sacada">
+    </div>
+    <div class="hp">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Quartopiscina.png" alt="Vista piscina">
+    </div>
+  </div>
+
+  <!-- Wave -->
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 140" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,70 C240,120 480,20 720,70 C960,120 1200,20 1440,70 L1440,140 L0,140 Z" fill="#FDF8EC" opacity="0.08"/>
+      <path d="M0,90 C360,40 720,140 1080,80 C1260,50 1380,100 1440,90 L1440,140 L0,140 Z" fill="#FDF8EC" opacity="0.06"/>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-wave">🌊</span>
+      Reserva pelo WhatsApp · Marataízes ES
+    </div>
+
+    <h1>
+      Desperte para
+      <em>o mar.</em>
+      <strong>Todo dia.</strong>
+    </h1>
+
+    <p class="hero-sub">Pousada Miramar Antiestresse</p>
+
+    <p class="hero-desc">
+      <strong>Beira de praia, brisa constante e descanso de verdade.</strong> Quartos com varanda, sacada, vista para a piscina — cada detalhe pensado para você desconectar do mundo e se reconectar consigo.
+    </p>
+
+    <div class="hero-pills">
+      <span class="pill">🏖️ Beira de Praia</span>
+      <span class="pill">🌅 Quartos com Vista</span>
+      <span class="pill">🏊 Piscina</span>
+      <span class="pill">🌴 Antiestresse</span>
+    </div>
+
+    <div class="hero-btns">
+      <a href="https://wa.me/5528999994808?text=Olá!+Vim+pelo+portal+TV+Marataízes+e+quero+reservar+um+quarto+na+Pousada+Miramar" target="_blank" rel="noopener" class="btn-primary">
+        💬 Reservar pelo WhatsApp
+      </a>
+      <a href="#quartos" class="btn-ghost">Ver os quartos →</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hstat"><span class="hstat-n">🏖️</span><span class="hstat-l">Beira de praia</span></div>
+    <div class="hstat"><span class="hstat-n">🌅</span><span class="hstat-l">Vista mar</span></div>
+    <div class="hstat"><span class="hstat-n">🌴</span><span class="hstat-l">Antiestresse</span></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="mq-track">
+    <span class="mq-item">Quarto Standard</span>
+    <span class="mq-item">Quarto com Sacada</span>
+    <span class="mq-item">Vista Piscina</span>
+    <span class="mq-item">Quarto com Varanda</span>
+    <span class="mq-item">Beira de Praia</span>
+    <span class="mq-item">Antiestresse</span>
+    <span class="mq-item">Marataízes ES</span>
+    <span class="mq-item">Reserve pelo WhatsApp</span>
+    <span class="mq-item">Quarto Standard</span>
+    <span class="mq-item">Quarto com Sacada</span>
+    <span class="mq-item">Vista Piscina</span>
+    <span class="mq-item">Quarto com Varanda</span>
+    <span class="mq-item">Beira de Praia</span>
+    <span class="mq-item">Antiestresse</span>
+    <span class="mq-item">Marataízes ES</span>
+    <span class="mq-item">Reserve pelo WhatsApp</span>
+  </div>
+</div>
+
+<!-- QUARTOS -->
+<section class="quartos-sec" id="quartos">
+  <div class="quartos-inner">
+    <div class="reveal">
+      <span class="sec-eyebrow">Acomodações</span>
+      <div class="sec-title">Cada quarto,<br>uma <em>experiência</em></div>
+      <p class="sec-sub">Do quarto simples ao com varanda e vista piscina — todos pensados para o seu descanso completo.</p>
+    </div>
+
+    <div class="quartos-grid">
+      <div class="quarto-card reveal">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Quarto1.png" alt="Quarto Standard">
+        <div class="qc-ov"></div>
+        <div class="qc-content">
+          <span class="qc-tag">Standard</span>
+          <div class="qc-name">Quarto <em>Conforto</em></div>
+          <p class="qc-desc">Ambiente aconchegante com todo o conforto para sua estadia.</p>
+          <a href="https://wa.me/5528999994808?text=Quero+saber+mais+sobre+o+Quarto+Conforto" target="_blank" class="qc-btn">💬 Reservar</a>
+        </div>
+      </div>
+      <div class="quarto-card reveal d1">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Quarto2.png" alt="Quarto 2">
+        <div class="qc-ov"></div>
+        <div class="qc-content">
+          <span class="qc-tag">Deluxe</span>
+          <div class="qc-name">Quarto <em>Deluxe</em></div>
+          <p class="qc-desc">Espaço amplo e decoração refinada para uma estadia especial.</p>
+          <a href="https://wa.me/5528999994808?text=Quero+saber+mais+sobre+o+Quarto+Deluxe" target="_blank" class="qc-btn">💬 Reservar</a>
+        </div>
+      </div>
+      <div class="quarto-card reveal d2">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Quarto3.png" alt="Quarto 3">
+        <div class="qc-ov"></div>
+        <div class="qc-content">
+          <span class="qc-tag">Superior</span>
+          <div class="qc-name">Quarto <em>Superior</em></div>
+          <p class="qc-desc">O equilíbrio perfeito entre conforto, estilo e custo-benefício.</p>
+          <a href="https://wa.me/5528999994808?text=Quero+saber+mais+sobre+o+Quarto+Superior" target="_blank" class="qc-btn">💬 Reservar</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured rooms -->
+    <div class="quartos-featured">
+      <div class="qf reveal">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Quartosacada.png" alt="Quarto com Sacada">
+        <div class="qf-ov"></div>
+        <div class="qf-content">
+          <div class="qf-name">Quarto com <em>Sacada</em></div>
+          <p class="qf-desc">Acorde com a brisa do mar e o horizonte na sua frente — a sacada que muda tudo.</p>
+        </div>
+      </div>
+      <div class="qf reveal d2">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Quartopiscina.png" alt="Vista Piscina">
+        <div class="qf-ov"></div>
+        <div class="qf-content">
+          <div class="qf-name">Vista <em>Piscina</em></div>
+          <p class="qf-desc">Desperte olhando para a piscina — o relaxamento começa antes de você sair do quarto.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIÊNCIA -->
+<section class="exp-sec" id="experiencia">
+  <div class="exp-inner">
+    <div class="reveal">
+      <span class="sec-eyebrow">Por que Miramar</span>
+      <div class="sec-title">O mar como<br><em>vizinho</em></div>
+      <p class="sec-sub" style="margin-top:10px">A Pousada Miramar foi criada para quem precisa de uma pausa real — com conforto, beleza natural e a energia restauradora do mar de Marataízes.</p>
+
+      <div class="exp-feats">
+        <div class="ef">
+          <span class="ef-ico">🌊</span>
+          <div>
+            <div class="ef-title">À Beira de Praia</div>
+            <div class="ef-desc">Acorde com o som das ondas e tenha a praia a poucos passos</div>
+          </div>
+        </div>
+        <div class="ef">
+          <span class="ef-ico">🌅</span>
+          <div>
+            <div class="ef-title">Pôr do Sol Privilegiado</div>
+            <div class="ef-desc">Varanda e sacada com vista para o horizonte — o melhor espetáculo gratuito</div>
+          </div>
+        </div>
+        <div class="ef">
+          <span class="ef-ico">🏊</span>
+          <div>
+            <div class="ef-title">Piscina Relaxante</div>
+            <div class="ef-desc">Mergulhe quando quiser — a piscina espera por você</div>
+          </div>
+        </div>
+        <div class="ef">
+          <span class="ef-ico">🌴</span>
+          <div>
+            <div class="ef-title">Antiestresse de Verdade</div>
+            <div class="ef-desc">Ambiente desenhado para descanso total — longe do barulho, perto do que importa</div>
+          </div>
+        </div>
+        <div class="ef">
+          <span class="ef-ico">💬</span>
+          <div>
+            <div class="ef-title">Reserva Fácil pelo WhatsApp</div>
+            <div class="ef-desc">Sem complicação — (28) 99999-4808 · resposta rápida</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-img-col reveal d2">
+      <div class="exp-img-grid">
+        <div class="ei wide">
+          <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Quartovaranda.png" alt="Quarto com varanda">
+        </div>
+        <div class="ei">
+          <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Quarto4.png" alt="Quarto 4">
+        </div>
+        <div class="ei">
+          <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Quarto5.png" alt="Quarto 5">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCALIZAÇÃO -->
+<section class="loc-sec" id="localizacao">
+  <div class="loc-inner">
+    <div>
+      <div class="reveal">
+        <span class="sec-eyebrow">Como chegar</span>
+        <div class="sec-title">No coração de <em>Marataízes</em></div>
+        <p class="sec-sub" style="margin-top:10px">Localização privilegiada — pertinho da praia, fácil de encontrar.</p>
+      </div>
+      <div class="info-cards">
+        <div class="ic reveal">
+          <div class="i-ico">📍</div>
+          <div>
+            <div class="i-lbl">Endereço</div>
+            <div class="i-val">Marataízes, ES<br><small>Pousada Miramar Antiestresse</small></div>
+          </div>
+        </div>
+        <div class="ic reveal d1">
+          <div class="i-ico">📞</div>
+          <div>
+            <div class="i-lbl">WhatsApp — Reservas</div>
+            <div class="i-val"><a href="https://wa.me/5528999994808">(28) 99999-4808</a></div>
+          </div>
+        </div>
+        <div class="ic reveal d2">
+          <div class="i-ico">🏖️</div>
+          <div>
+            <div class="i-lbl">Localização</div>
+            <div class="i-val">À beira de praia · Marataízes ES<br><small>Brisa do mar todos os dias</small></div>
+          </div>
+        </div>
+        <div class="ic reveal d3">
+          <div class="i-ico">🌴</div>
+          <div>
+            <div class="i-lbl">Acomodações</div>
+            <div class="i-val">Quartos Standard, Deluxe, Superior<br><small>Sacada · Varanda · Vista Piscina</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-box reveal">
+      <span class="cta-tag">Faça sua reserva</span>
+      <div class="cta-title">Pronto para<br><em>descansar?</em></div>
+      <p class="cta-sub">Reserve agora pelo WhatsApp — resposta rápida, processo simples, férias garantidas.</p>
+      <a href="https://wa.me/5528999994808?text=Olá!+Vim+pelo+portal+TV+Marataízes+e+quero+reservar+um+quarto+na+Pousada+Miramar" target="_blank" rel="noopener" class="btn-wpp-cta">
+        💬 Reservar pelo WhatsApp
+      </a>
+      <a href="https://www.google.com/maps/search/Pousada+Miramar+Marataízes" target="_blank" rel="noopener" class="btn-maps">
+        📍 Ver no Mapa →
+      </a>
+      <p class="cta-note">(28) 99999-4808 · Marataízes ES · Beira de Praia</p>
+    </div>
+  </div>
+</section>
+
+<!-- MAPA -->
+<div class="mapa">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3738.8!2d-40.8220!3d-21.0193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zUG91c2FkYSBNaXJhbWFy!5e0!3m2!1spt-BR!2sbr!4v1713900000"
+    allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+    title="Pousada Miramar — Marataízes ES">
+  </iframe>
+</div>
+
+<!-- TV BANNER -->
+<div class="tv-banner">
+  <p>Página exclusiva no Guia da</p>
+  <h3>TV Marataízes · Canal 300 Soul TV<br>O maior portal digital do Sul do ES</h3>
+  <div class="tv-links">
+    <a href="https://www.tvmarataizes.digital/">Portal TV Marataízes</a>
+    <a href="https://tvmarataizes.digital/anunciar">Quero minha página exclusiva</a>
+    <a href="https://wa.me/5528999036141">Falar com a TV — (28) 99903-6141</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>
+    <strong>Pousada Miramar Antiestresse</strong> · Marataízes ES · Beira de Praia<br>
+    <a href="https://wa.me/5528999994808">(28) 99999-4808</a><br>
+    Página produzida pela <a href="https://www.tvmarataizes.digital/">TV Marataízes</a> · Canal 300 Soul TV · Guia Digital do Sul do ES
+  </p>
+</footer>
+
+<!-- FLOAT -->
+<div class="f-pulse"></div>
+<a href="https://wa.me/5528999994808?text=Olá!+Vim+pelo+portal+TV+Marataízes+e+quero+fazer+uma+reserva" target="_blank" rel="noopener" class="f-wpp" aria-label="WhatsApp Pousada Miramar">💬</a>
+
+<script>
+const io = new IntersectionObserver(e => {
+  e.forEach(x => { if(x.isIntersecting){x.target.classList.add('visible');io.unobserve(x.target)} });
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+const hdr = document.querySelector('.header');
+window.addEventListener('scroll',()=>{
+  if(window.scrollY>60){hdr.style.height='64px';hdr.style.boxShadow='0 2px 20px rgba(10,46,74,.12)'}
+  else{hdr.style.height='78px';hdr.style.boxShadow='none'}
+},{passive:true});
+</script>
+</body>
+</html>
