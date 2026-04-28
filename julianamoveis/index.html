@@ -414,7 +414,28 @@ img{display:block;max-width:100%}
     <div class="vid-player-wrap reveal d2">
       <div class="vid-frame">
         <span class="vc tl"></span><span class="vc tr"></span><span class="vc bl"></span><span class="vc br"></span>
-        <iframe src="https://player.castr.com/vod/gtJZ0sUujpxnRzZj" allow="autoplay; fullscreen" allowfullscreen loading="lazy" title="Juliana Móveis — Conheça a loja"></iframe>
+        <div onclick="loadPlayer(this)" data-src="https://player.castr.com/vod/gtJZ0sUujpxnRzZj"
+         style="position:relative;cursor:pointer;background:#160F06;width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+        <!-- Cantoneiras douradas herdadas do pai .vid-frame -->
+        <div style="z-index:2;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;">
+          <div style="width:76px;height:76px;background:rgba(196,154,60,.15);border:2px solid rgba(196,154,60,.5);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="#DDB85A"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <span style="color:rgba(221,184,90,.85);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-family:'Outfit',sans-serif;">Conheça a loja →</span>
+        </div>
+      </div>
+      <script>
+      function loadPlayer(el){
+        var iframe=document.createElement('iframe');
+        iframe.src=el.getAttribute('data-src')+'?autoplay=1';
+        iframe.allow='autoplay; fullscreen';
+        iframe.allowFullscreen=true;
+        iframe.loading='lazy';
+        iframe.title='Juliana Móveis — Conheça a loja';
+        iframe.style.cssText='width:100%;height:100%;border:0;display:block;';
+        el.parentNode.replaceChild(iframe,el);
+      }
+      </script>
       </div>
     </div>
   </div>
