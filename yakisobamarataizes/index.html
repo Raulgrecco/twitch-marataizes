@@ -710,8 +710,35 @@
     <p>Americano ou japonês? Descubra a origem dessa delícia</p>
   </div>
   <div class="video-wrap">
-    <iframe src="https://player.castr.com/vod/fKR56A2WazsducT6" allowfullscreen allow="autoplay" preload="none"></iframe>
+    <div class="lazy-player" id="castr-player" onclick="loadCastrPlayer(this)" data-src="https://player.castr.com/vod/fKR56A2WazsducT6" style="position:relative;cursor:pointer;background:#000;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+      <!-- Thumbnail via Castr -->
+      <img src="https://castr.com/api/thumbnails/vod/fKR56A2WazsducT6" 
+           onerror="this.style.display='none'"
+           alt="Yakis Oba — Assista ao vídeo"
+           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.7;">
+      <!-- Play button overlay -->
+      <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <div style="width:72px;height:72px;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.5);border-radius:50%;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);transition:all .2s;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <span style="color:rgba(255,255,255,.85);font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-shadow:0 1px 4px rgba(0,0,0,.5)">Assistir ao vídeo</span>
+      </div>
+    </div>
   </div>
+
+<script>
+function loadCastrPlayer(el) {
+  var src = el.getAttribute('data-src');
+  var iframe = document.createElement('iframe');
+  iframe.src = src + '?autoplay=1';
+  iframe.allowFullscreen = true;
+  iframe.allow = 'autoplay; fullscreen';
+  iframe.style.cssText = 'width:100%;height:100%;border:0;display:block;';
+  el.innerHTML = '';
+  el.style.cursor = 'default';
+  el.appendChild(iframe);
+}
+</script>
 </section>
 
 <!-- ===== SOBRE ===== -->
