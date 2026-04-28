@@ -120,7 +120,7 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 function loadLivePlayer(){
   var overlay=document.getElementById('player-overlay');
   var iframe=document.getElementById('castr-player');
-  if(overlay&&iframe&&!iframe.src){
+  if(overlay&&iframe){
     iframe.src='https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=1';
     overlay.style.display='none';
     document.getElementById('player-wrapper').style.cursor='default';
