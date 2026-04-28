@@ -1,290 +1,479 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Em Breve — TV Marataízes</title>
-  <meta name="description" content="TV Marataízes — nova plataforma de streaming. Em breve." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TV Marataízes — Guia do Sul do ES</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
-    :root { --bg:#07070a; --red:#e52020; --red2:#ff4444; --gold:#c8a96e; --w:#f0ede8; --dim:rgba(240,237,232,0.5); --dim2:rgba(240,237,232,0.2); }
+    :root{--bg:#08080c;--red:#e52020;--red2:#ff4444;--gold:#c8a96e;--gold2:#e8c98e;--w:#f0ede8;--dim:rgba(240,237,232,0.48);--dim2:rgba(240,237,232,0.16);}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    html,body{width:100%;height:100%;background:var(--bg);color:var(--w);font-family:'Barlow',sans-serif;overflow-x:hidden;}
+    html,body{width:100%;height:100%;background:var(--bg);overflow:hidden;font-family:'Barlow',sans-serif;color:var(--w);}
+
+    /* NOISE */
     body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.03;}
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.032;}
+    /* SCANLINES */
     body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;
-      background:repeating-linear-gradient(to bottom,transparent,transparent 3px,rgba(0,0,0,0.06) 3px,rgba(0,0,0,0.06) 4px);}
-    #globe-canvas{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0;animation:fadecanvas 2s ease 0.4s forwards;z-index:2;pointer-events:none;}
-    @keyframes fadecanvas{to{opacity:1;}}
-    .glow-ring{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:680px;height:680px;border-radius:50%;
-      background:radial-gradient(ellipse,rgba(229,32,32,0.18) 0%,rgba(229,32,32,0.05) 45%,transparent 70%);
-      animation:glowpulse 5s ease-in-out infinite alternate;z-index:2;pointer-events:none;}
-    @keyframes glowpulse{0%{opacity:0.7;transform:translate(-50%,-50%) scale(1);}100%{opacity:1;transform:translate(-50%,-50%) scale(1.1);}}
-    .corner{position:fixed;width:52px;height:52px;z-index:5;opacity:0;animation:fadein 1s ease 2.2s forwards;}
-    .tl{top:24px;left:24px;border-top:1px solid rgba(200,169,110,0.35);border-left:1px solid rgba(200,169,110,0.35);}
-    .tr{top:24px;right:24px;border-top:1px solid rgba(200,169,110,0.35);border-right:1px solid rgba(200,169,110,0.35);}
-    .bl{bottom:24px;left:24px;border-bottom:1px solid rgba(200,169,110,0.35);border-left:1px solid rgba(200,169,110,0.35);}
-    .br{bottom:24px;right:24px;border-bottom:1px solid rgba(200,169,110,0.35);border-right:1px solid rgba(200,169,110,0.35);}
-    .h-line{position:fixed;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(200,169,110,0.12),transparent);z-index:3;pointer-events:none;opacity:0;animation:fadein 1.5s ease 2s forwards;}
-    .h-line-top{top:84px;}.h-line-bot{bottom:56px;}
-    main{position:relative;z-index:10;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px 100px;text-align:center;}
-    .logo-wrap{display:flex;align-items:center;gap:12px;margin-bottom:48px;opacity:0;transform:translateY(-14px);animation:up 0.9s cubic-bezier(.22,1,.36,1) 0.3s forwards;}
-    .logo-icon{width:44px;height:44px;background:var(--red);border-radius:5px;display:grid;place-items:center;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:#fff;box-shadow:0 0 32px rgba(229,32,32,0.6);}
-    .logo-name{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.1em;}
+      background:repeating-linear-gradient(to bottom,transparent,transparent 2px,rgba(0,0,0,0.065) 2px,rgba(0,0,0,0.065) 3px);}
+
+    /* BG CANVAS */
+    #bgc{position:fixed;inset:0;z-index:2;pointer-events:none;}
+
+    /* ── TOPBAR ── */
+    .topbar{position:fixed;top:0;left:0;right:0;z-index:100;height:52px;
+      display:flex;align-items:center;justify-content:space-between;padding:0 28px;
+      background:rgba(8,8,12,0.96);border-bottom:2px solid var(--red);backdrop-filter:blur(14px);}
+    .logo{display:flex;align-items:center;gap:10px;}
+    .logo-box{width:34px;height:34px;background:var(--red);border-radius:4px;display:grid;place-items:center;
+      font-family:'Bebas Neue',sans-serif;font-size:0.88rem;color:#fff;box-shadow:0 0 18px rgba(229,32,32,0.55);}
+    .logo-name{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:0.1em;}
     .logo-name span{color:var(--red2);}
-    .chip{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(200,169,110,0.3);border-radius:100px;padding:5px 16px 5px 11px;font-size:0.68rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:26px;opacity:0;animation:up 0.9s cubic-bezier(.22,1,.36,1) 0.55s forwards;}
-    .chip-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:blink 2s ease-in-out infinite;}
-    @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.15;}}
-    h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.2rem,10vw,7.5rem);line-height:0.9;letter-spacing:0.03em;margin-bottom:4px;opacity:0;animation:up 1s cubic-bezier(.22,1,.36,1) 0.72s forwards;}
-    h1 em{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;color:var(--red2);font-size:1.06em;}
-    .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(1.05rem,2.4vw,1.45rem);color:var(--dim);max-width:520px;line-height:1.55;margin:18px auto 40px;opacity:0;animation:up 1s cubic-bezier(.22,1,.36,1) 0.92s forwards;}
-    .rule{width:1px;height:0;background:linear-gradient(to bottom,transparent,var(--gold),transparent);margin:0 auto 40px;animation:growrule 1.2s cubic-bezier(.22,1,.36,1) 1.08s forwards;}
-    @keyframes growrule{to{height:70px;}}
-    .body-copy{max-width:460px;font-size:clamp(0.84rem,1.5vw,0.96rem);font-weight:300;line-height:1.85;color:var(--dim);margin-bottom:44px;opacity:0;animation:up 1s cubic-bezier(.22,1,.36,1) 1.22s forwards;}
-    .body-copy strong{color:var(--w);font-weight:500;}
-    .prog-wrap{width:min(400px,80vw);margin-bottom:48px;opacity:0;animation:up 1s cubic-bezier(.22,1,.36,1) 1.42s forwards;}
-    .prog-labels{display:flex;justify-content:space-between;font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--dim2);margin-bottom:9px;}
-    .prog-labels span:last-child{color:var(--gold);}
-    .prog-track{height:2px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden;}
-    .prog-fill{height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--gold));animation:fill 2.8s cubic-bezier(.22,1,.36,1) 1.7s forwards;box-shadow:0 0 12px rgba(229,32,32,0.5);}
-    @keyframes fill{to{width:73%;}}
-    .cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;opacity:0;animation:up 1s cubic-bezier(.22,1,.36,1) 1.75s forwards;}
-    .btn-r{display:inline-flex;align-items:center;gap:9px;background:var(--red);color:#fff;font-family:'Barlow',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;padding:13px 26px;border-radius:3px;border:none;cursor:pointer;box-shadow:0 0 24px rgba(229,32,32,0.4);transition:background .2s,box-shadow .2s,transform .15s;}
-    .btn-r:hover{background:var(--red2);box-shadow:0 0 36px rgba(229,32,32,0.6);transform:translateY(-2px);}
-    .btn-g{display:inline-flex;align-items:center;gap:9px;background:transparent;color:var(--dim);font-family:'Barlow',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;padding:13px 26px;border-radius:3px;border:1px solid rgba(240,237,232,0.14);cursor:pointer;transition:color .2s,border-color .2s,transform .15s;}
-    .btn-g:hover{color:var(--w);border-color:rgba(240,237,232,0.38);transform:translateY(-2px);}
-    .foot{position:fixed;bottom:18px;left:0;right:0;text-align:center;font-size:0.63rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim2);z-index:10;opacity:0;animation:fadein 1s ease 2.5s forwards;}
-    @keyframes up{to{opacity:1;transform:translateY(0);}}
-    @keyframes fadein{to{opacity:1;}}
-    @media(max-width:520px){.corner{display:none;}.cta{flex-direction:column;align-items:stretch;}.btn-r,.btn-g{justify-content:center;}#globe-canvas{width:340px!important;height:340px!important;}.glow-ring{width:340px;height:340px;}}
+    .topbar-mid{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--dim2);}
+    .topbar-right{display:flex;align-items:center;gap:18px;}
+    .t-clock{font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:0.12em;color:var(--w);opacity:0.65;}
+    .t-badge{display:flex;align-items:center;gap:6px;font-family:'Barlow Condensed',sans-serif;
+      font-size:0.6rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);}
+    .t-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 1.8s ease-in-out infinite;}
+    @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.08;}}
+
+    /* ── TICKER ── */
+    .ticker{position:fixed;bottom:0;left:0;right:0;z-index:100;height:38px;
+      display:flex;align-items:center;background:rgba(8,8,12,0.98);border-top:2px solid var(--red);}
+    .ticker-tag{flex-shrink:0;padding:0 14px;height:100%;display:flex;align-items:center;
+      background:var(--red);font-family:'Bebas Neue',sans-serif;font-size:0.78rem;letter-spacing:0.15em;color:#fff;white-space:nowrap;}
+    .ticker-scroll{flex:1;overflow:hidden;}
+    .ticker-inner{display:flex;gap:50px;white-space:nowrap;
+      font-family:'Barlow Condensed',sans-serif;font-size:0.78rem;font-weight:400;letter-spacing:0.05em;color:var(--dim);
+      animation:tickmove 40s linear infinite;}
+    .ticker-inner b{color:var(--gold);font-weight:700;}
+    @keyframes tickmove{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+    /* ── CORNERS ── */
+    .corner{position:fixed;width:46px;height:46px;z-index:8;}
+    .tl{top:60px;left:16px;border-top:1px solid rgba(200,169,110,0.22);border-left:1px solid rgba(200,169,110,0.22);}
+    .tr{top:60px;right:16px;border-top:1px solid rgba(200,169,110,0.22);border-right:1px solid rgba(200,169,110,0.22);}
+    .bl{bottom:46px;left:16px;border-bottom:1px solid rgba(200,169,110,0.22);border-left:1px solid rgba(200,169,110,0.22);}
+    .br{bottom:46px;right:16px;border-bottom:1px solid rgba(200,169,110,0.22);border-right:1px solid rgba(200,169,110,0.22);}
+
+    /* ── STAGE ── */
+    .stage{position:fixed;inset:52px 0 38px;z-index:10;overflow:hidden;}
+    .phase{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease;pointer-events:none;}
+    .phase.visible{opacity:1;pointer-events:auto;}
+
+    /* ════════════════════════════════
+       FASE A — SCROLL DO GUIA
+    ════════════════════════════════ */
+    .scroll-header{position:absolute;top:0;left:0;right:0;z-index:5;
+      padding:16px 28px 12px;
+      background:linear-gradient(to bottom,rgba(8,8,12,0.97) 55%,transparent);
+      display:flex;align-items:baseline;gap:14px;}
+    .scroll-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.08em;color:var(--w);}
+    .scroll-sub{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);}
+
+    .cards-viewport{position:absolute;inset:52px 0 0;overflow:hidden;}
+    .cards-viewport::before{content:'';position:absolute;top:0;left:0;right:0;height:36px;
+      background:linear-gradient(to bottom,rgba(8,8,12,1),transparent);z-index:3;pointer-events:none;}
+    .cards-viewport::after{content:'';position:absolute;bottom:0;left:0;right:0;height:90px;
+      background:linear-gradient(to top,rgba(8,8,12,1),transparent);z-index:3;pointer-events:none;}
+
+    .cards-track{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:8px 24px 60px;}
+
+    .biz-card{background:rgba(14,14,20,0.92);border:1px solid rgba(240,237,232,0.06);
+      border-radius:10px;padding:16px 18px;display:flex;align-items:flex-start;gap:12px;}
+    .biz-ico{font-size:1.9rem;flex-shrink:0;line-height:1;margin-top:2px;}
+    .biz-badge{font-family:'Barlow Condensed',sans-serif;font-size:0.56rem;font-weight:700;
+      letter-spacing:0.2em;text-transform:uppercase;color:var(--red2);margin-bottom:4px;}
+    .biz-name{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;
+      letter-spacing:0.04em;color:var(--w);margin-bottom:4px;line-height:1.2;}
+    .biz-desc{font-size:0.74rem;font-weight:300;color:var(--dim);line-height:1.55;}
+    .biz-cat{display:inline-block;margin-top:7px;font-family:'Barlow Condensed',sans-serif;
+      font-size:0.58rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;
+      color:var(--gold);border-bottom:1px solid rgba(200,169,110,0.28);padding-bottom:1px;}
+
+    /* ════════════════════════════════
+       FASES INSTITUCIONAIS
+    ════════════════════════════════ */
+    .inst{display:flex;flex-direction:column;align-items:center;justify-content:center;
+      padding:36px 48px;text-align:center;position:relative;overflow:hidden;}
+
+    /* expressionist number bg */
+    .inst-num{position:absolute;font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(12rem,30vw,22rem);line-height:0.85;letter-spacing:-0.04em;
+      color:rgba(229,32,32,0.06);pointer-events:none;user-select:none;
+      top:50%;left:50%;transform:translate(-50%,-50%);}
+
+    .inst-tag{display:inline-flex;align-items:center;gap:7px;border-radius:100px;
+      padding:4px 14px;font-family:'Barlow Condensed',sans-serif;
+      font-size:0.62rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;
+      margin-bottom:18px;position:relative;z-index:2;}
+    .tag-red{color:var(--red2);border:1px solid rgba(229,32,32,0.32);}
+    .tag-gold{color:var(--gold);border:1px solid rgba(200,169,110,0.32);}
+    .tag-dim{color:var(--dim2);border:1px solid rgba(240,237,232,0.1);}
+    .tag-dot{width:5px;height:5px;border-radius:50%;animation:blink 1.4s ease-in-out infinite;}
+    .dot-red{background:var(--red2);}
+    .dot-gold{background:var(--gold);}
+
+    .inst-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,9vw,7.2rem);
+      line-height:0.88;letter-spacing:0.02em;margin-bottom:6px;position:relative;z-index:2;}
+    .inst-h em{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;color:var(--gold);font-size:1.04em;}
+    .inst-h .red{color:var(--red2);}
+    .inst-h .dim{color:var(--dim2);}
+
+    .inst-rule{width:44px;height:1px;background:var(--gold);margin:16px auto;position:relative;z-index:2;}
+
+    .inst-body{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+      font-size:clamp(0.95rem,1.9vw,1.3rem);color:var(--dim);max-width:520px;line-height:1.7;
+      margin-bottom:22px;position:relative;z-index:2;}
+    .inst-body strong{color:var(--w);font-style:normal;font-weight:400;}
+
+    .inst-url{font-family:'Barlow Condensed',sans-serif;font-size:0.88rem;font-weight:700;
+      letter-spacing:0.22em;text-transform:uppercase;color:var(--red2);
+      border:1px solid rgba(229,32,32,0.38);padding:9px 26px;border-radius:3px;
+      display:inline-block;margin-bottom:14px;position:relative;z-index:2;}
+    .inst-url.gold{color:var(--gold);border-color:rgba(200,169,110,0.38);}
+
+    .inst-foot{font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;font-weight:500;
+      letter-spacing:0.16em;text-transform:uppercase;color:var(--dim2);position:relative;z-index:2;}
+    .inst-foot b{color:var(--gold);}
+
+    /* horizontal rule line across */
+    .h-accent{position:absolute;left:0;right:0;height:1px;
+      background:linear-gradient(90deg,transparent,rgba(200,169,110,0.1),transparent);z-index:1;}
+    .h-accent.top{top:30%;}
+    .h-accent.bot{bottom:30%;}
+
+    /* vertical accent */
+    .v-accent{position:absolute;top:15%;bottom:15%;width:1px;
+      background:linear-gradient(to bottom,transparent,rgba(229,32,32,0.12),transparent);z-index:1;}
+    .v-accent.l{left:12%;}
+    .v-accent.r{right:12%;}
   </style>
 </head>
 <body>
-<div class="glow-ring"></div>
-<div class="corner tl"></div><div class="corner tr"></div>
-<div class="corner bl"></div><div class="corner br"></div>
-<div class="h-line h-line-top"></div><div class="h-line h-line-bot"></div>
-<canvas id="globe-canvas" width="640" height="640"></canvas>
-<main>
-  <div class="logo-wrap">
-    <div class="logo-icon">TV</div>
+
+<canvas id="bgc"></canvas>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-box">TV</div>
     <div class="logo-name">TV <span>MARA</span>TAÍZES</div>
   </div>
-  <div class="chip"><span class="chip-dot"></span>Nova plataforma</div>
-  <h1>Nosso conteúdo<br>está <em>crescendo.</em></h1>
-  <p class="sub">Uma nova fase da TV Marataízes está sendo construída.</p>
-  <div class="rule"></div>
-  <p class="body-copy">
-    Estamos migrando nossa programação para uma estrutura de streaming
-    <strong>mais completa, mais rápida e mais próxima de você.</strong><br><br>
-    Uma plataforma pensada para o Sul do Espírito Santo — e para o mundo.
-    Em breve, todo o nosso conteúdo disponível aqui.
-  </p>
-  <div class="prog-wrap">
-    <div class="prog-labels"><span>Migração em andamento</span><span>Em breve</span></div>
-    <div class="prog-track"><div class="prog-fill"></div></div>
+  <div class="topbar-mid">Sul do Espírito Santo · Canal 300 SOUL TV</div>
+  <div class="topbar-right">
+    <div class="t-clock" id="tclock">00:00:00</div>
+    <div class="t-badge"><span class="t-dot"></span>No Ar</div>
   </div>
-  <div class="cta">
-    <a href="https://tvmarataizes.digital" class="btn-r">← Voltar ao portal</a>
-    <a href="https://wa.me/5528999036141" target="_blank" rel="noopener" class="btn-g">💬 Fale conosco</a>
+</div>
+
+<!-- CORNERS -->
+<div class="corner tl"></div><div class="corner tr"></div>
+<div class="corner bl"></div><div class="corner br"></div>
+
+<!-- STAGE -->
+<div class="stage">
+
+  <!-- ════ FASE A: SCROLL DO GUIA ════ -->
+  <div class="phase visible" id="ph0">
+    <div class="scroll-header">
+      <div class="scroll-title">Guia de Marataízes</div>
+      <div class="scroll-sub">● Negócios · Praias · Experiências · Sul do ES</div>
+    </div>
+    <div class="cards-viewport">
+      <div class="cards-track" id="cards-track"></div>
+    </div>
   </div>
-</main>
-<div class="foot">tvmarataizes.digital &nbsp;·&nbsp; Sul do Espírito Santo &nbsp;·&nbsp; Canal 300 SOUL TV</div>
+
+  <!-- ════ FASE B1: HEADLINE ════ -->
+  <div class="phase inst" id="ph1">
+    <div class="inst-num">01</div>
+    <div class="h-accent top"></div><div class="h-accent bot"></div>
+    <div class="v-accent l"></div><div class="v-accent r"></div>
+    <div class="inst-tag tag-red"><span class="tag-dot dot-red"></span>TV Marataízes</div>
+    <h2 class="inst-h">A cidade tem nome.<br><em>Agora tem tela.</em></h2>
+    <div class="inst-rule"></div>
+    <p class="inst-body">O Sul do ES encontrou sua voz.<br>
+    <strong>Conteúdo, comércio e pessoas — conectados pela primeira vez.</strong></p>
+    <div class="inst-url">tvmarataizes.digital</div>
+    <div class="inst-foot">Canal 300 SOUL TV · <b>@tvmarataizes</b></div>
+  </div>
+
+  <!-- ════ FASE B2: MOVIMENTO ════ -->
+  <div class="phase inst" id="ph2">
+    <div class="inst-num">02</div>
+    <div class="h-accent top"></div><div class="h-accent bot"></div>
+    <div class="v-accent l"></div><div class="v-accent r"></div>
+    <div class="inst-tag tag-gold"><span class="tag-dot dot-gold"></span>Em movimento</div>
+    <h2 class="inst-h">Marataízes<br>em movimento.<br><em>A TV também.</em></h2>
+    <div class="inst-rule"></div>
+    <p class="inst-body">A programação mudou. A cidade também.<br>
+    <strong>O que era local agora tem alcance.</strong><br>
+    Uma nova forma de ver Marataízes está no ar.</p>
+    <div class="inst-url">tvmarataizes.digital</div>
+    <div class="inst-foot">Acompanhe · <b>@tvmarataizes</b></div>
+  </div>
+
+  <!-- ════ FASE B3: PROVA SOCIAL ════ -->
+  <div class="phase inst" id="ph3">
+    <div class="inst-num">03</div>
+    <div class="h-accent top"></div><div class="h-accent bot"></div>
+    <div class="v-accent l"></div><div class="v-accent r"></div>
+    <div class="inst-tag tag-dim">Guia ativo</div>
+    <h2 class="inst-h">Quem pesquisa<br>Marataízes<br><em>encontra aqui.</em></h2>
+    <div class="inst-rule"></div>
+    <p class="inst-body">O guia já está sendo acessado. Todos os dias.<br>
+    <strong>Negócios locais aparecem no Google por conta do guia.</strong><br>
+    A audiência cresceu. O guia veio junto.</p>
+    <div class="inst-url">tvmarataizes.digital</div>
+    <div class="inst-foot">Sul do ES · <b>Canal 300 SOUL TV</b></div>
+  </div>
+
+  <!-- ════ FASE B4: COMERCIAL ════ -->
+  <div class="phase inst" id="ph4">
+    <div class="inst-num">04</div>
+    <div class="h-accent top"></div><div class="h-accent bot"></div>
+    <div class="v-accent l"></div><div class="v-accent r"></div>
+    <div class="inst-tag tag-red"><span class="tag-dot dot-red"></span>Apareça aqui</div>
+    <h2 class="inst-h">Aparecer<br>no guia é<br>aparecer <em>na TV.</em></h2>
+    <div class="inst-rule"></div>
+    <p class="inst-body"><strong>Quem entra agora constrói o próprio destaque.</strong><br>
+    Seu negócio ainda não está aqui?<br>
+    As vagas de destaque são limitadas.</p>
+    <div class="inst-url">(28) 99903-6141</div>
+    <div class="inst-foot">Fale no WhatsApp · <b>tvmarataizes.digital</b></div>
+  </div>
+
+  <!-- ════ FASE B5: DIA 5 ════ -->
+  <div class="phase inst" id="ph5">
+    <div class="inst-num" style="color:rgba(229,32,32,0.09);font-size:clamp(14rem,35vw,26rem);">5</div>
+    <div class="h-accent top"></div><div class="h-accent bot"></div>
+    <div class="v-accent l"></div><div class="v-accent r"></div>
+    <div class="inst-tag tag-red"><span class="tag-dot dot-red"></span>5 de maio</div>
+    <h2 class="inst-h">Nova grade.<br>Guia <em>integrado.</em><br><span class="red">Dia 5.</span></h2>
+    <div class="inst-rule"></div>
+    <p class="inst-body">A partir do dia 5, programação e comércio<br>
+    <strong>viram um só produto.</strong><br>
+    Antes do dia 5 é antes do preço mudar.</p>
+    <div class="inst-url">(28) 99903-6141</div>
+    <div class="inst-foot">Vagas limitadas · <b>@tvmarataizes</b></div>
+  </div>
+
+  <!-- ════ FASE B6: EXPANSÃO ════ -->
+  <div class="phase inst" id="ph6">
+    <div class="inst-num">06</div>
+    <div class="h-accent top"></div><div class="h-accent bot"></div>
+    <div class="v-accent l"></div><div class="v-accent r"></div>
+    <div class="inst-tag tag-gold"><span class="tag-dot dot-gold"></span>Expansão</div>
+    <h2 class="inst-h">Construído em<br>Marataízes.<br><em>Pensado para o Sul.</em></h2>
+    <div class="inst-rule"></div>
+    <p class="inst-body">Itapemirim, Piúma, Presidente Kennedy.<br>
+    <strong>Em breve no guia.</strong><br>
+    A lógica que funciona aqui vai funcionar em toda a região.</p>
+    <div class="inst-url gold">Sul do Espírito Santo</div>
+    <div class="inst-foot">TV local com visão de plataforma · <b>tvmarataizes.digital</b></div>
+  </div>
+
+  <!-- ════ FASE B7: AUTORIDADE ════ -->
+  <div class="phase inst" id="ph7">
+    <div class="inst-num">07</div>
+    <div class="h-accent top"></div><div class="h-accent bot"></div>
+    <div class="v-accent l"></div><div class="v-accent r"></div>
+    <div class="inst-tag tag-dim">TV Marataízes</div>
+    <h2 class="inst-h">Não seguimos<br>tendência.<br><em>Criamos estrutura.</em></h2>
+    <div class="inst-rule"></div>
+    <p class="inst-body">Canal 300 SOUL TV. Portal digital. Guia da cidade.<br>
+    <strong>Um ecossistema.</strong><br>
+    Quem entendeu o modelo, entrou cedo.</p>
+    <div class="inst-url">tvmarataizes.digital</div>
+    <div class="inst-foot">Canal 300 SOUL TV · <b>(28) 99903-6141</b></div>
+  </div>
+
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-tag">TV Marataízes</div>
+  <div class="ticker-scroll">
+    <div class="ticker-inner">
+      <b>Guia de Marataízes no ar</b> · tvmarataizes.digital ·
+      <b>Cia do Peixe</b> · Frutos do mar · Av. Atlântica, 1800 ·
+      <b>Zero Grau</b> · Bebidas · (28) 99978-5411 ·
+      <b>Natufit</b> · Comida saudável · Delivery ·
+      <b>D+ Chicken</b> · Frango frito · +12 mil pedidos ·
+      <b>Ribeiros Smash Grill</b> · Burgers Texas Style ·
+      <b>Country Hamburgueria</b> · (28) 99974-6143 ·
+      <b>Pizzaria Porto Seguro</b> · Artesanal · Delivery · (28) 99976-9290 ·
+      <b>Banzai Sushi</b> · Culinária japonesa ·
+      <b>YakisOba!</b> · Sushi · Yakisoba · (28) 99981-8715 ·
+      <b>Juliana Móveis</b> · (28) 99973-2882 ·
+      <b>Pousada Miramar</b> · Vista para o mar ·
+      <b>Nova grade dia 5 de maio</b> · Anuncie: (28) 99903-6141 ·
+      <b>Guia de Marataízes no ar</b> · tvmarataizes.digital ·
+      <b>Cia do Peixe</b> · Frutos do mar · Av. Atlântica, 1800 ·
+      <b>Zero Grau</b> · Bebidas · (28) 99978-5411 ·
+      <b>Natufit</b> · Comida saudável · Delivery ·
+      <b>D+ Chicken</b> · Frango frito · +12 mil pedidos ·
+      <b>Ribeiros Smash Grill</b> · Burgers Texas Style ·
+      <b>Country Hamburgueria</b> · (28) 99974-6143 ·
+      <b>Pizzaria Porto Seguro</b> · Artesanal · Delivery · (28) 99976-9290 ·
+      <b>Banzai Sushi</b> · Culinária japonesa ·
+      <b>YakisOba!</b> · Sushi · Yakisoba · (28) 99981-8715 ·
+      <b>Juliana Móveis</b> · (28) 99973-2882 ·
+      <b>Pousada Miramar</b> · Vista para o mar ·
+      <b>Nova grade dia 5 de maio</b> · Anuncie: (28) 99903-6141 ·
+    </div>
+  </div>
+</div>
 
 <script>
+// ── CLOCK ──────────────────────────────────────────────
+function pad(n){return n<10?'0'+n:''+n;}
+function tick(){var d=new Date();document.getElementById('tclock').textContent=pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds());}
+setInterval(tick,1000);tick();
+
+// ── CARDS ──────────────────────────────────────────────
+var cards=[
+  {ico:'🐟',badge:'⭐ Agenciado',name:'Cia do Peixe',desc:'Frutos do mar frescos · Av. Atlântica, 1800 · Aberto todos os dias 11h–17h',cat:'Restaurante'},
+  {ico:'⚽',badge:'⭐ Agenciado',name:'Quiosque do Jogador',desc:'Cerveja gelada · Petiscos · Telão com jogos · Praça da Barra · Ter–Dom 18h–00h',cat:'Bar & Lazer'},
+  {ico:'🥗',badge:'⭐ Agenciado',name:'Natufit Saladeria',desc:'Saladas frescas · Bowls · Marmitas fit · Seg–Sex 11h–15h · Delivery',cat:'Saudável'},
+  {ico:'🍺',badge:'⭐ Agenciado',name:'Zero Grau Distribuidora',desc:'Cervejas geladas · Destilados · Vinhos · Av. Simão Soares, 576 · (28) 99978-5411',cat:'Bebidas'},
+  {ico:'🍗',badge:'⭐ Agenciado',name:'D+ Chicken',desc:'Frango frito crocante · +12 mil pedidos entregues · Av. Rubens Rangel · Marataízes',cat:'Delivery'},
+  {ico:'🍣',badge:'⭐ Agenciado',name:'Banzai Sushi',desc:'Culinária japonesa autêntica em Marataízes · Delivery disponível',cat:'Japonês'},
+  {ico:'🍜',badge:'⭐ Agenciado',name:'YakisOba! Culinária Oriental',desc:'Sushi · Sashimi · Yakisoba · R. do Cajueiro, 80 · (28) 99981-8715',cat:'Oriental'},
+  {ico:'🍕',badge:'⭐ Agenciado',name:'Pizzaria Porto Seguro',desc:'Pizzas artesanais · Petiscos · Delivery · Av. Rubens Rangel, 130 · (28) 99976-9290',cat:'Pizzaria'},
+  {ico:'🔥',badge:'⭐ Agenciado',name:'Ribeiros Smash Grill',desc:'Burgers 100% Bovino · Texas Style · Food Park Família · Marataízes ES',cat:'Hamburgueria'},
+  {ico:'🤠',badge:'⭐ Agenciado',name:'Country Hamburgueria',desc:'Burgers Gourmets · Porções · Caldos · Av. Rubens Rangel, N31 · (28) 99974-6143',cat:'Hamburgueria'},
+  {ico:'🍦',badge:'⭐ Agenciado',name:'Amor dentro do Cone',desc:'Doceria artesanal · Brigadeiro · Nutella · Beijinho · Entrega com hora marcada',cat:'Doces'},
+  {ico:'🛋️',badge:'⭐ Agenciado',name:'Juliana Móveis',desc:'Sofás · Guarda-roupas · Painéis · Colchões · Av. Rubens Rangel, 600 · (28) 99973-2882',cat:'Móveis'},
+  {ico:'🏠',badge:'⭐ Agenciado',name:'Litoral Móveis',desc:'Móveis · Estofados · Eletrodomésticos · Frete e montagem grátis · (28) 99996-1248',cat:'Móveis'},
+  {ico:'✨',badge:'⭐ Agenciado',name:'Use Elis',desc:'Moda feminina · Elegância e modéstia · Roupas para o dia a dia e para a praia',cat:'Moda'},
+  {ico:'🌊',badge:'⭐ Agenciado',name:'Cia do Mar',desc:'Biquínis · Maiôs · Fitness · Saídas de praia · Seg–Sáb 8h30–18h · (28) 99943-7547',cat:'Moda Praia'},
+  {ico:'👓',badge:'⭐ Agenciado',name:'Ótica Boa Vista',desc:'Óculos de grau · Solar · Lentes · Exame de vista · Av. CDL Filho, 2248 · (28) 99272-5986',cat:'Saúde Visual'},
+  {ico:'🐾',badge:'⭐ Agenciado',name:'D&R Amor de Pet',desc:'Banho e tosa · Rações premium · Hotelzinho · Aquarismo · (28) 99966-3521',cat:'Pet Shop'},
+  {ico:'🏖️',badge:'⭐ Agenciado',name:'Pousada Miramar',desc:'Vista para o mar · Aconchego e conforto em Marataízes · Reserve pelo WhatsApp',cat:'Hospedagem'},
+  {ico:'📡',badge:'⭐ Agenciado',name:'Msat Parabólica',desc:'Antenas SKY · Câmeras Full HD · Portão automático · Segurança eletrônica · (28) 99912-1368',cat:'Tecnologia'},
+  {ico:'🎮',badge:'⭐ Agenciado',name:'Assistec Marataízes',desc:'Games · Notebooks · Celulares · Em frente à Prefeitura · ⭐ 4.8 Google',cat:'Tecnologia'},
+  {ico:'🔧',badge:'⭐ Agenciado',name:'SS Car Centro Automotivo',desc:'Mecânica geral · Revisão · Suspensão e freios · Barra de Itapemirim · (28) 99982-6793',cat:'Automotivo'},
+  {ico:'⚕️',badge:'⭐ Agenciado',name:'Medical Farma',desc:'Farmácia · Medicamentos · Cosméticos · Glicemia · Rotatória da Barra · (28) 99908-7662',cat:'Saúde'},
+  {ico:'🏠',badge:'⭐ Agenciado',name:'Windsor Hora — Corretor',desc:'Compra, venda e aluguel de imóveis em Marataízes · Atendimento especializado',cat:'Imóveis'},
+  {ico:'📺',badge:'⭐ Parceiro',name:'Macuca Produções',desc:'TV Marataízes · Canal 300 Soul TV · Publicidade · Audiovisual · (28) 99903-6141',cat:'Mídia'},
+  {ico:'🚁',badge:'⭐ Agenciado',name:'Drone VisionFly',desc:'Filmagem aérea DJI Air 3s · Produção audiovisual · Fotografia aérea · @drone_visionfly',cat:'Audiovisual'},
+  {ico:'🐟',badge:'⭐ Agenciado',name:'Atum do Brasil',desc:'Maior exportadora de peixes frescos do país · 30 anos em Itaóca · Itapemirim ES',cat:'Indústria'},
+];
+
+var track=document.getElementById('cards-track');
+var html='';
+function cardHTML(c){
+  return '<div class="biz-card">'
+    +'<div class="biz-ico">'+c.ico+'</div>'
+    +'<div><div class="biz-badge">'+c.badge+'</div>'
+    +'<div class="biz-name">'+c.name+'</div>'
+    +'<div class="biz-desc">'+c.desc+'</div>'
+    +'<div class="biz-cat">'+c.cat+'</div>'
+    +'</div></div>';
+}
+// Duplicate for seamless loop
+cards.forEach(function(c){html+=cardHTML(c);});
+cards.forEach(function(c){html+=cardHTML(c);});
+track.innerHTML=html;
+
+// Scroll animation — CSS keyframes injected dynamically
+var dur=Math.max(55,cards.length*2.8);
+var style=document.createElement('style');
+style.textContent='@keyframes scrollup{0%{transform:translateY(0);}100%{transform:translateY(-50%);}}';
+document.head.appendChild(style);
+track.style.animation='scrollup '+dur+'s linear infinite';
+
+// ── PHASE SEQUENCE ─────────────────────────────────────
+// scroll(28s) → inst1..7 (7s each) → scroll → loop
+var phases=[
+  {id:'ph0',dur:28000},
+  {id:'ph1',dur:7000},
+  {id:'ph2',dur:7000},
+  {id:'ph3',dur:7000},
+  {id:'ph4',dur:7000},
+  {id:'ph5',dur:8000},
+  {id:'ph6',dur:7000},
+  {id:'ph7',dur:7000},
+];
+var ci=0;
+function showPhase(i){
+  phases.forEach(function(p){document.getElementById(p.id).classList.remove('visible');});
+  document.getElementById(phases[i].id).classList.add('visible');
+  setTimeout(function(){showPhase((i+1)%phases.length);},phases[i].dur);
+}
+setTimeout(function(){showPhase(1);},phases[0].dur);
+
+// ── BG CANVAS — radar + expressionist rings ────────────
 (function(){
-  var canvas = document.getElementById('globe-canvas');
-  var ctx = canvas.getContext('2d');
-  var W = canvas.width, H = canvas.height, cx = W/2, cy = H/2;
-  var R = 268, angle = 0, tilt = 0.22;
-
-  // 26 cidades do Sul do ES espalhadas pelo globo inteiro
-  // Latitudes e longitudes DISTRIBUÍDAS para cobrir o globo
-  // mas com nomes reais dos municípios do Sul do ES
-  // Cada cidade recebe uma posição bem separada no globo
-  var cities = [
-    // frente do globo (lon ~0)
-    { name: 'MARATAÍZES',           lat:  -8, lon:   0, main: true  },
-    { name: 'ITAPEMIRIM',           lat:  18, lon:  14, main: false },
-    { name: 'PIÚMA',                lat: -28, lon:  26, main: false },
-    { name: 'PRESIDENTE KENNEDY',   lat:  42, lon:  -8, main: false },
-    { name: 'CACHOEIRO',            lat: -48, lon:  18, main: false },
-    { name: 'ANCHIETA',             lat:  62, lon: -22, main: false },
-    // lado direito (lon ~60-120)
-    { name: 'ICONHA',               lat: -14, lon:  55, main: false },
-    { name: 'RIO NOVO DO SUL',      lat:  30, lon:  70, main: false },
-    { name: 'MIMOSO DO SUL',        lat: -38, lon:  88, main: false },
-    { name: 'MUQUI',                lat:  50, lon: 105, main: false },
-    { name: 'ALEGRE',               lat: -60, lon:  72, main: false },
-    { name: 'CASTELO',              lat:  72, lon:  90, main: false },
-    // fundo do globo (lon ~180)
-    { name: 'GUAÇUÍ',               lat: -22, lon: 160, main: false },
-    { name: 'IÚNA',                 lat:  14, lon: 175, main: false },
-    { name: 'IBITIRAMA',            lat: -50, lon: 148, main: false },
-    { name: 'DORES DO RIO PRETO',   lat:  38, lon: 162, main: false },
-    { name: 'DIVINO SÃO LOURENÇO',  lat: -70, lon: 170, main: false },
-    { name: 'BOM JESUS DO NORTE',   lat:  58, lon: 145, main: false },
-    // lado esquerdo (lon ~240-300)
-    { name: 'APIACÁ',               lat: -18, lon: 240, main: false },
-    { name: 'MUNIZ FREIRE',         lat:  26, lon: 255, main: false },
-    { name: 'ATÍLIO VIVÁCQUA',      lat: -42, lon: 272, main: false },
-    { name: 'JERÔNIMO MONTEIRO',    lat:  46, lon: 288, main: false },
-    { name: 'ALFREDO CHAVES',       lat: -62, lon: 258, main: false },
-    { name: 'IRUPI',                lat:  66, lon: 275, main: false },
-    { name: 'VARGEM ALTA',          lat: -30, lon: 310, main: false },
-    { name: 'MUNIZ FREIRE SUL',     lat:  10, lon: 325, main: false },
-  ];
-
-  // Convert to radians
-  cities = cities.map(function(c, i){
-    return {
-      name: c.name,
-      lat: c.lat * Math.PI / 180,
-      lon: c.lon * Math.PI / 180,
-      main: c.main,
-      pulse: (i / cities.length) * Math.PI * 2
-    };
-  });
-
-  function project(lat, lon, rot){
-    var x0 = Math.cos(lat) * Math.sin(lon + rot);
-    var y0 = Math.sin(lat);
-    var z0 = Math.cos(lat) * Math.cos(lon + rot);
-    var xT = x0 * Math.cos(tilt) - y0 * Math.sin(tilt);
-    var yT = x0 * Math.sin(tilt) + y0 * Math.cos(tilt);
-    return { sx: cx + xT*R, sy: cy - yT*R, z: z0 };
-  }
-
-  function drawArc(isLat, fixed, rot, color, lw, steps){
-    steps = steps||120;
-    ctx.lineWidth = lw; ctx.strokeStyle = color;
-    var started = false;
-    ctx.beginPath();
-    for(var i=0;i<=steps;i++){
-      var t=(i/steps)*Math.PI*2;
-      var lat=isLat?fixed:t-Math.PI/2, lon=isLat?t:fixed;
-      var p=project(lat,lon,rot);
-      var fade=p.z>0.05?1:(p.z>-0.35?(p.z+0.35)/0.4:0);
-      if(fade<=0){started=false;continue;}
-      ctx.globalAlpha=fade*0.85;
-      if(!started){ctx.moveTo(p.sx,p.sy);started=true;}
-      else ctx.lineTo(p.sx,p.sy);
-    }
-    ctx.stroke(); ctx.globalAlpha=1;
-  }
-
-  function drawCity(c, rot){
-    var p = project(c.lat, c.lon, rot);
-    if(p.z < 0.04) return;
-    var alpha = Math.min(1,(p.z-0.04)/0.25);
-    c.pulse += 0.04;
-    var ring = 0.5 + 0.5*Math.sin(c.pulse);
-
-    // label side: left half of globe → text left, right half → text right
-    var screenX = p.sx - cx;
-    var side = screenX > 0 ? 'r' : 'l';
-    var lx = side==='r' ? p.sx+9 : p.sx-9;
-
-    if(c.main){
-      // big pulse rings
-      ctx.globalAlpha = alpha*0.25*ring;
-      ctx.beginPath(); ctx.arc(p.sx,p.sy,14+ring*10,0,Math.PI*2);
-      ctx.strokeStyle='#ff4444'; ctx.lineWidth=1.2; ctx.stroke();
-
-      ctx.globalAlpha = alpha*0.5;
-      ctx.beginPath(); ctx.arc(p.sx,p.sy,7,0,Math.PI*2);
-      ctx.strokeStyle='#e52020'; ctx.lineWidth=1; ctx.stroke();
-
-      ctx.globalAlpha = alpha;
-      ctx.beginPath(); ctx.arc(p.sx,p.sy,4.5,0,Math.PI*2);
-      ctx.fillStyle='#e52020'; ctx.fill();
-      ctx.beginPath(); ctx.arc(p.sx,p.sy,2,0,Math.PI*2);
-      ctx.fillStyle='#ff9090'; ctx.fill();
-
-      ctx.globalAlpha = alpha;
-      ctx.textAlign = side==='r'?'left':'right';
-      ctx.fillStyle='#f0ede8';
-      ctx.font='600 11px Barlow,sans-serif';
-      ctx.fillText(c.name, lx, p.sy-4);
-      ctx.font='300 9px Barlow,sans-serif';
-      ctx.fillStyle='rgba(200,169,110,0.9)';
-      ctx.fillText('Sul do ES · Brasil', lx, p.sy+7);
-
-    } else {
-      ctx.globalAlpha = alpha*0.2*ring;
-      ctx.beginPath(); ctx.arc(p.sx,p.sy,6+ring*5,0,Math.PI*2);
-      ctx.strokeStyle='#c8a96e'; ctx.lineWidth=0.8; ctx.stroke();
-
-      ctx.globalAlpha = alpha*0.9;
-      ctx.beginPath(); ctx.arc(p.sx,p.sy,2.8,0,Math.PI*2);
-      ctx.fillStyle='#c8a96e'; ctx.fill();
-
-      if(alpha>0.3){
-        ctx.globalAlpha = alpha*0.9;
-        ctx.textAlign = side==='r'?'left':'right';
-        ctx.fillStyle='rgba(200,169,110,0.9)';
-        ctx.font='400 9.5px Barlow,sans-serif';
-        ctx.fillText(c.name, lx, p.sy+3);
-      }
-    }
-    ctx.globalAlpha=1; ctx.textAlign='left';
-  }
-
-  function drawConnection(a, b, rot){
-    var steps=36; ctx.beginPath(); var started=false;
-    for(var i=0;i<=steps;i++){
-      var t=i/steps;
-      var lat=a.lat+(b.lat-a.lat)*t, lon=a.lon+(b.lon-a.lon)*t;
-      var p=project(lat,lon,rot);
-      if(p.z<0.04){started=false;continue;}
-      ctx.globalAlpha=(p.z-0.04)/0.25*0.18;
-      if(!started){ctx.moveTo(p.sx,p.sy);started=true;}
-      else ctx.lineTo(p.sx,p.sy);
-    }
-    ctx.strokeStyle='#c8a96e'; ctx.lineWidth=0.6; ctx.stroke();
-    ctx.globalAlpha=1;
-  }
+  var c=document.getElementById('bgc'),ctx=c.getContext('2d');
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize);
+  var t=0;
 
   function draw(){
-    ctx.clearRect(0,0,W,H);
+    ctx.clearRect(0,0,c.width,c.height);
+    var cx=c.width/2,cy=c.height/2;
+    var maxR=Math.max(c.width,c.height)*0.6;
 
-    // inner glow
-    var grad=ctx.createRadialGradient(cx,cy,0,cx,cy,R);
-    grad.addColorStop(0,'rgba(229,32,32,0.08)');
-    grad.addColorStop(0.6,'rgba(229,32,32,0.02)');
-    grad.addColorStop(1,'transparent');
-    ctx.fillStyle=grad; ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.fill();
+    // Expressionist rings — asymmetric, slightly offset
+    var offsets=[
+      {ox:-c.width*0.1,oy:c.height*0.05,r:0.55,s:0.8},
+      {ox:c.width*0.08,oy:-c.height*0.06,r:0.38,s:1.1},
+      {ox:0,oy:0,r:0.68,s:0.6},
+      {ox:-c.width*0.05,oy:c.height*0.1,r:0.28,s:1.3},
+    ];
+    offsets.forEach(function(o,i){
+      var pulse=0.03+0.015*Math.sin(t*0.4+i*1.1);
+      ctx.beginPath();
+      ctx.arc(cx+o.ox,cy+o.oy,maxR*o.r,0,Math.PI*2);
+      ctx.strokeStyle='rgba(229,32,32,'+pulse+')';
+      ctx.lineWidth=0.6;ctx.stroke();
+    });
 
-    // lat lines
-    for(var i=1;i<9;i++){
-      var lat=(i/9)*Math.PI-Math.PI/2;
-      drawArc(true,lat,angle,i===4?'rgba(200,169,110,0.6)':'rgba(229,32,32,0.22)',i===4?0.9:0.45,140);
+    // Radar sweep — centered
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(t*0.4);
+    var sw=ctx.createLinearGradient(0,0,maxR*0.55,0);
+    sw.addColorStop(0,'rgba(229,32,32,0.14)');
+    sw.addColorStop(0.5,'rgba(229,32,32,0.04)');
+    sw.addColorStop(1,'rgba(229,32,32,0)');
+    ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,maxR*0.55,-0.32,0);ctx.closePath();
+    ctx.fillStyle=sw;ctx.fill();
+    // sweep line
+    ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(maxR*0.55,0);
+    ctx.strokeStyle='rgba(229,32,32,0.5)';ctx.lineWidth=0.8;ctx.stroke();
+    ctx.restore();
+
+    // Second slower sweep — gold tint
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(-t*0.18+Math.PI*0.6);
+    var sw2=ctx.createLinearGradient(0,0,maxR*0.4,0);
+    sw2.addColorStop(0,'rgba(200,169,110,0.06)');sw2.addColorStop(1,'rgba(200,169,110,0)');
+    ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,maxR*0.4,-0.2,0);ctx.closePath();
+    ctx.fillStyle=sw2;ctx.fill();ctx.restore();
+
+    // Crosshairs — very faint
+    ctx.strokeStyle='rgba(229,32,32,0.05)';ctx.lineWidth=0.5;
+    ctx.beginPath();ctx.moveTo(0,cy);ctx.lineTo(c.width,cy);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(cx,0);ctx.lineTo(cx,c.height);ctx.stroke();
+
+    // Tick marks on outer ring
+    var ringR=maxR*0.55;
+    for(var i=0;i<48;i++){
+      var a=(i/48)*Math.PI*2;
+      var len=i%12===0?14:i%4===0?8:4;
+      var alpha=i%12===0?0.35:0.12;
+      var x1=cx+Math.cos(a)*ringR,y1=cy+Math.sin(a)*ringR;
+      var x2=cx+Math.cos(a)*(ringR+len),y2=cy+Math.sin(a)*(ringR+len);
+      ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);
+      ctx.strokeStyle='rgba(229,32,32,'+alpha+')';
+      ctx.lineWidth=i%12===0?0.8:0.4;ctx.stroke();
     }
-    // lon lines
-    for(var j=0;j<14;j++){
-      drawArc(false,(j/14)*Math.PI*2,angle,j===0?'rgba(229,32,32,0.6)':'rgba(229,32,32,0.2)',j===0?0.8:0.4,140);
-    }
 
-    // globe edge + rings
-    ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2);
-    ctx.strokeStyle='rgba(229,32,32,0.4)'; ctx.lineWidth=1.3; ctx.stroke();
-    ctx.beginPath(); ctx.arc(cx,cy,R+10,0,Math.PI*2);
-    ctx.strokeStyle='rgba(229,32,32,0.07)'; ctx.lineWidth=1; ctx.stroke();
-    ctx.beginPath(); ctx.arc(cx,cy,R+22,0,Math.PI*2);
-    ctx.strokeStyle='rgba(200,169,110,0.04)'; ctx.lineWidth=0.8; ctx.stroke();
-
-    // connections from Marataízes
-    for(var k=1;k<cities.length;k++) drawConnection(cities[0],cities[k],angle);
-
-    // cities — secondary first, main on top
-    for(var m=cities.length-1;m>=0;m--) drawCity(cities[m],angle);
-
-    angle -= 0.003;
-    requestAnimationFrame(draw);
+    t+=0.016;requestAnimationFrame(draw);
   }
-
   draw();
 })();
 </script>
