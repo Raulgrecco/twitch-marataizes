@@ -97,17 +97,47 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 <style>@media(min-width:600px){.desc-desktop{display:block!important}}</style>
 
 <div class="player-outer">
-  <div class="player">
-    <iframe id="castr-player"
-      src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on"
-      allow="autoplay; fullscreen" allowfullscreen></iframe>
+  <div class="player" id="player-wrapper" style="position:relative;cursor:pointer;" onclick="loadLivePlayer()">
+    <!-- Overlay clique para assistir -->
+    <div id="player-overlay" style="position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(ellipse at center, #1a0000 0%, #000 100%);border-radius:14px;">
+      <div style="width:80px;height:80px;border-radius:50%;background:#FF6F00;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 0 rgba(255,111,0,.5);animation:livepulse 1.8s ease-in-out infinite;margin-bottom:18px;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="#fff"><polygon points="6,3 20,12 6,21"/></svg>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span style="width:10px;height:10px;border-radius:50%;background:#FF6F00;display:inline-block;animation:blinklive 1.2s ease-in-out infinite;"></span>
+        <span style="color:#FF6F00;font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;font-family:system-ui,Arial,sans-serif;">Ao Vivo</span>
+      </div>
+      <p style="color:rgba(255,255,255,.75);font-size:14px;font-family:system-ui,Arial,sans-serif;margin:0;">Clique para assistir</p>
+    </div>
   </div>
 </div>
+<style>
+@keyframes livepulse{0%,100%{box-shadow:0 0 0 0 rgba(255,111,0,.5);}60%{box-shadow:0 0 0 22px rgba(255,111,0,0);}}
+@keyframes blinklive{0%,100%{opacity:1;}50%{opacity:.2;}}
+</style>
+<script>
+function loadLivePlayer(){
+  var wrapper=document.getElementById('player-wrapper');
+  var overlay=document.getElementById('player-overlay');
+  if(!overlay||overlay.style.display==='none')return;
+  // Cria o iframe só agora — nada no DOM antes do clique
+  var iframe=document.createElement('iframe');
+  iframe.id='castr-player';
+  iframe.src='https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=1';
+  iframe.allow='autoplay; fullscreen';
+  iframe.allowFullscreen=true;
+  iframe.style.cssText='width:100%;height:100%;border:0;';
+  wrapper.appendChild(iframe);
+  overlay.style.display='none';
+  wrapper.style.cursor='default';
+  wrapper.onclick=null;
+}
+</script>
 
 <div id="vod-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;">
   <div style="position:relative;width:90%;max-width:960px;aspect-ratio:16/9;">
     <button onclick="closeVodModal()" style="position:absolute;top:-44px;right:0;background:none;border:none;color:#fff;font-size:32px;cursor:pointer;line-height:1;opacity:0.85;">✕</button>
-    <iframe id="vod-player" src="" allow="autoplay; fullscreen" allowfullscreen style="width:100%;height:100%;border:0;border-radius:8px;"></iframe>
+    <div id="vod-player-wrap" style="width:100%;height:100%;"></div>
   </div>
 </div>
 
@@ -116,31 +146,32 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
   <div class="gp-row-wrap">
     <button class="gp-arrow prev" id="gp-feat-prev" aria-label="Anterior">&#8249;</button>
     <div class="gp-row" id="gp-featured-row">
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/hfxCnhHwaVZDNLZB')">
+      <div class="gp-card" onclick="location.href='https://tvmarataizes.digital/pausa/'">
         <div class="gp-card-thumb"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/oquequer.png" alt="O Que Marataízes Quer?">
           <div class="gp-card-overlay"><div class="gp-card-title">O Que Marataízes Quer?</div><span class="gp-card-btn">▶ Assistir agora</span></div></div></div>
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/sth91gjVkvFqV8cz')">
+      <div class="gp-card" onclick="location.href='https://tvmarataizes.digital/pausa/'">
         <div class="gp-card-thumb"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/promoitaipava.png" alt="Promo Festival Itaipava">
           <div class="gp-card-overlay"><div class="gp-card-title">Promo Festival Itaipava</div><span class="gp-card-btn">▶ Assistir agora</span></div></div></div>
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/YKobAzi1Va0pAD7r')">
+      <div class="gp-card" onclick="location.href='https://tvmarataizes.digital/pausa/'">
         <div class="gp-card-thumb"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/dicasdefilmes.png" alt="Dicas de Filmes">
           <div class="gp-card-overlay"><div class="gp-card-title">Dicas de Filmes</div><span class="gp-card-btn">▶ Assistir agora</span></div></div></div>
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/CEqs408lv2OG2XXm')">
+      <div class="gp-card" onclick="location.href='https://tvmarataizes.digital/pausa/'">
         <div class="gp-card-thumb"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/rota300.png" alt="Rota 300 Ep. 4">
           <div class="gp-card-overlay"><div class="gp-card-title">Rota 300 · Ep. 4</div><span class="gp-card-btn">▶ Assistir agora</span></div></div></div>
       <div class="gp-card"><a href="https://tvmarataizes.digital/diva/" style="text-decoration:none">
         <div class="gp-card-thumb"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/diva.png" alt="O Divã do Abacaxi">
           <div class="gp-card-overlay"><div class="gp-card-title">O Divã do Abacaxi</div><span class="gp-card-btn">Assistir episódios</span></div></div></a></div>
-      <div class="gp-card"><a href="https://tvmarataizes.digital/marataizes-em-movimento" style="text-decoration:none">
+      <!-- OCULTO ATÉ REVISAR -->
+      <div class="gp-card" style="display:none"><a href="https://tvmarataizes.digital/marataizes-em-movimento" style="text-decoration:none">
         <div class="gp-card-thumb"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/PREFEITO.png" alt="Marataízes está em movimento">
           <div class="gp-card-overlay"><div class="gp-card-title">Marataízes está em movimento</div><span class="gp-card-btn">Assistir aqui</span></div></div></a></div>
-      <div class="gp-card"><a href="https://tvmarataizes.digital/expo-inovadora-2026" style="text-decoration:none">
+      <div class="gp-card" style="display:none"><a href="https://tvmarataizes.digital/expo-inovadora-2026" style="text-decoration:none">
         <div class="gp-card-thumb"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/EXPO.png" alt="Cidade Expo Inovadora">
           <div class="gp-card-overlay"><div class="gp-card-title">Cidade Expo Inovadora</div><span class="gp-card-btn">Assistir aqui</span></div></div></a></div>
-      <div class="gp-card"><a href="https://tvmarataizes.digital/leituraemcena/" style="text-decoration:none">
+      <div class="gp-card" style="display:none"><a href="https://tvmarataizes.digital/leituraemcena/" style="text-decoration:none">
         <div class="gp-card-thumb"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Leitura.png" alt="Leitura em Cena">
           <div class="gp-card-overlay"><div class="gp-card-title">Leitura em Cena</div><span class="gp-card-btn">Assistir episódios</span></div></div></a></div>
-      <div class="gp-card"><a href="https://tvmarataizes.digital/vitrine-marataizes.html" style="text-decoration:none">
+      <div class="gp-card" style="display:none"><a href="https://tvmarataizes.digital/vitrine-marataizes.html" style="text-decoration:none">
         <div class="gp-card-thumb"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/vitrine-thumb.png" alt="Vitrine Marataízes">
           <div class="gp-card-overlay"><div class="gp-card-title">Vitrine Marataízes</div><span class="gp-card-btn">Assistir episódios</span></div></div></a></div>
     </div>
@@ -151,11 +182,33 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 <a class="cta" href="https://tvmarataizes.digital/anunciar/">ANUNCIE AQUI</a>
 
 <script>
-function openVodModal(src){var live=document.getElementById('castr-player');if(live){live._liveSrc=live.src;live.src='about:blank';}document.getElementById('vod-player').src=src+'?autoplay=1';var modal=document.getElementById('vod-modal');modal.style.display='flex';document.body.style.overflow='hidden';}
-function closeVodModal(){document.getElementById('vod-player').src='';var live=document.getElementById('castr-player');if(live&&live._liveSrc){live.src=live._liveSrc;}document.getElementById('vod-modal').style.display='none';document.body.style.overflow='';}
+function openVodModal(src){
+  var live=document.getElementById('castr-player');
+  if(live&&live.src&&live.src.indexOf('castr')>-1){live._liveSrc=live.src;live._wasLive=true;live.src='about:blank';}
+  var wrap=document.getElementById('vod-player-wrap');
+  wrap.innerHTML='';
+  var iframe=document.createElement('iframe');
+  iframe.id='vod-player';
+  iframe.src=src+'?autoplay=1';
+  iframe.allow='autoplay; fullscreen';
+  iframe.allowFullscreen=true;
+  iframe.style.cssText='width:100%;height:100%;border:0;border-radius:8px;';
+  wrap.appendChild(iframe);
+  var modal=document.getElementById('vod-modal');
+  modal.style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function closeVodModal(){
+  var wrap=document.getElementById('vod-player-wrap');
+  wrap.innerHTML='';
+  var live=document.getElementById('castr-player');
+  if(live&&live._wasLive){live.src=live._liveSrc||'https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=1';}
+  document.getElementById('vod-modal').style.display='none';
+  document.body.style.overflow='';
+}
 document.getElementById('vod-modal').addEventListener('click',function(e){if(e.target===this)closeVodModal();});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVodModal();});
-(function(){'use strict';var BASE_SRC='https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on';var SYNC_INTERVAL=4*60*1000,HIDDEN_THRESHOLD=8*1000,RELOAD_BLANK_MS=400,hiddenAt=null,syncTimer=null;function getIframe(){return document.getElementById('castr-player');}function freshSrc(){return BASE_SRC+'&_t='+Date.now();}function reloadPlayer(){var modal=document.getElementById('vod-modal');if(modal&&modal.style.display==='flex')return;var el=getIframe();if(!el)return;el.src='about:blank';setTimeout(function(){el.src=freshSrc();},RELOAD_BLANK_MS);}function startSync(){clearInterval(syncTimer);syncTimer=setInterval(reloadPlayer,SYNC_INTERVAL);}document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'){hiddenAt=Date.now();}else{if(hiddenAt!==null){var elapsed=Date.now()-hiddenAt;if(elapsed>HIDDEN_THRESHOLD){reloadPlayer();}hiddenAt=null;}}});window.addEventListener('focus',function(){reloadPlayer();});var lastTick=Date.now();setInterval(function(){var now=Date.now();if(now-lastTick>4000){reloadPlayer();}lastTick=now;},1000);function init(){if(!getIframe()){setTimeout(init,500);return;}startSync();}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}})();
+(function(){'use strict';var BASE_SRC='https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=1';var SYNC_INTERVAL=4*60*1000,HIDDEN_THRESHOLD=8*1000,RELOAD_BLANK_MS=400,hiddenAt=null,syncTimer=null;function getIframe(){return document.getElementById('castr-player');}function isLive(){var el=getIframe();return el&&el.src&&el.src!==''&&el.src!=='about:blank';}function freshSrc(){return BASE_SRC+'&_t='+Date.now();}function reloadPlayer(){var modal=document.getElementById('vod-modal');if(modal&&modal.style.display==='flex')return;if(!isLive())return;var el=getIframe();if(!el)return;el.src='about:blank';setTimeout(function(){el.src=freshSrc();},RELOAD_BLANK_MS);}function startSync(){clearInterval(syncTimer);syncTimer=setInterval(reloadPlayer,SYNC_INTERVAL);}document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'){hiddenAt=Date.now();}else{if(hiddenAt!==null){var elapsed=Date.now()-hiddenAt;if(elapsed>HIDDEN_THRESHOLD){reloadPlayer();}hiddenAt=null;}}});window.addEventListener('focus',function(){reloadPlayer();});var lastTick=Date.now();setInterval(function(){var now=Date.now();if(now-lastTick>4000){reloadPlayer();}lastTick=now;},1000);function init(){if(!getIframe()){setTimeout(init,500);return;}startSync();}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}})();
 </script>
 <style>
 #tvmz-portal{background:#f2f2f2!important;color:#1a1a1a!important;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.5;}
@@ -996,4 +1049,4 @@ body { background: var(--sand); color: var(--text); font-family: var(--font-body
 </script>
 
 </body>
-</html>
+</html> 
