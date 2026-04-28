@@ -137,7 +137,7 @@ function loadLivePlayer(){
 <div id="vod-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;">
   <div style="position:relative;width:90%;max-width:960px;aspect-ratio:16/9;">
     <button onclick="closeVodModal()" style="position:absolute;top:-44px;right:0;background:none;border:none;color:#fff;font-size:32px;cursor:pointer;line-height:1;opacity:0.85;">✕</button>
-    <iframe id="vod-player" src="" allow="autoplay; fullscreen" allowfullscreen style="width:100%;height:100%;border:0;border-radius:8px;"></iframe>
+    <div id="vod-player-wrap" style="width:100%;height:100%;"></div>
   </div>
 </div>
 
@@ -182,8 +182,30 @@ function loadLivePlayer(){
 <a class="cta" href="https://tvmarataizes.digital/anunciar/">ANUNCIE AQUI</a>
 
 <script>
-function openVodModal(src){var live=document.getElementById('castr-player');if(live&&live.src&&live.src.indexOf('castr')>-1){live._liveSrc=live.src;live._wasLive=true;live.src='about:blank';}document.getElementById('vod-player').src=src+'?autoplay=1';var modal=document.getElementById('vod-modal');modal.style.display='flex';document.body.style.overflow='hidden';}
-function closeVodModal(){document.getElementById('vod-player').src='';var live=document.getElementById('castr-player');if(live&&live._wasLive){live.src=live._liveSrc||'https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=1';}document.getElementById('vod-modal').style.display='none';document.body.style.overflow='';}
+function openVodModal(src){
+  var live=document.getElementById('castr-player');
+  if(live&&live.src&&live.src.indexOf('castr')>-1){live._liveSrc=live.src;live._wasLive=true;live.src='about:blank';}
+  var wrap=document.getElementById('vod-player-wrap');
+  wrap.innerHTML='';
+  var iframe=document.createElement('iframe');
+  iframe.id='vod-player';
+  iframe.src=src+'?autoplay=1';
+  iframe.allow='autoplay; fullscreen';
+  iframe.allowFullscreen=true;
+  iframe.style.cssText='width:100%;height:100%;border:0;border-radius:8px;';
+  wrap.appendChild(iframe);
+  var modal=document.getElementById('vod-modal');
+  modal.style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function closeVodModal(){
+  var wrap=document.getElementById('vod-player-wrap');
+  wrap.innerHTML='';
+  var live=document.getElementById('castr-player');
+  if(live&&live._wasLive){live.src=live._liveSrc||'https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=1';}
+  document.getElementById('vod-modal').style.display='none';
+  document.body.style.overflow='';
+}
 document.getElementById('vod-modal').addEventListener('click',function(e){if(e.target===this)closeVodModal();});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVodModal();});
 (function(){'use strict';var BASE_SRC='https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=1';var SYNC_INTERVAL=4*60*1000,HIDDEN_THRESHOLD=8*1000,RELOAD_BLANK_MS=400,hiddenAt=null,syncTimer=null;function getIframe(){return document.getElementById('castr-player');}function isLive(){var el=getIframe();return el&&el.src&&el.src!==''&&el.src!=='about:blank';}function freshSrc(){return BASE_SRC+'&_t='+Date.now();}function reloadPlayer(){var modal=document.getElementById('vod-modal');if(modal&&modal.style.display==='flex')return;if(!isLive())return;var el=getIframe();if(!el)return;el.src='about:blank';setTimeout(function(){el.src=freshSrc();},RELOAD_BLANK_MS);}function startSync(){clearInterval(syncTimer);syncTimer=setInterval(reloadPlayer,SYNC_INTERVAL);}document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'){hiddenAt=Date.now();}else{if(hiddenAt!==null){var elapsed=Date.now()-hiddenAt;if(elapsed>HIDDEN_THRESHOLD){reloadPlayer();}hiddenAt=null;}}});window.addEventListener('focus',function(){reloadPlayer();});var lastTick=Date.now();setInterval(function(){var now=Date.now();if(now-lastTick>4000){reloadPlayer();}lastTick=now;},1000);function init(){if(!getIframe()){setTimeout(init,500);return;}startSync();}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}})();
