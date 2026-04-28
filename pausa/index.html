@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Em Breve — TV Marataízes</title>
+  <meta name="description" content="TV Marataízes está migrando seus conteúdos para uma nova plataforma de streaming. Em breve, tudo disponível." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:   #07070a;
+      --red:  #e52020;
+      --red2: #ff4444;
+      --gold: #c8a96e;
+      --w:    #f0ede8;
+      --dim:  rgba(240,237,232,0.5);
+      --dim2: rgba(240,237,232,0.2);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; background: var(--bg); color: var(--w); font-family: 'Barlow', sans-serif; overflow-x: hidden; }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+    }
+    body::after {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none; z-index: 1;
+      background: repeating-linear-gradient(to bottom, transparent, transparent 3px, rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px);
+    }
+
+    #globe-canvas {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      animation: fadecanvas 2s ease 0.6s forwards;
+      z-index: 2; pointer-events: none;
+    }
+    @keyframes fadecanvas { to { opacity: 1; } }
+
+    .glow-ring {
+      position: fixed; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 520px; height: 520px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(229,32,32,0.12) 0%, transparent 70%);
+      animation: glowpulse 6s ease-in-out infinite alternate;
+      z-index: 2; pointer-events: none;
+    }
+    @keyframes glowpulse { 0%{opacity:0.6;transform:translate(-50%,-50%) scale(1);} 100%{opacity:1;transform:translate(-50%,-50%) scale(1.18);} }
+
+    .corner { position: fixed; width: 50px; height: 50px; z-index: 5; opacity: 0; animation: fadein 1s ease 2.1s forwards; }
+    .tl { top: 28px; left: 28px; border-top: 1px solid rgba(200,169,110,0.3); border-left: 1px solid rgba(200,169,110,0.3); }
+    .tr { top: 28px; right: 28px; border-top: 1px solid rgba(200,169,110,0.3); border-right: 1px solid rgba(200,169,110,0.3); }
+    .bl { bottom: 28px; left: 28px; border-bottom: 1px solid rgba(200,169,110,0.3); border-left: 1px solid rgba(200,169,110,0.3); }
+    .br { bottom: 28px; right: 28px; border-bottom: 1px solid rgba(200,169,110,0.3); border-right: 1px solid rgba(200,169,110,0.3); }
+
+    .h-line {
+      position: fixed; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200,169,110,0.1), transparent);
+      z-index: 3; pointer-events: none;
+      opacity: 0; animation: fadein 1.5s ease 1.9s forwards;
+    }
+    .h-line-top { top: 86px; }
+    .h-line-bot { bottom: 58px; }
+
+    main {
+      position: relative; z-index: 10;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 60px 24px 100px;
+      text-align: center;
+    }
+
+    .logo-wrap {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 50px;
+      opacity: 0; transform: translateY(-14px);
+      animation: up 0.9s cubic-bezier(.22,1,.36,1) 0.3s forwards;
+    }
+    .logo-icon {
+      width: 42px; height: 42px; background: var(--red); border-radius: 5px;
+      display: grid; place-items: center;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; color: #fff;
+      box-shadow: 0 0 28px rgba(229,32,32,0.55);
+    }
+    .logo-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.55rem; letter-spacing: 0.1em; }
+    .logo-name span { color: var(--red2); }
+
+    .chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(200,169,110,0.28); border-radius: 100px;
+      padding: 5px 16px 5px 11px;
+      font-size: 0.68rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 26px;
+      opacity: 0; animation: up 0.9s cubic-bezier(.22,1,.36,1) 0.55s forwards;
+    }
+    .chip-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); animation: blink 2s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.15;} }
+
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 9vw, 7rem);
+      line-height: 0.9; letter-spacing: 0.03em;
+      margin-bottom: 4px;
+      opacity: 0; animation: up 1s cubic-bezier(.22,1,.36,1) 0.75s forwards;
+    }
+    h1 em {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 300; color: var(--red2); font-size: 1.06em;
+    }
+
+    .sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 300;
+      font-size: clamp(1.05rem, 2.4vw, 1.4rem);
+      color: var(--dim); max-width: 520px; line-height: 1.55;
+      margin: 18px auto 42px;
+      opacity: 0; animation: up 1s cubic-bezier(.22,1,.36,1) 0.95s forwards;
+    }
+
+    .rule { width: 1px; height: 0; background: linear-gradient(to bottom, transparent, var(--gold), transparent); margin: 0 auto 42px; animation: growrule 1.2s cubic-bezier(.22,1,.36,1) 1.1s forwards; }
+    @keyframes growrule { to { height: 70px; } }
+
+    .body-copy {
+      max-width: 460px; font-size: clamp(0.84rem, 1.5vw, 0.96rem); font-weight: 300;
+      line-height: 1.85; color: var(--dim); margin-bottom: 46px;
+      opacity: 0; animation: up 1s cubic-bezier(.22,1,.36,1) 1.25s forwards;
+    }
+    .body-copy strong { color: var(--w); font-weight: 500; }
+
+    .prog-wrap {
+      width: min(400px, 80vw); margin-bottom: 50px;
+      opacity: 0; animation: up 1s cubic-bezier(.22,1,.36,1) 1.45s forwards;
+    }
+    .prog-labels {
+      display: flex; justify-content: space-between;
+      font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--dim2); margin-bottom: 9px;
+    }
+    .prog-labels span:last-child { color: var(--gold); }
+    .prog-track { height: 2px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+    .prog-fill {
+      height: 100%; width: 0;
+      background: linear-gradient(90deg, var(--red), var(--gold));
+      animation: fill 2.8s cubic-bezier(.22,1,.36,1) 1.7s forwards;
+      box-shadow: 0 0 10px rgba(229,32,32,0.5);
+    }
+    @keyframes fill { to { width: 73%; } }
+
+    .cta { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; opacity: 0; animation: up 1s cubic-bezier(.22,1,.36,1) 1.8s forwards; }
+    .btn-r {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: var(--red); color: #fff;
+      font-family: 'Barlow', sans-serif; font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none;
+      padding: 13px 26px; border-radius: 3px; border: none; cursor: pointer;
+      box-shadow: 0 0 22px rgba(229,32,32,0.38);
+      transition: background .2s, box-shadow .2s, transform .15s;
+    }
+    .btn-r:hover { background: var(--red2); box-shadow: 0 0 34px rgba(229,32,32,0.55); transform: translateY(-2px); }
+    .btn-g {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: transparent; color: var(--dim);
+      font-family: 'Barlow', sans-serif; font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none;
+      padding: 13px 26px; border-radius: 3px; border: 1px solid rgba(240,237,232,0.14);
+      cursor: pointer; transition: color .2s, border-color .2s, transform .15s;
+    }
+    .btn-g:hover { color: var(--w); border-color: rgba(240,237,232,0.36); transform: translateY(-2px); }
+
+    .es-badge {
+      position: fixed; bottom: 68px; right: 32px; z-index: 8;
+      display: flex; align-items: center; gap: 10px;
+      border: 1px solid rgba(200,169,110,0.18); border-radius: 8px;
+      padding: 10px 14px; background: rgba(7,7,10,0.75);
+      backdrop-filter: blur(10px);
+      opacity: 0; animation: fadein 1s ease 2.4s forwards;
+    }
+    .es-label { font-size: 0.63rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim2); line-height: 1.5; }
+    .es-label strong { display: block; color: var(--gold); font-weight: 500; font-size: 0.68rem; }
+
+    .foot {
+      position: fixed; bottom: 18px; left: 0; right: 0; text-align: center;
+      font-size: 0.63rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim2);
+      z-index: 10; opacity: 0; animation: fadein 1s ease 2.5s forwards;
+    }
+
+    @keyframes up { to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadein { to { opacity: 1; } }
+
+    @media (max-width: 520px) {
+      .corner, .es-badge { display: none; }
+      .cta { flex-direction: column; align-items: stretch; }
+      .btn-r, .btn-g { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="glow-ring"></div>
+<div class="corner tl"></div>
+<div class="corner tr"></div>
+<div class="corner bl"></div>
+<div class="corner br"></div>
+<div class="h-line h-line-top"></div>
+<div class="h-line h-line-bot"></div>
+
+<canvas id="globe-canvas" width="520" height="520"></canvas>
+
+<!-- ES Map Badge -->
+<div class="es-badge">
+  <svg width="30" height="42" viewBox="0 0 30 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M7 2 L22 2 L27 7 L28 14 L26 22 L23 30 L18 38 L14 40 L10 36 L6 28 L3 19 L2 11 L5 5 Z"
+      fill="none" stroke="rgba(200,169,110,0.45)" stroke-width="1"/>
+    <line x1="2" y1="17" x2="28" y2="17" stroke="rgba(200,169,110,0.12)" stroke-width="0.5"/>
+    <line x1="2" y1="26" x2="25" y2="26" stroke="rgba(200,169,110,0.12)" stroke-width="0.5"/>
+    <line x1="11" y1="2" x2="9" y2="40" stroke="rgba(200,169,110,0.12)" stroke-width="0.5"/>
+    <line x1="19" y1="2" x2="17" y2="37" stroke="rgba(200,169,110,0.12)" stroke-width="0.5"/>
+    <circle cx="12" cy="36" r="2.2" fill="#e52020"/>
+    <circle cx="12" cy="36" r="1" fill="#ff7070"/>
+  </svg>
+  <div class="es-label">
+    <strong>Espírito Santo</strong>
+    Marataízes · ES
+  </div>
+</div>
+
+<main>
+  <div class="logo-wrap">
+    <div class="logo-icon">TV</div>
+    <div class="logo-name">TV <span>MARA</span>TAÍZES</div>
+  </div>
+
+  <div class="chip">
+    <span class="chip-dot"></span>
+    Nova plataforma
+  </div>
+
+  <h1>Nosso conteúdo<br>está <em>crescendo.</em></h1>
+  <p class="sub">Uma nova fase da TV Marataízes está sendo construída.</p>
+
+  <div class="rule"></div>
+
+  <p class="body-copy">
+    Estamos migrando nossa programação para uma estrutura de streaming
+    <strong>mais completa, mais rápida e mais próxima de você.</strong><br><br>
+    Uma plataforma pensada para Marataízes — e para o mundo.
+    Em breve, todo o nosso conteúdo disponível aqui.
+  </p>
+
+  <div class="prog-wrap">
+    <div class="prog-labels">
+      <span>Migração em andamento</span>
+      <span>Em breve</span>
+    </div>
+    <div class="prog-track">
+      <div class="prog-fill"></div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <a href="https://tvmarataizes.digital" class="btn-r">← Voltar ao portal</a>
+    <a href="https://wa.me/5528999036141" target="_blank" rel="noopener" class="btn-g">💬 Fale conosco</a>
+  </div>
+</main>
+
+<div class="foot">tvmarataizes.digital &nbsp;·&nbsp; Marataízes, ES &nbsp;·&nbsp; Canal 300 SOUL TV</div>
+
+<script>
+(function(){
+  var canvas = document.getElementById('globe-canvas');
+  var ctx = canvas.getContext('2d');
+  var W = canvas.width, H = canvas.height;
+  var cx = W/2, cy = H/2;
+  var R = 215;
+  var angle = 0;
+  var tiltZ = 0.30;
+
+  function project(lat, lon, rot) {
+    var x0 = Math.cos(lat) * Math.sin(lon + rot);
+    var y0 = Math.sin(lat);
+    var z0 = Math.cos(lat) * Math.cos(lon + rot);
+    var xT = x0 * Math.cos(tiltZ) - y0 * Math.sin(tiltZ);
+    var yT = x0 * Math.sin(tiltZ) + y0 * Math.cos(tiltZ);
+    return { sx: cx + xT * R, sy: cy - yT * R, z: z0 };
+  }
+
+  function drawArc(isLat, fixed, rot, baseColor, lw, steps) {
+    steps = steps || 100;
+    ctx.lineWidth = lw;
+    ctx.strokeStyle = baseColor;
+    var segments = [];
+    var seg = null;
+    for (var i = 0; i <= steps; i++) {
+      var t = (i / steps) * Math.PI * 2;
+      var lat = isLat ? fixed : t - Math.PI/2;
+      var lon = isLat ? t : fixed;
+      var p = project(lat, lon, rot);
+      var fade = p.z > 0.05 ? 1.0 : p.z > -0.3 ? (p.z + 0.3) / 0.35 : 0;
+      if (fade <= 0) { if (seg) { segments.push(seg); seg = null; } continue; }
+      if (!seg) seg = { pts: [], fade: [] };
+      seg.pts.push([p.sx, p.sy]);
+      seg.fade.push(fade);
+    }
+    if (seg) segments.push(seg);
+    segments.forEach(function(s) {
+      if (s.pts.length < 2) return;
+      ctx.beginPath();
+      ctx.globalAlpha = s.fade[0];
+      ctx.moveTo(s.pts[0][0], s.pts[0][1]);
+      for (var j = 1; j < s.pts.length; j++) {
+        ctx.globalAlpha = s.fade[j];
+        ctx.lineTo(s.pts[j][0], s.pts[j][1]);
+      }
+      ctx.stroke();
+    });
+    ctx.globalAlpha = 1;
+  }
+
+  var mLat = -21.0 * Math.PI / 180;
+  var mLon = -40.8 * Math.PI / 180;
+  var pulse = 0;
+
+  function drawMarker(rot) {
+    var p = project(mLat, mLon, rot);
+    if (p.z < 0.08) return;
+    var alpha = Math.min(1, (p.z - 0.08) / 0.35);
+    pulse += 0.05;
+    var ring = 0.5 + 0.5 * Math.sin(pulse);
+
+    ctx.globalAlpha = alpha * 0.35 * ring;
+    ctx.beginPath();
+    ctx.arc(p.sx, p.sy, 7 + ring * 7, 0, Math.PI * 2);
+    ctx.strokeStyle = '#e52020';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.globalAlpha = alpha;
+    ctx.beginPath();
+    ctx.arc(p.sx, p.sy, 3.5, 0, Math.PI * 2);
+    ctx.fillStyle = '#e52020';
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(p.sx, p.sy, 1.4, 0, Math.PI * 2);
+    ctx.fillStyle = '#ff8080';
+    ctx.fill();
+
+    ctx.globalAlpha = alpha * 0.85;
+    ctx.fillStyle = 'rgba(240,237,232,0.9)';
+    ctx.font = '500 9.5px Barlow, sans-serif';
+    ctx.fillText('MARATAÍZES', p.sx + 8, p.sy - 4);
+    ctx.globalAlpha = 1;
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    var grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, R);
+    grad.addColorStop(0, 'rgba(229,32,32,0.04)');
+    grad.addColorStop(0.6, 'rgba(229,32,32,0.02)');
+    grad.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.fill();
+
+    var latCount = 8;
+    for (var i = 1; i < latCount; i++) {
+      var lat = (i / latCount) * Math.PI - Math.PI / 2;
+      var isEq = (i === Math.floor(latCount/2));
+      drawArc(true, lat, angle, isEq ? 'rgba(200,169,110,0.55)' : 'rgba(229,32,32,0.2)', isEq ? 0.75 : 0.4, 120);
+    }
+
+    var lonCount = 12;
+    for (var j = 0; j < lonCount; j++) {
+      var lon = (j / lonCount) * Math.PI * 2;
+      var isPrime = (j === 0);
+      drawArc(false, lon, angle, isPrime ? 'rgba(229,32,32,0.5)' : 'rgba(229,32,32,0.18)', isPrime ? 0.7 : 0.4, 120);
+    }
+
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(229,32,32,0.22)';
+    ctx.lineWidth = 0.8;
+    ctx.stroke();
+
+    drawMarker(angle);
+
+    angle -= 0.0035;
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+})();
+</script>
+</body>
+</html>
