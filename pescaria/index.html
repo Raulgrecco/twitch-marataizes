@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>Pescaria — TV Marataízes</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ocean:#0a2540;--ocean-mid:#1a3a5c;--ocean-l:#1e4976;
+  --wave:#0ea5e9;--wave-l:#38bdf8;--foam:#e0f2fe;
+  --gold:#f59e0b;--gold-l:#fcd34d;--sand:#fef3c7;
+  --green:#10b981;--green-l:#d1fae5;
+  --red:#ef4444;--red-l:#fee2e2;
+  --blue:#3b82f6;--blue-l:#dbeafe;
+  --purple:#8b5cf6;--purple-l:#ede9fe;
+  --gray:#6b7280;--gray-l:#f3f4f6;
+  --text:#0f172a;--muted:#64748b;
+  --border:rgba(0,0,0,0.08);--card:#fff;--bg:#f8fafc;
+  --r:14px;--ft:'Syne',sans-serif;--fb:'DM Sans',sans-serif;
+}
+body{font-family:var(--fb);background:var(--bg);color:var(--text);font-size:14px;min-height:100vh;padding-bottom:40px}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,var(--ocean) 0%,var(--ocean-mid) 60%,var(--ocean-l) 100%);padding:16px 16px 26px;position:relative;overflow:hidden}
+.hdr::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:20px;background:var(--bg);border-radius:20px 20px 0 0}
+.hwave{position:absolute;top:0;left:0;right:0;bottom:0;opacity:.04;background:repeating-linear-gradient(90deg,transparent,transparent 30px,white 30px,white 31px)}
+.htop{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-box{width:38px;height:38px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.logo-txt{font-family:var(--ft);font-weight:800;font-size:17px;color:#fff;line-height:1.1}
+.logo-sub{font-size:10px;color:var(--wave-l);letter-spacing:1px;text-transform:uppercase}
+.hdate{text-align:right;font-size:11px;color:rgba(255,255,255,.55)}
+.hdate strong{display:block;color:var(--gold-l);font-size:13px}
+.abar{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:13px 15px;display:flex;align-items:center;gap:12px}
+.pulse{width:10px;height:10px;background:var(--gold);border-radius:50%;flex-shrink:0;animation:pa 1.8s infinite}
+@keyframes pa{0%{box-shadow:0 0 0 0 rgba(245,158,11,.5)}70%{box-shadow:0 0 0 8px rgba(245,158,11,0)}100%{box-shadow:0 0 0 0 rgba(245,158,11,0)}}
+.atxt{flex:1;font-size:13px;color:#fff;line-height:1.4}
+.atxt strong{color:var(--gold-l)}
+.anum{background:var(--gold);color:var(--ocean);font-family:var(--ft);font-weight:800;font-size:24px;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* TABS */
+.tabs{display:flex;background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:12px 15px;font-size:12px;font-weight:500;color:var(--muted);border:none;background:none;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s;font-family:var(--fb);display:flex;align-items:center;gap:5px}
+.tab.on{color:var(--ocean);border-bottom-color:var(--wave);font-weight:700}
+.bdg{background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:1px 5px;border-radius:10px;line-height:1.5}
+
+/* PAGES */
+.page{display:none;padding:14px}
+.page.on{display:block}
+
+/* SECTION TITLE */
+.st{font-family:var(--ft);font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.st::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* CARD */
+.card{background:var(--card);border-radius:var(--r);border:1px solid var(--border);margin-bottom:10px;overflow:hidden;transition:all .2s;position:relative}
+.card.urg{border-color:transparent;box-shadow:0 0 0 2px var(--red),0 4px 16px rgba(239,68,68,.15)}
+.card.urg::before{content:'HOJE';position:absolute;top:0;right:0;background:var(--red);color:#fff;font-size:9px;font-weight:800;padding:3px 9px;border-radius:0 var(--r) 0 8px;letter-spacing:1px}
+.ctop{padding:13px 13px 9px;display:flex;align-items:flex-start;gap:10px}
+.av{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:var(--ft);font-weight:800;font-size:14px;flex-shrink:0}
+.ci{flex:1;min-width:0}
+.cn{font-weight:600;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ce{font-size:12px;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cr{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.sb{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;white-space:nowrap}
+.s0{background:var(--green-l);color:#065f46}
+.s1{background:var(--blue-l);color:#1e40af}
+.s2{background:var(--sand);color:#92400e}
+.s3{background:var(--red-l);color:#991b1b}
+.s4{background:var(--gray-l);color:#374151}
+.s5{background:var(--purple-l);color:#5b21b6}
+
+/* TIMELINE */
+.tl{margin:0 13px;padding:8px 0;border-top:1px solid var(--border);display:flex;align-items:center;gap:6px}
+.tll{font-size:11px;color:var(--muted);flex-shrink:0}
+.tltr{flex:1;height:5px;background:var(--gray-l);border-radius:3px;overflow:hidden}
+.tlfi{height:100%;border-radius:3px;transition:width .3s}
+.tlnx{font-size:11px;background:var(--foam);color:var(--ocean);padding:2px 7px;border-radius:8px;font-weight:500;flex-shrink:0}
+
+/* OBS */
+.obs{font-size:12px;color:var(--muted);background:var(--gray-l);border-radius:8px;padding:6px 10px;margin:0 13px 8px;line-height:1.4}
+
+/* ACTIONS */
+.acts{padding:9px 13px 12px;display:flex;gap:6px;flex-wrap:wrap}
+.btn{border:none;border-radius:8px;font-family:var(--fb);font-size:12px;font-weight:600;cursor:pointer;padding:7px 11px;transition:all .15s;display:flex;align-items:center;gap:4px;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.bf{background:var(--green);color:#fff;flex:1;justify-content:center;font-size:13px;padding:9px 11px}
+.br{background:var(--blue-l);color:#1e40af}
+.bn{background:var(--red-l);color:#991b1b}
+.bc{background:var(--green-l);color:#065f46}
+.ba{background:var(--gray-l);color:var(--gray)}
+.bx{background:none;border:none;color:var(--gray);cursor:pointer;padding:4px;font-size:16px;border-radius:6px;transition:all .2s}
+.bx:hover{background:var(--red-l);color:var(--red)}
+
+/* ADD */
+.badd{width:100%;background:var(--ocean);color:#fff;border:none;border-radius:var(--r);padding:14px;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:14px;font-family:var(--fb);display:flex;align-items:center;justify-content:center;gap:8px}
+
+/* FILTERS */
+.fils{display:flex;gap:7px;margin-bottom:13px;overflow-x:auto;padding-bottom:3px;scrollbar-width:none}
+.fils::-webkit-scrollbar{display:none}
+.fp{border:none;border-radius:20px;font-family:var(--fb);font-size:12px;font-weight:600;cursor:pointer;padding:7px 13px;white-space:nowrap;flex-shrink:0;opacity:.65}
+.fp.on{opacity:1}
+
+/* STATS */
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.sc{background:#fff;border-radius:12px;border:1px solid var(--border);padding:14px;text-align:center}
+.sn{font-family:var(--ft);font-size:30px;font-weight:800;line-height:1;margin-bottom:4px}
+.sl{font-size:11px;color:var(--muted)}
+
+/* MODAL */
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-end;backdrop-filter:blur(2px)}
+.ov.open{display:flex}
+.modal{background:var(--bg);border-radius:20px 20px 0 0;padding:18px 16px 32px;width:100%;max-height:90vh;overflow-y:auto;animation:su .25s ease}
+@keyframes su{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.mhdl{width:36px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 18px}
+.mtit{font-family:var(--ft);font-size:18px;font-weight:800;margin-bottom:16px;color:var(--ocean)}
+.fg{margin-bottom:13px}
+.fl{display:block;font-size:11px;font-weight:700;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+.fi{width:100%;border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:14px;font-family:var(--fb);color:var(--text);background:#fff;-webkit-appearance:none;transition:border-color .2s}
+.fi:focus{outline:none;border-color:var(--wave);box-shadow:0 0 0 3px rgba(14,165,233,.1)}
+select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.bsave{width:100%;background:var(--ocean);color:#fff;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px;font-family:var(--ft)}
+.bcancel{width:100%;background:none;border:none;color:var(--muted);padding:10px;cursor:pointer;font-size:14px;font-family:var(--fb);margin-top:4px}
+
+/* CADENCIA */
+.cit{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.cdia{color:#fff;font-weight:700;font-size:11px;padding:4px 9px;border-radius:8px;min-width:44px;text-align:center}
+.cn2{font-weight:500;font-size:13px}
+.cd{font-size:11px;color:var(--muted)}
+
+/* EMPTY */
+.empty{text-align:center;padding:40px 20px;color:var(--muted)}
+.ei{font-size:42px;margin-bottom:10px}
+.et{font-size:14px;line-height:1.6}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ocean);color:#fff;padding:12px 20px;border-radius:40px;font-size:13px;font-weight:500;z-index:999;transition:transform .3s;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.2);pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hwave"></div>
+  <div class="htop">
+    <div class="logo">
+      <div class="logo-box">🎣</div>
+      <div>
+        <div class="logo-txt">Pescaria</div>
+        <div class="logo-sub">TV Marataízes</div>
+      </div>
+    </div>
+    <div class="hdate"><strong id="hDate">—</strong>Painel de Ataque</div>
+  </div>
+  <div class="abar">
+    <div class="pulse"></div>
+    <div class="atxt"><strong>Hoje você precisa falar com:</strong><br><span id="aDesc">Carregando...</span></div>
+    <div class="anum" id="aNum">0</div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab on" onclick="goTab('hoje',this)">🔥 Hoje <span class="bdg" id="bHoje">0</span></button>
+  <button class="tab" onclick="goTab('todos',this)">📋 Leads</button>
+  <button class="tab" onclick="goTab('negoc',this)">💬 Negociando</button>
+  <button class="tab" onclick="goTab('stats',this)">📊 Painel</button>
+  <button class="tab" onclick="goTab('cfg',this)">⚙️ Config</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- HOJE -->
+<div class="page on" id="page-hoje"><div id="lHoje"></div></div>
+
+<!-- TODOS -->
+<div class="page" id="page-todos">
+  <button class="badd" onclick="abrirModal()">➕ Novo Lead</button>
+  <div class="fils">
+    <button class="fp on" style="background:var(--ocean);color:#fff" onclick="filtrar('todos',this)">Todos</button>
+    <button class="fp" style="background:var(--blue-l);color:#1e40af" onclick="filtrar('Em contato',this)">Em contato</button>
+    <button class="fp" style="background:var(--green-l);color:#065f46" onclick="filtrar('Interessado',this)">Interessado</button>
+    <button class="fp" style="background:var(--sand);color:#92400e" onclick="filtrar('Follow-up',this)">Follow-up</button>
+    <button class="fp" style="background:var(--red-l);color:#991b1b" onclick="filtrar('Não respondeu',this)">Não respondeu</button>
+    <button class="fp" style="background:var(--gray-l);color:#374151" onclick="filtrar('Arquivado',this)">Arquivados</button>
+  </div>
+  <div id="lTodos"></div>
+</div>
+
+<!-- NEGOCIANDO -->
+<div class="page" id="page-negoc">
+  <div class="st">💬 Em negociação</div>
+  <div id="lNegoc"></div>
+</div>
+
+<!-- STATS -->
+<div class="page" id="page-stats">
+  <div class="sgrid" id="sgrid"></div>
+  <div class="st">Por status</div>
+  <div id="sdet"></div>
+  <div class="st" style="margin-top:18px">Convertidos recentes</div>
+  <div id="sconv"></div>
+</div>
+
+<!-- CONFIG -->
+<div class="page" id="page-cfg">
+  <div class="st">Cadência automática</div>
+  <div id="cadL"></div>
+  <div style="margin-top:20px">
+    <div class="st">Mensagens por etapa</div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6">Use <code style="background:var(--gray-l);padding:1px 5px;border-radius:4px">{nome}</code> e <code style="background:var(--gray-l);padding:1px 5px;border-radius:4px">{empresa}</code> para personalizar.</p>
+    <div class="fg"><label class="fl">Etapa 1 — Dia 0 · Primeiro contato</label><textarea class="fi" id="m0" rows="4" style="resize:vertical"></textarea></div>
+    <div class="fg"><label class="fl">Etapa 2 — Dia 2 · Follow-up 1</label><textarea class="fi" id="m1" rows="4" style="resize:vertical"></textarea></div>
+    <div class="fg"><label class="fl">Etapa 3 — Dia 5 · Follow-up 2</label><textarea class="fi" id="m2" rows="4" style="resize:vertical"></textarea></div>
+    <div class="fg"><label class="fl">Etapa 4 — Dia 10 · Última tentativa</label><textarea class="fi" id="m3" rows="4" style="resize:vertical"></textarea></div>
+    <div class="fg"><label class="fl">Etapa 5 — Dia 30 · Reengajamento</label><textarea class="fi" id="m4" rows="4" style="resize:vertical"></textarea></div>
+    <button class="bsave" onclick="salvarMsgs()">💾 Salvar mensagens</button>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="ov" id="ov">
+  <div class="modal">
+    <div class="mhdl"></div>
+    <div class="mtit">🎣 Novo Lead</div>
+    <div class="fg"><label class="fl">Nome *</label><input class="fi" id="fN" type="text" placeholder="Nome do contato"></div>
+    <div class="fg"><label class="fl">Empresa</label><input class="fi" id="fE" type="text" placeholder="Nome da empresa"></div>
+    <div class="fg"><label class="fl">WhatsApp *</label><input class="fi" id="fW" type="tel" placeholder="27 9 9999-9999"></div>
+    <div class="fg"><label class="fl">Origem</label>
+      <select class="fi" id="fO"><option>Indicação</option><option>Instagram</option><option>Facebook</option><option>Visita</option><option>Ligação</option><option>Site</option><option>Outro</option></select>
+    </div>
+    <div class="fg"><label class="fl">Status inicial</label>
+      <select class="fi" id="fS"><option>Em contato</option><option>Interessado</option><option>Follow-up</option></select>
+    </div>
+    <div class="fg"><label class="fl">Observações</label><textarea class="fi" id="fOb" rows="2" placeholder="Produto de interesse, contexto..."></textarea></div>
+    <button class="bsave" onclick="salvar()">✅ Adicionar à Pescaria</button>
+    <button class="bcancel" onclick="fecharModal()">Cancelar</button>
+  </div>
+</div>
+
+<script>
+// ─── CONSTANTES ───
+const SK='pesc_v5_leads';
+const MK='pesc_v5_msgs';
+const LINK='tvmarataizes.digital/planilha';
+
+const CAD=[
+  {dia:0, nome:'Primeiro contato', cor:'#0ea5e9'},
+  {dia:2, nome:'Follow-up 1',      cor:'#f59e0b'},
+  {dia:5, nome:'Follow-up 2',      cor:'#f97316'},
+  {dia:10,nome:'Última tentativa', cor:'#ef4444'},
+  {dia:30,nome:'Reengajamento',    cor:'#8b5cf6'},
+];
+
+const MD=[
+`Oi, {nome}! 👋
+
+Aqui é da *TV Marataízes* — o maior canal local da região.
+
+Vi que a *{empresa}* ainda não está no nosso *Guia da Cidade* 📺
+
+Quem entra no Guia recebe:
+📄 *Página própria* com seus produtos e serviços
+📲 *1 Stories por semana* no Instagram da TV Marataízes
+🎯 Visibilidade pra quem já quer comprar em Marataízes
+
+Dá uma olhada como funciona:
+👉 ${LINK}
+
+Posso te contar mais? 😊`,
+
+`{nome}, tudo bem? 😊
+
+Voltando sobre o *Guia TV Marataízes.*
+
+Estamos fechando as últimas vagas — já temos concorrentes do seu segmento confirmados, e quem entra primeiro aparece primeiro. 📊
+
+Veja tudo que está incluído:
+👉 ${LINK}
+
+Me diz o que achou? 🙏`,
+
+`{nome}, uma pergunta rápida 🎯
+
+Quando alguém pesquisa um produto ou serviço local, o negócio que aparece mais estruturado leva a venda.
+
+É isso que entregamos pra {empresa} no *Guia TV Marataízes* — presença completa + stories toda semana no Instagram da TV. 📱
+
+Depois que fechar a lista desta rodada, a próxima abertura não tem data.
+
+Quer saber mais em 5 minutinhos? ⬇️`,
+
+`{nome}, última mensagem por enquanto! 😄
+
+Só queria entender: o que faria a {empresa} entrar no maior Guia de Marataízes não fazer sentido agora?
+
+Sem julgamento — se for timing, valor, ou qualquer outra coisa, me fala. 🤝
+
+O link fica aqui:
+👉 ${LINK}
+
+Um abraço! 🎣`,
+
+`{nome}! Voltando a falar depois de um tempo 👋
+
+O *Guia TV Marataízes* cresceu — hoje são dezenas de negócios locais com página própria, vistos toda semana por quem mora aqui.
+
+Abriu nova rodada e lembrei da {empresa}.
+
+Dá uma olhada: ${LINK} 🔗`
+];
+
+// ─── STATE ───
+let leads=[];
+let msgs=[...MD];
+let filtro='todos';
+
+// ─── STORAGE ───
+function load(){
+  try{const r=localStorage.getItem(SK);if(r)leads=JSON.parse(r)}catch(e){leads=[]}
+  try{const r=localStorage.getItem(MK);if(r)msgs=JSON.parse(r)}catch(e){}
+}
+function save(){localStorage.setItem(SK,JSON.stringify(leads))}
+function saveMsgsStore(){localStorage.setItem(MK,JSON.stringify(msgs))}
+
+// ─── DATE UTILS ───
+function today(){const d=new Date();d.setHours(0,0,0,0);return d}
+function diasDe(ds){
+  const d=new Date(ds);d.setHours(0,0,0,0);
+  return Math.max(0,Math.floor((today()-d)/86400000))
+}
+
+// ─── LÓGICA CADÊNCIA ───
+function proxAcao(l){
+  if(['Em negociação','Convertido','Arquivado'].includes(l.status))return null;
+  const idx=l.etIdx||0;
+  if(idx>=CAD.length)return null;
+  const c=CAD[idx];
+  const dias=diasDe(l.ultContact||l.dataCad);
+  const restam=c.dia-dias;
+  return{urgente:restam<=0,restam,idx,nome:c.nome,cor:c.cor,dia:c.dia}
+}
+
+// ─── UTILS UI ───
+function avCor(n){
+  const p=[
+    {bg:'#dbeafe',c:'#1e40af'},{bg:'#d1fae5',c:'#065f46'},
+    {bg:'#fef3c7',c:'#92400e'},{bg:'#fee2e2',c:'#991b1b'},
+    {bg:'#ede9fe',c:'#5b21b6'},{bg:'#e0f2fe',c:'#075985'},
+    {bg:'#ffedd5',c:'#9a3412'},{bg:'#fce7f3',c:'#9d174d'},
+  ];
+  let s=0;for(const c of n)s+=c.charCodeAt(0);
+  return p[s%p.length]
+}
+function inic(n){return n.split(' ').slice(0,2).map(p=>p[0]).join('').toUpperCase()}
+function stCls(s){
+  return{
+    'Interessado':'s0 sb','Em contato':'s1 sb','Follow-up':'s2 sb',
+    'Não respondeu':'s3 sb','Arquivado':'s4 sb',
+    'Em negociação':'s5 sb','Convertido':'s0 sb'
+  }[s]||'s4 sb'
+}
+function buildMsg(etIdx,l){
+  const t=msgs[Math.min(etIdx,msgs.length-1)]||MD[Math.min(etIdx,MD.length-1)];
+  return t.replace(/\{nome\}/g,l.nome).replace(/\{empresa\}/g,l.empresa||'sua empresa')
+}
+
+// ─── AÇÕES ───
+function falar(id){
+  const l=leads.find(x=>x.id===id);if(!l)return;
+  const a=proxAcao(l);
+  const ei=a?a.idx:Math.min((l.etIdx||0),CAD.length-1);
+  const msg=buildMsg(ei,l);
+  const num=(l.whats||'').replace(/\D/g,'');
+  if(!num){toast('⚠️ Sem WhatsApp cadastrado');return}
+  window.open('https://wa.me/55'+num+'?text='+encodeURIComponent(msg),'_blank')
+}
+function respondeu(id){
+  const l=leads.find(x=>x.id===id);if(!l)return;
+  l.status='Em negociação';
+  l.ultContact=new Date().toISOString().split('T')[0];
+  save();render();toast('✋ Lead em negociação!')
+}
+function naoResp(id){
+  const l=leads.find(x=>x.id===id);if(!l)return;
+  l.etIdx=(l.etIdx||0)+1;
+  l.tentativas=(l.tentativas||0)+1;
+  l.ultContact=new Date().toISOString().split('T')[0];
+  if(l.etIdx>=CAD.length){
+    l.status='Arquivado';
+    toast('📁 Cadência encerrada — arquivado')
+  }else{
+    l.status='Não respondeu';
+    toast('🔁 Próxima etapa: '+CAD[l.etIdx].nome+' (dia '+CAD[l.etIdx].dia+')')
+  }
+  save();render()
+}
+function converter(id){
+  const l=leads.find(x=>x.id===id);if(!l)return;
+  l.status='Convertido';
+  l.convertidoEm=new Date().toISOString().split('T')[0];
+  save();render();toast('🏆 Convertido! Parabéns!')
+}
+function arquivar(id){
+  const l=leads.find(x=>x.id===id);if(!l)return;
+  l.status='Arquivado';
+  save();render();toast('📁 Lead arquivado')
+}
+function excluir(id){
+  if(!confirm('Remover este lead definitivamente?'))return;
+  leads=leads.filter(x=>x.id!==id);
+  save();render();toast('🗑️ Removido')
+}
+
+// ─── RENDER CARD ───
+function rCard(l){
+  const a=proxAcao(l);
+  const urg=a&&a.urgente;
+  const cor=avCor(l.nome);
+  const idx=l.etIdx||0;
+  const prog=Math.min(100,Math.round(idx/CAD.length*100));
+  const pgCor=CAD[Math.min(idx,CAD.length-1)].cor;
+  const prxTxt=a?(a.urgente?'Contatar hoje!':(a.restam===1?'Amanhã':'Em '+a.restam+'d')):'—';
+  const tent=l.tentativas>0?' · '+l.tentativas+' tent.':'';
+  const isAtivo=!['Convertido','Arquivado','Em negociação'].includes(l.status);
+  const isNegoc=l.status==='Em negociação';
+
+  return`<div class="card${urg?' urg':''}" id="c${l.id}">
+    <div class="ctop">
+      <div class="av" style="background:${cor.bg};color:${cor.c}">${inic(l.nome)}</div>
+      <div class="ci">
+        <div class="cn">${l.nome}</div>
+        <div class="ce">${l.empresa||l.origem||'—'}${tent}</div>
+      </div>
+      <div class="cr">
+        <span class="${stCls(l.status)}">${l.status}</span>
+        <button class="bx" onclick="excluir('${l.id}')" title="Excluir">✕</button>
+      </div>
+    </div>
+    ${l.obs?`<div class="obs">💬 ${l.obs}</div>`:''}
+    <div class="tl">
+      <span class="tll">${idx+1}/${CAD.length}</span>
+      <div class="tltr"><div class="tlfi" style="width:${prog}%;background:${pgCor}"></div></div>
+      <span class="tlnx">${prxTxt}</span>
+    </div>
+    <div class="acts">
+      ${isAtivo||isNegoc?`<button class="btn bf" onclick="falar('${l.id}')">📲 Falar agora</button>`:''}
+      ${isAtivo?`
+        <button class="btn br" onclick="respondeu('${l.id}')">✋ Respondeu</button>
+        <button class="btn bn" onclick="naoResp('${l.id}')">🔁 Não respondeu</button>
+        <button class="btn bc" onclick="converter('${l.id}')">🏆</button>
+        <button class="btn ba" onclick="arquivar('${l.id}')">📁</button>
+      `:''}
+      ${isNegoc?`
+        <button class="btn bc" onclick="converter('${l.id}')">🏆 Converter</button>
+        <button class="btn ba" onclick="arquivar('${l.id}')">📁</button>
+      `:''}
+    </div>
+  </div>`
+}
+
+// ─── RENDER HOJE ───
+function rHoje(){
+  const urg=leads.filter(l=>{
+    if(['Convertido','Arquivado','Em negociação'].includes(l.status))return false;
+    const a=proxAcao(l);return a&&a.urgente
+  });
+  document.getElementById('bHoje').textContent=urg.length;
+  document.getElementById('aNum').textContent=urg.length;
+  if(!urg.length){
+    document.getElementById('aDesc').textContent='Nenhum contato urgente hoje. Ótimo!';
+    document.getElementById('lHoje').innerHTML=`<div class="empty"><div class="ei">🎉</div><div class="et">Nenhum contato urgente hoje!<br>Aproveite para adicionar novos leads.</div></div>`;
+    return
+  }
+  const nomes=urg.slice(0,3).map(l=>l.nome.split(' ')[0]).join(', ')+(urg.length>3?' +'+( urg.length-3):'');
+  document.getElementById('aDesc').textContent=nomes;
+  document.getElementById('lHoje').innerHTML=
+    `<div class="st" style="margin-bottom:12px">🔥 Ação necessária agora</div>`+
+    urg.map(rCard).join('')
+}
+
+// ─── RENDER TODOS ───
+function rTodos(){
+  let lista=leads.filter(l=>{
+    if(filtro==='todos')return !['Convertido','Arquivado'].includes(l.status);
+    if(filtro==='Arquivado')return l.status==='Arquivado';
+    return l.status===filtro
+  });
+  const el=document.getElementById('lTodos');
+  el.innerHTML=lista.length?lista.map(rCard).join(''):`<div class="empty"><div class="ei">🎣</div><div class="et">Nenhum lead aqui.<br>Adicione novos contatos acima.</div></div>`
+}
+
+// ─── RENDER NEGOC ───
+function rNegoc(){
+  const lista=leads.filter(l=>l.status==='Em negociação');
+  document.getElementById('lNegoc').innerHTML=
+    lista.length?lista.map(rCard).join(''):`<div class="empty"><div class="ei">💬</div><div class="et">Nenhum lead em negociação.<br>Clique em "Respondeu" para mover leads aqui.</div></div>`
+}
+
+// ─── RENDER STATS ───
+function rStats(){
+  const tot=leads.length;
+  const urg=leads.filter(l=>{const a=proxAcao(l);return a&&a.urgente}).length;
+  const conv=leads.filter(l=>l.status==='Convertido').length;
+  const neg=leads.filter(l=>l.status==='Em negociação').length;
+  document.getElementById('sgrid').innerHTML=`
+    <div class="sc"><div class="sn" style="color:var(--ocean)">${tot}</div><div class="sl">Total de leads</div></div>
+    <div class="sc"><div class="sn" style="color:var(--red)">${urg}</div><div class="sl">Urgentes hoje</div></div>
+    <div class="sc"><div class="sn" style="color:var(--purple)">${neg}</div><div class="sl">Em negociação</div></div>
+    <div class="sc"><div class="sn" style="color:var(--green)">${conv}</div><div class="sl">Convertidos</div></div>
+  `;
+  const g={};for(const l of leads)g[l.status]=(g[l.status]||0)+1;
+  document.getElementById('sdet').innerHTML=
+    Object.entries(g).map(([s,c])=>`
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
+        <span class="${stCls(s)}">${s}</span>
+        <span style="font-weight:800;font-size:17px;font-family:var(--ft)">${c}</span>
+      </div>`).join('')||`<div class="empty"><div class="et">Sem dados ainda.</div></div>`;
+  const cvs=leads.filter(l=>l.status==='Convertido').slice(0,5);
+  document.getElementById('sconv').innerHTML=
+    cvs.length?cvs.map(l=>{const c=avCor(l.nome);return`
+      <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+        <div class="av" style="background:${c.bg};color:${c.c};width:34px;height:34px;font-size:12px">${inic(l.nome)}</div>
+        <div style="flex:1"><div style="font-weight:600;font-size:13px">${l.nome}</div><div style="font-size:11px;color:var(--muted)">${l.empresa||'—'}</div></div>
+        <span class="s0 sb">✓ Convertido</span>
+      </div>`}).join('')
+    :`<div class="empty"><div class="et">Ainda sem conversões. Vai chegar! 🎣</div></div>`
+}
+
+// ─── RENDER CONFIG ───
+function rCfg(){
+  document.getElementById('cadL').innerHTML=
+    CAD.map((c,i)=>`
+      <div class="cit">
+        <div class="cdia" style="background:${c.cor}">${c.dia===0?'Dia 0':'Dia '+c.dia}</div>
+        <div><div class="cn2">${c.nome}</div><div class="cd">Mensagem etapa ${i+1}</div></div>
+      </div>`).join('');
+  for(let i=0;i<5;i++){
+    const el=document.getElementById('m'+i);
+    if(el)el.value=msgs[i]||MD[i]
+  }
+}
+
+function render(){rHoje();rTodos();rNegoc()}
+
+// ─── NAVEGAÇÃO ───
+function goTab(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('page-'+id).classList.add('on');
+  btn.classList.add('on');
+  if(id==='stats')rStats();
+  if(id==='cfg')rCfg();
+}
+
+// ─── FILTRO ───
+function filtrar(f,btn){
+  filtro=f;
+  document.querySelectorAll('.fp').forEach(p=>p.classList.remove('on'));
+  if(btn)btn.classList.add('on');
+  rTodos()
+}
+
+// ─── MODAL ───
+function abrirModal(){
+  document.getElementById('ov').classList.add('open');
+  setTimeout(()=>document.getElementById('fN').focus(),80)
+}
+function fecharModal(){
+  document.getElementById('ov').classList.remove('open');
+  ['fN','fE','fW','fOb'].forEach(id=>document.getElementById(id).value='')
+}
+function salvar(){
+  const nome=document.getElementById('fN').value.trim();
+  const whats=document.getElementById('fW').value.trim();
+  if(!nome){toast('⚠️ Nome obrigatório');return}
+  if(!whats){toast('⚠️ WhatsApp obrigatório');return}
+  const hj=new Date().toISOString().split('T')[0];
+  leads.unshift({
+    id:Date.now().toString(),nome,
+    empresa:document.getElementById('fE').value.trim(),
+    whats,origem:document.getElementById('fO').value,
+    status:document.getElementById('fS').value,
+    obs:document.getElementById('fOb').value.trim(),
+    etIdx:0,tentativas:0,dataCad:hj,ultContact:hj
+  });
+  save();fecharModal();render();toast('🎣 Lead adicionado!')
+}
+
+// ─── MSGS CONFIG ───
+function salvarMsgs(){
+  for(let i=0;i<5;i++){const el=document.getElementById('m'+i);if(el)msgs[i]=el.value}
+  saveMsgsStore();toast('✅ Mensagens salvas!')
+}
+
+// ─── TOAST ───
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),2600)
+}
+
+// ─── FECHAR OV ───
+document.getElementById('ov').addEventListener('click',function(e){if(e.target===this)fecharModal()});
+
+// ─── DATA ───
+function initDate(){
+  document.getElementById('hDate').textContent=
+    new Date().toLocaleDateString('pt-BR',{weekday:'short',day:'numeric',month:'short'})
+}
+
+// ─── DEMO SEED ───
+function seed(){
+  if(leads.length>0)return;
+  const hj=new Date().toISOString().split('T')[0];
+  const d2=new Date(Date.now()-2*864e5).toISOString().split('T')[0];
+  const d5=new Date(Date.now()-5*864e5).toISOString().split('T')[0];
+  const d10=new Date(Date.now()-10*864e5).toISOString().split('T')[0];
+  leads=[
+    {id:'1',nome:'Carlos Ferreira',empresa:'Supermercado Bela Vista',whats:'27999990001',origem:'Indicação',obs:'Interesse em entrar no Guia — alto movimento',status:'Em contato',etIdx:0,tentativas:0,dataCad:hj,ultContact:hj},
+    {id:'2',nome:'Ana Paula Souza',empresa:'Farmácia Central',whats:'27999990002',origem:'Instagram',obs:'Quer visibilidade para campanha de verão',status:'Não respondeu',etIdx:1,tentativas:1,dataCad:d2,ultContact:d2},
+    {id:'3',nome:'Roberto Lima',empresa:'Auto Peças Lima',whats:'27999990003',origem:'Ligação',obs:'',status:'Follow-up',etIdx:2,tentativas:2,dataCad:d5,ultContact:d5},
+    {id:'4',nome:'Mariana Costa',empresa:'Clínica Saúde & Vida',whats:'27999990004',origem:'Site',obs:'Pediu pra ligar segunda',status:'Interessado',etIdx:0,tentativas:0,dataCad:hj,ultContact:hj},
+    {id:'5',nome:'João Batista',empresa:'Restaurante Sabor do Mar',whats:'27999990005',origem:'Facebook',obs:'',status:'Não respondeu',etIdx:3,tentativas:3,dataCad:d10,ultContact:d10},
+  ];
+  save()
+}
+
+// ─── INIT ───
+load();seed();initDate();render();
+</script>
+</body>
+</html>
