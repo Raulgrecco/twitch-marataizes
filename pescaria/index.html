@@ -22,6 +22,40 @@
 }
 body{font-family:var(--fb);background:var(--bg);color:var(--text);font-size:14px;min-height:100vh;padding-bottom:40px}
 
+/* ══ LOCK SCREEN ══ */
+#lockScreen{
+  position:fixed;inset:0;z-index:9999;
+  background:linear-gradient(135deg,var(--ocean) 0%,var(--ocean-mid) 60%,var(--ocean-l) 100%);
+  display:flex;align-items:center;justify-content:center;padding:20px;
+}
+.lock-box{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+  border-radius:22px;padding:36px 28px;width:100%;max-width:340px;
+  text-align:center;backdrop-filter:blur(8px);
+}
+.lock-icon{font-size:48px;margin-bottom:16px}
+.lock-title{font-family:var(--ft);font-weight:800;font-size:22px;color:#fff;margin-bottom:6px}
+.lock-sub{font-size:13px;color:rgba(255,255,255,.55);margin-bottom:28px}
+.lock-input{
+  width:100%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  border-radius:12px;padding:14px 16px;font-size:18px;color:#fff;text-align:center;
+  font-family:var(--fb);letter-spacing:4px;-webkit-appearance:none;
+  margin-bottom:14px;transition:border-color .2s;
+}
+.lock-input::placeholder{letter-spacing:0;font-size:14px;color:rgba(255,255,255,.35)}
+.lock-input:focus{outline:none;border-color:var(--gold)}
+.lock-btn{
+  width:100%;background:var(--gold);color:var(--ocean);border:none;border-radius:12px;
+  padding:14px;font-size:15px;font-weight:800;cursor:pointer;font-family:var(--ft);
+  transition:all .15s;
+}
+.lock-btn:hover{background:var(--gold-l)}
+.lock-err{font-size:12px;color:#fca5a5;margin-top:10px;min-height:18px}
+.lock-hint{font-size:11px;color:rgba(255,255,255,.3);margin-top:16px}
+
+/* ══ APP (hidden until unlocked) ══ */
+#app{display:none}
+
 /* HEADER */
 .hdr{background:linear-gradient(135deg,var(--ocean) 0%,var(--ocean-mid) 60%,var(--ocean-l) 100%);padding:16px 16px 26px;position:relative;overflow:hidden}
 .hdr::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:20px;background:var(--bg);border-radius:20px 20px 0 0}
@@ -31,8 +65,11 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);font-size:14px
 .logo-box{width:38px;height:38px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px}
 .logo-txt{font-family:var(--ft);font-weight:800;font-size:17px;color:#fff;line-height:1.1}
 .logo-sub{font-size:10px;color:var(--wave-l);letter-spacing:1px;text-transform:uppercase}
+.htop-right{display:flex;align-items:center;gap:10px}
 .hdate{text-align:right;font-size:11px;color:rgba(255,255,255,.55)}
 .hdate strong{display:block;color:var(--gold-l);font-size:13px}
+.btn-logout{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.7);font-size:11px;border-radius:8px;padding:5px 10px;cursor:pointer;font-family:var(--fb);transition:all .2s}
+.btn-logout:hover{background:rgba(255,255,255,.2)}
 .abar{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:13px 15px;display:flex;align-items:center;gap:12px}
 .pulse{width:10px;height:10px;background:var(--gold);border-radius:50%;flex-shrink:0;animation:pa 1.8s infinite}
 @keyframes pa{0%{box-shadow:0 0 0 0 rgba(245,158,11,.5)}70%{box-shadow:0 0 0 8px rgba(245,158,11,0)}100%{box-shadow:0 0 0 0 rgba(245,158,11,0)}}
@@ -43,7 +80,7 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);font-size:14px
 /* TABS */
 .tabs{display:flex;background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.tab{padding:12px 15px;font-size:12px;font-weight:500;color:var(--muted);border:none;background:none;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s;font-family:var(--fb);display:flex;align-items:center;gap:5px}
+.tab{padding:12px 14px;font-size:12px;font-weight:500;color:var(--muted);border:none;background:none;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s;font-family:var(--fb);display:flex;align-items:center;gap:4px}
 .tab.on{color:var(--ocean);border-bottom-color:var(--wave);font-weight:700}
 .bdg{background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:1px 5px;border-radius:10px;line-height:1.5}
 
@@ -52,11 +89,11 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);font-size:14px
 .page.on{display:block}
 
 /* SECTION TITLE */
-.st{font-family:var(--ft);font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.st::after{content:'';flex:1;height:1px;background:var(--border)}
+.stit{font-family:var(--ft);font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.stit::after{content:'';flex:1;height:1px;background:var(--border)}
 
 /* CARD */
-.card{background:var(--card);border-radius:var(--r);border:1px solid var(--border);margin-bottom:10px;overflow:hidden;transition:all .2s;position:relative}
+.card{background:var(--card);border-radius:var(--r);border:1px solid var(--border);margin-bottom:10px;overflow:hidden;position:relative}
 .card.urg{border-color:transparent;box-shadow:0 0 0 2px var(--red),0 4px 16px rgba(239,68,68,.15)}
 .card.urg::before{content:'HOJE';position:absolute;top:0;right:0;background:var(--red);color:#fff;font-size:9px;font-weight:800;padding:3px 9px;border-radius:0 var(--r) 0 8px;letter-spacing:1px}
 .ctop{padding:13px 13px 9px;display:flex;align-items:flex-start;gap:10px}
@@ -77,7 +114,7 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);font-size:14px
 .tl{margin:0 13px;padding:8px 0;border-top:1px solid var(--border);display:flex;align-items:center;gap:6px}
 .tll{font-size:11px;color:var(--muted);flex-shrink:0}
 .tltr{flex:1;height:5px;background:var(--gray-l);border-radius:3px;overflow:hidden}
-.tlfi{height:100%;border-radius:3px;transition:width .3s}
+.tlfi{height:100%;border-radius:3px}
 .tlnx{font-size:11px;background:var(--foam);color:var(--ocean);padding:2px 7px;border-radius:8px;font-weight:500;flex-shrink:0}
 
 /* OBS */
@@ -110,6 +147,25 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);font-size:14px
 .sn{font-family:var(--ft);font-size:30px;font-weight:800;line-height:1;margin-bottom:4px}
 .sl{font-size:11px;color:var(--muted)}
 
+/* EXPORT PANEL */
+.export-panel{background:#fff;border-radius:var(--r);border:1px solid var(--border);padding:18px;margin-bottom:16px}
+.export-title{font-family:var(--ft);font-weight:700;font-size:15px;color:var(--ocean);margin-bottom:6px}
+.export-desc{font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.5}
+.export-btns{display:flex;flex-direction:column;gap:8px}
+.btn-export{
+  display:flex;align-items:center;gap:10px;background:var(--gray-l);color:var(--text);
+  border:none;border-radius:10px;padding:12px 14px;font-size:13px;font-weight:600;
+  cursor:pointer;font-family:var(--fb);transition:all .2s;width:100%;
+}
+.btn-export:hover{background:var(--foam);color:var(--ocean)}
+.btn-export .ex-icon{font-size:20px;flex-shrink:0}
+.btn-export .ex-info{text-align:left;flex:1}
+.btn-export .ex-lbl{font-weight:700;font-size:13px}
+.btn-export .ex-sub{font-size:11px;color:var(--muted);font-weight:400;margin-top:1px}
+.export-filter{margin-bottom:14px}
+.export-filter label{font-size:12px;font-weight:600;color:var(--muted);display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.export-filter select{width:100%;border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-size:13px;font-family:var(--fb);color:var(--text);background:#fff;-webkit-appearance:none}
+
 /* MODAL */
 .ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-end;backdrop-filter:blur(2px)}
 .ov.open{display:flex}
@@ -128,8 +184,6 @@ select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 /* CADENCIA */
 .cit{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
 .cdia{color:#fff;font-weight:700;font-size:11px;padding:4px 9px;border-radius:8px;min-width:44px;text-align:center}
-.cn2{font-weight:500;font-size:13px}
-.cd{font-size:11px;color:var(--muted)}
 
 /* EMPTY */
 .empty{text-align:center;padding:40px 20px;color:var(--muted)}
@@ -137,11 +191,31 @@ select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 .et{font-size:14px;line-height:1.6}
 
 /* TOAST */
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ocean);color:#fff;padding:12px 20px;border-radius:40px;font-size:13px;font-weight:500;z-index:999;transition:transform .3s;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.2);pointer-events:none}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ocean);color:#fff;padding:12px 20px;border-radius:40px;font-size:13px;font-weight:500;z-index:9998;transition:transform .3s;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.2);pointer-events:none}
 .toast.show{transform:translateX(-50%) translateY(0)}
+
+/* CHANGE PWD */
+.pwd-section{background:#fff;border-radius:var(--r);border:1px solid var(--border);padding:18px;margin-bottom:16px}
+.pwd-title{font-family:var(--ft);font-weight:700;font-size:15px;color:var(--ocean);margin-bottom:14px}
 </style>
 </head>
 <body>
+
+<!-- ══ LOCK SCREEN ══ -->
+<div id="lockScreen">
+  <div class="lock-box">
+    <div class="lock-icon">🎣</div>
+    <div class="lock-title">Pescaria</div>
+    <div class="lock-sub">TV Marataízes — Painel interno</div>
+    <input class="lock-input" id="pwdInput" type="password" placeholder="Digite a senha" maxlength="20" onkeydown="if(event.key==='Enter')tryLogin()"/>
+    <button class="lock-btn" onclick="tryLogin()">Entrar</button>
+    <div class="lock-err" id="lockErr"></div>
+    <div class="lock-hint">Senha padrão: <strong style="color:rgba(255,255,255,.5)">tv2025</strong></div>
+  </div>
+</div>
+
+<!-- ══ APP ══ -->
+<div id="app">
 
 <!-- HEADER -->
 <div class="hdr">
@@ -154,7 +228,10 @@ select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
         <div class="logo-sub">TV Marataízes</div>
       </div>
     </div>
-    <div class="hdate"><strong id="hDate">—</strong>Painel de Ataque</div>
+    <div class="htop-right">
+      <div class="hdate"><strong id="hDate">—</strong>Painel</div>
+      <button class="btn-logout" onclick="logout()" title="Sair">🔒 Sair</button>
+    </div>
   </div>
   <div class="abar">
     <div class="pulse"></div>
@@ -169,6 +246,7 @@ select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
   <button class="tab" onclick="goTab('todos',this)">📋 Leads</button>
   <button class="tab" onclick="goTab('negoc',this)">💬 Negociando</button>
   <button class="tab" onclick="goTab('stats',this)">📊 Painel</button>
+  <button class="tab" onclick="goTab('export',this)">📤 Exportar</button>
   <button class="tab" onclick="goTab('cfg',this)">⚙️ Config</button>
 </div>
 
@@ -193,25 +271,101 @@ select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 
 <!-- NEGOCIANDO -->
 <div class="page" id="page-negoc">
-  <div class="st">💬 Em negociação</div>
+  <div class="stit">💬 Em negociação</div>
   <div id="lNegoc"></div>
 </div>
 
 <!-- STATS -->
 <div class="page" id="page-stats">
   <div class="sgrid" id="sgrid"></div>
-  <div class="st">Por status</div>
+  <div class="stit">Por status</div>
   <div id="sdet"></div>
-  <div class="st" style="margin-top:18px">Convertidos recentes</div>
+  <div class="stit" style="margin-top:18px">Convertidos recentes</div>
   <div id="sconv"></div>
+</div>
+
+<!-- EXPORTAR -->
+<div class="page" id="page-export">
+  <div class="export-panel">
+    <div class="export-title">📤 Exportar leads</div>
+    <div class="export-desc">Baixe seus leads em CSV (abre no Excel, Google Planilhas ou qualquer editor de planilha).</div>
+    <div class="export-filter">
+      <label>Filtrar por status</label>
+      <select id="expStatus" class="fi">
+        <option value="todos">Todos os leads</option>
+        <option value="Em contato">Em contato</option>
+        <option value="Interessado">Interessado</option>
+        <option value="Follow-up">Follow-up</option>
+        <option value="Não respondeu">Não respondeu</option>
+        <option value="Em negociação">Em negociação</option>
+        <option value="Convertido">Convertido</option>
+        <option value="Arquivado">Arquivado</option>
+      </select>
+    </div>
+    <div class="export-btns">
+      <button class="btn-export" onclick="exportCSV()">
+        <span class="ex-icon">📊</span>
+        <div class="ex-info">
+          <div class="ex-lbl">Exportar CSV</div>
+          <div class="ex-sub">Abre direto no Excel e Google Planilhas</div>
+        </div>
+      </button>
+      <button class="btn-export" onclick="exportWhats()">
+        <span class="ex-icon">📋</span>
+        <div class="ex-info">
+          <div class="ex-lbl">Lista de WhatsApps</div>
+          <div class="ex-sub">Copia todos os números do filtro selecionado</div>
+        </div>
+      </button>
+      <button class="btn-export" onclick="exportRelatorio()">
+        <span class="ex-icon">📝</span>
+        <div class="ex-info">
+          <div class="ex-lbl">Relatório resumido</div>
+          <div class="ex-sub">Totais por status — copiar como texto</div>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <div class="export-panel">
+    <div class="export-title">🗑️ Zona de risco</div>
+    <div class="export-desc" style="color:#991b1b">Ações permanentes. Exporte antes de usar.</div>
+    <div class="export-btns">
+      <button class="btn-export" style="background:var(--red-l);color:#991b1b" onclick="limparConvertidos()">
+        <span class="ex-icon">🏆</span>
+        <div class="ex-info">
+          <div class="ex-lbl">Limpar convertidos</div>
+          <div class="ex-sub">Remove todos os leads convertidos da lista</div>
+        </div>
+      </button>
+      <button class="btn-export" style="background:var(--red-l);color:#991b1b" onclick="limparArquivados()">
+        <span class="ex-icon">📁</span>
+        <div class="ex-info">
+          <div class="ex-lbl">Limpar arquivados</div>
+          <div class="ex-sub">Remove todos os leads arquivados</div>
+        </div>
+      </button>
+    </div>
+  </div>
 </div>
 
 <!-- CONFIG -->
 <div class="page" id="page-cfg">
-  <div class="st">Cadência automática</div>
+
+  <!-- ALTERAR SENHA -->
+  <div class="pwd-section">
+    <div class="pwd-title">🔒 Alterar senha</div>
+    <div class="fg"><label class="fl">Senha atual</label><input class="fi" id="pwdAtual" type="password" placeholder="Digite a senha atual"></div>
+    <div class="fg"><label class="fl">Nova senha</label><input class="fi" id="pwdNova" type="password" placeholder="Nova senha (mínimo 4 caracteres)"></div>
+    <div class="fg"><label class="fl">Confirmar nova senha</label><input class="fi" id="pwdConfirm" type="password" placeholder="Repita a nova senha"></div>
+    <button class="bsave" onclick="alterarSenha()">🔒 Salvar nova senha</button>
+  </div>
+
+  <div class="stit">Cadência automática</div>
   <div id="cadL"></div>
+
   <div style="margin-top:20px">
-    <div class="st">Mensagens por etapa</div>
+    <div class="stit">Mensagens por etapa</div>
     <p style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6">Use <code style="background:var(--gray-l);padding:1px 5px;border-radius:4px">{nome}</code> e <code style="background:var(--gray-l);padding:1px 5px;border-radius:4px">{empresa}</code> para personalizar.</p>
     <div class="fg"><label class="fl">Etapa 1 — Dia 0 · Primeiro contato</label><textarea class="fi" id="m0" rows="4" style="resize:vertical"></textarea></div>
     <div class="fg"><label class="fl">Etapa 2 — Dia 2 · Follow-up 1</label><textarea class="fi" id="m1" rows="4" style="resize:vertical"></textarea></div>
@@ -222,7 +376,9 @@ select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
   </div>
 </div>
 
-<!-- MODAL -->
+</div><!-- /app -->
+
+<!-- MODAL NOVO LEAD -->
 <div class="ov" id="ov">
   <div class="modal">
     <div class="mhdl"></div>
@@ -243,9 +399,12 @@ select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 </div>
 
 <script>
-// ─── CONSTANTES ───
-const SK='pesc_v5_leads';
-const MK='pesc_v5_msgs';
+// ══ CHAVES ══
+const SK='pesc_v6_leads';
+const MK='pesc_v6_msgs';
+const PK='pesc_v6_pwd';
+const SK_AUTH='pesc_v6_auth';
+const DEFAULT_PWD='tv2025';
 const LINK='tvmarataizes.digital/planilha';
 
 const CAD=[
@@ -290,15 +449,15 @@ Quando alguém pesquisa um produto ou serviço local, o negócio que aparece mai
 
 É isso que entregamos pra {empresa} no *Guia TV Marataízes* — presença completa + stories toda semana no Instagram da TV. 📱
 
-Depois que fechar a lista desta rodada, a próxima abertura não tem data.
+Depois que fechar essa rodada, a próxima abertura não tem data.
 
 Quer saber mais em 5 minutinhos? ⬇️`,
 
 `{nome}, última mensagem por enquanto! 😄
 
-Só queria entender: o que faria a {empresa} entrar no maior Guia de Marataízes não fazer sentido agora?
+Só queria entender: o que faria a {empresa} não entrar no maior Guia de Marataízes?
 
-Sem julgamento — se for timing, valor, ou qualquer outra coisa, me fala. 🤝
+Sem julgamento — se for timing, valor, ou qualquer coisa, me fala. 🤝
 
 O link fica aqui:
 👉 ${LINK}
@@ -314,38 +473,78 @@ Abriu nova rodada e lembrei da {empresa}.
 Dá uma olhada: ${LINK} 🔗`
 ];
 
-// ─── STATE ───
+// ══ STATE ══
 let leads=[];
 let msgs=[...MD];
 let filtro='todos';
 
-// ─── STORAGE ───
+// ══ STORAGE ══
 function load(){
   try{const r=localStorage.getItem(SK);if(r)leads=JSON.parse(r)}catch(e){leads=[]}
   try{const r=localStorage.getItem(MK);if(r)msgs=JSON.parse(r)}catch(e){}
 }
 function save(){localStorage.setItem(SK,JSON.stringify(leads))}
 function saveMsgsStore(){localStorage.setItem(MK,JSON.stringify(msgs))}
+function getPwd(){return localStorage.getItem(PK)||DEFAULT_PWD}
+function setPwd(p){localStorage.setItem(PK,p)}
 
-// ─── DATE UTILS ───
+// ══ AUTH ══
+function tryLogin(){
+  const v=document.getElementById('pwdInput').value;
+  const err=document.getElementById('lockErr');
+  if(v===getPwd()){
+    sessionStorage.setItem(SK_AUTH,'1');
+    document.getElementById('lockScreen').style.display='none';
+    document.getElementById('app').style.display='block';
+    err.textContent='';
+    initApp();
+  } else {
+    err.textContent='❌ Senha incorreta. Tente novamente.';
+    document.getElementById('pwdInput').value='';
+    document.getElementById('pwdInput').focus();
+  }
+}
+function logout(){
+  if(!confirm('Deseja sair do sistema?'))return;
+  sessionStorage.removeItem(SK_AUTH);
+  document.getElementById('app').style.display='none';
+  document.getElementById('lockScreen').style.display='flex';
+  document.getElementById('pwdInput').value='';
+  document.getElementById('lockErr').textContent='';
+}
+function alterarSenha(){
+  const atual=document.getElementById('pwdAtual').value;
+  const nova=document.getElementById('pwdNova').value;
+  const conf=document.getElementById('pwdConfirm').value;
+  if(atual!==getPwd()){toast('❌ Senha atual incorreta');return}
+  if(nova.length<4){toast('⚠️ Senha deve ter ao menos 4 caracteres');return}
+  if(nova!==conf){toast('⚠️ As senhas não coincidem');return}
+  setPwd(nova);
+  document.getElementById('pwdAtual').value='';
+  document.getElementById('pwdNova').value='';
+  document.getElementById('pwdConfirm').value='';
+  toast('✅ Senha alterada com sucesso!');
+}
+
+// ══ DATE ══
 function today(){const d=new Date();d.setHours(0,0,0,0);return d}
 function diasDe(ds){
   const d=new Date(ds);d.setHours(0,0,0,0);
   return Math.max(0,Math.floor((today()-d)/86400000))
 }
 
-// ─── LÓGICA CADÊNCIA ───
+// ══ CADÊNCIA ══
 function proxAcao(l){
   if(['Em negociação','Convertido','Arquivado'].includes(l.status))return null;
   const idx=l.etIdx||0;
   if(idx>=CAD.length)return null;
   const c=CAD[idx];
-  const dias=diasDe(l.ultContact||l.dataCad);
+  const dias=diasDe(l.ultC||l.dataCad);
   const restam=c.dia-dias;
   return{urgente:restam<=0,restam,idx,nome:c.nome,cor:c.cor,dia:c.dia}
 }
 
-// ─── UTILS UI ───
+// ══ UI UTILS ══
 function avCor(n){
   const p=[
     {bg:'#dbeafe',c:'#1e40af'},{bg:'#d1fae5',c:'#065f46'},
@@ -359,21 +558,21 @@ function avCor(n){
 function inic(n){return n.split(' ').slice(0,2).map(p=>p[0]).join('').toUpperCase()}
 function stCls(s){
   return{
-    'Interessado':'s0 sb','Em contato':'s1 sb','Follow-up':'s2 sb',
-    'Não respondeu':'s3 sb','Arquivado':'s4 sb',
-    'Em negociação':'s5 sb','Convertido':'s0 sb'
-  }[s]||'s4 sb'
+    'Interessado':'s0','Em contato':'s1','Follow-up':'s2',
+    'Não respondeu':'s3','Arquivado':'s4',
+    'Em negociação':'s5','Convertido':'s0'
+  }[s]||'s4'
 }
 function buildMsg(etIdx,l){
   const t=msgs[Math.min(etIdx,msgs.length-1)]||MD[Math.min(etIdx,MD.length-1)];
   return t.replace(/\{nome\}/g,l.nome).replace(/\{empresa\}/g,l.empresa||'sua empresa')
 }
 
-// ─── AÇÕES ───
+// ══ AÇÕES ══
 function falar(id){
   const l=leads.find(x=>x.id===id);if(!l)return;
   const a=proxAcao(l);
-  const ei=a?a.idx:Math.min((l.etIdx||0),CAD.length-1);
+  const ei=a?a.idx:Math.min(l.etIdx||0,CAD.length-1);
   const msg=buildMsg(ei,l);
   const num=(l.whats||'').replace(/\D/g,'');
   if(!num){toast('⚠️ Sem WhatsApp cadastrado');return}
@@ -382,20 +581,20 @@ function falar(id){
 function respondeu(id){
   const l=leads.find(x=>x.id===id);if(!l)return;
   l.status='Em negociação';
-  l.ultContact=new Date().toISOString().split('T')[0];
+  l.ultC=new Date().toISOString().split('T')[0];
   save();render();toast('✋ Lead em negociação!')
 }
 function naoResp(id){
   const l=leads.find(x=>x.id===id);if(!l)return;
   l.etIdx=(l.etIdx||0)+1;
   l.tentativas=(l.tentativas||0)+1;
-  l.ultContact=new Date().toISOString().split('T')[0];
+  l.ultC=new Date().toISOString().split('T')[0];
   if(l.etIdx>=CAD.length){
     l.status='Arquivado';
-    toast('📁 Cadência encerrada — arquivado')
-  }else{
+    toast('📁 Cadência encerrada — lead arquivado')
+  } else {
     l.status='Não respondeu';
-    toast('🔁 Próxima etapa: '+CAD[l.etIdx].nome+' (dia '+CAD[l.etIdx].dia+')')
+    toast('🔁 Próxima: '+CAD[l.etIdx].nome+' (dia '+CAD[l.etIdx].dia+')')
   }
   save();render()
 }
@@ -416,7 +615,7 @@ function excluir(id){
   save();render();toast('🗑️ Removido')
 }
 
-// ─── RENDER CARD ───
+// ══ RENDER CARD ══
 function rCard(l){
   const a=proxAcao(l);
   const urg=a&&a.urgente;
@@ -428,7 +627,6 @@ function rCard(l){
   const tent=l.tentativas>0?' · '+l.tentativas+' tent.':'';
   const isAtivo=!['Convertido','Arquivado','Em negociação'].includes(l.status);
   const isNegoc=l.status==='Em negociação';
-
   return`<div class="card${urg?' urg':''}" id="c${l.id}">
     <div class="ctop">
       <div class="av" style="background:${cor.bg};color:${cor.c}">${inic(l.nome)}</div>
@@ -437,7 +635,7 @@ function rCard(l){
         <div class="ce">${l.empresa||l.origem||'—'}${tent}</div>
       </div>
       <div class="cr">
-        <span class="${stCls(l.status)}">${l.status}</span>
+        <span class="sb ${stCls(l.status)}">${l.status}</span>
         <button class="bx" onclick="excluir('${l.id}')" title="Excluir">✕</button>
       </div>
     </div>
@@ -457,13 +655,13 @@ function rCard(l){
       `:''}
       ${isNegoc?`
         <button class="btn bc" onclick="converter('${l.id}')">🏆 Converter</button>
-        <button class="btn ba" onclick="arquivar('${l.id}')">📁</button>
+        <button class="btn ba" onclick="arquivar('${l.id}')">📁 Arquivar</button>
       `:''}
     </div>
   </div>`
 }
 
-// ─── RENDER HOJE ───
+// ══ RENDER PAGES ══
 function rHoje(){
   const urg=leads.filter(l=>{
     if(['Convertido','Arquivado','Em negociação'].includes(l.status))return false;
@@ -472,18 +670,15 @@ function rHoje(){
   document.getElementById('bHoje').textContent=urg.length;
   document.getElementById('aNum').textContent=urg.length;
   if(!urg.length){
-    document.getElementById('aDesc').textContent='Nenhum contato urgente hoje. Ótimo!';
+    document.getElementById('aDesc').textContent='Nenhum contato urgente hoje!';
     document.getElementById('lHoje').innerHTML=`<div class="empty"><div class="ei">🎉</div><div class="et">Nenhum contato urgente hoje!<br>Aproveite para adicionar novos leads.</div></div>`;
     return
   }
   const nomes=urg.slice(0,3).map(l=>l.nome.split(' ')[0]).join(', ')+(urg.length>3?' +'+( urg.length-3):'');
   document.getElementById('aDesc').textContent=nomes;
   document.getElementById('lHoje').innerHTML=
-    `<div class="st" style="margin-bottom:12px">🔥 Ação necessária agora</div>`+
-    urg.map(rCard).join('')
+    `<div class="stit" style="margin-bottom:12px">🔥 Ação necessária agora</div>`+urg.map(rCard).join('')
 }
-
-// ─── RENDER TODOS ───
 function rTodos(){
   let lista=leads.filter(l=>{
     if(filtro==='todos')return !['Convertido','Arquivado'].includes(l.status);
@@ -493,15 +688,11 @@ function rTodos(){
   const el=document.getElementById('lTodos');
   el.innerHTML=lista.length?lista.map(rCard).join(''):`<div class="empty"><div class="ei">🎣</div><div class="et">Nenhum lead aqui.<br>Adicione novos contatos acima.</div></div>`
 }
-
-// ─── RENDER NEGOC ───
 function rNegoc(){
   const lista=leads.filter(l=>l.status==='Em negociação');
   document.getElementById('lNegoc').innerHTML=
-    lista.length?lista.map(rCard).join(''):`<div class="empty"><div class="ei">💬</div><div class="et">Nenhum lead em negociação.<br>Clique em "Respondeu" para mover leads aqui.</div></div>`
+    lista.length?lista.map(rCard).join(''):`<div class="empty"><div class="ei">💬</div><div class="et">Nenhum lead em negociação.<br>Clique em "Respondeu" para mover um lead aqui.</div></div>`
 }
-
-// ─── RENDER STATS ───
 function rStats(){
   const tot=leads.length;
   const urg=leads.filter(l=>{const a=proxAcao(l);return a&&a.urgente}).length;
@@ -517,7 +708,7 @@ function rStats(){
   document.getElementById('sdet').innerHTML=
     Object.entries(g).map(([s,c])=>`
       <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
-        <span class="${stCls(s)}">${s}</span>
+        <span class="sb ${stCls(s)}">${s}</span>
         <span style="font-weight:800;font-size:17px;font-family:var(--ft)">${c}</span>
       </div>`).join('')||`<div class="empty"><div class="et">Sem dados ainda.</div></div>`;
   const cvs=leads.filter(l=>l.status==='Convertido').slice(0,5);
@@ -526,28 +717,107 @@ function rStats(){
       <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
         <div class="av" style="background:${c.bg};color:${c.c};width:34px;height:34px;font-size:12px">${inic(l.nome)}</div>
         <div style="flex:1"><div style="font-weight:600;font-size:13px">${l.nome}</div><div style="font-size:11px;color:var(--muted)">${l.empresa||'—'}</div></div>
-        <span class="s0 sb">✓ Convertido</span>
+        <span class="sb s0">✓ Convertido</span>
       </div>`}).join('')
     :`<div class="empty"><div class="et">Ainda sem conversões. Vai chegar! 🎣</div></div>`
 }
-
-// ─── RENDER CONFIG ───
 function rCfg(){
   document.getElementById('cadL').innerHTML=
     CAD.map((c,i)=>`
       <div class="cit">
         <div class="cdia" style="background:${c.cor}">${c.dia===0?'Dia 0':'Dia '+c.dia}</div>
-        <div><div class="cn2">${c.nome}</div><div class="cd">Mensagem etapa ${i+1}</div></div>
+        <div><div style="font-weight:500;font-size:13px">${c.nome}</div><div style="font-size:11px;color:var(--muted)">Mensagem etapa ${i+1}</div></div>
       </div>`).join('');
   for(let i=0;i<5;i++){
-    const el=document.getElementById('m'+i);
-    if(el)el.value=msgs[i]||MD[i]
+    const el=document.getElementById('m'+i);if(el)el.value=msgs[i]||MD[i]
   }
 }
-
 function render(){rHoje();rTodos();rNegoc()}
 
-// ─── NAVEGAÇÃO ───
+// ══ EXPORTAR ══
+function getExportLeads(){
+  const st=document.getElementById('expStatus').value;
+  return st==='todos'?leads:leads.filter(l=>l.status===st)
+}
+
+function exportCSV(){
+  const lista=getExportLeads();
+  if(!lista.length){toast('⚠️ Nenhum lead para exportar');return}
+  const header=['Nome','Empresa','WhatsApp','Origem','Status','Etapa','Tentativas','Data Cadastro','Ultimo Contato','Observações'];
+  const rows=lista.map(l=>[
+    l.nome,
+    l.empresa||'',
+    l.whats||'',
+    l.origem||'',
+    l.status||'',
+    (l.etIdx||0)+1,
+    l.tentativas||0,
+    l.dataCad||'',
+    l.ultC||'',
+    (l.obs||'').replace(/,/g,';').replace(/\n/g,' ')
+  ]);
+  const csv=[header,...rows].map(r=>r.map(v=>`"${v}"`).join(',')).join('\n');
+  const bom='\uFEFF'; // UTF-8 BOM para Excel
+  const blob=new Blob([bom+csv],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  const d=new Date().toISOString().split('T')[0];
+  a.download=`pescaria-leads-${d}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('✅ CSV baixado com '+lista.length+' leads!')
+}
+
+function exportWhats(){
+  const lista=getExportLeads();
+  if(!lista.length){toast('⚠️ Nenhum lead para exportar');return}
+  const numeros=lista
+    .filter(l=>l.whats)
+    .map(l=>l.nome+': '+l.whats)
+    .join('\n');
+  navigator.clipboard?
+    navigator.clipboard.writeText(numeros).then(()=>toast('✅ '+lista.length+' números copiados!')):
+    (()=>{const t=document.createElement('textarea');t.value=numeros;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);toast('✅ Números copiados!')})()
+}
+
+function exportRelatorio(){
+  const g={};
+  for(const l of leads)g[l.status]=(g[l.status]||0)+1;
+  const urg=leads.filter(l=>{const a=proxAcao(l);return a&&a.urgente}).length;
+  const d=new Date().toLocaleDateString('pt-BR');
+  let txt=`📊 RELATÓRIO PESCARIA — TV MARATAÍZES\n📅 ${d}\n\n`;
+  txt+=`Total de leads: ${leads.length}\n`;
+  txt+=`Urgentes hoje: ${urg}\n\n`;
+  txt+='— POR STATUS —\n';
+  for(const [s,c] of Object.entries(g)) txt+=`${s}: ${c}\n`;
+  navigator.clipboard?
+    navigator.clipboard.writeText(txt).then(()=>toast('✅ Relatório copiado!')):
+    (()=>{const t=document.createElement('textarea');t.value=txt;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);toast('✅ Relatório copiado!')})()
+}
+
+function limparConvertidos(){
+  const n=leads.filter(l=>l.status==='Convertido').length;
+  if(!n){toast('Nenhum convertido para remover');return}
+  if(!confirm(`Remover ${n} leads convertidos permanentemente?`))return;
+  leads=leads.filter(l=>l.status!=='Convertido');
+  save();render();toast('🗑️ '+n+' convertidos removidos')
+}
+function limparArquivados(){
+  const n=leads.filter(l=>l.status==='Arquivado').length;
+  if(!n){toast('Nenhum arquivado para remover');return}
+  if(!confirm(`Remover ${n} leads arquivados permanentemente?`))return;
+  leads=leads.filter(l=>l.status!=='Arquivado');
+  save();render();toast('🗑️ '+n+' arquivados removidos')
+}
+
+// ══ MSGS CONFIG ══
+function salvarMsgs(){
+  for(let i=0;i<5;i++){const el=document.getElementById('m'+i);if(el)msgs[i]=el.value}
+  saveMsgsStore();toast('✅ Mensagens salvas!')
+}
+
+// ══ NAV ══
 function goTab(id,btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
@@ -557,7 +827,7 @@ function goTab(id,btn){
   if(id==='cfg')rCfg();
 }
 
-// ─── FILTRO ───
+// ══ FILTRO ══
 function filtrar(f,btn){
   filtro=f;
   document.querySelectorAll('.fp').forEach(p=>p.classList.remove('on'));
@@ -565,7 +835,7 @@ function filtrar(f,btn){
   rTodos()
 }
 
-// ─── MODAL ───
+// ══ MODAL ══
 function abrirModal(){
   document.getElementById('ov').classList.add('open');
   setTimeout(()=>document.getElementById('fN').focus(),80)
@@ -586,34 +856,25 @@ function salvar(){
     whats,origem:document.getElementById('fO').value,
     status:document.getElementById('fS').value,
     obs:document.getElementById('fOb').value.trim(),
-    etIdx:0,tentativas:0,dataCad:hj,ultContact:hj
+    etIdx:0,tentativas:0,dataCad:hj,ultC:hj
   });
   save();fecharModal();render();toast('🎣 Lead adicionado!')
 }
 
-// ─── MSGS CONFIG ───
-function salvarMsgs(){
-  for(let i=0;i<5;i++){const el=document.getElementById('m'+i);if(el)msgs[i]=el.value}
-  saveMsgsStore();toast('✅ Mensagens salvas!')
-}
-
-// ─── TOAST ───
+// ══ TOAST ══
 function toast(msg){
   const el=document.getElementById('toast');
   el.textContent=msg;el.classList.add('show');
-  setTimeout(()=>el.classList.remove('show'),2600)
+  setTimeout(()=>el.classList.remove('show'),2800)
 }
 
-// ─── FECHAR OV ───
+// ══ FECHAR MODAL FORA ══
 document.getElementById('ov').addEventListener('click',function(e){if(e.target===this)fecharModal()});
 
-// ─── DATA ───
-function initDate(){
-  document.getElementById('hDate').textContent=
-    new Date().toLocaleDateString('pt-BR',{weekday:'short',day:'numeric',month:'short'})
-}
+// ══ ENTER NA SENHA ══
+document.getElementById('pwdInput').addEventListener('keydown',function(e){if(e.key==='Enter')tryLogin()});
 
-// ─── DEMO SEED ───
+// ══ SEED DEMO ══
 function seed(){
   if(leads.length>0)return;
   const hj=new Date().toISOString().split('T')[0];
@@ -621,17 +882,29 @@ function seed(){
   const d5=new Date(Date.now()-5*864e5).toISOString().split('T')[0];
   const d10=new Date(Date.now()-10*864e5).toISOString().split('T')[0];
   leads=[
-    {id:'1',nome:'Carlos Ferreira',empresa:'Supermercado Bela Vista',whats:'27999990001',origem:'Indicação',obs:'Interesse em entrar no Guia — alto movimento',status:'Em contato',etIdx:0,tentativas:0,dataCad:hj,ultContact:hj},
-    {id:'2',nome:'Ana Paula Souza',empresa:'Farmácia Central',whats:'27999990002',origem:'Instagram',obs:'Quer visibilidade para campanha de verão',status:'Não respondeu',etIdx:1,tentativas:1,dataCad:d2,ultContact:d2},
-    {id:'3',nome:'Roberto Lima',empresa:'Auto Peças Lima',whats:'27999990003',origem:'Ligação',obs:'',status:'Follow-up',etIdx:2,tentativas:2,dataCad:d5,ultContact:d5},
-    {id:'4',nome:'Mariana Costa',empresa:'Clínica Saúde & Vida',whats:'27999990004',origem:'Site',obs:'Pediu pra ligar segunda',status:'Interessado',etIdx:0,tentativas:0,dataCad:hj,ultContact:hj},
-    {id:'5',nome:'João Batista',empresa:'Restaurante Sabor do Mar',whats:'27999990005',origem:'Facebook',obs:'',status:'Não respondeu',etIdx:3,tentativas:3,dataCad:d10,ultContact:d10},
+    {id:'1',nome:'Carlos Ferreira',empresa:'Supermercado Bela Vista',whats:'27999990001',origem:'Indicação',obs:'Alto movimento — quer exposição no Guia',status:'Em contato',etIdx:0,tentativas:0,dataCad:hj,ultC:hj},
+    {id:'2',nome:'Ana Paula Souza',empresa:'Farmácia Central',whats:'27999990002',origem:'Instagram',obs:'Campanha de verão',status:'Não respondeu',etIdx:1,tentativas:1,dataCad:d2,ultC:d2},
+    {id:'3',nome:'Roberto Lima',empresa:'Auto Peças Lima',whats:'27999990003',origem:'Ligação',obs:'',status:'Follow-up',etIdx:2,tentativas:2,dataCad:d5,ultC:d5},
+    {id:'4',nome:'Mariana Costa',empresa:'Clínica Saúde & Vida',whats:'27999990004',origem:'Site',obs:'Ligar segunda',status:'Interessado',etIdx:0,tentativas:0,dataCad:hj,ultC:hj},
+    {id:'5',nome:'João Batista',empresa:'Restaurante Sabor do Mar',whats:'27999990005',origem:'Facebook',obs:'',status:'Não respondeu',etIdx:3,tentativas:3,dataCad:d10,ultC:d10},
   ];
   save()
 }
 
-// ─── INIT ───
-load();seed();initDate();render();
+// ══ INIT ══
+function initApp(){
+  load();seed();
+  document.getElementById('hDate').textContent=
+    new Date().toLocaleDateString('pt-BR',{weekday:'short',day:'numeric',month:'short'});
+  render();
+}
+
+// ══ CHECK SESSION (já logado?) ══
+if(sessionStorage.getItem(SK_AUTH)==='1'){
+  document.getElementById('lockScreen').style.display='none';
+  document.getElementById('app').style.display='block';
+  initApp();
+}
 </script>
 </body>
 </html>
