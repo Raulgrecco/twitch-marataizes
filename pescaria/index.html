@@ -327,6 +327,22 @@ select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
     </div>
   </div>
 
+  <div class="export-panel" style="border-color:var(--wave);border-width:1.5px">
+    <div class="export-title">📥 Importar leads</div>
+    <div class="export-desc">Importe um CSV exportado deste sistema para continuar de onde parou — em qualquer navegador ou dispositivo. <strong style="color:var(--ocean)">Os leads existentes são mantidos. Duplicatas são ignoradas automaticamente.</strong></div>
+    <div class="export-btns">
+      <button class="btn-export" style="background:var(--foam);color:var(--ocean)" onclick="document.getElementById('importFile').click()">
+        <span class="ex-icon">📂</span>
+        <div class="ex-info">
+          <div class="ex-lbl">Selecionar arquivo CSV</div>
+          <div class="ex-sub">Escolha o arquivo exportado deste sistema</div>
+        </div>
+      </button>
+      <input type="file" id="importFile" accept=".csv" style="display:none" onchange="importCSV(this)"/>
+    </div>
+    <div id="importResult" style="margin-top:10px;font-size:12px;color:var(--muted);display:none"></div>
+  </div>
+
   <div class="export-panel">
     <div class="export-title">🗑️ Zona de risco</div>
     <div class="export-desc" style="color:#991b1b">Ações permanentes. Exporte antes de usar.</div>
@@ -794,6 +810,77 @@ function exportRelatorio(){
   navigator.clipboard?
     navigator.clipboard.writeText(txt).then(()=>toast('✅ Relatório copiado!')):
     (()=>{const t=document.createElement('textarea');t.value=txt;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);toast('✅ Relatório copiado!')})()
+}
+
+function importCSV(input){
+  var file=input.files[0];
+  if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    var txt=e.target.result.replace(/^\uFEFF/,'');
+    var lines=txt.split('\n').filter(function(l){return l.trim()});
+    if(lines.length<2){toast('Arquivo vazio ou invalido');return}
+    var header=lines[0];
+    var sep=header.indexOf(';')>=0?';':',';
+    function parseRow(row){
+      var r=[];var cur='';var inQ=false;
+      for(var j=0;j<row.length;j++){
+        var ch=row[j];
+        if(ch==='"'){inQ=!inQ}
+        else if(ch===sep&&!inQ){r.push(cur.trim());cur=''}
+        else{cur+=ch}
+      }
+      r.push(cur.trim());
+      return r.map(function(v){return v.replace(/^"|"$/g,'')});
+    }
+    var cols=parseRow(header);
+    function fi(re){return cols.findIndex(function(c){return re.test(c)})}
+    var idx={
+      nome:fi(/nome/i),empresa:fi(/empresa/i),
+      whats:fi(/whats|fone|phone|celular/i),
+      origem:fi(/origem/i),status:fi(/status/i),
+      etIdx:fi(/etapa/i),tent:fi(/tent/i),
+      dataCad:fi(/cadastro|entrada/i),
+      ultC:fi(/contato|ultimo/i),obs:fi(/obs/i)
+    };
+    if(idx.nome<0||idx.whats<0){
+      toast('CSV invalido - precisa ter colunas Nome e WhatsApp');
+      input.value='';return
+    }
+    var adicionados=0;var duplicatas=0;
+    var hj=new Date().toISOString().split('T')[0];
+    for(var i=1;i<lines.length;i++){
+      var row=parseRow(lines[i]);
+      if(row.length<2)continue;
+      var nome=(row[idx.nome]||'').trim();
+      var whats=(row[idx.whats]||'').trim();
+      if(!nome||!whats)continue;
+      var existe=leads.some(function(l){return l.whats.replace(/\D/g,'')=== whats.replace(/\D/g,'')});
+      if(existe){duplicatas++;continue}
+      var etRaw=idx.etIdx>=0?parseInt(row[idx.etIdx])||1:1;
+      leads.push({
+        id:Date.now().toString()+'-'+i,
+        nome:nome,
+        empresa:idx.empresa>=0?(row[idx.empresa]||''):'',
+        whats:whats,
+        origem:idx.origem>=0?(row[idx.origem]||'Importado'):'Importado',
+        status:idx.status>=0?(row[idx.status]||'Em contato'):'Em contato',
+        etIdx:Math.max(0,etRaw-1),
+        tentativas:idx.tent>=0?parseInt(row[idx.tent])||0:0,
+        dataCad:idx.dataCad>=0?(row[idx.dataCad]||hj):hj,
+        ultC:idx.ultC>=0?(row[idx.ultC]||hj):hj,
+        obs:idx.obs>=0?(row[idx.obs]||''):''
+      });
+      adicionados++;
+    }
+    save();render();
+    input.value='';
+    var res=document.getElementById('importResult');
+    res.style.display='block';
+    res.innerHTML='Importados: '+adicionados+(duplicatas>0?' | Duplicatas ignoradas: '+duplicatas:'');
+    toast(adicionados+' leads importados com sucesso!');
+  };
+  reader.readAsText(file,'UTF-8');
 }
 
 function limparConvertidos(){
