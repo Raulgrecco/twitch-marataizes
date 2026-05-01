@@ -189,8 +189,15 @@ function loadLivePlayer(){
 
 <script>
 function openVodModal(src){
+  // Pausa o player ao vivo — seja iframe ativo ou overlay ainda visível
   var live=document.getElementById('castr-player');
-  if(live&&live.src&&live.src.indexOf('castr')>-1){live._liveSrc=live.src;live._wasLive=true;live.src='about:blank';}
+  if(live&&live.src&&live.src.indexOf('castr')>-1){
+    live._liveSrc=live.src;live._wasLive=true;live.src='about:blank';
+  }
+  // Se o overlay ainda está visível (usuário nunca deu play) apenas esconde o wrapper
+  var wrapper=document.getElementById('player-wrapper');
+  if(wrapper) wrapper.style.visibility='hidden';
+
   var wrap=document.getElementById('vod-player-wrap');
   wrap.innerHTML='';
   var iframe=document.createElement('iframe');
@@ -209,6 +216,9 @@ function closeVodModal(){
   wrap.innerHTML='';
   var live=document.getElementById('castr-player');
   if(live&&live._wasLive){live.src=live._liveSrc||'https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=1';}
+  // Restaura visibilidade do wrapper
+  var wrapper=document.getElementById('player-wrapper');
+  if(wrapper) wrapper.style.visibility='visible';
   document.getElementById('vod-modal').style.display='none';
   document.body.style.overflow='';
 }
