@@ -189,12 +189,10 @@ function loadLivePlayer(){
 
 <script>
 function openVodModal(src){
-  // Pausa o player ao vivo — seja iframe ativo ou overlay ainda visível
+  // Remove o iframe ao vivo do DOM completamente — única forma de parar o áudio
   var live=document.getElementById('castr-player');
-  if(live&&live.src&&live.src.indexOf('castr')>-1){
-    live._liveSrc=live.src;live._wasLive=true;live.src='about:blank';
-  }
-  // Se o overlay ainda está visível (usuário nunca deu play) apenas esconde o wrapper
+  if(live){live._wasLive=true;live.parentNode.removeChild(live);}
+  // Se nunca deu play, esconde o wrapper
   var wrapper=document.getElementById('player-wrapper');
   if(wrapper) wrapper.style.visibility='hidden';
 
@@ -207,20 +205,38 @@ function openVodModal(src){
   iframe.allowFullscreen=true;
   iframe.style.cssText='width:100%;height:100%;border:0;border-radius:8px;';
   wrap.appendChild(iframe);
-  var modal=document.getElementById('vod-modal');
-  modal.style.display='flex';
+  document.getElementById('vod-modal').style.display='flex';
   document.body.style.overflow='hidden';
 }
 function closeVodModal(){
+  // Para o VOD
   var wrap=document.getElementById('vod-player-wrap');
   wrap.innerHTML='';
-  var live=document.getElementById('castr-player');
-  if(live&&live._wasLive){live.src=live._liveSrc||'https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=1';}
-  // Restaura visibilidade do wrapper
-  var wrapper=document.getElementById('player-wrapper');
-  if(wrapper) wrapper.style.visibility='visible';
   document.getElementById('vod-modal').style.display='none';
   document.body.style.overflow='';
+
+  // Restaura o player ao vivo criando novo iframe
+  var wrapper=document.getElementById('player-wrapper');
+  if(wrapper){
+    wrapper.style.visibility='visible';
+    // Só recria se o usuário tinha dado play (iframe foi removido)
+    if(!document.getElementById('castr-player')){
+      var overlay=document.getElementById('player-overlay');
+      if(overlay && overlay.style.display==='none'){
+        // Já tinha dado play — recria o iframe
+        var iframe=document.createElement('iframe');
+        iframe.id='castr-player';
+        iframe.src='https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=1';
+        iframe.allow='autoplay; fullscreen';
+        iframe.allowFullscreen=true;
+        iframe.style.cssText='width:100%;height:100%;border:0;';
+        wrapper.appendChild(iframe);
+      } else {
+        // Nunca tinha dado play — mostra overlay novamente
+        if(overlay) overlay.style.display='flex';
+      }
+    }
+  }
 }
 document.getElementById('vod-modal').addEventListener('click',function(e){if(e.target===this)closeVodModal();});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVodModal();});
