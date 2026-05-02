@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mega 20 — Sua Loja de Preço Único · Marataízes</title>
+  <meta name="description" content="Mega 20 Marataízes — tudo por R$20,00. Av. Simão Soares, 1372, Loja 05. Seg–Sex 9h–18h · Sáb 9h–15h."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Black+Han+Sans&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --azul:#1a2fc4;
+      --azul2:#0d1f8a;
+      --amarelo:#f5d800;
+      --amarelo2:#ffe033;
+      --laranja:#ff6b00;
+      --laranja2:#ff8c00;
+      --branco:#ffffff;
+      --cinza:#f2f2f0;
+      --texto:#111;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--cinza);color:var(--texto);font-family:'Nunito',sans-serif;overflow-x:hidden;}
+
+    /* ── TOPBAR ── */
+    .topbar{background:var(--laranja);padding:8px 20px;display:flex;align-items:center;justify-content:center;gap:16px;
+      font-size:0.75rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:var(--branco);
+      border-bottom:3px solid var(--amarelo);}
+    .topbar span{opacity:0.85;}
+    .topbar b{color:var(--amarelo);}
+
+    /* ── HEADER ── */
+    header{background:var(--azul);border-bottom:5px solid var(--amarelo);
+      position:sticky;top:0;z-index:100;
+      display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:68px;}
+    .logo-wrap{display:flex;align-items:center;gap:14px;}
+    .logo-img{width:52px;height:52px;border-radius:50%;border:3px solid var(--amarelo);object-fit:cover;}
+    .logo-text{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.06em;color:var(--branco);line-height:1;}
+    .logo-text span{color:var(--amarelo);}
+    .logo-sub{font-size:0.6rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.6);}
+    .header-price{display:flex;flex-direction:column;align-items:center;
+      background:var(--amarelo);border-radius:12px;padding:6px 18px;border:3px solid var(--branco);}
+    .price-tudo{font-size:0.55rem;font-weight:900;letter-spacing:0.2em;text-transform:uppercase;color:var(--azul2);}
+    .price-val{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:0.04em;color:var(--azul2);line-height:1;}
+    .price-rs{font-size:0.9rem;font-weight:900;vertical-align:super;}
+
+    /* ── HERO ── */
+    .hero{background:linear-gradient(135deg,var(--azul2) 0%,var(--azul) 60%,#2a3fd4 100%);
+      padding:60px 28px 80px;text-align:center;position:relative;overflow:hidden;}
+    .hero::before{content:'';position:absolute;inset:0;
+      background:radial-gradient(ellipse at 30% 50%,rgba(245,216,0,0.12) 0%,transparent 60%),
+                 radial-gradient(ellipse at 80% 20%,rgba(255,107,0,0.1) 0%,transparent 50%);
+      pointer-events:none;}
+    /* confetti dots */
+    .hero::after{content:'';position:absolute;inset:0;
+      background-image:radial-gradient(circle,rgba(255,255,255,0.08) 1px,transparent 1px);
+      background-size:28px 28px;pointer-events:none;}
+
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;
+      background:var(--laranja);color:var(--branco);
+      font-size:0.68rem;font-weight:900;letter-spacing:0.22em;text-transform:uppercase;
+      padding:5px 16px;border-radius:100px;margin-bottom:20px;
+      border:2px solid rgba(255,255,255,0.3);
+      animation:fadeup 0.6s ease both;}
+    .badge-dot{width:7px;height:7px;border-radius:50%;background:var(--amarelo);animation:blink 1.4s ease-in-out infinite;}
+    @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
+
+    .hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,12vw,8rem);
+      line-height:0.88;letter-spacing:0.02em;color:var(--branco);margin-bottom:10px;
+      animation:fadeup 0.7s ease 0.1s both;}
+    .hero-h1 .yellow{color:var(--amarelo);}
+    .hero-h1 .orange{color:var(--laranja2);}
+
+    .hero-sub{font-size:clamp(1rem,2.5vw,1.35rem);font-weight:700;color:rgba(255,255,255,0.75);
+      max-width:480px;margin:0 auto 36px;line-height:1.5;
+      animation:fadeup 0.7s ease 0.2s both;}
+
+    /* big price badge */
+    .hero-price{display:inline-flex;flex-direction:column;align-items:center;
+      background:var(--amarelo);border-radius:20px;padding:20px 40px;
+      border:5px solid var(--branco);box-shadow:0 0 0 5px var(--laranja),8px 8px 0 8px rgba(0,0,0,0.2);
+      margin-bottom:40px;animation:popin 0.6s cubic-bezier(.34,1.56,.64,1) 0.35s both;}
+    @keyframes popin{from{transform:scale(0.5);opacity:0;}to{transform:scale(1);opacity:1;}}
+    .hp-tudo{font-size:0.7rem;font-weight:900;letter-spacing:0.25em;text-transform:uppercase;color:var(--azul2);margin-bottom:2px;}
+    .hp-val{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,10vw,7rem);line-height:0.85;color:var(--azul2);}
+    .hp-rs{font-size:1.5rem;font-weight:900;vertical-align:super;}
+    .hp-label{font-size:0.65rem;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;color:var(--laranja);margin-top:4px;}
+
+    .hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fadeup 0.7s ease 0.5s both;}
+    .btn-wa{display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#fff;
+      font-weight:900;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;
+      text-decoration:none;padding:14px 28px;border-radius:10px;border:3px solid rgba(255,255,255,0.3);
+      transition:transform .15s,box-shadow .15s;box-shadow:0 4px 16px rgba(37,211,102,0.4);}
+    .btn-wa:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,211,102,0.5);}
+    .btn-inst{display:inline-flex;align-items:center;gap:10px;
+      background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+      color:#fff;font-weight:900;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;
+      text-decoration:none;padding:14px 28px;border-radius:10px;border:3px solid rgba(255,255,255,0.3);
+      transition:transform .15s,box-shadow .15s;}
+    .btn-inst:hover{transform:translateY(-2px);}
+
+    @keyframes fadeup{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+    /* ── MARQUEE ── */
+    .marquee-wrap{background:var(--amarelo);border-top:4px solid var(--laranja);border-bottom:4px solid var(--laranja);
+      overflow:hidden;padding:10px 0;}
+    .marquee-inner{display:flex;gap:0;white-space:nowrap;animation:marquee 20s linear infinite;}
+    .marquee-inner span{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.08em;color:var(--azul2);padding:0 28px;}
+    .marquee-inner .sep{color:var(--laranja);font-size:1.6rem;}
+    @keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+    /* ── SECTION TITLES ── */
+    .section{padding:64px 24px;}
+    .section-alt{background:var(--branco);}
+    .section-blue{background:var(--azul2);color:var(--branco);}
+    .sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,6vw,4rem);
+      letter-spacing:0.04em;text-align:center;margin-bottom:8px;}
+    .sec-title .yellow{color:var(--amarelo);}
+    .sec-title .orange{color:var(--laranja2);}
+    .sec-sub{text-align:center;font-size:0.9rem;font-weight:600;color:inherit;opacity:0.65;
+      letter-spacing:0.08em;text-transform:uppercase;margin-bottom:44px;}
+
+    /* ── VIDEO SECTION ── */
+    .video-wrap{max-width:780px;margin:0 auto;}
+    .video-thumb{position:relative;border-radius:16px;overflow:hidden;cursor:pointer;
+      border:5px solid var(--amarelo);box-shadow:8px 8px 0 var(--azul2);
+      background:#000;aspect-ratio:16/9;}
+    .video-thumb img{width:100%;height:100%;object-fit:cover;opacity:0.75;transition:opacity .3s;}
+    .video-thumb:hover img{opacity:0.6;}
+    .play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+      width:80px;height:80px;border-radius:50%;
+      background:var(--amarelo);display:flex;align-items:center;justify-content:center;
+      box-shadow:0 0 0 8px rgba(245,216,0,0.3);transition:transform .2s,box-shadow .2s;}
+    .video-thumb:hover .play-btn{transform:translate(-50%,-50%) scale(1.1);box-shadow:0 0 0 14px rgba(245,216,0,0.2);}
+    .play-btn svg{margin-left:6px;}
+    .video-label{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+      background:var(--azul2);color:var(--amarelo);
+      font-weight:900;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;
+      padding:6px 18px;border-radius:100px;white-space:nowrap;}
+
+    /* VIDEO MODAL */
+    .vmod{position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.92);
+      display:none;align-items:center;justify-content:center;padding:20px;}
+    .vmod.open{display:flex;}
+    .vmod-inner{position:relative;width:100%;max-width:900px;aspect-ratio:16/9;}
+    .vmod-inner iframe{width:100%;height:100%;border:0;border-radius:12px;}
+    .vmod-close{position:absolute;top:-44px;right:0;background:none;border:none;
+      color:#fff;font-size:2.2rem;cursor:pointer;line-height:1;opacity:0.8;transition:opacity .2s;}
+    .vmod-close:hover{opacity:1;}
+
+    /* ── GALLERY ── */
+    .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;max-width:900px;margin:0 auto;}
+    .gal-item{border-radius:12px;overflow:hidden;aspect-ratio:1;border:3px solid var(--amarelo);
+      box-shadow:4px 4px 0 var(--azul);transition:transform .2s,box-shadow .2s;cursor:pointer;}
+    .gal-item:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--azul);}
+    .gal-item img{width:100%;height:100%;object-fit:cover;}
+
+    /* ── DIFERENCIAIS ── */
+    .difs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;max-width:800px;margin:0 auto;}
+    .dif{background:rgba(255,255,255,0.08);border:2px solid rgba(255,255,255,0.15);
+      border-radius:14px;padding:24px 20px;text-align:center;}
+    .dif-ico{font-size:2.4rem;margin-bottom:12px;}
+    .dif-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.06em;
+      color:var(--amarelo);margin-bottom:6px;}
+    .dif-text{font-size:0.82rem;font-weight:600;color:rgba(255,255,255,0.7);line-height:1.6;}
+
+    /* ── INFO / CONTATO ── */
+    .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:840px;margin:0 auto 40px;}
+    .info-card{background:var(--branco);border:3px solid var(--amarelo);border-radius:14px;
+      padding:22px 24px;display:flex;align-items:flex-start;gap:14px;
+      box-shadow:4px 4px 0 var(--azul);}
+    .info-ico{font-size:2rem;flex-shrink:0;}
+    .info-label{font-size:0.62rem;font-weight:900;letter-spacing:0.2em;text-transform:uppercase;color:var(--laranja);margin-bottom:4px;}
+    .info-val{font-weight:800;font-size:0.95rem;color:var(--azul2);line-height:1.5;}
+
+    /* ── TV BANNER ── */
+    .tv-banner{background:var(--azul2);border-top:4px solid var(--amarelo);border-bottom:4px solid var(--amarelo);
+      padding:28px 24px;text-align:center;}
+    .tv-banner p{font-size:0.78rem;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
+    .tv-banner a{color:var(--amarelo);font-weight:900;font-size:0.9rem;text-decoration:none;letter-spacing:0.08em;}
+    .tv-banner a:hover{color:var(--laranja2);}
+
+    /* ── FOOTER ── */
+    footer{background:var(--azul2);border-top:3px solid rgba(255,255,255,0.1);
+      padding:28px 24px;text-align:center;}
+    footer p{font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.4);letter-spacing:0.1em;}
+    footer b{color:rgba(255,255,255,0.7);}
+
+    /* ── FLOAT WHATSAPP ── */
+    .float-wa{position:fixed;bottom:24px;right:24px;z-index:200;
+      width:58px;height:58px;border-radius:50%;background:#25d366;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 4px 20px rgba(37,211,102,0.5);
+      text-decoration:none;transition:transform .2s,box-shadow .2s;
+      border:3px solid #fff;}
+    .float-wa:hover{transform:scale(1.1);box-shadow:0 8px 28px rgba(37,211,102,0.6);}
+    .float-wa svg{width:30px;height:30px;}
+
+    @media(max-width:520px){
+      .hero-ctas{flex-direction:column;align-items:center;}
+      .btn-wa,.btn-inst{width:100%;justify-content:center;}
+      .gallery{grid-template-columns:repeat(2,1fr);}
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <b>📣 PREÇO ÚNICO</b> <span>·</span>
+  <span>Seg–Sex 9h–18h · Sáb 9h–15h</span> <span>·</span>
+  <b>📍 Av. Simão Soares, 1372 — Loja 05</b>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-wrap">
+    <img class="logo-img" src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logomega20.png" alt="Mega 20" onerror="this.style.display='none'"/>
+    <div>
+      <div class="logo-text"><span>MEGA</span> 20</div>
+      <div class="logo-sub">Sua loja de preço único</div>
+    </div>
+  </div>
+  <div class="header-price">
+    <div class="price-tudo">Tudo por</div>
+    <div class="price-val"><span class="price-rs">R$</span>20</div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge"><span class="badge-dot"></span>Marataízes · ES</div>
+  <h1 class="hero-h1">
+    <span class="yellow">TUDO</span><br>
+    POR<br>
+    <span class="orange">R$20</span>
+  </h1>
+  <p class="hero-sub">Uma loja inteira. Um preço só.<br>Moda, utilidades, decoração e muito mais.</p>
+  <div class="hero-price">
+    <div class="hp-tudo">Tudo na loja por</div>
+    <div class="hp-val"><span class="hp-rs">R$</span>20<span style="font-size:2rem">,00</span></div>
+    <div class="hp-label">Preço único · Sem pegadinhas</div>
+  </div>
+  <div class="hero-ctas">
+    <a href="https://wa.me/5528999036141" target="_blank" rel="noopener" class="btn-wa">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Fale no WhatsApp
+    </a>
+    <a href="https://www.instagram.com/mega20marataizes/" target="_blank" rel="noopener" class="btn-inst">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      Ver no Instagram
+    </a>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span>TUDO POR R$20</span><span class="sep">★</span>
+    <span>MODA FEMININA</span><span class="sep">★</span>
+    <span>ACESSÓRIOS</span><span class="sep">★</span>
+    <span>UTILIDADES</span><span class="sep">★</span>
+    <span>DECORAÇÃO</span><span class="sep">★</span>
+    <span>PRESENTES</span><span class="sep">★</span>
+    <span>COSMÉTICOS</span><span class="sep">★</span>
+    <span>PREÇO ÚNICO</span><span class="sep">★</span>
+    <span>TUDO POR R$20</span><span class="sep">★</span>
+    <span>MODA FEMININA</span><span class="sep">★</span>
+    <span>ACESSÓRIOS</span><span class="sep">★</span>
+    <span>UTILIDADES</span><span class="sep">★</span>
+    <span>DECORAÇÃO</span><span class="sep">★</span>
+    <span>PRESENTES</span><span class="sep">★</span>
+    <span>COSMÉTICOS</span><span class="sep">★</span>
+    <span>PREÇO ÚNICO</span><span class="sep">★</span>
+  </div>
+</div>
+
+<!-- VIDEO -->
+<section class="section section-alt">
+  <h2 class="sec-title">Veja a <span class="orange">Mega 20</span></h2>
+  <p class="sec-sub">Conheça a loja e tudo que tem por R$20</p>
+  <div class="video-wrap">
+    <div class="video-thumb" onclick="openVideo()">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/mega1.png" alt="Mega 20 — vídeo" onerror="this.src='https://placehold.co/780x440/1a2fc4/f5d800?text=MEGA+20'"/>
+      <div class="play-btn">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="#1a2fc4"><polygon points="5,3 19,12 5,21"/></svg>
+      </div>
+      <div class="video-label">▶ Assista ao vídeo da loja</div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO MODAL -->
+<div class="vmod" id="vmod" onclick="if(event.target===this)closeVideo()">
+  <div class="vmod-inner">
+    <button class="vmod-close" onclick="closeVideo()">✕</button>
+    <div id="vmod-wrap" style="width:100%;height:100%;"></div>
+  </div>
+</div>
+
+<!-- GALERIA -->
+<section class="section">
+  <h2 class="sec-title" style="color:var(--azul2);">O que tem na <span class="yellow" style="color:var(--laranja);">loja</span></h2>
+  <p class="sec-sub" style="color:var(--azul2);">Produtos variados — tudo por R$20,00</p>
+  <div class="gallery">
+    <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/mega1.png" alt="Produto 1" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/mega2.png" alt="Produto 2" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/mega3.png" alt="Produto 3" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/mega4.png" alt="Produto 4" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/mega5.png" alt="Produto 5" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/mega6.png" alt="Produto 6" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/mega7.png" alt="Produto 7" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/mega8.png" alt="Produto 8" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/mega9.png" alt="Produto 9" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/mega10.png" alt="Produto 10" onerror="this.parentElement.style.display='none'"/></div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section class="section section-blue">
+  <h2 class="sec-title"><span class="yellow">Por que</span> escolher a Mega 20?</h2>
+  <p class="sec-sub" style="color:rgba(255,255,255,0.55);">Simples, direto e sem pegadinha</p>
+  <div class="difs">
+    <div class="dif">
+      <div class="dif-ico">💛</div>
+      <div class="dif-title">Preço único</div>
+      <div class="dif-text">Tudo na loja custa exatamente R$20,00. Sem exceção, sem surpresa na hora de pagar.</div>
+    </div>
+    <div class="dif">
+      <div class="dif-ico">🛍️</div>
+      <div class="dif-title">Variedade</div>
+      <div class="dif-text">Moda, acessórios, utilidades, decoração, cosméticos e muito mais — em um só lugar.</div>
+    </div>
+    <div class="dif">
+      <div class="dif-ico">📍</div>
+      <div class="dif-title">Fácil de achar</div>
+      <div class="dif-text">Na Av. Simão Soares, 1372 — Loja 05, no coração de Marataízes.</div>
+    </div>
+    <div class="dif">
+      <div class="dif-ico">🕘</div>
+      <div class="dif-title">Sempre aberta</div>
+      <div class="dif-text">Segunda a sexta das 9h às 18h. Sábados das 9h às 15h. Pronto pra te atender.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="section section-alt">
+  <h2 class="sec-title" style="color:var(--azul2);">Como nos <span style="color:var(--laranja);">encontrar</span></h2>
+  <p class="sec-sub" style="color:var(--azul2);">Venha visitar ou fale com a gente</p>
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-ico">📍</div>
+      <div>
+        <div class="info-label">Endereço</div>
+        <div class="info-val">Av. Simão Soares, 1372<br>Loja 05 · Marataízes, ES</div>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-ico">🕘</div>
+      <div>
+        <div class="info-label">Horário</div>
+        <div class="info-val">Seg–Sex: 9h às 18h<br>Sábado: 9h às 15h</div>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-ico">📱</div>
+      <div>
+        <div class="info-label">Instagram</div>
+        <div class="info-val">@mega20marataizes<br><a href="https://www.instagram.com/mega20marataizes/" target="_blank" rel="noopener" style="color:var(--laranja);font-weight:900;font-size:0.82rem;">Ver perfil →</a></div>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-ico">💰</div>
+      <div>
+        <div class="info-label">Preço</div>
+        <div class="info-val">Tudo por <span style="color:var(--azul2);font-size:1.2rem;font-weight:900;">R$20,00</span><br>Preço único · Sem exceção</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAPA -->
+  <div style="max-width:840px;margin:0 auto;border-radius:14px;overflow:hidden;border:4px solid var(--amarelo);box-shadow:6px 6px 0 var(--azul2);">
+    <iframe
+      src="https://maps.google.com/maps?q=Av.+Sim%C3%A3o+Soares,+1372,+Marata%C3%ADzes,+ES&output=embed"
+      width="100%" height="280" style="border:0;display:block;" allowfullscreen loading="lazy">
+    </iframe>
+  </div>
+</section>
+
+<!-- TV BANNER -->
+<div class="tv-banner">
+  <p>Uma iniciativa</p>
+  <a href="https://tvmarataizes.digital" target="_blank" rel="noopener">📺 TV Marataízes — Portal Digital do Sul do ES</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p><b>Mega 20 Marataízes</b> · Av. Simão Soares, 1372, Loja 05 · Marataízes, ES<br>
+  Seg–Sex 9h–18h · Sáb 9h–15h · Preço único R$20,00<br><br>
+  <b>@mega20marataizes</b> · Parceiro <a href="https://tvmarataizes.digital" style="color:rgba(255,255,255,0.5);">TV Marataízes</a></p>
+</footer>
+
+<!-- FLOAT WHATSAPP -->
+<a href="https://wa.me/5528999036141" target="_blank" rel="noopener" class="float-wa" title="Fale no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+function openVideo(){
+  var wrap=document.getElementById('vmod-wrap');
+  wrap.innerHTML='';
+  var iframe=document.createElement('iframe');
+  iframe.src='https://player.castr.com/vod/90zzr3N9fmOFWlPD?autoplay=1';
+  iframe.allow='autoplay; fullscreen';
+  iframe.allowFullscreen=true;
+  iframe.style.cssText='width:100%;height:100%;border:0;border-radius:12px;';
+  wrap.appendChild(iframe);
+  document.getElementById('vmod').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeVideo(){
+  document.getElementById('vmod-wrap').innerHTML='';
+  document.getElementById('vmod').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVideo();});
+</script>
+</body>
+</html>
