@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TecnoCell — Assistência Técnica & Xiaomi · Marataízes</title>
+  <meta name="description" content="TecnoCell Marataízes — Assistência técnica especializada e venda de Xiaomi. O melhor preço da região. Barra Shopping, Barra de Marataízes. Técnico Bruno Marvila."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Playfair+Display:ital,wght@0,400;1,300;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black: #080808;
+      --black2: #111111;
+      --black3: #1a1a1a;
+      --white: #f5f5f3;
+      --white2: #e8e8e5;
+      --grey: rgba(245,245,243,0.45);
+      --grey2: rgba(245,245,243,0.15);
+      --grey3: rgba(245,245,243,0.07);
+      --accent: #f5f5f3;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Syne', sans-serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* CUSTOM CURSOR */
+    .cursor {
+      position: fixed; width: 10px; height: 10px; border-radius: 50%;
+      background: var(--white); pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width .2s, height .2s, background .2s;
+      mix-blend-mode: difference;
+    }
+    .cursor-ring {
+      position: fixed; width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid rgba(245,245,243,0.4); pointer-events: none; z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: all .12s ease;
+      mix-blend-mode: difference;
+    }
+    body:has(a:hover) .cursor { width: 20px; height: 20px; }
+    body:has(a:hover) .cursor-ring { width: 52px; height: 52px; opacity: 0.6; }
+
+    /* NOISE */
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.028;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 52px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px;
+      border-bottom: 1px solid var(--grey2);
+      background: rgba(8,8,8,0.88); backdrop-filter: blur(20px);
+    }
+    .tb-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .tb-logo img { width: 28px; height: 28px; object-fit: contain; filter: invert(1); border-radius: 4px; }
+    .tb-name { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--white); }
+    .tb-right { display: flex; align-items: center; gap: 24px; }
+    .tb-link { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); text-decoration: none; transition: color .2s; }
+    .tb-link:hover { color: var(--white); }
+    .tb-cta { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--black); background: var(--white); padding: 7px 16px; border-radius: 100px; text-decoration: none; transition: opacity .2s; }
+    .tb-cta:hover { opacity: 0.85; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: flex-start; justify-content: flex-end;
+      padding: 0 40px 80px; position: relative; overflow: hidden;
+    }
+
+    /* Hero background — geometric grid */
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        linear-gradient(to bottom, transparent 60%, rgba(8,8,8,0.95) 100%),
+        repeating-linear-gradient(90deg, rgba(245,245,243,0.025) 0, rgba(245,245,243,0.025) 1px, transparent 1px, transparent 80px),
+        repeating-linear-gradient(0deg, rgba(245,245,243,0.025) 0, rgba(245,245,243,0.025) 1px, transparent 1px, transparent 80px);
+    }
+
+    /* Big number bg */
+    .hero-num {
+      position: absolute; right: -20px; top: 50%; transform: translateY(-50%);
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(18rem, 35vw, 32rem); line-height: 1;
+      color: rgba(245,245,243,0.04); user-select: none; pointer-events: none;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 680px; }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 400;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey);
+      margin-bottom: 28px;
+      opacity: 0; transform: translateY(16px);
+      animation: fadeup 0.8s cubic-bezier(.22,1,.36,1) 0.2s forwards;
+    }
+    .tag-line { width: 28px; height: 1px; background: var(--grey); }
+
+    .hero-h1 {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(3.5rem, 9vw, 8rem); line-height: 0.88;
+      letter-spacing: -0.03em; color: var(--white);
+      margin-bottom: 12px;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeup 1s cubic-bezier(.22,1,.36,1) 0.35s forwards;
+    }
+    .hero-h1 em {
+      font-family: 'Playfair Display', serif; font-style: italic; font-weight: 300;
+      color: rgba(245,245,243,0.55); font-size: 0.9em;
+    }
+
+    .hero-sub {
+      font-family: 'DM Mono', monospace; font-size: 0.75rem; font-weight: 300;
+      letter-spacing: 0.08em; color: var(--grey); line-height: 1.8;
+      max-width: 400px; margin-bottom: 44px;
+      opacity: 0; transform: translateY(16px);
+      animation: fadeup 0.9s cubic-bezier(.22,1,.36,1) 0.55s forwards;
+    }
+
+    .hero-ctas {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      opacity: 0; transform: translateY(16px);
+      animation: fadeup 0.9s cubic-bezier(.22,1,.36,1) 0.7s forwards;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--white); color: var(--black);
+      font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; padding: 14px 28px; border-radius: 3px;
+      transition: opacity .2s, transform .15s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: transparent; color: var(--grey);
+      font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; padding: 14px 28px; border-radius: 3px;
+      border: 1px solid var(--grey2);
+      transition: color .2s, border-color .2s, transform .15s;
+    }
+    .btn-ghost:hover { color: var(--white); border-color: var(--grey); transform: translateY(-1px); }
+
+    /* scroll hint */
+    .hero-scroll {
+      position: absolute; bottom: 32px; right: 40px; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--grey2);
+      opacity: 0; animation: fadein 1s ease 1.2s forwards;
+    }
+    .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--grey2), transparent); animation: scrollpulse 2s ease-in-out infinite; }
+    @keyframes scrollpulse { 0%,100%{opacity:.4;} 50%{opacity:1;} }
+
+    @keyframes fadeup { to { opacity:1; transform:translateY(0); } }
+    @keyframes fadein { to { opacity:1; } }
+
+    /* ── MARQUEE ── */
+    .marquee-section {
+      border-top: 1px solid var(--grey2); border-bottom: 1px solid var(--grey2);
+      overflow: hidden; padding: 16px 0; background: var(--black2);
+    }
+    .marquee-track { display: flex; gap: 0; white-space: nowrap; animation: marquee 22s linear infinite; }
+    .marquee-track span {
+      font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 300;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey);
+      padding: 0 32px;
+    }
+    .marquee-track .sep { color: var(--grey2); font-size: 0.5rem; }
+    @keyframes marquee { 0%{transform:translateX(0);}100%{transform:translateX(-50%);} }
+
+    /* ── SECTIONS ── */
+    section { position: relative; }
+
+    .s-inner { max-width: 1100px; margin: 0 auto; padding: 100px 40px; }
+
+    .s-label {
+      font-family: 'DM Mono', monospace; font-size: 0.6rem; font-weight: 400;
+      letter-spacing: 0.3em; text-transform: uppercase; color: var(--grey2);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 12px;
+    }
+    .s-label::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--grey2); }
+
+    .s-title {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(2.2rem, 5vw, 4rem); letter-spacing: -0.02em;
+      color: var(--white); line-height: 0.92; margin-bottom: 60px;
+    }
+    .s-title em { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 300; color: var(--grey); }
+
+    /* ── SERVICES GRID ── */
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--grey2); border: 1px solid var(--grey2); }
+    .svc {
+      background: var(--black); padding: 40px 32px;
+      transition: background .3s;
+      position: relative; overflow: hidden;
+    }
+    .svc::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--white); transform: scaleX(0); transform-origin: left;
+      transition: transform .4s cubic-bezier(.22,1,.36,1);
+    }
+    .svc:hover { background: var(--black2); }
+    .svc:hover::before { transform: scaleX(1); }
+
+    .svc-num {
+      font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em;
+      color: var(--grey2); margin-bottom: 24px;
+    }
+    .svc-ico { font-size: 2rem; margin-bottom: 16px; filter: grayscale(1); }
+    .svc-title {
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem;
+      letter-spacing: 0.02em; color: var(--white); margin-bottom: 10px;
+    }
+    .svc-desc { font-size: 0.78rem; font-weight: 400; color: var(--grey); line-height: 1.75; }
+
+    /* ── VIDEO ── */
+    .video-section { background: var(--black2); }
+    .video-wrap { max-width: 860px; margin: 0 auto; }
+    .video-frame {
+      position: relative; aspect-ratio: 16/9; background: var(--black3);
+      border: 1px solid var(--grey2); overflow: hidden; cursor: pointer;
+    }
+    .video-frame img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: opacity .4s; }
+    .video-frame:hover img { opacity: 0.45; }
+    .play-wrap {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 16px;
+    }
+    .play-circle {
+      width: 72px; height: 72px; border: 1px solid rgba(245,245,243,0.4);
+      border-radius: 50%; display: grid; place-items: center;
+      transition: transform .3s, border-color .3s;
+    }
+    .video-frame:hover .play-circle { transform: scale(1.08); border-color: var(--white); }
+    .play-label {
+      font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--grey);
+    }
+    /* video corner tag */
+    .vid-tag {
+      position: absolute; top: 20px; left: 20px;
+      font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--grey2);
+      border: 1px solid var(--grey2); padding: 4px 10px; border-radius: 2px;
+    }
+
+    /* VIDEO MODAL */
+    .vmod {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(8,8,8,0.96); display: none;
+      align-items: center; justify-content: center; padding: 24px;
+      backdrop-filter: blur(8px);
+    }
+    .vmod.open { display: flex; }
+    .vmod-inner { position: relative; width: 100%; max-width: 920px; aspect-ratio: 16/9; }
+    .vmod-inner iframe { width: 100%; height: 100%; border: 0; }
+    .vmod-close {
+      position: absolute; top: -44px; right: 0;
+      background: none; border: none; color: var(--grey); font-size: 1.8rem;
+      cursor: none; transition: color .2s; line-height: 1;
+    }
+    .vmod-close:hover { color: var(--white); }
+
+    /* ── GALLERY ── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto;
+      gap: 2px;
+    }
+    .gal-item {
+      aspect-ratio: 1; overflow: hidden; background: var(--black3);
+      position: relative;
+    }
+    .gal-item:first-child { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
+    .gal-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: grayscale(0.3) contrast(1.05);
+      transition: transform .6s cubic-bezier(.22,1,.36,1), filter .4s;
+    }
+    .gal-item:hover img { transform: scale(1.04); filter: grayscale(0) contrast(1.1); }
+
+    /* ── SPECS / INFO ── */
+    .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 80px; }
+    .spec-item { padding: 28px 0; border-top: 1px solid var(--grey2); }
+    .spec-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--grey2); margin-bottom: 8px; }
+    .spec-val { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--white); line-height: 1.5; }
+
+    /* ── CONTATO ── */
+    .contact-section { background: var(--black2); }
+    .contact-split { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .contact-left {}
+    .contact-right { display: flex; flex-direction: column; gap: 2px; margin-top: 8px; }
+    .c-item {
+      display: flex; align-items: flex-start; gap: 20px;
+      padding: 22px 0; border-bottom: 1px solid var(--grey2);
+    }
+    .c-num { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.18em; color: var(--grey2); width: 24px; flex-shrink: 0; padding-top: 3px; }
+    .c-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--grey2); margin-bottom: 5px; }
+    .c-val { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.9rem; color: var(--white); }
+    .c-val a { color: var(--white); text-decoration: none; }
+    .c-val a:hover { opacity: 0.7; }
+
+    /* MAP */
+    .map-wrap {
+      margin-top: 40px; border: 1px solid var(--grey2); overflow: hidden;
+      filter: grayscale(1) contrast(1.1); opacity: 0.7;
+      transition: filter .4s, opacity .4s;
+    }
+    .map-wrap:hover { filter: grayscale(0.6) contrast(1.05); opacity: 0.9; }
+
+    /* ── TV BANNER ── */
+    .tv-banner {
+      border-top: 1px solid var(--grey2); padding: 28px 40px;
+      display: flex; align-items: center; justify-content: center; gap: 16px;
+      background: var(--black);
+    }
+    .tv-banner p { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--grey2); }
+    .tv-banner a { color: var(--grey); text-decoration: none; font-weight: 500; transition: color .2s; }
+    .tv-banner a:hover { color: var(--white); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--grey2); padding: 32px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--black);
+    }
+    footer p { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.14em; color: var(--grey2); }
+    .foot-links { display: flex; gap: 24px; }
+    .foot-links a { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; color: var(--grey2); text-decoration: none; transition: color .2s; }
+    .foot-links a:hover { color: var(--white); }
+
+    /* ── FLOAT ── */
+    .float-wa {
+      position: fixed; bottom: 28px; right: 28px; z-index: 300;
+      width: 52px; height: 52px; border-radius: 50%;
+      background: var(--white); display: grid; place-items: center;
+      text-decoration: none; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      transition: transform .2s, opacity .2s;
+    }
+    .float-wa:hover { transform: scale(1.08); opacity: 0.9; }
+    .float-wa svg { width: 24px; height: 24px; fill: var(--black); }
+
+    @media (max-width: 768px) {
+      .topbar { padding: 0 20px; }
+      .topbar .tb-link { display: none; }
+      .hero { padding: 0 20px 60px; }
+      .s-inner { padding: 72px 20px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gal-item:first-child { grid-column: span 2; }
+      .specs-grid { grid-template-columns: 1fr; gap: 0; }
+      .contact-split { grid-template-columns: 1fr; gap: 40px; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+      .cursor, .cursor-ring { display: none; }
+      body { cursor: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a href="#" class="tb-logo">
+    <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/teclogo.png" alt="TecnoCell"/>
+    <div class="tb-name">TecnoCell</div>
+  </a>
+  <div class="tb-right">
+    <a href="#servicos" class="tb-link">Serviços</a>
+    <a href="#galeria" class="tb-link">Galeria</a>
+    <a href="#contato" class="tb-link">Contato</a>
+    <a href="https://api.whatsapp.com/send?phone=5528999484541" target="_blank" rel="noopener" class="tb-cta">WhatsApp</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-num">TC</div>
+  <div class="hero-content">
+    <div class="hero-tag"><div class="tag-line"></div>Marataízes · ES · Barra Shopping</div>
+    <h1 class="hero-h1">Tecno<br>Cell<br><em>Expertise.</em></h1>
+    <p class="hero-sub">Assistência técnica especializada<br>e venda de Xiaomi.<br>O melhor preço da região.</p>
+    <div class="hero-ctas">
+      <a href="https://api.whatsapp.com/send?phone=5528999484541" target="_blank" rel="noopener" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Falar com técnico
+      </a>
+      <a href="https://sandwiche.me/tecnocell" target="_blank" rel="noopener" class="btn-ghost">Ver cardápio →</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    scroll
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span>Assistência Técnica</span><span class="sep">◆</span>
+    <span>Venda Xiaomi</span><span class="sep">◆</span>
+    <span>Melhor Preço da Região</span><span class="sep">◆</span>
+    <span>Tela · Bateria · Câmera</span><span class="sep">◆</span>
+    <span>Xiaomi Oficial</span><span class="sep">◆</span>
+    <span>Barra Shopping · Marataízes</span><span class="sep">◆</span>
+    <span>Técnico Bruno Marvila</span><span class="sep">◆</span>
+    <span>Assistência Técnica</span><span class="sep">◆</span>
+    <span>Venda Xiaomi</span><span class="sep">◆</span>
+    <span>Melhor Preço da Região</span><span class="sep">◆</span>
+    <span>Tela · Bateria · Câmera</span><span class="sep">◆</span>
+    <span>Xiaomi Oficial</span><span class="sep">◆</span>
+    <span>Barra Shopping · Marataízes</span><span class="sep">◆</span>
+    <span>Técnico Bruno Marvila</span><span class="sep">◆</span>
+  </div>
+</div>
+
+<!-- SERVIÇOS -->
+<section id="servicos">
+  <div class="s-inner">
+    <div class="s-label">Serviços</div>
+    <h2 class="s-title">O que<br><em>fazemos.</em></h2>
+    <div class="services-grid">
+      <div class="svc">
+        <div class="svc-num">01</div>
+        <div class="svc-ico">📱</div>
+        <div class="svc-title">Troca de Tela</div>
+        <div class="svc-desc">Substituição de display original com garantia. Xiaomi, Samsung, iPhone e todos os modelos.</div>
+      </div>
+      <div class="svc">
+        <div class="svc-num">02</div>
+        <div class="svc-ico">🔋</div>
+        <div class="svc-title">Troca de Bateria</div>
+        <div class="svc-desc">Bateria original ou compatível premium. Diagnóstico grátis antes do serviço.</div>
+      </div>
+      <div class="svc">
+        <div class="svc-num">03</div>
+        <div class="svc-ico">📸</div>
+        <div class="svc-title">Câmera e Sensores</div>
+        <div class="svc-desc">Reparo e substituição de câmera frontal, traseira e todos os sensores do dispositivo.</div>
+      </div>
+      <div class="svc">
+        <div class="svc-num">04</div>
+        <div class="svc-ico">💧</div>
+        <div class="svc-title">Danos por Água</div>
+        <div class="svc-desc">Limpeza ultrassônica e recuperação de placas danificadas por líquidos.</div>
+      </div>
+      <div class="svc">
+        <div class="svc-num">05</div>
+        <div class="svc-ico">🔌</div>
+        <div class="svc-title">Conector de Carga</div>
+        <div class="svc-desc">Troca de conectores USB-C, lightning e micro-USB. Serviço rápido, na hora.</div>
+      </div>
+      <div class="svc">
+        <div class="svc-num">06</div>
+        <div class="svc-ico">📦</div>
+        <div class="svc-title">Venda Xiaomi</div>
+        <div class="svc-desc">Linha completa Xiaomi com o melhor preço da região. Nota fiscal e garantia.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section class="video-section">
+  <div class="s-inner">
+    <div class="s-label">Conheça</div>
+    <h2 class="s-title">A loja<br><em>em vídeo.</em></h2>
+    <div class="video-wrap">
+      <div class="video-frame" onclick="openVid()">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/tec5dono.png" alt="TecnoCell — vídeo" onerror="this.style.display='none'"/>
+        <div class="play-wrap">
+          <div class="play-circle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+          <div class="play-label">Assistir ao vídeo</div>
+        </div>
+        <div class="vid-tag">TecnoCell · Marataízes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL VIDEO -->
+<div class="vmod" id="vmod" onclick="if(event.target===this)closeVid()">
+  <div class="vmod-inner">
+    <button class="vmod-close" onclick="closeVid()">✕</button>
+    <div id="vmod-wrap" style="width:100%;height:100%;"></div>
+  </div>
+</div>
+
+<!-- GALERIA -->
+<section id="galeria">
+  <div class="s-inner" style="padding-bottom:0;">
+    <div class="s-label">Galeria</div>
+    <h2 class="s-title">Dentro<br><em>da loja.</em></h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/tec1.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/tec2.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/tec3.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/tec4.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/tec6.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/tec7.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/tec8dona.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/tec9.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/tec10.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/tec11.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/tec12.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+  </div>
+</section>
+
+<!-- SPECS -->
+<section>
+  <div class="s-inner">
+    <div class="s-label">Sobre</div>
+    <h2 class="s-title">Detalhes<br><em>que importam.</em></h2>
+    <div class="specs-grid">
+      <div class="spec-item">
+        <div class="spec-label">Técnico responsável</div>
+        <div class="spec-val">Bruno Marvila<br><span style="font-weight:400;font-size:0.82rem;color:var(--grey);">@brunomarvila11</span></div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Especialidade</div>
+        <div class="spec-val">Xiaomi · Samsung<br>iPhone · Todos os modelos</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Localização</div>
+        <div class="spec-val">Barra Shopping<br><span style="font-weight:400;font-size:0.82rem;color:var(--grey);">Barra de Marataízes · ES</span></div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Diferenciais</div>
+        <div class="spec-val">Melhor preço da região<br>Garantia em todos os serviços</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Xiaomi</div>
+        <div class="spec-val">Vendas autorizadas<br>Linha completa com nota fiscal</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Cardápio digital</div>
+        <div class="spec-val"><a href="https://sandwiche.me/tecnocell" target="_blank" rel="noopener" style="color:var(--white);text-decoration:none;">sandwiche.me/tecnocell →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato" class="contact-section">
+  <div class="s-inner">
+    <div class="contact-split">
+      <div class="contact-left">
+        <div class="s-label">Contato</div>
+        <h2 class="s-title" style="margin-bottom:20px;">Vem até<br><em>a gente.</em></h2>
+        <p style="font-family:'DM Mono',monospace;font-size:0.72rem;line-height:1.9;color:var(--grey);letter-spacing:0.06em;">
+          Estamos no Barra Shopping,<br>
+          no coração da Barra de Marataízes.<br>
+          Atendimento rápido, diagnóstico<br>
+          grátis e orçamento sem compromisso.
+        </p>
+        <div class="map-wrap" style="margin-top:32px;">
+          <iframe src="https://maps.google.com/maps?q=Barra+Shopping+Marataizes+ES&output=embed" width="100%" height="220" style="border:0;display:block;" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+      <div class="contact-right">
+        <div class="c-item">
+          <div class="c-num">01</div>
+          <div>
+            <div class="c-label">Instagram</div>
+            <div class="c-val"><a href="https://www.instagram.com/brunomarvila11/" target="_blank" rel="noopener">@brunomarvila11</a></div>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-num">02</div>
+          <div>
+            <div class="c-label">Cardápio digital</div>
+            <div class="c-val"><a href="https://sandwiche.me/tecnocell" target="_blank" rel="noopener">sandwiche.me/tecnocell</a></div>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-num">03</div>
+          <div>
+            <div class="c-label">Endereço</div>
+            <div class="c-val">Barra Shopping<br>Barra de Marataízes · ES</div>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-num">04</div>
+          <div>
+            <div class="c-label">WhatsApp</div>
+            <div class="c-val"><a href="https://api.whatsapp.com/send?phone=5528999484541" target="_blank" rel="noopener">(28) 99948-4541</a></div>
+          </div>
+        </div>
+        <div style="margin-top:32px;">
+          <a href="https://api.whatsapp.com/send?phone=5528999484541" target="_blank" rel="noopener" class="btn-primary" style="display:inline-flex;">
+            Falar no WhatsApp →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TV BANNER -->
+<div class="tv-banner">
+  <p>Parceiro</p>
+  <a href="https://tvmarataizes.digital" target="_blank" rel="noopener">📺 TV Marataízes — Portal do Sul do ES</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© TecnoCell Marataízes · Barra Shopping · Barra de Marataízes, ES</p>
+  <div class="foot-links">
+    <a href="https://www.instagram.com/brunomarvila11/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://sandwiche.me/tecnocell" target="_blank" rel="noopener">Cardápio</a>
+    <a href="https://tvmarataizes.digital" target="_blank" rel="noopener">TV Marataízes</a>
+  </div>
+</footer>
+
+<!-- FLOAT WA -->
+<a href="https://api.whatsapp.com/send?phone=5528999484541" target="_blank" rel="noopener" class="float-wa" title="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+// CURSOR
+var cur=document.getElementById('cursor'), ring=document.getElementById('cursor-ring');
+document.addEventListener('mousemove',function(e){
+  cur.style.left=e.clientX+'px'; cur.style.top=e.clientY+'px';
+  ring.style.left=e.clientX+'px'; ring.style.top=e.clientY+'px';
+});
+
+// VIDEO
+function openVid(){
+  var w=document.getElementById('vmod-wrap'); w.innerHTML='';
+  var f=document.createElement('iframe');
+  f.src='https://player.castr.com/vod/iBSf4cSNP6UixJKY?autoplay=1';
+  f.allow='autoplay; fullscreen'; f.allowFullscreen=true;
+  f.style.cssText='width:100%;height:100%;border:0;';
+  w.appendChild(f);
+  document.getElementById('vmod').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeVid(){
+  document.getElementById('vmod-wrap').innerHTML='';
+  document.getElementById('vmod').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVid();});
+</script>
+</body>
+</html>
