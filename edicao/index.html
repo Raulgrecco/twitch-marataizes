@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LojaEdit — Editor de Vídeo</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: #0a0a0f; color: #e0e0e0; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+  .topbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #111118; border-bottom: 1px solid #222; flex-shrink: 0; }
+  .logo { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
+  .logo span { color: #c084fc; }
+  .top-actions { display: flex; gap: 8px; }
+  .btn { padding: 6px 14px; border-radius: 6px; border: none; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.15s; }
+  .btn-ghost { background: #1e1e2e; color: #aaa; border: 1px solid #333; }
+  .btn-ghost:hover { background: #2a2a3e; color: #fff; }
+  .btn-primary { background: #7c3aed; color: #fff; }
+  .btn-primary:hover { background: #8b5cf6; }
+  .btn-export { background: #059669; color: #fff; }
+  .btn-export:hover { background: #10b981; }
+
+  .main { display: flex; flex: 1; overflow: hidden; }
+
+  .panel-left { width: 200px; flex-shrink: 0; background: #111118; border-right: 1px solid #222; display: flex; flex-direction: column; }
+  .panel-title { font-size: 10px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 1px; padding: 12px 12px 6px; }
+  .media-list { flex: 1; overflow-y: auto; padding: 4px 8px; }
+  .media-item { background: #1a1a2e; border: 1px solid #2a2a3e; border-radius: 6px; margin-bottom: 6px; overflow: hidden; cursor: pointer; transition: border-color 0.15s; }
+  .media-item:hover { border-color: #7c3aed; }
+  .media-thumb { width: 100%; height: 60px; background: linear-gradient(135deg, #1e1e3e, #2d1b4e); display: flex; align-items: center; justify-content: center; font-size: 24px; position: relative; overflow: hidden; }
+  .media-thumb video { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+  .media-info { padding: 5px 8px; }
+  .media-name { color: #ccc; font-size: 11px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .media-type { font-size: 10px; color: #666; }
+
+  .drop-zone { margin: 8px; border: 1.5px dashed #333; border-radius: 8px; padding: 16px 8px; text-align: center; cursor: pointer; transition: all 0.2s; color: #555; font-size: 11px; }
+  .drop-zone:hover, .drop-zone.drag-over { border-color: #7c3aed; color: #a78bfa; background: #1a1a2e; }
+  .drop-zone input { display: none; }
+
+  .center { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: #0d0d14; }
+  .preview-area { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .preview-wrap { position: relative; max-width: 640px; max-height: 360px; width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 4px; overflow: hidden; }
+  .preview-wrap video { width: 100%; height: 100%; object-fit: contain; }
+  .preview-overlay { position: absolute; inset: 0; pointer-events: none; }
+  .preview-text-el { position: absolute; color: #fff; font-weight: 700; text-shadow: 0 2px 8px rgba(0,0,0,0.8); cursor: move; user-select: none; border: 1px dashed transparent; padding: 4px 8px; border-radius: 4px; }
+  .preview-text-el:hover { border-color: #7c3aed; }
+  .empty-preview { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #333; font-size: 13px; width: 100%; height: 100%; }
+  .empty-preview .icon { font-size: 40px; }
+
+  .playback { display: flex; align-items: center; gap: 12px; padding: 8px 16px; background: #111118; border-top: 1px solid #1e1e2e; flex-shrink: 0; }
+  .play-btn { width: 36px; height: 36px; border-radius: 50%; background: #7c3aed; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px; transition: background 0.15s; flex-shrink: 0; }
+  .play-btn:hover { background: #8b5cf6; }
+  .time-display { font-size: 12px; color: #888; font-variant-numeric: tabular-nums; min-width: 90px; flex-shrink: 0; }
+  .progress-bar { flex: 1; height: 4px; background: #222; border-radius: 2px; cursor: pointer; position: relative; }
+  .progress-fill { height: 100%; background: #7c3aed; border-radius: 2px; pointer-events: none; }
+  .progress-handle { width: 12px; height: 12px; background: #fff; border-radius: 50%; position: absolute; top: 50%; transform: translate(-50%, -50%); pointer-events: none; box-shadow: 0 0 6px rgba(124,58,237,0.6); }
+  .vol-area { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .vol-area input[type=range] { width: 70px; accent-color: #7c3aed; }
+
+  .panel-filters { width: 185px; flex-shrink: 0; background: #111118; border-left: 1px solid #222; overflow-y: auto; display: flex; flex-direction: column; }
+  .right-tabs { display: flex; border-bottom: 1px solid #1e1e2e; flex-shrink: 0; }
+  .rtab { flex: 1; padding: 8px 2px; font-size: 10px; font-weight: 600; text-align: center; color: #555; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.5px; }
+  .rtab.active { color: #c4b5fd; border-bottom-color: #7c3aed; }
+  .rtab-panel { display: none; }
+  .rtab-panel.active { display: block; }
+
+  .filter-section { padding: 8px; }
+  .filter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+  .filter-btn { background: #1a1a2e; border: 1.5px solid transparent; border-radius: 6px; cursor: pointer; padding: 6px 4px; text-align: center; font-size: 9px; color: #888; transition: all 0.15s; }
+  .filter-btn:hover { border-color: #7c3aed; color: #c4b5fd; }
+  .filter-btn.active { border-color: #7c3aed; background: #1e1030; color: #c4b5fd; }
+  .filter-preview { width: 100%; height: 36px; border-radius: 4px; margin-bottom: 4px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+
+  .adjust-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 11px; color: #777; gap: 4px; }
+  .adjust-row input[type=range] { flex: 1; accent-color: #7c3aed; }
+  .adjust-row .val { min-width: 26px; text-align: right; color: #aaa; font-size: 10px; }
+
+  .text-input { width: 100%; background: #1a1a2e; border: 1px solid #2a2a3e; border-radius: 6px; padding: 6px 8px; color: #eee; font-size: 12px; margin-bottom: 6px; }
+  .text-input:focus { outline: none; border-color: #7c3aed; }
+  .color-row { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px; }
+  .color-dot { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: border-color 0.15s; }
+  .color-dot.active { border-color: #fff; }
+  .size-row { display: flex; gap: 4px; margin-bottom: 8px; }
+  .size-btn { flex: 1; padding: 5px 2px; background: #1a1a2e; border: 1px solid #2a2a3e; border-radius: 4px; color: #888; font-size: 10px; cursor: pointer; transition: all 0.15s; text-align: center; }
+  .size-btn.active, .size-btn:hover { background: #1e1030; border-color: #7c3aed; color: #c4b5fd; }
+  .section-label { font-size: 10px; color: #555; margin-bottom: 5px; }
+
+  .timeline-area { height: 130px; flex-shrink: 0; background: #0d0d14; border-top: 1px solid #1e1e2e; display: flex; flex-direction: column; padding: 4px 0; }
+  .track-row { display: flex; align-items: center; gap: 0; min-height: 32px; padding: 2px 12px; }
+  .track-label { width: 68px; flex-shrink: 0; font-size: 10px; color: #555; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+  .track-clips { display: flex; gap: 3px; align-items: center; flex: 1; overflow-x: auto; }
+  .track-clips::-webkit-scrollbar { height: 2px; }
+  .clip { height: 26px; min-width: 70px; border-radius: 4px; display: flex; align-items: center; padding: 0 24px 0 8px; font-size: 10px; font-weight: 600; cursor: pointer; border: 1.5px solid transparent; transition: border-color 0.15s; position: relative; overflow: hidden; white-space: nowrap; flex-shrink: 0; }
+  .clip.video-clip { background: #1e1030; border-color: #4c1d95; color: #c4b5fd; }
+  .clip.video-clip.active { border-color: #a78bfa; }
+  .clip.music-clip { background: #0d2b1d; border-color: #065f46; color: #6ee7b7; }
+  .clip.text-clip { background: #1a1209; border-color: #78350f; color: #fbbf24; }
+  .clip-del { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #666; cursor: pointer; font-size: 10px; }
+  .clip-del:hover { color: #f87171; }
+  .add-clip-btn { width: 26px; height: 26px; border-radius: 4px; background: #1a1a2e; border: 1px dashed #333; color: #555; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; margin-left: 4px; line-height: 1; }
+  .add-clip-btn:hover { border-color: #7c3aed; color: #a78bfa; }
+
+  .transition-strip { display: flex; align-items: center; gap: 6px; padding: 4px 12px; overflow-x: auto; flex-shrink: 0; border-top: 1px solid #1a1a2a; }
+  .trans-btn { padding: 3px 10px; border-radius: 10px; border: 1px solid #2a2a3e; background: #1a1a2e; color: #777; font-size: 10px; cursor: pointer; white-space: nowrap; transition: all 0.15s; }
+  .trans-btn:hover, .trans-btn.active { background: #1e1030; border-color: #7c3aed; color: #c4b5fd; }
+
+  .badge { display: inline-block; background: #2d1b4e; color: #a78bfa; font-size: 9px; padding: 2px 6px; border-radius: 10px; margin-left: 4px; }
+  .notification { position: fixed; top: 50px; right: 16px; background: #1e1030; border: 1px solid #7c3aed; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c4b5fd; z-index: 999; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+  .notification.show { opacity: 1; }
+
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">✦ <span>LOJA</span>EDIT <span class="badge">v1.0</span></div>
+  <div class="top-actions">
+    <button class="btn btn-ghost" onclick="notify('Projeto salvo! ✓')">💾 Salvar</button>
+    <button class="btn btn-export" onclick="exportVideo()">⬇ Exportar</button>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ESQUERDA: MÍDIAS -->
+  <div class="panel-left">
+    <div class="panel-title">📁 Mídias</div>
+    <div class="drop-zone" id="dropZone"
+      ondragover="handleDragOver(event)"
+      ondragleave="handleDragLeave(event)"
+      ondrop="handleDrop(event)"
+      onclick="document.getElementById('fileInput').click()">
+      <input type="file" id="fileInput" accept="video/*,audio/*" multiple onchange="handleFiles(this.files)">
+      <div style="font-size:22px;margin-bottom:4px">🎬</div>
+      <div>Arraste vídeos aqui</div>
+      <div style="font-size:9px;margin-top:2px;color:#444">ou clique para selecionar</div>
+    </div>
+    <div class="media-list" id="mediaList"></div>
+  </div>
+
+  <!-- CENTRO: PREVIEW + TIMELINE -->
+  <div class="center">
+    <div class="preview-area">
+      <div class="preview-wrap" id="previewWrap">
+        <video id="mainVideo" style="display:none;width:100%;height:100%;object-fit:contain" onended="nextClip()"></video>
+        <div id="emptyPreview" class="empty-preview">
+          <div class="icon">🎬</div>
+          <div>Adicione vídeos e arraste para a timeline</div>
+        </div>
+        <div id="textOverlayContainer" class="preview-overlay"></div>
+      </div>
+    </div>
+
+    <div class="playback">
+      <button class="play-btn" id="playBtn" onclick="togglePlay()">▶</button>
+      <div class="time-display" id="timeDisplay">0:00 / 0:00</div>
+      <div class="progress-bar" id="progressBar" onclick="seekVideo(event)">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+        <div class="progress-handle" id="progressHandle" style="left:0%"></div>
+      </div>
+      <div class="vol-area">🔊<input type="range" min="0" max="1" step="0.05" value="1" oninput="setVolume(this.value)"></div>
+    </div>
+
+    <div class="transition-strip">
+      <span style="font-size:10px;color:#444;white-space:nowrap">Transição:</span>
+      <div class="trans-btn active" onclick="setTransition(this,'Nenhuma')">Nenhuma</div>
+      <div class="trans-btn" onclick="setTransition(this,'Fade')">✨ Fade</div>
+      <div class="trans-btn" onclick="setTransition(this,'Flash')">⚡ Flash</div>
+      <div class="trans-btn" onclick="setTransition(this,'Zoom')">🔍 Zoom</div>
+      <div class="trans-btn" onclick="setTransition(this,'Slide')">➡ Slide</div>
+      <div class="trans-btn" onclick="setTransition(this,'Blur')">💫 Blur</div>
+    </div>
+
+    <div class="timeline-area">
+      <div class="track-row">
+        <div class="track-label">🎬 Vídeo</div>
+        <div class="track-clips" id="videoTrack"></div>
+        <button class="add-clip-btn" onclick="document.getElementById('fileInput').click()" title="Adicionar vídeo">+</button>
+      </div>
+      <div class="track-row">
+        <div class="track-label">🎵 Música</div>
+        <div class="track-clips" id="musicTrack"></div>
+        <button class="add-clip-btn" onclick="pickMusic()" title="Adicionar música">+</button>
+      </div>
+      <div class="track-row">
+        <div class="track-label">✍ Texto</div>
+        <div class="track-clips" id="textTrack"></div>
+        <button class="add-clip-btn" onclick="addTextClipFromTimeline()" title="Adicionar texto">+</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIREITA: FILTROS / AJUSTES / TEXTO -->
+  <div class="panel-filters">
+    <div class="right-tabs">
+      <div class="rtab active" onclick="switchTab(this,'tabFilters')">Filtros</div>
+      <div class="rtab" onclick="switchTab(this,'tabAdjust')">Ajustes</div>
+      <div class="rtab" onclick="switchTab(this,'tabText')">Texto</div>
+    </div>
+
+    <div class="rtab-panel active" id="tabFilters">
+      <div class="filter-section">
+        <div class="filter-grid">
+          <div class="filter-btn active" onclick="applyFilter(this,'')"><div class="filter-preview" style="background:#1a1a2e">📷</div>Original</div>
+          <div class="filter-btn" onclick="applyFilter(this,'grayscale(100%)')"><div class="filter-preview" style="background:linear-gradient(#555,#999)">⬜</div>P&amp;B</div>
+          <div class="filter-btn" onclick="applyFilter(this,'sepia(80%)')"><div class="filter-preview" style="background:linear-gradient(#7a5c3a,#c8954a)">🎞</div>Sépia</div>
+          <div class="filter-btn" onclick="applyFilter(this,'saturate(200%) hue-rotate(10deg)')"><div class="filter-preview" style="background:linear-gradient(#ff6b6b,#feca57)">🌅</div>Vibrante</div>
+          <div class="filter-btn" onclick="applyFilter(this,'brightness(1.3) contrast(1.2) saturate(0.8)')"><div class="filter-preview" style="background:linear-gradient(#e8d5b7,#f5e6cc)">☀</div>Claro</div>
+          <div class="filter-btn" onclick="applyFilter(this,'brightness(0.7) contrast(1.3)')"><div class="filter-preview" style="background:linear-gradient(#1a1a2e,#16213e)">🌙</div>Escuro</div>
+          <div class="filter-btn" onclick="applyFilter(this,'saturate(150%) brightness(1.1) hue-rotate(-20deg)')"><div class="filter-preview" style="background:linear-gradient(#ff9a9e,#fad0c4)">🌸</div>Rosa</div>
+          <div class="filter-btn" onclick="applyFilter(this,'hue-rotate(180deg) saturate(150%)')"><div class="filter-preview" style="background:linear-gradient(#a18cd1,#fbc2eb)">💜</div>Roxo</div>
+          <div class="filter-btn" onclick="applyFilter(this,'saturate(120%) hue-rotate(140deg) brightness(1.1)')"><div class="filter-preview" style="background:linear-gradient(#11998e,#38ef7d)">🌿</div>Verde</div>
+          <div class="filter-btn" onclick="applyFilter(this,'contrast(1.4) saturate(1.3) brightness(0.9)')"><div class="filter-preview" style="background:linear-gradient(#2d3561,#a8edea)">🎯</div>Cinema</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rtab-panel" id="tabAdjust">
+      <div class="filter-section">
+        <div class="adjust-row"><span>Brilho</span><input type="range" min="50" max="150" value="100" id="adjBright" oninput="updateAdjust()"><span class="val" id="vBright">100</span></div>
+        <div class="adjust-row"><span>Contraste</span><input type="range" min="50" max="150" value="100" id="adjContrast" oninput="updateAdjust()"><span class="val" id="vContrast">100</span></div>
+        <div class="adjust-row"><span>Saturar</span><input type="range" min="0" max="200" value="100" id="adjSat" oninput="updateAdjust()"><span class="val" id="vSat">100</span></div>
+        <div class="adjust-row"><span>Tom</span><input type="range" min="-180" max="180" value="0" id="adjHue" oninput="updateAdjust()"><span class="val" id="vHue">0</span></div>
+        <div class="adjust-row"><span>Calor</span><input type="range" min="-50" max="50" value="0" id="adjWarm" oninput="updateAdjust()"><span class="val" id="vWarm">0</span></div>
+        <button class="btn btn-ghost" style="width:100%;margin-top:6px;font-size:11px" onclick="resetAdjust()">↺ Resetar Ajustes</button>
+      </div>
+    </div>
+
+    <div class="rtab-panel" id="tabText">
+      <div class="filter-section">
+        <div class="section-label">Conteúdo</div>
+        <input class="text-input" id="textContent" placeholder="Digite o texto..." value="✨ Nova Coleção">
+        <div class="section-label">Cor</div>
+        <div class="color-row">
+          <div class="color-dot active" style="background:#ffffff" onclick="selectColor(this,'#ffffff')"></div>
+          <div class="color-dot" style="background:#f59e0b" onclick="selectColor(this,'#f59e0b')"></div>
+          <div class="color-dot" style="background:#ec4899" onclick="selectColor(this,'#ec4899')"></div>
+          <div class="color-dot" style="background:#8b5cf6" onclick="selectColor(this,'#8b5cf6')"></div>
+          <div class="color-dot" style="background:#10b981" onclick="selectColor(this,'#10b981')"></div>
+          <div class="color-dot" style="background:#3b82f6" onclick="selectColor(this,'#3b82f6')"></div>
+          <div class="color-dot" style="background:#ef4444" onclick="selectColor(this,'#ef4444')"></div>
+          <div class="color-dot" style="background:#000;border:1px solid #555" onclick="selectColor(this,'#000000')"></div>
+        </div>
+        <div class="section-label">Tamanho</div>
+        <div class="size-row">
+          <div class="size-btn" onclick="selectSize(this,'14px')">S</div>
+          <div class="size-btn active" onclick="selectSize(this,'24px')">M</div>
+          <div class="size-btn" onclick="selectSize(this,'36px')">L</div>
+          <div class="size-btn" onclick="selectSize(this,'52px')">XL</div>
+        </div>
+        <div class="section-label">Estilo</div>
+        <div class="size-row">
+          <div class="size-btn active" id="styleNormal" onclick="selectStyle(this,'normal','normal')">Normal</div>
+          <div class="size-btn" id="styleBold" onclick="selectStyle(this,'bold','normal')">Bold</div>
+          <div class="size-btn" id="styleItalic" onclick="selectStyle(this,'normal','italic')">Itálico</div>
+        </div>
+        <button class="btn btn-primary" style="width:100%;font-size:11px;margin-top:4px" onclick="addTextToPreview()">+ Adicionar ao Vídeo</button>
+        <div style="font-size:10px;color:#444;margin-top:8px;text-align:center;line-height:1.4">Arraste para posicionar<br>Duplo clique para deletar</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="notification" id="notification"></div>
+<audio id="bgMusic" loop></audio>
+
+<script>
+const state = {
+  mediaFiles: [],
+  videoClips: [],
+  musicClips: [],
+  textClips: [],
+  activeClipIndex: -1,
+  currentFilter: '',
+  adjustments: { bright:100, contrast:100, sat:100, hue:0, warm:0 },
+  textColor: '#ffffff',
+  textSize: '24px',
+  textWeight: 'normal',
+  textStyle: 'normal',
+  transition: 'Nenhuma',
+  playing: false
+};
+
+const video = document.getElementById('mainVideo');
+const bgMusic = document.getElementById('bgMusic');
+
+function notify(msg) {
+  const el = document.getElementById('notification');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+function handleDragOver(e) { e.preventDefault(); document.getElementById('dropZone').classList.add('drag-over'); }
+function handleDragLeave() { document.getElementById('dropZone').classList.remove('drag-over'); }
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('dropZone').classList.remove('drag-over');
+  handleFiles(e.dataTransfer.files);
+}
+
+function handleFiles(files) {
+  Array.from(files).forEach(file => {
+    const url = URL.createObjectURL(file);
+    const isVideo = file.type.startsWith('video/');
+    const isAudio = file.type.startsWith('audio/');
+    if (!isVideo && !isAudio) return;
+    const name = file.name.replace(/\.[^.]+$/, '');
+    const item = { name, url, type: isVideo ? 'video' : 'audio', file };
+    state.mediaFiles.push(item);
+    renderMediaList();
+    if (isVideo) addVideoClip(item);
+    if (isAudio) addMusicClip(item);
+  });
+}
+
+function renderMediaList() {
+  const list = document.getElementById('mediaList');
+  list.innerHTML = '';
+  state.mediaFiles.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'media-item';
+    div.innerHTML = `<div class="media-thumb">${item.type === 'video' ? '🎬' : '🎵'}</div>
+      <div class="media-info">
+        <div class="media-name">${item.name.substring(0,18)}</div>
+        <div class="media-type">${item.type}</div>
+      </div>`;
+    div.onclick = () => { if (item.type === 'video') { const ci = state.videoClips.findIndex(c => c.url === item.url); if (ci >= 0) loadClip(ci); } };
+    list.appendChild(div);
+  });
+}
+
+function addVideoClip(item) {
+  state.videoClips.push(item);
+  renderTimeline();
+  if (state.videoClips.length === 1) loadClip(0);
+}
+
+function addMusicClip(item) {
+  state.musicClips.push(item);
+  renderTimeline();
+  bgMusic.src = item.url;
+  bgMusic.play().catch(() => {});
+  notify('🎵 Música adicionada!');
+}
+
+function addTextClipFromTimeline() {
+  const t = document.getElementById('textContent').value.trim() || 'Texto';
+  state.textClips.push({ label: t.substring(0, 16) });
+  renderTimeline();
+  addTextToPreview();
+}
+
+function renderTimeline() {
+  renderTrack('videoTrack', state.videoClips, 'video-clip');
+  renderTrack('musicTrack', state.musicClips, 'music-clip');
+  renderTrack('textTrack', state.textClips, 'text-clip');
+}
+
+function renderTrack(id, clips, cls) {
+  const el = document.getElementById(id);
+  el.innerHTML = '';
+  clips.forEach((clip, i) => {
+    const div = document.createElement('div');
+    div.className = `clip ${cls}`;
+    const label = clip.label || clip.name || ('Clip ' + (i + 1));
+    div.style.width = Math.max(70, label.length * 7 + 30) + 'px';
+    div.innerHTML = `${label.substring(0,16)} <button class="clip-del" onclick="event.stopPropagation();removeClip('${id}',${i})">✕</button>`;
+    if (cls === 'video-clip' && i === state.activeClipIndex) div.classList.add('active');
+    if (cls === 'video-clip') div.onclick = () => loadClip(i);
+    el.appendChild(div);
+  });
+}
+
+function removeClip(trackId, i) {
+  if (trackId === 'videoTrack') {
+    state.videoClips.splice(i, 1);
+    if (state.activeClipIndex >= state.videoClips.length) state.activeClipIndex = state.videoClips.length - 1;
+    if (state.videoClips.length > 0) loadClip(state.activeClipIndex);
+    else {
+      video.src = ''; video.style.display = 'none';
+      document.getElementById('emptyPreview').style.display = 'flex';
+    }
+  } else if (trackId === 'musicTrack') {
+    state.musicClips.splice(i, 1);
+    bgMusic.pause(); bgMusic.src = '';
+  } else if (trackId === 'textTrack') {
+    state.textClips.splice(i, 1);
+  }
+  renderTimeline();
+}
+
+function loadClip(index) {
+  if (index < 0 || index >= state.videoClips.length) return;
+  state.activeClipIndex = index;
+  video.src = state.videoClips[index].url;
+  video.style.display = 'block';
+  document.getElementById('emptyPreview').style.display = 'none';
+  applyCurrentFilter();
+  video.load();
+  renderTimeline();
+}
+
+function togglePlay() {
+  if (!video.src) return;
+  if (video.paused) {
+    video.play();
+    bgMusic.play().catch(() => {});
+    document.getElementById('playBtn').textContent = '⏸';
+    state.playing = true;
+  } else {
+    video.pause();
+    bgMusic.pause();
+    document.getElementById('playBtn').textContent = '▶';
+    state.playing = false;
+  }
+}
+
+function nextClip() {
+  const next = state.activeClipIndex + 1;
+  if (next < state.videoClips.length) {
+    loadClip(next);
+    if (state.playing) video.play();
+  } else {
+    document.getElementById('playBtn').textContent = '▶';
+    state.playing = false;
+  }
+}
+
+video.addEventListener('timeupdate', () => {
+  const dur = video.duration || 0;
+  const cur = video.currentTime || 0;
+  const pct = dur ? (cur / dur * 100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressHandle').style.left = pct + '%';
+  const fmt = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+  document.getElementById('timeDisplay').textContent = `${fmt(cur)} / ${fmt(dur)}`;
+});
+
+function seekVideo(e) {
+  if (!video.duration) return;
+  const rect = document.getElementById('progressBar').getBoundingClientRect();
+  const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+  video.currentTime = pct * video.duration;
+}
+
+function setVolume(v) {
+  video.volume = parseFloat(v);
+  bgMusic.volume = parseFloat(v) * 0.6;
+}
+
+function switchTab(el, tabId) {
+  document.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.rtab-panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+function applyFilter(el, filter) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  state.currentFilter = filter;
+  applyCurrentFilter();
+}
+
+function buildAdjustFilter() {
+  const a = state.adjustments;
+  const warm = a.warm > 0 ? ` sepia(${a.warm}%)` : a.warm < 0 ? ` hue-rotate(${a.warm * 2}deg)` : '';
+  return `brightness(${a.bright}%) contrast(${a.contrast}%) saturate(${a.sat}%) hue-rotate(${a.hue}deg)${warm}`;
+}
+
+function applyCurrentFilter() {
+  const adj = buildAdjustFilter();
+  video.style.filter = [state.currentFilter, adj].filter(Boolean).join(' ');
+}
+
+function updateAdjust() {
+  state.adjustments.bright = document.getElementById('adjBright').value;
+  state.adjustments.contrast = document.getElementById('adjContrast').value;
+  state.adjustments.sat = document.getElementById('adjSat').value;
+  state.adjustments.hue = document.getElementById('adjHue').value;
+  state.adjustments.warm = document.getElementById('adjWarm').value;
+  document.getElementById('vBright').textContent = state.adjustments.bright;
+  document.getElementById('vContrast').textContent = state.adjustments.contrast;
+  document.getElementById('vSat').textContent = state.adjustments.sat;
+  document.getElementById('vHue').textContent = state.adjustments.hue;
+  document.getElementById('vWarm').textContent = state.adjustments.warm;
+  applyCurrentFilter();
+}
+
+function resetAdjust() {
+  document.getElementById('adjBright').value = 100;
+  document.getElementById('adjContrast').value = 100;
+  document.getElementById('adjSat').value = 100;
+  document.getElementById('adjHue').value = 0;
+  document.getElementById('adjWarm').value = 0;
+  state.adjustments = { bright:100, contrast:100, sat:100, hue:0, warm:0 };
+  updateAdjust();
+  notify('↺ Ajustes resetados');
+}
+
+function selectColor(el, color) {
+  document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+  el.classList.add('active');
+  state.textColor = color;
+}
+
+function selectSize(el, size) {
+  el.closest('.size-row').querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  state.textSize = size;
+}
+
+function selectStyle(el, weight, style) {
+  document.querySelectorAll('#styleNormal,#styleBold,#styleItalic').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  state.textWeight = weight;
+  state.textStyle = style;
+}
+
+function addTextToPreview() {
+  const content = document.getElementById('textContent').value.trim();
+  if (!content) return;
+  const container = document.getElementById('textOverlayContainer');
+  container.style.pointerEvents = 'auto';
+
+  const el = document.createElement('div');
+  el.className = 'preview-text-el';
+  el.textContent = content;
+  el.style.color = state.textColor;
+  el.style.fontSize = state.textSize;
+  el.style.fontWeight = state.textWeight;
+  el.style.fontStyle = state.textStyle;
+  el.style.top = '50%';
+  el.style.left = '50%';
+  el.style.transform = 'translate(-50%,-50%)';
+
+  makeDraggable(el);
+  el.addEventListener('dblclick', () => el.remove());
+  container.appendChild(el);
+
+  if (!state.textClips.find(c => c.label === content.substring(0, 16))) {
+    state.textClips.push({ label: content.substring(0, 16) });
+    renderTimeline();
+  }
+  notify('✍ Texto adicionado!');
+}
+
+function makeDraggable(el) {
+  el.addEventListener('mousedown', e => {
+    e.preventDefault();
+    const wrap = document.getElementById('previewWrap').getBoundingClientRect();
+    const rect = el.getBoundingClientRect();
+    const ox = e.clientX - rect.left;
+    const oy = e.clientY - rect.top;
+    el.style.transform = 'none';
+    const move = me => {
+      el.style.left = (me.clientX - wrap.left - ox) + 'px';
+      el.style.top = (me.clientY - wrap.top - oy) + 'px';
+    };
+    const up = () => {
+      document.removeEventListener('mousemove', move);
+      document.removeEventListener('mouseup', up);
+    };
+    document.addEventListener('mousemove', move);
+    document.addEventListener('mouseup', up);
+  });
+}
+
+function setTransition(el, name) {
+  document.querySelectorAll('.trans-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  state.transition = name;
+  notify('Transição: ' + name);
+}
+
+function pickMusic() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'audio/*';
+  input.onchange = e => handleFiles(e.target.files);
+  input.click();
+}
+
+function exportVideo() {
+  if (!state.videoClips.length) { notify('⚠ Adicione vídeos primeiro!'); return; }
+  const idx = state.activeClipIndex >= 0 ? state.activeClipIndex : 0;
+  const a = document.createElement('a');
+  a.href = state.videoClips[idx].url;
+  a.download = 'lojaedit_' + Date.now() + '.mp4';
+  a.click();
+  notify('⬇ Download iniciado!');
+}
+</script>
+
+</body>
+</html>
