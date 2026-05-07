@@ -3,599 +3,888 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LojaEdit — Editor de Vídeo</title>
+<title>LojaEdit v2 — Editor com IA</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', sans-serif; background: #0a0a0f; color: #e0e0e0; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #08080f;
+  --bg2: #0f0f1a;
+  --bg3: #141424;
+  --border: #1e1e35;
+  --accent: #7c3aed;
+  --accent2: #a78bfa;
+  --green: #059669;
+  --text: #e0e0f0;
+  --muted: #666680;
+}
+body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
-  .topbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #111118; border-bottom: 1px solid #222; flex-shrink: 0; }
-  .logo { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
-  .logo span { color: #c084fc; }
-  .top-actions { display: flex; gap: 8px; }
-  .btn { padding: 6px 14px; border-radius: 6px; border: none; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.15s; }
-  .btn-ghost { background: #1e1e2e; color: #aaa; border: 1px solid #333; }
-  .btn-ghost:hover { background: #2a2a3e; color: #fff; }
-  .btn-primary { background: #7c3aed; color: #fff; }
-  .btn-primary:hover { background: #8b5cf6; }
-  .btn-export { background: #059669; color: #fff; }
-  .btn-export:hover { background: #10b981; }
+/* TOPBAR */
+.topbar { display: flex; align-items: center; justify-content: space-between; padding: 9px 16px; background: var(--bg2); border-bottom: 1px solid var(--border); flex-shrink: 0; gap: 8px; }
+.logo { font-size: 14px; font-weight: 700; color: #fff; white-space: nowrap; }
+.logo span { color: #c084fc; }
+.badge { background: #2d1b4e; color: #a78bfa; font-size: 9px; padding: 2px 6px; border-radius: 8px; margin-left: 4px; }
+.top-center { display: flex; gap: 6px; flex: 1; justify-content: center; }
+.top-actions { display: flex; gap: 6px; }
+.btn { padding: 6px 12px; border-radius: 6px; border: none; cursor: pointer; font-size: 11px; font-weight: 700; transition: all 0.15s; white-space: nowrap; }
+.btn-ghost { background: var(--bg3); color: #aaa; border: 1px solid var(--border); }
+.btn-ghost:hover { background: #1e1e3e; color: #fff; }
+.btn-accent { background: var(--accent); color: #fff; }
+.btn-accent:hover { background: #8b5cf6; }
+.btn-green { background: var(--green); color: #fff; }
+.btn-green:hover { background: #10b981; }
+.btn-ai { background: linear-gradient(135deg, #7c3aed, #ec4899); color: #fff; animation: pulse-ai 2s ease-in-out infinite; }
+@keyframes pulse-ai { 0%,100%{box-shadow:0 0 0 0 rgba(124,58,237,0)} 50%{box-shadow:0 0 12px 3px rgba(124,58,237,0.5)} }
+.btn-ai:hover { opacity: 0.9; }
 
-  .main { display: flex; flex: 1; overflow: hidden; }
+/* LAYOUT */
+.main { display: flex; flex: 1; overflow: hidden; }
 
-  .panel-left { width: 200px; flex-shrink: 0; background: #111118; border-right: 1px solid #222; display: flex; flex-direction: column; }
-  .panel-title { font-size: 10px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 1px; padding: 12px 12px 6px; }
-  .media-list { flex: 1; overflow-y: auto; padding: 4px 8px; }
-  .media-item { background: #1a1a2e; border: 1px solid #2a2a3e; border-radius: 6px; margin-bottom: 6px; overflow: hidden; cursor: pointer; transition: border-color 0.15s; }
-  .media-item:hover { border-color: #7c3aed; }
-  .media-thumb { width: 100%; height: 60px; background: linear-gradient(135deg, #1e1e3e, #2d1b4e); display: flex; align-items: center; justify-content: center; font-size: 24px; position: relative; overflow: hidden; }
-  .media-thumb video { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
-  .media-info { padding: 5px 8px; }
-  .media-name { color: #ccc; font-size: 11px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .media-type { font-size: 10px; color: #666; }
+/* LEFT */
+.panel-left { width: 185px; flex-shrink: 0; background: var(--bg2); border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+.panel-title { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; padding: 10px 10px 5px; }
+.media-list { flex: 1; overflow-y: auto; padding: 4px 6px 4px; }
+.media-item { background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; margin-bottom: 5px; overflow: hidden; cursor: pointer; transition: border-color 0.15s; position: relative; }
+.media-item:hover { border-color: var(--accent); }
+.media-item.selected { border-color: var(--accent2); }
+.media-thumb { width: 100%; height: 55px; background: #1a1a2e; display: flex; align-items: center; justify-content: center; font-size: 22px; position: relative; overflow: hidden; }
+.media-thumb video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.media-info { padding: 4px 7px; }
+.media-name { color: #ccc; font-size: 10px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.media-dur { font-size: 9px; color: #555; }
+.drop-zone { margin: 6px; border: 1.5px dashed #2a2a4a; border-radius: 8px; padding: 14px 6px; text-align: center; cursor: pointer; transition: all 0.2s; color: #444; font-size: 11px; }
+.drop-zone:hover, .drop-zone.drag-over { border-color: var(--accent); color: var(--accent2); background: #1a1a2e; }
 
-  .drop-zone { margin: 8px; border: 1.5px dashed #333; border-radius: 8px; padding: 16px 8px; text-align: center; cursor: pointer; transition: all 0.2s; color: #555; font-size: 11px; }
-  .drop-zone:hover, .drop-zone.drag-over { border-color: #7c3aed; color: #a78bfa; background: #1a1a2e; }
-  .drop-zone input { display: none; }
+/* CENTER */
+.center { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+.preview-area { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; background: #050508; overflow: hidden; }
+.preview-wrap { position: relative; width: 100%; max-width: 680px; aspect-ratio: 16/9; background: #000; border-radius: 4px; overflow: hidden; }
+.preview-wrap canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+#mainVideo { width: 100%; height: 100%; object-fit: contain; display: none; }
+.text-overlay-container { position: absolute; inset: 0; pointer-events: none; }
+.overlay-text { position: absolute; cursor: move; user-select: none; border: 1px dashed transparent; padding: 3px 7px; border-radius: 4px; line-height: 1.2; }
+.overlay-text:hover { border-color: var(--accent); }
+.empty-preview { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: #222; font-size: 13px; position: absolute; inset: 0; }
+.empty-preview .big { font-size: 48px; }
 
-  .center { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: #0d0d14; }
-  .preview-area { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-  .preview-wrap { position: relative; max-width: 640px; max-height: 360px; width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 4px; overflow: hidden; }
-  .preview-wrap video { width: 100%; height: 100%; object-fit: contain; }
-  .preview-overlay { position: absolute; inset: 0; pointer-events: none; }
-  .preview-text-el { position: absolute; color: #fff; font-weight: 700; text-shadow: 0 2px 8px rgba(0,0,0,0.8); cursor: move; user-select: none; border: 1px dashed transparent; padding: 4px 8px; border-radius: 4px; }
-  .preview-text-el:hover { border-color: #7c3aed; }
-  .empty-preview { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #333; font-size: 13px; width: 100%; height: 100%; }
-  .empty-preview .icon { font-size: 40px; }
+/* TRANSITION CANVAS overlay */
+#transCanvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0; z-index: 5; }
 
-  .playback { display: flex; align-items: center; gap: 12px; padding: 8px 16px; background: #111118; border-top: 1px solid #1e1e2e; flex-shrink: 0; }
-  .play-btn { width: 36px; height: 36px; border-radius: 50%; background: #7c3aed; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px; transition: background 0.15s; flex-shrink: 0; }
-  .play-btn:hover { background: #8b5cf6; }
-  .time-display { font-size: 12px; color: #888; font-variant-numeric: tabular-nums; min-width: 90px; flex-shrink: 0; }
-  .progress-bar { flex: 1; height: 4px; background: #222; border-radius: 2px; cursor: pointer; position: relative; }
-  .progress-fill { height: 100%; background: #7c3aed; border-radius: 2px; pointer-events: none; }
-  .progress-handle { width: 12px; height: 12px; background: #fff; border-radius: 50%; position: absolute; top: 50%; transform: translate(-50%, -50%); pointer-events: none; box-shadow: 0 0 6px rgba(124,58,237,0.6); }
-  .vol-area { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-  .vol-area input[type=range] { width: 70px; accent-color: #7c3aed; }
+/* AI MODAL */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100; display: none; align-items: center; justify-content: center; }
+.modal-overlay.show { display: flex; }
+.modal { background: var(--bg2); border: 1px solid var(--accent); border-radius: 16px; padding: 28px; width: 480px; max-width: 95vw; }
+.modal h2 { font-size: 18px; color: #fff; margin-bottom: 6px; }
+.modal p { font-size: 12px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+.style-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+.style-card { background: var(--bg3); border: 1.5px solid var(--border); border-radius: 10px; padding: 14px; cursor: pointer; transition: all 0.15s; text-align: center; }
+.style-card:hover, .style-card.active { border-color: var(--accent); background: #1e1030; }
+.style-card .emoji { font-size: 28px; margin-bottom: 6px; }
+.style-card .name { font-size: 12px; font-weight: 700; color: #eee; }
+.style-card .desc { font-size: 10px; color: var(--muted); margin-top: 3px; }
+.modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+.ai-progress { background: var(--bg3); border-radius: 6px; height: 4px; overflow: hidden; margin-bottom: 14px; display: none; }
+.ai-progress-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #ec4899); border-radius: 6px; transition: width 0.4s; }
+.ai-status { font-size: 11px; color: var(--accent2); margin-bottom: 10px; display: none; }
 
-  .panel-filters { width: 185px; flex-shrink: 0; background: #111118; border-left: 1px solid #222; overflow-y: auto; display: flex; flex-direction: column; }
-  .right-tabs { display: flex; border-bottom: 1px solid #1e1e2e; flex-shrink: 0; }
-  .rtab { flex: 1; padding: 8px 2px; font-size: 10px; font-weight: 600; text-align: center; color: #555; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.5px; }
-  .rtab.active { color: #c4b5fd; border-bottom-color: #7c3aed; }
-  .rtab-panel { display: none; }
-  .rtab-panel.active { display: block; }
+/* PLAYBACK */
+.playback { display: flex; align-items: center; gap: 10px; padding: 7px 14px; background: var(--bg2); border-top: 1px solid var(--border); flex-shrink: 0; }
+.play-btn { width: 34px; height: 34px; border-radius: 50%; background: var(--accent); border: none; cursor: pointer; color: #fff; font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.15s; }
+.play-btn:hover { background: #8b5cf6; }
+.time-display { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 85px; flex-shrink: 0; }
+.progress-bar { flex: 1; height: 4px; background: #222; border-radius: 2px; cursor: pointer; position: relative; }
+.progress-fill { height: 100%; background: var(--accent); border-radius: 2px; pointer-events: none; width: 0%; }
+.progress-handle { width: 12px; height: 12px; background: #fff; border-radius: 50%; position: absolute; top: 50%; transform: translate(-50%,-50%); pointer-events: none; box-shadow: 0 0 6px rgba(124,58,237,0.7); left: 0%; }
+.vol-wrap { display: flex; align-items: center; gap: 5px; flex-shrink: 0; font-size: 13px; }
+.vol-wrap input { width: 65px; accent-color: var(--accent); }
 
-  .filter-section { padding: 8px; }
-  .filter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
-  .filter-btn { background: #1a1a2e; border: 1.5px solid transparent; border-radius: 6px; cursor: pointer; padding: 6px 4px; text-align: center; font-size: 9px; color: #888; transition: all 0.15s; }
-  .filter-btn:hover { border-color: #7c3aed; color: #c4b5fd; }
-  .filter-btn.active { border-color: #7c3aed; background: #1e1030; color: #c4b5fd; }
-  .filter-preview { width: 100%; height: 36px; border-radius: 4px; margin-bottom: 4px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+/* EFFECTS BAR */
+.effects-bar { background: var(--bg2); border-top: 1px solid var(--border); padding: 6px 10px; flex-shrink: 0; }
+.effects-label { font-size: 9px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+.effects-scroll { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; }
+.effects-scroll::-webkit-scrollbar { height: 2px; }
+.effect-chip { display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: grab; flex-shrink: 0; padding: 5px 8px; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; transition: all 0.15s; min-width: 62px; user-select: none; }
+.effect-chip:hover { border-color: var(--accent2); background: #1a1030; transform: translateY(-1px); }
+.effect-chip.dragging { opacity: 0.5; transform: scale(0.95); }
+.effect-chip .emo { font-size: 16px; }
+.effect-chip .lbl { font-size: 9px; color: var(--muted); white-space: nowrap; }
+.effect-chip .cat { font-size: 8px; color: #444; }
 
-  .adjust-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 11px; color: #777; gap: 4px; }
-  .adjust-row input[type=range] { flex: 1; accent-color: #7c3aed; }
-  .adjust-row .val { min-width: 26px; text-align: right; color: #aaa; font-size: 10px; }
+/* TIMELINE */
+.timeline-area { height: 112px; flex-shrink: 0; background: #090912; border-top: 1px solid var(--border); display: flex; flex-direction: column; padding: 4px 0 2px; }
+.track-row { display: flex; align-items: center; min-height: 30px; padding: 1px 10px; }
+.track-label { width: 60px; flex-shrink: 0; font-size: 9px; color: #445; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; }
+.track-clips { display: flex; gap: 2px; flex: 1; overflow-x: auto; align-items: center; }
+.track-clips::-webkit-scrollbar { height: 2px; }
+.clip { height: 26px; min-width: 65px; border-radius: 4px; display: flex; align-items: center; padding: 0 22px 0 7px; font-size: 10px; font-weight: 600; cursor: pointer; border: 1.5px solid transparent; transition: all 0.15s; position: relative; overflow: hidden; white-space: nowrap; flex-shrink: 0; }
+.clip.video-clip { background: #1e1030; border-color: #4c1d95; color: #c4b5fd; }
+.clip.video-clip:hover, .clip.video-clip.active { border-color: #a78bfa; background: #2a1a45; }
+.clip.music-clip { background: #0d2b1d; border-color: #065f46; color: #6ee7b7; }
+.clip.text-clip { background: #1a1209; border-color: #78350f; color: #fbbf24; }
+.clip.has-fx::after { content: '✦'; position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-size: 8px; color: #f59e0b; }
+.clip-del { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #555; cursor: pointer; font-size: 10px; }
+.clip-del:hover { color: #f87171; }
+.add-btn { width: 24px; height: 24px; border-radius: 4px; background: var(--bg3); border: 1px dashed #2a2a4a; color: #444; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; margin-left: 3px; line-height: 1; }
+.add-btn:hover { border-color: var(--accent); color: var(--accent2); }
 
-  .text-input { width: 100%; background: #1a1a2e; border: 1px solid #2a2a3e; border-radius: 6px; padding: 6px 8px; color: #eee; font-size: 12px; margin-bottom: 6px; }
-  .text-input:focus { outline: none; border-color: #7c3aed; }
-  .color-row { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px; }
-  .color-dot { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: border-color 0.15s; }
-  .color-dot.active { border-color: #fff; }
-  .size-row { display: flex; gap: 4px; margin-bottom: 8px; }
-  .size-btn { flex: 1; padding: 5px 2px; background: #1a1a2e; border: 1px solid #2a2a3e; border-radius: 4px; color: #888; font-size: 10px; cursor: pointer; transition: all 0.15s; text-align: center; }
-  .size-btn.active, .size-btn:hover { background: #1e1030; border-color: #7c3aed; color: #c4b5fd; }
-  .section-label { font-size: 10px; color: #555; margin-bottom: 5px; }
+/* drop target highlight */
+.clip.drop-target { border-color: #f59e0b !important; background: #2a1f05 !important; }
 
-  .timeline-area { height: 130px; flex-shrink: 0; background: #0d0d14; border-top: 1px solid #1e1e2e; display: flex; flex-direction: column; padding: 4px 0; }
-  .track-row { display: flex; align-items: center; gap: 0; min-height: 32px; padding: 2px 12px; }
-  .track-label { width: 68px; flex-shrink: 0; font-size: 10px; color: #555; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
-  .track-clips { display: flex; gap: 3px; align-items: center; flex: 1; overflow-x: auto; }
-  .track-clips::-webkit-scrollbar { height: 2px; }
-  .clip { height: 26px; min-width: 70px; border-radius: 4px; display: flex; align-items: center; padding: 0 24px 0 8px; font-size: 10px; font-weight: 600; cursor: pointer; border: 1.5px solid transparent; transition: border-color 0.15s; position: relative; overflow: hidden; white-space: nowrap; flex-shrink: 0; }
-  .clip.video-clip { background: #1e1030; border-color: #4c1d95; color: #c4b5fd; }
-  .clip.video-clip.active { border-color: #a78bfa; }
-  .clip.music-clip { background: #0d2b1d; border-color: #065f46; color: #6ee7b7; }
-  .clip.text-clip { background: #1a1209; border-color: #78350f; color: #fbbf24; }
-  .clip-del { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #666; cursor: pointer; font-size: 10px; }
-  .clip-del:hover { color: #f87171; }
-  .add-clip-btn { width: 26px; height: 26px; border-radius: 4px; background: #1a1a2e; border: 1px dashed #333; color: #555; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; margin-left: 4px; line-height: 1; }
-  .add-clip-btn:hover { border-color: #7c3aed; color: #a78bfa; }
+/* RIGHT PANEL */
+.panel-right { width: 190px; flex-shrink: 0; background: var(--bg2); border-left: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
+.rtabs { display: flex; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+.rtab { flex: 1; padding: 8px 2px; font-size: 9px; font-weight: 700; text-align: center; color: #555; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.5px; }
+.rtab.active { color: var(--accent2); border-bottom-color: var(--accent); }
+.rpanel { display: none; overflow-y: auto; flex: 1; }
+.rpanel.active { display: block; }
+.rsec { padding: 8px; }
+.rsec-label { font-size: 9px; color: #444; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; font-weight: 700; }
 
-  .transition-strip { display: flex; align-items: center; gap: 6px; padding: 4px 12px; overflow-x: auto; flex-shrink: 0; border-top: 1px solid #1a1a2a; }
-  .trans-btn { padding: 3px 10px; border-radius: 10px; border: 1px solid #2a2a3e; background: #1a1a2e; color: #777; font-size: 10px; cursor: pointer; white-space: nowrap; transition: all 0.15s; }
-  .trans-btn:hover, .trans-btn.active { background: #1e1030; border-color: #7c3aed; color: #c4b5fd; }
+/* FILTERS */
+.filter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.filter-btn { background: var(--bg3); border: 1.5px solid transparent; border-radius: 6px; cursor: pointer; padding: 5px 3px; text-align: center; font-size: 9px; color: #777; transition: all 0.15s; }
+.filter-btn:hover { border-color: var(--accent); color: var(--accent2); }
+.filter-btn.active { border-color: var(--accent); background: #1e1030; color: var(--accent2); }
+.filter-thumb { width: 100%; height: 30px; border-radius: 4px; margin-bottom: 3px; font-size: 14px; display: flex; align-items: center; justify-content: center; }
 
-  .badge { display: inline-block; background: #2d1b4e; color: #a78bfa; font-size: 9px; padding: 2px 6px; border-radius: 10px; margin-left: 4px; }
-  .notification { position: fixed; top: 50px; right: 16px; background: #1e1030; border: 1px solid #7c3aed; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c4b5fd; z-index: 999; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
-  .notification.show { opacity: 1; }
+/* ADJUST */
+.adj-row { display: flex; align-items: center; gap: 4px; margin-bottom: 7px; font-size: 10px; color: #666; }
+.adj-row label { min-width: 44px; font-size: 9px; }
+.adj-row input[type=range] { flex: 1; accent-color: var(--accent); height: 2px; }
+.adj-val { min-width: 22px; text-align: right; font-size: 9px; color: #999; }
 
-  ::-webkit-scrollbar { width: 4px; height: 4px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+/* TEXT */
+.text-inp { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 5px; padding: 5px 7px; color: #eee; font-size: 11px; margin-bottom: 6px; }
+.text-inp:focus { outline: none; border-color: var(--accent); }
+.color-dots { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 7px; }
+.cdot { width: 18px; height: 18px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: border-color 0.15s; flex-shrink: 0; }
+.cdot.active { border-color: #fff; }
+.sz-row { display: flex; gap: 3px; margin-bottom: 6px; }
+.sz-btn { flex: 1; padding: 4px 2px; background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; color: #777; font-size: 9px; cursor: pointer; text-align: center; transition: all 0.15s; }
+.sz-btn.active, .sz-btn:hover { background: #1e1030; border-color: var(--accent); color: var(--accent2); }
+
+/* NOTIFICATION */
+.notif { position: fixed; top: 48px; right: 14px; background: #1e1030; border: 1px solid var(--accent); border-radius: 8px; padding: 9px 14px; font-size: 11px; color: var(--accent2); z-index: 200; opacity: 0; transition: opacity 0.3s; pointer-events: none; max-width: 240px; line-height: 1.4; }
+.notif.show { opacity: 1; }
+
+::-webkit-scrollbar { width: 3px; height: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #2a2a4a; border-radius: 2px; }
 </style>
 </head>
 <body>
 
+<!-- TOPBAR -->
 <div class="topbar">
-  <div class="logo">✦ <span>LOJA</span>EDIT <span class="badge">v1.0</span></div>
+  <div class="logo">✦ <span>LOJA</span>EDIT <span class="badge">v2</span></div>
+  <div class="top-center">
+    <button class="btn btn-ai" onclick="openAI()">✦ Montar com IA</button>
+  </div>
   <div class="top-actions">
-    <button class="btn btn-ghost" onclick="notify('Projeto salvo! ✓')">💾 Salvar</button>
-    <button class="btn btn-export" onclick="exportVideo()">⬇ Exportar</button>
+    <button class="btn btn-ghost" onclick="notify('💾 Projeto salvo!')">💾 Salvar</button>
+    <button class="btn btn-green" onclick="exportVideo()">⬇ Exportar</button>
   </div>
 </div>
 
+<!-- MAIN -->
 <div class="main">
 
-  <!-- ESQUERDA: MÍDIAS -->
+  <!-- LEFT: MEDIA -->
   <div class="panel-left">
     <div class="panel-title">📁 Mídias</div>
     <div class="drop-zone" id="dropZone"
-      ondragover="handleDragOver(event)"
-      ondragleave="handleDragLeave(event)"
-      ondrop="handleDrop(event)"
-      onclick="document.getElementById('fileInput').click()">
-      <input type="file" id="fileInput" accept="video/*,audio/*" multiple onchange="handleFiles(this.files)">
-      <div style="font-size:22px;margin-bottom:4px">🎬</div>
-      <div>Arraste vídeos aqui</div>
-      <div style="font-size:9px;margin-top:2px;color:#444">ou clique para selecionar</div>
+      ondragover="onDragOver(event)" ondragleave="onDragLeave(event)" ondrop="onDrop(event)"
+      onclick="document.getElementById('fileIn').click()">
+      <input type="file" id="fileIn" accept="video/*,audio/*" multiple onchange="handleFiles(this.files)">
+      <div style="font-size:24px;margin-bottom:4px">🎬</div>
+      <div style="font-size:10px">Arraste vídeos/áudio</div>
+      <div style="font-size:9px;color:#333;margin-top:2px">ou clique aqui</div>
     </div>
     <div class="media-list" id="mediaList"></div>
   </div>
 
-  <!-- CENTRO: PREVIEW + TIMELINE -->
+  <!-- CENTER -->
   <div class="center">
-    <div class="preview-area">
+
+    <!-- PREVIEW -->
+    <div class="preview-area" id="previewArea">
       <div class="preview-wrap" id="previewWrap">
-        <video id="mainVideo" style="display:none;width:100%;height:100%;object-fit:contain" onended="nextClip()"></video>
-        <div id="emptyPreview" class="empty-preview">
-          <div class="icon">🎬</div>
-          <div>Adicione vídeos e arraste para a timeline</div>
+        <video id="mainVideo" onended="onVideoEnd()" onloadedmetadata="onMeta()"></video>
+        <canvas id="transCanvas"></canvas>
+        <div class="text-overlay-container" id="textCont"></div>
+        <div class="empty-preview" id="emptyPrev">
+          <div class="big">🎬</div>
+          <div>Adicione vídeos ou use <strong style="color:var(--accent2)">✦ Montar com IA</strong></div>
         </div>
-        <div id="textOverlayContainer" class="preview-overlay"></div>
       </div>
     </div>
 
+    <!-- PLAYBACK -->
     <div class="playback">
       <button class="play-btn" id="playBtn" onclick="togglePlay()">▶</button>
-      <div class="time-display" id="timeDisplay">0:00 / 0:00</div>
-      <div class="progress-bar" id="progressBar" onclick="seekVideo(event)">
-        <div class="progress-fill" id="progressFill" style="width:0%"></div>
-        <div class="progress-handle" id="progressHandle" style="left:0%"></div>
+      <div class="time-display" id="timeDisp">0:00 / 0:00</div>
+      <div class="progress-bar" id="progBar" onclick="seek(event)">
+        <div class="progress-fill" id="progFill"></div>
+        <div class="progress-handle" id="progHandle"></div>
       </div>
-      <div class="vol-area">🔊<input type="range" min="0" max="1" step="0.05" value="1" oninput="setVolume(this.value)"></div>
+      <div class="vol-wrap">🔊<input type="range" min="0" max="1" step="0.05" value="1" oninput="setVol(this.value)"></div>
     </div>
 
-    <div class="transition-strip">
-      <span style="font-size:10px;color:#444;white-space:nowrap">Transição:</span>
-      <div class="trans-btn active" onclick="setTransition(this,'Nenhuma')">Nenhuma</div>
-      <div class="trans-btn" onclick="setTransition(this,'Fade')">✨ Fade</div>
-      <div class="trans-btn" onclick="setTransition(this,'Flash')">⚡ Flash</div>
-      <div class="trans-btn" onclick="setTransition(this,'Zoom')">🔍 Zoom</div>
-      <div class="trans-btn" onclick="setTransition(this,'Slide')">➡ Slide</div>
-      <div class="trans-btn" onclick="setTransition(this,'Blur')">💫 Blur</div>
+    <!-- EFFECTS BAR -->
+    <div class="effects-bar">
+      <div class="effects-label">⚡ Efeitos & Transições — Arraste sobre um clipe na timeline</div>
+      <div class="effects-scroll" id="effectsScroll"></div>
     </div>
 
+    <!-- TIMELINE -->
     <div class="timeline-area">
       <div class="track-row">
         <div class="track-label">🎬 Vídeo</div>
         <div class="track-clips" id="videoTrack"></div>
-        <button class="add-clip-btn" onclick="document.getElementById('fileInput').click()" title="Adicionar vídeo">+</button>
+        <button class="add-btn" onclick="document.getElementById('fileIn').click()" title="Adicionar">+</button>
       </div>
       <div class="track-row">
         <div class="track-label">🎵 Música</div>
         <div class="track-clips" id="musicTrack"></div>
-        <button class="add-clip-btn" onclick="pickMusic()" title="Adicionar música">+</button>
+        <button class="add-btn" onclick="pickAudio()" title="Adicionar">+</button>
       </div>
       <div class="track-row">
         <div class="track-label">✍ Texto</div>
         <div class="track-clips" id="textTrack"></div>
-        <button class="add-clip-btn" onclick="addTextClipFromTimeline()" title="Adicionar texto">+</button>
+        <button class="add-btn" onclick="addTextFromPanel()" title="Adicionar">+</button>
       </div>
     </div>
   </div>
 
-  <!-- DIREITA: FILTROS / AJUSTES / TEXTO -->
-  <div class="panel-filters">
-    <div class="right-tabs">
-      <div class="rtab active" onclick="switchTab(this,'tabFilters')">Filtros</div>
-      <div class="rtab" onclick="switchTab(this,'tabAdjust')">Ajustes</div>
-      <div class="rtab" onclick="switchTab(this,'tabText')">Texto</div>
+  <!-- RIGHT PANEL -->
+  <div class="panel-right">
+    <div class="rtabs">
+      <div class="rtab active" onclick="switchTab(this,'rFilters')">Filtros</div>
+      <div class="rtab" onclick="switchTab(this,'rAdjust')">Ajustes</div>
+      <div class="rtab" onclick="switchTab(this,'rText')">Texto</div>
     </div>
 
-    <div class="rtab-panel active" id="tabFilters">
-      <div class="filter-section">
-        <div class="filter-grid">
-          <div class="filter-btn active" onclick="applyFilter(this,'')"><div class="filter-preview" style="background:#1a1a2e">📷</div>Original</div>
-          <div class="filter-btn" onclick="applyFilter(this,'grayscale(100%)')"><div class="filter-preview" style="background:linear-gradient(#555,#999)">⬜</div>P&amp;B</div>
-          <div class="filter-btn" onclick="applyFilter(this,'sepia(80%)')"><div class="filter-preview" style="background:linear-gradient(#7a5c3a,#c8954a)">🎞</div>Sépia</div>
-          <div class="filter-btn" onclick="applyFilter(this,'saturate(200%) hue-rotate(10deg)')"><div class="filter-preview" style="background:linear-gradient(#ff6b6b,#feca57)">🌅</div>Vibrante</div>
-          <div class="filter-btn" onclick="applyFilter(this,'brightness(1.3) contrast(1.2) saturate(0.8)')"><div class="filter-preview" style="background:linear-gradient(#e8d5b7,#f5e6cc)">☀</div>Claro</div>
-          <div class="filter-btn" onclick="applyFilter(this,'brightness(0.7) contrast(1.3)')"><div class="filter-preview" style="background:linear-gradient(#1a1a2e,#16213e)">🌙</div>Escuro</div>
-          <div class="filter-btn" onclick="applyFilter(this,'saturate(150%) brightness(1.1) hue-rotate(-20deg)')"><div class="filter-preview" style="background:linear-gradient(#ff9a9e,#fad0c4)">🌸</div>Rosa</div>
-          <div class="filter-btn" onclick="applyFilter(this,'hue-rotate(180deg) saturate(150%)')"><div class="filter-preview" style="background:linear-gradient(#a18cd1,#fbc2eb)">💜</div>Roxo</div>
-          <div class="filter-btn" onclick="applyFilter(this,'saturate(120%) hue-rotate(140deg) brightness(1.1)')"><div class="filter-preview" style="background:linear-gradient(#11998e,#38ef7d)">🌿</div>Verde</div>
-          <div class="filter-btn" onclick="applyFilter(this,'contrast(1.4) saturate(1.3) brightness(0.9)')"><div class="filter-preview" style="background:linear-gradient(#2d3561,#a8edea)">🎯</div>Cinema</div>
-        </div>
+    <div class="rpanel active" id="rFilters">
+      <div class="rsec">
+        <div class="filter-grid" id="filterGrid"></div>
       </div>
     </div>
 
-    <div class="rtab-panel" id="tabAdjust">
-      <div class="filter-section">
-        <div class="adjust-row"><span>Brilho</span><input type="range" min="50" max="150" value="100" id="adjBright" oninput="updateAdjust()"><span class="val" id="vBright">100</span></div>
-        <div class="adjust-row"><span>Contraste</span><input type="range" min="50" max="150" value="100" id="adjContrast" oninput="updateAdjust()"><span class="val" id="vContrast">100</span></div>
-        <div class="adjust-row"><span>Saturar</span><input type="range" min="0" max="200" value="100" id="adjSat" oninput="updateAdjust()"><span class="val" id="vSat">100</span></div>
-        <div class="adjust-row"><span>Tom</span><input type="range" min="-180" max="180" value="0" id="adjHue" oninput="updateAdjust()"><span class="val" id="vHue">0</span></div>
-        <div class="adjust-row"><span>Calor</span><input type="range" min="-50" max="50" value="0" id="adjWarm" oninput="updateAdjust()"><span class="val" id="vWarm">0</span></div>
-        <button class="btn btn-ghost" style="width:100%;margin-top:6px;font-size:11px" onclick="resetAdjust()">↺ Resetar Ajustes</button>
+    <div class="rpanel" id="rAdjust">
+      <div class="rsec">
+        <div class="adj-row"><label>Brilho</label><input type="range" min="50" max="150" value="100" id="aBright" oninput="applyAdj()"><span class="adj-val" id="vBright">100</span></div>
+        <div class="adj-row"><label>Contraste</label><input type="range" min="50" max="150" value="100" id="aContrast" oninput="applyAdj()"><span class="adj-val" id="vContrast">100</span></div>
+        <div class="adj-row"><label>Saturar</label><input type="range" min="0" max="200" value="100" id="aSat" oninput="applyAdj()"><span class="adj-val" id="vSat">100</span></div>
+        <div class="adj-row"><label>Tom</label><input type="range" min="-180" max="180" value="0" id="aHue" oninput="applyAdj()"><span class="adj-val" id="vHue">0</span></div>
+        <div class="adj-row"><label>Calor</label><input type="range" min="-50" max="50" value="0" id="aWarm" oninput="applyAdj()"><span class="adj-val" id="vWarm">0</span></div>
+        <div class="adj-row"><label>Vinheta</label><input type="range" min="0" max="100" value="0" id="aVig" oninput="applyAdj()"><span class="adj-val" id="vVig">0</span></div>
+        <button class="btn btn-ghost" style="width:100%;font-size:10px;margin-top:6px" onclick="resetAdj()">↺ Resetar</button>
       </div>
     </div>
 
-    <div class="rtab-panel" id="tabText">
-      <div class="filter-section">
-        <div class="section-label">Conteúdo</div>
-        <input class="text-input" id="textContent" placeholder="Digite o texto..." value="✨ Nova Coleção">
-        <div class="section-label">Cor</div>
-        <div class="color-row">
-          <div class="color-dot active" style="background:#ffffff" onclick="selectColor(this,'#ffffff')"></div>
-          <div class="color-dot" style="background:#f59e0b" onclick="selectColor(this,'#f59e0b')"></div>
-          <div class="color-dot" style="background:#ec4899" onclick="selectColor(this,'#ec4899')"></div>
-          <div class="color-dot" style="background:#8b5cf6" onclick="selectColor(this,'#8b5cf6')"></div>
-          <div class="color-dot" style="background:#10b981" onclick="selectColor(this,'#10b981')"></div>
-          <div class="color-dot" style="background:#3b82f6" onclick="selectColor(this,'#3b82f6')"></div>
-          <div class="color-dot" style="background:#ef4444" onclick="selectColor(this,'#ef4444')"></div>
-          <div class="color-dot" style="background:#000;border:1px solid #555" onclick="selectColor(this,'#000000')"></div>
+    <div class="rpanel" id="rText">
+      <div class="rsec">
+        <div class="rsec-label">Conteúdo</div>
+        <input class="text-inp" id="textInp" value="✨ Nova Coleção" placeholder="Digite...">
+        <div class="rsec-label">Cor</div>
+        <div class="color-dots" id="colorDots">
+          <div class="cdot active" style="background:#fff" onclick="pickColor(this,'#fff')"></div>
+          <div class="cdot" style="background:#f59e0b" onclick="pickColor(this,'#f59e0b')"></div>
+          <div class="cdot" style="background:#ec4899" onclick="pickColor(this,'#ec4899')"></div>
+          <div class="cdot" style="background:#8b5cf6" onclick="pickColor(this,'#8b5cf6')"></div>
+          <div class="cdot" style="background:#10b981" onclick="pickColor(this,'#10b981')"></div>
+          <div class="cdot" style="background:#3b82f6" onclick="pickColor(this,'#3b82f6')"></div>
+          <div class="cdot" style="background:#ef4444" onclick="pickColor(this,'#ef4444')"></div>
+          <div class="cdot" style="background:#000;border-color:#555" onclick="pickColor(this,'#000')"></div>
         </div>
-        <div class="section-label">Tamanho</div>
-        <div class="size-row">
-          <div class="size-btn" onclick="selectSize(this,'14px')">S</div>
-          <div class="size-btn active" onclick="selectSize(this,'24px')">M</div>
-          <div class="size-btn" onclick="selectSize(this,'36px')">L</div>
-          <div class="size-btn" onclick="selectSize(this,'52px')">XL</div>
+        <div class="rsec-label">Tamanho</div>
+        <div class="sz-row">
+          <div class="sz-btn" onclick="pickSz(this,'14px')">S</div>
+          <div class="sz-btn active" onclick="pickSz(this,'24px')">M</div>
+          <div class="sz-btn" onclick="pickSz(this,'36px')">L</div>
+          <div class="sz-btn" onclick="pickSz(this,'52px')">XL</div>
         </div>
-        <div class="section-label">Estilo</div>
-        <div class="size-row">
-          <div class="size-btn active" id="styleNormal" onclick="selectStyle(this,'normal','normal')">Normal</div>
-          <div class="size-btn" id="styleBold" onclick="selectStyle(this,'bold','normal')">Bold</div>
-          <div class="size-btn" id="styleItalic" onclick="selectStyle(this,'normal','italic')">Itálico</div>
+        <div class="rsec-label">Estilo</div>
+        <div class="sz-row" style="margin-bottom:10px">
+          <div class="sz-btn active" id="stN" onclick="pickSt(this,'400','normal')">Normal</div>
+          <div class="sz-btn" id="stB" onclick="pickSt(this,'700','normal')">Bold</div>
+          <div class="sz-btn" id="stI" onclick="pickSt(this,'400','italic')">Itálico</div>
         </div>
-        <button class="btn btn-primary" style="width:100%;font-size:11px;margin-top:4px" onclick="addTextToPreview()">+ Adicionar ao Vídeo</button>
-        <div style="font-size:10px;color:#444;margin-top:8px;text-align:center;line-height:1.4">Arraste para posicionar<br>Duplo clique para deletar</div>
+        <button class="btn btn-accent" style="width:100%;font-size:10px" onclick="addText()">+ Adicionar ao Vídeo</button>
+        <div style="font-size:9px;color:#333;margin-top:7px;text-align:center;line-height:1.5">Arraste para posicionar<br>Duplo clique para deletar</div>
       </div>
     </div>
-
   </div>
 </div>
 
-<div class="notification" id="notification"></div>
-<audio id="bgMusic" loop></audio>
+<!-- AI MODAL -->
+<div class="modal-overlay" id="aiModal">
+  <div class="modal">
+    <h2>✦ Montar com IA</h2>
+    <p>Escolha o estilo e a IA vai organizar todos os seus vídeos automaticamente com transições, ritmo e textos profissionais.</p>
+    <div class="ai-status" id="aiStatus">⚙ Analisando vídeos...</div>
+    <div class="ai-progress" id="aiProg"><div class="ai-progress-bar" id="aiProgBar" style="width:0%"></div></div>
+    <div class="style-grid" id="styleGrid">
+      <div class="style-card active" data-style="fashion" onclick="pickStyle(this)">
+        <div class="emoji">👗</div>
+        <div class="name">Fashion Drop</div>
+        <div class="desc">Cortes rápidos, flash, texto impactante</div>
+      </div>
+      <div class="style-card" data-style="elegant" onclick="pickStyle(this)">
+        <div class="emoji">✨</div>
+        <div class="name">Elegante</div>
+        <div class="desc">Fade suave, cores quentes, sofisticado</div>
+      </div>
+      <div class="style-card" data-style="viral" onclick="pickStyle(this)">
+        <div class="emoji">🔥</div>
+        <div class="name">Viral Reels</div>
+        <div class="desc">Zoom punch, glitch, energia máxima</div>
+      </div>
+      <div class="style-card" data-style="minimal" onclick="pickStyle(this)">
+        <div class="emoji">🤍</div>
+        <div class="name">Minimalista</div>
+        <div class="desc">Limpo, P&B, texto discreto</div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeAI()">Cancelar</button>
+      <button class="btn btn-ai" onclick="runAI()">✦ Montar Agora</button>
+    </div>
+  </div>
+</div>
+
+<div class="notif" id="notif"></div>
+<audio id="bgAudio" loop></audio>
 
 <script>
-const state = {
-  mediaFiles: [],
-  videoClips: [],
-  musicClips: [],
-  textClips: [],
-  activeClipIndex: -1,
-  currentFilter: '',
-  adjustments: { bright:100, contrast:100, sat:100, hue:0, warm:0 },
-  textColor: '#ffffff',
-  textSize: '24px',
-  textWeight: 'normal',
-  textStyle: 'normal',
-  transition: 'Nenhuma',
-  playing: false
+// ─── STATE ───────────────────────────────────────────────
+const S = {
+  media: [], videoClips: [], musicClips: [], textClips: [],
+  activeIdx: -1,
+  filter: '', adj: { bright:100, contrast:100, sat:100, hue:0, warm:0, vig:0 },
+  textColor:'#fff', textSize:'24px', textWeight:'400', textStyle:'normal',
+  aiStyle: 'fashion', playing: false,
+  clipFx: {}, // clipIndex -> fx name
 };
 
-const video = document.getElementById('mainVideo');
-const bgMusic = document.getElementById('bgMusic');
+const vid = document.getElementById('mainVideo');
+const bgAud = document.getElementById('bgAudio');
+const transCanvas = document.getElementById('transCanvas');
+const transCtx = transCanvas.getContext('2d');
 
-function notify(msg) {
-  const el = document.getElementById('notification');
-  el.textContent = msg;
-  el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 2200);
-}
+// ─── EFFECTS DEFINITION ──────────────────────────────────
+const EFFECTS = [
+  // Transitions
+  { id:'fade',     label:'Fade',        cat:'Trans', emoji:'🌫' },
+  { id:'flash',    label:'Flash',       cat:'Trans', emoji:'⚡' },
+  { id:'zoom',     label:'Zoom Punch',  cat:'Trans', emoji:'🔍' },
+  { id:'wipe',     label:'Wipe',        cat:'Trans', emoji:'➡' },
+  { id:'glitch',   label:'Glitch',      cat:'Trans', emoji:'📺' },
+  { id:'blur',     label:'Blur In',     cat:'Trans', emoji:'💫' },
+  { id:'spin',     label:'Spin',        cat:'Trans', emoji:'🌀' },
+  { id:'bounce',   label:'Bounce',      cat:'Trans', emoji:'⬆' },
+  // Color FX
+  { id:'vib',      label:'Vibrante',    cat:'Cor',   emoji:'🌈' },
+  { id:'cinema',   label:'Cinema',      cat:'Cor',   emoji:'🎬' },
+  { id:'bw',       label:'P&B',         cat:'Cor',   emoji:'⬜' },
+  { id:'sepia',    label:'Sépia',       cat:'Cor',   emoji:'🎞' },
+  { id:'neon',     label:'Neon',        cat:'Cor',   emoji:'🔮' },
+  { id:'warm',     label:'Quente',      cat:'Cor',   emoji:'🔥' },
+  { id:'cool',     label:'Frio',        cat:'Cor',   emoji:'🧊' },
+  { id:'golden',   label:'Golden',      cat:'Cor',   emoji:'✨' },
+  // Motion
+  { id:'shake',    label:'Shake',       cat:'Movi',  emoji:'📳' },
+  { id:'slow',     label:'Slow Mo',     cat:'Movi',  emoji:'🐢' },
+];
 
-function handleDragOver(e) { e.preventDefault(); document.getElementById('dropZone').classList.add('drag-over'); }
-function handleDragLeave() { document.getElementById('dropZone').classList.remove('drag-over'); }
-function handleDrop(e) {
-  e.preventDefault();
-  document.getElementById('dropZone').classList.remove('drag-over');
-  handleFiles(e.dataTransfer.files);
-}
+const FX_FILTERS = {
+  vib:    'saturate(200%) hue-rotate(10deg)',
+  cinema: 'contrast(1.4) saturate(1.2) brightness(0.88)',
+  bw:     'grayscale(100%)',
+  sepia:  'sepia(80%)',
+  neon:   'saturate(300%) hue-rotate(180deg) brightness(1.2)',
+  warm:   'sepia(40%) saturate(120%) brightness(1.1)',
+  cool:   'hue-rotate(200deg) saturate(120%)',
+  golden: 'sepia(60%) saturate(150%) brightness(1.15) hue-rotate(-10deg)',
+};
+
+// ─── BUILD EFFECTS BAR ────────────────────────────────────
+(function buildEffectsBar() {
+  const scroll = document.getElementById('effectsScroll');
+  EFFECTS.forEach(fx => {
+    const chip = document.createElement('div');
+    chip.className = 'effect-chip';
+    chip.draggable = true;
+    chip.dataset.fxid = fx.id;
+    chip.innerHTML = `<span class="emo">${fx.emoji}</span><span class="lbl">${fx.label}</span><span class="cat">${fx.cat}</span>`;
+    chip.addEventListener('dragstart', e => {
+      e.dataTransfer.setData('fxid', fx.id);
+      chip.classList.add('dragging');
+    });
+    chip.addEventListener('dragend', () => chip.classList.remove('dragging'));
+    scroll.appendChild(chip);
+  });
+})();
+
+// ─── FILTERS ─────────────────────────────────────────────
+const FILTERS = [
+  { id:'', label:'Original', bg:'#1a1a2e', emoji:'📷' },
+  { id:'grayscale(100%)', label:'P&B', bg:'linear-gradient(#555,#999)', emoji:'⬜' },
+  { id:'sepia(80%)', label:'Sépia', bg:'linear-gradient(#7a5c3a,#c8954a)', emoji:'🎞' },
+  { id:'saturate(200%) hue-rotate(10deg)', label:'Vibrante', bg:'linear-gradient(#ff6b6b,#feca57)', emoji:'🌅' },
+  { id:'brightness(1.3) contrast(1.2)', label:'Claro', bg:'linear-gradient(#eee,#fff)', emoji:'☀' },
+  { id:'brightness(0.7) contrast(1.3)', label:'Escuro', bg:'linear-gradient(#111,#222)', emoji:'🌙' },
+  { id:'saturate(150%) hue-rotate(-20deg)', label:'Rosa', bg:'linear-gradient(#ff9a9e,#fad0c4)', emoji:'🌸' },
+  { id:'hue-rotate(180deg) saturate(150%)', label:'Roxo', bg:'linear-gradient(#a18cd1,#fbc2eb)', emoji:'💜' },
+  { id:'saturate(120%) hue-rotate(140deg)', label:'Verde', bg:'linear-gradient(#11998e,#38ef7d)', emoji:'🌿' },
+  { id:'contrast(1.4) saturate(1.3) brightness(0.9)', label:'Cinema', bg:'linear-gradient(#2d3561,#a8edea)', emoji:'🎯' },
+];
+
+(function buildFilters() {
+  const grid = document.getElementById('filterGrid');
+  FILTERS.forEach(f => {
+    const btn = document.createElement('div');
+    btn.className = 'filter-btn' + (f.id === '' ? ' active' : '');
+    btn.innerHTML = `<div class="filter-thumb" style="background:${f.bg}">${f.emoji}</div>${f.label}`;
+    btn.onclick = () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      S.filter = f.id;
+      applyFilter();
+    };
+    grid.appendChild(btn);
+  });
+})();
+
+// ─── FILE HANDLING ────────────────────────────────────────
+function onDragOver(e) { e.preventDefault(); document.getElementById('dropZone').classList.add('drag-over'); }
+function onDragLeave() { document.getElementById('dropZone').classList.remove('drag-over'); }
+function onDrop(e) { e.preventDefault(); document.getElementById('dropZone').classList.remove('drag-over'); handleFiles(e.dataTransfer.files); }
 
 function handleFiles(files) {
   Array.from(files).forEach(file => {
     const url = URL.createObjectURL(file);
-    const isVideo = file.type.startsWith('video/');
-    const isAudio = file.type.startsWith('audio/');
-    if (!isVideo && !isAudio) return;
+    const isVid = file.type.startsWith('video/');
+    const isAud = file.type.startsWith('audio/');
+    if (!isVid && !isAud) return;
     const name = file.name.replace(/\.[^.]+$/, '');
-    const item = { name, url, type: isVideo ? 'video' : 'audio', file };
-    state.mediaFiles.push(item);
+    const item = { name, url, type: isVid ? 'video' : 'audio', file };
+    S.media.push(item);
     renderMediaList();
-    if (isVideo) addVideoClip(item);
-    if (isAudio) addMusicClip(item);
+    if (isVid) { S.videoClips.push(item); renderTimeline(); if (S.videoClips.length === 1) loadClip(0); }
+    if (isAud) { S.musicClips.push(item); renderTimeline(); bgAud.src = url; bgAud.play().catch(()=>{}); notify('🎵 Música adicionada!'); }
   });
 }
 
 function renderMediaList() {
-  const list = document.getElementById('mediaList');
-  list.innerHTML = '';
-  state.mediaFiles.forEach((item, i) => {
-    const div = document.createElement('div');
-    div.className = 'media-item';
-    div.innerHTML = `<div class="media-thumb">${item.type === 'video' ? '🎬' : '🎵'}</div>
-      <div class="media-info">
-        <div class="media-name">${item.name.substring(0,18)}</div>
-        <div class="media-type">${item.type}</div>
-      </div>`;
-    div.onclick = () => { if (item.type === 'video') { const ci = state.videoClips.findIndex(c => c.url === item.url); if (ci >= 0) loadClip(ci); } };
-    list.appendChild(div);
+  const el = document.getElementById('mediaList');
+  el.innerHTML = '';
+  S.media.forEach((m, i) => {
+    const d = document.createElement('div');
+    d.className = 'media-item';
+    d.innerHTML = `<div class="media-thumb">${m.type==='video'?'🎬':'🎵'}</div><div class="media-info"><div class="media-name">${m.name.substring(0,18)}</div><div class="media-dur">${m.type}</div></div>`;
+    d.onclick = () => { const ci = S.videoClips.findIndex(c=>c.url===m.url); if (ci>=0) loadClip(ci); };
+    el.appendChild(d);
   });
 }
 
-function addVideoClip(item) {
-  state.videoClips.push(item);
-  renderTimeline();
-  if (state.videoClips.length === 1) loadClip(0);
-}
-
-function addMusicClip(item) {
-  state.musicClips.push(item);
-  renderTimeline();
-  bgMusic.src = item.url;
-  bgMusic.play().catch(() => {});
-  notify('🎵 Música adicionada!');
-}
-
-function addTextClipFromTimeline() {
-  const t = document.getElementById('textContent').value.trim() || 'Texto';
-  state.textClips.push({ label: t.substring(0, 16) });
-  renderTimeline();
-  addTextToPreview();
-}
-
+// ─── TIMELINE ─────────────────────────────────────────────
 function renderTimeline() {
-  renderTrack('videoTrack', state.videoClips, 'video-clip');
-  renderTrack('musicTrack', state.musicClips, 'music-clip');
-  renderTrack('textTrack', state.textClips, 'text-clip');
+  renderTrack('videoTrack', S.videoClips, 'video-clip', true);
+  renderTrack('musicTrack', S.musicClips, 'music-clip', false);
+  renderTrack('textTrack', S.textClips, 'text-clip', false);
 }
 
-function renderTrack(id, clips, cls) {
+function renderTrack(id, clips, cls, droppable) {
   const el = document.getElementById(id);
   el.innerHTML = '';
   clips.forEach((clip, i) => {
-    const div = document.createElement('div');
-    div.className = `clip ${cls}`;
-    const label = clip.label || clip.name || ('Clip ' + (i + 1));
-    div.style.width = Math.max(70, label.length * 7 + 30) + 'px';
-    div.innerHTML = `${label.substring(0,16)} <button class="clip-del" onclick="event.stopPropagation();removeClip('${id}',${i})">✕</button>`;
-    if (cls === 'video-clip' && i === state.activeClipIndex) div.classList.add('active');
-    if (cls === 'video-clip') div.onclick = () => loadClip(i);
-    el.appendChild(div);
+    const label = (clip.label || clip.name || 'Clip '+(i+1)).substring(0,14);
+    const d = document.createElement('div');
+    d.className = `clip ${cls}${i===S.activeIdx && cls==='video-clip' ? ' active' : ''}${S.clipFx[i] ? ' has-fx' : ''}`;
+    d.style.width = Math.max(68, label.length * 6.5 + 36) + 'px';
+    d.innerHTML = `${label}<button class="clip-del" onclick="event.stopPropagation();removeClip('${id}',${i})">✕</button>`;
+    if (cls === 'video-clip') d.onclick = () => loadClip(i);
+    if (droppable) {
+      d.addEventListener('dragover', e => { e.preventDefault(); d.classList.add('drop-target'); });
+      d.addEventListener('dragleave', () => d.classList.remove('drop-target'));
+      d.addEventListener('drop', e => {
+        e.preventDefault();
+        d.classList.remove('drop-target');
+        const fxid = e.dataTransfer.getData('fxid');
+        applyFxToClip(i, fxid);
+      });
+    }
+    el.appendChild(d);
   });
 }
 
 function removeClip(trackId, i) {
   if (trackId === 'videoTrack') {
-    state.videoClips.splice(i, 1);
-    if (state.activeClipIndex >= state.videoClips.length) state.activeClipIndex = state.videoClips.length - 1;
-    if (state.videoClips.length > 0) loadClip(state.activeClipIndex);
-    else {
-      video.src = ''; video.style.display = 'none';
-      document.getElementById('emptyPreview').style.display = 'flex';
-    }
+    S.videoClips.splice(i, 1);
+    delete S.clipFx[i];
+    S.activeIdx = Math.min(S.activeIdx, S.videoClips.length - 1);
+    if (S.videoClips.length > 0) loadClip(S.activeIdx);
+    else { vid.style.display='none'; document.getElementById('emptyPrev').style.display='flex'; }
   } else if (trackId === 'musicTrack') {
-    state.musicClips.splice(i, 1);
-    bgMusic.pause(); bgMusic.src = '';
-  } else if (trackId === 'textTrack') {
-    state.textClips.splice(i, 1);
+    S.musicClips.splice(i,1); bgAud.pause(); bgAud.src='';
+  } else {
+    S.textClips.splice(i,1);
   }
   renderTimeline();
 }
 
-function loadClip(index) {
-  if (index < 0 || index >= state.videoClips.length) return;
-  state.activeClipIndex = index;
-  video.src = state.videoClips[index].url;
-  video.style.display = 'block';
-  document.getElementById('emptyPreview').style.display = 'none';
-  applyCurrentFilter();
-  video.load();
+// ─── FX ON CLIP ───────────────────────────────────────────
+function applyFxToClip(clipIdx, fxid) {
+  S.clipFx[clipIdx] = fxid;
+  renderTimeline();
+  const fx = EFFECTS.find(f => f.id === fxid);
+  notify(`${fx?.emoji || '✦'} ${fx?.label} aplicado no clipe ${clipIdx+1}!`);
+  if (S.activeIdx === clipIdx) {
+    if (FX_FILTERS[fxid]) { S.filter = FX_FILTERS[fxid]; applyFilter(); }
+    else triggerMotionFx(fxid);
+  }
+}
+
+function triggerMotionFx(fxid) {
+  const wrap = document.getElementById('previewWrap');
+  if (fxid === 'shake') {
+    wrap.style.transition = 'transform 0.05s';
+    let n = 0;
+    const iv = setInterval(() => {
+      wrap.style.transform = `translate(${(Math.random()-0.5)*8}px,${(Math.random()-0.5)*4}px)`;
+      if (++n > 12) { clearInterval(iv); wrap.style.transform = ''; }
+    }, 60);
+  } else if (fxid === 'zoom') {
+    wrap.style.transition = 'transform 0.15s';
+    wrap.style.transform = 'scale(1.08)';
+    setTimeout(() => { wrap.style.transform = 'scale(1)'; }, 300);
+  }
+}
+
+// ─── CLIP TRANSITIONS ─────────────────────────────────────
+function playTransition(fxid, cb) {
+  const w = transCanvas.width = transCanvas.offsetWidth;
+  const h = transCanvas.height = transCanvas.offsetHeight;
+  transCanvas.style.opacity = 1;
+
+  if (fxid === 'flash') {
+    transCtx.fillStyle = '#fff';
+    transCtx.fillRect(0,0,w,h);
+    let a = 1;
+    const fade = () => { transCtx.clearRect(0,0,w,h); transCtx.fillStyle=`rgba(255,255,255,${a})`; transCtx.fillRect(0,0,w,h); a -= 0.1; if (a > 0) requestAnimationFrame(fade); else { transCanvas.style.opacity=0; cb(); } };
+    setTimeout(() => { cb(); requestAnimationFrame(fade); }, 80);
+  } else if (fxid === 'glitch') {
+    let n = 0;
+    const glitch = () => {
+      transCtx.clearRect(0,0,w,h);
+      for (let i=0;i<8;i++) {
+        const y = Math.random()*h; const hh = Math.random()*20+2;
+        transCtx.fillStyle = `rgba(${Math.random()<0.5?'255,0,80':'0,200,255'},0.35)`;
+        transCtx.fillRect(Math.random()*w*0.4, y, w, hh);
+      }
+      if (++n < 6) requestAnimationFrame(glitch);
+      else { transCtx.clearRect(0,0,w,h); transCanvas.style.opacity=0; }
+    };
+    cb(); requestAnimationFrame(glitch);
+  } else if (fxid === 'fade') {
+    transCtx.fillStyle = '#000';
+    transCtx.fillRect(0,0,w,h);
+    let a = 1;
+    const f = () => { transCtx.clearRect(0,0,w,h); transCtx.fillStyle=`rgba(0,0,0,${a})`; transCtx.fillRect(0,0,w,h); a-=0.07; if(a>0) requestAnimationFrame(f); else {transCanvas.style.opacity=0; cb();} };
+    requestAnimationFrame(f);
+  } else if (fxid === 'zoom') {
+    const wrap = document.getElementById('previewWrap');
+    cb();
+    wrap.style.transition='transform 0.18s ease-out';
+    wrap.style.transform='scale(1.12)';
+    setTimeout(()=>{ wrap.style.transform='scale(1)'; }, 300);
+    transCanvas.style.opacity=0;
+  } else if (fxid === 'wipe') {
+    let x = 0;
+    const step = () => {
+      transCtx.clearRect(0,0,w,h);
+      transCtx.fillStyle='#000'; transCtx.fillRect(x,0,w-x,h);
+      x += w*0.12; if(x<w) requestAnimationFrame(step);
+      else { transCtx.clearRect(0,0,w,h); transCanvas.style.opacity=0; cb(); }
+    };
+    requestAnimationFrame(step);
+  } else if (fxid === 'blur') {
+    vid.style.transition='filter 0.3s'; vid.style.filter='blur(12px)';
+    cb();
+    setTimeout(()=>{ vid.style.filter=''; applyFilter(); }, 300);
+    transCanvas.style.opacity=0;
+  } else if (fxid === 'spin') {
+    const wrap=document.getElementById('previewWrap');
+    wrap.style.transition='transform 0.3s ease-in-out';
+    wrap.style.transform='rotate(180deg) scale(0.5)';
+    cb();
+    setTimeout(()=>{ wrap.style.transition='transform 0.2s'; wrap.style.transform=''; },320);
+    transCanvas.style.opacity=0;
+  } else if (fxid === 'bounce') {
+    const wrap=document.getElementById('previewWrap');
+    wrap.style.transition='transform 0.12s ease-out'; wrap.style.transform='translateY(-12px)';
+    setTimeout(()=>{ wrap.style.transition='transform 0.18s ease-in'; wrap.style.transform='translateY(4px)'; },120);
+    setTimeout(()=>{ wrap.style.transform=''; cb(); },300);
+    transCanvas.style.opacity=0;
+  } else {
+    transCanvas.style.opacity=0; cb();
+  }
+}
+
+// ─── LOAD / PLAY ──────────────────────────────────────────
+function loadClip(idx) {
+  if (idx < 0 || idx >= S.videoClips.length) return;
+  S.activeIdx = idx;
+  vid.src = S.videoClips[idx].url;
+  vid.style.display = 'block';
+  document.getElementById('emptyPrev').style.display = 'none';
+  const clipFxId = S.clipFx[idx];
+  if (clipFxId && FX_FILTERS[clipFxId]) { S.filter = FX_FILTERS[clipFxId]; syncFilterBtns(); }
+  applyFilter();
+  vid.load();
   renderTimeline();
 }
 
 function togglePlay() {
-  if (!video.src) return;
-  if (video.paused) {
-    video.play();
-    bgMusic.play().catch(() => {});
-    document.getElementById('playBtn').textContent = '⏸';
-    state.playing = true;
+  if (!vid.src) return;
+  if (vid.paused) { vid.play(); bgAud.play().catch(()=>{}); document.getElementById('playBtn').textContent='⏸'; S.playing=true; }
+  else { vid.pause(); bgAud.pause(); document.getElementById('playBtn').textContent='▶'; S.playing=false; }
+}
+
+function onVideoEnd() {
+  const next = S.activeIdx + 1;
+  if (next < S.videoClips.length) {
+    const fxid = S.clipFx[next] || 'fade';
+    playTransition(fxid, () => { loadClip(next); if (S.playing) vid.play(); });
   } else {
-    video.pause();
-    bgMusic.pause();
-    document.getElementById('playBtn').textContent = '▶';
-    state.playing = false;
+    document.getElementById('playBtn').textContent='▶'; S.playing=false;
   }
 }
 
-function nextClip() {
-  const next = state.activeClipIndex + 1;
-  if (next < state.videoClips.length) {
-    loadClip(next);
-    if (state.playing) video.play();
-  } else {
-    document.getElementById('playBtn').textContent = '▶';
-    state.playing = false;
-  }
+function onMeta() {
+  const fmt = s => `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+  document.getElementById('timeDisp').textContent = `0:00 / ${fmt(vid.duration||0)}`;
 }
 
-video.addEventListener('timeupdate', () => {
-  const dur = video.duration || 0;
-  const cur = video.currentTime || 0;
-  const pct = dur ? (cur / dur * 100) : 0;
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressHandle').style.left = pct + '%';
-  const fmt = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
-  document.getElementById('timeDisplay').textContent = `${fmt(cur)} / ${fmt(dur)}`;
+vid.addEventListener('timeupdate', () => {
+  const d = vid.duration||0, c = vid.currentTime||0, p = d ? c/d*100 : 0;
+  document.getElementById('progFill').style.width = p+'%';
+  document.getElementById('progHandle').style.left = p+'%';
+  const fmt = s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+  document.getElementById('timeDisp').textContent = `${fmt(c)} / ${fmt(d)}`;
 });
 
-function seekVideo(e) {
-  if (!video.duration) return;
-  const rect = document.getElementById('progressBar').getBoundingClientRect();
-  const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-  video.currentTime = pct * video.duration;
+function seek(e) {
+  if (!vid.duration) return;
+  const r = document.getElementById('progBar').getBoundingClientRect();
+  vid.currentTime = Math.max(0,Math.min(1,(e.clientX-r.left)/r.width)) * vid.duration;
 }
 
-function setVolume(v) {
-  video.volume = parseFloat(v);
-  bgMusic.volume = parseFloat(v) * 0.6;
+function setVol(v) { vid.volume = parseFloat(v); bgAud.volume = parseFloat(v)*0.55; }
+
+function pickAudio() {
+  const i=document.createElement('input'); i.type='file'; i.accept='audio/*';
+  i.onchange = e => handleFiles(e.target.files); i.click();
 }
 
-function switchTab(el, tabId) {
-  document.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.rtab-panel').forEach(p => p.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById(tabId).classList.add('active');
+// ─── FILTER / ADJUST ─────────────────────────────────────
+function buildAdjFilter() {
+  const a = S.adj;
+  const w = a.warm>0 ? ` sepia(${a.warm}%)` : a.warm<0 ? ` hue-rotate(${a.warm*2}deg)` : '';
+  return `brightness(${a.bright}%) contrast(${a.contrast}%) saturate(${a.sat}%) hue-rotate(${a.hue}deg)${w}`;
 }
 
-function applyFilter(el, filter) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  state.currentFilter = filter;
-  applyCurrentFilter();
-}
-
-function buildAdjustFilter() {
-  const a = state.adjustments;
-  const warm = a.warm > 0 ? ` sepia(${a.warm}%)` : a.warm < 0 ? ` hue-rotate(${a.warm * 2}deg)` : '';
-  return `brightness(${a.bright}%) contrast(${a.contrast}%) saturate(${a.sat}%) hue-rotate(${a.hue}deg)${warm}`;
-}
-
-function applyCurrentFilter() {
-  const adj = buildAdjustFilter();
-  video.style.filter = [state.currentFilter, adj].filter(Boolean).join(' ');
-}
-
-function updateAdjust() {
-  state.adjustments.bright = document.getElementById('adjBright').value;
-  state.adjustments.contrast = document.getElementById('adjContrast').value;
-  state.adjustments.sat = document.getElementById('adjSat').value;
-  state.adjustments.hue = document.getElementById('adjHue').value;
-  state.adjustments.warm = document.getElementById('adjWarm').value;
-  document.getElementById('vBright').textContent = state.adjustments.bright;
-  document.getElementById('vContrast').textContent = state.adjustments.contrast;
-  document.getElementById('vSat').textContent = state.adjustments.sat;
-  document.getElementById('vHue').textContent = state.adjustments.hue;
-  document.getElementById('vWarm').textContent = state.adjustments.warm;
-  applyCurrentFilter();
-}
-
-function resetAdjust() {
-  document.getElementById('adjBright').value = 100;
-  document.getElementById('adjContrast').value = 100;
-  document.getElementById('adjSat').value = 100;
-  document.getElementById('adjHue').value = 0;
-  document.getElementById('adjWarm').value = 0;
-  state.adjustments = { bright:100, contrast:100, sat:100, hue:0, warm:0 };
-  updateAdjust();
-  notify('↺ Ajustes resetados');
-}
-
-function selectColor(el, color) {
-  document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
-  el.classList.add('active');
-  state.textColor = color;
-}
-
-function selectSize(el, size) {
-  el.closest('.size-row').querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  state.textSize = size;
-}
-
-function selectStyle(el, weight, style) {
-  document.querySelectorAll('#styleNormal,#styleBold,#styleItalic').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  state.textWeight = weight;
-  state.textStyle = style;
-}
-
-function addTextToPreview() {
-  const content = document.getElementById('textContent').value.trim();
-  if (!content) return;
-  const container = document.getElementById('textOverlayContainer');
-  container.style.pointerEvents = 'auto';
-
-  const el = document.createElement('div');
-  el.className = 'preview-text-el';
-  el.textContent = content;
-  el.style.color = state.textColor;
-  el.style.fontSize = state.textSize;
-  el.style.fontWeight = state.textWeight;
-  el.style.fontStyle = state.textStyle;
-  el.style.top = '50%';
-  el.style.left = '50%';
-  el.style.transform = 'translate(-50%,-50%)';
-
-  makeDraggable(el);
-  el.addEventListener('dblclick', () => el.remove());
-  container.appendChild(el);
-
-  if (!state.textClips.find(c => c.label === content.substring(0, 16))) {
-    state.textClips.push({ label: content.substring(0, 16) });
-    renderTimeline();
+function applyFilter() {
+  const combined = [S.filter, buildAdjFilter()].filter(Boolean).join(' ');
+  vid.style.filter = combined;
+  if (S.adj.vig > 0) {
+    document.getElementById('previewWrap').style.boxShadow = `inset 0 0 ${S.adj.vig*2}px ${S.adj.vig}px rgba(0,0,0,0.85)`;
+  } else {
+    document.getElementById('previewWrap').style.boxShadow = '';
   }
+}
+
+function applyAdj() {
+  S.adj.bright = document.getElementById('aBright').value;
+  S.adj.contrast = document.getElementById('aContrast').value;
+  S.adj.sat = document.getElementById('aSat').value;
+  S.adj.hue = document.getElementById('aHue').value;
+  S.adj.warm = document.getElementById('aWarm').value;
+  S.adj.vig = document.getElementById('aVig').value;
+  ['Bright','Contrast','Sat','Hue','Warm','Vig'].forEach(k=>{
+    document.getElementById('v'+k).textContent = S.adj[k.toLowerCase()]||document.getElementById('a'+k).value;
+  });
+  applyFilter();
+}
+
+function resetAdj() {
+  const defs = {Bright:100,Contrast:100,Sat:100,Hue:0,Warm:0,Vig:0};
+  Object.entries(defs).forEach(([k,v])=>{ document.getElementById('a'+k).value=v; document.getElementById('v'+k).textContent=v; S.adj[k.toLowerCase()]=v; });
+  applyFilter(); notify('↺ Ajustes resetados');
+}
+
+function syncFilterBtns() {
+  document.querySelectorAll('.filter-btn').forEach((b,i)=>{ b.classList.toggle('active', FILTERS[i]?.id===S.filter); });
+}
+
+// ─── TEXT ─────────────────────────────────────────────────
+function pickColor(el,c) { document.querySelectorAll('.cdot').forEach(d=>d.classList.remove('active')); el.classList.add('active'); S.textColor=c; }
+function pickSz(el,sz) { el.closest('.sz-row').querySelectorAll('.sz-btn').forEach(b=>b.classList.remove('active')); el.classList.add('active'); S.textSize=sz; }
+function pickSt(el,w,st) { ['stN','stB','stI'].forEach(id=>document.getElementById(id).classList.remove('active')); el.classList.add('active'); S.textWeight=w; S.textStyle=st; }
+
+function addText() {
+  const txt = document.getElementById('textInp').value.trim();
+  if (!txt) return;
+  const cont = document.getElementById('textCont');
+  cont.style.pointerEvents = 'auto';
+  const el = document.createElement('div');
+  el.className = 'overlay-text';
+  el.textContent = txt;
+  el.style.cssText = `color:${S.textColor};font-size:${S.textSize};font-weight:${S.textWeight};font-style:${S.textStyle};top:50%;left:50%;transform:translate(-50%,-50%);text-shadow:0 2px 8px rgba(0,0,0,.85);`;
+  makeDraggable(el);
+  el.addEventListener('dblclick', ()=>el.remove());
+  cont.appendChild(el);
+  S.textClips.push({ label: txt.substring(0,14) });
+  renderTimeline();
   notify('✍ Texto adicionado!');
 }
+
+function addTextFromPanel() { addText(); }
 
 function makeDraggable(el) {
   el.addEventListener('mousedown', e => {
     e.preventDefault();
     const wrap = document.getElementById('previewWrap').getBoundingClientRect();
-    const rect = el.getBoundingClientRect();
-    const ox = e.clientX - rect.left;
-    const oy = e.clientY - rect.top;
-    el.style.transform = 'none';
-    const move = me => {
-      el.style.left = (me.clientX - wrap.left - ox) + 'px';
-      el.style.top = (me.clientY - wrap.top - oy) + 'px';
-    };
-    const up = () => {
-      document.removeEventListener('mousemove', move);
-      document.removeEventListener('mouseup', up);
-    };
-    document.addEventListener('mousemove', move);
-    document.addEventListener('mouseup', up);
+    const r = el.getBoundingClientRect();
+    const ox=e.clientX-r.left, oy=e.clientY-r.top;
+    el.style.transform='none';
+    const mv=me=>{ el.style.left=(me.clientX-wrap.left-ox)+'px'; el.style.top=(me.clientY-wrap.top-oy)+'px'; };
+    const up=()=>{ document.removeEventListener('mousemove',mv); document.removeEventListener('mouseup',up); };
+    document.addEventListener('mousemove',mv); document.addEventListener('mouseup',up);
   });
 }
 
-function setTransition(el, name) {
-  document.querySelectorAll('.trans-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  state.transition = name;
-  notify('Transição: ' + name);
+// ─── AI AUTO-EDIT ─────────────────────────────────────────
+function openAI() {
+  if (S.videoClips.length < 1) { notify('⚠ Adicione pelo menos 1 vídeo antes!'); return; }
+  document.getElementById('aiModal').classList.add('show');
+}
+function closeAI() { document.getElementById('aiModal').classList.remove('show'); }
+function pickStyle(el) { document.querySelectorAll('.style-card').forEach(c=>c.classList.remove('active')); el.classList.add('active'); S.aiStyle=el.dataset.style; }
+
+const AI_PRESETS = {
+  fashion: {
+    fxSequence: ['flash','glitch','zoom','wipe','flash'],
+    filter: 'saturate(150%) contrast(1.15)',
+    texts: ['✨ Nova Coleção','🔥 Chega Logo','💎 Imperdível','📦 Garanta o Seu'],
+    textColor: '#fff', textSize: '32px',
+  },
+  elegant: {
+    fxSequence: ['fade','fade','blur','fade','fade'],
+    filter: 'sepia(30%) brightness(1.05) contrast(1.1)',
+    texts: ['Elegância em cada detalhe','Coleção Exclusiva','Sofisticado & Único'],
+    textColor: '#f59e0b', textSize: '24px',
+  },
+  viral: {
+    fxSequence: ['glitch','zoom','spin','flash','bounce','glitch'],
+    filter: 'saturate(200%) contrast(1.3) hue-rotate(10deg)',
+    texts: ['🔥 OLHA ISSO!','👀 VOCÊ PRECISA VER','💥 INCRÍVEL!'],
+    textColor: '#ec4899', textSize: '40px',
+  },
+  minimal: {
+    fxSequence: ['fade','wipe','fade','blur','fade'],
+    filter: 'grayscale(30%) brightness(1.05)',
+    texts: ['Nova Coleção','Simples. Elegante.','Sua Loja.'],
+    textColor: '#fff', textSize: '20px',
+  },
+};
+
+async function runAI() {
+  const preset = AI_PRESETS[S.aiStyle];
+  const statusEl = document.getElementById('aiStatus');
+  const progEl = document.getElementById('aiProg');
+  const barEl = document.getElementById('aiProgBar');
+  const gridEl = document.getElementById('styleGrid');
+  statusEl.style.display='block'; progEl.style.display='block'; gridEl.style.display='none';
+  document.querySelectorAll('.modal-actions .btn').forEach(b=>b.disabled=true);
+
+  const steps = [
+    [15,'⚙ Analisando vídeos...'],
+    [35,'🎨 Aplicando filtro de cor...'],
+    [55,'⚡ Definindo transições...'],
+    [75,'✍ Gerando textos...'],
+    [90,'🎬 Montando timeline...'],
+    [100,'✦ Pronto!'],
+  ];
+
+  for (const [pct, msg] of steps) {
+    statusEl.textContent = msg;
+    barEl.style.width = pct+'%';
+    await new Promise(r => setTimeout(r, 420));
+  }
+
+  // Apply preset
+  S.filter = preset.filter;
+  syncFilterBtns();
+
+  // Assign transitions to all clips
+  S.videoClips.forEach((_, i) => {
+    S.clipFx[i] = preset.fxSequence[i % preset.fxSequence.length];
+  });
+
+  // Clear and re-add texts
+  document.getElementById('textCont').innerHTML = '';
+  S.textClips = [];
+  preset.texts.forEach((txt, ti) => {
+    if (ti >= S.videoClips.length) return;
+    S.textClips.push({ label: txt.substring(0,14) });
+    const cont = document.getElementById('textCont');
+    cont.style.pointerEvents = 'auto';
+    const el = document.createElement('div');
+    el.className = 'overlay-text';
+    el.textContent = txt;
+    const positions = ['bottom:12%;left:50%;transform:translateX(-50%)', 'top:12%;left:50%;transform:translateX(-50%)', 'bottom:20%;right:10%', 'top:20%;left:10%'];
+    el.style.cssText = `color:${preset.textColor};font-size:${preset.textSize};font-weight:700;text-shadow:0 2px 10px rgba(0,0,0,.9);position:absolute;${positions[ti%positions.length]}`;
+    makeDraggable(el);
+    el.addEventListener('dblclick',()=>el.remove());
+    cont.appendChild(el);
+  });
+
+  loadClip(0);
+  applyFilter();
+  renderTimeline();
+
+  await new Promise(r => setTimeout(r, 300));
+  statusEl.style.display='none'; progEl.style.display='none'; gridEl.style.display='grid';
+  document.querySelectorAll('.modal-actions .btn').forEach(b=>b.disabled=false);
+  closeAI();
+  notify(`✦ Montado no estilo ${S.aiStyle === 'fashion' ? 'Fashion Drop' : S.aiStyle === 'elegant' ? 'Elegante' : S.aiStyle === 'viral' ? 'Viral Reels' : 'Minimalista'}! Pressione ▶ para ver.`);
 }
 
-function pickMusic() {
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.accept = 'audio/*';
-  input.onchange = e => handleFiles(e.target.files);
-  input.click();
+// ─── MISC ─────────────────────────────────────────────────
+function switchTab(el, id) {
+  document.querySelectorAll('.rtab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.rpanel').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+
+function notify(msg) {
+  const el = document.getElementById('notif');
+  el.textContent = msg; el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'), 2500);
 }
 
 function exportVideo() {
-  if (!state.videoClips.length) { notify('⚠ Adicione vídeos primeiro!'); return; }
-  const idx = state.activeClipIndex >= 0 ? state.activeClipIndex : 0;
+  if (!S.videoClips.length) { notify('⚠ Adicione vídeos primeiro!'); return; }
+  const idx = S.activeIdx >= 0 ? S.activeIdx : 0;
   const a = document.createElement('a');
-  a.href = state.videoClips[idx].url;
+  a.href = S.videoClips[idx].url;
   a.download = 'lojaedit_' + Date.now() + '.mp4';
   a.click();
   notify('⬇ Download iniciado!');
 }
 </script>
-
 </body>
 </html>
