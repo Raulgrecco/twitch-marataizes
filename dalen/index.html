@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Produtos Dalen — Fornecimento de Pães para Hamburguerias · Marataízes ES</title>
+  <meta name="description" content="Produtos Dalen — fabricação própria de pães para hamburguerias, lanchonetes e restaurantes. Desde 2002. Marataízes, ES. Atendemos toda a Região Sul Capixaba e Região dos Lagos."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --laranja: #e84300;
+      --laranja2: #ff5a1a;
+      --preto: #0c0b09;
+      --preto2: #161410;
+      --preto3: #201e1a;
+      --creme: #f5f0e8;
+      --creme2: #ede7d8;
+      --trigo: #c8a96e;
+      --branco: #faf8f4;
+      --dim: rgba(245,240,232,0.5);
+      --dim2: rgba(245,240,232,0.2);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--preto);
+      color: var(--creme);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* NOISE */
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 58px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 36px;
+      background: rgba(12,11,9,0.92); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(232,67,0,0.25);
+    }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo img { width: 40px; height: 40px; object-fit: contain; border-radius: 50%; }
+    .logo-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.3rem; letter-spacing: 0.06em; color: var(--creme); }
+    .logo-text span { color: var(--laranja); }
+    .tb-nav { display: flex; align-items: center; gap: 28px; }
+    .tb-link { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); text-decoration: none; transition: color .2s; }
+    .tb-link:hover { color: var(--creme); }
+    .tb-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--laranja); color: #fff;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      text-decoration: none; padding: 9px 20px; border-radius: 3px;
+      transition: background .2s, transform .15s;
+    }
+    .tb-cta:hover { background: var(--laranja2); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh; position: relative; overflow: hidden;
+      display: flex; align-items: flex-end;
+      padding: 0 36px 80px;
+    }
+
+    /* diagonal bg split */
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: var(--preto2);
+    }
+    .hero-bg::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 70% at 75% 40%, rgba(232,67,0,0.18) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(200,169,110,0.06) 0%, transparent 60%);
+    }
+    /* wheat texture pattern */
+    .hero-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        repeating-linear-gradient(45deg, rgba(232,67,0,0.03) 0, rgba(232,67,0,0.03) 1px, transparent 1px, transparent 40px),
+        repeating-linear-gradient(-45deg, rgba(232,67,0,0.02) 0, rgba(232,67,0,0.02) 1px, transparent 1px, transparent 40px);
+    }
+
+    /* BIG year bg */
+    .hero-year {
+      position: absolute; right: -40px; bottom: -60px;
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+      font-size: clamp(16rem, 28vw, 26rem); line-height: 1;
+      color: rgba(232,67,0,0.06); letter-spacing: -0.04em;
+      user-select: none; pointer-events: none; z-index: 1;
+    }
+
+    /* gallery strip right */
+    .hero-gallery {
+      position: absolute; top: 58px; right: 0; bottom: 0; width: 42%;
+      display: grid; grid-template-rows: repeat(3,1fr); gap: 2px; z-index: 2;
+    }
+    .hero-gallery-item { overflow: hidden; }
+    .hero-gallery-item img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; transition: opacity .4s; filter: saturate(0.7) contrast(1.1); }
+    .hero-gallery-item:hover img { opacity: 0.7; filter: saturate(1) contrast(1.05); }
+    /* gradient overlay left side of gallery */
+    .hero-gallery::before {
+      content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 50%;
+      background: linear-gradient(to right, var(--preto2), transparent);
+      z-index: 3; pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 5; max-width: 580px; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.3em; text-transform: uppercase; color: var(--laranja);
+      margin-bottom: 24px;
+      opacity: 0; transform: translateY(14px);
+      animation: up 0.8s cubic-bezier(.22,1,.36,1) 0.2s forwards;
+    }
+    .badge-line { width: 32px; height: 1px; background: var(--laranja); }
+
+    .hero-h1 {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+      font-size: clamp(3.8rem, 9vw, 8rem);
+      line-height: 0.88; letter-spacing: -0.01em;
+      text-transform: uppercase; color: var(--creme);
+      margin-bottom: 6px;
+      opacity: 0; transform: translateY(20px);
+      animation: up 1s cubic-bezier(.22,1,.36,1) 0.35s forwards;
+    }
+    .hero-h1 .orange { color: var(--laranja); }
+    .hero-h1 .italic {
+      font-family: 'Fraunces', serif; font-style: italic; font-weight: 300;
+      text-transform: none; font-size: 0.88em; color: var(--trigo);
+    }
+
+    .hero-sub {
+      font-family: 'Fraunces', serif; font-style: italic; font-weight: 300;
+      font-size: clamp(1.05rem, 2vw, 1.35rem); color: var(--dim);
+      line-height: 1.6; max-width: 420px; margin-bottom: 40px;
+      opacity: 0; transform: translateY(14px);
+      animation: up 0.9s cubic-bezier(.22,1,.36,1) 0.55s forwards;
+    }
+
+    .hero-ctas {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      opacity: 0; transform: translateY(14px);
+      animation: up 0.9s cubic-bezier(.22,1,.36,1) 0.7s forwards;
+    }
+    .btn-laranja {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--laranja); color: #fff;
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+      font-size: 0.88rem; letter-spacing: 0.14em; text-transform: uppercase;
+      text-decoration: none; padding: 15px 30px; border-radius: 3px;
+      box-shadow: 0 4px 24px rgba(232,67,0,0.35);
+      transition: background .2s, transform .15s, box-shadow .2s;
+    }
+    .btn-laranja:hover { background: var(--laranja2); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(232,67,0,0.5); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: transparent; color: var(--dim);
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 0.88rem; letter-spacing: 0.14em; text-transform: uppercase;
+      text-decoration: none; padding: 15px 30px; border-radius: 3px;
+      border: 1px solid rgba(245,240,232,0.18);
+      transition: color .2s, border-color .2s, transform .15s;
+    }
+    .btn-outline:hover { color: var(--creme); border-color: var(--creme); transform: translateY(-2px); }
+
+    @keyframes up { to { opacity:1; transform:translateY(0); } }
+    @keyframes fadein { to { opacity:1; } }
+
+    /* ── NÚMEROS ── */
+    .numeros {
+      background: var(--laranja); position: relative; overflow: hidden;
+    }
+    .numeros::before {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(90deg, rgba(0,0,0,0.06) 0, rgba(0,0,0,0.06) 1px, transparent 1px, transparent 60px);
+    }
+    .numeros-grid { display: grid; grid-template-columns: repeat(4,1fr); }
+    .num-item {
+      padding: 44px 36px; border-right: 1px solid rgba(0,0,0,0.12);
+      position: relative; z-index: 1;
+    }
+    .num-item:last-child { border-right: none; }
+    .num-val {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+      font-size: clamp(2.8rem, 5vw, 4.5rem); line-height: 1;
+      letter-spacing: -0.02em; color: #fff; margin-bottom: 6px;
+    }
+    .num-label {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.7);
+    }
+
+    /* ── SECTION BASE ── */
+    .section { padding: 100px 36px; position: relative; }
+    .section-dark { background: var(--preto2); }
+    .section-darker { background: var(--preto3); }
+    .section-cream { background: var(--creme); color: var(--preto); }
+
+    .sec-inner { max-width: 1100px; margin: 0 auto; }
+
+    .sec-tag {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.35em; text-transform: uppercase; color: var(--laranja);
+      margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+    }
+    .sec-tag::before { content: ''; display: inline-block; width: 24px; height: 2px; background: var(--laranja); }
+
+    .sec-h {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+      font-size: clamp(2.4rem, 5vw, 4.2rem); text-transform: uppercase;
+      letter-spacing: -0.01em; line-height: 0.9; margin-bottom: 60px;
+    }
+    .sec-h .italic { font-family: 'Fraunces', serif; font-style: italic; font-weight: 300; text-transform: none; color: var(--trigo); font-size: 0.88em; }
+    .sec-h .orange { color: var(--laranja); }
+    .sec-h.cream-title { color: var(--preto); }
+    .sec-h.cream-title .italic { color: var(--laranja); }
+
+    /* ── PARA QUEM ── */
+    .forquem-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+    .fq-card {
+      background: var(--preto3); padding: 44px 36px;
+      position: relative; overflow: hidden;
+      transition: background .3s;
+    }
+    .fq-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: var(--laranja); transform: scaleX(0); transform-origin: left;
+      transition: transform .4s cubic-bezier(.22,1,.36,1);
+    }
+    .fq-card:hover { background: rgba(232,67,0,0.07); }
+    .fq-card:hover::after { transform: scaleX(1); }
+    .fq-ico { font-size: 2.4rem; margin-bottom: 20px; }
+    .fq-title {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+      font-size: 1.4rem; letter-spacing: 0.02em; text-transform: uppercase;
+      color: var(--creme); margin-bottom: 10px;
+    }
+    .fq-desc { font-size: 0.82rem; color: var(--dim); line-height: 1.75; }
+
+    /* ── DIFERENCIAIS ── */
+    .difs-split { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .difs-left { }
+    .difs-list { display: flex; flex-direction: column; gap: 0; }
+    .dif-item {
+      padding: 24px 0; border-bottom: 1px solid rgba(232,67,0,0.15);
+      display: flex; align-items: flex-start; gap: 20px;
+    }
+    .dif-num {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.68rem;
+      letter-spacing: 0.2em; color: var(--laranja); width: 28px; flex-shrink: 0; padding-top: 4px;
+    }
+    .dif-body {}
+    .dif-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--creme); margin-bottom: 5px; }
+    .dif-text { font-size: 0.8rem; color: var(--dim); line-height: 1.75; }
+
+    .difs-right { position: relative; }
+    .difs-img-wrap {
+      position: relative; aspect-ratio: 4/5;
+      border: 1px solid rgba(232,67,0,0.2);
+      overflow: hidden;
+    }
+    .difs-img-wrap img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.8) contrast(1.1); }
+    .difs-img-wrap::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(12,11,9,0.8) 0%, transparent 50%);
+    }
+    .difs-img-tag {
+      position: absolute; bottom: 24px; left: 24px; z-index: 2;
+      background: var(--laranja); color: #fff;
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+      font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 8px 18px; border-radius: 2px;
+    }
+    /* floating badge */
+    .difs-badge {
+      position: absolute; top: -20px; right: -20px;
+      width: 110px; height: 110px; border-radius: 50%;
+      background: var(--laranja);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      box-shadow: 0 8px 32px rgba(232,67,0,0.4);
+      z-index: 3;
+    }
+    .badge-yr { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.6rem; letter-spacing: -0.02em; color: #fff; line-height: 1; }
+    .badge-since { font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.8); }
+
+    /* ── GALERIA ── */
+    .gallery-mosaic {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      grid-template-rows: 220px 220px;
+      gap: 3px;
+    }
+    .gm-item { overflow: hidden; background: var(--preto3); }
+    .gm-item:first-child { grid-column: span 2; grid-row: span 2; }
+    .gm-item img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.75) contrast(1.1); transition: transform .5s cubic-bezier(.22,1,.36,1), filter .4s; }
+    .gm-item:hover img { transform: scale(1.04); filter: saturate(1.1) contrast(1.05); }
+
+    /* ── INSTITUCIONAL ── */
+    .inst-split { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .inst-body {
+      font-family: 'Fraunces', serif; font-style: italic; font-weight: 300;
+      font-size: clamp(1.05rem, 1.8vw, 1.3rem); color: rgba(12,11,9,0.65);
+      line-height: 1.75; margin-bottom: 32px;
+    }
+    .inst-body strong { font-style: normal; color: var(--preto); font-weight: 400; }
+    .inst-details { display: flex; flex-direction: column; gap: 0; }
+    .inst-row {
+      padding: 16px 0; border-bottom: 1px solid rgba(12,11,9,0.1);
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .inst-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--laranja); width: 100px; flex-shrink: 0; padding-top: 2px; }
+    .inst-val { font-size: 0.85rem; font-weight: 500; color: var(--preto); line-height: 1.6; }
+
+    /* ── MARQUEE ── */
+    .marquee-section { background: var(--preto3); border-top: 1px solid rgba(232,67,0,0.15); border-bottom: 1px solid rgba(232,67,0,0.15); overflow: hidden; padding: 14px 0; }
+    .marquee-track { display: flex; gap: 0; white-space: nowrap; animation: marquee 24s linear infinite; }
+    .marquee-track span { font-family: 'Barlow Condensed', sans-serif; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dim); padding: 0 32px; }
+    .marquee-track .sep { color: var(--laranja); font-size: 1rem; }
+    @keyframes marquee { 0%{transform:translateX(0);}100%{transform:translateX(-50%);} }
+
+    /* ── CTA FINAL ── */
+    .cta-section {
+      background: var(--laranja); position: relative; overflow: hidden;
+      padding: 100px 36px; text-align: center;
+    }
+    .cta-section::before {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(90deg, rgba(0,0,0,0.05) 0, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 60px),
+                  repeating-linear-gradient(0deg, rgba(0,0,0,0.05) 0, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 60px);
+    }
+    .cta-bg-text {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+      font-size: clamp(8rem, 18vw, 16rem); color: rgba(0,0,0,0.08);
+      white-space: nowrap; pointer-events: none; letter-spacing: -0.04em; line-height: 1;
+    }
+    .cta-inner { position: relative; z-index: 2; }
+    .cta-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 20px; }
+    .cta-h {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+      font-size: clamp(3rem, 7vw, 6rem); text-transform: uppercase;
+      letter-spacing: -0.01em; line-height: 0.9; color: #fff;
+      margin-bottom: 12px;
+    }
+    .cta-h em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 300; text-transform: none; font-size: 0.9em; color: rgba(255,255,255,0.8); }
+    .cta-sub { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.1rem; color: rgba(255,255,255,0.75); margin-bottom: 44px; }
+    .btn-white {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: #fff; color: var(--laranja);
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+      font-size: 1rem; letter-spacing: 0.16em; text-transform: uppercase;
+      text-decoration: none; padding: 18px 40px; border-radius: 3px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      transition: transform .15s, box-shadow .2s, opacity .2s;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(0,0,0,0.3); opacity: 0.95; }
+
+    /* ── TV BANNER ── */
+    .tv-banner {
+      background: var(--preto); border-top: 1px solid rgba(232,67,0,0.15);
+      padding: 22px 36px; display: flex; align-items: center; justify-content: center; gap: 14px;
+    }
+    .tv-banner p { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim2); }
+    .tv-banner a { color: var(--dim); text-decoration: none; font-weight: 700; transition: color .2s; }
+    .tv-banner a:hover { color: var(--laranja); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--preto); border-top: 1px solid rgba(245,240,232,0.07);
+      padding: 32px 36px; display: flex; align-items: center; justify-content: space-between;
+    }
+    footer p { font-size: 0.7rem; color: var(--dim2); letter-spacing: 0.1em; }
+    .foot-links { display: flex; gap: 24px; }
+    .foot-links a { font-size: 0.7rem; color: var(--dim2); text-decoration: none; letter-spacing: 0.1em; transition: color .2s; }
+    .foot-links a:hover { color: var(--laranja); }
+
+    /* ── FLOAT WA ── */
+    .float-wa {
+      position: fixed; bottom: 24px; right: 24px; z-index: 300;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #25d366; display: grid; place-items: center;
+      text-decoration: none; box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+      transition: transform .2s, box-shadow .2s;
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+    .float-wa:hover { transform: scale(1.1); box-shadow: 0 8px 28px rgba(37,211,102,0.6); }
+    .float-wa svg { width: 28px; height: 28px; fill: #fff; }
+
+    @media (max-width: 768px) {
+      .topbar { padding: 0 20px; }
+      .tb-link { display: none; }
+      .hero { padding: 80px 20px 60px; }
+      .hero-gallery { display: none; }
+      .hero-h1 { font-size: clamp(3.2rem, 12vw, 5rem); }
+      .numeros-grid { grid-template-columns: repeat(2,1fr); }
+      .num-item { border-bottom: 1px solid rgba(0,0,0,0.12); }
+      .forquem-grid { grid-template-columns: 1fr; }
+      .difs-split { grid-template-columns: 1fr; gap: 40px; }
+      .difs-right { display: none; }
+      .gallery-mosaic { grid-template-columns: repeat(2,1fr); grid-template-rows: auto; }
+      .gm-item:first-child { grid-column: span 2; }
+      .inst-split { grid-template-columns: 1fr; gap: 32px; }
+      .section { padding: 72px 20px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a href="#" class="logo">
+    <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/dalogo.png" alt="Dalen" onerror="this.style.display='none'"/>
+    <div class="logo-text"><span>Dalen</span> Produtos</div>
+  </a>
+  <div class="tb-nav">
+    <a href="#para-quem" class="tb-link">Para quem</a>
+    <a href="#diferenciais" class="tb-link">Diferenciais</a>
+    <a href="#galeria" class="tb-link">Galeria</a>
+    <a href="#contato" class="tb-link">Contato</a>
+    <a href="https://wa.me/5528999923622" target="_blank" rel="noopener" class="tb-cta">
+      Fazer pedido
+    </a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-year">2002</div>
+
+  <!-- gallery strip -->
+  <div class="hero-gallery">
+    <div class="hero-gallery-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/da1.png" alt="" onerror="this.parentElement.style.background='#201e1a'"/></div>
+    <div class="hero-gallery-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/da3.png" alt="" onerror="this.parentElement.style.background='#201e1a'"/></div>
+    <div class="hero-gallery-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/da5.png" alt="" onerror="this.parentElement.style.background='#201e1a'"/></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-badge"><div class="badge-line"></div>Fabricação própria · Desde 2002</div>
+    <h1 class="hero-h1">
+      Seu lanche<br>começa<br>no <span class="orange">pão.</span><br>
+      <span class="italic">Desde 2002.</span>
+    </h1>
+    <p class="hero-sub">Quem vende hambúrguer precisa de padrão.<br>Produzido em Marataízes para atender toda a região.</p>
+    <div class="hero-ctas">
+      <a href="https://wa.me/5528999923622" target="_blank" rel="noopener" class="btn-laranja">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Fazer pedido agora
+      </a>
+      <a href="#para-quem" class="btn-outline">Conheça mais ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- NÚMEROS -->
+<div class="numeros">
+  <div class="numeros-grid">
+    <div class="num-item">
+      <div class="num-val">+20</div>
+      <div class="num-label">Anos de mercado</div>
+    </div>
+    <div class="num-item">
+      <div class="num-val">100%</div>
+      <div class="num-label">Fabricação própria</div>
+    </div>
+    <div class="num-item">
+      <div class="num-val">Sul</div>
+      <div class="num-label">Capixaba · Região dos Lagos</div>
+    </div>
+    <div class="num-item">
+      <div class="num-val">B2B</div>
+      <div class="num-label">Fornecimento para negócios</div>
+    </div>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span>Hamburguerias</span><span class="sep">◆</span>
+    <span>Lanchonetes</span><span class="sep">◆</span>
+    <span>Restaurantes</span><span class="sep">◆</span>
+    <span>Fornecimento Regional</span><span class="sep">◆</span>
+    <span>Fabricação Própria</span><span class="sep">◆</span>
+    <span>Desde 2002</span><span class="sep">◆</span>
+    <span>Marataízes · ES</span><span class="sep">◆</span>
+    <span>Qualidade e Padrão</span><span class="sep">◆</span>
+    <span>Hamburguerias</span><span class="sep">◆</span>
+    <span>Lanchonetes</span><span class="sep">◆</span>
+    <span>Restaurantes</span><span class="sep">◆</span>
+    <span>Fornecimento Regional</span><span class="sep">◆</span>
+    <span>Fabricação Própria</span><span class="sep">◆</span>
+    <span>Desde 2002</span><span class="sep">◆</span>
+    <span>Marataízes · ES</span><span class="sep">◆</span>
+    <span>Qualidade e Padrão</span><span class="sep">◆</span>
+  </div>
+</div>
+
+<!-- PARA QUEM -->
+<section class="section section-dark" id="para-quem">
+  <div class="sec-inner">
+    <div class="sec-tag">Atendemos</div>
+    <h2 class="sec-h">Para quem<br><span class="orange">fornecemos.</span></h2>
+    <div class="forquem-grid">
+      <div class="fq-card">
+        <div class="fq-ico">🍔</div>
+        <div class="fq-title">Hamburguerias</div>
+        <div class="fq-desc">Pão com padrão para quem leva o hambúrguer a sério. Entrega regular, sem variação de qualidade, sem surpresa.</div>
+      </div>
+      <div class="fq-card">
+        <div class="fq-ico">🥪</div>
+        <div class="fq-title">Lanchonetes</div>
+        <div class="fq-desc">Volume e consistência para quem vende no atacado do dia. Fornecimento planejado conforme sua demanda.</div>
+      </div>
+      <div class="fq-card">
+        <div class="fq-ico">🍽️</div>
+        <div class="fq-title">Restaurantes</div>
+        <div class="fq-desc">Complemento de cardápio com qualidade de fabricação própria. Pão de hambúrguer, brioche e variedades sob consulta.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section class="section section-darker" id="galeria" style="padding-bottom:0;">
+  <div class="sec-inner" style="padding-bottom:40px;">
+    <div class="sec-tag">Produto</div>
+    <h2 class="sec-h">Feito com<br><span class="italic">cuidado.</span></h2>
+  </div>
+  <div class="gallery-mosaic">
+    <div class="gm-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/da1.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gm-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/da2.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gm-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/da3.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gm-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/da4.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gm-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/da5.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gm-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/da6.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gm-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/da7.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gm-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/da8.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+    <div class="gm-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/da9.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section class="section section-dark" id="diferenciais">
+  <div class="sec-inner">
+    <div class="difs-split">
+      <div class="difs-left">
+        <div class="sec-tag">Por que Dalen</div>
+        <h2 class="sec-h">O padrão<br>que seu<br><span class="orange">negócio</span><br><span class="italic">merece.</span></h2>
+        <div class="difs-list">
+          <div class="dif-item">
+            <div class="dif-num">01</div>
+            <div class="dif-body">
+              <div class="dif-title">Fabricação própria</div>
+              <div class="dif-text">Produzimos tudo internamente, com controle total da qualidade do início ao fim. Sem intermediários, sem surpresas.</div>
+            </div>
+          </div>
+          <div class="dif-item">
+            <div class="dif-num">02</div>
+            <div class="dif-body">
+              <div class="dif-title">Consistência de entrega</div>
+              <div class="dif-text">Padrão constante lote a lote. Seu cliente não percebe variação — e é exatamente isso que faz negócio durar.</div>
+            </div>
+          </div>
+          <div class="dif-item">
+            <div class="dif-num">03</div>
+            <div class="dif-body">
+              <div class="dif-title">Atendimento regional</div>
+              <div class="dif-text">Sul Capixaba e Região dos Lagos. Entrega próxima, atendimento direto, sem depender de grandes distribuidoras.</div>
+            </div>
+          </div>
+          <div class="dif-item">
+            <div class="dif-num">04</div>
+            <div class="dif-body">
+              <div class="dif-title">+20 anos de mercado</div>
+              <div class="dif-text">Desde 2002 fornecendo para hamburguerias e lanchonetes da região. Experiência que não se improvisa.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="difs-right">
+        <div class="difs-badge">
+          <div class="badge-yr">2002</div>
+          <div class="badge-since">desde</div>
+        </div>
+        <div class="difs-img-wrap">
+          <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/da2.png" alt="Produtos Dalen" onerror="this.parentElement.style.background='#201e1a'"/>
+          <div class="difs-img-tag">Fabricação em Marataízes · ES</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTITUCIONAL -->
+<section class="section section-cream" id="contato">
+  <div class="sec-inner">
+    <div class="inst-split">
+      <div>
+        <div class="sec-tag" style="color:var(--laranja);">Sobre a Dalen</div>
+        <h2 class="sec-h cream-title">Quem<br><span class="italic" style="color:var(--laranja);">somos.</span></h2>
+        <p class="inst-body">
+          A Produtos Dalen <strong>fabrica pães para hambúrguer desde 2002</strong> em Marataízes, Espírito Santo.
+          Nascemos para suprir a demanda da região com qualidade, padrão e
+          <strong>fornecimento confiável</strong> — direto de fábrica para o seu negócio.<br><br>
+          Atendemos toda a <strong>Região Sul Capixaba e Região dos Lagos</strong>. Se você vende hambúrguer, lanche ou precisa de pão com padrão e frequência — a Dalen é o seu fornecedor.
+        </p>
+        <a href="https://wa.me/5528999923622" target="_blank" rel="noopener" class="btn-laranja" style="display:inline-flex;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Falar no WhatsApp
+        </a>
+      </div>
+      <div>
+        <div class="inst-details">
+          <div class="inst-row">
+            <div class="inst-label">Empresa</div>
+            <div class="inst-val">Produtos Dalen</div>
+          </div>
+          <div class="inst-row">
+            <div class="inst-label">Segmento</div>
+            <div class="inst-val">Fabricação de pães · Fornecimento B2B</div>
+          </div>
+          <div class="inst-row">
+            <div class="inst-label">Fundação</div>
+            <div class="inst-val">2002 — mais de 20 anos no mercado</div>
+          </div>
+          <div class="inst-row">
+            <div class="inst-label">Endereço</div>
+            <div class="inst-val">Rua Domingos Pereira Viana, 190<br>Marataízes, ES · CEP 29345-000</div>
+          </div>
+          <div class="inst-row">
+            <div class="inst-label">Cobertura</div>
+            <div class="inst-val">Sul Capixaba · Região dos Lagos</div>
+          </div>
+          <div class="inst-row">
+            <div class="inst-label">WhatsApp</div>
+            <div class="inst-val"><a href="https://wa.me/5528999923622" target="_blank" rel="noopener" style="color:var(--laranja);font-weight:700;">(28) 99992-3622</a></div>
+          </div>
+          <div class="inst-row">
+            <div class="inst-label">Instagram</div>
+            <div class="inst-val"><a href="https://www.instagram.com/dalenn0/" target="_blank" rel="noopener" style="color:var(--laranja);font-weight:700;">@dalenn0</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<div class="cta-section">
+  <div class="cta-bg-text">DALEN</div>
+  <div class="cta-inner">
+    <div class="cta-tag">Faça seu pedido agora</div>
+    <h2 class="cta-h">Fornecimento<br><em>que não falha.</em></h2>
+    <p class="cta-sub">Solicite catálogo, preços e condições de entrega.</p>
+    <a href="https://wa.me/5528999923622" target="_blank" rel="noopener" class="btn-white">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      (28) 99992-3622 · WhatsApp
+    </a>
+  </div>
+</div>
+
+<!-- TV BANNER -->
+<div class="tv-banner">
+  <p>Parceiro</p>
+  <a href="https://tvmarataizes.digital" target="_blank" rel="noopener">📺 TV Marataízes — Portal do Sul do Espírito Santo</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© Produtos Dalen · Marataízes, ES · Desde 2002</p>
+  <div class="foot-links">
+    <a href="https://www.instagram.com/dalenn0/" target="_blank" rel="noopener">@dalenn0</a>
+    <a href="https://wa.me/5528999923622" target="_blank" rel="noopener">WhatsApp</a>
+    <a href="https://tvmarataizes.digital" target="_blank" rel="noopener">TV Marataízes</a>
+  </div>
+</footer>
+
+<!-- FLOAT WA -->
+<a href="https://wa.me/5528999923622" target="_blank" rel="noopener" class="float-wa" title="WhatsApp Dalen">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+</body>
+</html>
