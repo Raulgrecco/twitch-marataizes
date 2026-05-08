@@ -2,295 +2,336 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LojaEdit v3 — Templates</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LojaEdit — Editor de Vídeo</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#07070e;--bg2:#0e0e1c;--bg3:#141428;--border:#1c1c35;
-  --acc:#7c3aed;--acc2:#a78bfa;--pink:#ec4899;--green:#059669;
-  --text:#dde0f0;--muted:#5a5a80;
+  --bg:#06060d;--s1:#0c0c18;--s2:#111120;--s3:#161628;
+  --brd:#1e1e34;--brd2:#252540;
+  --p:#8b5cf6;--p2:#a78bfa;--p3:#c4b5fd;
+  --pk:#ec4899;--gr:#10b981;--yl:#f59e0b;
+  --tx:#e8e8f8;--mt:#6060a0;
 }
-body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);height:100vh;display:flex;flex-direction:column;overflow:hidden}
+html,body{height:100%;overflow:hidden}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);display:flex;flex-direction:column}
 
-/* TOP */
-.top{display:flex;align-items:center;gap:10px;padding:8px 14px;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0}
-.logo{font-size:14px;font-weight:800;color:#fff;white-space:nowrap;letter-spacing:.3px}
-.logo em{color:#c084fc;font-style:normal}
-.badge{background:#1e1040;color:#a78bfa;font-size:8px;padding:2px 6px;border-radius:6px;margin-left:3px;font-weight:700;letter-spacing:.5px}
-.top-nav{display:flex;gap:4px;flex:1;justify-content:center}
-.nav-tab{padding:6px 12px;border-radius:7px;border:none;cursor:pointer;font-size:11px;font-weight:700;background:transparent;color:var(--muted);transition:all .15s}
-.nav-tab.active,.nav-tab:hover{background:var(--bg3);color:var(--text)}
-.nav-tab.active{color:var(--acc2)}
-.top-right{display:flex;gap:6px}
-.btn{padding:6px 13px;border-radius:7px;border:none;cursor:pointer;font-size:11px;font-weight:700;transition:all .15s;white-space:nowrap}
-.btn-ghost{background:var(--bg3);color:#999;border:1px solid var(--border)}
-.btn-ghost:hover{color:#fff;border-color:#333}
-.btn-green{background:var(--green);color:#fff}
-.btn-green:hover{background:#10b981}
-.btn-acc{background:var(--acc);color:#fff}
-.btn-acc:hover{background:#8b5cf6}
+/* ── TOP BAR ── */
+.bar{display:flex;align-items:center;gap:8px;padding:0 14px;height:46px;background:var(--s1);border-bottom:1px solid var(--brd);flex-shrink:0;z-index:10}
+.logo{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:#fff;letter-spacing:-.5px;white-space:nowrap}
+.logo b{color:var(--p2)}
+.pill{background:var(--s3);border:1px solid var(--brd2);color:var(--p3);font-size:9px;padding:2px 7px;border-radius:10px;font-weight:700;letter-spacing:.5px}
+.tabs{display:flex;gap:2px;flex:1;justify-content:center}
+.tab{padding:6px 14px;border-radius:6px;border:none;cursor:pointer;font-size:11px;font-weight:700;font-family:'DM Sans',sans-serif;background:transparent;color:var(--mt);transition:all .15s;letter-spacing:.2px}
+.tab.on{background:var(--s3);color:var(--p2);border:1px solid var(--brd2)}
+.tab:hover:not(.on){color:var(--tx)}
+.acts{display:flex;gap:6px}
+.b{padding:6px 13px;border-radius:7px;border:none;cursor:pointer;font-size:11px;font-weight:700;font-family:'DM Sans',sans-serif;transition:all .15s;white-space:nowrap}
+.b-o{background:var(--s3);color:#888;border:1px solid var(--brd2)}.b-o:hover{color:#fff}
+.b-g{background:var(--gr);color:#fff}.b-g:hover{opacity:.85}
+.b-p{background:var(--p);color:#fff}.b-p:hover{background:#7c3aed}
 
-/* VIEWS */
-.view{display:none;flex:1;overflow:hidden}
-.view.active{display:flex}
+/* ── VIEWS ── */
+.view{display:none;flex:1;overflow:hidden;min-height:0}
+.view.on{display:flex}
 
-/* ── TEMPLATES VIEW ─────────────────────────── */
-.tmpl-view{flex-direction:column;overflow:hidden}
-.tmpl-header{padding:14px 20px 10px;border-bottom:1px solid var(--border);flex-shrink:0}
-.tmpl-header h2{font-size:17px;font-weight:700;margin-bottom:3px}
-.tmpl-header p{font-size:11px;color:var(--muted)}
-.tmpl-cats{display:flex;gap:6px;padding:10px 20px;border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto}
-.tmpl-cat{padding:5px 12px;border-radius:14px;border:1px solid var(--border);background:var(--bg3);color:var(--muted);font-size:10px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .15s}
-.tmpl-cat.active,.tmpl-cat:hover{background:var(--acc);color:#fff;border-color:var(--acc)}
-.tmpl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;padding:16px 20px;overflow-y:auto;flex:1}
-.tmpl-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;position:relative}
-.tmpl-card:hover{border-color:var(--acc);transform:translateY(-2px);box-shadow:0 8px 32px rgba(124,58,237,.2)}
-.tmpl-thumb{width:100%;height:130px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.tmpl-thumb canvas{position:absolute;inset:0;width:100%;height:100%}
-.tmpl-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;pointer-events:none}
-.tmpl-info{padding:12px 14px}
-.tmpl-name{font-size:13px;font-weight:700;color:#eee;margin-bottom:3px}
-.tmpl-desc{font-size:10px;color:var(--muted);line-height:1.4;margin-bottom:8px}
-.tmpl-meta{display:flex;gap:6px;flex-wrap:wrap}
-.tmpl-tag{font-size:9px;padding:2px 7px;border-radius:8px;font-weight:700}
-.tag-clips{background:#1e1030;color:#a78bfa}
-.tag-dur{background:#0d2b1d;color:#6ee7b7}
-.tag-fx{background:#1a1209;color:#fbbf24}
-.use-btn{position:absolute;top:10px;right:10px;padding:5px 12px;background:var(--acc);color:#fff;border:none;border-radius:8px;font-size:10px;font-weight:700;cursor:pointer;opacity:0;transition:opacity .2s}
-.tmpl-card:hover .use-btn{opacity:1}
+/* ════════════════════════════════════════
+   TEMPLATE GALLERY
+════════════════════════════════════════ */
+.gal{flex-direction:column}
+.gal-top{padding:14px 20px 10px;border-bottom:1px solid var(--brd);flex-shrink:0}
+.gal-top h2{font-size:16px;font-weight:700;margin-bottom:2px}
+.gal-top p{font-size:11px;color:var(--mt)}
+.gal-cats{display:flex;gap:5px;padding:9px 20px;border-bottom:1px solid var(--brd);flex-shrink:0;overflow-x:auto}
+.gal-cats::-webkit-scrollbar{display:none}
+.cat{padding:4px 12px;border-radius:12px;border:1px solid var(--brd2);background:var(--s2);color:var(--mt);font-size:10px;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap}
+.cat.on,.cat:hover{background:var(--p);color:#fff;border-color:var(--p)}
+.gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;padding:14px 20px;overflow-y:auto;flex:1}
+.card{background:var(--s1);border:1.5px solid var(--brd);border-radius:12px;overflow:hidden;cursor:pointer;transition:all .2s;position:relative}
+.card:hover{border-color:var(--p);transform:translateY(-2px);box-shadow:0 8px 28px rgba(139,92,246,.18)}
+.card-thumb{width:100%;height:120px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;flex-direction:column;gap:4px}
+.card-info{padding:10px 12px}
+.card-name{font-size:12px;font-weight:700;color:#eee;margin-bottom:2px}
+.card-desc{font-size:10px;color:var(--mt);line-height:1.4;margin-bottom:8px}
+.card-tags{display:flex;gap:4px;flex-wrap:wrap}
+.tag{font-size:8px;padding:2px 7px;border-radius:6px;font-weight:700}
+.tp{background:#1e1030;color:var(--p3)}
+.tg{background:#0d2018;color:#6ee7b7}
+.ty{background:#1a1000;color:#fbbf24}
+.use-btn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.65);opacity:0;transition:opacity .2s;font-size:13px;font-weight:800;color:#fff;gap:6px}
+.card:hover .use-btn{opacity:1}
 
-/* ── EDITOR VIEW ─────────────────────────────── */
-.editor-view{display:flex;overflow:hidden}
-.panel-left{width:188px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column}
-.panel-title{font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;padding:10px 10px 5px}
-.media-list{flex:1;overflow-y:auto;padding:3px 7px}
-.media-item{background:var(--bg3);border:1px solid var(--border);border-radius:7px;margin-bottom:5px;overflow:hidden;cursor:pointer;transition:border-color .15s;position:relative}
-.media-item:hover{border-color:var(--acc)}
-.media-item.used{border-color:#059669}
-.media-thumb{width:100%;height:52px;background:#1a1a2e;display:flex;align-items:center;justify-content:center;font-size:20px;overflow:hidden;position:relative}
-.media-thumb video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.media-info{padding:4px 7px}
-.media-name{color:#ccc;font-size:10px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.drop-zone{margin:6px;border:1.5px dashed #252545;border-radius:9px;padding:13px 8px;text-align:center;cursor:pointer;transition:all .2s;color:#3a3a6a;font-size:10px}
-.drop-zone:hover,.drop-zone.drag-over{border-color:var(--acc);color:var(--acc2);background:#0f0f20}
+/* ════════════════════════════════════════
+   EDITOR
+════════════════════════════════════════ */
+.ed{flex-direction:row}
 
-.center{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
-.preview-area{flex:1;display:flex;align-items:center;justify-content:center;background:#050508;position:relative;overflow:hidden}
-.preview-wrap{position:relative;width:100%;max-width:680px;aspect-ratio:16/9;background:#000;border-radius:6px;overflow:hidden}
-#mainVideo{width:100%;height:100%;object-fit:contain;display:none}
-#transCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;z-index:5}
-.text-cont{position:absolute;inset:0;pointer-events:none;z-index:4}
-.overlay-txt{position:absolute;cursor:move;user-select:none;line-height:1.2;border:1px dashed transparent;padding:3px 8px;border-radius:4px}
-.overlay-txt:hover{border-color:var(--acc)}
-.empty-prev{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#222;font-size:12px}
+/* LEFT */
+.left{width:182px;flex-shrink:0;background:var(--s1);border-right:1px solid var(--brd);display:flex;flex-direction:column}
+.sec-title{font-size:9px;font-weight:800;color:var(--mt);text-transform:uppercase;letter-spacing:1px;padding:9px 10px 5px}
+.dropz{margin:6px;border:1.5px dashed var(--brd2);border-radius:8px;padding:14px 6px;text-align:center;cursor:pointer;transition:all .2s;color:#2a2a50;font-size:10px}
+.dropz:hover,.dropz.ov{border-color:var(--p);color:var(--p2);background:#0d0d20}
+.mlist{flex:1;overflow-y:auto;padding:3px 6px}
+.mi{background:var(--s2);border:1px solid var(--brd);border-radius:7px;margin-bottom:4px;overflow:hidden;cursor:pointer;transition:border-color .15s}
+.mi:hover{border-color:var(--p)}
+.mi.used{border-color:var(--gr)}
+.mi-thumb{width:100%;height:50px;background:#111;display:flex;align-items:center;justify-content:center;font-size:20px;overflow:hidden;position:relative}
+.mi-thumb video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mi-name{padding:3px 7px 5px;font-size:9px;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-/* TEMPLATE ACTIVE BANNER */
-.tmpl-banner{background:linear-gradient(90deg,#1e1030,#0d1a30);border-top:1px solid var(--border);padding:7px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;font-size:11px}
-.tmpl-banner .slot-list{display:flex;gap:5px;flex:1;overflow-x:auto}
-.slot-item{display:flex;align-items:center;gap:5px;padding:4px 10px;background:var(--bg3);border:1.5px dashed var(--border);border-radius:7px;font-size:10px;color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0}
-.slot-item:hover{border-color:var(--acc2);color:var(--acc2)}
-.slot-item.filled{border-style:solid;border-color:#059669;color:#6ee7b7;background:#0d2b1d}
-.slot-item.filled .slot-ico{color:#059669}
-.slot-ico{font-size:14px}
-.slot-lbl{font-size:9px;font-weight:700}
+/* CENTER */
+.cen{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
 
-.playback{display:flex;align-items:center;gap:10px;padding:7px 14px;background:var(--bg2);border-top:1px solid var(--border);flex-shrink:0}
-.play-btn{width:34px;height:34px;border-radius:50%;background:var(--acc);border:none;cursor:pointer;color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
-.play-btn:hover{background:#8b5cf6}
-.time{font-size:11px;color:var(--muted);min-width:82px;flex-shrink:0;font-variant-numeric:tabular-nums}
-.prog{flex:1;height:4px;background:#1a1a2e;border-radius:2px;cursor:pointer;position:relative}
-.prog-fill{height:100%;background:var(--acc);border-radius:2px;pointer-events:none;width:0}
-.prog-handle{width:11px;height:11px;background:#fff;border-radius:50%;position:absolute;top:50%;transform:translate(-50%,-50%);pointer-events:none;box-shadow:0 0 6px rgba(124,58,237,.6);left:0}
+/* PREVIEW */
+.prev-area{flex:1;display:flex;align-items:center;justify-content:center;background:#03030a;position:relative;overflow:hidden}
+.prev-wrap{position:relative;width:100%;max-width:660px;aspect-ratio:16/9}
+/* THE CANVAS IS THE VIDEO OUTPUT — renders effects in real time */
+#cvs{width:100%;height:100%;display:block;border-radius:4px;background:#000}
+/* hidden video for source */
+#srcVid{display:none}
+.txt-layer{position:absolute;inset:0;pointer-events:none;z-index:3}
+.txt-el{position:absolute;cursor:move;user-select:none;line-height:1.2;padding:2px 7px}
+.txt-el:hover{outline:1px dashed var(--p);outline-offset:2px}
+.no-vid{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#1a1a30;font-size:12px;pointer-events:none}
+.no-vid .ico{font-size:44px}
+
+/* SLOT BANNER */
+.slot-bar{display:flex;align-items:center;gap:8px;padding:6px 12px;background:var(--s2);border-top:1px solid var(--brd);flex-shrink:0;overflow:hidden}
+.slot-bar.hide{display:none}
+.slot-lbl{font-size:9px;font-weight:800;color:var(--p2);white-space:nowrap}
+.slots{display:flex;gap:4px;flex:1;overflow-x:auto}
+.slots::-webkit-scrollbar{display:none}
+.slot{display:flex;align-items:center;gap:4px;padding:4px 9px;background:var(--s3);border:1.5px dashed var(--brd2);border-radius:6px;font-size:9px;color:var(--mt);cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0}
+.slot:hover{border-color:var(--p2);color:var(--p2)}
+.slot.ok{border-style:solid;border-color:var(--gr);color:#6ee7b7;background:#061412}
+
+/* PLAYBACK */
+.pb{display:flex;align-items:center;gap:10px;padding:7px 12px;background:var(--s1);border-top:1px solid var(--brd);flex-shrink:0}
+.pb-btn{width:33px;height:33px;border-radius:50%;background:var(--p);border:none;cursor:pointer;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+.pb-btn:hover{background:#7c3aed}
+.pb-time{font-family:'Space Mono',monospace;font-size:10px;color:var(--mt);min-width:80px;flex-shrink:0}
+.pbar{flex:1;height:3px;background:var(--s3);border-radius:2px;cursor:pointer;position:relative}
+.pbar-f{height:100%;background:var(--p);border-radius:2px;pointer-events:none;width:0}
+.pbar-h{width:10px;height:10px;background:#fff;border-radius:50%;position:absolute;top:50%;transform:translate(-50%,-50%);pointer-events:none;left:0;box-shadow:0 0 6px rgba(139,92,246,.7)}
+.vol{display:flex;align-items:center;gap:5px;flex-shrink:0}
+.vol input{width:60px;accent-color:var(--p)}
+
+/* EFFECTS SHELF */
+.fx-shelf{background:var(--s1);border-top:1px solid var(--brd);padding:5px 10px;flex-shrink:0}
+.fx-label{font-size:9px;font-weight:800;color:var(--mt);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+.fx-row{display:flex;gap:5px;overflow-x:auto;padding-bottom:2px}
+.fx-row::-webkit-scrollbar{height:2px}
+.fx-chip{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:5px 8px;background:var(--s3);border:1px solid var(--brd2);border-radius:8px;transition:all .15s;flex-shrink:0;min-width:56px;user-select:none}
+.fx-chip:hover{border-color:var(--p2);background:#120c28;transform:translateY(-1px)}
+.fx-chip.on{border-color:var(--p);background:#180f38;color:var(--p2)}
+.fx-chip .e{font-size:15px}
+.fx-chip .n{font-size:8px;color:var(--mt);white-space:nowrap}
+.fx-chip .c{font-size:7px;color:#333;margin-top:1px}
 
 /* TIMELINE */
-.timeline{height:120px;flex-shrink:0;background:#08080f;border-top:1px solid var(--border);display:flex;flex-direction:column;padding:4px 0 2px}
-.trk{display:flex;align-items:center;min-height:32px;padding:1px 10px}
-.trk-lbl{width:56px;flex-shrink:0;font-size:9px;color:#3a3a5a;font-weight:800;text-transform:uppercase;letter-spacing:.3px}
-.trk-clips{display:flex;gap:2px;flex:1;overflow-x:auto;align-items:center}
-.clip{height:26px;min-width:68px;border-radius:5px;display:flex;align-items:center;padding:0 20px 0 7px;font-size:10px;font-weight:700;cursor:pointer;border:1.5px solid transparent;position:relative;overflow:hidden;white-space:nowrap;flex-shrink:0;transition:border-color .15s}
-.v-clip{background:#1e1030;border-color:#4c1d95;color:#c4b5fd}
-.v-clip:hover,.v-clip.active{border-color:#a78bfa}
-.v-clip.tmpl-slot{border-style:dashed;background:#0e0820;color:#554488}
-.v-clip.tmpl-slot.filled{border-style:solid;border-color:#059669;background:#0d2318;color:#6ee7b7}
-.m-clip{background:#0d2b1d;border-color:#065f46;color:#6ee7b7}
-.t-clip{background:#1a1209;border-color:#78350f;color:#fbbf24}
-.clip-del{position:absolute;right:3px;top:50%;transform:translateY(-50%);background:none;border:none;color:#444;cursor:pointer;font-size:10px;line-height:1}
-.clip-del:hover{color:#f87171}
-.add-btn{width:24px;height:24px;border-radius:4px;background:var(--bg3);border:1px dashed #252545;color:#3a3a5a;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-left:3px;transition:all .15s;line-height:1}
-.add-btn:hover{border-color:var(--acc);color:var(--acc2)}
+.tl{height:106px;flex-shrink:0;background:#040409;border-top:1px solid var(--brd);display:flex;flex-direction:column;padding:3px 0}
+.trk{display:flex;align-items:center;height:32px;padding:0 10px}
+.trk-n{width:52px;flex-shrink:0;font-size:8px;color:#303060;font-weight:800;text-transform:uppercase;letter-spacing:.3px}
+.trk-c{display:flex;gap:2px;flex:1;overflow-x:auto;align-items:center}
+.trk-c::-webkit-scrollbar{height:2px}
+.clip{height:24px;min-width:64px;border-radius:4px;display:flex;align-items:center;padding:0 18px 0 6px;font-size:9px;font-weight:700;cursor:pointer;border:1.5px solid transparent;position:relative;overflow:hidden;white-space:nowrap;flex-shrink:0;transition:border-color .15s}
+.vc{background:#170d2e;border-color:#3b1a8a;color:var(--p3)}.vc:hover,.vc.on{border-color:var(--p2)}
+.vc.slot-c{border-style:dashed;background:#090615;color:#3a2560}
+.vc.slot-c.ok{border-style:solid;border-color:var(--gr);background:#041210;color:#6ee7b7}
+.mc{background:#071a0f;border-color:#064530;color:#6ee7b7}
+.tc{background:#140d00;border-color:#5a3000;color:var(--yl)}
+.cdel{position:absolute;right:3px;top:50%;transform:translateY(-50%);background:none;border:none;color:#333;cursor:pointer;font-size:9px;padding:0;line-height:1}
+.cdel:hover{color:#f87171}
+.add{width:22px;height:22px;border-radius:4px;background:var(--s2);border:1px dashed var(--brd2);color:#2a2a50;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-left:3px;transition:all .15s;line-height:1}
+.add:hover{border-color:var(--p);color:var(--p2)}
 
-/* RIGHT PANEL */
-.panel-right{width:185px;flex-shrink:0;background:var(--bg2);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
-.rtabs{display:flex;border-bottom:1px solid var(--border);flex-shrink:0}
-.rtab{flex:1;padding:8px 1px;font-size:9px;font-weight:800;text-align:center;color:#444;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;text-transform:uppercase;letter-spacing:.5px}
-.rtab.active{color:var(--acc2);border-bottom-color:var(--acc)}
-.rpanel{display:none;overflow-y:auto;flex:1;padding:8px}
-.rpanel.active{display:block}
-.rsec-label{font-size:9px;color:#3a3a5a;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;font-weight:800}
-.filter-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:6px}
-.fbtn{background:var(--bg3);border:1.5px solid transparent;border-radius:6px;cursor:pointer;padding:5px 3px;text-align:center;font-size:9px;color:#666;transition:all .15s}
-.fbtn:hover{border-color:var(--acc);color:var(--acc2)}
-.fbtn.active{border-color:var(--acc);background:#1e1030;color:var(--acc2)}
-.fthumb{width:100%;height:28px;border-radius:4px;margin-bottom:3px;font-size:13px;display:flex;align-items:center;justify-content:center}
-.adj-row{display:flex;align-items:center;gap:4px;margin-bottom:6px;font-size:10px;color:#555}
-.adj-row label{min-width:42px;font-size:9px}
-.adj-row input[type=range]{flex:1;accent-color:var(--acc)}
-.adj-val{min-width:22px;text-align:right;font-size:9px;color:#888}
-.text-inp{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 7px;color:#eee;font-size:11px;margin-bottom:6px}
-.text-inp:focus{outline:none;border-color:var(--acc)}
-.color-dots{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:7px}
-.cdot{width:18px;height:18px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:border-color .15s;flex-shrink:0}
-.cdot.active{border-color:#fff}
-.sz-row{display:flex;gap:3px;margin-bottom:6px}
-.sz-btn{flex:1;padding:4px 2px;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:#666;font-size:9px;cursor:pointer;text-align:center;transition:all .15s}
-.sz-btn.active,.sz-btn:hover{background:#1e1030;border-color:var(--acc);color:var(--acc2)}
+/* RIGHT */
+.right{width:182px;flex-shrink:0;background:var(--s1);border-left:1px solid var(--brd);display:flex;flex-direction:column;overflow:hidden}
+.rtabs{display:flex;border-bottom:1px solid var(--brd);flex-shrink:0}
+.rtab{flex:1;padding:7px 1px;font-size:8px;font-weight:800;text-align:center;color:#333;cursor:pointer;border-bottom:2px solid transparent;text-transform:uppercase;letter-spacing:.5px;transition:all .15s}
+.rtab.on{color:var(--p2);border-bottom-color:var(--p)}
+.rp{display:none;overflow-y:auto;flex:1;padding:7px}
+.rp.on{display:block}
+.rl{font-size:8px;color:#303060;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;font-weight:800;margin-top:6px}
+.rl:first-child{margin-top:0}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:4px}
+.fb{background:var(--s2);border:1.5px solid transparent;border-radius:6px;cursor:pointer;padding:5px 3px;text-align:center;font-size:8px;color:#555;transition:all .15s}
+.fb:hover{border-color:var(--p);color:var(--p2)}.fb.on{border-color:var(--p);background:#170f35;color:var(--p2)}
+.ft{width:100%;height:26px;border-radius:4px;margin-bottom:3px;font-size:12px;display:flex;align-items:center;justify-content:center}
+.ar{display:flex;align-items:center;gap:4px;margin-bottom:5px}
+.ar label{min-width:40px;font-size:8px;color:#555}
+.ar input[type=range]{flex:1;accent-color:var(--p)}
+.av{min-width:20px;text-align:right;font-size:8px;color:#888}
+.ti{width:100%;background:var(--s2);border:1px solid var(--brd);border-radius:5px;padding:5px 7px;color:#eee;font-size:10px;margin-bottom:5px}
+.ti:focus{outline:none;border-color:var(--p)}
+.cds{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:6px}
+.cd{width:16px;height:16px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:border-color .15s;flex-shrink:0}
+.cd.on{border-color:#fff}
+.sr{display:flex;gap:3px;margin-bottom:5px}
+.sb{flex:1;padding:4px 2px;background:var(--s2);border:1px solid var(--brd);border-radius:4px;color:#555;font-size:8px;cursor:pointer;text-align:center;transition:all .15s}
+.sb.on,.sb:hover{background:#170f35;border-color:var(--p);color:var(--p2)}
 
-.notif{position:fixed;top:46px;right:14px;background:#1a0f30;border:1px solid var(--acc);border-radius:9px;padding:9px 14px;font-size:11px;color:var(--acc2);z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;max-width:250px;line-height:1.4}
-.notif.show{opacity:1}
-
+.notif{position:fixed;top:48px;right:14px;background:#120a28;border:1px solid var(--p);border-radius:9px;padding:9px 14px;font-size:11px;color:var(--p2);z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;max-width:240px;line-height:1.4}
+.notif.on{opacity:1}
 ::-webkit-scrollbar{width:3px;height:3px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:#1e1e35;border-radius:2px}
+::-webkit-scrollbar-thumb{background:var(--brd2);border-radius:2px}
 </style>
 </head>
 <body>
 
-<div class="top">
-  <div class="logo">✦ <em>LOJA</em>EDIT <span class="badge">v3</span></div>
-  <div class="top-nav">
-    <button class="nav-tab active" onclick="showView('templates',this)">🎬 Templates</button>
-    <button class="nav-tab" onclick="showView('editor',this)">✂ Editor</button>
+<!-- BAR -->
+<div class="bar">
+  <div class="logo">✦ <b>LOJA</b>EDIT <span class="pill">PRO</span></div>
+  <div class="tabs">
+    <button class="tab on" onclick="goView('vGal',this)">🎬 Templates</button>
+    <button class="tab" onclick="goView('vEd',this)">✂ Editor</button>
   </div>
-  <div class="top-right">
-    <button class="btn btn-ghost" id="tmplNameBtn" style="display:none"></button>
-    <button class="btn btn-ghost" onclick="notify('💾 Salvo!')">💾 Salvar</button>
-    <button class="btn btn-green" onclick="exportVideo()">⬇ Exportar</button>
+  <div class="acts">
+    <span id="tmplTag" style="display:none;font-size:10px;color:var(--p2);font-weight:700;padding:0 6px"></span>
+    <button class="b b-o" onclick="alert('Salvo!')">💾</button>
+    <button class="b b-g" onclick="doExport()">⬇ Exportar</button>
   </div>
 </div>
 
-<!-- TEMPLATES VIEW -->
-<div class="view tmpl-view active" id="vTemplates">
-  <div class="tmpl-header">
-    <h2>✦ Templates prontos para sua loja</h2>
-    <p>Escolha um template, importe seus vídeos e está pronto. Igual ao CapCut — mas no browser.</p>
+<!-- ═══════════ GALLERY VIEW ═══════════ -->
+<div class="view gal on" id="vGal">
+  <div class="gal-top">
+    <h2>Templates para sua loja</h2>
+    <p>Escolha um template → importe seus vídeos → pronto para exportar</p>
   </div>
-  <div class="tmpl-cats" id="tmplCats"></div>
-  <div class="tmpl-grid" id="tmplGrid"></div>
+  <div class="gal-cats" id="galCats"></div>
+  <div class="gal-grid" id="galGrid"></div>
 </div>
 
-<!-- EDITOR VIEW -->
-<div class="view editor-view" id="vEditor">
+<!-- ═══════════ EDITOR VIEW ═══════════ -->
+<div class="view ed" id="vEd">
 
-  <div class="panel-left">
-    <div class="panel-title">📁 Seus Vídeos</div>
-    <div class="drop-zone" id="dropZone"
-      ondragover="dzOver(event)" ondragleave="dzLeave()" ondrop="dzDrop(event)"
-      onclick="document.getElementById('fileIn').click()">
-      <input type="file" id="fileIn" accept="video/*,audio/*" multiple onchange="handleFiles(this.files)">
+  <!-- LEFT: MEDIA -->
+  <div class="left">
+    <div class="sec-title">📁 Mídias</div>
+    <div class="dropz" id="dz" ondragover="dzOn(event)" ondragleave="dzOff()" ondrop="dzDrop(event)" onclick="document.getElementById('fin').click()">
+      <input type="file" id="fin" accept="video/*,audio/*" multiple onchange="handleFiles(this.files)">
       <div style="font-size:22px;margin-bottom:4px">🎬</div>
-      <div>Arraste vídeos aqui</div>
-      <div style="font-size:9px;color:#2a2a4a;margin-top:2px">ou clique para selecionar</div>
+      Arraste vídeos aqui<br>
+      <span style="color:#1a1a3a;font-size:9px">ou clique</span>
     </div>
-    <div class="media-list" id="mediaList"></div>
+    <div class="mlist" id="mlist"></div>
   </div>
 
-  <div class="center">
-    <div class="preview-area">
-      <div class="preview-wrap" id="previewWrap">
-        <video id="mainVideo" onended="onEnd()" onloadedmetadata="onMeta()"></video>
-        <canvas id="transCanvas"></canvas>
-        <div class="text-cont" id="textCont"></div>
-        <div class="empty-prev" id="emptyPrev">
-          <div style="font-size:40px">🎬</div>
+  <!-- CENTER -->
+  <div class="cen">
+
+    <!-- PREVIEW — canvas renders video + effects in real time -->
+    <div class="prev-area">
+      <div class="prev-wrap" id="pw">
+        <canvas id="cvs"></canvas>
+        <video id="srcVid" crossorigin="anonymous" playsinline></video>
+        <div class="txt-layer" id="txtLayer"></div>
+        <div class="no-vid" id="noVid">
+          <div class="ico">🎬</div>
           <div>Escolha um template ou adicione vídeos</div>
         </div>
       </div>
     </div>
 
-    <!-- TEMPLATE SLOTS BANNER -->
-    <div class="tmpl-banner" id="tmplBanner" style="display:none">
-      <div style="font-size:10px;font-weight:800;color:var(--acc2);flex-shrink:0">📌 SLOTS:</div>
-      <div class="slot-list" id="slotList"></div>
-      <button class="btn btn-acc" style="font-size:10px;flex-shrink:0" onclick="autoFillSlots()">✦ Preencher auto</button>
+    <!-- SLOT BANNER -->
+    <div class="slot-bar hide" id="slotBar">
+      <div class="slot-lbl">📌 SLOTS</div>
+      <div class="slots" id="slotList"></div>
+      <button class="b b-p" style="font-size:9px;flex-shrink:0" onclick="autoFill()">✦ Auto</button>
     </div>
 
-    <div class="playback">
-      <button class="play-btn" id="playBtn" onclick="togglePlay()">▶</button>
-      <div class="time" id="timeDisp">0:00 / 0:00</div>
-      <div class="prog" id="prog" onclick="seek(event)">
-        <div class="prog-fill" id="progFill"></div>
-        <div class="prog-handle" id="progHandle"></div>
+    <!-- PLAYBACK -->
+    <div class="pb">
+      <button class="pb-btn" id="pbBtn" onclick="togglePlay()">▶</button>
+      <div class="pb-time" id="pbTime">0:00 / 0:00</div>
+      <div class="pbar" id="pbar" onclick="seek(event)">
+        <div class="pbar-f" id="pbarF"></div>
+        <div class="pbar-h" id="pbarH"></div>
       </div>
-      <span style="font-size:12px">🔊</span>
-      <input type="range" min="0" max="1" step=".05" value="1" style="width:62px;accent-color:var(--acc)" oninput="setVol(this.value)">
+      <div class="vol">🔊<input type="range" min="0" max="1" step=".05" value="1" oninput="setVol(this.value)"></div>
     </div>
 
-    <div class="timeline">
+    <!-- FX SHELF -->
+    <div class="fx-shelf">
+      <div class="fx-label">⚡ Efeitos — clique para aplicar ao clipe atual</div>
+      <div class="fx-row" id="fxRow"></div>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="tl">
       <div class="trk">
-        <div class="trk-lbl">🎬 Vídeo</div>
-        <div class="trk-clips" id="vTrack"></div>
-        <button class="add-btn" onclick="document.getElementById('fileIn').click()">+</button>
+        <div class="trk-n">🎬 Vídeo</div>
+        <div class="trk-c" id="vTrk"></div>
+        <button class="add" onclick="document.getElementById('fin').click()">+</button>
       </div>
       <div class="trk">
-        <div class="trk-lbl">🎵 Música</div>
-        <div class="trk-clips" id="mTrack"></div>
-        <button class="add-btn" onclick="pickAudio()">+</button>
+        <div class="trk-n">🎵 Áudio</div>
+        <div class="trk-c" id="mTrk"></div>
+        <button class="add" onclick="pickAudio()">+</button>
       </div>
       <div class="trk">
-        <div class="trk-lbl">✍ Texto</div>
-        <div class="trk-clips" id="tTrack"></div>
-        <button class="add-btn" onclick="addTextFromPanel()">+</button>
+        <div class="trk-n">✍ Texto</div>
+        <div class="trk-c" id="tTrk"></div>
+        <button class="add" onclick="addText()">+</button>
       </div>
     </div>
   </div>
 
-  <div class="panel-right">
+  <!-- RIGHT PANEL -->
+  <div class="right">
     <div class="rtabs">
-      <div class="rtab active" onclick="switchTab(this,'rF')">Filtros</div>
-      <div class="rtab" onclick="switchTab(this,'rA')">Ajustes</div>
-      <div class="rtab" onclick="switchTab(this,'rT')">Texto</div>
+      <div class="rtab on" onclick="rTab(this,'rFilt')">Filtros</div>
+      <div class="rtab" onclick="rTab(this,'rAdj')">Ajustes</div>
+      <div class="rtab" onclick="rTab(this,'rTxt')">Texto</div>
     </div>
-    <div class="rpanel active" id="rF">
-      <div class="filter-grid" id="fGrid"></div>
+
+    <div class="rp on" id="rFilt">
+      <div class="rl">Filtro de cor</div>
+      <div class="fg" id="filtGrid"></div>
     </div>
-    <div class="rpanel" id="rA">
-      <div class="adj-row"><label>Brilho</label><input type="range" min="50" max="150" value="100" id="aBr" oninput="adjUpdate()"><span class="adj-val" id="vBr">100</span></div>
-      <div class="adj-row"><label>Contraste</label><input type="range" min="50" max="150" value="100" id="aCo" oninput="adjUpdate()"><span class="adj-val" id="vCo">100</span></div>
-      <div class="adj-row"><label>Saturar</label><input type="range" min="0" max="200" value="100" id="aSa" oninput="adjUpdate()"><span class="adj-val" id="vSa">100</span></div>
-      <div class="adj-row"><label>Tom</label><input type="range" min="-180" max="180" value="0" id="aHu" oninput="adjUpdate()"><span class="adj-val" id="vHu">0</span></div>
-      <div class="adj-row"><label>Calor</label><input type="range" min="-50" max="50" value="0" id="aWa" oninput="adjUpdate()"><span class="adj-val" id="vWa">0</span></div>
-      <div class="adj-row"><label>Vinheta</label><input type="range" min="0" max="80" value="0" id="aVi" oninput="adjUpdate()"><span class="adj-val" id="vVi">0</span></div>
-      <button class="btn btn-ghost" style="width:100%;font-size:10px;margin-top:6px" onclick="resetAdj()">↺ Resetar</button>
+
+    <div class="rp" id="rAdj">
+      <div class="rl">Imagem</div>
+      <div class="ar"><label>Brilho</label><input type="range" min="0" max="200" value="100" id="aBr" oninput="adjUpd()"><span class="av" id="vBr">100</span></div>
+      <div class="ar"><label>Contraste</label><input type="range" min="0" max="200" value="100" id="aCo" oninput="adjUpd()"><span class="av" id="vCo">100</span></div>
+      <div class="ar"><label>Saturação</label><input type="range" min="0" max="200" value="100" id="aSa" oninput="adjUpd()"><span class="av" id="vSa">100</span></div>
+      <div class="ar"><label>Tom (Hue)</label><input type="range" min="-180" max="180" value="0" id="aHu" oninput="adjUpd()"><span class="av" id="vHu">0</span></div>
+      <div class="ar"><label>Calor</label><input type="range" min="-50" max="50" value="0" id="aWa" oninput="adjUpd()"><span class="av" id="vWa">0</span></div>
+      <div class="ar"><label>Vinheta</label><input type="range" min="0" max="100" value="0" id="aVi" oninput="adjUpd()"><span class="av" id="vVi">0</span></div>
+      <button class="b b-o" style="width:100%;font-size:9px;margin-top:5px" onclick="resetAdj()">↺ Resetar</button>
     </div>
-    <div class="rpanel" id="rT">
-      <div class="rsec-label">Conteúdo</div>
-      <input class="text-inp" id="tInp" value="✨ Nova Coleção">
-      <div class="rsec-label">Cor</div>
-      <div class="color-dots">
-        <div class="cdot active" style="background:#fff" onclick="pickCol(this,'#fff')"></div>
-        <div class="cdot" style="background:#f59e0b" onclick="pickCol(this,'#f59e0b')"></div>
-        <div class="cdot" style="background:#ec4899" onclick="pickCol(this,'#ec4899')"></div>
-        <div class="cdot" style="background:#8b5cf6" onclick="pickCol(this,'#8b5cf6')"></div>
-        <div class="cdot" style="background:#10b981" onclick="pickCol(this,'#10b981')"></div>
-        <div class="cdot" style="background:#3b82f6" onclick="pickCol(this,'#3b82f6')"></div>
-        <div class="cdot" style="background:#ef4444" onclick="pickCol(this,'#ef4444')"></div>
-        <div class="cdot" style="background:#000;border-color:#555" onclick="pickCol(this,'#000')"></div>
+
+    <div class="rp" id="rTxt">
+      <div class="rl">Conteúdo</div>
+      <input class="ti" id="tInp" value="✨ Nova Coleção">
+      <div class="rl">Cor</div>
+      <div class="cds">
+        <div class="cd on" style="background:#fff" onclick="pickCol(this,'#fff')"></div>
+        <div class="cd" style="background:#f59e0b" onclick="pickCol(this,'#f59e0b')"></div>
+        <div class="cd" style="background:#ec4899" onclick="pickCol(this,'#ec4899')"></div>
+        <div class="cd" style="background:#8b5cf6" onclick="pickCol(this,'#8b5cf6')"></div>
+        <div class="cd" style="background:#10b981" onclick="pickCol(this,'#10b981')"></div>
+        <div class="cd" style="background:#3b82f6" onclick="pickCol(this,'#3b82f6')"></div>
+        <div class="cd" style="background:#ef4444" onclick="pickCol(this,'#ef4444')"></div>
+        <div class="cd" style="background:#000;border-color:#555" onclick="pickCol(this,'#000')"></div>
       </div>
-      <div class="rsec-label">Tamanho</div>
-      <div class="sz-row">
-        <div class="sz-btn" onclick="pickSz(this,'14px')">S</div>
-        <div class="sz-btn active" onclick="pickSz(this,'24px')">M</div>
-        <div class="sz-btn" onclick="pickSz(this,'36px')">L</div>
-        <div class="sz-btn" onclick="pickSz(this,'52px')">XL</div>
+      <div class="rl">Tamanho</div>
+      <div class="sr">
+        <div class="sb" onclick="pickSz(this,'14px')">S</div>
+        <div class="sb on" onclick="pickSz(this,'24px')">M</div>
+        <div class="sb" onclick="pickSz(this,'36px')">L</div>
+        <div class="sb" onclick="pickSz(this,'52px')">XL</div>
       </div>
-      <div class="rsec-label">Estilo</div>
-      <div class="sz-row" style="margin-bottom:10px">
-        <div class="sz-btn active" id="stN" onclick="pickSt(this,'400','normal')">Normal</div>
-        <div class="sz-btn" id="stB" onclick="pickSt(this,'700','normal')">Bold</div>
-        <div class="sz-btn" id="stI" onclick="pickSt(this,'400','italic')">Itálico</div>
+      <div class="rl">Estilo</div>
+      <div class="sr" style="margin-bottom:8px">
+        <div class="sb on" id="stN" onclick="pickSt(this,'400','normal')">Normal</div>
+        <div class="sb" id="stB" onclick="pickSt(this,'700','normal')">Bold</div>
+        <div class="sb" id="stI" onclick="pickSt(this,'400','italic')">Itálico</div>
       </div>
-      <button class="btn btn-acc" style="width:100%;font-size:10px" onclick="addText()">+ Adicionar ao Vídeo</button>
+      <button class="b b-p" style="width:100%;font-size:10px" onclick="addText()">+ Adicionar</button>
     </div>
   </div>
 </div>
@@ -299,637 +340,741 @@ body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);he
 <audio id="bgAud" loop></audio>
 
 <script>
-// ═══════════════ TEMPLATES DEFINITION ════════════════════
-const TEMPLATES = [
-  {
-    id:'fashion_drop',
-    name:'Fashion Drop',
-    category:'Moda',
-    emoji:'👗',
-    desc:'Cortes rápidos, flash entre cenas, energia alta. Perfeito para lançamento de coleção.',
-    tags:['3–6 clipes','15–30s','Flash + Glitch'],
-    color:'linear-gradient(135deg,#1a0a2e,#3d1060)',
-    accent:'#c084fc',
-    filter:'saturate(160%) contrast(1.15) brightness(1.05)',
-    transitions:['flash','glitch','zoom','flash','wipe'],
-    texts:[
-      {text:'✨ NOVA COLEÇÃO', pos:'bottom:10%;left:50%;transform:translateX(-50%)', size:'36px', weight:'800', color:'#fff', shadow:'0 0 20px rgba(192,132,252,.9)'},
-      {text:'🔥 CHEGA AGORA', pos:'top:12%;left:50%;transform:translateX(-50%)', size:'28px', weight:'800', color:'#f59e0b', shadow:'0 2px 12px rgba(0,0,0,.9)'},
-      {text:'💎 IMPERDÍVEL', pos:'bottom:14%;right:8%', size:'22px', weight:'700', color:'#ec4899', shadow:'0 2px 10px rgba(0,0,0,.9)'},
-    ],
-    slots:3,
-    slotLabel:['Cena 1 – Produto', 'Cena 2 – Detalhe', 'Cena 3 – Chamada'],
-    bgMusic: null,
-  },
-  {
-    id:'promo_relampago',
-    name:'Promoção Relâmpago',
-    category:'Promoção',
-    emoji:'⚡',
-    desc:'Urgência máxima. Zoom punch, flash vermelho, texto em destaque. Ideal para liquidações.',
-    tags:['2–4 clipes','10–20s','Zoom + Flash'],
-    color:'linear-gradient(135deg,#1a0505,#5a1010)',
-    accent:'#ef4444',
-    filter:'saturate(180%) contrast(1.25) brightness(0.95)',
-    transitions:['flash','zoom','glitch','bounce'],
-    texts:[
-      {text:'🔥 OFERTA RELÂMPAGO', pos:'top:10%;left:50%;transform:translateX(-50%)', size:'32px', weight:'800', color:'#ef4444', shadow:'0 0 25px rgba(239,68,68,.8)'},
-      {text:'ATÉ 70% OFF', pos:'bottom:8%;left:50%;transform:translateX(-50%)', size:'48px', weight:'900', color:'#fff', shadow:'0 2px 15px rgba(239,68,68,.9)'},
-      {text:'⏰ HOJE SOMENTE!', pos:'bottom:22%;left:50%;transform:translateX(-50%)', size:'18px', weight:'700', color:'#fbbf24', shadow:'0 2px 8px rgba(0,0,0,.9)'},
-    ],
-    slots:2,
-    slotLabel:['Cena 1 – Produto em destaque', 'Cena 2 – Chamada de ação'],
-  },
-  {
-    id:'lancamento_elegante',
-    name:'Lançamento Elegante',
-    category:'Moda',
-    emoji:'💎',
-    desc:'Fade suave, cores douradas, sofisticado. Para marcas premium e lançamentos exclusivos.',
-    tags:['3–5 clipes','20–40s','Fade + Blur'],
-    color:'linear-gradient(135deg,#0d0a00,#2a1f00)',
-    accent:'#f59e0b',
-    filter:'sepia(25%) brightness(1.08) contrast(1.08) saturate(110%)',
-    transitions:['fade','blur','fade','wipe','fade'],
-    texts:[
-      {text:'Elegância em cada detalhe', pos:'bottom:12%;left:50%;transform:translateX(-50%)', size:'22px', weight:'400', color:'#f59e0b', shadow:'0 2px 14px rgba(0,0,0,.9)'},
-      {text:'Coleção Exclusiva', pos:'top:14%;left:50%;transform:translateX(-50%)', size:'16px', weight:'400', color:'rgba(245,158,11,.7)', shadow:'0 1px 8px rgba(0,0,0,.8)'},
-    ],
-    slots:4,
-    slotLabel:['Abertura', 'Produto Principal', 'Detalhe', 'Encerramento'],
-  },
-  {
-    id:'viral_reels',
-    name:'Viral Reels',
-    category:'Redes Sociais',
-    emoji:'🚀',
-    desc:'Ritmo acelerado, glitch, spin, bounce. Para Instagram Reels e TikTok.',
-    tags:['4–8 clipes','15–30s','Glitch + Spin'],
-    color:'linear-gradient(135deg,#0a0520,#1a0535)',
-    accent:'#ec4899',
-    filter:'saturate(200%) contrast(1.2) hue-rotate(5deg)',
-    transitions:['glitch','spin','zoom','bounce','flash','glitch'],
-    texts:[
-      {text:'👀 OLHA ISSO!', pos:'top:8%;left:50%;transform:translateX(-50%)', size:'40px', weight:'900', color:'#ec4899', shadow:'0 0 30px rgba(236,72,153,.8)'},
-      {text:'VOCÊ PRECISA VER 🔥', pos:'bottom:8%;left:50%;transform:translateX(-50%)', size:'28px', weight:'800', color:'#fff', shadow:'0 2px 12px rgba(0,0,0,.9)'},
-    ],
-    slots:5,
-    slotLabel:['Hook (gancho)', 'Cena 2', 'Cena 3', 'Cena 4', 'CTA Final'],
-  },
-  {
-    id:'produto_showcase',
-    name:'Produto Showcase',
-    category:'Produto',
-    emoji:'📦',
-    desc:'Apresentação limpa de produto. Wipe suave, texto descritivo, ideal para catálogos.',
-    tags:['2–4 clipes','20–35s','Wipe + Fade'],
-    color:'linear-gradient(135deg,#050d15,#0a2035)',
-    accent:'#3b82f6',
-    filter:'brightness(1.1) contrast(1.05) saturate(90%)',
-    transitions:['wipe','fade','wipe','blur'],
-    texts:[
-      {text:'Conheça o produto', pos:'top:10%;left:6%', size:'18px', weight:'400', color:'#93c5fd', shadow:'0 2px 8px rgba(0,0,0,.9)'},
-      {text:'Qualidade incomparável', pos:'bottom:10%;left:50%;transform:translateX(-50%)', size:'22px', weight:'700', color:'#fff', shadow:'0 2px 10px rgba(0,0,0,.9)'},
-    ],
-    slots:3,
-    slotLabel:['Visão geral', 'Detalhes', 'Chamada final'],
-  },
-  {
-    id:'stories_rapido',
-    name:'Stories Rápido',
-    category:'Redes Sociais',
-    emoji:'📱',
-    desc:'Cortes curtíssimos para Stories. Flash entre cada clipe, texto grande e direto.',
-    tags:['5–10 clipes','10–15s','Flash'],
-    color:'linear-gradient(135deg,#0d1a10,#0a2515)',
-    accent:'#10b981',
-    filter:'saturate(130%) brightness(1.1)',
-    transitions:['flash','flash','flash','flash','flash','flash'],
-    texts:[
-      {text:'🛍 NA LOJA AGORA', pos:'bottom:8%;left:50%;transform:translateX(-50%)', size:'30px', weight:'900', color:'#10b981', shadow:'0 0 20px rgba(16,185,129,.7)'},
-    ],
-    slots:6,
-    slotLabel:['Story 1','Story 2','Story 3','Story 4','Story 5','Story 6'],
-  },
-  {
-    id:'minimalista',
-    name:'Minimalista',
-    category:'Lifestyle',
-    emoji:'🤍',
-    desc:'P&B com toque de cor. Fade suave. Para marcas que valorizam simplicidade e estética.',
-    tags:['3–5 clipes','25–45s','Fade'],
-    color:'linear-gradient(135deg,#0a0a0a,#1a1a1a)',
-    accent:'#e5e7eb',
-    filter:'grayscale(60%) brightness(1.05) contrast(1.1)',
-    transitions:['fade','fade','blur','fade'],
-    texts:[
-      {text:'Simples. Elegante.', pos:'bottom:12%;left:50%;transform:translateX(-50%)', size:'24px', weight:'300', color:'#e5e7eb', shadow:'0 2px 10px rgba(0,0,0,.9)'},
-      {text:'Nova coleção', pos:'top:12%;left:8%', size:'14px', weight:'400', color:'rgba(229,231,235,.6)', shadow:'none'},
-    ],
-    slots:4,
-    slotLabel:['Abertura','Detalhe 1','Detalhe 2','Encerramento'],
-  },
-  {
-    id:'evento_inauguracao',
-    name:'Inauguração / Evento',
-    category:'Evento',
-    emoji:'🎉',
-    desc:'Animado, colorido, celebratório. Para inaugurações, aniversários e eventos especiais.',
-    tags:['4–6 clipes','20–30s','Bounce + Flash'],
-    color:'linear-gradient(135deg,#0a0520,#200a35)',
-    accent:'#fbbf24',
-    filter:'saturate(160%) brightness(1.1) contrast(1.1)',
-    transitions:['bounce','flash','zoom','bounce','spin'],
-    texts:[
-      {text:'🎉 GRANDE ABERTURA!', pos:'top:8%;left:50%;transform:translateX(-50%)', size:'34px', weight:'900', color:'#fbbf24', shadow:'0 0 25px rgba(251,191,36,.7)'},
-      {text:'Venha nos visitar ✨', pos:'bottom:8%;left:50%;transform:translateX(-50%)', size:'22px', weight:'700', color:'#fff', shadow:'0 2px 10px rgba(0,0,0,.9)'},
-    ],
-    slots:5,
-    slotLabel:['Abertura','Ambiente 1','Ambiente 2','Produtos','Convite'],
-  },
+// ══════════════════════════════════════════════════════════
+//  TEMPLATES
+// ══════════════════════════════════════════════════════════
+const TMPLS = [
+  {id:'fashion',name:'Fashion Drop',cat:'Moda',emoji:'👗',
+   desc:'Cortes rápidos, flash entre cenas, energia máxima.',
+   tags:['3 clipes','15-30s','Flash+Glitch'],color:'#1a0a2e',acc:'#c084fc',
+   filter:'saturate',filterVal:170,
+   fxSeq:['flash','glitch','zoom'],
+   texts:[
+     {t:'✨ NOVA COLEÇÃO',x:50,y:82,sz:32,w:'900',c:'#fff',sh:'0 0 20px rgba(192,132,252,.9)'},
+     {t:'🔥 CHEGA AGORA',x:50,y:12,sz:24,w:'800',c:'#f59e0b',sh:'0 2px 12px #000'},
+   ],slots:3,slotLabels:['Cena 1','Cena 2','Cena 3']},
+
+  {id:'promo',name:'Promoção Relâmpago',cat:'Promoção',emoji:'⚡',
+   desc:'Urgência máxima. Zoom punch e flash vermelho.',
+   tags:['2 clipes','10-20s','Zoom+Flash'],color:'#1a0505',acc:'#ef4444',
+   filter:'saturate',filterVal:180,
+   fxSeq:['flash','zoom'],
+   texts:[
+     {t:'🔥 ATÉ 70% OFF',x:50,y:80,sz:44,w:'900',c:'#fff',sh:'0 0 30px rgba(239,68,68,.9)'},
+     {t:'⏰ HOJE SOMENTE!',x:50,y:14,sz:18,w:'700',c:'#fbbf24',sh:'0 2px 8px #000'},
+   ],slots:2,slotLabels:['Produto','Chamada']},
+
+  {id:'elegant',name:'Lançamento Elegante',cat:'Moda',emoji:'💎',
+   desc:'Fade suave, cores douradas, premium.',
+   tags:['4 clipes','20-40s','Fade+Blur'],color:'#0d0a00',acc:'#f59e0b',
+   filter:'sepia',filterVal:30,
+   fxSeq:['fade','blur','fade'],
+   texts:[
+     {t:'Elegância em cada detalhe',x:50,y:82,sz:20,w:'400',c:'#f59e0b',sh:'0 2px 14px #000'},
+     {t:'Coleção Exclusiva',x:50,y:12,sz:14,w:'300',c:'rgba(245,158,11,.7)',sh:'0 1px 8px #000'},
+   ],slots:4,slotLabels:['Abertura','Produto','Detalhe','Encerramento']},
+
+  {id:'viral',name:'Viral Reels',cat:'Social',emoji:'🚀',
+   desc:'Glitch, spin, bounce. Para TikTok e Reels.',
+   tags:['5 clipes','15-30s','Glitch+Spin'],color:'#0a0520',acc:'#ec4899',
+   filter:'saturate',filterVal:200,
+   fxSeq:['glitch','spin','zoom','bounce'],
+   texts:[
+     {t:'👀 OLHA ISSO!',x:50,y:10,sz:38,w:'900',c:'#ec4899',sh:'0 0 30px rgba(236,72,153,.8)'},
+     {t:'VOCÊ PRECISA VER 🔥',x:50,y:83,sz:24,w:'800',c:'#fff',sh:'0 2px 12px #000'},
+   ],slots:5,slotLabels:['Hook','Cena 2','Cena 3','Cena 4','CTA']},
+
+  {id:'minimal',name:'Minimalista',cat:'Lifestyle',emoji:'🤍',
+   desc:'P&B, fade suave, marcas premium.',
+   tags:['3 clipes','25-45s','Fade'],color:'#0a0a0a',acc:'#e5e7eb',
+   filter:'grayscale',filterVal:60,
+   fxSeq:['fade','fade'],
+   texts:[
+     {t:'Simples. Elegante.',x:50,y:82,sz:22,w:'300',c:'#e5e7eb',sh:'0 2px 10px #000'},
+   ],slots:3,slotLabels:['Abertura','Detalhe','Encerramento']},
+
+  {id:'stories',name:'Stories Rápido',cat:'Social',emoji:'📱',
+   desc:'Flash entre cada clipe. Para Stories.',
+   tags:['6 clipes','10-15s','Flash'],color:'#0d1a10',acc:'#10b981',
+   filter:'saturate',filterVal:130,
+   fxSeq:['flash'],
+   texts:[
+     {t:'🛍 NA LOJA AGORA',x:50,y:82,sz:26,w:'900',c:'#10b981',sh:'0 0 20px rgba(16,185,129,.7)'},
+   ],slots:6,slotLabels:['Story 1','Story 2','Story 3','Story 4','Story 5','Story 6']},
+
+  {id:'event',name:'Inauguração',cat:'Evento',emoji:'🎉',
+   desc:'Animado, colorido, celebratório.',
+   tags:['4 clipes','20-30s','Bounce+Flash'],color:'#0a0520',acc:'#fbbf24',
+   filter:'saturate',filterVal:160,
+   fxSeq:['bounce','flash','zoom'],
+   texts:[
+     {t:'🎉 GRANDE ABERTURA!',x:50,y:10,sz:30,w:'900',c:'#fbbf24',sh:'0 0 25px rgba(251,191,36,.7)'},
+     {t:'Venha nos visitar ✨',x:50,y:83,sz:20,w:'700',c:'#fff',sh:'0 2px 10px #000'},
+   ],slots:4,slotLabels:['Abertura','Ambiente','Produtos','Convite']},
+
+  {id:'product',name:'Produto Showcase',cat:'Produto',emoji:'📦',
+   desc:'Apresentação limpa. Wipe suave, catálogo.',
+   tags:['3 clipes','20-35s','Wipe+Fade'],color:'#050d15',acc:'#3b82f6',
+   filter:'brightness',filterVal:110,
+   fxSeq:['wipe','fade'],
+   texts:[
+     {t:'Qualidade incomparável',x:50,y:83,sz:20,w:'700',c:'#fff',sh:'0 2px 10px #000'},
+   ],slots:3,slotLabels:['Visão geral','Detalhes','CTA']},
 ];
 
-const CATEGORIES = ['Todos','Moda','Promoção','Produto','Redes Sociais','Lifestyle','Evento'];
+const CATS = ['Todos','Moda','Promoção','Produto','Social','Lifestyle','Evento'];
 
-// ═══════════════ STATE ═══════════════════════════════════
+// ══════════════════════════════════════════════════════════
+//  FX DEFINITIONS  (applied on canvas frame-by-frame)
+// ══════════════════════════════════════════════════════════
+const FX_LIST = [
+  {id:'none',    n:'Original', e:'📷', cat:''},
+  {id:'flash',   n:'Flash',    e:'⚡', cat:'Trans'},
+  {id:'glitch',  n:'Glitch',   e:'📺', cat:'Trans'},
+  {id:'zoom',    n:'Zoom Punch',e:'🔍',cat:'Trans'},
+  {id:'fade',    n:'Fade',     e:'🌫', cat:'Trans'},
+  {id:'wipe',    n:'Wipe',     e:'➡', cat:'Trans'},
+  {id:'blur',    n:'Blur In',  e:'💫', cat:'Trans'},
+  {id:'spin',    n:'Spin',     e:'🌀', cat:'Trans'},
+  {id:'bounce',  n:'Bounce',   e:'⬆', cat:'Trans'},
+  {id:'vhs',     n:'VHS',      e:'📼', cat:'Cor'},
+  {id:'neon',    n:'Neon',     e:'🔮', cat:'Cor'},
+  {id:'warm',    n:'Quente',   e:'🔥', cat:'Cor'},
+  {id:'cold',    n:'Frio',     e:'🧊', cat:'Cor'},
+  {id:'bw',      n:'P&B',      e:'⬜', cat:'Cor'},
+  {id:'golden',  n:'Golden',   e:'✨', cat:'Cor'},
+  {id:'cinema',  n:'Cinema',   e:'🎬', cat:'Cor'},
+  {id:'shake',   n:'Shake',    e:'📳', cat:'Movi'},
+  {id:'rgb',     n:'RGB Split',e:'🎨', cat:'Movi'},
+];
+
+// ══════════════════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════════════════
 const S = {
-  media:[], videoClips:[], musicClips:[], textClips:[],
-  activeIdx:-1, filter:'', adj:{br:100,co:100,sa:100,hu:0,wa:0,vi:0},
-  textColor:'#fff', textSize:'24px', textWeight:'400', textStyle:'normal',
+  media:[],vClips:[],mClips:[],tClips:[],
+  activeIdx:-1,
+  activeTmpl:null,slots:[],
+  clipFx:{}, // idx->fxId
+  colorFilter:{type:'none',val:100},
+  adj:{br:100,co:100,sa:100,hu:0,wa:0,vi:0},
+  tCol:'#fff',tSz:'24px',tW:'400',tSt:'normal',
   playing:false,
-  activeTmpl:null, // current template
-  slots:[], // array of {filled: bool, mediaUrl: null}
+  // canvas render
+  rafId:null,
+  fxState:{}, // per-fx animation state
+  transAnim:null, // active transition animation
 };
 
-const vid = document.getElementById('mainVideo');
-const bgAud = document.getElementById('bgAud');
-const tc = document.getElementById('transCanvas');
-const tctx = tc.getContext('2d');
+// ══════════════════════════════════════════════════════════
+//  CANVAS ENGINE  — renders srcVid frames with effects
+// ══════════════════════════════════════════════════════════
+const cvs = document.getElementById('cvs');
+const ctx = cvs.getContext('2d');
+const srcVid = document.getElementById('srcVid');
 
-// ═══════════════ VIEWS ══════════════════════════════════
-function showView(view, btn) {
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById(view==='templates'?'vTemplates':'vEditor').classList.add('active');
-  btn.classList.add('active');
+function resizeCvs(){
+  const pw = document.getElementById('pw');
+  cvs.width = pw.offsetWidth;
+  cvs.height = pw.offsetHeight;
+}
+window.addEventListener('resize', resizeCvs);
+setTimeout(resizeCvs, 100);
+
+function renderFrame(){
+  S.rafId = requestAnimationFrame(renderFrame);
+  const W = cvs.width, H = cvs.height;
+  if(!W||!H) return;
+  ctx.clearRect(0,0,W,H);
+
+  const hasVid = srcVid.src && srcVid.readyState >= 2;
+  if(!hasVid){ ctx.fillStyle='#000'; ctx.fillRect(0,0,W,H); return; }
+
+  // ── 1. Draw video frame ──────────────────────────────
+  ctx.save();
+
+  // Motion FX transforms
+  const fx = S.clipFx[S.activeIdx] || 'none';
+  const fs = S.fxState;
+
+  if(fx==='shake' && S.playing){
+    const t = Date.now()*0.08;
+    ctx.translate(Math.sin(t)*6, Math.cos(t*1.3)*4);
+  }
+
+  // Spin transition
+  if(fs.spinAngle !== undefined){
+    ctx.translate(W/2,H/2);
+    ctx.rotate(fs.spinAngle * Math.PI/180);
+    ctx.scale(fs.spinScale||1, fs.spinScale||1);
+    ctx.translate(-W/2,-H/2);
+  }
+  // Zoom punch
+  if(fs.zoomScale !== undefined && fs.zoomScale !== 1){
+    ctx.translate(W/2,H/2);
+    ctx.scale(fs.zoomScale,fs.zoomScale);
+    ctx.translate(-W/2,-H/2);
+  }
+  // Bounce
+  if(fs.bounceY){
+    ctx.translate(0, fs.bounceY);
+  }
+
+  ctx.drawImage(srcVid, 0, 0, W, H);
+  ctx.restore();
+
+  // ── 2. Color / filter effects ────────────────────────
+  applyColorFx(ctx, W, H, fx);
+
+  // ── 3. Vignette ──────────────────────────────────────
+  if(S.adj.vi > 0){
+    const rad = ctx.createRadialGradient(W/2,H/2,H*0.3,W/2,H/2,H*0.8);
+    rad.addColorStop(0,'rgba(0,0,0,0)');
+    rad.addColorStop(1,`rgba(0,0,0,${S.adj.vi/100})`);
+    ctx.fillStyle=rad; ctx.fillRect(0,0,W,H);
+  }
+
+  // ── 4. Transition overlays ───────────────────────────
+  if(fs.flashAlpha > 0){
+    ctx.fillStyle=`rgba(255,255,255,${fs.flashAlpha})`;
+    ctx.fillRect(0,0,W,H);
+  }
+  if(fs.glitchOn){
+    for(let i=0;i<10;i++){
+      const gy=Math.random()*H, gh=Math.random()*16+2;
+      ctx.fillStyle=`rgba(${Math.random()<.5?'255,0,100':'0,200,255'},.3)`;
+      ctx.fillRect(0,gy,W,gh);
+    }
+    if(fx==='rgb' || S.clipFx[S.activeIdx]==='rgb'){
+      // RGB split
+      ctx.save();
+      ctx.globalCompositeOperation='screen';
+      ctx.globalAlpha=0.4;
+      ctx.drawImage(srcVid,-4,0,W,H);
+      ctx.globalAlpha=0.4;
+      ctx.drawImage(srcVid,4,0,W,H);
+      ctx.restore();
+    }
+  }
+  if(fs.fadeAlpha > 0){
+    ctx.fillStyle=`rgba(0,0,0,${fs.fadeAlpha})`;
+    ctx.fillRect(0,0,W,H);
+  }
+  if(fs.wipeX !== undefined){
+    ctx.fillStyle='#000';
+    ctx.fillRect(fs.wipeX,0,W,H);
+  }
+  if(fs.blurOverlay > 0){
+    // blur simulation: draw semi-transparent copies offset
+    ctx.save();
+    ctx.globalAlpha=fs.blurOverlay*0.5;
+    for(let d=1;d<=3;d++){
+      ctx.drawImage(srcVid,-d,-d,W+d*2,H+d*2);
+      ctx.drawImage(srcVid, d, d,W-d*2,H-d*2);
+    }
+    ctx.restore();
+  }
+  // Wipe reveal
+  if(fs.wipeRevealX !== undefined){
+    ctx.fillStyle='#000';
+    ctx.fillRect(fs.wipeRevealX,0,W-fs.wipeRevealX,H);
+  }
+
+  // ── 5. VHS scanlines ─────────────────────────────────
+  if(fx==='vhs'){
+    for(let y=0;y<H;y+=4){
+      ctx.fillStyle='rgba(0,0,0,0.08)'; ctx.fillRect(0,y,W,2);
+    }
+    ctx.fillStyle=`rgba(${Math.random()*20},0,${Math.random()*20+20},0.15)`;
+    ctx.fillRect(0,0,W,H);
+  }
 }
 
-// ═══════════════ BUILD TEMPLATE GALLERY ═════════════════
-let activeCat = 'Todos';
+function applyColorFx(ctx, W, H, clipFx){
+  const f = S.colorFilter.type;
+  const v = S.colorFilter.val/100;
+  const adj = S.adj;
 
-function buildTemplateGallery() {
-  // Categories
-  const catsEl = document.getElementById('tmplCats');
-  catsEl.innerHTML = '';
-  CATEGORIES.forEach(cat => {
-    const btn = document.createElement('div');
-    btn.className = 'tmpl-cat' + (cat===activeCat?' active':'');
-    btn.textContent = cat;
-    btn.onclick = () => { activeCat=cat; buildTemplateGallery(); };
-    catsEl.appendChild(btn);
-  });
+  // Build CSS-style filter string for the canvas filter property
+  let filters = [];
 
-  // Grid
-  const grid = document.getElementById('tmplGrid');
-  grid.innerHTML = '';
-  const filtered = activeCat==='Todos' ? TEMPLATES : TEMPLATES.filter(t=>t.category===activeCat);
-  filtered.forEach(tmpl => {
-    const card = document.createElement('div');
-    card.className = 'tmpl-card';
-    card.innerHTML = `
-      <div class="tmpl-thumb" style="background:${tmpl.color}">
-        <div class="tmpl-overlay">
-          <div style="font-size:40px">${tmpl.emoji}</div>
-          <div style="font-size:11px;color:${tmpl.accent};font-weight:700">${tmpl.name}</div>
-          <div style="font-size:9px;color:rgba(255,255,255,.4)">${tmpl.slots} slots de vídeo</div>
-        </div>
-      </div>
-      <div class="tmpl-info">
-        <div class="tmpl-name">${tmpl.name}</div>
-        <div class="tmpl-desc">${tmpl.desc}</div>
-        <div class="tmpl-meta">
-          <span class="tmpl-tag tag-clips">📼 ${tmpl.tags[0]}</span>
-          <span class="tmpl-tag tag-dur">⏱ ${tmpl.tags[1]}</span>
-          <span class="tmpl-tag tag-fx">⚡ ${tmpl.tags[2]}</span>
-        </div>
-      </div>
-      <button class="use-btn" onclick="event.stopPropagation();useTemplate('${tmpl.id}')">Usar Template →</button>`;
-    card.onclick = () => useTemplate(tmpl.id);
-    grid.appendChild(card);
-  });
+  // Clip FX color
+  if(clipFx==='bw'||f==='grayscale') filters.push(`grayscale(${f==='grayscale'?S.colorFilter.val+'%':'100%'})`);
+  if(clipFx==='neon') filters.push('saturate(300%) hue-rotate(180deg) brightness(1.3)');
+  if(clipFx==='warm'||f==='sepia') filters.push(`sepia(${f==='sepia'?S.colorFilter.val+'%':'50%'}) saturate(130%)`);
+  if(clipFx==='cold') filters.push('hue-rotate(200deg) saturate(120%)');
+  if(clipFx==='golden') filters.push('sepia(60%) saturate(150%) brightness(1.15) hue-rotate(-10deg)');
+  if(clipFx==='cinema') filters.push('contrast(140%) saturate(120%) brightness(88%)');
+
+  // Panel filter
+  if(f==='saturate') filters.push(`saturate(${S.colorFilter.val}%)`);
+  if(f==='brightness') filters.push(`brightness(${S.colorFilter.val}%)`);
+
+  // Adjustments
+  filters.push(`brightness(${adj.br}%)`);
+  filters.push(`contrast(${adj.co}%)`);
+  filters.push(`saturate(${adj.sa}%)`);
+  filters.push(`hue-rotate(${adj.hu}deg)`);
+  if(adj.wa>0) filters.push(`sepia(${adj.wa}%)`);
+  if(adj.wa<0) filters.push(`hue-rotate(${adj.wa*2}deg)`);
+
+  // Apply using canvas filter (supported in modern browsers)
+  if(filters.length){
+    ctx.save();
+    ctx.filter = filters.join(' ');
+    ctx.drawImage(srcVid,0,0,W,H);
+    ctx.filter = 'none';
+    ctx.restore();
+  }
 }
 
-// ═══════════════ USE TEMPLATE ════════════════════════════
-function useTemplate(id) {
-  const tmpl = TEMPLATES.find(t=>t.id===id);
-  if (!tmpl) return;
-  S.activeTmpl = tmpl;
+renderFrame(); // start loop
 
-  // Init slots
-  S.slots = Array.from({length:tmpl.slots}, (_,i) => ({ filled:false, url:null, name:null, label:tmpl.slotLabel[i]||`Slot ${i+1}` }));
+// ══════════════════════════════════════════════════════════
+//  TRANSITION ENGINE
+// ══════════════════════════════════════════════════════════
+function playTransition(fxId, onMid){
+  const fs = S.fxState;
+  const W = cvs.width, H = cvs.height;
 
-  // Apply filter & style
-  S.filter = tmpl.filter;
-  syncFilterBtns();
+  if(fxId==='flash'){
+    fs.flashAlpha=1;
+    onMid();
+    const step=()=>{ fs.flashAlpha=Math.max(0,fs.flashAlpha-0.09); if(fs.flashAlpha>0) requestAnimationFrame(step); else fs.flashAlpha=0; };
+    requestAnimationFrame(step);
 
-  // Clear old state
-  S.videoClips = [];
-  S.musicClips = [];
-  S.textClips = [];
-  S.activeIdx = -1;
-  document.getElementById('textCont').innerHTML = '';
-  vid.style.display = 'none';
-  document.getElementById('emptyPrev').style.display = 'flex';
+  } else if(fxId==='glitch'){
+    onMid();
+    fs.glitchOn=true;
+    let n=0;
+    const step=()=>{ n++; if(n<14) requestAnimationFrame(step); else fs.glitchOn=false; };
+    requestAnimationFrame(step);
 
-  // Switch to editor
-  document.querySelectorAll('.nav-tab').forEach((t,i) => t.classList.toggle('active',i===1));
-  document.getElementById('vTemplates').classList.remove('active');
-  document.getElementById('vEditor').classList.add('active');
+  } else if(fxId==='fade'){
+    fs.fadeAlpha=1;
+    const step=()=>{ fs.fadeAlpha=Math.max(0,fs.fadeAlpha-0.07); if(fs.fadeAlpha>0) requestAnimationFrame(step); else{ fs.fadeAlpha=0; onMid(); } };
+    requestAnimationFrame(step);
 
-  // Show banner & top label
-  document.getElementById('tmplBanner').style.display = 'flex';
-  const nameBtn = document.getElementById('tmplNameBtn');
-  nameBtn.style.display = '';
-  nameBtn.textContent = tmpl.emoji + ' ' + tmpl.name;
-  nameBtn.style.color = tmpl.accent;
+  } else if(fxId==='zoom'){
+    onMid();
+    fs.zoomScale=1.15;
+    const step=()=>{ fs.zoomScale=Math.max(1,fs.zoomScale-0.015); if(fs.zoomScale>1) requestAnimationFrame(step); else fs.zoomScale=1; };
+    requestAnimationFrame(step);
 
-  // Render slots in media list too
-  renderSlotBanner();
+  } else if(fxId==='wipe'){
+    fs.wipeRevealX=W;
+    onMid();
+    const step=()=>{ fs.wipeRevealX=Math.max(0,fs.wipeRevealX-W*0.12); if(fs.wipeRevealX>0) requestAnimationFrame(step); else delete fs.wipeRevealX; };
+    requestAnimationFrame(step);
+
+  } else if(fxId==='blur'){
+    fs.blurOverlay=1;
+    const step=()=>{ fs.blurOverlay=Math.max(0,fs.blurOverlay-0.1); if(fs.blurOverlay>0) requestAnimationFrame(step); else{ fs.blurOverlay=0; onMid(); } };
+    requestAnimationFrame(step);
+
+  } else if(fxId==='spin'){
+    fs.spinAngle=0; fs.spinScale=1;
+    let going=true;
+    const step=()=>{
+      fs.spinAngle+=18; fs.spinScale=Math.max(0.3,fs.spinScale-0.07);
+      if(fs.spinAngle<180) requestAnimationFrame(step);
+      else{
+        onMid();
+        fs.spinAngle=180; fs.spinScale=0.3;
+        const back=()=>{ fs.spinAngle+=18; fs.spinScale=Math.min(1,fs.spinScale+0.07); if(fs.spinAngle<360) requestAnimationFrame(back); else{ delete fs.spinAngle; delete fs.spinScale; } };
+        requestAnimationFrame(back);
+      }
+    };
+    requestAnimationFrame(step);
+
+  } else if(fxId==='bounce'){
+    onMid();
+    fs.bounceY=-18;
+    const step=()=>{
+      fs.bounceY=fs.bounceY<0 ? Math.min(0,fs.bounceY+3) : Math.max(0,fs.bounceY-2);
+      if(fs.bounceY!==0) requestAnimationFrame(step); else delete fs.bounceY;
+    };
+    requestAnimationFrame(step);
+
+  } else {
+    onMid();
+  }
+}
+
+// Persistent motion FX (shake, rgb) run in renderFrame loop — no transition needed
+
+// ══════════════════════════════════════════════════════════
+//  BUILD UI
+// ══════════════════════════════════════════════════════════
+
+// FILTER DEFINITIONS
+const FILTS = [
+  {id:'none',    l:'Original', bg:'#1a1a2e',e:'📷'},
+  {id:'grayscale',l:'P&B',    bg:'linear-gradient(#555,#999)',e:'⬜'},
+  {id:'sepia',   l:'Sépia',   bg:'linear-gradient(#7a5c3a,#c8954a)',e:'🎞'},
+  {id:'saturate',l:'Vibrante',bg:'linear-gradient(#f72,#fc0)',e:'🌈',val:180},
+  {id:'brightness',l:'Claro', bg:'#ccc',e:'☀',val:130},
+  {id:'saturate',l:'Escuro',  bg:'#111',e:'🌙',val:100,extra:'brightness(70%) contrast(130%)'},
+  {id:'saturate',l:'Rosa',    bg:'linear-gradient(#f9a,#fad0c4)',e:'🌸',val:150,hue:-20},
+  {id:'saturate',l:'Roxo',    bg:'linear-gradient(#a18cd1,#fbc2eb)',e:'💜',val:150,hue:180},
+  {id:'saturate',l:'Verde',   bg:'linear-gradient(#11998e,#38ef7d)',e:'🌿',val:120,hue:140},
+  {id:'saturate',l:'Cinema',  bg:'linear-gradient(#2d3561,#a8edea)',e:'🎯',val:120,extra:'contrast(140%) brightness(90%)'},
+];
+(function buildFiltGrid(){
+  const g=document.getElementById('filtGrid');
+  FILTS.forEach((f,i)=>{
+    const b=document.createElement('div'); b.className='fb'+(i===0?' on':'');
+    b.innerHTML=`<div class="ft" style="background:${f.bg}">${f.e}</div>${f.l}`;
+    b.onclick=()=>{
+      document.querySelectorAll('.fb').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+      S.colorFilter={type:f.id,val:f.val||100,extra:f.extra||'',hue:f.hue||0};
+    };
+    g.appendChild(b);
+  });
+})();
+
+// FX SHELF
+(function buildFxShelf(){
+  const row=document.getElementById('fxRow');
+  FX_LIST.forEach(fx=>{
+    const c=document.createElement('div'); c.className='fx-chip'+(fx.id==='none'?' on':'');
+    c.innerHTML=`<span class="e">${fx.e}</span><span class="n">${fx.n}</span><span class="c">${fx.cat}</span>`;
+    c.onclick=()=>{
+      document.querySelectorAll('.fx-chip').forEach(x=>x.classList.remove('on')); c.classList.add('on');
+      applyFxToActive(fx.id);
+    };
+    row.appendChild(c);
+  });
+})();
+
+function applyFxToActive(fxId){
+  if(S.activeIdx<0) return;
+  S.clipFx[S.activeIdx]=fxId;
   renderTimeline();
-
-  notify(`${tmpl.emoji} Template "${tmpl.name}" carregado! Importe ${tmpl.slots} vídeo(s) para preencher os slots.`);
+  notify(`${FX_LIST.find(f=>f.id===fxId)?.e||'✦'} Efeito "${FX_LIST.find(f=>f.id===fxId)?.n}" aplicado!`);
 }
 
-function renderSlotBanner() {
-  const tmpl = S.activeTmpl;
-  const el = document.getElementById('slotList');
-  el.innerHTML = '';
-  S.slots.forEach((slot, i) => {
-    const d = document.createElement('div');
-    d.className = 'slot-item' + (slot.filled?' filled':'');
-    d.innerHTML = `<span class="slot-ico">${slot.filled?'✅':'📼'}</span><span class="slot-lbl">${slot.filled?slot.name.substring(0,10)+'…':slot.label}</span>`;
-    d.onclick = () => {
-      // Click a slot — open file picker targeted to this slot
-      const inp = document.createElement('input');
-      inp.type='file'; inp.accept='video/*';
-      inp.onchange = e => { if(e.target.files[0]) fillSlot(i, e.target.files[0]); };
-      inp.click();
+// GALLERY
+let galCat='Todos';
+function buildGallery(){
+  const catsEl=document.getElementById('galCats');
+  catsEl.innerHTML='';
+  CATS.forEach(c=>{
+    const b=document.createElement('div'); b.className='cat'+(c===galCat?' on':'');
+    b.textContent=c; b.onclick=()=>{galCat=c;buildGallery();};
+    catsEl.appendChild(b);
+  });
+  const grid=document.getElementById('galGrid');
+  grid.innerHTML='';
+  const list=galCat==='Todos'?TMPLS:TMPLS.filter(t=>t.cat===galCat);
+  list.forEach(t=>{
+    const c=document.createElement('div'); c.className='card';
+    c.innerHTML=`
+      <div class="card-thumb" style="background:${t.color}">
+        <div style="font-size:38px">${t.emoji}</div>
+        <div style="font-size:10px;color:${t.acc};font-weight:800">${t.name}</div>
+        <div style="font-size:9px;color:rgba(255,255,255,.3)">${t.slots} slots</div>
+        <div class="use-btn">▶ Usar Template</div>
+      </div>
+      <div class="card-info">
+        <div class="card-name">${t.name}</div>
+        <div class="card-desc">${t.desc}</div>
+        <div class="card-tags">
+          <span class="tag tp">📼 ${t.tags[0]}</span>
+          <span class="tag tg">⏱ ${t.tags[1]}</span>
+          <span class="tag ty">⚡ ${t.tags[2]}</span>
+        </div>
+      </div>`;
+    c.onclick=()=>useTemplate(t.id);
+    grid.appendChild(c);
+  });
+}
+
+// ══════════════════════════════════════════════════════════
+//  TEMPLATE SYSTEM
+// ══════════════════════════════════════════════════════════
+function useTemplate(id){
+  const t=TMPLS.find(x=>x.id===id); if(!t) return;
+  S.activeTmpl=t;
+  S.slots=t.slotLabels.map((l,i)=>({filled:false,url:null,name:null,label:l}));
+  S.vClips=[]; S.mClips=[]; S.tClips=[]; S.activeIdx=-1;
+  S.clipFx={};
+  S.colorFilter={type:t.filter,val:t.filterVal};
+  document.getElementById('txtLayer').innerHTML='';
+  document.getElementById('noVid').style.display='flex';
+
+  // Switch view
+  document.querySelectorAll('.tab').forEach((tb,i)=>tb.classList.toggle('on',i===1));
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  document.getElementById('vEd').classList.add('on');
+
+  const tag=document.getElementById('tmplTag');
+  tag.style.display=''; tag.textContent=t.emoji+' '+t.name;
+
+  document.getElementById('slotBar').classList.remove('hide');
+  renderSlots(); renderTimeline();
+  resizeCvs();
+  notify(`${t.emoji} Template "${t.name}" carregado! Importe ${t.slots} vídeo(s).`);
+}
+
+function renderSlots(){
+  const el=document.getElementById('slotList'); el.innerHTML='';
+  S.slots.forEach((s,i)=>{
+    const d=document.createElement('div'); d.className='slot'+(s.filled?' ok':'');
+    d.innerHTML=`${s.filled?'✅':'📼'} <b>${s.filled?s.name.substring(0,12)+'…':s.label}</b>`;
+    d.onclick=()=>{
+      const inp=document.createElement('input');inp.type='file';inp.accept='video/*';
+      inp.onchange=e=>{if(e.target.files[0])fillSlot(i,e.target.files[0]);};inp.click();
     };
     el.appendChild(d);
   });
 }
 
-function fillSlot(slotIdx, file) {
-  const url = URL.createObjectURL(file);
-  const name = file.name.replace(/\.[^.]+$/,'');
-  S.slots[slotIdx] = { filled:true, url, name, label:S.activeTmpl.slotLabel[slotIdx] };
-
-  // Also add to media list
-  const item = { name, url, type:'video', file };
-  if (!S.media.find(m=>m.url===url)) S.media.push(item);
-  renderMediaList();
-
-  // Rebuild videoClips from filled slots in order
-  S.videoClips = S.slots.filter(s=>s.filled).map(s=>({ name:s.name, url:s.url }));
-
-  renderSlotBanner();
-  renderTimeline();
-
-  // If first fill, load + apply template texts
-  if (S.videoClips.length === 1) {
-    loadClip(0);
-    applyTemplateTexts();
-  }
-
-  const allFilled = S.slots.every(s=>s.filled);
-  if (allFilled) {
-    notify(`✦ Todos os slots preenchidos! Pressione ▶ para visualizar.`);
-  } else {
-    const remaining = S.slots.filter(s=>!s.filled).length;
-    notify(`✅ Slot preenchido! Faltam ${remaining} vídeo(s).`);
-  }
+function fillSlot(si,file){
+  const url=URL.createObjectURL(file);
+  const name=file.name.replace(/\.[^.]+$/,'');
+  S.slots[si]={filled:true,url,name,label:S.activeTmpl.slotLabels[si]};
+  if(!S.media.find(m=>m.url===url)) S.media.push({name,url,type:'video',file});
+  S.vClips=S.slots.filter(s=>s.filled).map(s=>({name:s.name,url:s.url}));
+  // Assign template fx to each clip slot
+  S.slots.forEach((s,i)=>{
+    if(s.filled && !S.clipFx[i]) S.clipFx[i]=S.activeTmpl.fxSeq[i%S.activeTmpl.fxSeq.length];
+  });
+  renderMedia(); renderSlots(); renderTimeline();
+  if(S.vClips.length===1){loadClip(0);applyTmplTexts();}
+  const left=S.slots.filter(s=>!s.filled).length;
+  notify(left===0?'✦ Todos os slots preenchidos! Pressione ▶':`✅ Slot preenchido! Faltam ${left}.`);
 }
 
-function autoFillSlots() {
-  // Distribute uploaded media across empty slots
-  if (S.media.length === 0) { notify('⚠ Adicione vídeos primeiro!'); return; }
-  let mi = 0;
-  S.slots.forEach((slot, si) => {
-    if (!slot.filled && mi < S.media.length) {
-      const m = S.media[mi++];
-      S.slots[si] = { filled:true, url:m.url, name:m.name, label:slot.label };
+function autoFill(){
+  if(!S.media.length){notify('⚠ Adicione vídeos primeiro!');return;}
+  let mi=0;
+  S.slots.forEach((s,i)=>{if(!s.filled&&mi<S.media.length){const m=S.media[mi++];S.slots[i]={filled:true,url:m.url,name:m.name,label:s.label};}});
+  S.vClips=S.slots.filter(s=>s.filled).map(s=>({name:s.name,url:s.url}));
+  S.slots.forEach((s,i)=>{if(s.filled&&!S.clipFx[i])S.clipFx[i]=S.activeTmpl.fxSeq[i%S.activeTmpl.fxSeq.length];});
+  renderMedia();renderSlots();renderTimeline();
+  if(S.vClips.length>0){loadClip(0);applyTmplTexts();}
+  notify('✦ Slots preenchidos!');
+}
+
+function applyTmplTexts(){
+  const t=S.activeTmpl; if(!t) return;
+  const lyr=document.getElementById('txtLayer'); lyr.innerHTML=''; lyr.style.pointerEvents='auto';
+  S.tClips=[];
+  t.texts.forEach(tx=>{
+    const el=document.createElement('div'); el.className='txt-el';
+    el.textContent=tx.t;
+    el.style.cssText=`color:${tx.c};font-size:${tx.sz}px;font-weight:${tx.w};font-family:'DM Sans',sans-serif;text-shadow:${tx.sh};position:absolute;left:${tx.x}%;top:${tx.y}%;transform:translate(-50%,-50%)`;
+    makeDraggable(el); el.addEventListener('dblclick',()=>el.remove());
+    lyr.appendChild(el);
+    S.tClips.push({label:tx.t.substring(0,14)});
+  });
+  renderTimeline();
+}
+
+// ══════════════════════════════════════════════════════════
+//  FILE HANDLING
+// ══════════════════════════════════════════════════════════
+function dzOn(e){e.preventDefault();document.getElementById('dz').classList.add('ov');}
+function dzOff(){document.getElementById('dz').classList.remove('ov');}
+function dzDrop(e){e.preventDefault();dzOff();handleFiles(e.dataTransfer.files);}
+
+function handleFiles(files){
+  Array.from(files).forEach(file=>{
+    const url=URL.createObjectURL(file);
+    const isV=file.type.startsWith('video/'), isA=file.type.startsWith('audio/');
+    if(!isV&&!isA) return;
+    const name=file.name.replace(/\.[^.]+$/,'');
+    const item={name,url,type:isV?'video':'audio',file};
+    if(!S.media.find(m=>m.url===url)) S.media.push(item);
+    renderMedia();
+    if(isA){S.mClips.push(item);renderTimeline();document.getElementById('bgAud').src=url;document.getElementById('bgAud').play().catch(()=>{});notify('🎵 Música adicionada!');return;}
+    if(S.activeTmpl){
+      const ei=S.slots.findIndex(s=>!s.filled);
+      if(ei>=0){fillSlot(ei,file);return;}
     }
-  });
-  S.videoClips = S.slots.filter(s=>s.filled).map(s=>({name:s.name,url:s.url}));
-  renderSlotBanner();
-  renderTimeline();
-  if (S.videoClips.length>0) { loadClip(0); applyTemplateTexts(); }
-  notify('✦ Slots preenchidos automaticamente!');
-}
-
-function applyTemplateTexts() {
-  const tmpl = S.activeTmpl;
-  if (!tmpl) return;
-  const cont = document.getElementById('textCont');
-  cont.innerHTML = '';
-  cont.style.pointerEvents = 'auto';
-  S.textClips = [];
-  tmpl.texts.forEach(t => {
-    const el = document.createElement('div');
-    el.className = 'overlay-txt';
-    el.textContent = t.text;
-    el.style.cssText = `color:${t.color};font-size:${t.size};font-weight:${t.weight};font-style:normal;text-shadow:${t.shadow};position:absolute;${t.pos}`;
-    makeDraggable(el);
-    el.addEventListener('dblclick',()=>el.remove());
-    cont.appendChild(el);
-    S.textClips.push({label:t.text.substring(0,14)});
-  });
-  renderTimeline();
-}
-
-// ═══════════════ FILE HANDLING ══════════════════════════
-function dzOver(e){e.preventDefault();document.getElementById('dropZone').classList.add('drag-over')}
-function dzLeave(){document.getElementById('dropZone').classList.remove('drag-over')}
-function dzDrop(e){e.preventDefault();dzLeave();handleFiles(e.dataTransfer.files)}
-
-function handleFiles(files) {
-  Array.from(files).forEach(file => {
-    const url = URL.createObjectURL(file);
-    const isV = file.type.startsWith('video/'), isA = file.type.startsWith('audio/');
-    if (!isV && !isA) return;
-    const name = file.name.replace(/\.[^.]+$/,'');
-    const item = {name,url,type:isV?'video':'audio',file};
-    if (!S.media.find(m=>m.url===url)) S.media.push(item);
-    renderMediaList();
-    if (isA) { S.musicClips.push(item); renderTimeline(); bgAud.src=url; bgAud.play().catch(()=>{}); notify('🎵 Música adicionada!'); return; }
-
-    if (S.activeTmpl) {
-      // Fill next empty slot
-      const emptySlot = S.slots.findIndex(s=>!s.filled);
-      if (emptySlot >= 0) { fillSlot(emptySlot, file); return; }
-    }
-    // No template or all slots filled — just add
-    S.videoClips.push(item);
-    renderTimeline();
-    if (S.videoClips.length===1) loadClip(0);
+    S.vClips.push(item);renderTimeline();
+    if(S.vClips.length===1) loadClip(0);
   });
 }
 
-function renderMediaList() {
-  const el = document.getElementById('mediaList');
-  el.innerHTML = '';
-  S.media.forEach(m => {
-    const d = document.createElement('div');
-    const used = S.slots.some(s=>s.url===m.url);
-    d.className='media-item'+(used?' used':'');
-    d.innerHTML=`<div class="media-thumb">${m.type==='video'?'🎬':'🎵'}</div><div class="media-info"><div class="media-name">${m.name.substring(0,18)}</div></div>`;
-    d.onclick=()=>{ const ci=S.videoClips.findIndex(c=>c.url===m.url); if(ci>=0)loadClip(ci); };
+function renderMedia(){
+  const el=document.getElementById('mlist'); el.innerHTML='';
+  S.media.forEach(m=>{
+    const used=S.slots.some(s=>s.url===m.url);
+    const d=document.createElement('div'); d.className='mi'+(used?' used':'');
+    d.innerHTML=`<div class="mi-thumb">${m.type==='video'?'🎬':'🎵'}</div><div class="mi-name">${m.name.substring(0,20)}</div>`;
+    d.onclick=()=>{const ci=S.vClips.findIndex(c=>c.url===m.url);if(ci>=0)loadClip(ci);};
     el.appendChild(d);
   });
 }
 
-// ═══════════════ TIMELINE ═══════════════════════════════
-function renderTimeline() {
-  // Video track
-  const vt = document.getElementById('vTrack');
-  vt.innerHTML='';
-  if (S.activeTmpl) {
-    S.slots.forEach((slot,i)=>{
+// ══════════════════════════════════════════════════════════
+//  TIMELINE
+// ══════════════════════════════════════════════════════════
+function renderTimeline(){
+  const vt=document.getElementById('vTrk'); vt.innerHTML='';
+  if(S.activeTmpl){
+    S.slots.forEach((s,i)=>{
       const d=document.createElement('div');
-      d.className='clip v-clip tmpl-slot'+(slot.filled?' filled active':'');
-      d.style.width='88px';
-      d.innerHTML=slot.filled?`${slot.name.substring(0,10)} <button class="clip-del" onclick="event.stopPropagation();clearSlot(${i})">✕</button>`:`Slot ${i+1}`;
-      d.onclick=()=>{
-        if(slot.filled){const ci=S.videoClips.findIndex(c=>c.url===slot.url);if(ci>=0)loadClip(ci);}
-        else{const inp=document.createElement('input');inp.type='file';inp.accept='video/*';inp.onchange=e=>{if(e.target.files[0])fillSlot(i,e.target.files[0])};inp.click();}
-      };
+      d.className='clip vc slot-c'+(s.filled?' ok':'')+(i===S.activeIdx?' on':'');
+      d.style.width='82px';
+      const fxId=S.clipFx[i];
+      const fxEmoji=fxId?FX_LIST.find(f=>f.id===fxId)?.e||'':'';
+      d.innerHTML=(s.filled?`${fxEmoji} ${s.name.substring(0,8)}`:`Slot ${i+1}`)+`<button class="cdel" onclick="event.stopPropagation();clearSlot(${i})">✕</button>`;
+      d.onclick=()=>{if(s.filled){const ci=S.vClips.findIndex(c=>c.url===s.url);if(ci>=0)loadClip(ci);}else{const inp=document.createElement('input');inp.type='file';inp.accept='video/*';inp.onchange=e=>{if(e.target.files[0])fillSlot(i,e.target.files[0])};inp.click();}};
       vt.appendChild(d);
     });
   } else {
-    S.videoClips.forEach((clip,i)=>{
-      const d=document.createElement('div');
-      d.className='clip v-clip'+(i===S.activeIdx?' active':'');
-      d.style.width=Math.max(68,clip.name.length*6+32)+'px';
-      d.innerHTML=`${clip.name.substring(0,12)} <button class="clip-del" onclick="event.stopPropagation();removeClip('v',${i})">✕</button>`;
+    S.vClips.forEach((c,i)=>{
+      const d=document.createElement('div'); d.className='clip vc'+(i===S.activeIdx?' on':'');
+      d.style.width=Math.max(68,c.name.length*5.5+28)+'px';
+      const fxId=S.clipFx[i]; const fxEmoji=fxId?FX_LIST.find(f=>f.id===fxId)?.e||'':'';
+      d.innerHTML=`${fxEmoji} ${c.name.substring(0,10)}<button class="cdel" onclick="event.stopPropagation();remClip('v',${i})">✕</button>`;
       d.onclick=()=>loadClip(i);
       vt.appendChild(d);
     });
   }
-
-  const mt=document.getElementById('mTrack'); mt.innerHTML='';
-  S.musicClips.forEach((c,i)=>{
-    const d=document.createElement('div');d.className='clip m-clip';d.style.width='90px';
-    d.innerHTML=`${c.name.substring(0,10)} <button class="clip-del" onclick="removeClip('m',${i})">✕</button>`;
-    mt.appendChild(d);
-  });
-
-  const tt=document.getElementById('tTrack'); tt.innerHTML='';
-  S.textClips.forEach((c,i)=>{
-    const d=document.createElement('div');d.className='clip t-clip';d.style.width=Math.max(68,c.label.length*7+28)+'px';
-    d.innerHTML=`${c.label} <button class="clip-del" onclick="removeClip('t',${i})">✕</button>`;
-    tt.appendChild(d);
-  });
+  const mt=document.getElementById('mTrk'); mt.innerHTML='';
+  S.mClips.forEach((c,i)=>{const d=document.createElement('div');d.className='clip mc';d.style.width='86px';d.innerHTML=`🎵 ${c.name.substring(0,8)}<button class="cdel" onclick="remClip('m',${i})">✕</button>`;mt.appendChild(d);});
+  const tt=document.getElementById('tTrk'); tt.innerHTML='';
+  S.tClips.forEach((c,i)=>{const d=document.createElement('div');d.className='clip tc';d.style.width=Math.max(68,c.label.length*6+20)+'px';d.innerHTML=`${c.label}<button class="cdel" onclick="remClip('t',${i})">✕</button>`;tt.appendChild(d);});
 }
 
-function clearSlot(i) {
-  S.slots[i]={filled:false,url:null,name:null,label:S.activeTmpl.slotLabel[i]};
-  S.videoClips=S.slots.filter(s=>s.filled).map(s=>({name:s.name,url:s.url}));
-  renderSlotBanner(); renderTimeline();
+function clearSlot(i){
+  S.slots[i]={filled:false,url:null,name:null,label:S.activeTmpl.slotLabels[i]};
+  delete S.clipFx[i];
+  S.vClips=S.slots.filter(s=>s.filled).map(s=>({name:s.name,url:s.url}));
+  renderSlots();renderTimeline();
 }
-
-function removeClip(track,i){
-  if(track==='v'){S.videoClips.splice(i,1);S.activeIdx=Math.min(S.activeIdx,S.videoClips.length-1);if(S.videoClips.length>0)loadClip(S.activeIdx);else{vid.style.display='none';document.getElementById('emptyPrev').style.display='flex';}}
-  else if(track==='m'){S.musicClips.splice(i,1);bgAud.pause();bgAud.src='';}
-  else{S.textClips.splice(i,1);}
+function remClip(t,i){
+  if(t==='v'){S.vClips.splice(i,1);delete S.clipFx[i];S.activeIdx=Math.min(S.activeIdx,S.vClips.length-1);if(S.vClips.length>0)loadClip(S.activeIdx);else{srcVid.src='';document.getElementById('noVid').style.display='flex';}}
+  else if(t==='m'){S.mClips.splice(i,1);document.getElementById('bgAud').pause();document.getElementById('bgAud').src='';}
+  else S.tClips.splice(i,1);
   renderTimeline();
 }
 
-// ═══════════════ PLAYER ═════════════════════════════════
+// ══════════════════════════════════════════════════════════
+//  PLAYER
+// ══════════════════════════════════════════════════════════
 function loadClip(idx){
-  if(idx<0||idx>=S.videoClips.length) return;
+  if(idx<0||idx>=S.vClips.length)return;
   S.activeIdx=idx;
-  vid.src=S.videoClips[idx].url;
-  vid.style.display='block';
-  document.getElementById('emptyPrev').style.display='none';
-  applyFilter();
-  vid.load();
+  srcVid.src=S.vClips[idx].url;
+  srcVid.load();
+  document.getElementById('noVid').style.display='none';
   renderTimeline();
+  // Update FX chip selection
+  const fxId=S.clipFx[idx]||'none';
+  document.querySelectorAll('.fx-chip').forEach((c,i)=>{c.classList.toggle('on',FX_LIST[i]?.id===fxId);});
 }
 
 function togglePlay(){
-  if(!vid.src) return;
-  if(vid.paused){vid.play();bgAud.play().catch(()=>{});document.getElementById('playBtn').textContent='⏸';S.playing=true;}
-  else{vid.pause();bgAud.pause();document.getElementById('playBtn').textContent='▶';S.playing=false;}
+  if(!srcVid.src) return;
+  const bgAud=document.getElementById('bgAud');
+  if(srcVid.paused){srcVid.play().catch(()=>{});bgAud.play().catch(()=>{});document.getElementById('pbBtn').textContent='⏸';S.playing=true;}
+  else{srcVid.pause();bgAud.pause();document.getElementById('pbBtn').textContent='▶';S.playing=false;}
 }
 
-function onEnd(){
-  const tmpl=S.activeTmpl;
-  const fxSeq=tmpl?tmpl.transitions:['fade'];
+srcVid.addEventListener('ended',()=>{
   const next=S.activeIdx+1;
-  if(next<S.videoClips.length){
-    const fx=fxSeq[next%fxSeq.length];
-    playTransition(fx,()=>{loadClip(next);if(S.playing)vid.play();});
-  } else {document.getElementById('playBtn').textContent='▶';S.playing=false;}
-}
+  if(next<S.vClips.length){
+    const fx=S.clipFx[next]||'fade';
+    playTransition(fx,()=>{loadClip(next);if(S.playing)srcVid.play().catch(()=>{});});
+  } else {document.getElementById('pbBtn').textContent='▶';S.playing=false;}
+});
 
-function onMeta(){
+srcVid.addEventListener('timeupdate',()=>{
+  const d=srcVid.duration||0,c=srcVid.currentTime||0,p=d?c/d*100:0;
+  document.getElementById('pbarF').style.width=p+'%';
+  document.getElementById('pbarH').style.left=p+'%';
   const fmt=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
-  document.getElementById('timeDisp').textContent=`0:00 / ${fmt(vid.duration||0)}`;
-}
-
-vid.addEventListener('timeupdate',()=>{
-  const d=vid.duration||0,c=vid.currentTime||0,p=d?c/d*100:0;
-  document.getElementById('progFill').style.width=p+'%';
-  document.getElementById('progHandle').style.left=p+'%';
-  const fmt=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
-  document.getElementById('timeDisp').textContent=`${fmt(c)} / ${fmt(d)}`;
+  document.getElementById('pbTime').textContent=`${fmt(c)} / ${fmt(d)}`;
 });
 
 function seek(e){
-  if(!vid.duration)return;
-  const r=document.getElementById('prog').getBoundingClientRect();
-  vid.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*vid.duration;
+  if(!srcVid.duration)return;
+  const r=document.getElementById('pbar').getBoundingClientRect();
+  srcVid.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*srcVid.duration;
 }
-function setVol(v){vid.volume=parseFloat(v);bgAud.volume=parseFloat(v)*.55;}
+function setVol(v){srcVid.volume=parseFloat(v);document.getElementById('bgAud').volume=parseFloat(v)*.5;}
 function pickAudio(){const i=document.createElement('input');i.type='file';i.accept='audio/*';i.onchange=e=>handleFiles(e.target.files);i.click();}
 
-// ═══════════════ TRANSITIONS ════════════════════════════
-function playTransition(fx, cb){
-  const w=tc.width=tc.offsetWidth, h=tc.height=tc.offsetHeight;
-  tc.style.opacity=1;
-  if(fx==='flash'){
-    tctx.fillStyle='#fff';tctx.fillRect(0,0,w,h);
-    let a=1;const f=()=>{tctx.clearRect(0,0,w,h);tctx.fillStyle=`rgba(255,255,255,${a})`;tctx.fillRect(0,0,w,h);a-=.12;if(a>0)requestAnimationFrame(f);else{tc.style.opacity=0;cb();}};
-    setTimeout(()=>{cb();requestAnimationFrame(f);},70);
-  } else if(fx==='glitch'){
-    let n=0;const g=()=>{tctx.clearRect(0,0,w,h);for(let i=0;i<8;i++){const y=Math.random()*h,hh=Math.random()*18+2;tctx.fillStyle=`rgba(${Math.random()<.5?'255,0,80':'0,200,255'},.35)`;tctx.fillRect(Math.random()*w*.5,y,w,hh);}if(++n<7)requestAnimationFrame(g);else{tctx.clearRect(0,0,w,h);tc.style.opacity=0;}};
-    cb();requestAnimationFrame(g);
-  } else if(fx==='fade'){
-    tctx.fillStyle='#000';tctx.fillRect(0,0,w,h);let a=1;
-    const f=()=>{tctx.clearRect(0,0,w,h);tctx.fillStyle=`rgba(0,0,0,${a})`;tctx.fillRect(0,0,w,h);a-=.08;if(a>0)requestAnimationFrame(f);else{tc.style.opacity=0;cb();}};
-    requestAnimationFrame(f);
-  } else if(fx==='zoom'){
-    const pw=document.getElementById('previewWrap');cb();
-    pw.style.transition='transform .18s ease-out';pw.style.transform='scale(1.1)';
-    setTimeout(()=>{pw.style.transform='scale(1)';},280);tc.style.opacity=0;
-  } else if(fx==='wipe'){
-    let x=0;const s=()=>{tctx.clearRect(0,0,w,h);tctx.fillStyle='#000';tctx.fillRect(x,0,w-x,h);x+=w*.14;if(x<w)requestAnimationFrame(s);else{tctx.clearRect(0,0,w,h);tc.style.opacity=0;cb();}};
-    requestAnimationFrame(s);
-  } else if(fx==='blur'){
-    vid.style.transition='filter .25s';vid.style.filter='blur(14px)';cb();
-    setTimeout(()=>{vid.style.filter='';applyFilter();},280);tc.style.opacity=0;
-  } else if(fx==='spin'){
-    const pw=document.getElementById('previewWrap');
-    pw.style.transition='transform .28s ease-in-out';pw.style.transform='rotate(180deg) scale(.5)';
-    cb();setTimeout(()=>{pw.style.transition='transform .2s';pw.style.transform='';},300);tc.style.opacity=0;
-  } else if(fx==='bounce'){
-    const pw=document.getElementById('previewWrap');
-    pw.style.transition='transform .12s ease-out';pw.style.transform='translateY(-14px)';
-    setTimeout(()=>{pw.style.transition='transform .16s ease-in';pw.style.transform='translateY(5px)';},120);
-    setTimeout(()=>{pw.style.transform='';cb();},300);tc.style.opacity=0;
-  } else {tc.style.opacity=0;cb();}
-}
-
-// ═══════════════ FILTERS ════════════════════════════════
-const FILTERS=[
-  {id:'',label:'Original',bg:'#1a1a2e',e:'📷'},
-  {id:'grayscale(100%)',label:'P&B',bg:'linear-gradient(#555,#999)',e:'⬜'},
-  {id:'sepia(80%)',label:'Sépia',bg:'linear-gradient(#7a5c3a,#c8954a)',e:'🎞'},
-  {id:'saturate(200%) hue-rotate(10deg)',label:'Vibrante',bg:'linear-gradient(#f72,#fc0)',e:'🌅'},
-  {id:'brightness(1.3) contrast(1.2)',label:'Claro',bg:'#ddd',e:'☀'},
-  {id:'brightness(0.7) contrast(1.3)',label:'Escuro',bg:'#111',e:'🌙'},
-  {id:'saturate(150%) hue-rotate(-20deg)',label:'Rosa',bg:'linear-gradient(#f9a,#fad0c4)',e:'🌸'},
-  {id:'hue-rotate(180deg) saturate(150%)',label:'Roxo',bg:'linear-gradient(#a18cd1,#fbc2eb)',e:'💜'},
-  {id:'saturate(120%) hue-rotate(140deg)',label:'Verde',bg:'linear-gradient(#11998e,#38ef7d)',e:'🌿'},
-  {id:'contrast(1.4) saturate(1.3) brightness(.9)',label:'Cinema',bg:'linear-gradient(#2d3561,#a8edea)',e:'🎯'},
-];
-
-(function(){
-  const g=document.getElementById('fGrid');
-  FILTERS.forEach(f=>{
-    const b=document.createElement('div');b.className='fbtn'+(f.id===''?' active':'');
-    b.innerHTML=`<div class="fthumb" style="background:${f.bg}">${f.e}</div>${f.label}`;
-    b.onclick=()=>{document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('active'));b.classList.add('active');S.filter=f.id;applyFilter();};
-    g.appendChild(b);
-  });
-})();
-
-function syncFilterBtns(){
-  document.querySelectorAll('.fbtn').forEach((b,i)=>b.classList.toggle('active',FILTERS[i]?.id===S.filter));
-}
-
-function buildAdjFilter(){
-  const a=S.adj;const w=a.wa>0?` sepia(${a.wa}%)`:(a.wa<0?` hue-rotate(${a.wa*2}deg)`:'');
-  return `brightness(${a.br}%) contrast(${a.co}%) saturate(${a.sa}%) hue-rotate(${a.hu}deg)${w}`;
-}
-
-function applyFilter(){
-  vid.style.filter=[S.filter,buildAdjFilter()].filter(Boolean).join(' ');
-  const pw=document.getElementById('previewWrap');
-  pw.style.boxShadow=S.adj.vi>0?`inset 0 0 ${S.adj.vi*2}px ${S.adj.vi}px rgba(0,0,0,.85)`:'';
-}
-
-function adjUpdate(){
+// ══════════════════════════════════════════════════════════
+//  ADJUSTMENTS
+// ══════════════════════════════════════════════════════════
+function adjUpd(){
   const map={Br:'br',Co:'co',Sa:'sa',Hu:'hu',Wa:'wa',Vi:'vi'};
-  Object.entries(map).forEach(([k,sk])=>{S.adj[sk]=document.getElementById('a'+k).value;document.getElementById('v'+k).textContent=S.adj[sk];});
-  applyFilter();
+  Object.entries(map).forEach(([k,sk])=>{S.adj[sk]=+document.getElementById('a'+k).value;document.getElementById('v'+k).textContent=S.adj[sk];});
 }
-
 function resetAdj(){
   const d={Br:100,Co:100,Sa:100,Hu:0,Wa:0,Vi:0};
   Object.entries(d).forEach(([k,v])=>{document.getElementById('a'+k).value=v;document.getElementById('v'+k).textContent=v;});
-  S.adj={br:100,co:100,sa:100,hu:0,wa:0,vi:0};applyFilter();notify('↺ Ajustes resetados');
+  S.adj={br:100,co:100,sa:100,hu:0,wa:0,vi:0};
+  notify('↺ Ajustes resetados');
 }
 
-// ═══════════════ TEXT ════════════════════════════════════
-function pickCol(el,c){document.querySelectorAll('.cdot').forEach(d=>d.classList.remove('active'));el.classList.add('active');S.textColor=c;}
-function pickSz(el,sz){el.closest('.sz-row').querySelectorAll('.sz-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');S.textSize=sz;}
-function pickSt(el,w,st){['stN','stB','stI'].forEach(id=>document.getElementById(id).classList.remove('active'));el.classList.add('active');S.textWeight=w;S.textStyle=st;}
+// ══════════════════════════════════════════════════════════
+//  TEXT
+// ══════════════════════════════════════════════════════════
+function pickCol(el,c){document.querySelectorAll('.cd').forEach(d=>d.classList.remove('on'));el.classList.add('on');S.tCol=c;}
+function pickSz(el,sz){el.closest('.sr').querySelectorAll('.sb').forEach(b=>b.classList.remove('on'));el.classList.add('on');S.tSz=sz;}
+function pickSt(el,w,st){['stN','stB','stI'].forEach(id=>document.getElementById(id).classList.remove('on'));el.classList.add('on');S.tW=w;S.tSt=st;}
 
 function addText(){
-  const txt=document.getElementById('tInp').value.trim();if(!txt)return;
-  const cont=document.getElementById('textCont');cont.style.pointerEvents='auto';
-  const el=document.createElement('div');el.className='overlay-txt';el.textContent=txt;
-  el.style.cssText=`color:${S.textColor};font-size:${S.textSize};font-weight:${S.textWeight};font-style:${S.textStyle};top:50%;left:50%;transform:translate(-50%,-50%);text-shadow:0 2px 8px rgba(0,0,0,.85);position:absolute`;
-  makeDraggable(el);el.addEventListener('dblclick',()=>el.remove());
-  cont.appendChild(el);
-  S.textClips.push({label:txt.substring(0,14)});renderTimeline();notify('✍ Texto adicionado!');
+  const txt=document.getElementById('tInp').value.trim(); if(!txt) return;
+  const lyr=document.getElementById('txtLayer'); lyr.style.pointerEvents='auto';
+  const el=document.createElement('div'); el.className='txt-el';
+  el.textContent=txt;
+  el.style.cssText=`color:${S.tCol};font-size:${S.tSz};font-weight:${S.tW};font-style:${S.tSt};font-family:'DM Sans',sans-serif;text-shadow:0 2px 8px rgba(0,0,0,.9);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)`;
+  makeDraggable(el); el.addEventListener('dblclick',()=>el.remove());
+  lyr.appendChild(el);
+  S.tClips.push({label:txt.substring(0,14)}); renderTimeline();
+  notify('✍ Texto adicionado!');
 }
-function addTextFromPanel(){addText();}
 
 function makeDraggable(el){
   el.addEventListener('mousedown',e=>{
     e.preventDefault();
-    const wr=document.getElementById('previewWrap').getBoundingClientRect();
-    const r=el.getBoundingClientRect();const ox=e.clientX-r.left,oy=e.clientY-r.top;
+    const wr=document.getElementById('pw').getBoundingClientRect();
+    const r=el.getBoundingClientRect();
+    const ox=e.clientX-r.left,oy=e.clientY-r.top;
     el.style.transform='none';
     const mv=me=>{el.style.left=(me.clientX-wr.left-ox)+'px';el.style.top=(me.clientY-wr.top-oy)+'px';};
     const up=()=>{document.removeEventListener('mousemove',mv);document.removeEventListener('mouseup',up);};
-    document.addEventListener('mousemove',mv);document.addEventListener('mouseup',up);
+    document.addEventListener('mousemove',mv); document.addEventListener('mouseup',up);
   });
 }
 
-// ═══════════════ MISC ════════════════════════════════════
-function switchTab(el,id){
-  document.querySelectorAll('.rtab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.rpanel').forEach(p=>p.classList.remove('active'));
-  el.classList.add('active');document.getElementById(id).classList.add('active');
+// ══════════════════════════════════════════════════════════
+//  MISC
+// ══════════════════════════════════════════════════════════
+function goView(id,btn){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+  if(id==='vEd') resizeCvs();
 }
-
+function rTab(el,id){
+  document.querySelectorAll('.rtab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.rp').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on'); document.getElementById(id).classList.add('on');
+}
 function notify(msg){
-  const el=document.getElementById('notif');el.textContent=msg;el.classList.add('show');
-  clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),3000);
+  const el=document.getElementById('notif');el.textContent=msg;el.classList.add('on');
+  clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),3200);
+}
+function doExport(){
+  if(!S.vClips.length){notify('⚠ Adicione vídeos primeiro!');return;}
+  const idx=Math.max(0,S.activeIdx);
+  const a=document.createElement('a');a.href=S.vClips[idx].url;
+  a.download='lojaedit_'+Date.now()+'.mp4';a.click();
+  notify('⬇ Download iniciado! (vídeo original — efeitos são em tempo real)');
 }
 
-function exportVideo(){
-  if(!S.videoClips.length){notify('⚠ Adicione vídeos primeiro!');return;}
-  const idx=S.activeIdx>=0?S.activeIdx:0;
-  const a=document.createElement('a');a.href=S.videoClips[idx].url;
-  a.download='lojaedit_'+Date.now()+'.mp4';a.click();notify('⬇ Download iniciado!');
-}
-
-// ═══════════════ INIT ════════════════════════════════════
-buildTemplateGallery();
+// INIT
+buildGallery();
 </script>
 </body>
 </html>
