@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AUTITA — Associação de Pais e Amigos do Autista · Itapemirim e Região Litoral Sul ES</title>
+  <meta name="description" content="AUTITA — Associação de Pais e Amigos do Autista de Itapemirim e Região Litoral Sul ES. Fundada em 2022. Utilidade Pública Municipal. Atendimento a famílias TEA do Sul do Espírito Santo."/>
+  <meta name="keywords" content="autismo, TEA, Itapemirim, Espírito Santo, associação, AUTITA, pais autistas, apoio TEA sul ES"/>
+
+  <!-- Open Graph para redes sociais e compartilhamento -->
+  <meta property="og:title" content="AUTITA — Associação de Pais e Amigos do Autista · Itapemirim ES"/>
+  <meta property="og:description" content="Apoio real para famílias TEA no Sul do Espírito Santo. Utilidade Pública Municipal. Conheça nossa missão."/>
+  <meta property="og:type" content="website"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --azul:     #003f8a;
+      --azul2:    #0056c7;
+      --azul3:    #1a6fd4;
+      --azulclaro:#e8f0fb;
+      --azulclaro2:#d0e2f8;
+      --quebra:   #f7f9fc;
+      --branco:   #ffffff;
+      --preto:    #0d0d0d;
+      --cinza:    #4a4a5a;
+      --cinza2:   #8a8a9a;
+      --cinza3:   #e5e7ef;
+      --puzzle:   #e84f3c; /* vermelho puzzle */
+      --puzzle2:  #f5a623; /* amarelo puzzle */
+      --verde:    #2e8b57;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--branco);
+      color: var(--preto);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      background: var(--azul);
+      padding: 8px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.75);
+    }
+    .topbar a { color: rgba(255,255,255,0.75); text-decoration: none; transition: color .2s; }
+    .topbar a:hover { color: #fff; }
+    .tb-right { display: flex; gap: 24px; }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
+      border-bottom: 3px solid var(--azul);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; height: 72px;
+      box-shadow: 0 2px 16px rgba(0,63,138,0.08);
+    }
+    .logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .logo img { width: 52px; height: 52px; object-fit: contain; border-radius: 50%; }
+    .logo-text { }
+    .logo-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; letter-spacing: 0.04em; color: var(--azul); line-height: 1; }
+    .logo-sub { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cinza2); margin-top: 2px; }
+
+    nav { display: flex; align-items: center; gap: 28px; }
+    nav a { font-size: 0.82rem; font-weight: 500; color: var(--cinza); text-decoration: none; transition: color .2s; }
+    nav a:hover { color: var(--azul); }
+    .nav-cta {
+      background: var(--azul); color: #fff !important;
+      padding: 9px 22px; border-radius: 4px;
+      font-weight: 600 !important; font-size: 0.8rem !important;
+      transition: background .2s !important;
+    }
+    .nav-cta:hover { background: var(--azul2) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--azul) 0%, #005599 50%, #003070 100%);
+      min-height: 88vh; display: flex; align-items: center;
+      position: relative; overflow: hidden; padding: 100px 40px 80px;
+    }
+
+    /* puzzle pieces decorativas */
+    .hero-deco {
+      position: absolute; top: 0; right: 0; bottom: 0; width: 45%;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+      opacity: 0.07;
+    }
+    .deco-piece {
+      background: #fff;
+      clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
+    }
+
+    /* Geometric lines bg */
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 50% 60% at 80% 50%, rgba(255,255,255,0.06) 0%, transparent 65%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 48px);
+    }
+
+    .hero-inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1100px; margin: 0 auto; width: 100%; }
+
+    .hero-left {}
+
+    .hero-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 100px; padding: 5px 16px 5px 8px;
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.9); margin-bottom: 24px;
+      animation: fadeup .7s ease .1s both;
+    }
+    .chip-dot { width: 7px; height: 7px; border-radius: 50%; background: #7dd3fc; animation: blink 2s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.2;} }
+
+    .hero-h1 {
+      font-family: 'Playfair Display', serif; font-weight: 700;
+      font-size: clamp(2.8rem, 5vw, 4.2rem); line-height: 1.1;
+      color: #fff; margin-bottom: 12px;
+      animation: fadeup .9s ease .2s both;
+    }
+    .hero-h1 em { font-style: italic; font-weight: 300; color: #bfdbfe; }
+
+    .hero-sub {
+      font-size: clamp(1rem, 1.6vw, 1.15rem); font-weight: 300;
+      color: rgba(255,255,255,0.78); line-height: 1.75;
+      max-width: 480px; margin-bottom: 40px;
+      animation: fadeup .9s ease .35s both;
+    }
+    .hero-sub strong { color: #fff; font-weight: 600; }
+
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; animation: fadeup .9s ease .5s both; }
+    .btn-white {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: #fff; color: var(--azul);
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.06em;
+      text-decoration: none; padding: 14px 28px; border-radius: 5px;
+      transition: transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.3); }
+    .btn-outline-white {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: transparent; color: rgba(255,255,255,.85);
+      font-size: 0.85rem; font-weight: 600; letter-spacing: 0.06em;
+      text-decoration: none; padding: 14px 28px; border-radius: 5px;
+      border: 1.5px solid rgba(255,255,255,.35);
+      transition: border-color .2s, color .2s, transform .15s;
+    }
+    .btn-outline-white:hover { border-color: #fff; color: #fff; transform: translateY(-2px); }
+
+    /* Hero right — impact card */
+    .hero-card {
+      background: rgba(255,255,255,0.1); backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.2); border-radius: 16px;
+      padding: 36px 32px; animation: fadeup .9s ease .55s both;
+    }
+    .hero-card-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; color: #bfdbfe; margin-bottom: 24px; font-weight: 300; }
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+    .hstat { padding: 16px; background: rgba(255,255,255,0.08); border-radius: 10px; }
+    .hstat-val { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2rem; color: #fff; line-height: 1; }
+    .hstat-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-top: 4px; }
+    .hero-credentials { display: flex; flex-direction: column; gap: 10px; }
+    .hcred {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.78rem; color: rgba(255,255,255,0.8); font-weight: 400;
+    }
+    .hcred-ico { font-size: 1rem; }
+    .hcred strong { color: #fff; }
+
+    @keyframes fadeup { from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);} }
+
+    /* ── LEGITIMIDADE STRIP ── */
+    .legit-strip {
+      background: var(--azulclaro); border-top: 1px solid var(--azulclaro2); border-bottom: 1px solid var(--azulclaro2);
+      padding: 20px 40px; display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap;
+    }
+    .legit-item { display: flex; align-items: center; gap: 10px; }
+    .legit-ico { font-size: 1.4rem; }
+    .legit-text { font-size: 0.78rem; font-weight: 600; color: var(--azul); letter-spacing: 0.04em; }
+    .legit-text span { display: block; font-size: 0.65rem; font-weight: 400; color: var(--cinza2); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 1px; }
+
+    /* ── SECTION BASE ── */
+    .section { padding: 88px 40px; }
+    .section-grey { background: var(--quebra); }
+    .section-blue { background: var(--azul); color: #fff; }
+    .s-inner { max-width: 1100px; margin: 0 auto; }
+
+    .s-tag {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--azul2); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .s-tag::before { content: ''; display: inline-block; width: 20px; height: 2px; background: var(--azul2); }
+
+    .s-h {
+      font-family: 'Playfair Display', serif; font-weight: 700;
+      font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.1; color: var(--preto);
+      margin-bottom: 16px;
+    }
+    .s-h em { font-style: italic; font-weight: 300; color: var(--azul); }
+    .s-h.white { color: #fff; }
+    .s-h.white em { color: #bfdbfe; }
+
+    .s-sub { font-size: 1rem; font-weight: 300; color: var(--cinza); line-height: 1.8; max-width: 560px; margin-bottom: 56px; }
+    .s-sub.white { color: rgba(255,255,255,.75); }
+
+    /* ── MISSÃO SPLIT ── */
+    .missao-split { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .missao-img { position: relative; }
+    .missao-img-wrap {
+      aspect-ratio: 4/5; overflow: hidden; border-radius: 16px;
+      border: 4px solid var(--azulclaro2);
+      box-shadow: 0 16px 48px rgba(0,63,138,0.12);
+    }
+    .missao-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .missao-badge {
+      position: absolute; bottom: -16px; right: -16px;
+      background: var(--azul); color: #fff; border-radius: 12px;
+      padding: 16px 20px; box-shadow: 0 8px 24px rgba(0,63,138,0.35);
+      font-size: 0.78rem; font-weight: 600; line-height: 1.5; max-width: 180px;
+    }
+    .missao-badge .mb-val { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.8rem; line-height: 1; }
+    .missao-badge .mb-label { font-size: 0.65rem; font-weight: 400; opacity: .8; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
+
+    .pillars { display: flex; flex-direction: column; gap: 20px; margin-bottom: 36px; }
+    .pillar {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 20px 22px; background: var(--branco);
+      border: 1px solid var(--cinza3); border-radius: 10px;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .pillar:hover { border-color: var(--azulclaro2); box-shadow: 0 4px 16px rgba(0,63,138,0.08); }
+    .pillar-ico { font-size: 1.6rem; flex-shrink: 0; margin-top: 2px; }
+    .pillar-title { font-weight: 700; font-size: 0.95rem; color: var(--preto); margin-bottom: 4px; }
+    .pillar-text { font-size: 0.8rem; color: var(--cinza); line-height: 1.7; font-weight: 300; }
+
+    /* ── IMPACTO NÚMEROS ── */
+    .impacto-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,0.12); }
+    .imp-item { padding: 44px 32px; background: rgba(255,255,255,0.06); text-align: center; }
+    .imp-val { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2.4rem,4vw,3.8rem); line-height: 1; color: #fff; margin-bottom: 8px; }
+    .imp-label { font-size: 0.78rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+
+    /* ── NECESSIDADES / O QUE BUSCAMOS ── */
+    .needs-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .need-card {
+      background: var(--branco); border: 1px solid var(--cinza3); border-radius: 12px;
+      padding: 32px 28px; position: relative; overflow: hidden;
+      transition: box-shadow .3s, transform .2s;
+    }
+    .need-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--azul); }
+    .need-card:hover { box-shadow: 0 12px 36px rgba(0,63,138,0.12); transform: translateY(-3px); }
+    .need-num { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2.8rem; line-height: 1; color: var(--azulclaro2); margin-bottom: 14px; }
+    .need-title { font-weight: 700; font-size: 1rem; color: var(--preto); margin-bottom: 8px; }
+    .need-text { font-size: 0.8rem; color: var(--cinza); line-height: 1.75; font-weight: 300; }
+    .need-tag {
+      display: inline-block; margin-top: 14px;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--azul2); border: 1px solid var(--azulclaro2); border-radius: 100px; padding: 3px 10px;
+    }
+
+    /* ── GALERIA ── */
+    .galeria-grid {
+      display: grid; grid-template-columns: repeat(4,1fr); grid-template-rows: 200px 200px; gap: 4px;
+    }
+    .gal-item { overflow: hidden; border-radius: 4px; background: var(--azulclaro); }
+    .gal-item:first-child { grid-column: span 2; grid-row: span 2; border-radius: 8px; }
+    .gal-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease, filter .4s; }
+    .gal-item:hover img { transform: scale(1.05); filter: brightness(1.05); }
+
+    /* ── CNPJ / TRANSPARÊNCIA ── */
+    .trans-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .trans-card { background: var(--branco); border: 1px solid var(--cinza3); border-radius: 10px; padding: 24px 22px; }
+    .trans-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cinza2); margin-bottom: 6px; }
+    .trans-val { font-weight: 600; font-size: 0.88rem; color: var(--preto); line-height: 1.5; }
+    .trans-val a { color: var(--azul2); text-decoration: none; }
+    .trans-val a:hover { text-decoration: underline; }
+
+    /* ── CONTATO ── */
+    .contato-split { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+    .contato-items { display: flex; flex-direction: column; gap: 0; }
+    .contato-row {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 20px 0; border-bottom: 1px solid var(--cinza3);
+    }
+    .cr-ico { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+    .cr-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cinza2); margin-bottom: 4px; }
+    .cr-val { font-weight: 500; font-size: 0.9rem; color: var(--preto); }
+    .cr-val a { color: var(--azul2); text-decoration: none; }
+    .map-wrap { border-radius: 12px; overflow: hidden; border: 2px solid var(--cinza3); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+
+    /* ── TV BANNER ── */
+    .tv-banner {
+      background: var(--azul); border-top: 1px solid rgba(255,255,255,.1);
+      padding: 24px 40px; display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;
+    }
+    .tv-banner p { font-size: 0.75rem; color: rgba(255,255,255,.6); letter-spacing: 0.1em; }
+    .tv-banner a { color: rgba(255,255,255,.8); text-decoration: none; font-weight: 600; font-size: 0.82rem; transition: color .2s; }
+    .tv-banner a:hover { color: #fff; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #060a14; padding: 40px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
+    }
+    footer p { font-size: 0.72rem; color: rgba(255,255,255,.4); letter-spacing: 0.08em; }
+    .foot-links { display: flex; gap: 24px; }
+    .foot-links a { font-size: 0.72rem; color: rgba(255,255,255,.4); text-decoration: none; transition: color .2s; }
+    .foot-links a:hover { color: rgba(255,255,255,.8); }
+
+    /* ── FLOAT WA ── */
+    .float-wa {
+      position: fixed; bottom: 24px; right: 24px; z-index: 300;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: #25d366; display: grid; place-items: center;
+      text-decoration: none; box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+      transition: transform .2s; border: 3px solid #fff;
+    }
+    .float-wa:hover { transform: scale(1.1); }
+    .float-wa svg { width: 28px; height: 28px; fill: #fff; }
+
+    /* ── PUZZLE ACCENT ── */
+    .puzzle-accent {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--puzzle2); font-size: 1.2rem;
+    }
+
+    @media (max-width: 768px) {
+      .topbar, .legit-strip { padding: 10px 20px; }
+      header { padding: 0 20px; height: 64px; }
+      nav .nav-link { display: none; }
+      .hero { padding: 80px 20px 60px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-card { display: none; }
+      .missao-split { grid-template-columns: 1fr; gap: 40px; }
+      .impacto-grid { grid-template-columns: repeat(2,1fr); }
+      .needs-grid { grid-template-columns: 1fr; }
+      .galeria-grid { grid-template-columns: repeat(2,1fr); grid-template-rows: auto; }
+      .gal-item:first-child { grid-column: span 2; }
+      .trans-grid { grid-template-columns: 1fr; }
+      .contato-split { grid-template-columns: 1fr; gap: 36px; }
+      .section { padding: 64px 20px; }
+      footer { padding: 28px 20px; flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div>CNPJ: 49.093.051/0001-02 · Utilidade Pública Municipal · Itapemirim ES</div>
+  <div class="tb-right">
+    <a href="https://www.instagram.com/aautita/" target="_blank" rel="noopener">@aautita</a>
+    <a href="tel:+5528999361542">(28) 99936-1542</a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">
+    <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Logoaut.png" alt="AUTITA" onerror="this.style.display='none'"/>
+    <div class="logo-text">
+      <div class="logo-name">AUTITA</div>
+      <div class="logo-sub">Itapemirim e Região Litoral Sul ES</div>
+    </div>
+  </a>
+  <nav>
+    <a href="#missao" class="nav-link">Missão</a>
+    <a href="#impacto" class="nav-link">Impacto</a>
+    <a href="#necessidades" class="nav-link">Projetos</a>
+    <a href="#contato" class="nav-link">Contato</a>
+    <a href="https://wa.me/5528999361542" target="_blank" rel="noopener" class="nav-cta">💬 Fale conosco</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-chip"><span class="chip-dot"></span>Associação ativa · Desde 2022</div>
+      <h1 class="hero-h1">
+        Cada família<br>
+        <em>não pode</em><br>
+        lutar sozinha.
+      </h1>
+      <p class="hero-sub">
+        A AUTITA apoia famílias de pessoas com TEA no Sul do Espírito Santo.
+        <strong>Acolhimento, informação e representação</strong> para quem precisa — direto no território.
+      </p>
+      <div class="hero-ctas">
+        <a href="https://wa.me/5528999361542" target="_blank" rel="noopener" class="btn-white">
+          💬 Fale com a associação
+        </a>
+        <a href="#missao" class="btn-outline-white">Conheça nossa história</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-title">🧩 Universo Azul · AUTITA</div>
+      <div class="hero-stats">
+        <div class="hstat">
+          <div class="hstat-val">2022</div>
+          <div class="hstat-label">Fundação</div>
+        </div>
+        <div class="hstat">
+          <div class="hstat-val">Sul ES</div>
+          <div class="hstat-label">Atuação territorial</div>
+        </div>
+        <div class="hstat">
+          <div class="hstat-val">100%</div>
+          <div class="hstat-label">Sem fins lucrativos</div>
+        </div>
+        <div class="hstat">
+          <div class="hstat-val">TEA</div>
+          <div class="hstat-label">Transtorno do Espectro</div>
+        </div>
+      </div>
+      <div class="hero-credentials">
+        <div class="hcred"><span class="hcred-ico">🏛️</span><div><strong>Utilidade Pública Municipal</strong> — Câmara de Itapemirim</div></div>
+        <div class="hcred"><span class="hcred-ico">📋</span><div>CNPJ <strong>49.093.051/0001-02</strong> — situação ativa</div></div>
+        <div class="hcred"><span class="hcred-ico">🤝</span><div>Reconhecida pelo <strong>Instituto Americo Buaiz</strong></div></div>
+        <div class="hcred"><span class="hcred-ico">📍</span><div>Itapemirim · ES · Litoral Sul Capixaba</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEGITIMIDADE -->
+<div class="legit-strip">
+  <div class="legit-item">
+    <div class="legit-ico">🏛️</div>
+    <div class="legit-text">Utilidade Pública<span>Câmara Municipal de Itapemirim</span></div>
+  </div>
+  <div class="legit-item">
+    <div class="legit-ico">📋</div>
+    <div class="legit-text">CNPJ Ativo<span>49.093.051/0001-02</span></div>
+  </div>
+  <div class="legit-item">
+    <div class="legit-ico">🤝</div>
+    <div class="legit-text">Instituto Americo Buaiz<span>Reconhecida como apta a receber apoio</span></div>
+  </div>
+  <div class="legit-item">
+    <div class="legit-ico">🧩</div>
+    <div class="legit-text">Universo Azul<span>Projeto de consciência TEA</span></div>
+  </div>
+  <div class="legit-item">
+    <div class="legit-ico">📺</div>
+    <div class="legit-text">TV Marataízes<span>Cobertura jornalística do Sul do ES</span></div>
+  </div>
+</div>
+
+<!-- MISSÃO -->
+<section class="section" id="missao">
+  <div class="s-inner">
+    <div class="missao-split">
+      <div class="missao-img">
+        <div class="missao-img-wrap">
+          <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/aut1.png" alt="AUTITA — famílias TEA" onerror="this.style.background='#e8f0fb'"/>
+        </div>
+        <div class="missao-badge">
+          <div class="mb-val">💙</div>
+          <div class="mb-label">Desde junho de 2022</div>
+          <div style="margin-top:8px;font-size:.78rem;">Famílias TEA do Sul do ES unidas por uma causa.</div>
+        </div>
+      </div>
+      <div>
+        <div class="s-tag">Nossa missão</div>
+        <h2 class="s-h">Não é sobre <em>diagnóstico.</em><br>É sobre pertencer.</h2>
+        <p style="font-size:1rem;color:var(--cinza);line-height:1.85;margin-bottom:36px;font-weight:300;">
+          A AUTITA nasceu da necessidade real de famílias do Sul do Espírito Santo que enfrentavam sozinhas a jornada do autismo — sem informação, sem rede de apoio, sem representação.<br><br>
+          Fundada em junho de 2022, a associação reúne pais, mães e cuidadores de pessoas com Transtorno do Espectro Autista de Itapemirim e da Região Litoral Sul ES, com o objetivo de <strong>ampliar o acesso a direitos, serviços e suporte especializado</strong> no território.
+        </p>
+        <div class="pillars">
+          <div class="pillar">
+            <div class="pillar-ico">🧩</div>
+            <div>
+              <div class="pillar-title">Acolhimento e suporte às famílias</div>
+              <div class="pillar-text">Orientação, troca de experiências e rede de apoio entre famílias TEA da região sul capixaba.</div>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-ico">📢</div>
+            <div>
+              <div class="pillar-title">Advocacia e representação</div>
+              <div class="pillar-text">Atuação junto ao poder público para garantia de direitos, serviços e políticas inclusivas para pessoas TEA.</div>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-ico">📚</div>
+            <div>
+              <div class="pillar-title">Informação e conscientização</div>
+              <div class="pillar-text">Campanhas, eventos e conteúdo para educar a comunidade sobre autismo e promover inclusão real.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACTO -->
+<section class="section section-blue" id="impacto">
+  <div class="s-inner">
+    <div class="s-tag" style="color:#bfdbfe;">Impacto territorial</div>
+    <h2 class="s-h white" style="margin-bottom:56px;">O que a <em>AUTITA</em> representa.</h2>
+    <div class="impacto-grid">
+      <div class="imp-item">
+        <div class="imp-val">Sul ES</div>
+        <div class="imp-label">Cobertura regional</div>
+      </div>
+      <div class="imp-item">
+        <div class="imp-val">2022</div>
+        <div class="imp-label">Ano de fundação</div>
+      </div>
+      <div class="imp-item">
+        <div class="imp-val">1ª</div>
+        <div class="imp-label">Assoc. TEA de Itapemirim</div>
+      </div>
+      <div class="imp-item">
+        <div class="imp-val">100%</div>
+        <div class="imp-label">Voluntária e sem fins lucrativos</div>
+      </div>
+    </div>
+    <div style="margin-top:48px;padding:32px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;max-width:680px;margin-left:auto;margin-right:auto;text-align:center;">
+      <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.25rem;color:#bfdbfe;line-height:1.7;font-weight:300;">
+        "No Sul do Espírito Santo, famílias de pessoas com autismo ainda enfrentam barreiras severas de acesso a diagnóstico, terapias e inclusão escolar. A AUTITA existe para mudar essa realidade — família por família, município por município."
+      </p>
+      <p style="margin-top:16px;font-size:.78rem;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase;">Andrea de Araújo · Presidente da AUTITA</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section class="section section-grey" id="galeria">
+  <div class="s-inner">
+    <div class="s-tag">Nosso trabalho</div>
+    <h2 class="s-h" style="margin-bottom:40px;">A AUTITA <em>em ação.</em></h2>
+    <div class="galeria-grid">
+      <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/aut2.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+      <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/aut3.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+      <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/aut4.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+      <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/aut5.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+      <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/aut6.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+      <div class="gal-item"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/aut7.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>
+    </div>
+  </div>
+</section>
+
+<!-- O QUE BUSCAMOS -->
+<section class="section" id="necessidades">
+  <div class="s-inner">
+    <div class="s-tag">Projetos e necessidades</div>
+    <h2 class="s-h">O que a AUTITA<br><em>precisa construir.</em></h2>
+    <p class="s-sub">Para ampliar o atendimento às famílias TEA do Sul do ES, a AUTITA tem projetos claros que dependem de parceiros institucionais e recursos para serem realizados.</p>
+    <div class="needs-grid">
+      <div class="need-card">
+        <div class="need-num">01</div>
+        <div class="need-title">Espaço de atendimento próprio</div>
+        <div class="need-text">A associação ainda não possui sede própria. Um espaço fixo permitiria ampliar o acolhimento, realizar grupos de apoio e recepcionar famílias com regularidade.</div>
+        <div class="need-tag">Infraestrutura</div>
+      </div>
+      <div class="need-card">
+        <div class="need-num">02</div>
+        <div class="need-title">Suporte especializado às famílias</div>
+        <div class="need-text">Acesso a profissionais como psicólogos, fonoaudiólogos e terapeutas ocupacionais ainda é raro no sul do ES. A AUTITA busca viabilizar atendimentos gratuitos ou subsidiados.</div>
+        <div class="need-tag">Saúde · Inclusão</div>
+      </div>
+      <div class="need-card">
+        <div class="need-num">03</div>
+        <div class="need-title">Programa de conscientização regional</div>
+        <div class="need-text">Campanha territorial de educação sobre TEA nas escolas, serviços públicos e comunidade — para transformar o entendimento sobre o autismo em toda a região litoral sul.</div>
+        <div class="need-tag">Educação · Território</div>
+      </div>
+    </div>
+    <div style="margin-top:48px;padding:28px 32px;background:var(--azulclaro);border-left:4px solid var(--azul);border-radius:0 10px 10px 0;">
+      <p style="font-size:.95rem;color:var(--azul);font-weight:500;line-height:1.75;">
+        🤝 <strong>A AUTITA está aberta a parcerias institucionais, emendas parlamentares e apoio de empresas e entidades</strong> que acreditam na inclusão de pessoas TEA como prioridade social. Toda contribuição transforma uma família.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSPARÊNCIA -->
+<section class="section section-grey">
+  <div class="s-inner">
+    <div class="s-tag">Transparência institucional</div>
+    <h2 class="s-h" style="margin-bottom:40px;"><em>Dados</em> da associação.</h2>
+    <div class="trans-grid">
+      <div class="trans-card">
+        <div class="trans-label">Razão Social</div>
+        <div class="trans-val">Associação de Pais e Amigos do Autista de Itapemirim e Região Litoral Sul ES</div>
+      </div>
+      <div class="trans-card">
+        <div class="trans-label">Nome Fantasia</div>
+        <div class="trans-val">AUTITA</div>
+      </div>
+      <div class="trans-card">
+        <div class="trans-label">CNPJ</div>
+        <div class="trans-val">49.093.051/0001-02</div>
+      </div>
+      <div class="trans-card">
+        <div class="trans-label">Data de Fundação</div>
+        <div class="trans-val">03 de junho de 2022</div>
+      </div>
+      <div class="trans-card">
+        <div class="trans-label">Situação Cadastral</div>
+        <div class="trans-val" style="color:var(--verde);font-weight:700;">✅ Ativa</div>
+      </div>
+      <div class="trans-card">
+        <div class="trans-label">CNAE Principal</div>
+        <div class="trans-val">S-9430-8/00 — Atividades de associações de defesa de direitos sociais</div>
+      </div>
+      <div class="trans-card">
+        <div class="trans-label">Presidente</div>
+        <div class="trans-val">Andrea de Araújo</div>
+      </div>
+      <div class="trans-card">
+        <div class="trans-label">Reconhecimento</div>
+        <div class="trans-val">Utilidade Pública Municipal — Lei aprovada por unanimidade · Câmara de Itapemirim · 2024</div>
+      </div>
+      <div class="trans-card">
+        <div class="trans-label">Endereço Sede</div>
+        <div class="trans-val">Rua Manoel Dias, 110 · Centro<br>Itapemirim · ES · CEP 29.330-000</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="section" id="contato">
+  <div class="s-inner">
+    <div class="contato-split">
+      <div>
+        <div class="s-tag">Fale conosco</div>
+        <h2 class="s-h" style="margin-bottom:16px;">Sua família<br><em>não está sozinha.</em></h2>
+        <p style="font-size:.95rem;color:var(--cinza);line-height:1.8;font-weight:300;margin-bottom:36px;">
+          A AUTITA está aqui para acolher, orientar e lutar pelos direitos das pessoas TEA e suas famílias no Sul do Espírito Santo. Entre em contato — seja para buscar apoio, fazer parceria ou conhecer melhor nosso trabalho.
+        </p>
+        <div class="contato-items">
+          <div class="contato-row">
+            <div class="cr-ico">📍</div>
+            <div>
+              <div class="cr-label">Endereço</div>
+              <div class="cr-val">Rua Manoel Dias, 110 · Centro<br>Itapemirim · ES · CEP 29.330-000</div>
+            </div>
+          </div>
+          <div class="contato-row">
+            <div class="cr-ico">📱</div>
+            <div>
+              <div class="cr-label">WhatsApp / Telefone</div>
+              <div class="cr-val"><a href="https://wa.me/5528999361542">(28) 99936-1542</a></div>
+            </div>
+          </div>
+          <div class="contato-row">
+            <div class="cr-ico">📸</div>
+            <div>
+              <div class="cr-label">Instagram</div>
+              <div class="cr-val"><a href="https://www.instagram.com/aautita/" target="_blank" rel="noopener">@aautita</a></div>
+            </div>
+          </div>
+          <div class="contato-row">
+            <div class="cr-ico">🧩</div>
+            <div>
+              <div class="cr-label">Projeto</div>
+              <div class="cr-val">Universo Azul · Conscientização TEA</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:32px;">
+          <a href="https://wa.me/5528999361542" target="_blank" rel="noopener" class="btn-white" style="background:var(--azul);color:#fff;display:inline-flex;">
+            💬 Falar no WhatsApp
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="map-wrap">
+          <iframe src="https://maps.google.com/maps?q=Rua+Manoel+Dias,+110,+Centro,+Itapemirim,+ES&output=embed" width="100%" height="400" style="border:0;display:block;" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TV BANNER -->
+<div class="tv-banner" style="flex-direction:column;gap:10px;padding:32px 40px;text-align:center;">
+  <p style="font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.45);">Iniciativa voluntária</p>
+  <p style="font-size:1rem;color:#fff;font-weight:500;font-family:'Playfair Display',serif;font-style:italic;max-width:600px;line-height:1.7;">
+    Esta página foi desenvolvida voluntariamente pela <strong style="font-style:normal;">TV Marataízes</strong> como parte do seu compromisso com a cobertura de causas reais do Sul do Espírito Santo.
+  </p>
+  <p style="font-size:.75rem;color:rgba(255,255,255,.5);margin-top:4px;">
+    📺 <a href="https://tvmarataizes.digital" target="_blank" rel="noopener" style="color:rgba(255,255,255,.7);font-weight:600;">tvmarataizes.digital</a> — Canal 300 SOUL TV · Marataízes, ES
+  </p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© AUTITA · Associação de Pais e Amigos do Autista de Itapemirim e Região Litoral Sul ES<br>
+  CNPJ 49.093.051/0001-02 · Utilidade Pública Municipal · Itapemirim, ES · 2022</p>
+  <div class="foot-links">
+    <a href="https://www.instagram.com/aautita/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://wa.me/5528999361542" target="_blank" rel="noopener">WhatsApp</a>
+    <a href="https://tvmarataizes.digital" target="_blank" rel="noopener">TV Marataízes</a>
+  </div>
+</footer>
+
+<!-- FLOAT WA -->
+<a href="https://wa.me/5528999361542" target="_blank" rel="noopener" class="float-wa" title="WhatsApp AUTITA">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+</body>
+</html>
