@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cinema e Artes Marataízes — Ponto de Cultura · ID 301034 · MinC</title>
+  <meta name="description" content="Cinema e Artes Marataízes — Ponto de Cultura certificado pelo Ministério da Cultura (ID 301034). Cobertura, formação audiovisual e ações culturais no Sul do ES. TV Marataízes."/>
+  <meta property="og:title" content="Cinema e Artes Marataízes — Ponto de Cultura · MinC"/>
+  <meta property="og:description" content="Certificado pelo Ministério da Cultura. ID 301034. Lei 13.018/2014 — Cultura Viva. Sul do Espírito Santo."/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --preto:   #080807;
+      --preto2:  #111110;
+      --preto3:  #1c1c1a;
+      --amber:   #d4900a;
+      --amber2:  #f0aa20;
+      --creme:   #f2ede4;
+      --creme2:  #e8e0d0;
+      --dim:     rgba(242,237,228,0.55);
+      --dim2:    rgba(242,237,228,0.2);
+      --vermelho:#c0392b;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--preto);
+      color: var(--creme);
+      font-family: 'Barlow', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* NOISE */
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.035;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      background: var(--amber); padding: 7px 36px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem;
+      font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--preto);
+    }
+    .topbar a { color: var(--preto); text-decoration: none; opacity: .75; transition: opacity .2s; }
+    .topbar a:hover { opacity: 1; }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8,8,7,0.95); backdrop-filter: blur(16px);
+      border-bottom: 2px solid var(--amber);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 36px; height: 64px;
+    }
+    .logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .logo-tv {
+      width: 36px; height: 36px; background: var(--vermelho); border-radius: 4px;
+      display: grid; place-items: center;
+      font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; color: #fff;
+      box-shadow: 0 0 16px rgba(192,57,43,0.5);
+    }
+    .logo-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.08em; color: var(--creme); }
+    .logo-name span { color: var(--amber2); }
+    .logo-sep { width: 1px; height: 24px; background: var(--dim2); }
+    .logo-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); }
+
+    nav { display: flex; align-items: center; gap: 24px; }
+    nav a { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); text-decoration: none; transition: color .2s; }
+    nav a:hover { color: var(--creme); }
+    .nav-cta { background: var(--amber); color: var(--preto) !important; padding: 8px 18px; border-radius: 3px; transition: background .2s !important; }
+    .nav-cta:hover { background: var(--amber2) !important; }
+
+    /* ── HERO — split editorial ── */
+    .hero {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 92vh; position: relative; overflow: hidden;
+    }
+
+    .hero-left {
+      background: var(--preto2); padding: 120px 48px 80px;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      position: relative; overflow: hidden; z-index: 2;
+    }
+    .hero-left::after {
+      content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--amber), transparent);
+    }
+
+    /* vertical label */
+    .hero-vert {
+      position: absolute; top: 50%; right: -60px; transform: translateY(-50%) rotate(90deg);
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.35em; text-transform: uppercase; color: var(--dim2);
+      white-space: nowrap;
+    }
+
+    /* big BG text */
+    .hero-bg-text {
+      position: absolute; bottom: -40px; left: -20px;
+      font-family: 'Bebas Neue', sans-serif; font-size: clamp(8rem, 18vw, 14rem);
+      line-height: 1; color: rgba(212,144,10,0.05); pointer-events: none; user-select: none;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(212,144,10,0.4); border-radius: 100px;
+      padding: 4px 14px 4px 10px; margin-bottom: 20px;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--amber);
+      width: fit-content;
+      opacity: 0; animation: up .8s ease .2s forwards;
+    }
+    .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--amber); animation: blink 1.8s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.1;} }
+
+    .hero-h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      line-height: 0.88; letter-spacing: 0.01em;
+      color: var(--creme); margin-bottom: 10px;
+      opacity: 0; animation: up 1s ease .35s forwards;
+    }
+    .hero-h1 em {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-weight: 300; color: var(--amber2); font-size: 1.06em;
+    }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300;
+      font-size: clamp(1rem, 1.8vw, 1.25rem); color: var(--dim);
+      line-height: 1.7; max-width: 420px; margin-bottom: 40px;
+      opacity: 0; animation: up .9s ease .55s forwards;
+    }
+
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; opacity: 0; animation: up .9s ease .7s forwards; }
+    .btn-amber {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: var(--amber); color: var(--preto);
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+      font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase;
+      text-decoration: none; padding: 13px 26px; border-radius: 3px;
+      transition: background .2s, transform .15s;
+    }
+    .btn-amber:hover { background: var(--amber2); transform: translateY(-2px); }
+    .btn-ghost-amber {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: transparent; color: var(--dim);
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase;
+      text-decoration: none; padding: 13px 26px; border-radius: 3px;
+      border: 1px solid var(--dim2);
+      transition: color .2s, border-color .2s, transform .15s;
+    }
+    .btn-ghost-amber:hover { color: var(--creme); border-color: var(--dim); transform: translateY(-2px); }
+
+    /* hero right — featured video */
+    .hero-right {
+      position: relative; background: var(--preto3); cursor: pointer; overflow: hidden;
+    }
+    .hero-right img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; transition: opacity .4s; }
+    .hero-right:hover img { opacity: 0.35; }
+    .hero-play-wrap {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 18px;
+    }
+    .hero-play-circle {
+      width: 88px; height: 88px; border-radius: 50%;
+      background: rgba(212,144,10,0.2); border: 2px solid var(--amber);
+      display: grid; place-items: center;
+      transition: background .3s, transform .2s;
+    }
+    .hero-right:hover .hero-play-circle { background: var(--amber); transform: scale(1.05); }
+    .hero-right:hover .hero-play-circle svg { fill: var(--preto); }
+    .hero-play-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dim); text-align: center; }
+    .hero-play-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.2rem; color: var(--creme); text-align: center; max-width: 260px; line-height: 1.4; }
+    /* gradient overlay */
+    .hero-right::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(8,8,7,0.4) 0%, transparent 60%); pointer-events: none; }
+    /* category tag top-right */
+    .hero-right-tag {
+      position: absolute; top: 24px; right: 24px; z-index: 2;
+      background: var(--vermelho); color: #fff;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.62rem; font-weight: 700;
+      letter-spacing: .18em; text-transform: uppercase; padding: 5px 12px; border-radius: 2px;
+    }
+
+    @keyframes up { from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);} }
+
+    /* ── MARQUEE ── */
+    .marquee-sec {
+      border-top: 1px solid rgba(212,144,10,0.2); border-bottom: 1px solid rgba(212,144,10,0.2);
+      overflow: hidden; padding: 12px 0; background: var(--preto2);
+    }
+    .marquee-track { display: flex; gap: 0; white-space: nowrap; animation: ticker 28s linear infinite; }
+    .marquee-track span { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--dim2); padding: 0 28px; }
+    .marquee-track .sep { color: var(--amber); font-size: .9rem; }
+    @keyframes ticker { 0%{transform:translateX(0);}100%{transform:translateX(-50%);} }
+
+    /* ── PONTO DE CULTURA STATEMENT ── */
+    .statement-sec {
+      background: var(--preto2); padding: 88px 36px; position: relative; overflow: hidden;
+    }
+    .statement-sec::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: linear-gradient(to bottom, transparent, var(--amber), transparent);
+    }
+    .st-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+    .st-left {}
+    .st-tag { font-family: 'Barlow Condensed', sans-serif; font-size: .65rem; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--amber); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+    .st-tag::before { content: ''; display: inline-block; width: 22px; height: 1px; background: var(--amber); }
+    .st-h { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem,5vw,4rem); line-height: .9; letter-spacing: .01em; margin-bottom: 10px; }
+    .st-h em { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; color: var(--amber2); font-size: 1.05em; }
+    .st-body { font-size: .92rem; font-weight: 300; color: var(--dim); line-height: 1.85; }
+    .st-body strong { color: var(--creme); font-weight: 500; }
+    .st-right { display: flex; flex-direction: column; gap: 0; }
+    .st-item { padding: 22px 0; border-bottom: 1px solid rgba(242,237,228,0.08); display: flex; align-items: flex-start; gap: 18px; }
+    .st-ico { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+    .st-item-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: .04em; color: var(--creme); margin-bottom: 4px; }
+    .st-item-text { font-size: .78rem; font-weight: 300; color: var(--dim); line-height: 1.7; }
+
+    /* ── VIDEOS GRID — editorial ── */
+    .videos-sec { padding: 88px 36px; background: var(--preto3); }
+    .sec-inner { max-width: 1100px; margin: 0 auto; }
+    .sec-tag { font-family: 'Barlow Condensed', sans-serif; font-size: .65rem; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--amber); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+    .sec-tag::before { content: ''; display: inline-block; width: 22px; height: 1px; background: var(--amber); }
+    .sec-h { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem,5vw,4rem); line-height: .9; letter-spacing: .01em; margin-bottom: 56px; }
+    .sec-h em { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; color: var(--amber2); font-size: 1.05em; }
+
+    /* video cards grid */
+    .vids-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; }
+    .vid-card {
+      position: relative; cursor: pointer; overflow: hidden; background: var(--preto2);
+      aspect-ratio: 16/9;
+    }
+    .vid-card img { width: 100%; height: 100%; object-fit: cover; opacity: .55; transition: opacity .4s, transform .5s; }
+    .vid-card:hover img { opacity: .35; transform: scale(1.03); }
+    .vid-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 28px; background: linear-gradient(to top, rgba(8,8,7,.9) 0%, rgba(8,8,7,.3) 60%, transparent 100%); }
+    .vid-cat { font-family: 'Barlow Condensed', sans-serif; font-size: .6rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+    .vid-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--creme); line-height: 1.3; margin-bottom: 14px; }
+    .vid-play {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-family: 'Barlow Condensed', sans-serif; font-size: .7rem; font-weight: 700;
+      letter-spacing: .16em; text-transform: uppercase; color: var(--amber);
+      transition: gap .2s;
+    }
+    .vid-card:hover .vid-play { gap: 14px; }
+    .vid-play-circle { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--amber); display: grid; place-items: center; flex-shrink: 0; }
+
+    /* ── IMPACTO NÚMEROS ── */
+    .impact-sec { background: var(--amber); padding: 60px 36px; }
+    .impact-grid { display: grid; grid-template-columns: repeat(4,1fr); max-width: 960px; margin: 0 auto; }
+    .imp-item { padding: 28px 24px; border-right: 1px solid rgba(8,8,7,.12); text-align: center; }
+    .imp-item:last-child { border-right: none; }
+    .imp-val { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem,4vw,4rem); line-height: 1; letter-spacing: .01em; color: var(--preto); }
+    .imp-label { font-family: 'Barlow Condensed', sans-serif; font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: rgba(8,8,7,.6); margin-top: 5px; }
+
+    /* ── LOJISTAS SECTION ── */
+    .lojistas-sec { padding: 88px 36px; background: var(--preto2); }
+    .loj-split { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+    .loj-video-frame {
+      position: relative; aspect-ratio: 16/9; background: var(--preto3);
+      border: 1px solid rgba(212,144,10,0.25); cursor: pointer; overflow: hidden;
+    }
+    .loj-video-frame img { width: 100%; height: 100%; object-fit: cover; opacity: .55; transition: opacity .4s; }
+    .loj-video-frame:hover img { opacity: .35; }
+    .loj-play { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+    .loj-play-btn { width: 68px; height: 68px; border-radius: 50%; border: 2px solid var(--amber); background: rgba(212,144,10,.15); display: grid; place-items: center; transition: background .3s; }
+    .loj-video-frame:hover .loj-play-btn { background: var(--amber); }
+    .loj-video-frame:hover .loj-play-btn svg { fill: var(--preto); }
+    .loj-play-label { font-family: 'Barlow Condensed', sans-serif; font-size: .65rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--dim); }
+
+    /* ── FORMAÇÃO ── */
+    .formacao-sec { padding: 88px 36px; }
+    .formacao-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; margin-top: 56px; }
+    .form-card { background: var(--preto2); padding: 40px 32px; position: relative; overflow: hidden; }
+    .form-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--amber); transform: scaleX(0); transform-origin: left; transition: transform .4s cubic-bezier(.22,1,.36,1); }
+    .form-card:hover::before { transform: scaleX(1); }
+    .form-num { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; line-height: 1; color: rgba(212,144,10,.12); margin-bottom: 16px; }
+    .form-ico { font-size: 1.8rem; margin-bottom: 14px; }
+    .form-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.1rem; letter-spacing: .04em; text-transform: uppercase; color: var(--creme); margin-bottom: 8px; }
+    .form-text { font-size: .8rem; font-weight: 300; color: var(--dim); line-height: 1.75; }
+
+    /* ── COBERTURA EDITORIAL ── */
+    .cobertura-sec { padding: 88px 36px; background: var(--preto3); }
+    .cob-intro { max-width: 640px; margin-bottom: 56px; }
+    .cob-quote {
+      font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300;
+      font-size: clamp(1.2rem, 2.5vw, 1.7rem); color: var(--dim); line-height: 1.65;
+      border-left: 3px solid var(--amber); padding-left: 28px;
+      margin-bottom: 28px;
+    }
+    .cob-quote strong { color: var(--creme); font-style: normal; font-weight: 400; }
+    .cob-attr { font-family: 'Barlow Condensed', sans-serif; font-size: .65rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--amber); padding-left: 28px; }
+
+    /* ── CTA FINAL ── */
+    .cta-sec {
+      background: var(--preto2); padding: 100px 36px; text-align: center;
+      border-top: 1px solid rgba(212,144,10,.2); position: relative; overflow: hidden;
+    }
+    .cta-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Bebas Neue', sans-serif; font-size: clamp(8rem,18vw,16rem); color: rgba(212,144,10,.04); white-space: nowrap; pointer-events: none; line-height: 1; }
+    .cta-inner { position: relative; z-index: 2; }
+    .cta-tag { font-family: 'Barlow Condensed', sans-serif; font-size: .65rem; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--amber); margin-bottom: 16px; }
+    .cta-h { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem,7vw,6rem); line-height: .9; color: var(--creme); margin-bottom: 10px; }
+    .cta-h em { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; color: var(--amber2); font-size: .95em; }
+    .cta-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--dim); margin-bottom: 40px; }
+    .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── TV / FOOTER ── */
+    .tv-banner { background: var(--preto); border-top: 1px solid rgba(212,144,10,.15); padding: 24px 36px; display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; text-align: center; }
+    .tv-banner p { font-family: 'Barlow Condensed', sans-serif; font-size: .68rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--dim2); }
+    .tv-banner a { color: var(--amber); text-decoration: none; font-weight: 700; transition: color .2s; }
+    .tv-banner a:hover { color: var(--amber2); }
+
+    footer { background: var(--preto); border-top: 1px solid rgba(242,237,228,.06); padding: 28px 36px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    footer p { font-size: .68rem; color: var(--dim2); letter-spacing: .08em; }
+    .foot-links { display: flex; gap: 20px; }
+    .foot-links a { font-size: .68rem; color: var(--dim2); text-decoration: none; transition: color .2s; }
+    .foot-links a:hover { color: var(--amber); }
+
+    /* FLOAT WA */
+    .float-wa { position: fixed; bottom: 24px; right: 24px; z-index: 300; width: 54px; height: 54px; border-radius: 50%; background: #25d366; display: grid; place-items: center; text-decoration: none; box-shadow: 0 4px 18px rgba(37,211,102,.45); border: 2px solid rgba(255,255,255,.3); transition: transform .2s; }
+    .float-wa:hover { transform: scale(1.1); }
+    .float-wa svg { width: 26px; height: 26px; fill: #fff; }
+
+    /* VIDEO MODAL */
+    .vmod { position: fixed; inset: 0; z-index: 1000; background: rgba(8,8,7,.96); display: none; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(8px); }
+    .vmod.open { display: flex; }
+    .vmod-inner { position: relative; width: 100%; max-width: 940px; aspect-ratio: 16/9; }
+    .vmod-inner iframe { width: 100%; height: 100%; border: 0; border-radius: 6px; }
+    .vmod-close { position: absolute; top: -44px; right: 0; background: none; border: none; color: var(--dim); font-size: 1.8rem; cursor: pointer; line-height: 1; transition: color .2s; }
+    .vmod-close:hover { color: var(--creme); }
+    #vmod-wrap { width: 100%; height: 100%; }
+
+    @media (max-width: 768px) {
+      .topbar { padding: 8px 20px; }
+      header { padding: 0 20px; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 100px 20px 48px; }
+      .hero-right { aspect-ratio: 16/9; }
+      .st-inner { grid-template-columns: 1fr; gap: 40px; }
+      .vids-grid { grid-template-columns: 1fr; }
+      .impact-grid { grid-template-columns: repeat(2,1fr); }
+      .loj-split { grid-template-columns: 1fr; gap: 36px; }
+      .formacao-grid { grid-template-columns: 1fr; }
+      .cta-btns { flex-direction: column; align-items: center; }
+      footer { padding: 24px 20px; flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div>Cinema e Artes Marataízes · Ponto de Cultura ID 301034 · Ministério da Cultura</div>
+  <div style="display:flex;gap:20px;">
+    <a href="https://tvmarataizes.digital">Portal</a>
+    <a href="https://www.instagram.com/tvmarataizes/" target="_blank" rel="noopener">@tvmarataizes</a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <a href="https://tvmarataizes.digital" class="logo">
+    <div class="logo-tv">TV</div>
+    <div class="logo-name">TV <span>MARA</span>TAÍZES</div>
+    <div class="logo-sep"></div>
+    <div class="logo-sub">Cinema e Artes Marataízes</div>
+  </a>
+  <nav>
+    <a href="#coberturas">Coberturas</a>
+    <a href="#formacao">Formação</a>
+    <a href="#ponto">Ponto de Cultura</a>
+    <a href="https://wa.me/5528999036141" target="_blank" rel="noopener" class="nav-cta">Fale conosco</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-bg-text">CULTURA</div>
+    <div class="hero-vert">TV Marataízes · Ponto de Cultura · Sul ES</div>
+    <div class="hero-chip"><span class="chip-dot"></span>Ponto de Cultura · MinC · ID 301034</div>
+    <h1 class="hero-h1">A cultura<br>do Sul do ES<br>merece ser<br><em>contada.</em></h1>
+    <p class="hero-sub">Teatro, pesca, comércio, comunidade e pessoas reais. A TV Marataízes está no território — cobrindo, formando e transformando.</p>
+    <div class="hero-ctas">
+      <a href="#coberturas" class="btn-amber">Ver coberturas</a>
+      <a href="#ponto" class="btn-ghost-amber">Ponto de Cultura →</a>
+    </div>
+  </div>
+  <div class="hero-right" onclick="openVid('6N2XMwmna40l3QMC')">
+    <div class="hero-right-tag">🎭 Teatro · Destaque</div>
+    <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/aut3.png" alt="Peça de Teatro" onerror="this.style.display='none'"/>
+    <div class="hero-play-wrap">
+      <div class="hero-play-circle">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="var(--amber)"><polygon points="6,3 20,12 6,21"/></svg>
+      </div>
+      <div class="hero-play-title">Peça de Teatro · Ponto de Cultura Cinema e Arte</div>
+      <div class="hero-play-label">▶ Assistir agora</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-sec">
+  <div class="marquee-track">
+    <span>Teatro</span><span class="sep">◆</span>
+    <span>Cinema</span><span class="sep">◆</span>
+    <span>Cultura Regional</span><span class="sep">◆</span>
+    <span>Pesca Artesanal</span><span class="sep">◆</span>
+    <span>Comércio Local</span><span class="sep">◆</span>
+    <span>Ponto de Cultura</span><span class="sep">◆</span>
+    <span>Aulas de Câmera</span><span class="sep">◆</span>
+    <span>Edição de Vídeo</span><span class="sep">◆</span>
+    <span>Sul do ES</span><span class="sep">◆</span>
+    <span>Marataízes</span><span class="sep">◆</span>
+    <span>Itapemirim</span><span class="sep">◆</span>
+    <span>Comunidade</span><span class="sep">◆</span>
+    <span>Teatro</span><span class="sep">◆</span>
+    <span>Cinema</span><span class="sep">◆</span>
+    <span>Cultura Regional</span><span class="sep">◆</span>
+    <span>Pesca Artesanal</span><span class="sep">◆</span>
+    <span>Comércio Local</span><span class="sep">◆</span>
+    <span>Ponto de Cultura</span><span class="sep">◆</span>
+    <span>Aulas de Câmera</span><span class="sep">◆</span>
+    <span>Edição de Vídeo</span><span class="sep">◆</span>
+    <span>Sul do ES</span><span class="sep">◆</span>
+    <span>Marataízes</span><span class="sep">◆</span>
+    <span>Itapemirim</span><span class="sep">◆</span>
+    <span>Comunidade</span><span class="sep">◆</span>
+  </div>
+</div>
+
+<!-- PONTO DE CULTURA STATEMENT -->
+<section class="statement-sec" id="ponto">
+  <div class="st-inner">
+    <div class="st-left">
+      <div class="st-tag">Ponto de Cultura · Certificado MinC</div>
+      <h2 class="st-h">Cinema e<br>Artes<br><em>Marataízes.</em></h2>
+      <p class="st-body" style="margin-top:16px;">
+        <strong>Cinema e Artes Marataízes</strong> é um <strong>Ponto de Cultura certificado pelo Ministério da Cultura</strong>, reconhecido pela Secretaria de Cidadania e Diversidade Cultural de acordo com os critérios da <strong>Política Nacional Cultura Viva — Lei nº 13.018/2014</strong>.<br><br>
+        O reconhecimento articula nossa presença na rede Cultura Viva, a formação e o acesso, a proteção e a promoção dos direitos culturais no Sul do Espírito Santo. A TV Marataízes é a plataforma de transmissão e cobertura deste Ponto de Cultura.
+      </p>
+      <div style="margin-top:28px;display:inline-flex;align-items:center;gap:14px;background:rgba(212,144,10,0.1);border:1px solid rgba(212,144,10,0.35);border-radius:8px;padding:16px 20px;">
+        <div style="font-size:2.2rem;">🏛️</div>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:4px;">Certificado · Ministério da Cultura</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;color:var(--creme);">Cinema e Artes Marataízes</div>
+          <div style="font-size:.73rem;color:var(--dim);margin-top:3px;">ID: 301034 · Certificação: 25/02/2026 · Lei 13.018/2014 · ES · Brasil</div>
+        </div>
+      </div>
+    </div>
+    <div class="st-right">
+      <div class="st-item">
+        <div class="st-ico">📺</div>
+        <div>
+          <div class="st-item-title">Cobertura jornalística</div>
+          <div class="st-item-text">A população pede e a TV vai. Pautas reais, histórias reais, impacto real no território.</div>
+        </div>
+      </div>
+      <div class="st-item">
+        <div class="st-ico">🎬</div>
+        <div>
+          <div class="st-item-title">Aulas de câmera e edição</div>
+          <div class="st-item-text">Formação audiovisual gratuita para jovens e comunicadores do Sul do ES.</div>
+        </div>
+      </div>
+      <div class="st-item">
+        <div class="st-ico">🎭</div>
+        <div>
+          <div class="st-item-title">Eventos culturais</div>
+          <div class="st-item-text">Teatro, cinema, arte — a TV produz e cobre eventos que movimentam a cultura regional.</div>
+        </div>
+      </div>
+      <div class="st-item">
+        <div class="st-ico">🤝</div>
+        <div>
+          <div class="st-item-title">Ações comunitárias</div>
+          <div class="st-item-text">Doações, apoio a lojistas, visibilidade para causas — a TV como ferramenta de impacto.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACTO -->
+<div class="impact-sec">
+  <div class="impact-grid">
+    <div class="imp-item">
+      <div class="imp-val">Canal 300</div>
+      <div class="imp-label">SOUL TV · Nacional</div>
+    </div>
+    <div class="imp-item">
+      <div class="imp-val">ID 301034</div>
+      <div class="imp-label">Cadastro Nacional MinC</div>
+    </div>
+    <div class="imp-item">
+      <div class="imp-val">Lei 13.018</div>
+      <div class="imp-label">Cultura Viva · 2014</div>
+    </div>
+    <div class="imp-item">
+      <div class="imp-val">25/02/26</div>
+      <div class="imp-label">Data de certificação</div>
+    </div>
+  </div>
+</div>
+
+<!-- COBERTURAS — vídeos -->
+<section class="videos-sec" id="coberturas">
+  <div class="sec-inner">
+    <div class="sec-tag">Coberturas em vídeo</div>
+    <h2 class="sec-h">Histórias que<br><em>precisam ser vistas.</em></h2>
+    <div class="vids-grid">
+
+      <!-- Vídeo 1: Teatro -->
+      <div class="vid-card" onclick="openVid('6N2XMwmna40l3QMC')">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/aut2.png" alt="" onerror="this.style.background='#1c1c1a'"/>
+        <div class="vid-overlay">
+          <div class="vid-cat">🎭 Teatro · Cultura · 2026</div>
+          <div class="vid-title">Peça de Teatro — Ponto de Cultura Cinema e Arte Marataízes</div>
+          <div class="vid-play">
+            <div class="vid-play-circle"><svg width="12" height="12" viewBox="0 0 24 24" fill="var(--amber)"><polygon points="5,3 19,12 5,21"/></svg></div>
+            Assistir agora
+          </div>
+        </div>
+      </div>
+
+      <!-- Vídeo 2: Atum -->
+      <div class="vid-card" onclick="openVid('utAVVmJlplAvU97l')">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/aut4.png" alt="" onerror="this.style.background='#1c1c1a'"/>
+        <div class="vid-overlay">
+          <div class="vid-cat">🐟 Pesca · Comunidade · Itapemirim</div>
+          <div class="vid-title">Doação de 5 Toneladas de Peixes para Itapemirim — Atum do Brasil</div>
+          <div class="vid-play">
+            <div class="vid-play-circle"><svg width="12" height="12" viewBox="0 0 24 24" fill="var(--amber)"><polygon points="5,3 19,12 5,21"/></svg></div>
+            Assistir agora
+          </div>
+        </div>
+      </div>
+
+      <!-- Vídeo 3: Shopping -->
+      <div class="vid-card" onclick="openVid('sre6DRa8pT0F55W2')">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/aut5.png" alt="" onerror="this.style.background='#1c1c1a'"/>
+        <div class="vid-overlay">
+          <div class="vid-cat">🏬 Comércio · Marataízes</div>
+          <div class="vid-title">Shopping Linear Marataízes — Cobertura TV Marataízes</div>
+          <div class="vid-play">
+            <div class="vid-play-circle"><svg width="12" height="12" viewBox="0 0 24 24" fill="var(--amber)"><polygon points="5,3 19,12 5,21"/></svg></div>
+            Assistir agora
+          </div>
+        </div>
+      </div>
+
+      <!-- Vídeo 4: Lojistas -->
+      <div class="vid-card" onclick="openVid('SIhPkeXGfIf3CrMb')">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/aut6.png" alt="" onerror="this.style.background='#1c1c1a'"/>
+        <div class="vid-overlay">
+          <div class="vid-cat">🤝 Lojistas · Apoio · Marataízes</div>
+          <div class="vid-title">Apoio a Lojistas de Marataízes — TV Marataízes na comunidade</div>
+          <div class="vid-play">
+            <div class="vid-play-circle"><svg width="12" height="12" viewBox="0 0 24 24" fill="var(--amber)"><polygon points="5,3 19,12 5,21"/></svg></div>
+            Assistir agora
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FORMAÇÃO -->
+<section class="formacao-sec" id="formacao">
+  <div class="sec-inner">
+    <div class="sec-tag">Ponto de Cultura · Formação</div>
+    <h2 class="sec-h">Ensinamos a<br><em>contar histórias.</em></h2>
+    <div class="formacao-grid">
+      <div class="form-card">
+        <div class="form-num">01</div>
+        <div class="form-ico">📷</div>
+        <div class="form-title">Aulas de câmera</div>
+        <div class="form-text">Formação prática em linguagem audiovisual, enquadramento, luz e narrativa visual para jovens e comunicadores do Sul do ES.</div>
+      </div>
+      <div class="form-card">
+        <div class="form-num">02</div>
+        <div class="form-ico">✂️</div>
+        <div class="form-title">Edição de vídeo</div>
+        <div class="form-text">Oficinas de edição e pós-produção — ferramentas, ritmo, corte e narrativa. Do amador ao profissional no território.</div>
+      </div>
+      <div class="form-card">
+        <div class="form-num">03</div>
+        <div class="form-ico">🎙️</div>
+        <div class="form-title">Produção audiovisual</div>
+        <div class="form-text">Da pauta à exibição. Formação completa em jornalismo audiovisual e produção de conteúdo para emissoras e plataformas digitais.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE / EDITORIAL -->
+<section class="cobertura-sec">
+  <div class="sec-inner">
+    <div class="cob-intro">
+      <div class="sec-tag">Nossa missão</div>
+      <div class="cob-quote">
+        "A TV Marataízes existe porque <strong>essa cidade merece ser contada</strong>. Não por quem vem de fora — por quem é daqui, conhece o mar, a pedra, o povo."
+      </div>
+      <div class="cob-attr">TV Marataízes · Ponto de Cultura · Canal 300 SOUL TV</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;">
+      <div style="aspect-ratio:1;overflow:hidden;background:var(--preto2);">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/aut7.png" alt="" style="width:100%;height:100%;object-fit:cover;opacity:.6;transition:opacity .4s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='.6'" onerror="this.parentElement.style.display='none'"/>
+      </div>
+      <div style="aspect-ratio:1;overflow:hidden;background:var(--preto2);">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/aut1.png" alt="" style="width:100%;height:100%;object-fit:cover;opacity:.6;transition:opacity .4s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='.6'" onerror="this.parentElement.style.display='none'"/>
+      </div>
+      <div style="aspect-ratio:1;overflow:hidden;background:var(--preto2);">
+        <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/aut3.png" alt="" style="width:100%;height:100%;object-fit:cover;opacity:.6;transition:opacity .4s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='.6'" onerror="this.parentElement.style.display='none'"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-sec">
+  <div class="cta-bg">CULTURA</div>
+  <div class="cta-inner">
+    <div class="cta-tag">Ponto de Cultura · TV Marataízes</div>
+    <h2 class="cta-h">Sua pauta.<br><em>Nossa câmera.</em></h2>
+    <p class="cta-sub">A TV Marataízes cobre o que a população pede. Fale com a gente.</p>
+    <div class="cta-btns">
+      <a href="https://wa.me/5528999036141" target="_blank" rel="noopener" class="btn-amber">
+        💬 Falar com a TV
+      </a>
+      <a href="https://tvmarataizes.digital" class="btn-ghost-amber">← Voltar ao portal</a>
+    </div>
+  </div>
+</section>
+
+<!-- TV BANNER -->
+<div class="tv-banner">
+  <p>Ponto de Cultura certificado pelo</p>
+  <a href="https://tvmarataizes.digital" target="_blank" rel="noopener">📺 TV Marataízes · Cinema e Artes Marataízes · ID 301034 · Ministério da Cultura</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© Cinema e Artes Marataízes · Ponto de Cultura ID 301034 · Ministério da Cultura · Lei 13.018/2014<br>TV Marataízes · Canal 300 SOUL TV · Marataízes, ES</p>
+  <div class="foot-links">
+    <a href="https://www.instagram.com/tvmarataizes/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://wa.me/5528999036141" target="_blank" rel="noopener">WhatsApp</a>
+    <a href="https://tvmarataizes.digital" target="_blank" rel="noopener">Portal</a>
+  </div>
+</footer>
+
+<!-- FLOAT WA -->
+<a href="https://wa.me/5528999036141" target="_blank" rel="noopener" class="float-wa">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- VIDEO MODAL -->
+<div class="vmod" id="vmod" onclick="if(event.target===this)closeVid()">
+  <div class="vmod-inner">
+    <button class="vmod-close" onclick="closeVid()">✕</button>
+    <div id="vmod-wrap"></div>
+  </div>
+</div>
+
+<script>
+var VIDS = {
+  '6N2XMwmna40l3QMC': 'https://player.castr.com/vod/6N2XMwmna40l3QMC',
+  'utAVVmJlplAvU97l': 'https://player.castr.com/vod/utAVVmJlplAvU97l',
+  'sre6DRa8pT0F55W2': 'https://player.castr.com/vod/sre6DRa8pT0F55W2',
+  'SIhPkeXGfIf3CrMb': 'https://player.castr.com/vod/SIhPkeXGfIf3CrMb'
+};
+function openVid(id){
+  var w=document.getElementById('vmod-wrap'); w.innerHTML='';
+  var f=document.createElement('iframe');
+  f.src=(VIDS[id]||'https://player.castr.com/vod/'+id)+'?autoplay=1';
+  f.allow='autoplay; fullscreen'; f.allowFullscreen=true;
+  f.style.cssText='width:100%;height:100%;border:0;border-radius:6px;';
+  w.appendChild(f);
+  document.getElementById('vmod').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeVid(){
+  document.getElementById('vmod-wrap').innerHTML='';
+  document.getElementById('vmod').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVid();});
+</script>
+</body>
+</html>
