@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta · Raul Francisco</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0d0d0d;
+  --ink2: #444442;
+  --ink3: #999895;
+  --cream: #f6f4ef;
+  --cream2: #edebe6;
+  --green: #0f6e56;
+  --green-l: #e1f5ee;
+  --amber: #854f0b;
+  --amber-l: #faeeda;
+  --blue: #185fa5;
+  --blue-l: #e6f1fb;
+  --red: #a32d2d;
+  --line: rgba(0,0,0,0.08);
+  --w: #ffffff;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── NAV ─── */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(246,244,239,.96);
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(12px);
+}
+.logo { font-family: 'DM Serif Display', serif; font-size: 15px; }
+.logo span { color: var(--green); }
+.conf { font-size: 11px; color: var(--ink3); letter-spacing: .06em; text-transform: uppercase; }
+
+/* ─── BLOCO GENÉRICO ─── */
+.blk { padding: 56px 40px; border-bottom: 1px solid var(--line); }
+.blk.w { background: var(--w); }
+.blk.dark { background: var(--ink); color: #fff; }
+.blk.g2 { background: var(--cream2); }
+
+/* ─── HERO ─── */
+.hero {
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 88vh;
+  border-bottom: 1px solid var(--line);
+}
+.hero-l {
+  padding: 64px 48px 64px 40px;
+  display: flex; flex-direction: column; justify-content: center;
+  border-right: 1px solid var(--line);
+}
+.hero-r {
+  background: var(--ink);
+  padding: 64px 40px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+
+/* tag */
+.tag {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 28px;
+}
+.tag::before { content: ''; width: 20px; height: 1.5px; background: var(--green); display: block; }
+
+/* headline */
+.hl {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(36px, 5vw, 60px);
+  line-height: 1.02; letter-spacing: -.025em;
+  margin-bottom: 24px;
+}
+.hl em { font-style: italic; color: var(--green); }
+
+/* sub */
+.sub {
+  font-size: 17px; line-height: 1.7; color: var(--ink2);
+  font-weight: 300; max-width: 440px; margin-bottom: 36px;
+}
+.sub strong { font-weight: 600; color: var(--ink); }
+
+/* cta */
+.cta {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--ink); color: #fff;
+  font-size: 13px; font-weight: 500;
+  padding: 14px 28px; border-radius: 4px;
+  text-decoration: none; width: fit-content;
+  transition: background .2s;
+}
+.cta:hover { background: var(--green); }
+.cta svg { width: 14px; height: 14px; }
+
+/* hero right — big numbers */
+.hr-label {
+  font-size: 10px; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: rgba(255,255,255,.35);
+  margin-bottom: 32px; padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.hr-stat { padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,.07); }
+.hr-stat:last-child { border-bottom: none; padding-bottom: 0; }
+.hr-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 38px; line-height: 1; margin-bottom: 4px;
+}
+.hr-num.g { color: #5dcaa5; }
+.hr-num.a { color: #f0bb6b; }
+.hr-num.b { color: #6ba3d6; }
+.hr-desc { font-size: 13px; color: rgba(255,255,255,.65); line-height: 1.4; }
+.hr-src { font-size: 10px; color: rgba(255,255,255,.28); margin-top: 3px; }
+
+/* ─── SEÇÃO TÍTULO ─── */
+.stag { font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ink3); margin-bottom: 6px; }
+.blk.dark .stag { color: rgba(255,255,255,.35); }
+.sh {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(24px, 3.5vw, 38px);
+  line-height: 1.08; letter-spacing: -.02em;
+  margin-bottom: 8px;
+}
+.blk.dark .sh { color: #fff; }
+.slead {
+  font-size: 15px; color: var(--ink2);
+  font-weight: 300; line-height: 1.7;
+  max-width: 540px; margin-bottom: 36px;
+}
+.blk.dark .slead { color: rgba(255,255,255,.5); }
+
+/* ─── GRID NÚMEROS ─── */
+.nums4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 10px; overflow: hidden;
+  margin-bottom: 24px;
+}
+.nc { background: var(--w); padding: 24px 20px; }
+.blk.g2 .nc { background: var(--cream2); }
+.nn {
+  font-family: 'DM Serif Display', serif;
+  font-size: 34px; line-height: 1; margin-bottom: 6px;
+}
+.nn.g { color: var(--green); }
+.nn.a { color: var(--amber); }
+.nn.b { color: var(--blue); }
+.nn.r { color: var(--red); }
+.nl2 { font-size: 12px; color: var(--ink2); line-height: 1.4; }
+.ns { font-size: 10px; color: var(--ink3); margin-top: 3px; }
+
+/* ─── CALLOUT ─── */
+.cl {
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  font-size: 14px; line-height: 1.75;
+}
+.cl strong { font-weight: 600; }
+.cl-g { border-left: 3px solid var(--green); background: var(--green-l); color: #064033; }
+.cl-a { border-left: 3px solid var(--amber); background: var(--amber-l); color: #3a2005; }
+.cl-b { border-left: 3px solid var(--blue); background: var(--blue-l); color: #0a2d52; }
+
+/* ─── INFRA ─── */
+.infra3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
+.ic {
+  background: var(--w); border: 1px solid var(--line);
+  border-radius: 10px; padding: 24px;
+  position: relative; overflow: hidden;
+  transition: .2s;
+}
+.ic:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.07); }
+.ic::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.ic.porto::before { background: var(--blue); }
+.ic.pop::before { background: var(--green); }
+.ic.pib::before { background: var(--amber); }
+.ic-em { font-size: 22px; margin-bottom: 12px; display: block; }
+.ic-t { font-family: 'DM Serif Display', serif; font-size: 19px; margin-bottom: 7px; line-height: 1.2; }
+.ic-b { font-size: 13px; color: var(--ink2); line-height: 1.65; font-weight: 300; margin-bottom: 12px; }
+.ic-chip { font-size: 10px; font-weight: 600; padding: 4px 10px; border-radius: 4px; display: inline-block; }
+.porto .ic-chip { background: var(--blue-l); color: var(--blue); }
+.pop .ic-chip { background: var(--green-l); color: var(--green); }
+.pib .ic-chip { background: var(--amber-l); color: var(--amber); }
+
+/* ─── CEGONHA ─── */
+.ceg-box {
+  background: var(--w); border: 1px solid var(--line);
+  border-radius: 10px; padding: 24px; margin-bottom: 20px;
+}
+.ceg-lbl { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink3); margin-bottom: 18px; }
+.ceg-route {
+  display: flex; align-items: center; gap: 0;
+  margin-bottom: 16px;
+}
+.ceg-city { text-align: center; min-width: 90px; }
+.ceg-city-name { font-size: 13px; font-weight: 600; }
+.ceg-city-sub { font-size: 10px; color: var(--ink3); margin-top: 2px; }
+.ceg-mid {
+  flex: 1; display: flex; align-items: center;
+  justify-content: center; position: relative; height: 36px; margin: 0 8px;
+}
+.ceg-line2 { position: absolute; left: 0; right: 0; height: 1px; background: var(--line); }
+.ceg-trk { font-size: 26px; position: relative; z-index: 1; }
+.ceg-facts { display: flex; gap: 28px; font-size: 12px; color: var(--ink3); }
+.ceg-facts strong { color: var(--ink); font-size: 13px; }
+
+/* ─── TABELA ─── */
+table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 20px; }
+th {
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .07em; color: var(--ink3);
+  text-align: left; padding: 8px 14px;
+  border-bottom: 1px solid var(--line);
+}
+td {
+  padding: 10px 14px; border-bottom: 1px solid var(--line);
+  color: var(--ink); vertical-align: middle; line-height: 1.4;
+}
+tr:last-child td { border-bottom: none; }
+.tr { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tb { font-weight: 600; }
+.hi { background: var(--green-l); }
+.hi td { color: #064033; }
+.badge {
+  display: inline-block; font-size: 10px; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 20px;
+}
+.bg { background: var(--green-l); color: var(--green); }
+.ba { background: var(--amber-l); color: var(--amber); }
+.bb { background: var(--blue-l); color: var(--blue); }
+.br { background: #fcebeb; color: var(--red); }
+
+/* ─── FASES ─── */
+.fases2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 36px; }
+.fase { border-radius: 10px; overflow: hidden; border: 1px solid var(--line); }
+.fhdr { padding: 16px 20px; display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.fase.micro .fhdr { background: var(--amber-l); }
+.fase.piloto .fhdr { background: var(--green-l); }
+.ftitle { font-size: 14px; font-weight: 600; }
+.fase.micro .ftitle { color: #3a2005; }
+.fase.piloto .ftitle { color: #064033; }
+.fsub { font-size: 11px; margin-top: 2px; }
+.fase.micro .fsub { color: var(--amber); }
+.fase.piloto .fsub { color: var(--green); }
+.fbody { background: var(--w); }
+.fr { display: flex; justify-content: space-between; align-items: baseline; padding: 9px 20px; border-bottom: 1px solid var(--line); font-size: 13px; }
+.fr:last-child { border-bottom: none; }
+.fr-l { color: var(--ink2); }
+.fr-v { font-weight: 600; }
+.fr-v.g { color: var(--green); }
+.fr-v.a { color: var(--amber); }
+.fr-v.r { color: var(--red); }
+.fr.tot { background: var(--cream2); }
+.fr.tot .fr-l { font-weight: 600; color: var(--ink); }
+.fr.tot .fr-v { font-size: 15px; }
+
+/* ─── DEAL ─── */
+.deal2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+.ds { border-radius: 10px; padding: 28px; border: 1px solid rgba(255,255,255,.1); }
+.ds.f { background: rgba(24,95,165,.1); border-color: rgba(107,163,214,.3); }
+.ds.g { background: rgba(15,110,86,.1); border-color: rgba(93,202,165,.3); }
+.ds-nm { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.38); margin-bottom: 10px; }
+.ds-pct { font-family: 'DM Serif Display', serif; font-size: 52px; line-height: 1; margin-bottom: 18px; }
+.ds.f .ds-pct { color: #6ba3d6; }
+.ds.g .ds-pct { color: #5dcaa5; }
+.ds-it { display: flex; gap: 8px; font-size: 13px; color: rgba(255,255,255,.68); margin-bottom: 8px; line-height: 1.5; }
+.ds-it::before { content: '→'; color: rgba(255,255,255,.25); flex-shrink: 0; font-size: 12px; }
+
+.terms3 {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1px; background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 8px; overflow: hidden; margin-bottom: 24px;
+}
+.tm { background: rgba(255,255,255,.03); padding: 16px 18px; text-align: center; }
+.tm-l { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.35); margin-bottom: 5px; }
+.tm-v { font-size: 14px; font-weight: 500; color: #fff; }
+
+.qt {
+  font-family: 'DM Serif Display', serif; font-style: italic;
+  font-size: 16px; line-height: 1.8;
+  color: rgba(255,255,255,.8);
+  border-left: 3px solid var(--green);
+  padding: 20px 24px;
+  background: rgba(15,110,86,.12);
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 14px;
+}
+.qt strong { font-style: normal; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: #5dcaa5; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--ink); padding: 24px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.fl { font-family: 'DM Serif Display', serif; font-size: 15px; color: #fff; }
+.fl span { color: #5dcaa5; }
+.fc { font-size: 11px; color: rgba(255,255,255,.28); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-l { border-right: none; border-bottom: 1px solid var(--line); padding: 48px 24px; }
+  .hero-r { padding: 40px 24px; }
+  nav, .blk, footer { padding-left: 20px; padding-right: 20px; }
+  .nums4, .infra3, .fases2, .deal2 { grid-template-columns: 1fr 1fr; }
+  .terms3 { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .nums4, .fases2, .deal2 { grid-template-columns: 1fr; }
+  .infra3 { grid-template-columns: 1fr; }
+  .hl { font-size: 34px; }
+}
+
+@keyframes up { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+.tag  { animation: up .4s ease both; }
+.hl   { animation: up .4s .06s ease both; }
+.sub  { animation: up .4s .12s ease both; }
+.cta  { animation: up .4s .18s ease both; }
+.hero-r { animation: up .5s .08s ease both; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">TV Marataízes <span>·</span> Proposta Executiva</div>
+  <div class="conf">Confidencial · 2026</div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-l">
+    <div class="tag">Litoral Sul · Espírito Santo · 2026</div>
+    <h1 class="hl">Uma revenda onde<br><em>ninguém ainda<br>fez direito.</em></h1>
+    <p class="sub">
+      O mercado já existe. <strong>4 lojas sem estrutura</strong> giram 15 carros/mês cada uma. Entramos com o que elas nunca terão: supply Rodobens + TV regional + operação familiar.
+    </p>
+    <a href="#deal" class="cta">
+      Ver a proposta
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+    </a>
+  </div>
+  <div class="hero-r">
+    <div class="hr-label">Região em números · dados oficiais</div>
+    <div class="hr-stat">
+      <div class="hr-num g">+22–30%</div>
+      <div class="hr-desc">Crescimento pop. litoral sul 2010–2022</div>
+      <div class="hr-src">IBGE Censo 2022</div>
+    </div>
+    <div class="hr-stat">
+      <div class="hr-num a">R$ 169k</div>
+      <div class="hr-desc">PIB per capita Marataízes — 2× maior que Vitória</div>
+      <div class="hr-src">IJSN 2023</div>
+    </div>
+    <div class="hr-stat">
+      <div class="hr-num b">R$ 16bi</div>
+      <div class="hr-desc">Porto Central em obras a 15 min da cidade</div>
+      <div class="hr-src">Porto Central · obras iniciadas dez/2024</div>
+    </div>
+    <div class="hr-stat">
+      <div class="hr-num">#1 BR</div>
+      <div class="hr-desc">ES: menor dívida e maior investimento do país</div>
+      <div class="hr-src">Tesouro Nacional 2025 · 3º ano consecutivo</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MERCADO ═══ -->
+<div class="blk w" id="mercado">
+  <div class="stag">O mercado já existe</div>
+  <h2 class="sh">Dado real, de dentro.</h2>
+  <p class="slead">Lima Veículos foi anunciante da TV Marataízes. A gente sabe exatamente o que esse mercado move.</p>
+
+  <div class="nums4">
+    <div class="nc"><div class="nn g">4–5</div><div class="nl2">Revendas ativas hoje em Marataízes</div><div class="ns">Levantamento local</div></div>
+    <div class="nc"><div class="nn g">~15</div><div class="nl2">Carros vendidos/mês por loja</div><div class="ns">Lima Veículos · ex-anunciante TV</div></div>
+    <div class="nc"><div class="nn a" style="font-size:26px">R$ 40–80k</div><div class="nl2">Ticket médio · seminovos populares</div><div class="ns">Mix real da região</div></div>
+    <div class="nc"><div class="nn b">100%</div><div class="nl2">Estoque vem do RJ via cegonha</div><div class="ns">Prática de todas as lojas</div></div>
+  </div>
+
+  <div class="cl cl-g">
+    <strong>A oportunidade com o Grupo Rodobens:</strong> carros fora do perfil premium da rede — mais antigos, mais km — são o produto certo para Marataízes. Francisco gira estoque parado. A gente atende demanda local sem oferta à altura. <strong>Interesse mútuo.</strong>
+  </div>
+
+  <table>
+    <thead><tr><th>Cenário</th><th class="tr">Carros/mês</th><th class="tr">Ticket médio</th><th class="tr">Receita bruta</th><th>Diferencial</th></tr></thead>
+    <tbody>
+      <tr><td>Concorrência atual (4–5 lojas)</td><td class="tr">60–75 total</td><td class="tr">R$ 55k</td><td class="tr">R$ 3,3–4,1M</td><td><span class="badge br">Sem mídia · sem supply</span></td></tr>
+      <tr class="hi"><td class="tb">Piloto — vocês (fase 1)</td><td class="tr tb">8–10</td><td class="tr tb">R$ 55k</td><td class="tr tb">R$ 440–550k</td><td><span class="badge bg">Rodobens + TV</span></td></tr>
+      <tr><td>Micro — teste 30 dias</td><td class="tr">3</td><td class="tr">R$ 55k</td><td class="tr">R$ 165k</td><td><span class="badge ba">Valida sem risco</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ REGIÃO ═══ -->
+<div class="blk g2" id="regiao">
+  <div class="stag">Por que esta região</div>
+  <h2 class="sh">A região não para de crescer.</h2>
+  <p class="slead">Três forças estruturais ao mesmo tempo. São obras em andamento — não narrativa.</p>
+
+  <div class="infra3">
+    <div class="ic porto">
+      <span class="ic-em">⚓</span>
+      <div class="ic-t">Porto Central</div>
+      <p class="ic-b">R$ 16bi em 5 fases. Fase 1 (R$ 2,6bi) em obras desde dez/2024. 1.295 empregos diretos, 70% mão de obra local. Operação: dez/2027. A 15 min de Marataízes pela BR-101.</p>
+      <span class="ic-chip">Em obras desde dez/2024</span>
+    </div>
+    <div class="ic pop">
+      <span class="ic-em">📈</span>
+      <div class="ic-t">População crescendo</div>
+      <p class="ic-b">Marataízes: +22,8%. Kennedy: +29,9%. Itapemirim: +29,5%. Todos entre 2010–2022. O interior perde gente. A renda e as pessoas vão pro litoral — e continuam indo.</p>
+      <span class="ic-chip">3–4× a média nacional · IBGE</span>
+    </div>
+    <div class="ic pib">
+      <span class="ic-em">🛢</span>
+      <div class="ic-t">Petróleo e royalties</div>
+      <p class="ic-b">Marataízes: R$ 169k PIB per capita — o dobro de Vitória. Kennedy: 5º maior do Brasil (R$ 538k). ES: menor dívida e maior investimento do país, 3º ano seguido.</p>
+      <span class="ic-chip">2× maior que a capital</span>
+    </div>
+  </div>
+
+  <div class="cl cl-b">
+    <strong>Aeroporto Cachoeiro:</strong> R$ 76,5mi em obras. Terminal comercial novo com voos regulares. A 45 min de Marataízes. Executivos e compradores chegando por avião — mais renda circulando.
+  </div>
+</div>
+
+<!-- ═══ LOGÍSTICA ═══ -->
+<div class="blk w" id="logistica">
+  <div class="stag">Logística · cegonha</div>
+  <h2 class="sh">Como os carros chegam.</h2>
+  <p class="slead">A concorrência já faz isso — de forma avulsa e cara. Com o grupo, sai mais barato, em volume e com regularidade.</p>
+
+  <div class="ceg-box">
+    <div class="ceg-lbl">Rota Rio de Janeiro → Marataízes · BR-101 Sul</div>
+    <div class="ceg-route">
+      <div class="ceg-city">
+        <div style="font-size:22px;margin-bottom:5px">🏙</div>
+        <div class="ceg-city-name">Rio de Janeiro</div>
+        <div class="ceg-city-sub">Estoque Rodobens</div>
+      </div>
+      <div class="ceg-mid">
+        <div class="ceg-line2"></div>
+        <div class="ceg-trk">🚛</div>
+      </div>
+      <div class="ceg-city">
+        <div style="font-size:22px;margin-bottom:5px">🌊</div>
+        <div class="ceg-city-name">Marataízes</div>
+        <div class="ceg-city-sub">Litoral Sul ES</div>
+      </div>
+    </div>
+    <div class="ceg-facts">
+      <span><strong>~300 km</strong> BR-101</span>
+      <span><strong>1–2 dias úteis</strong></span>
+      <span>Sem balsa · sem desvio · rota reta</span>
+    </div>
+  </div>
+
+  <table>
+    <thead><tr><th>Cenário</th><th class="tr">Carros/viagem</th><th class="tr">Custo/carro</th><th class="tr">Total viagem</th><th>Prazo</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Micro — teste inicial</strong></td><td class="tr">3</td><td class="tr">R$ 1.200–1.500</td><td class="tr tb">R$ 3,6–4,5k</td><td>1–2 dias</td></tr>
+      <tr class="hi"><td class="tb">Piloto — carga parcial</td><td class="tr tb">8–10</td><td class="tr tb">R$ 900–1.100</td><td class="tr tb">R$ 7,2–11k</td><td>1–2 dias</td></tr>
+      <tr><td>Volume — carga cheia</td><td class="tr">10–12</td><td class="tr">R$ 700–900</td><td class="tr">R$ 7–10,8k</td><td>1–2 dias</td></tr>
+      <tr><td><strong>Com contrato fixo (grupo)</strong></td><td class="tr">10–12</td><td class="tr"><strong style="color:var(--green)">R$ 600–750</strong></td><td class="tr tb" style="color:var(--green)">R$ 6–9k</td><td>1–2 dias</td></tr>
+    </tbody>
+  </table>
+
+  <div class="cl cl-g" style="margin-top:20px">
+    <strong>Vantagem:</strong> concorrência paga R$ 1.200–1.500/carro avulso. Com contrato de volume do grupo, cai pra R$ 600–750. Cada carro já chega com custo logístico menor que qualquer concorrente local.
+  </div>
+</div>
+
+<!-- ═══ NÚMEROS ═══ -->
+<div class="blk g2" id="numeros">
+  <div class="stag">Números detalhados</div>
+  <h2 class="sh">As duas rotas de entrada.</h2>
+  <p class="slead">Micro pra validar em 30 dias. Piloto pra escalar. Podem rodar em paralelo.</p>
+
+  <div class="fases2">
+    <div class="fase micro">
+      <div class="fhdr">
+        <div>
+          <div class="ftitle">Rota Micro — Teste 30 dias</div>
+          <div class="fsub">3 carros · sem loja · risco mínimo</div>
+        </div>
+        <span class="badge ba">Validação</span>
+      </div>
+      <div class="fbody">
+        <div class="fr"><span class="fr-l">Estoque (3 carros × R$ 55k)</span><span class="fr-v a">R$ 165k</span></div>
+        <div class="fr"><span class="fr-l">Cegonha RJ → Marataízes</span><span class="fr-v a">R$ 3,6–4,5k</span></div>
+        <div class="fr"><span class="fr-l">Espaço (frente de casa)</span><span class="fr-v g">R$ 0</span></div>
+        <div class="fr"><span class="fr-l">Legalização básica</span><span class="fr-v a">R$ 2–5k</span></div>
+        <div class="fr"><span class="fr-l">Seguro dos veículos</span><span class="fr-v a">R$ 1,5–3k</span></div>
+        <div class="fr"><span class="fr-l">Marketing (TV Marataízes)</span><span class="fr-v g">R$ 0</span></div>
+        <div class="fr tot"><span class="fr-l">TOTAL DE ENTRADA</span><span class="fr-v a">R$ 172–178k</span></div>
+        <div class="fr"><span class="fr-l">Margem bruta (8–12%)</span><span class="fr-v g">R$ 13–20k</span></div>
+        <div class="fr"><span class="fr-l">Prazo esperado de venda</span><span class="fr-v">15–30 dias</span></div>
+        <div class="fr"><span class="fr-l">O que prova</span><span class="fr-v g" style="font-size:12px">Demanda real em 30 dias</span></div>
+      </div>
+    </div>
+
+    <div class="fase piloto">
+      <div class="fhdr">
+        <div>
+          <div class="ftitle">Rota Piloto — Operação real</div>
+          <div class="fsub">8–10 carros · galpão alugado · 6 meses</div>
+        </div>
+        <span class="badge bg">Fase 1</span>
+      </div>
+      <div class="fbody">
+        <div class="fr"><span class="fr-l">Estoque (10 carros × R$ 55k)</span><span class="fr-v a">R$ 550k</span></div>
+        <div class="fr"><span class="fr-l">Cegonha inicial (10 carros)</span><span class="fr-v a">R$ 8–11k</span></div>
+        <div class="fr"><span class="fr-l">Aluguel galpão beira de estrada</span><span class="fr-v a">R$ 5–8k/mês</span></div>
+        <div class="fr"><span class="fr-l">Fachada + mobiliário + câmeras</span><span class="fr-v a">R$ 20–40k</span></div>
+        <div class="fr"><span class="fr-l">Abertura de empresa + jurídico</span><span class="fr-v a">R$ 5–15k</span></div>
+        <div class="fr"><span class="fr-l">Seguro da operação</span><span class="fr-v a">R$ 3–6k</span></div>
+        <div class="fr"><span class="fr-l">Marketing (TV Marataízes incluso)</span><span class="fr-v g">R$ 0</span></div>
+        <div class="fr tot"><span class="fr-l">CAPEX TOTAL</span><span class="fr-v a">R$ 591–630k</span></div>
+        <div class="fr"><span class="fr-l">Custo fixo mensal</span><span class="fr-v a">R$ 18–28k</span></div>
+        <div class="fr"><span class="fr-l">Break-even operacional</span><span class="fr-v g">5–6 carros/mês</span></div>
+        <div class="fr"><span class="fr-l">Meta conservadora</span><span class="fr-v g">8 carros/mês</span></div>
+        <div class="fr"><span class="fr-l">Retorno do capital</span><span class="fr-v g">18–24 meses</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLUXO -->
+  <h3 style="font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:5px">Fluxo de caixa projetado — piloto 6 meses</h3>
+  <p style="font-size:12px;color:var(--ink3);margin-bottom:0">Ticket R$ 55k · margem 10% · fixo R$ 23k/mês · ramp-up progressivo</p>
+  <table>
+    <thead><tr><th>Período</th><th class="tr">Carros</th><th class="tr">Receita bruta</th><th class="tr">Margem</th><th class="tr">Fixo</th><th class="tr">Resultado op.</th><th class="tr">Caixa acum.</th></tr></thead>
+    <tbody>
+      <tr><td class="tb">Entrada (CAPEX)</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr tb" style="color:var(--red)">-R$ 620k</td></tr>
+      <tr><td>Mês 1</td><td class="tr">3</td><td class="tr">R$ 165k</td><td class="tr">R$ 16,5k</td><td class="tr">R$ 23k</td><td class="tr" style="color:var(--red)">-R$ 6,5k</td><td class="tr" style="color:var(--red)">-R$ 626k</td></tr>
+      <tr><td>Mês 2</td><td class="tr">5</td><td class="tr">R$ 275k</td><td class="tr">R$ 27,5k</td><td class="tr">R$ 23k</td><td class="tr" style="color:var(--green)">+R$ 4,5k</td><td class="tr" style="color:var(--red)">-R$ 622k</td></tr>
+      <tr><td>Mês 3</td><td class="tr">7</td><td class="tr">R$ 385k</td><td class="tr">R$ 38,5k</td><td class="tr">R$ 23k</td><td class="tr" style="color:var(--green)">+R$ 15,5k</td><td class="tr" style="color:var(--red)">-R$ 606k</td></tr>
+      <tr><td>Mês 4</td><td class="tr">8</td><td class="tr">R$ 440k</td><td class="tr">R$ 44k</td><td class="tr">R$ 23k</td><td class="tr" style="color:var(--green)">+R$ 21k</td><td class="tr" style="color:var(--red)">-R$ 585k</td></tr>
+      <tr><td>Mês 5</td><td class="tr">9</td><td class="tr">R$ 495k</td><td class="tr">R$ 49,5k</td><td class="tr">R$ 23k</td><td class="tr" style="color:var(--green)">+R$ 26,5k</td><td class="tr" style="color:var(--red)">-R$ 559k</td></tr>
+      <tr class="hi"><td class="tb">Mês 6</td><td class="tr tb">10</td><td class="tr tb">R$ 550k</td><td class="tr tb">R$ 55k</td><td class="tr tb">R$ 23k</td><td class="tr tb" style="color:var(--green)">+R$ 32k</td><td class="tr tb" style="color:var(--amber)">-R$ 527k</td></tr>
+    </tbody>
+  </table>
+
+  <div class="cl cl-a" style="margin-top:16px">
+    <strong>Leitura:</strong> break-even operacional no mês 2. O caixa acumulado — que inclui todo o capital de estoque — fecha em 18–24 meses. O estoque não é perda: vale o que foi pago e gira continuamente.
+  </div>
+
+  <!-- IMÓVEL -->
+  <h3 style="font-family:'DM Serif Display',serif;font-size:20px;margin:36px 0 5px">Imóvel — opções reais em Marataízes</h3>
+  <p style="font-size:12px;color:var(--ink3);margin-bottom:0">Valores pesquisados · mercado local 2025–2026</p>
+  <table>
+    <thead><tr><th>Tipo</th><th>Área</th><th class="tr">Custo</th><th>Fase</th></tr></thead>
+    <tbody>
+      <tr><td>Frente de casa (micro)</td><td>—</td><td class="tr tb" style="color:var(--green)">R$ 0</td><td><span class="badge ba">Teste 3 carros</span></td></tr>
+      <tr class="hi"><td class="tb">Galpão alugado · beira de estrada</td><td>300–400 m²</td><td class="tr tb">R$ 5–8k/mês</td><td><span class="badge bg">Piloto ideal</span></td></tr>
+      <tr><td>Ponto comercial centro</td><td>100–200 m²</td><td class="tr">R$ 3–5k/mês</td><td><span class="badge ba">Pequeno pra carro</span></td></tr>
+      <tr><td>Terreno disponível · beira de praia</td><td>240–500 m²</td><td class="tr tb">R$ 500k compra</td><td><span class="badge bb">Fase 2 · ativo</span></td></tr>
+      <tr><td>Terreno + galpão pré-moldado 400 m²</td><td>400 m²</td><td class="tr">R$ 640–750k</td><td><span class="badge bb">Fase 2</span></td></tr>
+      <tr><td>Showroom alvenaria premium</td><td>400 m²</td><td class="tr">R$ 1,1–1,5M</td><td><span class="badge br">Fase 3</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ DEAL ═══ -->
+<div class="blk dark" id="deal">
+  <div class="stag">A proposta</div>
+  <h2 class="sh">Estrutura de sociedade.</h2>
+  <p class="slead">Cada lado entra com o que tem de melhor. Juntos formam algo que nenhum dos dois faria igual separado.</p>
+
+  <div class="deal2">
+    <div class="ds f">
+      <div class="ds-nm">Raul Francisco · Rio Diesel / Rodobens</div>
+      <div class="ds-pct">70%</div>
+      <div class="ds-it">Capital total da operação</div>
+      <div class="ds-it">Estoque inicial — carros fora do perfil da rede</div>
+      <div class="ds-it">Supply contínuo: cegonha RJ → Marataízes</div>
+      <div class="ds-it">Acesso a financiamento e banco</div>
+      <div class="ds-it">65 anos de know-how automotivo</div>
+      <div class="ds-it">Estrutura jurídica e contábil do grupo</div>
+    </div>
+    <div class="ds g">
+      <div class="ds-nm">Gabriel + Raul · Operação local</div>
+      <div class="ds-pct">30%</div>
+      <div class="ds-it">Gabriel: gestão diária, atendimento e vendas</div>
+      <div class="ds-it">Raul: suporte estratégico e relação comercial</div>
+      <div class="ds-it">TV Marataízes: mídia regional exclusiva · CAC zero</div>
+      <div class="ds-it">Instagram + plataforma digital nacional</div>
+      <div class="ds-it">Conhecimento total da cidade e dos compradores</div>
+      <div class="ds-it">Confiança local que outsider nenhum tem</div>
+    </div>
+  </div>
+
+  <div class="terms3">
+    <div class="tm"><div class="tm-l">Início</div><div class="tm-v">3 carros · frente de casa</div></div>
+    <div class="tm"><div class="tm-l">Piloto completo</div><div class="tm-v">8–10 carros · galpão</div></div>
+    <div class="tm"><div class="tm-l">Retorno do capital</div><div class="tm-v">18–24 meses</div></div>
+  </div>
+
+  <div class="qt">
+    "Raul Francisco, o mercado já existe aqui. Quatro lojas sem estrutura giram 15 carros/mês cada. A gente começa com 3 carros que estão parados na rede — <strong>você resolve estoque, a gente resolve demanda.</strong> Em 30 dias tem dado real. Se funcionar, a gente monta de verdade. Se não funcionar, o prejuízo é mínimo. O upside, numa região que cresce 30% ao ano com porto em obras, é real."
+  </div>
+
+  <p style="font-size:11px;color:rgba(255,255,255,.25);letter-spacing:.03em">
+    Raul · TV Marataízes &nbsp;·&nbsp; Gabriel · operação &nbsp;·&nbsp; Raul Francisco · capital e supply &nbsp;—&nbsp; três peças que nenhum concorrente replica ao mesmo tempo.
+  </p>
+</div>
+
+<footer>
+  <div class="fl">TV Marataízes <span>Digital</span></div>
+  <div class="fc">tmarataizes.digital/raulfrancisco &nbsp;·&nbsp; Confidencial &nbsp;·&nbsp; 2026</div>
+</footer>
+
+</body>
+</html>
