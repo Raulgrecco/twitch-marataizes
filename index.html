@@ -287,6 +287,9 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVodModa
 
   setInterval(function(){
     if(!isLive())return;
+    // Só dispara watchdog se o overlay já foi removido (usuário deu play)
+    var overlay=document.getElementById('player-overlay');
+    if(overlay && overlay.style.display!=='none')return;
     if(Date.now()-wdLastOk > WD_MAX_SILENCE){
       wdLastOk=Date.now();
       reloadPlayer();
