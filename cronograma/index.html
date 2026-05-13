@@ -1,696 +1,337 @@
-
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TV Marataízes — Cronograma 30 dias</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-.w{padding:1.5rem 0;font-family:var(--font-sans)}
-.nav{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:1.5rem}
-.ntab{padding:7px 13px;font-size:12px;font-weight:500;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);cursor:pointer;color:var(--color-text-secondary);background:var(--color-background-primary);transition:all .15s}
-.ntab.on{background:#26215C;color:#CECBF6;border-color:#26215C}
-.sec{display:none}.sec.vis{display:block}
-.hero{background:#26215C;border-radius:var(--border-radius-lg);padding:1.25rem 1.5rem;margin-bottom:1.25rem}
-.hero-label{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#7F77DD;margin-bottom:6px}
-.hero-title{font-size:18px;font-weight:500;color:#fff;margin-bottom:6px}
-.hero-sub{font-size:12px;color:#AFA9EC;line-height:1.6}
-.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.1rem 1.25rem;margin-bottom:.75rem}
-.ct{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:.35rem}
-.cs{font-size:12px;color:var(--color-text-secondary);line-height:1.65}
-.blbl{font-size:10px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--color-text-secondary);margin:14px 0 6px}
-.hl{background:var(--color-background-secondary);border-left:3px solid #534AB7;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;padding:9px 13px;font-size:13px;color:var(--color-text-primary);line-height:1.65;margin-bottom:.6rem}
-.hl.v{border-left-color:#1D9E75}
-.hl.r{border-left-color:#E24B4A}
-.hl.a{border-left-color:#EF9F27}
-.hl.m{border-left-color:#7B2D8B}
-.badge{display:inline-block;font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;margin:2px 3px 2px 0}
-.bp{background:#EEEDFE;color:#3C3489}
-.bt{background:#E1F5EE;color:#085041}
-.ba{background:#FAEEDA;color:#633806}
-.bc{background:#FAECE7;color:#712B13}
-.br{background:#FCEBEB;color:#791F1F}
-.bm{background:#F3E8FF;color:#7B2D8B}
-.bk{background:#26215C;color:#CECBF6}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:.5rem 0}
-.mini{border-radius:var(--border-radius-md);padding:10px 12px}
-.ml{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
-.mt{font-size:12px;color:var(--color-text-primary);line-height:1.5}
-.hr{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:.9rem 0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f7;color:#1d1d1f;font-size:14px;line-height:1.6}
+.wrap{max-width:800px;margin:0 auto;padding:1.5rem 1.25rem}
 
-/* DIA CARD */
-.dia-wrap{margin-bottom:1.25rem}
-.dia-header{display:flex;align-items:center;gap:10px;margin-bottom:.75rem;padding-bottom:.75rem;border-bottom:0.5px solid var(--color-border-tertiary)}
-.dia-num{font-size:22px;font-weight:500;color:var(--color-text-primary);min-width:44px}
-.dia-info{flex:1}
-.dia-title{font-size:15px;font-weight:500;color:var(--color-text-primary)}
-.dia-meta{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
-.dia-pill{font-size:10px;font-weight:500;padding:3px 10px;border-radius:20px}
-.bloco{border-radius:var(--border-radius-md);padding:11px 13px;margin-bottom:.5rem}
-.bloco-lbl{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
-.bloco-txt{font-size:12px;line-height:1.65;color:var(--color-text-primary)}
-.bloco-txt em{font-style:normal;font-weight:500}
-.timeline{display:flex;flex-direction:column;gap:0}
-.tl-item{display:flex;gap:10px;padding:.6rem 0;border-bottom:0.5px solid var(--color-border-tertiary)}
-.tl-item:last-child{border-bottom:none}
-.tl-hora{font-size:11px;font-weight:500;color:var(--color-text-secondary);min-width:42px;padding-top:1px}
-.tl-acao{font-size:12px;color:var(--color-text-primary);line-height:1.5;flex:1}
-.tl-acao strong{font-weight:500}
-.semana-label{font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:6px 12px;color:var(--color-text-secondary);margin:1rem 0 .75rem}
-.benchmark{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:.9rem 1rem;margin-bottom:.6rem;border-left:3px solid #534AB7}
-.bm-canal{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:#534AB7;margin-bottom:3px}
-.bm-aprendizado{font-size:12px;color:var(--color-text-primary);line-height:1.5}
-.bm-aplica{font-size:11px;color:var(--color-text-secondary);margin-top:4px;font-style:italic}
+.header{background:#1d1d1f;border-radius:16px;padding:1.5rem;margin-bottom:1.25rem;color:#fff}
+.header-label{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#86868b;margin-bottom:6px}
+.header-title{font-size:20px;font-weight:600;color:#fff;margin-bottom:4px}
+.header-sub{font-size:12px;color:#86868b;line-height:1.6}
+
+.regras{background:#fff;border-radius:12px;padding:1.1rem 1.25rem;margin-bottom:1.25rem;border:1px solid #e5e5ea}
+.regras-title{font-size:13px;font-weight:700;margin-bottom:.6rem;color:#1d1d1f}
+.regra{font-size:12px;color:#3c3c3c;padding:.25rem 0;border-bottom:1px solid #f5f5f7;line-height:1.6}
+.regra:last-child{border-bottom:none}
+.regra strong{color:#1d1d1f}
+
+.semana-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:#e5e5ea;border-radius:8px;padding:6px 12px;color:#3c3c3c;margin:1.25rem 0 .75rem;display:inline-block}
+
+.dia{background:#fff;border:1px solid #e5e5ea;border-radius:12px;margin-bottom:.6rem;overflow:hidden}
+.dia-top{display:flex;align-items:center;gap:10px;padding:.8rem 1rem;border-bottom:1px solid #f5f5f7;cursor:pointer;user-select:none}
+.dia-top:hover{background:#f9f9f9}
+.dia-num{font-size:11px;font-weight:700;color:#86868b;min-width:52px}
+.dia-semdia{font-size:12px;font-weight:700;color:#1d1d1f;min-width:72px}
+.dia-tema{font-size:13px;font-weight:600;color:#1d1d1f;flex:1}
+.dia-pill{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap}
+.dia-arrow{font-size:10px;color:#86868b;transition:transform .2s}
+.dia-arrow.open{transform:rotate(90deg)}
+
+.dia-body{display:none;padding:.85rem 1rem;border-top:1px solid #f5f5f7}
+.dia-body.open{display:block}
+
+.bloco{background:#f5f5f7;border-radius:8px;padding:.7rem .9rem;margin-bottom:.5rem;font-size:12px;line-height:1.7}
+.bloco:last-child{margin-bottom:0}
+.bloco-lbl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#86868b;margin-bottom:3px}
+.bloco em{font-style:normal;font-weight:600;color:#007aff}
+
+/* PILLS */
+.p-rua{background:#fff0e6;color:#c45000}
+.p-pessoa{background:#e8f8f0;color:#1a6b3c}
+.p-memoria{background:#f0eaff;color:#6b21a8}
+.p-turismo{background:#e8f0ff;color:#1a3c8c}
+.p-inst{background:#fff8e8;color:#8c5c00}
+.p-trad{background:#f0f0f0;color:#3c3c3c}
+.p-causa{background:#fce8e8;color:#8c1a1a}
+.p-livre{background:#e8fce8;color:#1a5c1a}
+
+/* SEMANA HEADER */
+.sem-header{background:#26215C;border-radius:10px;padding:.8rem 1rem;margin-bottom:.75rem;color:#fff}
+.sem-num{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#7F77DD;margin-bottom:3px}
+.sem-tema{font-size:14px;font-weight:600;color:#fff}
+.sem-foco{font-size:11px;color:#AFA9EC;margin-top:2px}
 </style>
+</head>
+<body>
+<div class="wrap">
 
-<div class="w">
-<div class="hero">
-  <div class="hero-label">TV Marataízes — Sistema Raul · Estratégia definitiva</div>
-  <div class="hero-title">O que Raul faz, fala e vai à rua — cada dia, cada semana</div>
-  <div class="hero-sub">Baseado nos casos que funcionaram: NY1 (NYC), Spectrum News, Agência Mural (SP), Portal Sul de Floripa, TV Brasil, Documenters Chicago. Não é cronograma. É um sistema vivo.</div>
+<div class="header">
+  <div class="header-label">TV Marataízes · Cronograma definitivo</div>
+  <div class="header-title">30 dias na rua — posts às 19h</div>
+  <div class="header-sub">Com 1 pessoa. Todos os dias. Sem impulsionamento. Baseado no que já funcionou.</div>
 </div>
 
-<div class="nav">
-  <div class="ntab on" onclick="show('sistema')">O sistema</div>
-  <div class="ntab" onclick="show('benchmark')">Benchmarks</div>
-  <div class="ntab" onclick="show('raul')">Raul — regras</div>
-  <div class="ntab" onclick="show('semana1')">Sem. 1</div>
-  <div class="ntab" onclick="show('semana2')">Sem. 2</div>
-  <div class="ntab" onclick="show('semana3')">Sem. 3</div>
-  <div class="ntab" onclick="show('semana4')">Sem. 4</div>
-  <div class="ntab" onclick="show('memorias')">Memórias: avião</div>
-</div>
-
-<!-- SISTEMA -->
-<div class="sec vis" id="sistema">
-  <div class="blbl">a lógica que une tudo</div>
-  <div class="hl">O erro dos roteiros anteriores: cada dia era uma peça isolada. O que as TVs locais que cresceram de verdade fazem é diferente — elas criam <strong>ciclos de 3 dias</strong> onde cada post alimenta o próximo. A cidade participa, a TV responde, a cidade se vê. Isso é o que gera compartilhamento em grupo de WhatsApp.</div>
-
-  <div class="blbl">o ciclo de 3 dias — o coração do sistema</div>
-  <div class="row2">
-    <div class="mini" style="background:#FAECE7">
-      <div class="ml" style="color:#712B13">Dia A — Raul vai à rua</div>
-      <div class="mt">Faz uma pergunta à cidade. Povo fala. Raul aparece 10s no início e 10s no final. A cidade é protagonista. Gera comentários com nomes e lugares.</div>
-    </div>
-    <div class="mini" style="background:#EEEDFE">
-      <div class="ml" style="color:#534AB7">Dia B — Raul interpreta</div>
-      <div class="mt">Câmera direta. Raul pega o que a cidade disse ontem e "traduz". "A cidade falou isso — e significa aquilo." Posiciona Raul como líder comunitário, não apresentador.</div>
-    </div>
-  </div>
-  <div class="mini" style="background:#E1F5EE;border-radius:var(--border-radius-md);padding:10px 12px;margin-top:8px">
-    <div class="ml" style="color:#085041">Dia C — Raul vai até quem foi citado</div>
-    <div class="mt">Visita a pessoa ou lugar mais mencionado nos comentários. Mini-doc. Fecha o ciclo. Quem foi visitado compartilha com toda a rede. A cidade sente que tem poder de pautar a TV.</div>
-  </div>
-
-  <div class="hr"></div>
-  <div class="blbl">os 5 tipos de conteúdo — cada post pertence a um</div>
-  <div class="card">
-    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px">
-      <span class="badge bc">Rua</span><span class="badge bp">Tradução</span><span class="badge bt">Pessoa</span><span class="badge bm">Memórias</span><span class="badge ba">Jornalismo</span>
-    </div>
-    <div class="cs">Rua: Raul + cidade fala. Tradução: Raul câmera direta interpreta. Pessoa: mini-doc de 60-90s de alguém da cidade. Memórias: programa com Ivilise/IPHAN toda quinta. Jornalismo: dado público que choca, a pauta que ninguém cobriu.</div>
-  </div>
-
-  <div class="blbl">a regra dos primeiros 3 segundos — inegociável</div>
-  <div class="hl r">Nunca comece com "Olá, eu sou Raul da TV Marataízes." Isso mata o Reel. O algoritmo mede retenção do frame 1. O primeiro frame precisa ser a informação mais impactante do vídeo, ou uma pergunta que para o scroll.</div>
-  <div class="hl v">Formatos de gancho que funcionam para TV local (comprovado pelos +30K views de vocês): "Isso acontece aqui em Marataízes e quase ninguém sabe." / "Perguntei pra 10 pessoas. As respostas me surpreenderam." / "Esse lugar existe há X anos. Nunca ninguém contou essa história." / "Trouxe um dado do [portal/prefeitura] que vai te chocar."</div>
-
-  <div class="blbl">estrutura de horário — fixa, toda semana</div>
-  <div class="card">
-    <div class="timeline">
-      <div class="tl-item"><div class="tl-hora">Segunda</div><div class="tl-acao"><strong>Jornalismo ou Tradução</strong> — 20h. O post mais denso da semana. Dado, investigação, ou interpretação do que aconteceu. Raul câmera direta com convicção.</div></div>
-      <div class="tl-item"><div class="tl-hora">Terça</div><div class="tl-acao"><strong>Rua</strong> — 20h. Raul vai à cidade. Pergunta direta, espontânea. 4-5 respostas. Raul abre e fecha (10s cada). A cidade fala no meio.</div></div>
-      <div class="tl-item"><div class="tl-hora">Quarta</div><div class="tl-acao"><strong>Pessoa da cidade</strong> — 20h. Mini-doc de quem foi citado terça ou de alguém que Raul escolheu. 60-90s. Deixa a pessoa falar.</div></div>
-      <div class="tl-item"><div class="tl-hora">Quinta</div><div class="tl-acao"><strong>Memórias de Marataízes</strong> — 20h. Episódio completo com Ivilise (3-5min) + clip de 30s da frase mais forte. Dois posts no mesmo dia.</div></div>
-      <div class="tl-item"><div class="tl-hora">Sexta</div><div class="tl-acao"><strong>Cidade ou Turismo</strong> — 20h. Conteúdo visual forte. Negócio local como reportagem, não publi. Ou beleza do sul do ES que alcança quem é de fora.</div></div>
-      <div class="tl-item"><div class="tl-hora">Sábado</div><div class="tl-acao"><strong>Cobertura ou Regional</strong> — 20h. Câmara, prefeitura, evento público, ou pauta em cidade vizinha (Itapemirim, Kennedy).</div></div>
-      <div class="tl-item"><div class="tl-hora">Domingo</div><div class="tl-acao"><strong>Silêncio</strong> — sem post. Raul grava episódios de Memórias em bloco, lê DMs, planeja a semana.</div></div>
-    </div>
-  </div>
-
-  <div class="blbl">o que sai completamente do feed</div>
-  <div class="hl r">Câmera direta sem gancho ou dado concreto nos primeiros 3 segundos. Bastidor genérico ("estou gravando aqui"). Nota de secretaria sem contextualização. Post com fundo preto e texto. Conteúdo noturno com iluminação ruim. Selfie sem propósito narrativo.</div>
-</div>
-
-<!-- BENCHMARKS -->
-<div class="sec" id="benchmark">
-  <div class="blbl">o que os melhores fizeram — e o que Raul pode copiar</div>
-
-  <div class="benchmark">
-    <div class="bm-canal">NY1 / Spectrum News (Nova York) — 30 anos no ar</div>
-    <div class="bm-aprendizado">O âncora Pat Kiernan virou símbolo de Nova York não porque era jornalista — mas porque toda manhã ele lia os tabloides da cidade em voz alta com opinião. "Isso é o New York." Presença humana + curadoria local = identidade de mídia.</div>
-    <div class="bm-aplica">Para Raul: toda segunda, Raul abre com uma coisa que viu, leu ou descobriu sobre Marataízes. "Isso é Marataízes." Tom de quem mora aqui e entende, não de apresentador.</div>
-  </div>
-
-  <div class="benchmark">
-    <div class="bm-canal">Agência Mural (São Paulo) — 2.6M acessos, crescimento orgânico</div>
-    <div class="bm-aprendizado">Cada matéria nomeia pessoas reais, ruas reais, problemas reais. A comunidade compartilha porque "esse sou eu, essa é minha rua." O jornalismo da periferia que pautou a mídia grande.</div>
-    <div class="bm-aplica">Para Raul: toda pessoa entrevistada tem nome completo no vídeo. Todo lugar tem endereço. "Isso aconteceu na Rua X, em Marataízes." Especificidade é o que faz o marataizense mandar no WhatsApp.</div>
-  </div>
-
-  <div class="benchmark">
-    <div class="bm-canal">Portal Sul de Floripa (Florianópolis) — 31K seguidores, crescimento orgânico</div>
-    <div class="bm-aprendizado">Cresceu porque criou o hábito: quando algo acontece no sul da ilha, você vai lá. Não porque posta mais — porque posta sobre coisas que só eles cobrem. Nicho geográfico ultra-específico.</div>
-    <div class="bm-aplica">Para Raul: criar o hábito em Marataízes. Quando algo acontece na cidade, o marataizense vai ao @tvmarataizes primeiro. Isso se constrói cobrindo o que ninguém mais cobre: sessão da Câmara, obra parada, vaga aberta na saúde.</div>
-  </div>
-
-  <div class="benchmark">
-    <div class="bm-canal">Documenters Project (Chicago, expandiu para 24 cidades dos EUA)</div>
-    <div class="bm-aprendizado">Moradores treinados para cobrir reuniões públicas e mandar pauta. O jornalismo que combina o alcance dos influenciadores locais com o rigor jornalístico. A comunidade vira redação.</div>
-    <div class="bm-aplica">Para Raul: todo DM com sugestão de pauta é respondido com "vamos investigar." Raul faz um story por semana mostrando uma pauta que veio de DM. A cidade sente que é a redação da TV.</div>
-  </div>
-
-  <div class="benchmark">
-    <div class="bm-canal">TV Brasil (EBC) — triplicou engajamento em 2025, 150M interações</div>
-    <div class="bm-aprendizado">Cresceu apostando em narrativa, não em informação. A diferença: "Prefeitura entrega obra" vs "Dona Maria esperou 8 anos por esse calçamento." Humanizar a notícia é o que gera compartilhamento.</div>
-    <div class="bm-aplica">Para Raul: nunca diz "inauguração da obra X." Sempre diz "A família de [nome] esperava por isso desde [ano]." A mesma notícia — dois tipos de alcance completamente diferentes.</div>
-  </div>
-
-  <div class="benchmark" style="border-left-color:#7B2D8B">
-    <div class="bm-canal" style="color:#7B2D8B">THE CITY (Nova York) — 200-400% de aumento de engajamento com criadores locais</div>
-    <div class="bm-aprendizado">Parcerias com criadores locais (não influenciadores pagos — moradores com voz autêntica) triplicaram o engajamento. A autenticidade de quem mora no lugar vale mais que qualquer produção profissional.</div>
-    <div class="bm-aplica">Para Raul: a Ivilise do IPHAN é exatamente esse ativo. Uma pesquisadora com voz autêntica sobre Marataízes. Não é conteúdo patrocinado — é credencial real. Usa isso em todo material de apresentação para prefeituras.</div>
-  </div>
-</div>
-
-<!-- RAUL -->
-<div class="sec" id="raul">
-  <div class="hero" style="background:#1A1200;border:0.5px solid #6B4F00">
-    <div class="hero-label" style="color:#F5A623">As regras de Raul — inegociáveis</div>
-    <div class="hero-title" style="color:#E8C97A">Raul não é o protagonista. A cidade é. Ele é o guia.</div>
-    <div class="hero-sub" style="color:#A08040">Toda TV local que deu certo no mundo tem isso em comum: o apresentador é o elo entre a TV e a cidade, não a estrela. Pat Kiernan (NY1) é símbolo de Nova York, não de si mesmo. É essa distinção que faz a diferença.</div>
-  </div>
-
-  <div class="blbl">quando Raul APARECE — e por quanto tempo</div>
-  <div class="hl v">Abertura de Reel de rua: 10-15 segundos. Apresenta a pergunta, vai embora. A cidade fala. Volta só no final.</div>
-  <div class="hl v">Fechamento de Reel de rua: 10 segundos. Interpreta o que a cidade disse. CTA. Fim.</div>
-  <div class="hl v">Reel de tradução (segunda-feira): 60 segundos completos. É o único post onde Raul fala tudo. Tom de fundador que entende a cidade. Dado concreto + visão clara.</div>
-  <div class="hl v">Memórias: abre em 20s, fecha em 10s. Ivilise é a estrela. Raul ancora sem roubar cena.</div>
-  <div class="hl v">Bastidor real com conflito: quando a pauta foi difícil de conseguir, quando alguém recusou entrevista, quando descobriu algo por acaso. Vulnerabilidade com propósito.</div>
-
-  <div class="blbl">quando Raul NÃO aparece</div>
-  <div class="hl r">Conteúdo de turismo e beleza: drone, câmera, música. Zero narração. A natureza fala sozinha.</div>
-  <div class="hl r">Carrossel de dados: o dado fala por si. Sem rosto na capa.</div>
-  <div class="hl r">Post do parceiro do guia: o empreendedor é o protagonista. Raul só na legenda.</div>
-  <div class="hl r">Conteúdo de arquivo histórico (fotos antigas): a imagem fala. Narração mínima em off.</div>
-
-  <div class="blbl">como Raul fala — tom exato</div>
-  <div class="row2">
-    <div class="mini" style="background:#E1F5EE">
-      <div class="ml" style="color:#085041">Certo — a cidade como foco</div>
-      <div class="mt">"Fui até o centro de Marataízes hoje e descobri algo que me surpreendeu."<br><br>"A cidade falou isso ontem — e eu preciso traduzir o que significa."<br><br>"Esse rosto aqui faz Marataízes acontecer todo dia. Quase ninguém sabe o nome."</div>
-    </div>
-    <div class="mini" style="background:#FCEBEB">
-      <div class="ml" style="color:#791F1F">Errado — Raul como foco</div>
-      <div class="mt">"Hoje eu acordei pensando em..."<br><br>"Minha opinião sobre isso é..."<br><br>"Estou aqui no estúdio fazendo mais um vídeo..."<br><br>"Sou Raul da TV Marataízes e hoje vou..."</div>
-    </div>
-  </div>
-
-  <div class="blbl">a pergunta que Raul faz antes de gravar qualquer coisa</div>
-  <div class="hl" style="font-size:14px;font-style:italic">"Por que um marataizense mandaria esse vídeo no grupo do condomínio ou da família?"</div>
-  <div class="cs" style="margin-top:6px">Se não tiver resposta clara para essa pergunta — não posta. Esse é o único filtro que importa para crescimento orgânico em cidade pequena. O WhatsApp é o algoritmo real de Marataízes.</div>
-
-  <div class="blbl">a semana de Raul — o que ele faz cada dia (além de gravar)</div>
-  <div class="card">
-    <div class="timeline">
-      <div class="tl-item"><div class="tl-hora">Domingo</div><div class="tl-acao">Grava 2 episódios de Memórias em bloco com Ivilise. Lê todos os DMs da semana. Anota as pautas sugeridas. Planeja os ganchos da semana seguinte com base no que a cidade pediu.</div></div>
-      <div class="tl-item"><div class="tl-hora">Segunda</div><div class="tl-acao">De manhã: pesquisa 1 dado público (portal da transparência, IBGE, portal da prefeitura). À tarde: grava o Reel de tradução/jornalismo com esse dado. Posta às 20h. Responde 100% dos comentários nas primeiras 2 horas.</div></div>
-      <div class="tl-item"><div class="tl-hora">Terça</div><div class="tl-acao">Vai à rua antes das 18h. Faz a pergunta em pelo menos 8 pessoas (usa 4-5 no Reel). Grava também B-roll da cidade. Edita e posta às 20h. Lê os comentários à noite — são os leads do dia seguinte.</div></div>
-      <div class="tl-item"><div class="tl-hora">Quarta</div><div class="tl-acao">Vai até a pessoa ou lugar mais citado nos comentários de terça. Sem roteiro — deixa fluir. Grava mini-doc. Posta às 20h. Manda DM para a pessoa entrevistada: "obrigado, compartilha se quiser."</div></div>
-      <div class="tl-item"><div class="tl-hora">Quinta</div><div class="tl-acao">Posta o episódio de Memórias às 20h. Na sequência (21h): posta o clip de 30s da frase mais forte de Ivilise. Dois posts no mesmo dia. Stories à noite mostrando a reação da cidade ao episódio.</div></div>
-      <div class="tl-item"><div class="tl-hora">Sexta</div><div class="tl-acao">Vai a um parceiro do guia ou faz conteúdo de turismo/beleza. A regra: esse post não pode parecer publi. É reportagem. "Fui até esse lugar que a cidade cita muito." Posta às 20h.</div></div>
-      <div class="tl-item"><div class="tl-hora">Sábado</div><div class="tl-acao">Cobertura de algo público (Câmara, evento, obra) ou pauta em cidade vizinha. Se não tem evento — faz o carrossel de dados da semana. Esse é o post de maior alcance orgânico.</div></div>
-    </div>
-  </div>
+<!-- REGRAS FIXAS -->
+<div class="regras">
+  <div class="regras-title">⚡ Regras que não mudam</div>
+  <div class="regra"><strong>19h todo dia</strong> — consistência de horário treina o algoritmo e a audiência</div>
+  <div class="regra"><strong>Primeiro frame = manchete</strong> — nunca abre com logo, vinheta ou "oi gente"</div>
+  <div class="regra"><strong>Responde todos os comentários nas 2h após postar</strong> — o algoritmo redistribui quem tem atividade</div>
+  <div class="regra"><strong>Manda o vídeo para a pessoa antes de postar</strong> — ela compartilha, você ganha a rede dela</div>
+  <div class="regra"><strong>Geotag Marataízes em todos os posts</strong> — SEO local cumulativo</div>
+  <div class="regra"><strong>11–15 hashtags por post</strong> — roda os blocos temáticos, mantém os 4 fixos</div>
+  <div class="regra"><strong>Story todo dia</strong> — mesmo que seja repost do feed. Mantém o canal vivo</div>
 </div>
 
 <!-- SEMANA 1 -->
-<div class="sec" id="semana1">
-  <div class="semana-label">Semana 1 — "A cidade somos nós" · Dias 1–7 · O que Raul faz</div>
+<div class="semana-label">Semana 1 · Dias 1–7</div>
+<div class="sem-header">
+  <div class="sem-num">Semana 1</div>
+  <div class="sem-tema">Apresentar Marataízes para Marataízes</div>
+  <div class="sem-foco">Foco: pertencimento · Estabelece o tom do canal para o mês</div>
+</div>
 
-  <div class="dia-wrap">
-    <div class="dia-header">
-      <div class="dia-num">D1</div>
-      <div class="dia-info"><div class="dia-title">Segunda — Jornalismo: o dado que a cidade não sabe</div><div class="dia-meta">Carrossel + Reel · Posta às 20h</div></div>
-      <div class="dia-pill ba">Jornalismo</div>
-    </div>
-    <div class="bloco" style="background:#FAEEDA">
-      <div class="bloco-lbl" style="color:#633806">O que Raul faz de manhã</div>
-      <div class="bloco-txt">Abre o portal da transparência de Marataízes ou o IBGE. Procura um número que choca. Ex: PIB per capita de R$169k mas 65% dos trabalhadores nas faixas mais baixas de renda. Ou: quantas obras estão paradas. Anota o dado e o contexto.</div>
-    </div>
-    <div class="bloco" style="background:#EEEDFE">
-      <div class="bloco-lbl" style="color:#534AB7">Gancho — primeiros 3 segundos</div>
-      <div class="bloco-txt"><em>"Marataízes tem o maior PIB per capita do Espírito Santo. Mas 65% dos trabalhadores aqui ganham menos de 2 salários. Eu fui entender por quê."</em></div>
-    </div>
-    <div class="bloco" style="background:var(--color-background-secondary)">
-      <div class="bloco-lbl" style="color:var(--color-text-secondary)">O que Raul fala (60 segundos)</div>
-      <div class="bloco-txt">Câmera direta. Mostra o dado na tela do celular. Explica o que significa para quem mora aqui. Não toma partido — apresenta o fato e deixa a questão aberta. Fecha: "Essa é a cidade que a TV Marataízes existe pra contar. Comenta o que você acha disso."</div>
-    </div>
-    <div class="row2">
-      <div class="mini" style="background:#E1F5EE"><div class="ml" style="color:#085041">CTA</div><div class="mt">Comenta o que você acha desse número.</div></div>
-      <div class="mini" style="background:#FCEBEB"><div class="ml" style="color:#791F1F">Erros a evitar</div><div class="mt">Não faz opinião política. Não acusa. Apresenta e pergunta.</div></div>
-    </div>
+<!-- DIA 1 -->
+<div class="dia">
+  <div class="dia-top" onclick="tog(this)">
+    <div class="dia-num">Dia 1</div>
+    <div class="dia-semdia">Segunda</div>
+    <div class="dia-tema">Tradução — o que a cidade está pedindo</div>
+    <div class="dia-pill p-trad">Autoridade</div>
+    <div class="dia-arrow">▶</div>
   </div>
-
-  <div class="dia-wrap">
-    <div class="dia-header">
-      <div class="dia-num">D2</div>
-      <div class="dia-info"><div class="dia-title">Terça — Rua: "Fui perguntar qual é o maior problema de Marataízes"</div><div class="dia-meta">Reel de rua · Posta às 20h</div></div>
-      <div class="dia-pill bc">Rua</div>
-    </div>
-    <div class="bloco" style="background:#FAEEDA">
-      <div class="bloco-lbl" style="color:#633806">O que Raul faz antes de gravar</div>
-      <div class="bloco-txt">Vai a um ponto movimentado (centro, orla, mercado) entre 15h e 17h. Aborda pelo menos 8 pessoas de perfis diferentes: jovem, idoso, comerciante, mãe com filho. Usa 4-5 no Reel.</div>
-    </div>
-    <div class="bloco" style="background:#EEEDFE">
-      <div class="bloco-lbl" style="color:#534AB7">Gancho exato — Raul abre em 8 segundos</div>
-      <div class="bloco-txt"><em>"Parei 10 pessoas em Marataízes hoje e fiz uma pergunta direta. Olha o que eles disseram."</em> [corte direto para as respostas]</div>
-    </div>
-    <div class="bloco" style="background:var(--color-background-secondary)">
-      <div class="bloco-lbl" style="color:var(--color-text-secondary)">Estrutura do Reel (45-60s)</div>
-      <div class="bloco-txt">8s Raul abre → 35s cidade fala (4-5 respostas de 7s cada) → 10s Raul fecha: <em>"A cidade falou. A gente vai investigar cada um desses. Manda no DM o problema que você quer que a gente cubra."</em></div>
-    </div>
-    <div class="bloco" style="background:#E1F5EE">
-      <div class="bloco-lbl" style="color:#085041">O que Raul faz depois de postar</div>
-      <div class="bloco-txt">Lê todos os comentários. Anota os lugares e pessoas mais citados. Esses são os personagens do Dia 3 e as pautas das próximas semanas. Manda DM para negócios que aparecerem: "a cidade citou você — quer aparecer?"</div>
-    </div>
+  <div class="dia-body">
+    <div class="bloco"><div class="dia-bloco-lbl bloco-lbl">Formato · Duração</div>Reel câmera direta · 60s · sem corte</div>
+    <div class="bloco"><div class="bloco-lbl">Gancho (primeiros 3s)</div><em>"Marataízes me pediu uma coisa essa semana. E eu vou fazer."</em></div>
+    <div class="bloco"><div class="bloco-lbl">O que Raul fala</div>Apresenta o mês: a TV vai às ruas todos os dias, ouvir, registrar, mostrar. Fala dos 3 tipos de pauta que vai cobrir: pessoas, problemas e histórias que o tempo quase apagou. Tom de compromisso, não de anúncio.</div>
+    <div class="bloco"><div class="bloco-lbl">Fechamento</div><em>"Começa hoje. Comenta aqui: o que você quer ver essa semana?"</em></div>
+    <div class="bloco"><div class="bloco-lbl">Por que abre assim</div>Estabelece autoridade + expectativa + participação. Os comentários da pergunta vão alimentar as pautas da semana.</div>
   </div>
+</div>
 
-  <div class="dia-wrap">
-    <div class="dia-header">
-      <div class="dia-num">D3</div>
-      <div class="dia-info"><div class="dia-title">Quarta — Pessoa: o pescador mais antigo / a senhora mais citada</div><div class="dia-meta">Mini-doc 60-90s · Posta às 20h</div></div>
-      <div class="dia-pill bt">Pessoa</div>
-    </div>
-    <div class="bloco" style="background:#FAEEDA">
-      <div class="bloco-lbl" style="color:#633806">Como Raul escolhe quem entrevistar</div>
-      <div class="bloco-txt">Usa os comentários do Dia 2. Quem foi mais citado? Se ainda não tem material suficiente, escolhe alguém que a cidade conhece mas nunca viu falar: o pescador do trapiche, a doceira da orla, o guarda mais simpático. Vai ao local de trabalho deles — nunca num estúdio.</div>
-    </div>
-    <div class="bloco" style="background:#EEEDFE">
-      <div class="bloco-lbl" style="color:#534AB7">Gancho — Raul abre em 10 segundos</div>
-      <div class="bloco-txt"><em>"Esse rosto aqui faz Marataízes acontecer todo dia. Há [X] anos. Quase ninguém parou pra perguntar a história. Eu parei."</em></div>
-    </div>
-    <div class="bloco" style="background:var(--color-background-secondary)">
-      <div class="bloco-lbl" style="color:var(--color-text-secondary)">Estrutura do mini-doc</div>
-      <div class="bloco-txt">10s Raul abre com o gancho → 60-70s a pessoa fala (Raul não interrompe, apenas escuta) → 10s Raul fecha: <em>"Isso é Marataízes de verdade. Marca alguém que conhece essa história — ou que merece aparecer assim."</em></div>
-    </div>
-    <div class="bloco" style="background:#E1F5EE">
-      <div class="bloco-lbl" style="color:#085041">O que Raul faz depois</div>
-      <div class="bloco-txt">Manda o vídeo para a pessoa antes de postar: "vai sair hoje às 20h — fica à vontade pra compartilhar." A pessoa sempre compartilha. É audiência nova grátis vinda da rede dela.</div>
-    </div>
+<!-- DIA 2 -->
+<div class="dia">
+  <div class="dia-top" onclick="tog(this)">
+    <div class="dia-num">Dia 2</div>
+    <div class="dia-semdia">Terça</div>
+    <div class="dia-tema">Rua — "O que Marataízes tem que nenhuma cidade tem?"</div>
+    <div class="dia-pill p-rua">Rua</div>
+    <div class="dia-arrow">▶</div>
   </div>
-
-  <div class="dia-wrap" style="border-left:3px solid #7B2D8B;padding-left:12px">
-    <div class="dia-header">
-      <div class="dia-num">D4</div>
-      <div class="dia-info"><div class="dia-title">Quinta — Memórias: episódio + clip de 30s</div><div class="dia-meta">Reel 3-5min + clip 30s · 20h e 21h</div></div>
-      <div class="dia-pill bm">Memórias</div>
-    </div>
-    <div class="bloco" style="background:#F3E8FF">
-      <div class="bloco-lbl" style="color:#7B2D8B">Como Raul abre o Memórias (20 segundos)</div>
-      <div class="bloco-txt"><em>"Toda quinta é dia de Memórias de Marataízes. Hoje com Ivilise, pesquisadora do IPHAN, a gente vai falar de [tema]. Uma história que o tempo quase apagou."</em> [passa para Ivilise]</div>
-    </div>
-    <div class="bloco" style="background:var(--color-background-secondary)">
-      <div class="bloco-lbl" style="color:var(--color-text-secondary)">Como Raul fecha o Memórias (10 segundos)</div>
-      <div class="bloco-txt"><em>"Isso é Marataízes antes de a gente nascer. Manda esse vídeo pra quem é daqui — e comenta qual história você quer ver no próximo episódio."</em></div>
-    </div>
-    <div class="bloco" style="background:#EEEDFE">
-      <div class="bloco-lbl" style="color:#534AB7">O clip de 30s — posta 1 hora depois</div>
-      <div class="bloco-txt">Raul edita a frase mais impactante que Ivilise disse no episódio. Coloca legenda grande. Posta como Reel separado às 21h com a legenda: <em>"Esse trecho do Memórias de hoje me surpreendeu. Assiste o episódio completo — link na bio."</em> Esse clip vai mais longe que o episódio.</div>
-    </div>
+  <div class="dia-body">
+    <div class="bloco"><div class="bloco-lbl">Formato · Duração</div>Reel de rua · 60–90s · 4–6 respostas diferentes</div>
+    <div class="bloco"><div class="bloco-lbl">Gancho</div><em>"Fui perguntar isso pra quem é daqui."</em> — começa já na rua, sem apresentação</div>
+    <div class="bloco"><div class="bloco-lbl">Fechamento</div><em>"Comenta o que você responderia. E marca alguém que nasceu aqui."</em></div>
+    <div class="bloco"><div class="bloco-lbl">Por que essa pergunta</div>Resposta positiva = compartilhamento. Quem é de Marataízes manda para quem é de Marataízes. Distribução exponencial local.</div>
   </div>
+</div>
 
-  <div class="dia-wrap">
-    <div class="dia-header">
-      <div class="dia-num">D5</div>
-      <div class="dia-info"><div class="dia-title">Sexta — Turismo: Falésias de Marataízes / "o sul do ES que o Brasil não conhece"</div><div class="dia-meta">Reel visual · Posta às 20h</div></div>
-      <div class="dia-pill bp">Turismo</div>
-    </div>
-    <div class="bloco" style="background:#EEEDFE">
-      <div class="bloco-lbl" style="color:#534AB7">Gancho — sem rosto, só imagem</div>
-      <div class="bloco-txt">Abre direto no visual mais bonito: drone sobre as falésias, reflexo da lagoa, pôr do sol na orla. Narração mínima de Raul em off: <em>"Isso existe no sul do Espírito Santo. A maioria do Brasil ainda não sabe."</em> Deixa a imagem falar.</div>
-    </div>
-    <div class="bloco" style="background:var(--color-background-secondary)">
-      <div class="bloco-lbl" style="color:var(--color-text-secondary)">Por que esse post alcança quem não é de Marataízes</div>
-      <div class="bloco-txt">Conteúdo visual de beleza natural não tem geolimite. O algoritmo distribui para quem engaja com conteúdo de viagem e litoral no Brasil inteiro. Isso traz seguidores novos que se tornam audiência para o conteúdo jornalístico.</div>
-    </div>
+<!-- DIA 3 -->
+<div class="dia">
+  <div class="dia-top" onclick="tog(this)">
+    <div class="dia-num">Dia 3</div>
+    <div class="dia-semdia">Quarta</div>
+    <div class="dia-tema">Pessoa — vai até quem foi mais citado ontem</div>
+    <div class="dia-pill p-pessoa">Pessoa</div>
+    <div class="dia-arrow">▶</div>
   </div>
+  <div class="dia-body">
+    <div class="bloco"><div class="bloco-lbl">Formato · Duração</div>Mini-doc · 90s–2min · local de trabalho, nunca estúdio</div>
+    <div class="bloco"><div class="bloco-lbl">Gancho</div><em>"Ontem Marataízes falou de [tema]. Vim ouvir quem vive isso."</em></div>
+    <div class="bloco"><div class="bloco-lbl">Estrutura</div>10s Raul abre → 70s a pessoa fala (Raul não interrompe) → 10s Raul fecha: <em>"Isso é Marataízes de verdade. Marca alguém que conhece essa história."</em></div>
+    <div class="bloco"><div class="bloco-lbl">Regra de ouro</div>Manda o vídeo para a pessoa antes das 18h. Ela compartilha antes do post ir ao ar — audiência nova garantida.</div>
+  </div>
+</div>
 
-  <div class="dia-wrap">
-    <div class="dia-header">
-      <div class="dia-num">D6</div>
-      <div class="dia-info"><div class="dia-title">Sábado — Cobertura: sessão da Câmara Municipal em 60 segundos</div><div class="dia-meta">Reel institucional · Posta às 20h</div></div>
-      <div class="dia-pill ba">Institucional</div>
-    </div>
-    <div class="bloco" style="background:#FAEEDA">
-      <div class="bloco-lbl" style="color:#633806">O que Raul faz</div>
-      <div class="bloco-txt">Vai à sessão (terças às 18h — usa o material e posta no sábado ou na própria terça se tiver pauta urgente). Grava a entrada, o plenário, algum momento relevante. Faz um resumo de 60s do que foi decidido. Tom neutro, factual.</div>
-    </div>
-    <div class="bloco" style="background:#EEEDFE">
-      <div class="bloco-lbl" style="color:#534AB7">Gancho</div>
-      <div class="bloco-txt"><em>"Hoje na Câmara Municipal de Marataízes foi decidido [o quê]. Isso afeta [quem]. Em 60 segundos, o que aconteceu."</em></div>
-    </div>
-    <div class="bloco" style="background:#E1F5EE">
-      <div class="bloco-lbl" style="color:#085041">Por que esse post é estratégico</div>
-      <div class="bloco-txt">Raul marca @camaramunicipaldemarataizes. Eles repostam para os 2.3K seguidores deles. Os vereadores percebem que a TV cobre o trabalho deles com seriedade. Em 30 dias, vereadores começam a procurar Raul para dar entrevistas.</div>
-    </div>
+<!-- DIA 4 -->
+<div class="dia">
+  <div class="dia-top" onclick="tog(this)">
+    <div class="dia-num">Dia 4</div>
+    <div class="dia-semdia">Quinta</div>
+    <div class="dia-tema">Memórias — Ep. 1 + clip 30s às 20h</div>
+    <div class="dia-pill p-memoria">Memórias</div>
+    <div class="dia-arrow">▶</div>
+  </div>
+  <div class="dia-body">
+    <div class="bloco"><div class="bloco-lbl">Formato · Dois posts</div>19h: episódio completo (3–5min) · 20h: clip da frase mais forte (30s) com legenda grande</div>
+    <div class="bloco"><div class="bloco-lbl">Gancho do episódio</div><em>"Toda quinta é dia de Memórias de Marataízes. Hoje com Ivilise, a gente vai falar de [tema]. Uma história que o tempo quase apagou."</em></div>
+    <div class="bloco"><div class="bloco-lbl">O clip de 30s</div>Pega a frase mais impactante. Coloca legenda grande. Posta como Reel separado 1h depois com: <em>"Esse trecho do Memórias de hoje me surpreendeu."</em> O clip vai mais longe que o episódio.</div>
+  </div>
+</div>
+
+<!-- DIA 5 -->
+<div class="dia">
+  <div class="dia-top" onclick="tog(this)">
+    <div class="dia-num">Dia 5</div>
+    <div class="dia-semdia">Sexta</div>
+    <div class="dia-tema">Turismo — "O Sul do ES que o Brasil não conhece"</div>
+    <div class="dia-pill p-turismo">Turismo</div>
+    <div class="dia-arrow">▶</div>
+  </div>
+  <div class="dia-body">
+    <div class="bloco"><div class="bloco-lbl">Formato · Duração</div>Reel visual · 30–60s · imagem ou drone + narração mínima em off</div>
+    <div class="bloco"><div class="bloco-lbl">Gancho</div><em>"Isso existe no sul do Espírito Santo. A maioria do Brasil ainda não sabe."</em> — abre direto no visual mais bonito</div>
+    <div class="bloco"><div class="bloco-lbl">Por que sexta</div>Pessoas em modo lazer = mais receptivas a conteúdo visual. Taxa de salvamento é maior sexta e sábado. Conteúdo de natureza não tem geolimite — traz seguidores de fora.</div>
+  </div>
+</div>
+
+<!-- DIA 6 -->
+<div class="dia">
+  <div class="dia-top" onclick="tog(this)">
+    <div class="dia-num">Dia 6</div>
+    <div class="dia-semdia">Sábado</div>
+    <div class="dia-tema">Causa — AUTITA ou Ponto de Cultura</div>
+    <div class="dia-pill p-causa">Causa</div>
+    <div class="dia-arrow">▶</div>
+  </div>
+  <div class="dia-body">
+    <div class="bloco"><div class="bloco-lbl">Formato · Duração</div>Reel ou carrossel · 60–90s</div>
+    <div class="bloco"><div class="bloco-lbl">Conteúdo sugerido</div>Um recorte da entrevista da AUTITA ainda não publicado, ou bastidores de uma ação do Ponto de Cultura. Alterna entre os dois a cada semana.</div>
+    <div class="bloco"><div class="bloco-lbl">Por que sábado</div>Fim de semana tem menos concorrência de conteúdo institucional. Causa social performa bem sábado pela manhã — pessoas têm tempo pra ler legenda longa.</div>
+  </div>
+</div>
+
+<!-- DIA 7 -->
+<div class="dia">
+  <div class="dia-top" onclick="tog(this)">
+    <div class="dia-num">Dia 7</div>
+    <div class="dia-semdia">Domingo</div>
+    <div class="dia-tema">Livre — o que a semana produziu de inesperado</div>
+    <div class="dia-pill p-livre">Livre</div>
+    <div class="dia-arrow">▶</div>
+  </div>
+  <div class="dia-body">
+    <div class="bloco"><div class="bloco-lbl">Regra do domingo</div>Não força pauta. Usa material que sobrou da semana, um momento espontâneo, ou bastidor. Pode ser um carrossel com fotos da semana ou um vídeo curto de 30s.</div>
+    <div class="bloco"><div class="bloco-lbl">Alternativa</div>Se não tiver material: posta nos Stories apenas (repost dos melhores momentos da semana) e responde comentários acumulados. O algoritmo valoriza a atividade mesmo sem post novo.</div>
   </div>
 </div>
 
 <!-- SEMANA 2 -->
-<div class="sec" id="semana2">
-  <div class="semana-label">Semana 2 — "Gente que faz Marataízes acontecer" · Dias 8–14</div>
-
-  <div class="dia-wrap">
-    <div class="dia-header">
-      <div class="dia-num">D8</div>
-      <div class="dia-info"><div class="dia-title">Segunda — Tradução: o que a semana passada revelou</div><div class="dia-meta">Reel câmera direta 60s · Posta às 20h</div></div>
-      <div class="dia-pill bp">Tradução</div>
-    </div>
-    <div class="bloco" style="background:#EEEDFE">
-      <div class="bloco-lbl" style="color:#534AB7">Gancho</div>
-      <div class="bloco-txt"><em>"Na semana passada a gente ouviu Marataízes. E o que a cidade disse revelou algo que eu não estava esperando."</em></div>
-    </div>
-    <div class="bloco" style="background:var(--color-background-secondary)">
-      <div class="bloco-lbl" style="color:var(--color-text-secondary)">O que Raul fala</div>
-      <div class="bloco-txt">Pega os 2-3 temas que mais apareceram nos comentários da semana anterior. Interpreta o padrão. "A cidade não está reclamando de X — está dizendo que quer Y." Tom de líder comunitário que entende mais fundo. Fecha abrindo a próxima investigação da semana.</div>
-    </div>
-  </div>
-
-  <div class="dia-wrap">
-    <div class="dia-header">
-      <div class="dia-num">D9</div>
-      <div class="dia-info"><div class="dia-title">Terça — Rua: "Qual pessoa daqui trabalha demais e ninguém reconhece?"</div><div class="dia-meta">Reel de rua · Posta às 20h</div></div>
-      <div class="dia-pill bc">Rua</div>
-    </div>
-    <div class="bloco" style="background:#EEEDFE">
-      <div class="bloco-lbl" style="color:#534AB7">Por que essa pergunta é melhor que "qual é o problema"</div>
-      <div class="bloco-txt">Pergunta de reconhecimento gera emoção positiva. As pessoas citadas compartilham o vídeo com todos os contatos. É o formato com maior taxa de compartilhamento orgânico em TVs locais que estudamos. A NY1 usa variações disso toda semana.</div>
-    </div>
-    <div class="bloco" style="background:var(--color-background-secondary)">
-      <div class="bloco-lbl" style="color:var(--color-text-secondary)">Fechamento de Raul (10s)</div>
-      <div class="bloco-txt"><em>"Cidade com gente assim não pode ficar invisível. Comenta aqui quem você indicaria — a gente vai atrás dessa pessoa."</em></div>
-    </div>
-  </div>
-
-  <div class="dia-wrap">
-    <div class="dia-header">
-      <div class="dia-num">D10</div>
-      <div class="dia-info"><div class="dia-title">Quarta — Pessoa: vai até quem foi mais citado ontem</div><div class="dia-meta">Mini-doc · Posta às 20h</div></div>
-      <div class="dia-pill bt">Pessoa</div>
-    </div>
-    <div class="bloco" style="background:#EEEDFE">
-      <div class="bloco-lbl" style="color:#534AB7">Gancho — fecha o ciclo de 3 dias</div>
-      <div class="bloco-txt"><em>"Ontem a cidade indicou [nome]. Vim até aqui."</em> Essa frase sozinha já gera compartilhamento — porque quem indicou fica orgulhoso, e quem foi visitado compartilha com toda a rede.</div>
-    </div>
-    <div class="bloco" style="background:#E1F5EE">
-      <div class="bloco-lbl" style="color:#085041">O poder desse ciclo fechado</div>
-      <div class="bloco-txt">Agência Mural cresceu assim. Documenters cresceu assim. Quando a comunidade vê que sugeriu → a TV foi → a pessoa apareceu, ela sente que tem poder real sobre a programação. Isso cria lealdade que nenhum algoritmo consegue comprar.</div>
-    </div>
-  </div>
-
-  <div class="dia-wrap" style="border-left:3px solid #7B2D8B;padding-left:12px">
-    <div class="dia-header">
-      <div class="dia-num">D11</div>
-      <div class="dia-info"><div class="dia-title">Quinta — Memórias + clip</div><div class="dia-meta">Dois posts · 20h e 21h</div></div>
-      <div class="dia-pill bm">Memórias</div>
-    </div>
-    <div class="bloco" style="background:#F3E8FF">
-      <div class="bloco-lbl" style="color:#7B2D8B">Sugestão de tema para essa semana</div>
-      <div class="bloco-txt">A história do Trapiche de Marataízes (patrimônio do século XIX). Construído pelo Barão de Itapemirim entre 1860 e 1883. Primeira usina elétrica do ES passou por aqui em 1901. Ivilise tem esse material. Potencial de 40K+ views porque todo marataizense vai mandar para a família.</div>
-    </div>
-  </div>
-
-  <div class="dia-wrap">
-    <div class="dia-header">
-      <div class="dia-num">D12</div>
-      <div class="dia-info"><div class="dia-title">Sexta — Negócio local: reportagem (não publi)</div><div class="dia-meta">Reel 60-75s · Posta às 20h</div></div>
-      <div class="dia-pill bt">Guia</div>
-    </div>
-    <div class="bloco" style="background:#EEEDFE">
-      <div class="bloco-lbl" style="color:#534AB7">A diferença entre reportagem e publi</div>
-      <div class="bloco-txt">Publi: "O [negócio] tem ótimos produtos e atende bem." Reportagem: "Esse negócio existe há 15 anos em Marataízes. O dono começou com uma barraca na praia. Hoje emprega 8 pessoas." Raul nunca menciona preço. Nunca faz call to action comercial explícito. Deixa o dono falar.</div>
-    </div>
-  </div>
-
-  <div class="dia-wrap">
-    <div class="dia-header">
-      <div class="dia-num">D13</div>
-      <div class="dia-info"><div class="dia-title">Sábado — Memória visual: foto ou vídeo antigo de Marataízes</div><div class="dia-meta">Reel com arquivo · Posta às 20h</div></div>
-      <div class="dia-pill bm">Memória</div>
-    </div>
-    <div class="bloco" style="background:#FAEEDA">
-      <div class="bloco-lbl" style="color:#633806">Como Raul encontra o material</div>
-      <div class="bloco-txt">Pede à Ivilise/IPHAN. Acessa o acervo da prefeitura. Procura no grupo de WhatsApp de moradores antigos. Posts de arquivo com imagens históricas têm engajamento 3x maior que posts normais em TVs locais — porque geram nostalgia e comentários de "eu me lembro disso."</div>
-    </div>
-    <div class="bloco" style="background:#EEEDFE">
-      <div class="bloco-lbl" style="color:#534AB7">Gancho</div>
-      <div class="bloco-txt"><em>"Isso é Marataízes em [ano]. Olha essa rua. Olha esse lugar. Você reconhece?"</em> CTA: manda sua foto antiga da cidade — a gente quer construir o arquivo vivo de Marataízes.</div>
-    </div>
-  </div>
+<div class="semana-label">Semana 2 · Dias 8–14</div>
+<div class="sem-header">
+  <div class="sem-num">Semana 2</div>
+  <div class="sem-tema">Gente que faz Marataízes acontecer</div>
+  <div class="sem-foco">Foco: reconhecimento · Usa os comentários da semana 1 como pauta</div>
 </div>
+
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 8</div><div class="dia-semdia">Segunda</div><div class="dia-tema">Tradução — o que a semana 1 revelou</div><div class="dia-pill p-trad">Autoridade</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Gancho</div><em>"Na semana passada vocês falaram. E o que a cidade disse revelou algo que eu não esperava."</em></div><div class="bloco"><div class="bloco-lbl">O que falar</div>Pega os 2–3 temas que mais apareceram nos comentários. Interpreta o padrão. Fecha abrindo a investigação da semana 2.</div></div></div>
+
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 9</div><div class="dia-semdia">Terça</div><div class="dia-tema">Rua — "Qual pessoa daqui trabalha demais e ninguém vê?"</div><div class="dia-pill p-rua">Rua</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Por que essa pergunta</div>Reconhecimento gera emoção positiva. As pessoas citadas compartilham com todos os contatos. Maior taxa de compartilhamento orgânico em TVs locais segundo benchmarks internacionais.</div><div class="bloco"><div class="bloco-lbl">Fechamento</div><em>"Comenta aqui quem você indicaria — a gente vai atrás dessa pessoa."</em></div></div></div>
+
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 10</div><div class="dia-semdia">Quarta</div><div class="dia-tema">Pessoa — vai até quem foi citado nos comentários</div><div class="dia-pill p-pessoa">Pessoa</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Gancho que fecha o ciclo</div><em>"Ontem vocês indicaram [nome]. Vim até aqui."</em> — quem indicou fica orgulhoso, quem foi visitado compartilha com toda a rede.</div></div></div>
+
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 11</div><div class="dia-semdia">Quinta</div><div class="dia-tema">Memórias — Ep. 2 · Trapiche de Marataízes</div><div class="dia-pill p-memoria">Memórias</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Tema sugerido</div>Trapiche de Marataízes — patrimônio do século XIX, construído pelo Barão de Itapemirim (1860–1883). Primeira usina elétrica do ES passou por aqui em 1901. Potencial alto: todo marataizense manda para a família.</div></div></div>
+
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 12</div><div class="dia-semdia">Sexta</div><div class="dia-tema">Turismo — Praia / Falésias / pôr do sol na orla</div><div class="dia-pill p-turismo">Turismo</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Gancho</div><em>"Todo mundo que veio visitar Marataízes voltou querendo ficar."</em> — abre com o visual mais bonito disponível.</div></div></div>
+
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 13</div><div class="dia-semdia">Sábado</div><div class="dia-tema">Institucional — Câmara Municipal em 60s</div><div class="dia-pill p-inst">Institucional</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Estratégia</div>Vai à sessão (terça às 18h) e usa o material no sábado. Marca @camaramunicipaldemarataizes. Eles repostam para os seguidores deles. Em 30 dias vereadores começam a procurar a TV.</div><div class="bloco"><div class="bloco-lbl">Gancho</div><em>"Hoje na Câmara de Marataízes foi decidido [o quê]. Isso afeta [quem]. Em 60 segundos."</em></div></div></div>
+
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 14</div><div class="dia-semdia">Domingo</div><div class="dia-tema">Livre — bastidor ou espontâneo da semana</div><div class="dia-pill p-livre">Livre</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Sugestão</div>Carrossel com os melhores frames da semana. Legenda curta: <em>"A semana em 5 imagens."</em> Baixo esforço, alto alcance — carrossel tem taxa de engajamento 32% maior que post estático.</div></div></div>
 
 <!-- SEMANA 3 -->
-<div class="sec" id="semana3">
-  <div class="semana-label">Semana 3 — "O canal que a cidade escolheu" · Dias 15–21</div>
-
-  <div class="dia-wrap">
-    <div class="dia-header">
-      <div class="dia-num">D15</div>
-      <div class="dia-info"><div class="dia-title">Segunda — Carrossel: "7 coisas que Marataízes tem que a maioria não sabe"</div><div class="dia-meta">Carrossel 7 slides · Posta às 20h</div></div>
-      <div class="dia-pill ba">Carrossel</div>
-    </div>
-    <div class="bloco" style="background:#FAEEDA">
-      <div class="bloco-lbl" style="color:#633806">Por que carrossel essa semana</div>
-      <div class="bloco-txt">Carrossel gera salvamento — o sinal mais forte que o algoritmo do Instagram usa para distribuição orgânica em 2026. Vocês ainda não fazem isso. É o formato de maior ROI para crescimento sem custo.</div>
-    </div>
-    <div class="bloco" style="background:#EEEDFE">
-      <div class="bloco-lbl" style="color:#534AB7">Os 7 slides — dados reais</div>
-      <div class="bloco-txt">Slide 1 (gancho): "Marataízes tem o maior PIB per capita do ES. Mas só 7% da população está nas faixas de alta renda. Como isso é possível?" — Slides 2-6: dados reais (único TV independente do ES, IPHAN, 26km de litoral, abacaxi pérola, 46K habitantes) — Slide 7: CTA com link da plataforma.</div>
-    </div>
-    <div class="bloco" style="background:#E1F5EE">
-      <div class="bloco-lbl" style="color:#085041">Quem salva esse carrossel</div>
-      <div class="bloco-txt">Professores, estudantes, jornalistas, pessoas de fora querendo conhecer Marataízes, comerciantes, políticos. É o post que chega nos grupos de WhatsApp de morador antigo, de escola, de associação de bairro.</div>
-    </div>
-  </div>
-
-  <div class="dia-wrap">
-    <div class="dia-header">
-      <div class="dia-num">D16</div>
-      <div class="dia-info"><div class="dia-title">Terça — Rua em Itapemirim ou Presidente Kennedy</div><div class="dia-meta">Reel de rua · Posta às 20h</div></div>
-      <div class="dia-pill bp">Regional</div>
-    </div>
-    <div class="bloco" style="background:#EEEDFE">
-      <div class="bloco-lbl" style="color:#534AB7">Gancho</div>
-      <div class="bloco-txt"><em>"Saí de Marataízes hoje. Vim até [cidade]. Trouxe a mesma câmera — e fiz a mesma pergunta."</em> Mesma estrutura do Reel de rua. A cidade vizinha compartilha com orgulho. Novos seguidores de fora de Marataízes.</div>
-    </div>
-    <div class="bloco" style="background:#FAEEDA">
-      <div class="bloco-lbl" style="color:#633806">Por que isso é estratégico</div>
-      <div class="bloco-txt">Expande o território da TV de Marataízes para "TV do sul do ES." Dobra o mercado de audiência. A Câmara e Prefeitura de Itapemirim também passam a conhecer a TV. Em 60 dias, Raul tem acesso a três prefeituras.</div>
-    </div>
-  </div>
-
-  <div class="dia-wrap">
-    <div class="dia-header">
-      <div class="dia-num">D17</div>
-      <div class="dia-info"><div class="dia-title">Quarta — Pessoa: a mais pedida nos comentários até agora</div><div class="dia-meta">Mini-doc · Posta às 20h</div></div>
-      <div class="dia-pill bt">Pessoa</div>
-    </div>
-    <div class="bloco" style="background:#EEEDFE">
-      <div class="bloco-lbl" style="color:#534AB7">Gancho — o ciclo completo</div>
-      <div class="bloco-txt"><em>"Nos últimos 15 dias, um nome apareceu mais vezes nos comentários do que qualquer outro. Vim até [nome]."</em> Isso fecha o ciclo de participação da comunidade. A pessoa é uma celebridade local por um dia. O engajamento explode.</div>
-    </div>
-  </div>
-
-  <div class="dia-wrap" style="border-left:3px solid #7B2D8B;padding-left:12px">
-    <div class="dia-header">
-      <div class="dia-num">D18</div>
-      <div class="dia-info"><div class="dia-title">Quinta — Memórias: origem do nome "Marataízes"</div><div class="dia-meta">Dois posts · 20h e 21h</div></div>
-      <div class="dia-pill bm">Memórias</div>
-    </div>
-    <div class="bloco" style="background:#F3E8FF">
-      <div class="bloco-lbl" style="color:#7B2D8B">Por que esse episódio específico tem potencial de 50K+</div>
-      <div class="bloco-txt">Todo marataizense vai compartilhar. "Marataízes" vem do tupi-guarani e significa "água que corre para o mar." É identidade pura. Qualquer pessoa que mora ou mora há anos na cidade vai mandar no grupo da família. É o episódio de Memórias com maior potencial viral do ciclo.</div>
-    </div>
-  </div>
-
-  <div class="dia-wrap">
-    <div class="dia-header">
-      <div class="dia-num">D19</div>
-      <div class="dia-info"><div class="dia-title">Sexta — Showcase da plataforma ao vivo</div><div class="dia-meta">Screenshare Reel · Posta às 20h</div></div>
-      <div class="dia-pill bt">Guia</div>
-    </div>
-    <div class="bloco" style="background:#EEEDFE">
-      <div class="bloco-lbl" style="color:#534AB7">Gancho</div>
-      <div class="bloco-txt"><em>"Você sabia que existe uma plataforma de TV rodando ao vivo no sul do ES? E um guia com todos os melhores negócios da região? Deixa eu te mostrar."</em> Raul navega ao vivo no tvmarataizes.digital. Mostra o player, o guia, 2-3 fichas. 75 segundos.</div>
-    </div>
-    <div class="bloco" style="background:#FAEEDA">
-      <div class="bloco-lbl" style="color:#633806">Resultado esperado</div>
-      <div class="bloco-txt">Empresário que assistia só o Instagram descobre que existe TV e plataforma. Manda DM sem Raul precisar pedir. Esse vídeo é o melhor argumento de venda para novos parceiros — custa zero e funciona toda vez.</div>
-    </div>
-  </div>
-
-  <div class="dia-wrap">
-    <div class="dia-header">
-      <div class="dia-num">D20</div>
-      <div class="dia-info"><div class="dia-title">Sábado — Jornalismo: a pauta que veio dos DMs</div><div class="dia-meta">Reel investigação · Posta às 20h</div></div>
-      <div class="dia-pill ba">Jornalismo</div>
-    </div>
-    <div class="bloco" style="background:#EEEDFE">
-      <div class="bloco-lbl" style="color:#534AB7">Gancho</div>
-      <div class="bloco-txt"><em>"Vocês mandaram essa pauta por DM. A gente foi investigar."</em> Pega o tema mais recorrente nos DMs das últimas 3 semanas. Mostra o DM (sem revelar o remetente). Vai à fonte. 60 segundos de investigação real.</div>
-    </div>
-    <div class="bloco" style="background:#E1F5EE">
-      <div class="bloco-lbl" style="color:#085041">Por que isso é o post mais importante da semana</div>
-      <div class="bloco-txt">Fecha o ciclo de confiança: a cidade mandou pauta → a TV investigou → o resultado saiu. Isso é o que o Documenters de Chicago faz. Isso é o que faz a cidade se tornar a redação da TV. A partir daqui, os DMs de pauta aumentam 3x.</div>
-    </div>
-  </div>
+<div class="semana-label">Semana 3 · Dias 15–21</div>
+<div class="sem-header">
+  <div class="sem-num">Semana 3</div>
+  <div class="sem-tema">Problemas reais — a TV como ferramenta da cidade</div>
+  <div class="sem-foco">Foco: utilidade · Posiciona a TV como jornalismo sério, não só entretenimento</div>
 </div>
+
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 15</div><div class="dia-semdia">Segunda</div><div class="dia-tema">Tradução — o padrão que a cidade mostrou</div><div class="dia-pill p-trad">Autoridade</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Tom desta semana</div>A cidade não está reclamando de X — está dizendo que quer Y. Interpreta os comentários como diagnóstico, não como queixa. Fecha abrindo a investigação da semana.</div></div></div>
+
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 16</div><div class="dia-semdia">Terça</div><div class="dia-tema">Rua — "Qual é o maior problema que ninguém resolve?"</div><div class="dia-pill p-rua">Rua</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Atenção</div>Pergunta de problema gera debate e comentário longo — sinal máximo para o algoritmo. Mas o tom de Raul precisa ser neutro: <em>"Vim ouvir. Não vim julgar."</em></div><div class="bloco"><div class="bloco-lbl">Fechamento</div><em>"Isso vai virar pauta. Comenta o endereço ou o local exato."</em> — cria expectativa de cobertura real.</div></div></div>
+
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 17</div><div class="dia-semdia">Quarta</div><div class="dia-tema">Pessoa — quem sofre ou resolve o problema citado</div><div class="dia-pill p-pessoa">Pessoa</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Variação da semana 3</div>Não só quem foi citado como herói — pode ser quem vive o problema. Morador afetado pelo esgoto, pelo buraco, pela falta de iluminação. Rosto humaniza o problema e gera empatia que debate não gera.</div></div></div>
+
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 18</div><div class="dia-semdia">Quinta</div><div class="dia-tema">Memórias — Ep. 3 + clip</div><div class="dia-pill p-memoria">Memórias</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Tema sugerido</div>A história da pesca artesanal em Marataízes — identidade territorial forte, conecta com comunidade pesqueira que tem redes próprias de WhatsApp.</div></div></div>
+
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 19</div><div class="dia-semdia">Sexta</div><div class="dia-tema">Turismo — pesca / trapiche / orla de noite</div><div class="dia-pill p-turismo">Turismo</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Variação</div>Turismo de identidade — não só praia bonita, mas o modo de vida local. Pescador saindo antes do amanhecer, feira do peixe, vida na orla. Essa variação engaja moradores tanto quanto turistas.</div></div></div>
+
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 20</div><div class="dia-semdia">Sábado</div><div class="dia-tema">Causa — Ponto de Cultura / formação audiovisual</div><div class="dia-pill p-causa">Causa</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Conteúdo</div>Bastidor das aulas de câmera e edição do Ponto de Cultura. Mostra jovens aprendendo. Humaniza a certificação do MinC — não é documento, são pessoas.</div><div class="bloco"><div class="bloco-lbl">Gancho</div><em>"A TV Marataízes não é só onde você assiste. É onde você aprende a contar história."</em></div></div></div>
+
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 21</div><div class="dia-semdia">Domingo</div><div class="dia-tema">Livre — marco dos 21 dias</div><div class="dia-pill p-livre">Livre</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Sugestão especial</div>Raul na câmera, 60s: <em>"21 dias nas ruas de Marataízes. O que a cidade me ensinou."</em> — 3 aprendizados reais. Tom pessoal, vulnerável, honesto. Esse formato de reflexão performa muito bem como post de virada.</div></div></div>
 
 <!-- SEMANA 4 -->
-<div class="sec" id="semana4">
-  <div class="semana-label">Semana 4 — "30 dias. A cidade é nossa." · Dias 22–30</div>
-
-  <div class="dia-wrap">
-    <div class="dia-header">
-      <div class="dia-num">D22</div>
-      <div class="dia-info"><div class="dia-title">Segunda — Resultado real: números na tela</div><div class="dia-meta">Reel câmera direta · Posta às 20h</div></div>
-      <div class="dia-pill bk">Resultado</div>
-    </div>
-    <div class="bloco" style="background:#26215C">
-      <div class="bloco-lbl" style="color:#7F77DD">Gancho</div>
-      <div class="bloco-txt" style="color:#CECBF6"><em>"30 dias. Vou mostrar os números reais — sem maquiagem."</em> Raul segura o celular mostrando o painel do Instagram. Lê os números em voz alta: total de views, Reel mais visto, seguidores novos, DMs recebidos, pautas investigadas.</div>
-    </div>
-    <div class="bloco" style="background:#EEEDFE">
-      <div class="bloco-lbl" style="color:#534AB7">Por que transparência é o argumento mais poderoso</div>
-      <div class="bloco-txt">Números reais criam FOMO. Empresário que não está no guia calcula: "meu concorrente viu 58 mil pessoas." Jornalista de fora percebe o alcance. Prefeitura entende o tamanho do canal. Esse vídeo sozinho gera mais DMs de parceiros do que qualquer vídeo de venda.</div>
-    </div>
-  </div>
-
-  <div class="dia-wrap">
-    <div class="dia-header">
-      <div class="dia-num">D23</div>
-      <div class="dia-info"><div class="dia-title">Terça — Rua: "O que Marataízes tem de melhor que o Brasil não sabe?"</div><div class="dia-meta">Reel de rua · Posta às 20h</div></div>
-      <div class="dia-pill bc">Rua</div>
-    </div>
-    <div class="bloco" style="background:#E1F5EE">
-      <div class="bloco-lbl" style="color:#085041">Por que essa é a pergunta de fechamento perfeita</div>
-      <div class="bloco-txt">Pergunta positiva + orgulho local = compartilhamento máximo. É o post que as pessoas mandam para quem mora fora: "olha o que estão falando da nossa cidade." Alcança não-seguidores de outras cidades. Fecha o ciclo de 30 dias com o sentimento mais alto possível.</div>
-    </div>
-  </div>
-
-  <div class="dia-wrap">
-    <div class="dia-header">
-      <div class="dia-num">D24</div>
-      <div class="dia-info"><div class="dia-title">Quarta — Pessoa especial: o rosto que a cidade toda conhece mas nunca viu falar</div><div class="dia-meta">Mini-doc · Posta às 20h</div></div>
-      <div class="dia-pill bt">Pessoa</div>
-    </div>
-    <div class="bloco" style="background:#FAECE7">
-      <div class="bloco-lbl" style="color:#712B13">Quem é essa pessoa</div>
-      <div class="bloco-txt">O aposentado que senta na mesma praça todo dia há 20 anos. A senhora que vende tapioca na orla desde antes da cidade existir. O guarda de trânsito que todo mundo cumprimenta pelo nome. Esse é o post emocional mais forte do ciclo. Potencial de +40K views.</div>
-    </div>
-    <div class="bloco" style="background:#EEEDFE">
-      <div class="bloco-lbl" style="color:#534AB7">Gancho</div>
-      <div class="bloco-txt"><em>"Todo mundo em Marataízes conhece esse rosto. Mas ninguém nunca sentou pra ouvir a história. Eu sentei."</em></div>
-    </div>
-  </div>
-
-  <div class="dia-wrap" style="border-left:3px solid #7B2D8B;padding-left:12px">
-    <div class="dia-header">
-      <div class="dia-num">D25</div>
-      <div class="dia-info"><div class="dia-title">Quinta — Memórias ep. 4 + anúncio da continuidade</div><div class="dia-meta">Dois posts · 20h e 21h</div></div>
-      <div class="dia-pill bm">Memórias</div>
-    </div>
-    <div class="bloco" style="background:#F3E8FF">
-      <div class="bloco-lbl" style="color:#7B2D8B">Fechamento de Raul — 20 segundos</div>
-      <div class="bloco-txt"><em>"Quatro episódios. Quatro histórias que o tempo quase apagou. O Memórias de Marataízes continua — toda quinta, aqui. Manda esse episódio pra quem é daqui. A memória da cidade precisa de mais gente pra guardar."</em></div>
-    </div>
-  </div>
-
-  <div class="dia-wrap">
-    <div class="dia-header">
-      <div class="dia-num">D26</div>
-      <div class="dia-info"><div class="dia-title">Sexta — Jornalismo: a pauta mais pedida nos 30 dias — investigação completa</div><div class="dia-meta">Reel investigação · Posta às 20h</div></div>
-      <div class="dia-pill ba">Jornalismo</div>
-    </div>
-    <div class="bloco" style="background:#EEEDFE">
-      <div class="bloco-lbl" style="color:#534AB7">Como Raul encontra essa pauta</div>
-      <div class="bloco-txt">Lista os temas mais mencionados nos DMs e comentários dos 30 dias. Escolhe o que mais apareceu. Vai à fonte: prefeitura, secretaria, portal da transparência, moradores afetados. Apresenta o resultado sem sensacionalismo.</div>
-    </div>
-    <div class="bloco" style="background:#E1F5EE">
-      <div class="bloco-lbl" style="color:#085041">Gancho</div>
-      <div class="bloco-txt"><em>"Nos últimos 30 dias, esse foi o tema que mais chegou nos nossos DMs. A gente foi investigar. O resultado é esse."</em></div>
-    </div>
-  </div>
-
-  <div class="dia-wrap">
-    <div class="dia-header">
-      <div class="dia-num">D27</div>
-      <div class="dia-info"><div class="dia-title">Sábado — Teaser do mês 2</div><div class="dia-meta">Reel câmera direta 45s · Posta às 20h</div></div>
-      <div class="dia-pill bk">Teaser</div>
-    </div>
-    <div class="bloco" style="background:#26215C">
-      <div class="bloco-lbl" style="color:#7F77DD">O que Raul fala — tom de fundador, não de criador</div>
-      <div class="bloco-txt" style="color:#CECBF6"><em>"30 dias. Fomos à rua [X] vezes. Ouvimos [X] pessoas. Investigamos [X] pautas. Entregamos [X] episódios de Memórias. O mês 2 começa segunda. E vai ter coisa que ainda não foi feita aqui. Fica ligado."</em> Não revela o quê. Antecipação sem entrega.</div>
-    </div>
-  </div>
+<div class="semana-label">Semana 4 · Dias 22–30</div>
+<div class="sem-header">
+  <div class="sem-num">Semana 4</div>
+  <div class="sem-tema">Consolidação — a TV que Marataízes construiu junto</div>
+  <div class="sem-foco">Foco: comunidade · Fecha o mês mostrando que a audiência é co-autora do veículo</div>
 </div>
 
-<!-- MEMÓRIAS AVIÃO -->
-<div class="sec" id="memorias">
-  <div class="hero" style="background:#1A0010;border:0.5px solid #7B2D8B">
-    <div class="hero-label" style="color:#D4537E">Memórias de Marataízes — Episódio especial</div>
-    <div class="hero-title" style="color:#fff">O avião que caiu: roteiro completo para Raul</div>
-    <div class="hero-sub" style="color:#ED93B1">Baseado no que você me disse: já tem o roteiro de Ivilise. Aqui está o que Raul faz antes, durante e depois — e como transformar esse episódio no maior Reel da história da TV Marataízes até agora.</div>
-  </div>
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 22</div><div class="dia-semdia">Segunda</div><div class="dia-tema">Tradução — o que o mês revelou sobre a cidade</div><div class="dia-pill p-trad">Autoridade</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Este é o post mais importante do mês</div>Raul interpreta o padrão do mês inteiro. Não lista o que fez — interpreta o que a cidade disse. Tom de líder comunitário que entende mais fundo. Fecha com o próximo capítulo.</div></div></div>
 
-  <div class="blbl">antes de gravar — o que Raul pesquisa</div>
-  <div class="hl m">Levanta tudo que existe sobre o acidente: data, local exato, número de vítimas, o que estava a bordo, o que causou, quem sobreviveu (se houver), como a cidade foi afetada na época. Fala com Ivilise sobre qual ângulo emocional mais impacta — não o dado técnico, mas o humano.</div>
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 23</div><div class="dia-semdia">Terça</div><div class="dia-tema">Rua — "O que Marataízes vai ser daqui a 10 anos?"</div><div class="dia-pill p-rua">Rua</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Por que essa pergunta agora</div>Semana 4 é momento de visão, não de problema. Pergunta de futuro gera resposta emocional e positiva — ideal para fechar o ciclo do mês com energia alta.</div></div></div>
 
-  <div class="blbl">abertura de Raul — 25 segundos exatos</div>
-  <div class="bloco" style="background:#1A0010;border-radius:var(--border-radius-md)">
-    <div class="bloco-lbl" style="color:#D4537E">Gancho — primeiros 3 segundos</div>
-    <div class="bloco-txt" style="color:#F4C0D1"><em>"Em [ano], um avião caiu em Marataízes. Quase ninguém que mora aqui hoje sabe o que aconteceu."</em></div>
-  </div>
-  <div class="bloco" style="background:var(--color-background-secondary)">
-    <div class="bloco-lbl" style="color:var(--color-text-secondary)">Abertura completa de Raul (25s)</div>
-    <div class="bloco-txt"><em>"Em [ano], um avião caiu [onde exatamente — rua, bairro, praia?]. [X] pessoas [o que aconteceu]. A cidade viveu isso — e quase ninguém contou essa história depois.</em><br><br><em>Hoje, com Ivilise, pesquisadora do IPHAN, a gente vai ao fundo dessa memória. O que aconteceu. Quem estava lá. O que ficou."</em><br><br>[Passa para Ivilise]</div>
-  </div>
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 24</div><div class="dia-semdia">Quarta</div><div class="dia-tema">Pessoa — personagem marcante do mês</div><div class="dia-pill p-pessoa">Pessoa</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Critério</div>Quem gerou mais comentários no mês? Quem foi mais marcado? Vai até essa pessoa de novo ou escolhe alguém que foi muito citado mas ainda não apareceu. Fecha o ciclo: a cidade indicou, a TV foi.</div></div></div>
 
-  <div class="blbl">durante o episódio — como Raul se comporta</div>
-  <div class="hl m">Raul não interrompe Ivilise em nenhum momento. Ele pode fazer 1 pergunta de transição no meio se o ritmo pedir: "Ivilise, você mencionou que havia [algo]. Como a cidade reagiu a isso?" — apenas para abrir um novo ângulo. Nunca para mostrar que sabe — sempre para que a audiência entenda mais fundo.</div>
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 25</div><div class="dia-semdia">Quinta</div><div class="dia-tema">Memórias — Ep. 4 + clip</div><div class="dia-pill p-memoria">Memórias</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Tema sugerido</div>História de Itapemirim ou Piúma — expande o território coberto pelo Memórias para o Sul do ES como um todo. Abre audiência nova nas cidades vizinhas.</div></div></div>
 
-  <div class="blbl">fechamento de Raul — 15 segundos</div>
-  <div class="bloco" style="background:#1A0010;border-radius:var(--border-radius-md)">
-    <div class="bloco-lbl" style="color:#D4537E">Fechamento exato</div>
-    <div class="bloco-txt" style="color:#F4C0D1"><em>"Isso aconteceu aqui. Nessa cidade que a gente anda todo dia sem saber o que ela já viveu.</em><br><br><em>Manda esse episódio pra quem é de Marataízes. A memória da cidade precisa de mais gente pra guardar."</em></div>
-  </div>
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 26</div><div class="dia-semdia">Sexta</div><div class="dia-tema">Turismo — o melhor visual do mês</div><div class="dia-pill p-turismo">Turismo</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Critério</div>Olha todos os frames gravados no mês. Qual é o mais bonito? Usa esse. Pode ser algo que apareceu por acaso durante uma gravação de rua — autenticidade performa melhor que drone elaborado.</div></div></div>
 
-  <div class="blbl">o clip de 30 segundos — posta 1 hora depois do episódio</div>
-  <div class="hl m">Pega a frase mais chocante ou mais emocionante que Ivilise disse. Coloca legenda grande em branco. Posta como Reel separado com a legenda: <em>"Esse trecho do episódio de hoje me parou. Assiste o episódio completo — link na bio."</em></div>
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 27</div><div class="dia-semdia">Sábado</div><div class="dia-tema">Causa — AUTITA · ação do dia 2</div><div class="dia-pill p-causa">Causa</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Nota</div>Se o dia 2 do mês cair nessa semana, usa o material fresco. Se não, usa bastidor ou um recorte inédito da entrevista já gravada. Alterna AUTITA e Ponto de Cultura a cada semana.</div></div></div>
 
-  <div class="blbl">legenda com SEO — copia e adapta</div>
-  <div class="bloco" style="background:var(--color-background-secondary)">
-    <div class="bloco-lbl" style="color:var(--color-text-secondary)">Legenda sugerida</div>
-    <div class="bloco-txt">Em [ano], um avião caiu em Marataízes. Essa história quase foi esquecida.<br><br>Com Ivilise, pesquisadora do IPHAN — toda quinta, uma memória de Marataízes que o tempo quase apagou.<br><br>📺 TV Marataízes · Soul TV Canal 300 · tvmarataizes.digital<br><br>#Marataízes #suldo ES #memóriasdeMarataízes #IPHAN #históriado ES #EspíritoSanto #PérolaCapixaba #patrimoniohistorico</div>
-  </div>
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 28</div><div class="dia-semdia">Domingo</div><div class="dia-tema">Livre — repost colaborativo</div><div class="dia-pill p-livre">Livre</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Formato especial</div>Pega comentários marcantes do mês e monta um carrossel. "O que Marataízes disse esse mês." Cada slide é um comentário real de um seguidor. Pede permissão antes. Quem aparece compartilha.</div></div></div>
 
-  <div class="blbl">por que esse episódio tem potencial de ser o maior da série</div>
-  <div class="hl v">Acidente de avião em cidade pequena é um dos temas com maior taxa de compartilhamento em jornalismo hiperlocal. A NY1 cresceu cobrindo eventos que definiram Nova York — esse é o equivalente marataizense. Quem viveu vai compartilhar. Quem não viveu vai querer saber. Quem é de fora vai descobrir Marataízes por essa história.</div>
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 29</div><div class="dia-semdia">Segunda</div><div class="dia-tema">Rua — pauta aberta pelos comentários do mês</div><div class="dia-pill p-rua">Rua</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body"><div class="bloco"><div class="bloco-lbl">Critério</div>Qual tema apareceu mais nos comentários do mês inteiro? Vai à rua investigar. Fecha o ciclo: a cidade pediu, a TV foi. Isso cria o hábito de participação que sustenta o canal pelo segundo mês.</div></div></div>
 
-  <div class="blbl">o que Raul faz depois do episódio ir ao ar</div>
-  <div class="card">
-    <div class="timeline">
-      <div class="tl-item"><div class="tl-hora">20h</div><div class="tl-acao">Posta o episódio completo. Stories de reação em tempo real: "acabou de sair o Memórias de hoje."</div></div>
-      <div class="tl-item"><div class="tl-hora">21h</div><div class="tl-acao">Posta o clip de 30s com a frase mais forte de Ivilise.</div></div>
-      <div class="tl-item"><div class="tl-hora">22h</div><div class="tl-acao">Lê e responde os comentários. Especialmente os de pessoas que viveram ou conhecem alguém que viveu o acidente. Esses comentários são ouro — e podem virar o próximo episódio.</div></div>
-      <div class="tl-item"><div class="tl-hora">Dia seg.</div><div class="tl-acao">Se aparecerem comentários de testemunhas ou familiares — Raul entra em contato por DM. "Você poderia aparecer num próximo episódio?" Isso pode ser o episódio 2 sobre o mesmo tema: "a família que viveu aquele dia."</div></div>
+<div class="dia"><div class="dia-top" onclick="tog(this)"><div class="dia-num">Dia 30</div><div class="dia-semdia">Terça</div><div class="dia-tema">Marco — "30 dias. O que a TV Marataízes descobriu."</div><div class="dia-pill p-trad">Autoridade</div><div class="dia-arrow">▶</div></div>
+<div class="dia-body">
+  <div class="bloco"><div class="bloco-lbl">Este é o post de conversão do mês</div>Raul na câmera, 90s. Tom de balanço real, sem marketing. Fala 3 coisas que a cidade ensinou, 1 coisa que surpreendeu e o que vem no próximo mês. Fecha com: <em>"E você: o que quer ver a TV Marataízes cobrir em [próximo mês]?"</em></div>
+  <div class="bloco"><div class="bloco-lbl">Por que é o mais importante</div>Esse post define o segundo mês. Os comentários são a pauta. A audiência que respondeu está comprometida — não vai embora. É o post que transforma espectador em comunidade.</div>
+  <div class="bloco"><div class="bloco-lbl">Depois de postar</div>Responde todos os comentários. Salva os temas mais citados. São as pautas do mês 2.</div>
+</div>
+</div>
+
+<!-- RESUMO FINAL -->
+<div style="background:#1d1d1f;border-radius:12px;padding:1.25rem;margin-top:1.5rem;color:#fff">
+  <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#86868b;margin-bottom:.75rem">Resumo do mês</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:.75rem">
+      <div style="font-size:18px;font-weight:700;color:#fff">30</div>
+      <div style="font-size:11px;color:#86868b">Posts · 1 por dia às 19h</div>
+    </div>
+    <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:.75rem">
+      <div style="font-size:18px;font-weight:700;color:#ff9500">4</div>
+      <div style="font-size:11px;color:#86868b">Episódios Memórias</div>
+    </div>
+    <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:.75rem">
+      <div style="font-size:18px;font-weight:700;color:#34c759">8</div>
+      <div style="font-size:11px;color:#86868b">Pessoas entrevistadas mín.</div>
+    </div>
+    <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:.75rem">
+      <div style="font-size:18px;font-weight:700;color:#007aff">4</div>
+      <div style="font-size:11px;color:#86868b">Perguntas de rua</div>
     </div>
   </div>
+  <div style="margin-top:.75rem;font-size:12px;color:#86868b;line-height:1.7">O ciclo Rua → Pessoa fecha 4 vezes no mês. Cada ciclo gera audiência nova via compartilhamento da pessoa visitada. Ao fim dos 30 dias a audiência não é só espectadora — é co-autora do veículo.</div>
 </div>
 
 </div>
 
 <script>
-const ids=['sistema','benchmark','raul','semana1','semana2','semana3','semana4','memorias'];
-function show(id){
-  ids.forEach(i=>document.getElementById(i).classList.toggle('vis',i===id));
-  document.querySelectorAll('.ntab').forEach((t,i)=>t.classList.toggle('on',ids[i]===id));
-  window.scrollTo(0,0);
+function tog(el){
+  var body=el.nextElementSibling;
+  var arrow=el.querySelector('.dia-arrow');
+  var open=body.classList.toggle('open');
+  arrow.classList.toggle('open',open);
 }
 </script>
+</body>
+</html>
