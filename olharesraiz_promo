@@ -1,0 +1,249 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap');
+:root{--brand:#1a3a2a;--brand-mid:#2d6a4f;--brand-light:#52b788;--brand-accent:#95d5b2;--gold:#c9a84c;--gold-light:#f0d06a;--cream:#fdf8ef;--text:#1c1c1c;--muted:#6b7280}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text)}
+.deck{max-width:720px;margin:0 auto}
+
+.hero{background:var(--brand);color:white;padding:3rem 2.5rem 2.5rem;position:relative;overflow:hidden;border-radius:16px 16px 0 0}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:rgba(149,213,178,0.15)}
+.hero::after{content:'';position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;border-radius:50%;background:rgba(201,168,76,0.12)}
+.pronac-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:4px 14px;font-size:12px;color:rgba(255,255,255,0.85);margin-bottom:1.2rem;letter-spacing:0.5px}
+.hero h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;line-height:1.25;margin-bottom:0.5rem;position:relative}
+.hero h1 span{color:var(--gold-light)}
+.hero-sub{font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:1.8rem;font-weight:300}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;position:relative}
+.hero-stat{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:10px;padding:0.9rem 1rem}
+.hero-stat .num{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;color:var(--gold-light);display:block;line-height:1}
+.hero-stat .lbl{font-size:11px;color:rgba(255,255,255,0.6);margin-top:4px;display:block;text-transform:uppercase;letter-spacing:0.5px}
+
+.section{background:white;padding:2rem 2.5rem;border-left:1px solid #e8e0d0;border-right:1px solid #e8e0d0}
+.section+.section{border-top:1px solid #f0e8d8}
+.sec-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--brand-light);font-weight:500;margin-bottom:0.6rem}
+.sec-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--brand);margin-bottom:1rem}
+.sec-body{font-size:14px;line-height:1.75;color:#444}
+
+.cities-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:1rem}
+.city-card{background:var(--cream);border:1px solid #e0d8c8;border-radius:10px;padding:0.75rem 0.5rem;text-align:center}
+.city-card .city-icon{font-size:20px;margin-bottom:4px}
+.city-card .city-name{font-size:11px;font-weight:500;color:var(--brand);line-height:1.2}
+
+.phases{display:flex;flex-direction:column;gap:0}
+.phase{display:flex;gap:1rem;align-items:flex-start;padding:0.9rem 0}
+.phase+.phase{border-top:1px dashed #e8e0d0}
+.phase-num{width:28px;height:28px;min-width:28px;border-radius:50%;background:var(--brand);color:white;font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center}
+.phase-info .phase-title{font-size:14px;font-weight:500;color:var(--brand)}
+.phase-info .phase-desc{font-size:13px;color:var(--muted);margin-top:2px}
+.phase-info .phase-dur{font-size:11px;color:var(--brand-light);margin-top:3px;font-weight:500}
+
+.budget-wrap{margin-top:0.5rem}
+.budget-total{background:var(--brand);color:white;border-radius:10px;padding:1.2rem 1.5rem;margin-bottom:1rem;display:flex;justify-content:space-between;align-items:center}
+.budget-total .bt-label{font-size:12px;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.5px}
+.budget-total .bt-val{font-family:'Playfair Display',serif;font-size:26px;color:var(--gold-light);font-weight:600}
+.budget-rows{display:flex;flex-direction:column;gap:6px}
+.brow{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--cream);border-radius:8px;font-size:13px}
+.brow .bcat{color:#444;font-weight:400}
+.brow .bval{font-weight:500;color:var(--brand)}
+.brow .bpct{font-size:11px;color:var(--muted);margin-left:6px}
+.bar-wrap{margin-top:1rem}
+.bar-track{height:8px;background:#e8e0d0;border-radius:4px;overflow:hidden;display:flex;margin-bottom:6px}
+.bar-seg{height:100%;transition:width 0.5s}
+.bar-legend{display:flex;gap:1rem;flex-wrap:wrap}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted)}
+.leg-dot{width:10px;height:10px;border-radius:2px}
+
+.products-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:0.5rem}
+.prod-card{background:var(--cream);border:1px solid #e0d8c8;border-radius:10px;padding:1rem}
+.prod-icon{font-size:18px;margin-bottom:6px}
+.prod-title{font-size:13px;font-weight:500;color:var(--brand);margin-bottom:3px}
+.prod-desc{font-size:12px;color:var(--muted);line-height:1.5}
+
+.access-list{display:flex;flex-direction:column;gap:8px;margin-top:0.5rem}
+.access-item{display:flex;align-items:center;gap:10px;font-size:13px;color:#444;background:var(--cream);border-radius:8px;padding:8px 12px}
+.access-dot{width:8px;height:8px;min-width:8px;border-radius:50%;background:var(--brand-light)}
+
+.objectives{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:0.5rem}
+.obj{display:flex;gap:8px;align-items:flex-start;background:var(--cream);border-radius:8px;padding:8px 10px;font-size:12.5px;color:#444;line-height:1.4}
+.obj-num{font-family:'Playfair Display',serif;font-size:16px;color:var(--brand-light);font-weight:600;min-width:16px}
+
+.footer-bar{background:var(--brand);color:white;padding:1.5rem 2.5rem;border-radius:0 0 16px 16px;display:flex;justify-content:space-between;align-items:center}
+.footer-bar .ft-info{font-size:12px;color:rgba(255,255,255,0.65)}
+.footer-bar .ft-contact{font-size:13px;color:var(--gold-light);font-weight:500}
+.lei{display:inline-flex;align-items:center;gap:5px;background:rgba(201,168,76,0.2);border:1px solid rgba(201,168,76,0.4);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--gold-light);margin-top:6px}
+</style>
+
+<div class="deck">
+<div class="hero">
+  <div class="pronac-badge">PRONAC 252599 &nbsp;·&nbsp; Lei Rouanet – Art. 18</div>
+  <h1>Olhares Raiz<br><span>Formação Audiovisual</span><br>no Sul do Espírito Santo</h1>
+  <p class="hero-sub">Oficinas gratuitas de cinema em 5 cidades capixabas &nbsp;·&nbsp; 2025–2026</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="num">150</span><span class="lbl">Participantes diretos</span></div>
+    <div class="hero-stat"><span class="num">5</span><span class="lbl">Cidades atendidas</span></div>
+    <div class="hero-stat"><span class="num">80h</span><span class="lbl">Horas de formação</span></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-label">Sobre o projeto</div>
+  <div class="sec-title">Uma proposta de formação cultural descentralizada</div>
+  <p class="sec-body">O <strong>Olhares Raiz</strong> leva oficinas gratuitas de audiovisual a jovens e educadores da rede pública no interior capixaba — territórios com pouca oferta de formação técnica em cultura. Cada município recebe uma oficina de 16 horas com câmera, roteiro e edição, culminando em um curta-metragem produzido coletivamente pelos próprios alunos.</p>
+  <div style="margin-top:1rem">
+    <div class="sec-label">Cidades contempladas</div>
+    <div class="cities-grid">
+      <div class="city-card"><div class="city-icon"><i class="ti ti-map-pin" style="font-size:18px;color:var(--brand-light)" aria-hidden="true"></i></div><div class="city-name">Marataízes</div></div>
+      <div class="city-card"><div class="city-icon"><i class="ti ti-map-pin" style="font-size:18px;color:var(--brand-light)" aria-hidden="true"></i></div><div class="city-name">Itapemirim</div></div>
+      <div class="city-card"><div class="city-icon"><i class="ti ti-map-pin" style="font-size:18px;color:var(--brand-light)" aria-hidden="true"></i></div><div class="city-name">Presidente Kennedy</div></div>
+      <div class="city-card"><div class="city-icon"><i class="ti ti-map-pin" style="font-size:18px;color:var(--brand-light)" aria-hidden="true"></i></div><div class="city-name">Piúma</div></div>
+      <div class="city-card"><div class="city-icon"><i class="ti ti-map-pin" style="font-size:18px;color:var(--brand-light)" aria-hidden="true"></i></div><div class="city-name">Rio Novo do Sul</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-label">Objetivos do projeto</div>
+  <div class="sec-title">O que será realizado</div>
+  <div class="objectives">
+    <div class="obj"><span class="obj-num">01</span>5 oficinas presenciais com até 30 participantes cada</div>
+    <div class="obj"><span class="obj-num">02</span>16 horas de formação por cidade (teoria + prática)</div>
+    <div class="obj"><span class="obj-num">03</span>5 curtas-metragens produzidos pelos alunos</div>
+    <div class="obj"><span class="obj-num">04</span>Publicação gratuita dos filmes no YouTube</div>
+    <div class="obj"><span class="obj-num">05</span>Libras, audiodescrição e legendagem inclusiva</div>
+    <div class="obj"><span class="obj-num">06</span>Certificados para todos os participantes</div>
+    <div class="obj"><span class="obj-num">07</span>Relatório técnico-pedagógico público</div>
+    <div class="obj"><span class="obj-num">08</span>Estímulo a núcleos locais de audiovisual</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-label">Etapas de execução</div>
+  <div class="sec-title">Cronograma do projeto</div>
+  <div class="phases">
+    <div class="phase">
+      <div class="phase-num">1</div>
+      <div class="phase-info">
+        <div class="phase-title">Pré-produção</div>
+        <div class="phase-desc">Articulação com prefeituras, seleção de espaços, identidade visual, materiais didáticos, divulgação, planejamento de acessibilidade</div>
+        <div class="phase-dur">2 meses · out–nov/2025</div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">2</div>
+      <div class="phase-info">
+        <div class="phase-title">Execução das oficinas</div>
+        <div class="phase-desc">Realização das 5 oficinas presenciais nas cidades; gravação e edição dos curtas-metragens; publicação no YouTube</div>
+        <div class="phase-dur">7 meses · dez/2025–jun/2026</div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">3</div>
+      <div class="phase-info">
+        <div class="phase-title">Pós-produção e prestação de contas</div>
+        <div class="phase-desc">Finalização técnica dos vídeos, emissão de certificados, relatório final, publicação, envio ao SALIC</div>
+        <div class="phase-dur">3 meses · jul–set/2026</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-label">Produtos culturais</div>
+  <div class="sec-title">Entregas do projeto</div>
+  <div class="products-grid">
+    <div class="prod-card">
+      <div class="prod-icon"><i class="ti ti-video" style="font-size:20px;color:var(--brand-mid)" aria-hidden="true"></i></div>
+      <div class="prod-title">5 Oficinas audiovisuais</div>
+      <div class="prod-desc">16h presenciais por cidade. Câmera, roteiro, iluminação, som e edição. Gratuitas, turmas de até 30.</div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-icon"><i class="ti ti-movie" style="font-size:20px;color:var(--brand-mid)" aria-hidden="true"></i></div>
+      <div class="prod-title">5 Curtas-metragens</div>
+      <div class="prod-desc">Até 5 min, Full HD. Produzidos pelos alunos. Publicados gratuitamente no YouTube com acessibilidade.</div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-icon"><i class="ti ti-camera" style="font-size:20px;color:var(--brand-mid)" aria-hidden="true"></i></div>
+      <div class="prod-title">Relatório audiovisual</div>
+      <div class="prod-desc">Minidocumentário com bastidores, depoimentos e registros. Disponível gratuitamente online.</div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-icon"><i class="ti ti-file-description" style="font-size:20px;color:var(--brand-mid)" aria-hidden="true"></i></div>
+      <div class="prod-title">Relatório técnico</div>
+      <div class="prod-desc">PDF público com metodologia, fotos, links e resultados. Transparência e memória cultural do território.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-label">Acessibilidade</div>
+  <div class="sec-title">Inclusão garantida em todas as etapas</div>
+  <div class="access-list">
+    <div class="access-item"><div class="access-dot"></div>Intérprete de Libras nas exibições finais dos curtas</div>
+    <div class="access-item"><div class="access-dot"></div>Audiodescrição nos vídeos produzidos pelos alunos</div>
+    <div class="access-item"><div class="access-dot"></div>Legendagem descritiva em todos os curtas-metragens</div>
+    <div class="access-item"><div class="access-dot"></div>Materiais em linguagem simples para inclusão de públicos com baixa escolaridade</div>
+    <div class="access-item"><div class="access-dot"></div>Espaços com acesso facilitado para pessoas com mobilidade reduzida</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-label">Orçamento aprovado</div>
+  <div class="sec-title">Estrutura financeira</div>
+  <div class="budget-wrap">
+    <div class="budget-total">
+      <div>
+        <div class="bt-label">Total autorizado para captação</div>
+        <div class="bt-val">R$ 151.181,25</div>
+        <div class="lei"><i class="ti ti-check" aria-hidden="true"></i>Lei Rouanet – Art. 18 &nbsp;·&nbsp; Incentivo fiscal 100%</div>
+      </div>
+      <i class="ti ti-coins" style="font-size:32px;color:rgba(201,168,76,0.5)" aria-hidden="true"></i>
+    </div>
+    <div class="budget-rows">
+      <div class="brow"><span class="bcat">Execução das oficinas</span><span><span class="bpct">61%</span><span class="bval">R$ 92.750,00</span></span></div>
+      <div class="brow"><span class="bcat">Custos vinculados (SPED/ISS)</span><span><span class="bpct">18%</span><span class="bval">R$ 27.487,50</span></span></div>
+      <div class="brow"><span class="bcat">Captação de recursos</span><span><span class="bpct">9%</span><span class="bval">R$ 13.743,75</span></span></div>
+      <div class="brow"><span class="bcat">Pré-produção</span><span><span class="bpct">6%</span><span class="bval">R$ 9.000,00</span></span></div>
+      <div class="brow"><span class="bcat">Assessoria contábil / jurídica</span><span><span class="bpct">3%</span><span class="bval">R$ 5.000,00</span></span></div>
+      <div class="brow"><span class="bcat">Pós-produção</span><span><span class="bpct">2%</span><span class="bval">R$ 3.200,00</span></span></div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-track">
+        <div class="bar-seg" style="width:61%;background:var(--brand-mid)"></div>
+        <div class="bar-seg" style="width:18%;background:var(--brand-light)"></div>
+        <div class="bar-seg" style="width:9%;background:var(--brand-accent)"></div>
+        <div class="bar-seg" style="width:6%;background:var(--gold)"></div>
+        <div class="bar-seg" style="width:3%;background:#c8b89a"></div>
+        <div class="bar-seg" style="width:2%;background:#ddd"></div>
+      </div>
+      <div class="bar-legend">
+        <div class="leg-item"><div class="leg-dot" style="background:var(--brand-mid)"></div>Execução</div>
+        <div class="leg-item"><div class="leg-dot" style="background:var(--brand-light)"></div>Custos vinculados</div>
+        <div class="leg-item"><div class="leg-dot" style="background:var(--brand-accent)"></div>Captação</div>
+        <div class="leg-item"><div class="leg-dot" style="background:var(--gold)"></div>Pré-prod.</div>
+        <div class="leg-item"><div class="leg-dot" style="background:#c8b89a"></div>Assessoria</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-label">Proponente</div>
+  <div class="sec-title">Raul Grecco – Coordenador geral</div>
+  <p class="sec-body" style="margin-bottom:0.8rem">Cineasta, produtor e educador audiovisual com mais de 20 anos de atuação. Iniciou na TV Globo; trabalhou com Marisa Monte, Djavan, Gal Costa e Andrucha Waddington. Dirigiu filmes exibidos em festivais de Brasília, Teresina e Cannes (Short Film Corner).</p>
+  <p class="sec-body">Fundador da <strong>Macuca Produções</strong> e idealizador do <strong>Festival de Cinema de Marataízes</strong> — já aprovado na Lei Rouanet e apoiado pelo Ministério da Cultura. Coordena oficinas gratuitas em comunidades do Espírito Santo há anos.</p>
+  <div style="margin-top:0.8rem;display:flex;gap:6px;flex-wrap:wrap">
+    <div class="pronac-badge" style="background:rgba(45,106,79,0.08);border-color:rgba(45,106,79,0.25);color:var(--brand-mid)"><i class="ti ti-world" aria-hidden="true"></i> www.macucaproducoes.com.br</div>
+  </div>
+</div>
+
+<div class="footer-bar">
+  <div>
+    <div class="ft-info">Captação autorizada até 30/09/2026 · Execução out/2025 – set/2026</div>
+    <div class="ft-info" style="margin-top:2px">Processo nº 01400.011668/2025-07 · Situação: E10 – Captação autorizada</div>
+  </div>
+  <div style="text-align:right">
+    <div class="ft-contact" style="font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:2px">Mecenato · Art. 18</div>
+    <div class="ft-contact">PRONAC 252599</div>
+  </div>
+</div>
+</div>
