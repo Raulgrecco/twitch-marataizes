@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TV Marataízes · Media Kit 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0c0c0c;
+  --ink2:#1a1a1a;
+  --paper:#f4f0e8;
+  --paper2:#ede9df;
+  --red:#c8102e;
+  --green:#1a6b3a;
+  --white:#ffffff;
+  --gray:#6b6b6b;
+  --lightgray:#d8d4cc;
+  --f-display:'Playfair Display',serif;
+  --f-cond:'Barlow Condensed',sans-serif;
+  --f-body:'Barlow',sans-serif;
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--ink);color:var(--white);font-family:var(--f-body);font-weight:300;line-height:1.6;overflow-x:hidden}
+
+/* SCROLL PROGRESS BAR */
+#progress{
+  position:fixed;top:0;left:0;height:3px;width:0%;
+  background:var(--red);z-index:999;transition:width 0.1s linear;
+}
+
+/* PLAY BUTTON */
+#playBtn{
+  position:fixed;bottom:32px;right:32px;z-index:500;
+  background:var(--red);color:var(--white);border:none;cursor:pointer;
+  font-family:var(--f-cond);font-size:13px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;
+  padding:14px 24px;border-radius:2px;
+  display:flex;align-items:center;gap:8px;
+  box-shadow:0 8px 32px rgba(200,16,46,0.4);
+  transition:transform .15s,box-shadow .15s;
+}
+#playBtn:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(200,16,46,0.5)}
+#playBtn svg{width:16px;height:16px;fill:currentColor}
+
+/* SCREEN - full viewport slides */
+.slide{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:80px clamp(24px,8vw,120px);
+  position:relative;overflow:hidden;
+  opacity:0;transform:translateY(40px);
+  transition:opacity 0.8s ease, transform 0.8s ease;
+}
+.slide.visible{opacity:1;transform:translateY(0)}
+
+/* SLIDE 1 - HERO */
+.s1{background:var(--ink);border-bottom:3px solid var(--red)}
+
+.s1-tag{
+  font-family:var(--f-cond);font-size:12px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--red);margin-bottom:2rem;
+  display:flex;align-items:center;gap:12px;
+}
+.s1-tag::before{content:'';display:block;width:40px;height:2px;background:var(--red)}
+
+.s1-h1{
+  font-family:var(--f-display);font-weight:900;
+  font-size:clamp(64px,12vw,160px);
+  line-height:0.88;letter-spacing:-0.02em;
+  color:var(--white);margin-bottom:2.5rem;
+}
+.s1-h1 em{color:var(--red);font-style:italic}
+
+.s1-sub{
+  font-size:clamp(15px,1.8vw,20px);color:rgba(255,255,255,0.55);
+  max-width:500px;line-height:1.7;
+  border-left:3px solid var(--red);padding-left:1.5rem;
+}
+
+.s1-badge{
+  position:absolute;right:8vw;bottom:10vh;
+  font-family:var(--f-cond);font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+  color:rgba(255,255,255,0.25);text-align:right;
+}
+
+/* SLIDE 2 - BIG NUMBER */
+.s2{
+  background:var(--red);
+  align-items:center;text-align:center;
+  border-bottom:3px solid #a00020;
+}
+.s2-label{
+  font-family:var(--f-cond);font-size:13px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;
+  color:rgba(255,255,255,0.6);margin-bottom:1.5rem;
+}
+.s2-num{
+  font-family:var(--f-display);font-weight:900;
+  font-size:clamp(80px,18vw,240px);
+  line-height:0.9;color:var(--white);letter-spacing:-0.03em;
+}
+.s2-unit{font-size:clamp(32px,6vw,80px);vertical-align:super}
+.s2-desc{
+  font-family:var(--f-cond);font-size:clamp(16px,2.5vw,28px);font-weight:600;
+  color:rgba(255,255,255,0.8);margin-top:1.5rem;letter-spacing:0.05em;
+  max-width:600px;
+}
+
+/* SLIDE 3 - PROVA */
+.s3{background:var(--paper);color:var(--ink)}
+
+.s3-tag{
+  font-family:var(--f-cond);font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--red);margin-bottom:1.5rem;display:flex;align-items:center;gap:10px;
+}
+.s3-tag::before{content:'';display:block;width:28px;height:2px;background:var(--red)}
+
+.s3-title{
+  font-family:var(--f-display);font-size:clamp(32px,5vw,64px);font-weight:700;
+  color:var(--ink);line-height:1.05;margin-bottom:3rem;letter-spacing:-0.01em;
+}
+.s3-title em{color:var(--red);font-style:italic}
+
+.s3-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--lightgray);border:1px solid var(--lightgray);
+}
+.s3-card{background:var(--white);padding:2rem 1.5rem}
+.s3-num{
+  font-family:var(--f-cond);font-size:clamp(44px,5vw,72px);font-weight:700;
+  color:var(--red);line-height:1;margin-bottom:0.5rem;
+}
+.s3-lbl{font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray)}
+.s3-detail{font-size:13px;color:var(--gray);margin-top:6px;line-height:1.5}
+
+/* SLIDE 4 - COMPARATIVO */
+.s4{background:var(--ink2);border-top:3px solid var(--red)}
+
+.s4-title{
+  font-family:var(--f-display);font-size:clamp(28px,4vw,52px);font-weight:700;
+  color:var(--white);margin-bottom:0.75rem;letter-spacing:-0.01em;
+}
+.s4-title em{color:var(--red);font-style:italic}
+.s4-sub{font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:2.5rem}
+
+.bar-item{margin-bottom:1.25rem}
+.bar-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.bar-handle{font-family:var(--f-cond);font-size:clamp(13px,1.5vw,16px);font-weight:600;color:rgba(255,255,255,0.7)}
+.bar-handle.us{color:var(--white);font-size:clamp(15px,1.8vw,20px)}
+.bar-val{font-family:var(--f-cond);font-size:clamp(18px,2.5vw,28px);font-weight:700;color:var(--red)}
+.bar-val.us{font-size:clamp(22px,3vw,36px);color:#4ade80}
+.bar-track{height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden}
+.bar-fill{height:6px;border-radius:3px;background:rgba(200,16,46,0.4);width:0;transition:width 1.5s ease}
+.bar-item.us .bar-fill{background:var(--red)}
+.bar-subs{font-size:11px;color:rgba(255,255,255,0.25);margin-top:3px;font-family:var(--f-cond);letter-spacing:0.1em}
+
+/* SLIDE 5 - 148x */
+.s5{
+  background:var(--white);color:var(--ink);
+  align-items:flex-start;justify-content:center;
+  border-left:none;
+}
+.s5-inner{display:grid;grid-template-columns:auto 1fr;gap:4vw;align-items:center}
+.s5-big{
+  font-family:var(--f-display);font-weight:900;
+  font-size:clamp(100px,18vw,220px);
+  line-height:0.85;color:var(--red);letter-spacing:-0.04em;
+  white-space:nowrap;
+}
+.s5-right{}
+.s5-label{
+  font-family:var(--f-cond);font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--red);margin-bottom:1rem;
+}
+.s5-hed{
+  font-family:var(--f-display);font-size:clamp(22px,3vw,42px);font-weight:700;
+  color:var(--ink);line-height:1.1;margin-bottom:1.25rem;
+}
+.s5-body{font-size:clamp(14px,1.5vw,17px);color:var(--gray);line-height:1.75;max-width:440px}
+
+/* SLIDE 6 - CTA */
+.s6{
+  background:var(--ink);
+  align-items:center;text-align:center;
+  border-top:3px solid var(--red);
+}
+.s6-pre{
+  font-family:var(--f-cond);font-size:11px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--red);margin-bottom:1.5rem;
+}
+.s6-title{
+  font-family:var(--f-display);font-weight:900;
+  font-size:clamp(44px,8vw,100px);
+  line-height:0.92;color:var(--white);margin-bottom:2rem;letter-spacing:-0.02em;
+}
+.s6-title em{color:var(--red);font-style:italic}
+.s6-sub{font-size:clamp(14px,1.5vw,18px);color:rgba(255,255,255,0.45);margin-bottom:3rem;max-width:480px}
+.s6-handle{
+  display:inline-block;
+  font-family:var(--f-cond);font-size:clamp(16px,2.5vw,28px);font-weight:700;letter-spacing:0.1em;
+  color:var(--white);border:2px solid var(--red);padding:16px 40px;
+  border-radius:2px;
+}
+.s6-footer{
+  position:absolute;bottom:2rem;left:0;right:0;text-align:center;
+  font-size:11px;color:rgba(255,255,255,0.2);font-family:var(--f-cond);letter-spacing:0.15em;text-transform:uppercase;
+}
+
+/* COUNTER ANIMATION */
+@keyframes countUp{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:scale(1)}}
+.slide.visible .s2-num,.slide.visible .s5-big{animation:countUp 0.6s cubic-bezier(0.34,1.56,0.64,1) both}
+
+@media(max-width:768px){
+  .s3-grid{grid-template-columns:1fr 1fr}
+  .s5-inner{grid-template-columns:1fr;text-align:center}
+  .s5-big{font-size:clamp(80px,20vw,140px)}
+  .s5-body{max-width:100%}
+  .slide{padding:60px clamp(20px,6vw,60px)}
+}
+@media(max-width:480px){
+  .s3-grid{grid-template-columns:1fr}
+  .s1-h1{font-size:clamp(52px,14vw,100px)}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<button id="playBtn" onclick="startScroll()">
+  <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+  Iniciar apresentação
+</button>
+
+<!-- SLIDE 1: HERO -->
+<div class="slide s1" id="s1">
+  <div class="s1-tag">Media Kit 2026 · Marataízes, ES</div>
+  <h1 class="s1-h1">A voz<br>de <em>Marata</em><br><em>ízes.</em></h1>
+  <p class="s1-sub">O canal de jornalismo local com o maior engajamento real da cidade. Dados auditados por ferramentas profissionais. Audiência que compra em Marataízes.</p>
+  <div class="s1-badge">@tvmarataizes · Dados: NJL + HypeAuditor + Meta Insights</div>
+</div>
+
+<!-- SLIDE 2: ENGAJAMENTO EM DESTAQUE -->
+<div class="slide s2" id="s2">
+  <div class="s2-label">Taxa de engajamento verificada</div>
+  <div class="s2-num">2<span class="s2-unit">,97%</span></div>
+  <div class="s2-desc">Maior engajamento real entre todos os canais de Marataízes e região sul do ES</div>
+</div>
+
+<!-- SLIDE 3: PROVA REAL -->
+<div class="slide s3" id="s3">
+  <div class="s3-tag">Prova ao vivo · 15 de maio de 2026</div>
+  <h2 class="s3-title">Um Reel. Sem<br>impulsionamento. <em>Real.</em></h2>
+  <div class="s3-grid">
+    <div class="s3-card">
+      <div class="s3-num">1.131</div>
+      <div class="s3-lbl">Visualizações</div>
+      <div class="s3-detail">Em apenas 2 horas de veiculação</div>
+    </div>
+    <div class="s3-card">
+      <div class="s3-num">167</div>
+      <div class="s3-lbl">Compartilhamentos</div>
+      <div class="s3-detail">A métrica que não se compra</div>
+    </div>
+    <div class="s3-card">
+      <div class="s3-num">37<span style="font-size:0.6em">%</span></div>
+      <div class="s3-lbl">Não seguidores</div>
+      <div class="s3-detail">O conteúdo saiu da bolha sozinho</div>
+    </div>
+    <div class="s3-card">
+      <div class="s3-num">211</div>
+      <div class="s3-lbl">Interações</div>
+      <div class="s3-detail">Curtidas, comentários, saves</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: COMPARATIVO -->
+<div class="slide s4" id="s4">
+  <div class="s4-tag" style="font-family:var(--f-cond);font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--red);margin-bottom:1rem;display:flex;align-items:center;gap:10px;"><span style="display:block;width:24px;height:2px;background:var(--red)"></span>Comparativo · Sul do Espírito Santo</div>
+  <h2 class="s4-title">Seguidores não<br>pagam boleto. <em>Engajamento sim.</em></h2>
+  <p class="s4-sub">Dados públicos via Not Just Analytics · Maio 2026</p>
+
+  <div class="bar-item">
+    <div class="bar-top">
+      <span class="bar-handle">@aquinoticias · 194K seguidores</span>
+      <span class="bar-val">0,02%</span>
+    </div>
+    <div class="bar-track"><div class="bar-fill" data-width="0.5%"></div></div>
+    <div class="bar-subs">29 curtidas médias por post</div>
+  </div>
+
+  <div class="bar-item">
+    <div class="bar-top">
+      <span class="bar-handle">@vidacapixabanews · 263K seguidores</span>
+      <span class="bar-val">0,08%</span>
+    </div>
+    <div class="bar-track"><div class="bar-fill" data-width="2%"></div></div>
+    <div class="bar-subs">169 curtidas médias por post</div>
+  </div>
+
+  <div class="bar-item">
+    <div class="bar-top">
+      <span class="bar-handle">@prefeituramarataizes · 62K seguidores</span>
+      <span class="bar-val">0,34%</span>
+    </div>
+    <div class="bar-track"><div class="bar-fill" data-width="8%"></div></div>
+    <div class="bar-subs">200 curtidas médias por post</div>
+  </div>
+
+  <div class="bar-item">
+    <div class="bar-top">
+      <span class="bar-handle">@marata_news · 24K seguidores</span>
+      <span class="bar-val">1,51%</span>
+    </div>
+    <div class="bar-track"><div class="bar-fill" data-width="38%"></div></div>
+    <div class="bar-subs">359 curtidas médias por post</div>
+  </div>
+
+  <div class="bar-item us">
+    <div class="bar-top">
+      <span class="bar-handle us">@tvmarataizes · 11,6K seguidores</span>
+      <span class="bar-val us">2,97%</span>
+    </div>
+    <div class="bar-track" style="background:rgba(255,255,255,0.1)"><div class="bar-fill" data-width="100%"></div></div>
+    <div class="bar-subs" style="color:rgba(255,255,255,0.5)">299 curtidas médias · acima da média do segmento</div>
+  </div>
+</div>
+
+<!-- SLIDE 5: 148x -->
+<div class="slide s5" id="s5">
+  <div class="s5-inner">
+    <div class="s5-big">148×</div>
+    <div class="s5-right">
+      <div class="s5-label">O número que muda tudo</div>
+      <h2 class="s5-hed">A TV Marataízes engaja 148 vezes mais que o maior portal do sul do ES</h2>
+      <p class="s5-body">@aquinoticias tem 194 mil seguidores verificados e 0,02% de engajamento. Nós temos 11,6 mil seguidores e 2,97%. Tamanho não garante atenção. Atenção local comprovável é o que vendemos.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6: CTA -->
+<div class="slide s6" id="s6">
+  <div class="s6-pre">Anuncie aqui</div>
+  <h2 class="s6-title">Fale com quem<br>compra em<br><em>Marataízes.</em></h2>
+  <p class="s6-sub">Audiência real. Engajamento verificado. Preço de canal local. Resultado de canal profissional.</p>
+  <div class="s6-handle">📲 @tvmarataizes</div>
+  <div class="s6-footer">Dados: Not Just Analytics · HypeAuditor · Meta Insights · Maio 2026 · Marataízes, ES</div>
+</div>
+
+<script>
+// Intersection Observer para revelar slides
+const slides = document.querySelectorAll('.slide');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+      // Animar barras
+      entry.target.querySelectorAll('.bar-fill').forEach(bar => {
+        setTimeout(() => { bar.style.width = bar.dataset.width || '0%'; }, 300);
+      });
+    }
+  });
+}, {threshold: 0.2});
+
+slides.forEach(s => observer.observe(s));
+
+// Reveal inicial
+setTimeout(() => { document.getElementById('s1').classList.add('visible'); }, 200);
+
+// Progress bar
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.body.scrollHeight - window.innerHeight;
+  const progress = (scrollTop / docHeight) * 100;
+  document.getElementById('progress').style.width = progress + '%';
+});
+
+// AUTO SCROLL
+let scrollInterval = null;
+let isPlaying = false;
+
+function startScroll(){
+  if(isPlaying){
+    clearInterval(scrollInterval);
+    isPlaying = false;
+    document.getElementById('playBtn').innerHTML = '<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M8 5v14l11-7z"/></svg> Iniciar apresentação';
+    return;
+  }
+  isPlaying = true;
+  document.getElementById('playBtn').innerHTML = '<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg> Pausar';
+  
+  // Scroll suave e lento — perfeito para gravar
+  const speed = 1.2; // pixels por frame
+  scrollInterval = setInterval(() => {
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    if(window.scrollY >= maxScroll){
+      clearInterval(scrollInterval);
+      isPlaying = false;
+      document.getElementById('playBtn').innerHTML = '<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M8 5v14l11-7z"/></svg> Iniciar apresentação';
+      window.scrollTo({top:0,behavior:'smooth'});
+      return;
+    }
+    window.scrollBy(0, speed);
+  }, 16); // ~60fps
+}
+
+// Tecla espaço para play/pause
+document.addEventListener('keydown', e => {
+  if(e.code === 'Space'){ e.preventDefault(); startScroll(); }
+});
+</script>
+</body>
+</html>
