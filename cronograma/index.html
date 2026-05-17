@@ -3,991 +3,609 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TV Marataízes — 90 Perguntas de Rua</title>
+<title>TV Marataízes — Roteiros de Abertura e Fechamento</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f4f0;color:#1a1a18;font-size:14px}
-.top-bar{background:#26215C;padding:1.25rem 1.5rem;position:sticky;top:0;z-index:100}
-.top-bar h1{color:#CECBF6;font-size:16px;font-weight:500;margin-bottom:6px}
-.top-bar p{color:#7F77DD;font-size:12px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f4f0;color:#1a1a18;font-size:14px;line-height:1.6}
+.topbar{background:#26215C;padding:1.25rem 1.5rem;position:sticky;top:0;z-index:100}
+.topbar h1{color:#CECBF6;font-size:16px;font-weight:600;margin-bottom:4px}
+.topbar p{color:#7F77DD;font-size:12px}
 .controls{background:#fff;border-bottom:1px solid #e8e6e0;padding:.75rem 1.5rem;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.filter-btn{padding:5px 12px;font-size:12px;font-weight:500;border:1px solid #d3d1c7;border-radius:20px;cursor:pointer;background:#fff;color:#5f5e5a;transition:all .15s}
-.filter-btn.on{background:#26215C;color:#CECBF6;border-color:#26215C}
-.search-input{padding:5px 12px;font-size:12px;border:1px solid #d3d1c7;border-radius:20px;background:#fff;color:#1a1a18;width:200px;outline:none}
-.search-input:focus{border-color:#534AB7}
-.stats{margin-left:auto;font-size:11px;color:#888780}
-.container{max-width:1100px;margin:0 auto;padding:1.5rem}
-.semana-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#888780;margin:1.5rem 0 .75rem;padding-left:2px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px;margin-bottom:.5rem}
-.card{background:#fff;border-radius:12px;border:1px solid #e8e6e0;padding:1rem 1.1rem;transition:box-shadow .15s;position:relative}
-.card:hover{box-shadow:0 2px 12px rgba(0,0,0,.08)}
-.card-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:.6rem}
-.dia-num{font-size:22px;font-weight:600;color:#26215C;min-width:36px;line-height:1}
-.card-meta{flex:1}
-.tipo-badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:12px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}
-.semana-tag{font-size:10px;color:#b4b2a9;margin-left:6px}
-.pergunta{font-size:14px;font-weight:600;color:#1a1a18;line-height:1.45;margin-bottom:.75rem}
-.row{display:flex;flex-direction:column;gap:4px}
-.row-item{display:flex;gap:6px;align-items:flex-start}
-.row-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#b4b2a9;min-width:68px;padding-top:2px;flex-shrink:0}
-.row-val{font-size:12px;color:#5f5e5a;line-height:1.45}
+.fbtn{padding:5px 13px;font-size:12px;font-weight:500;border:1px solid #d3d1c7;border-radius:20px;cursor:pointer;background:#fff;color:#5f5e5a;transition:all .15s}
+.fbtn.on{background:#26215C;color:#CECBF6;border-color:#26215C}
+.container{max-width:900px;margin:0 auto;padding:1.5rem}
+.tipo-section{margin-bottom:2.5rem}
+.tipo-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:2px solid #e8e6e0}
+.tipo-badge{font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;letter-spacing:.04em;text-transform:uppercase}
+.tipo-desc{font-size:13px;color:#5f5e5a;flex:1}
+.roteiro-card{background:#fff;border-radius:12px;border:1px solid #e8e6e0;margin-bottom:1rem;overflow:hidden}
+.rc-header{padding:.85rem 1.1rem;border-bottom:1px solid #f0ede8;display:flex;align-items:center;gap:8px}
+.rc-num{font-size:12px;font-weight:600;color:#888780}
+.rc-pergunta{font-size:13px;font-weight:500;color:#1a1a18;flex:1;font-style:italic}
+.rc-body{padding:.85rem 1.1rem}
+.bloco{margin-bottom:.9rem}
+.bloco:last-child{margin-bottom:0}
+.bloco-lbl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.4rem;display:flex;align-items:center;gap:6px}
+.bloco-tempo{font-size:10px;font-weight:500;color:#888780;background:#f5f4f0;padding:2px 7px;border-radius:10px}
+.bloco-txt{font-size:13px;line-height:1.65;padding:10px 13px;border-radius:8px;border-left:3px solid transparent}
+.bloco-txt em{font-style:normal;font-weight:600}
+.ab{background:#E6F1FB;border-left-color:#378ADD;color:#0c447c}
+.fe{background:#E1F5EE;border-left-color:#1D9E75;color:#085041}
+.nota{background:#FAEEDA;border-left-color:#EF9F27;color:#633806;font-size:12px;padding:8px 12px;border-radius:8px;margin-top:.5rem}
+.regras-box{background:#26215C;border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:2rem}
+.regras-title{font-size:14px;font-weight:600;color:#CECBF6;margin-bottom:.75rem}
+.regra-row{display:flex;gap:10px;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.regra-row:last-child{border-bottom:none}
+.regra-k{font-size:11px;font-weight:600;color:#7F77DD;min-width:100px;padding-top:1px;text-transform:uppercase;letter-spacing:.04em}
+.regra-v{font-size:12px;color:#AFA9EC;line-height:1.5}
 .hidden{display:none}
+.estrutura-visual{display:flex;gap:0;margin:1rem 0;border-radius:10px;overflow:hidden;border:1px solid #e8e6e0}
+.ev-bloco{padding:10px 14px;text-align:center;flex:1}
+.ev-lbl{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px}
+.ev-tempo{font-size:16px;font-weight:700;margin-bottom:2px}
+.ev-desc{font-size:10px;line-height:1.4}
 
-.t-opiniao{background:#E6F1FB;color:#0C447C}
-.t-memoria{background:#F3E8FF;color:#7B2D8B}
-.t-orgulho{background:#E1F5EE;color:#085041}
-.t-utilidade{background:#FAEEDA;color:#633806}
-.t-comercio{background:#EAF3DE;color:#27500A}
-.t-cultura{background:#F1EFE8;color:#444441}
-.t-politica{background:#EEEDFE;color:#3C3489}
-.t-humor{background:#FBEAF0;color:#72243E}
-.t-nostalgia{background:#FAECE7;color:#712B13}
-.t-ranking{background:#E6F1FB;color:#185FA5}
-.t-desejo{background:#E1F5EE;color:#0F6E56}
-.t-problema{background:#FCEBEB;color:#791F1F}
-.t-curiosidade{background:#EEEDFE;color:#534AB7}
-.t-turismo{background:#EAF3DE;color:#3B6D11}
+/* tipo cores */
+.t-orgulho .tipo-badge{background:#E1F5EE;color:#085041}
+.t-orgulho .tipo-header{border-bottom-color:#1D9E75}
+.t-problema .tipo-badge{background:#FCEBEB;color:#791F1F}
+.t-problema .tipo-header{border-bottom-color:#E24B4A}
+.t-humor .tipo-badge{background:#FBEAF0;color:#72243E}
+.t-humor .tipo-header{border-bottom-color:#D4537E}
+.t-nostalgia .tipo-badge{background:#FAECE7;color:#712B13}
+.t-nostalgia .tipo-header{border-bottom-color:#D85A30}
+.t-politica .tipo-badge{background:#EEEDFE;color:#3C3489}
+.t-politica .tipo-header{border-bottom-color:#534AB7}
+.t-opiniao .tipo-badge{background:#E6F1FB;color:#0C447C}
+.t-opiniao .tipo-header{border-bottom-color:#378ADD}
+.t-ranking .tipo-badge{background:#EAF3DE;color:#27500A}
+.t-ranking .tipo-header{border-bottom-color:#639922}
+.t-desejo .tipo-badge{background:#F3E8FF;color:#7B2D8B}
+.t-desejo .tipo-header{border-bottom-color:#7B2D8B}
+.t-memoria .tipo-badge{background:#FAEEDA;color:#633806}
+.t-memoria .tipo-header{border-bottom-color:#EF9F27}
+.t-curiosidade .tipo-badge{background:#EEEDFE;color:#534AB7}
+.t-curiosidade .tipo-header{border-bottom-color:#7F77DD}
 </style>
 </head>
 <body>
 
-<div class="top-bar">
-  <h1>TV Marataízes — 90 Perguntas de Rua</h1>
-  <p>Calendário editorial · 90 dias · Formato único diário · Raul na rua com pessoas reais</p>
+<div class="topbar">
+  <h1>TV Marataízes — Roteiros de Abertura e Fechamento</h1>
+  <p>Raul como host · 10s abertura + cidade fala + 10s fechamento · 10 tipos de pergunta</p>
 </div>
 
 <div class="controls">
-  <button class="filter-btn on" onclick="filtrar('todos')">Todos</button>
-  <button class="filter-btn" onclick="filtrar('opiniao')">Opinião</button>
-  <button class="filter-btn" onclick="filtrar('memoria')">Memória</button>
-  <button class="filter-btn" onclick="filtrar('orgulho')">Orgulho</button>
-  <button class="filter-btn" onclick="filtrar('utilidade')">Utilidade</button>
-  <button class="filter-btn" onclick="filtrar('comercio')">Comércio</button>
-  <button class="filter-btn" onclick="filtrar('cultura')">Cultura</button>
-  <button class="filter-btn" onclick="filtrar('politica')">Política cidadã</button>
-  <button class="filter-btn" onclick="filtrar('humor')">Humor</button>
-  <button class="filter-btn" onclick="filtrar('nostalgia')">Nostalgia</button>
-  <button class="filter-btn" onclick="filtrar('ranking')">Ranking</button>
-  <button class="filter-btn" onclick="filtrar('desejo')">Desejo</button>
-  <button class="filter-btn" onclick="filtrar('problema')">Problema real</button>
-  <button class="filter-btn" onclick="filtrar('curiosidade')">Curiosidade</button>
-  <button class="filter-btn" onclick="filtrar('turismo')">Turismo</button>
-  <input class="search-input" type="text" placeholder="Buscar pergunta..." oninput="buscar(this.value)">
-  <span class="stats" id="stats">90 perguntas</span>
+  <button class="fbtn on" onclick="filtrar('todos',this)">Todos</button>
+  <button class="fbtn" onclick="filtrar('orgulho',this)">Orgulho</button>
+  <button class="fbtn" onclick="filtrar('problema',this)">Problema real</button>
+  <button class="fbtn" onclick="filtrar('humor',this)">Humor</button>
+  <button class="fbtn" onclick="filtrar('nostalgia',this)">Nostalgia</button>
+  <button class="fbtn" onclick="filtrar('politica',this)">Política cidadã</button>
+  <button class="fbtn" onclick="filtrar('opiniao',this)">Opinião</button>
+  <button class="fbtn" onclick="filtrar('ranking',this)">Ranking</button>
+  <button class="fbtn" onclick="filtrar('desejo',this)">Desejo</button>
+  <button class="fbtn" onclick="filtrar('memoria',this)">Memória</button>
+  <button class="fbtn" onclick="filtrar('curiosidade',this)">Curiosidade</button>
 </div>
 
-<div class="container" id="container">
+<div class="container">
 
-<div class="semana-label">Semana 1 · Dias 1–7 · Abertura — tom positivo, identificação imediata</div>
-<div class="grid">
-
-<div class="card" data-tipo="orgulho">
-<div class="card-top"><div class="dia-num">1</div><div class="card-meta"><span class="tipo-badge t-orgulho">Orgulho</span><span class="semana-tag">Sem. 1</span></div></div>
-<div class="pergunta">"Qual o lugar de Marataízes que você mais gosta e que quase ninguém conhece?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Abrir com pertencimento forte. Revela lugares escondidos da cidade e gera orgulho territorial imediato.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Comentários com lugares específicos. Moradores defendendo seus cantos favoritos. Alto compartilhamento entre quem conhece o lugar citado.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Cada lugar citado é um candidato a visita na semana seguinte.</div></div>
-</div></div>
-
-<div class="card" data-tipo="nostalgia">
-<div class="card-top"><div class="dia-num">2</div><div class="card-meta"><span class="tipo-badge t-nostalgia">Nostalgia</span><span class="semana-tag">Sem. 1</span></div></div>
-<div class="pergunta">"Qual era o ponto de encontro de Marataízes que não existe mais?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Ativar memória coletiva desde o dia 2. Pessoas mais velhas compartilham com filhos e netos.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Comentários emocionais, histórias pessoais, fotos antigas nos comentários. Thread longa.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O lugar mais citado vira pauta do Memórias ou de um mini-doc histórico.</div></div>
-</div></div>
-
-<div class="card" data-tipo="ranking">
-<div class="card-top"><div class="dia-num">3</div><div class="card-meta"><span class="tipo-badge t-ranking">Ranking</span><span class="semana-tag">Sem. 1</span></div></div>
-<div class="pergunta">"Qual é o melhor prato de comida de Marataízes? Me diz o prato e onde encontrar."</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Gerar debate leve e orgulho culinário. Ativa o comércio local nos comentários organicamente.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Debate acalorado nos comentários. Donos de restaurantes marcados. Seguidores pedindo visita ao lugar vencedor.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O restaurante mais votado vira pauta de identidade territorial com protagonista humano.</div></div>
-</div></div>
-
-<div class="card" data-tipo="desejo">
-<div class="card-top"><div class="dia-num">4</div><div class="card-meta"><span class="tipo-badge t-desejo">Desejo</span><span class="semana-tag">Sem. 1</span></div></div>
-<div class="pergunta">"O que você mais sente falta em Marataízes que existe em outras cidades?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Revelar necessidades reais da cidade sem tom de denúncia. A cidade fala — a TV ouve.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas práticas (cinema, hospital, transporte). Identificação coletiva. Compartilhamento entre quem sente o mesmo.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As respostas mais frequentes viram pautas de relevância pública nas semanas seguintes.</div></div>
-</div></div>
-
-<div class="card" data-tipo="humor">
-<div class="card-top"><div class="dia-num">5</div><div class="card-meta"><span class="tipo-badge t-humor">Humor</span><span class="semana-tag">Sem. 1</span></div></div>
-<div class="pergunta">"Qual é o jeito mais fácil de descobrir que alguém é de Marataízes de verdade?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Tom leve no dia 5. Gera identificação com humor e pertencimento sem exigir opinião difícil.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas engraçadas, memes nos comentários, marcação de amigos. Alto compartilhamento orgânico.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As respostas revelam traços culturais que viram conteúdo de identidade territorial.</div></div>
-</div></div>
-
-<div class="card" data-tipo="opiniao">
-<div class="card-top"><div class="dia-num">6</div><div class="card-meta"><span class="tipo-badge t-opiniao">Opinião</span><span class="semana-tag">Sem. 1</span></div></div>
-<div class="pergunta">"O que você acha que vai mudar em Marataízes nos próximos 5 anos?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Ativar visão de futuro. Revela otimismo, preocupações e expectativas reais da cidade.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Opiniões diversas, debate nos comentários entre otimistas e céticos. Compartilhamento por quem concorda com alguma resposta.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Preocupações recorrentes viram pautas de relevância pública.</div></div>
-</div></div>
-
-<div class="card" data-tipo="orgulho">
-<div class="card-top"><div class="dia-num">7</div><div class="card-meta"><span class="tipo-badge t-orgulho">Orgulho</span><span class="semana-tag">Sem. 1</span></div></div>
-<div class="pergunta">"Quem é a pessoa de Marataízes que você acha que merecia ser mais reconhecida?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Encerrar a semana 1 gerando protagonistas reais. A pessoa citada compartilha — e a rede dela descobre a TV.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Indicações com histórias emocionantes. A pessoa mais citada fica sabendo e compartilha. Alta emoção nos comentários.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O mais indicado é visitado na semana seguinte. Essa pergunta gera pauta por pelo menos 3 dias.</div></div>
-</div></div>
-
+<!-- ESTRUTURA VISUAL -->
+<div class="estrutura-visual">
+  <div class="ev-bloco" style="background:#E6F1FB">
+    <div class="ev-lbl" style="color:#0C447C">Abertura</div>
+    <div class="ev-tempo" style="color:#185FA5">8–12s</div>
+    <div class="ev-desc" style="color:#378ADD">Raul enquadra a pergunta e dá o tom</div>
+  </div>
+  <div class="ev-bloco" style="background:#f5f4f0">
+    <div class="ev-lbl" style="color:#888780">Cidade fala</div>
+    <div class="ev-tempo" style="color:#5f5e5a">30–40s</div>
+    <div class="ev-desc" style="color:#888780">4–5 pessoas, nome completo, bairro real</div>
+  </div>
+  <div class="ev-bloco" style="background:#E1F5EE">
+    <div class="ev-lbl" style="color:#085041">Fechamento</div>
+    <div class="ev-tempo" style="color:#0F6E56">8–12s</div>
+    <div class="ev-desc" style="color:#1D9E75">Raul interpreta e abre o próximo passo</div>
+  </div>
 </div>
 
-<div class="semana-label">Semana 2 · Dias 8–14 · Aprofundamento — cotidiano, serviço e memória</div>
-<div class="grid">
+<!-- REGRAS FIXAS -->
+<div class="regras-box">
+  <div class="regras-title">As regras que nunca mudam — independente do tipo</div>
+  <div class="regra-row"><div class="regra-k">Frame 1</div><div class="regra-v">Nunca começa com "olá" ou "sou Raul da TV Marataízes." O primeiro frame é a informação ou a pergunta — sempre.</div></div>
+  <div class="regra-row"><div class="regra-k">Abertura</div><div class="regra-v">Raul faz UMA pergunta. Nunca duas. Quanto mais específica a pergunta, mais específica — e compartilhável — é a resposta da cidade.</div></div>
+  <div class="regra-row"><div class="regra-k">Transição</div><div class="regra-v">Entre abertura e cidade: corte direto. Sem música de transição, sem fade. A cidade começa a falar no frame seguinte ao de Raul.</div></div>
+  <div class="regra-row"><div class="regra-k">Durante</div><div class="regra-v">Nome completo + bairro em legenda para cada pessoa. Isso é o que gera o compartilhamento no WhatsApp — o vizinho reconhecendo o vizinho.</div></div>
+  <div class="regra-row"><div class="regra-k">Fechamento</div><div class="regra-v">Raul não resume o que a cidade disse — interpreta. "A cidade disse X. O que isso revela é Y." Essa distinção é o que constrói o posicionamento de intérprete, não de apresentador.</div></div>
+  <div class="regra-row"><div class="regra-k">CTA</div><div class="regra-v">Todo fechamento termina com UMA ação pedida. "Comenta aqui" OU "manda pra quem é de Marataízes" OU "me conta nos comentários." Nunca os três juntos.</div></div>
+  <div class="regra-row"><div class="regra-k">Tom de Raul</div><div class="regra-v">Anfitrião curioso — não apresentador. Não sabe a resposta antes de perguntar. Está genuinamente interessado no que a cidade vai dizer.</div></div>
+</div>
 
-<div class="card" data-tipo="comercio">
-<div class="card-top"><div class="dia-num">8</div><div class="card-meta"><span class="tipo-badge t-comercio">Comércio</span><span class="semana-tag">Sem. 2</span></div></div>
-<div class="pergunta">"Qual comércio de Marataízes você frequenta há mais tempo — e por quê ainda vai lá?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Valorizar o comércio local com voz de cliente real. Mais poderoso que qualquer publi.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Donos de comércio marcados nos comentários. Clientes se reconhecendo. Alta propensão ao compartilhamento.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O comércio mais citado é o candidato natural a patrocínio ético da semana seguinte.</div></div>
-</div></div>
+<!-- ORGULHO -->
+<div class="tipo-section t-orgulho" data-tipo="orgulho">
+<div class="tipo-header">
+  <span class="tipo-badge">Orgulho</span>
+  <span class="tipo-desc">Reconhecimento, pertencimento positivo, celebração da cidade e das pessoas que a fazem funcionar.</span>
+</div>
 
-<div class="card" data-tipo="problema">
-<div class="card-top"><div class="dia-num">9</div><div class="card-meta"><span class="tipo-badge t-problema">Problema real</span><span class="semana-tag">Sem. 2</span></div></div>
-<div class="pergunta">"Qual é o problema do dia a dia em Marataízes que incomoda você mas ninguém fala?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Abrir espaço para problemas reais sem tom de confronto. A cidade nomeia — a TV registra.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas práticas e identificáveis. Comentários de "exatamente isso!" Alto compartilhamento por quem sente o mesmo problema.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O problema mais recorrente vira pauta de relevância pública com dado verificável.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo A</span><span class="rc-pergunta">"Quem é a pessoa de Marataízes que merecia ser mais reconhecida?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt ab">"Marataízes tem gente que carrega essa cidade todo dia — e quase ninguém sabe o nome. Hoje eu vim aqui pra perguntar: <em>quem você acha que merecia ser mais reconhecido aqui?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt fe">"A cidade falou. E cada nome que apareceu aqui tem uma história que a maioria não conhece. <em>Comenta abaixo quem mais você indicaria — a gente vai atrás dessa pessoa.</em>"</div>
+</div>
+<div class="nota">A frase "a gente vai atrás" cria expectativa de continuidade. A audiência volta amanhã pra ver se Raul foi.</div>
+</div>
+</div>
 
-<div class="card" data-tipo="memoria">
-<div class="card-top"><div class="dia-num">10</div><div class="card-meta"><span class="tipo-badge t-memoria">Memória</span><span class="semana-tag">Sem. 2</span></div></div>
-<div class="pergunta">"Qual é a sua memória mais antiga de Marataízes?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Ativar memória afetiva profunda. Conecta gerações diferentes na mesma seção de comentários.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Histórias longas nos comentários, fotos antigas compartilhadas, emoção real. Maior tempo de permanência no vídeo.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Memórias recorrentes de mesmo período ou lugar viram episódio do Memórias com Ivilise.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo B</span><span class="rc-pergunta">"Qual profissão em Marataízes é mais importante e menos valorizada?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt ab">"Tem gente que acorda antes de todo mundo em Marataízes — e quando a cidade acorda, essa pessoa já fez tudo acontecer. <em>Qual profissão você acha que merecia muito mais reconhecimento do que recebe?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt fe">"Cada resposta aqui é um recado pra alguém que provavelmente não vai ouvir isso em mais nenhum lugar. <em>Manda esse vídeo pra quem você está pensando agora.</em>"</div>
+</div>
+<div class="nota">O CTA "manda pra quem você está pensando" é o mais poderoso para posts de reconhecimento — gera compartilhamento direcionado, não genérico.</div>
+</div>
+</div>
 
-<div class="card" data-tipo="utilidade">
-<div class="card-top"><div class="dia-num">11</div><div class="card-meta"><span class="tipo-badge t-utilidade">Utilidade</span><span class="semana-tag">Sem. 2</span></div></div>
-<div class="pergunta">"Qual serviço em Marataízes você recomendaria pra qualquer um sem hesitar?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Criar guia orgânico de Marataízes construído pela própria cidade. Alta utilidade prática.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Indicações variadas, debate entre opções, novos seguidores que buscam esse tipo de conteúdo.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Os serviços mais indicados viram pauta de identidade territorial com protagonista humano.</div></div>
-</div></div>
-
-<div class="card" data-tipo="curiosidade">
-<div class="card-top"><div class="dia-num">12</div><div class="card-meta"><span class="tipo-badge t-curiosidade">Curiosidade</span><span class="semana-tag">Sem. 2</span></div></div>
-<div class="pergunta">"O que você sabe sobre Marataízes que surpreenderia a maioria das pessoas?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Revelar saberes locais escondidos. Cada resposta é um conteúdo em potencial.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Fatos inusitados, histórias desconhecidas, curiosidades sobre a origem da cidade. Alto engajamento de quem "não sabia."</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Cada fato curioso é um gancho para conteúdo de memória ou de identidade territorial.</div></div>
-</div></div>
-
-<div class="card" data-tipo="turismo">
-<div class="card-top"><div class="dia-num">13</div><div class="card-meta"><span class="tipo-badge t-turismo">Turismo</span><span class="semana-tag">Sem. 2</span></div></div>
-<div class="pergunta">"Se um amigo de fora viesse passar um fim de semana aqui, o que você levaria ele pra fazer?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Turismo com voz local — não folheto de agência. O marataizense recomenda com orgulho próprio.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Listas criativas nos comentários, debate sobre o melhor roteiro, compartilhamento fora de Marataízes.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Os lugares mais citados viram pauta de identidade territorial com protagonista local.</div></div>
-</div></div>
-
-<div class="card" data-tipo="opiniao">
-<div class="card-top"><div class="dia-num">14</div><div class="card-meta"><span class="tipo-badge t-opiniao">Opinião</span><span class="semana-tag">Sem. 2</span></div></div>
-<div class="pergunta">"Marataízes tem crescido muito. Isso tem sido bom, ruim, ou as duas coisas?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Debate sobre crescimento urbano com dois lados claros. Ninguém está errado — todo mundo tem razão do seu ponto de vista.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Debate polarizado positivamente. Respostas longas e opinativas. Alto número de comentários.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Os aspectos negativos mais citados viram pauta de relevância pública na semana seguinte.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo C</span><span class="rc-pergunta">"O que faz você ter certeza de que escolheu o lugar certo pra viver?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt ab">"Muita gente passa a vida inteira num lugar sem parar pra pensar por quê. Eu quero saber: <em>o que faz você ter certeza de que Marataízes é o lugar certo pra você?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt fe">"Isso aqui não é resposta de turista. É resposta de quem vive. <em>Comenta aqui o que te prende em Marataízes — quero ler cada um.</em>"</div>
+</div>
+</div>
+</div>
 
 </div>
 
-<div class="semana-label">Semana 3 · Dias 15–21 · Protagonistas e pertencimento profundo</div>
-<div class="grid">
+<!-- PROBLEMA REAL -->
+<div class="tipo-section t-problema" data-tipo="problema">
+<div class="tipo-header">
+  <span class="tipo-badge">Problema real</span>
+  <span class="tipo-desc">Questões concretas do cotidiano — sem confronto, sem acusação. A cidade nomeia, a TV registra.</span>
+</div>
 
-<div class="card" data-tipo="orgulho">
-<div class="card-top"><div class="dia-num">15</div><div class="card-meta"><span class="tipo-badge t-orgulho">Orgulho</span><span class="semana-tag">Sem. 3</span></div></div>
-<div class="pergunta">"Qual profissão em Marataízes você acha que é mais importante e menos valorizada?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Reconhecimento de trabalhadores invisíveis. Quem for citado compartilha com toda a rede.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas emocionais. Garis, pescadores, professores, cozinheiras — a cidade nomeia seus heróis anônimos.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">A profissão mais citada vira mini-doc com o profissional real da cidade.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo A</span><span class="rc-pergunta">"Qual problema do dia a dia incomoda você mas ninguém fala?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt ab">"Tem coisas em Marataízes que a gente convive todo dia — e foi acostumando a aceitar. Eu quero saber: <em>qual problema do cotidiano te incomoda mas você nunca ouviu ninguém falar alto sobre isso?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt fe">"A cidade falou o que geralmente fica só no pensamento. <em>Comenta aqui se você passa pelo mesmo — quanto mais gente falar, mais visível isso fica.</em>"</div>
+</div>
+<div class="nota">O fechamento não promete resolução — promete visibilidade. Isso é honesto e cria expectativa realista sem comprometer editorialmente.</div>
+</div>
+</div>
 
-<div class="card" data-tipo="nostalgia">
-<div class="card-top"><div class="dia-num">16</div><div class="card-meta"><span class="tipo-badge t-nostalgia">Nostalgia</span><span class="semana-tag">Sem. 3</span></div></div>
-<div class="pergunta">"Qual música você associa a Marataízes — ou a alguma época específica aqui?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Memória afetiva via trilha sonora. Tom leve com emoção genuína. Diferente de qualquer pergunta anterior.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas variadas com histórias por trás. Comentários de "nossa, me lembrei de!" Alta retenção no vídeo.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Artistas locais citados viram pauta de cultura com protagonista humano.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo B</span><span class="rc-pergunta">"Qual obra ou serviço público você espera há mais tempo?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt ab">"Em toda cidade tem aquela coisa que a gente espera há tanto tempo que já nem lembra quando começou a esperar. Em Marataízes não é diferente. <em>Qual obra ou serviço você está esperando há mais tempo?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt fe">"Cada resposta aqui é um endereço, um bairro, um nome real. <em>Comenta o seu — quanto mais específico, melhor.</em>"</div>
+</div>
+<div class="nota">"Quanto mais específico, melhor" incentiva respostas com rua e bairro — que geram compartilhamento entre vizinhos afetados pelo mesmo problema.</div>
+</div>
+</div>
 
-<div class="card" data-tipo="politica">
-<div class="card-top"><div class="dia-num">17</div><div class="card-meta"><span class="tipo-badge t-politica">Política cidadã</span><span class="semana-tag">Sem. 3</span></div></div>
-<div class="pergunta">"Se você tivesse R$ 1 milhão pra investir em Marataízes, onde colocaria primeiro?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Política cidadã sem confronto. A cidade define prioridades — sem atacar ninguém.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas práticas e reveladoras. Saúde, educação, saneamento, lazer. Debate entre prioridades.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As prioridades mais citadas revelam o que a cidade considera urgente — pauta de relevância pública.</div></div>
-</div></div>
-
-<div class="card" data-tipo="humor">
-<div class="card-top"><div class="dia-num">18</div><div class="card-meta"><span class="tipo-badge t-humor">Humor</span><span class="semana-tag">Sem. 3</span></div></div>
-<div class="pergunta">"Qual é o maior clichê de Marataízes — a coisa que todo visitante faz ou fala?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Humor de pertencimento com cumplicidade local. Quem é de lá entende — quem é de fora quer entender.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Risadas nos comentários, marcação de amigos visitantes, compartilhamento em grupos.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Os clichês revelam a identidade cultural da cidade — material para conteúdo de identidade territorial.</div></div>
-</div></div>
-
-<div class="card" data-tipo="desejo">
-<div class="card-top"><div class="dia-num">19</div><div class="card-meta"><span class="tipo-badge t-desejo">Desejo</span><span class="semana-tag">Sem. 3</span></div></div>
-<div class="pergunta">"Qual sonho você tem pra Marataízes que ainda parece longe de acontecer?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Revelar o que a cidade projeta para o futuro. Tom esperançoso, não crítico.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas emocionais e criativas. Compartilhamento por quem tem o mesmo sonho.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Sonhos coletivos recorrentes viram pauta de debate comunitário.</div></div>
-</div></div>
-
-<div class="card" data-tipo="comercio">
-<div class="card-top"><div class="dia-num">20</div><div class="card-meta"><span class="tipo-badge t-comercio">Comércio</span><span class="semana-tag">Sem. 3</span></div></div>
-<div class="pergunta">"Qual negócio você acha que faz falta em Marataízes e que alguém deveria abrir?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Revelar oportunidades de mercado com voz da cidade. Empreendedores locais prestam atenção.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Ideias variadas, debate sobre viabilidade, possíveis empreendedores que aparecem nos comentários.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Oportunidade mais citada vira pauta de comércio local — e possível parceiro comercial.</div></div>
-</div></div>
-
-<div class="card" data-tipo="cultura">
-<div class="card-top"><div class="dia-num">21</div><div class="card-meta"><span class="tipo-badge t-cultura">Cultura</span><span class="semana-tag">Sem. 3</span></div></div>
-<div class="pergunta">"Tem alguma tradição de Marataízes que você acha que está se perdendo?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Patrimônio cultural imaterial com voz da cidade. Conecta gerações e ativa nostalgia com propósito.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas de diferentes gerações. Idosos compartilham com filhos. Comentários emocionados.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">A tradição mais citada vira episódio do Memórias com Ivilise ou conteúdo de identidade cultural.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo C</span><span class="rc-pergunta">"Onde você se sente menos seguro em Marataízes?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt ab">"Segurança é uma das coisas que a gente só percebe quando falta. Eu quero entender como Marataízes está nisso na visão de quem vive aqui: <em>tem algum horário ou lugar na cidade onde você se sente menos seguro?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt fe">"Isso que a cidade disse aqui vai ficar registrado. <em>Se você tem uma situação específica pra compartilhar, manda nos comentários ou no nosso direct.</em>"</div>
+</div>
+<div class="nota">Para perguntas sensíveis como segurança, o fechamento oferece o direct como alternativa — protege a pessoa que não quer se expor publicamente e gera contato privado com pauta qualificada.</div>
+</div>
+</div>
 
 </div>
 
-<div class="semana-label">Semana 4 · Dias 22–28 · Debate, ranking e fechamento do primeiro mês</div>
-<div class="grid">
+<!-- HUMOR -->
+<div class="tipo-section t-humor" data-tipo="humor">
+<div class="tipo-header">
+  <span class="tipo-badge">Humor</span>
+  <span class="tipo-desc">Leveza com identidade local. Raul mais solto, mais rápido, mais com cara de quem está se divertindo genuinamente.</span>
+</div>
 
-<div class="card" data-tipo="ranking">
-<div class="card-top"><div class="dia-num">22</div><div class="card-meta"><span class="tipo-badge t-ranking">Ranking</span><span class="semana-tag">Sem. 4</span></div></div>
-<div class="pergunta">"Qual é a praia mais bonita do litoral sul do ES na sua opinião — e o que faz ela especial?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Debate territorial com orgulho local. Expande o alcance para toda a região sul do ES.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Debate entre Marataízes e cidades vizinhas nos comentários. Compartilhamento fora da cidade.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As praias e características citadas viram pauta de turismo com protagonista local.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo A</span><span class="rc-pergunta">"Qual é o jeito mais fácil de descobrir que alguém é de Marataízes?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">8s</span></div>
+  <div class="bloco-txt ab">"Cada cidade tem seus sinais. Os que todo mundo reconhece mas nunca explicou direito. <em>Como é que você descobre que alguém é de Marataízes de verdade?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">8s</span></div>
+  <div class="bloco-txt fe">"Reconheceu alguém aqui? <em>Marca essa pessoa nos comentários.</em>"</div>
+</div>
+<div class="nota">Para humor, o fechamento é mais curto e mais direto. "Marca essa pessoa" é o CTA com maior taxa de compartilhamento em posts de identificação — não pede, instiga.</div>
+</div>
+</div>
 
-<div class="card" data-tipo="opiniao">
-<div class="card-top"><div class="dia-num">23</div><div class="card-meta"><span class="tipo-badge t-opiniao">Opinião</span><span class="semana-tag">Sem. 4</span></div></div>
-<div class="pergunta">"O que você acha que Marataízes faz melhor do que qualquer cidade do ES?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Orgulho comparativo. Reforça identidade territorial sem diminuir outras cidades.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas variadas e orgulhosas. Compartilhamento por quem concorda. Novos seguidores de fora da cidade.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As qualidades mais citadas viram narrativa de identidade da marca da cidade.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo B</span><span class="rc-pergunta">"Qual é a desculpa mais criativa que você já ouviu pra chegar atrasado em Marataízes?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">8s</span></div>
+  <div class="bloco-txt ab">"O horário capixaba é famoso. Mas em Marataízes a criatividade vai além. <em>Qual é a melhor desculpa que você já ouviu — ou usou — pra chegar atrasado aqui?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">8s</span></div>
+  <div class="bloco-txt fe">"A minha favorita não vou revelar. <em>Mas manda a sua nos comentários — vou ler todas.</em>"</div>
+</div>
+<div class="nota">Raul criando um mistério leve ("a minha favorita não vou revelar") gera curiosidade e comentários pedindo que ele revele. Isso aumenta o volume de interação sem esforço extra.</div>
+</div>
+</div>
 
-<div class="card" data-tipo="problema">
-<div class="card-top"><div class="dia-num">24</div><div class="card-meta"><span class="tipo-badge t-problema">Problema real</span><span class="semana-tag">Sem. 4</span></div></div>
-<div class="pergunta">"Qual obra ou serviço público você espera há mais tempo em Marataízes?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Relevância pública com voz da cidade. Sem confronto — a cidade nomeia, a TV registra.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas específicas com ruas e bairros. Alto compartilhamento entre vizinhos afetados.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">A situação mais citada vira pauta investigativa com dado público verificável.</div></div>
-</div></div>
-
-<div class="card" data-tipo="memoria">
-<div class="card-top"><div class="dia-num">25</div><div class="card-meta"><span class="tipo-badge t-memoria">Memória</span><span class="semana-tag">Sem. 4</span></div></div>
-<div class="pergunta">"Qual foi o evento mais marcante que você viveu aqui em Marataízes?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Memória coletiva de eventos reais vividos. Histórias pessoais que revelam a história da cidade.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Comentários longos com histórias completas. Pessoas se reconhecendo no mesmo evento. Alta emoção.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Eventos citados que a TV ainda não cobriu viram pauta de memória ou de história local.</div></div>
-</div></div>
-
-<div class="card" data-tipo="humor">
-<div class="card-top"><div class="dia-num">26</div><div class="card-meta"><span class="tipo-badge t-humor">Humor</span><span class="semana-tag">Sem. 4</span></div></div>
-<div class="pergunta">"O que você nunca consegue explicar direito pra quem não é de Marataízes?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Identidade local com humor de cumplicidade. Só quem é de lá entende — e ri reconhecendo.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas criativas e engraçadas. Marcação de amigos de fora. Alto compartilhamento.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As situações citadas revelam especificidades culturais que viram conteúdo de identidade.</div></div>
-</div></div>
-
-<div class="card" data-tipo="desejo">
-<div class="card-top"><div class="dia-num">27</div><div class="card-meta"><span class="tipo-badge t-desejo">Desejo</span><span class="semana-tag">Sem. 4</span></div></div>
-<div class="pergunta">"Se você pudesse dar um recado pra quem vai governar Marataízes, qual seria?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Política cidadã com tom de carta aberta — não de acusação. A cidade fala com o poder.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Recados práticos, emocionados e às vezes irônicos. Alto engajamento. Compartilhamento amplo.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Os temas mais recorrentes nos recados viram pautas de relevância pública com dado.</div></div>
-</div></div>
-
-<div class="card" data-tipo="orgulho">
-<div class="card-top"><div class="dia-num">28</div><div class="card-meta"><span class="tipo-badge t-orgulho">Orgulho</span><span class="semana-tag">Sem. 4</span></div></div>
-<div class="pergunta">"O que faz você ter certeza de que escolheu o lugar certo pra viver?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Fechar o mês 1 com pertencimento máximo. Reafirma a identidade da cidade com emoção genuína.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas emocionadas. Alto compartilhamento entre quem ama Marataízes. Post mais salvo do mês.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Os motivos citados constroem o manifesto de identidade da TV Marataízes.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo C</span><span class="rc-pergunta">"Qual é a reclamação favorita do marataizense — que todo mundo faz mas ninguém resolve?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">8s</span></div>
+  <div class="bloco-txt ab">"Todo mundo em Marataízes tem aquela reclamação. A que você faz desde sempre, seu vizinho faz, seu pai faz. <em>Qual é a reclamação que virou tradição por aqui?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">8s</span></div>
+  <div class="bloco-txt fe">"Reclamação boa é essa: a que faz todo mundo dar risada junto. <em>Comenta a sua aqui.</em>"</div>
+</div>
+</div>
+</div>
 
 </div>
 
-<div class="semana-label">Semana 5 · Dias 29–35 · Vida cotidiana e identidade geracional</div>
-<div class="grid">
+<!-- NOSTALGIA -->
+<div class="tipo-section t-nostalgia" data-tipo="nostalgia">
+<div class="tipo-header">
+  <span class="tipo-badge">Nostalgia</span>
+  <span class="tipo-desc">Memória afetiva do cotidiano. Tom mais suave, mais pausado. Raul como alguém que também tem saudade — não como repórter.</span>
+</div>
 
-<div class="card" data-tipo="curiosidade">
-<div class="card-top"><div class="dia-num">29</div><div class="card-meta"><span class="tipo-badge t-curiosidade">Curiosidade</span><span class="semana-tag">Sem. 5</span></div></div>
-<div class="pergunta">"Qual nome de rua, bairro ou lugar de Marataízes você acha que tem a história mais interessante?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Patrimônio geográfico com curiosidade local. Revela saberes que a maioria não conhece.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Histórias surpreendentes nos comentários. Quem sabe compartilha com orgulho. Quem não sabe fica curioso.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O nome com história mais interessante vira pauta de memória ou curiosidade histórica.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo A</span><span class="rc-pergunta">"Qual era o ponto de encontro de Marataízes que não existe mais?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt ab">"Toda cidade tem aquele lugar que sumiu — mas que ainda existe na memória de quem viveu aqui. <em>Qual era o ponto de encontro de Marataízes que não existe mais — e que você ainda sente falta?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt fe">"Cada lugar que foi citado aqui ainda existe — só mudou de endereço. Agora está na memória de quem estava lá. <em>Manda esse vídeo pra quem também viveu isso.</em>"</div>
+</div>
+<div class="nota">O fechamento reencadra a perda como preservação — o lugar "agora está na memória." Isso converte saudade em compartilhamento com quem também tem a mesma memória.</div>
+</div>
+</div>
 
-<div class="card" data-tipo="opiniao">
-<div class="card-top"><div class="dia-num">30</div><div class="card-meta"><span class="tipo-badge t-opiniao">Opinião</span><span class="semana-tag">Sem. 5</span></div></div>
-<div class="pergunta">"Como você acha que Marataízes está tratando quem vem de fora — bem recebido ou mal recebido?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Debate sobre identidade e acolhimento. Dois lados claros — gera debate sem hostilidade.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Debate rico entre nativos e migrantes nos comentários. Compartilhamento de quem veio de fora.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Tensões citadas revelam pauta de coesão social — relevância pública sem confronto político.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo B</span><span class="rc-pergunta">"Qual era o cheiro de Marataízes antigamente que você sente falta?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt ab">"A gente guarda lugares na memória. Mas a memória mais forte que existe é a do cheiro. <em>Qual era o cheiro de Marataízes que você sente falta — de uma época, de um lugar, de uma pessoa?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt fe">"Isso que vocês disseram aqui não é saudade de coisa. É saudade de tempo. <em>Comenta o seu — pode ser uma palavra só.</em>"</div>
+</div>
+<div class="nota">"Pode ser uma palavra só" reduz a barreira de entrada para comentar — e comentários curtos às vezes são os mais emocionais e compartilháveis.</div>
+</div>
+</div>
 
-<div class="card" data-tipo="memoria">
-<div class="card-top"><div class="dia-num">31</div><div class="card-meta"><span class="tipo-badge t-memoria">Memória</span><span class="semana-tag">Sem. 5</span></div></div>
-<div class="pergunta">"Como era a praia de Marataízes quando você era criança? O que mudou?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Memória territorial com comparação temporal. Gera narrativa de mudança vivida.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Histórias detalhadas. Fotos antigas nos comentários. Alta emoção entre moradores de longa data.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As mudanças mais citadas podem revelar questões ambientais ou urbanísticas que viram pauta.</div></div>
-</div></div>
-
-<div class="card" data-tipo="utilidade">
-<div class="card-top"><div class="dia-num">32</div><div class="card-meta"><span class="tipo-badge t-utilidade">Utilidade</span><span class="semana-tag">Sem. 5</span></div></div>
-<div class="pergunta">"Qual é o melhor horário pra fazer compras, resolver coisas ou circular em Marataízes?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Utilidade prática pura. Quem não sabe compartilha. Quem sabe confirma ou debate.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas práticas com dicas específicas. Alto compartilhamento por ser genuinamente útil.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Reclamações sobre horários de serviço público revelam pauta de utilidade pública.</div></div>
-</div></div>
-
-<div class="card" data-tipo="orgulho">
-<div class="card-top"><div class="dia-num">33</div><div class="card-meta"><span class="tipo-badge t-orgulho">Orgulho</span><span class="semana-tag">Sem. 5</span></div></div>
-<div class="pergunta">"Qual é o artista, atleta ou personalidade de Marataízes que você acha que o Brasil deveria conhecer?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Revelar talentos locais invisíveis. A pessoa citada compartilha com entusiasmo.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Indicações com histórias. A pessoa mais citada fica sabendo e a rede dela descobre a TV.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O mais citado vira protagonista de mini-doc ou conteúdo de cultura com identidade local.</div></div>
-</div></div>
-
-<div class="card" data-tipo="problema">
-<div class="card-top"><div class="dia-num">34</div><div class="card-meta"><span class="tipo-badge t-problema">Problema real</span><span class="semana-tag">Sem. 5</span></div></div>
-<div class="pergunta">"Qual é o horário ou lugar em Marataízes onde você se sente menos seguro?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Segurança pública com voz cidadã — sem sensacionalismo. A cidade mapeia seus pontos de tensão.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas específicas com locais e horários. Compartilhamento entre vizinhos. Alto engajamento.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Os pontos mais citados viram pauta de relevância pública com dado verificável de segurança.</div></div>
-</div></div>
-
-<div class="card" data-tipo="humor">
-<div class="card-top"><div class="dia-num">35</div><div class="card-meta"><span class="tipo-badge t-humor">Humor</span><span class="semana-tag">Sem. 5</span></div></div>
-<div class="pergunta">"Qual é a frase ou expressão que só quem é de Marataízes usa — e todo mundo entende?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Identidade linguística com humor. Dialeto e expressões locais são marcadores culturais fortes.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Risadas, marcação de amigos, debate sobre a origem das expressões. Alto compartilhamento.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As expressões coletadas viram conteúdo de identidade cultural e patrimônio imaterial.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo C</span><span class="rc-pergunta">"Qual era o programa favorito das crianças de Marataízes antes do celular existir?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt ab">"Tem uma geração que cresceu em Marataízes sem celular, sem internet — e que foi feliz do mesmo jeito, ou mais. <em>Qual era o programa, a brincadeira, o programa favorito de quem cresceu aqui nessa época?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt fe">"Isso que a cidade lembrou aqui — meus filhos não vão conhecer. Mas vai estar aqui registrado. <em>Manda pra quem viveu essa época.</em>"</div>
+</div>
+<div class="nota">Raul usando "meus filhos" personaliza o fechamento e cria identificação parental forte — pais compartilham imediatamente com filhos.</div>
+</div>
+</div>
 
 </div>
 
-<div class="semana-label">Semana 6 · Dias 36–42 · Vida de bairro e pertencimento territorial</div>
-<div class="grid">
+<!-- POLÍTICA CIDADÃ -->
+<div class="tipo-section t-politica" data-tipo="politica">
+<div class="tipo-header">
+  <span class="tipo-badge">Política cidadã</span>
+  <span class="tipo-desc">Tom de serviço público — não de confronto. Raul como cidadão que pergunta, não como fiscal que cobra. A distinção de postura é tudo.</span>
+</div>
 
-<div class="card" data-tipo="cultura">
-<div class="card-top"><div class="dia-num">36</div><div class="card-meta"><span class="tipo-badge t-cultura">Cultura</span><span class="semana-tag">Sem. 6</span></div></div>
-<div class="pergunta">"Qual festa ou evento de Marataízes você nunca perde — e por quê?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Calendário cultural vivo construído pela cidade. Revela o que realmente importa para a comunidade.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas variadas, organizadores de eventos marcados, debate sobre qual é a melhor festa.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O evento mais citado vira cobertura especial quando acontecer — e possível parceiro comercial.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo A</span><span class="rc-pergunta">"Se você pudesse dar um recado pra quem governa Marataízes, qual seria?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt ab">"Tem coisa que a gente pensa mas raramente fala em voz alta — especialmente pra quem está no poder. Hoje eu quero ouvir isso. <em>Se você tivesse um minuto com quem governa Marataízes, o que você diria?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt fe">"Isso que a cidade disse aqui é o que raramente chega em gabinete nenhum. <em>Comenta o seu recado — quanto mais gente falar, mais alto chega.</em>"</div>
+</div>
+<div class="nota">Nunca usar "prefeitura" ou "vereadores" na abertura de política cidadã — manter em "quem governa" ou "quem está no poder." É menos confrontador e mais universalmente aplicável.</div>
+</div>
+</div>
 
-<div class="card" data-tipo="opiniao">
-<div class="card-top"><div class="dia-num">37</div><div class="card-meta"><span class="tipo-badge t-opiniao">Opinião</span><span class="semana-tag">Sem. 6</span></div></div>
-<div class="pergunta">"Morar em bairro de Marataízes ou no centro — qual você prefere e por quê?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Debate sobre vida urbana local. Dois lados claros, zero hostilidade, alta identificação por bairro.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Debate entre moradores de diferentes regiões. Cada bairro defendendo seu lado.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Bairros mais citados e suas características específicas viram pauta de identidade territorial.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo B</span><span class="rc-pergunta">"Se você tivesse R$ 1 milhão pra investir em Marataízes, onde colocaria primeiro?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt ab">"Política de verdade começa com uma pergunta simples: o que é prioridade? Eu quero saber a sua resposta. <em>Se você tivesse um milhão de reais pra investir agora em Marataízes, onde colocaria primeiro?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt fe">"As respostas aqui são o orçamento que a cidade faria se pudesse. <em>Comenta a sua prioridade — o que mais apareceu aqui a gente vai trazer em breve com dado real.</em>"</div>
+</div>
+<div class="nota">"Vamos trazer com dado real" é uma promessa editorial que cria expectativa de continuidade — e compromete Raul a pesquisar quanto está sendo gasto de fato naquelas áreas.</div>
+</div>
+</div>
 
-<div class="card" data-tipo="turismo">
-<div class="card-top"><div class="dia-num">38</div><div class="card-meta"><span class="tipo-badge t-turismo">Turismo</span><span class="semana-tag">Sem. 6</span></div></div>
-<div class="pergunta">"O que você acha que o turista que vem pra Marataízes ainda não descobre — mas deveria?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Turismo com olhar de habitante. O segredo da cidade revelado pelo morador, não pelo guia.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Revelações surpreendentes. Compartilhamento por turistas que já estiveram. Orgulho territorial.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Os segredos mais citados viram série de conteúdo de turismo com protagonista local.</div></div>
-</div></div>
-
-<div class="card" data-tipo="comercio">
-<div class="card-top"><div class="dia-num">39</div><div class="card-meta"><span class="tipo-badge t-comercio">Comércio</span><span class="semana-tag">Sem. 6</span></div></div>
-<div class="pergunta">"Qual empreendedor de Marataízes você admira — e o que ele fez que merece reconhecimento?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Reconhecimento do empreendedorismo local com voz de cliente e admirador — não de publi.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">O empreendedor indicado compartilha com toda a rede. Alta propensão ao compartilhamento orgânico.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O mais indicado vira protagonista de conteúdo de comércio local e possível parceiro comercial.</div></div>
-</div></div>
-
-<div class="card" data-tipo="nostalgia">
-<div class="card-top"><div class="dia-num">40</div><div class="card-meta"><span class="tipo-badge t-nostalgia">Nostalgia</span><span class="semana-tag">Sem. 6</span></div></div>
-<div class="pergunta">"Qual comida, receita ou sabor você associa à infância em Marataízes?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Memória afetiva via gastronomia. Universal e íntimo ao mesmo tempo. Alta emoção genuína.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Histórias de família nos comentários. Receitas compartilhadas. Alta emoção e tempo de retenção.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As receitas e sabores locais viram pauta de cultura gastronômica e patrimônio culinário.</div></div>
-</div></div>
-
-<div class="card" data-tipo="politica">
-<div class="card-top"><div class="dia-num">41</div><div class="card-meta"><span class="tipo-badge t-politica">Política cidadã</span><span class="semana-tag">Sem. 6</span></div></div>
-<div class="pergunta">"Você acompanha o que acontece na Câmara Municipal de Marataízes? Por quê sim ou por quê não?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Mapear o grau de engajamento cívico da cidade sem tom de cobrança. A cidade se auto-avalia.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Maioria diz que não acompanha — e explica por quê. Isso é dado editorial valioso para pautas futuras.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As razões do desengajamento revelam o que a TV pode fazer para aproximar a cidade do poder local.</div></div>
-</div></div>
-
-<div class="card" data-tipo="desejo">
-<div class="card-top"><div class="dia-num">42</div><div class="card-meta"><span class="tipo-badge t-desejo">Desejo</span><span class="semana-tag">Sem. 6</span></div></div>
-<div class="pergunta">"Qual é o lugar de Marataízes que você acha que poderia ser muito melhor com pouca coisa?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Melhoria urbana com voz cidadã. Tom construtivo — não de denúncia, mas de sugestão.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas específicas com locais e ideias. Compartilhamento entre vizinhos do mesmo lugar.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Os lugares mais citados podem virar pauta de relevância pública com dado verificável.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo C</span><span class="rc-pergunta">"Você sabe o nome do vereador do seu bairro — e o que ele fez?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt ab">"Marataízes tem vereadores eleitos pra representar cada parte da cidade. Eu quero saber, sem julgamento nenhum: <em>você sabe quem é o vereador do seu bairro — e consegue citar uma coisa que ele fez?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt fe">"O que essa pergunta revelou não é culpa de ninguém. É uma lacuna que a TV Marataízes quer ajudar a fechar. <em>Comenta o seu bairro aqui — vamos trazer mais sobre quem representa cada região.</em>"</div>
+</div>
+<div class="nota">"Sem julgamento nenhum" na abertura desarma a defesa — a pessoa responde honestamente que não sabe, sem vergonha. O fechamento converte o dado em missão editorial da TV.</div>
+</div>
+</div>
 
 </div>
 
-<div class="semana-label">Semana 7 · Dias 43–49 · Debate geracional e identidade profunda</div>
-<div class="grid">
+<!-- OPINIÃO -->
+<div class="tipo-section t-opiniao" data-tipo="opiniao">
+<div class="tipo-header">
+  <span class="tipo-badge">Opinião</span>
+  <span class="tipo-desc">Dois lados de um tema real. Raul apresenta a tensão sem tomar partido. A cidade debate — Raul observa e interpreta.</span>
+</div>
 
-<div class="card" data-tipo="opiniao">
-<div class="card-top"><div class="dia-num">43</div><div class="card-meta"><span class="tipo-badge t-opiniao">Opinião</span><span class="semana-tag">Sem. 7</span></div></div>
-<div class="pergunta">"O jovem de Marataízes tem futuro aqui — ou precisa sair pra crescer?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Debate geracional sobre oportunidade e pertencimento. Tensão real, sem hostilidade.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Debate entre jovens e adultos. Compartilhamento intenso entre quem ficou e quem foi embora.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">A questão de emprego e oportunidade vira pauta de relevância pública com dado de mercado de trabalho.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo A</span><span class="rc-pergunta">"Marataízes tem crescido. Isso tem sido bom, ruim, ou as duas coisas?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt ab">"Marataízes está crescendo — isso é fato. Mas o que não é consenso é se esse crescimento está sendo bom pra todo mundo. <em>Na sua opinião: o crescimento da cidade tem sido bom, ruim, ou as duas coisas ao mesmo tempo?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt fe">"Ninguém está errado aqui. Cada resposta depende de onde você está nessa cidade — e do que você perdeu ou ganhou com a mudança. <em>Comenta o seu ponto de vista.</em>"</div>
+</div>
+<div class="nota">O fechamento valida todos os lados sem relativismo — "cada resposta depende de onde você está." Isso incentiva mais respostas porque ninguém teme ser contradito por Raul.</div>
+</div>
+</div>
 
-<div class="card" data-tipo="curiosidade">
-<div class="card-top"><div class="dia-num">44</div><div class="card-meta"><span class="tipo-badge t-curiosidade">Curiosidade</span><span class="semana-tag">Sem. 7</span></div></div>
-<div class="pergunta">"Qual é o animal, pássaro ou bicho que você associa a Marataízes — e ainda encontra por aqui?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Identidade ambiental com leveza. Revela a relação da cidade com a natureza local de forma não óbvia.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas inesperadas e curiosas. Compartilhamento por amor à natureza. Comentários de biólogos e ambientalistas locais.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O animal mais citado vira pauta de identidade ambiental com especialista local.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo B</span><span class="rc-pergunta">"O jovem de Marataízes tem futuro aqui — ou precisa sair pra crescer?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt ab">"É uma pergunta que não tem resposta fácil — e que muita família de Marataízes está vivendo agora. <em>Você acha que o jovem daqui tem futuro aqui — ou precisa sair da cidade pra crescer de verdade?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt fe">"Quem ficou tem uma resposta. Quem foi embora tem outra. E os dois estão certos do jeito deles. <em>Comenta o seu — e conta se você ficou ou foi.</em>"</div>
+</div>
+<div class="nota">Pedir que comentem se ficaram ou foram embora segmenta a audiência em dois grupos que debatem entre si — o que multiplica o volume de comentários organicamente.</div>
+</div>
+</div>
 
-<div class="card" data-tipo="comercio">
-<div class="card-top"><div class="dia-num">45</div><div class="card-meta"><span class="tipo-badge t-comercio">Comércio</span><span class="semana-tag">Sem. 7</span></div></div>
-<div class="pergunta">"Qual produto típico de Marataízes você compraria de volta sempre que viesse visitar a cidade?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Identidade comercial e produção local com olhar de quem valoriza. Tom de orgulho, não de propaganda.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Indicações com histórias. Produtores locais marcados. Compartilhamento entre admiradores do produto.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O produto mais citado vira pauta de comércio local com o produtor como protagonista.</div></div>
-</div></div>
-
-<div class="card" data-tipo="memoria">
-<div class="card-top"><div class="dia-num">46</div><div class="card-meta"><span class="tipo-badge t-memoria">Memória</span><span class="semana-tag">Sem. 7</span></div></div>
-<div class="pergunta">"Qual professor ou professora de Marataízes mudou sua vida — e você nunca esqueceu?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Reconhecimento de educadores com emoção genuína. A pessoa citada compartilha com toda a rede.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Histórias emocionantes nos comentários. O professor mencionado fica sabendo e compartilha. Alta emoção.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O professor mais citado vira protagonista de mini-doc sobre educação em Marataízes.</div></div>
-</div></div>
-
-<div class="card" data-tipo="ranking">
-<div class="card-top"><div class="dia-num">47</div><div class="card-meta"><span class="tipo-badge t-ranking">Ranking</span><span class="semana-tag">Sem. 7</span></div></div>
-<div class="pergunta">"Qual é o pôr do sol mais bonito de Marataízes — e onde exatamente você gosta de ver?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Beleza territorial com localização específica. Cada local citado é um ponto de identidade da cidade.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Debate sobre locais, fotos nos comentários, compartilhamento amplo por beleza visual.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Os pontos mais citados viram pauta de turismo com protagonista local e ângulo editorial.</div></div>
-</div></div>
-
-<div class="card" data-tipo="problema">
-<div class="card-top"><div class="dia-num">48</div><div class="card-meta"><span class="tipo-badge t-problema">Problema real</span><span class="semana-tag">Sem. 7</span></div></div>
-<div class="pergunta">"O que você acha que Marataízes ainda não aprendeu a valorizar — e está perdendo por isso?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Problema real com tom reflexivo — não de acusação. A cidade se auto-analisa com profundidade.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas profundas sobre patrimônio, pessoas, lugares e oportunidades desperdiçadas.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O que mais for citado revela pautas de relevância pública sobre valorização e preservação.</div></div>
-</div></div>
-
-<div class="card" data-tipo="humor">
-<div class="card-top"><div class="dia-num">49</div><div class="card-meta"><span class="tipo-badge t-humor">Humor</span><span class="semana-tag">Sem. 7</span></div></div>
-<div class="pergunta">"Qual é a desculpa mais criativa que você já ouviu ou usou pra chegar atrasado em Marataízes?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Humor cotidiano com identidade local. O "horário capixaba" como traço cultural compartilhado.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Risadas garantidas. Marcação de amigos. Compartilhamento em grupos de WhatsApp imediato.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As situações citadas revelam traços de cultura local que viram conteúdo de identidade leve.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo C</span><span class="rc-pergunta">"Você prefere comprar no comércio local ou nas redes grandes — e o que te faz escolher?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt ab">"Tem uma escolha que a gente faz toda semana em Marataízes — e que impacta a cidade mais do que parece. <em>Você prefere comprar no comércio local ou nas grandes redes — e o que te faz escolher?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt fe">"As duas opções têm razão de existir. O que importa é a cidade entender o que está em jogo em cada escolha. <em>Comenta a sua — sem julgamento aqui.</em>"</div>
+</div>
+</div>
+</div>
 
 </div>
 
-<div class="semana-label">Semana 8 · Dias 50–56 · Mês 2 — aprofundamento e novos territórios</div>
-<div class="grid">
+<!-- RANKING -->
+<div class="tipo-section t-ranking" data-tipo="ranking">
+<div class="tipo-header">
+  <span class="tipo-badge">Ranking</span>
+  <span class="tipo-desc">Debate leve com posição clara. A cidade define — Raul provoca o debate sem influenciar o resultado.</span>
+</div>
 
-<div class="card" data-tipo="cultura">
-<div class="card-top"><div class="dia-num">50</div><div class="card-meta"><span class="tipo-badge t-cultura">Cultura</span><span class="semana-tag">Sem. 8</span></div></div>
-<div class="pergunta">"Qual história de Marataízes você acha que deveria virar filme, série ou livro?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Patrimônio narrativo da cidade. Revela histórias épicas locais que a maioria não conhece.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Histórias surpreendentes nos comentários. Debate sobre qual seria melhor. Alto engajamento criativo.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">A história mais citada vira pauta de memória ou candidata a episódio especial do Memórias.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo A</span><span class="rc-pergunta">"Qual é o melhor prato de comida de Marataízes — e onde encontrar?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">8s</span></div>
+  <div class="bloco-txt ab">"Toda cidade tem aquele prato que define ela. Em Marataízes eu quero descobrir qual é. <em>Qual o melhor prato da cidade na sua opinião — e onde a gente encontra?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">8s</span></div>
+  <div class="bloco-txt fe">"O debate tá aberto. <em>Comenta o seu — e manda o endereço, que a gente vai checar pessoalmente.</em>"</div>
+</div>
+<div class="nota">"A gente vai checar pessoalmente" cria expectativa de visita — o que gera engajamento antecipado de quem quer ver Raul no lugar indicado.</div>
+</div>
+</div>
 
-<div class="card" data-tipo="opiniao">
-<div class="card-top"><div class="dia-num">51</div><div class="card-meta"><span class="tipo-badge t-opiniao">Opinião</span><span class="semana-tag">Sem. 8</span></div></div>
-<div class="pergunta">"Como você descreveria Marataízes em uma única palavra — e por quê essa?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Síntese de identidade com voz da cidade. As palavras coletadas constroem o vocabulário da marca da TV.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas variadas e reveladoras. Debate sobre qual palavra define melhor. Alta identificação.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As palavras mais repetidas constroem o manifesto de identidade da TV Marataízes.</div></div>
-</div></div>
-
-<div class="card" data-tipo="politica">
-<div class="card-top"><div class="dia-num">52</div><div class="card-meta"><span class="tipo-badge t-politica">Política cidadã</span><span class="semana-tag">Sem. 8</span></div></div>
-<div class="pergunta">"Qual serviço público de Marataízes você usa toda semana — e como está funcionando?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Avaliação de serviço público com voz cidadã direta. Dado qualitativo valioso para pautas.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Avaliações variadas sobre transporte, saúde, educação. Compartilhamento entre usuários do mesmo serviço.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O serviço com pior avaliação vira pauta de relevância pública com dado verificável.</div></div>
-</div></div>
-
-<div class="card" data-tipo="nostalgia">
-<div class="card-top"><div class="dia-num">53</div><div class="card-meta"><span class="tipo-badge t-nostalgia">Nostalgia</span><span class="semana-tag">Sem. 8</span></div></div>
-<div class="pergunta">"Qual era o cheiro de Marataízes antigamente que você sente falta?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Memória sensorial — o mais íntimo e pessoal dos sentidos. Gera narrativa afetiva única.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas poéticas e inesperadas. Alta emoção. Comentários sobre mar, peixe, frutas, padaria antiga.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Os cheiros e lugares associados viram pauta de memória afetiva e patrimônio sensorial.</div></div>
-</div></div>
-
-<div class="card" data-tipo="orgulho">
-<div class="card-top"><div class="dia-num">54</div><div class="card-meta"><span class="tipo-badge t-orgulho">Orgulho</span><span class="semana-tag">Sem. 8</span></div></div>
-<div class="pergunta">"Qual é o projeto ou iniciativa local de Marataízes que você acha que devia ser copiado por outras cidades?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Orgulho de iniciativas locais. Revela o que a cidade produz de melhor além do turismo e da natureza.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Indicações variadas. Os organizadores das iniciativas citadas compartilham com entusiasmo.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">A iniciativa mais citada vira pauta de protagonismo comunitário com organizador como foco.</div></div>
-</div></div>
-
-<div class="card" data-tipo="turismo">
-<div class="card-top"><div class="dia-num">55</div><div class="card-meta"><span class="tipo-badge t-turismo">Turismo</span><span class="semana-tag">Sem. 8</span></div></div>
-<div class="pergunta">"Qual é a época do ano em que Marataízes está mais bonita — e o que acontece de especial nessa época?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Calendário afetivo da cidade. Revela o ritmo natural e cultural de Marataízes ao longo do ano.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas que revelam o ciclo da cidade. Compartilhamento por quem ama aquela época específica.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As épocas e eventos associados viram pautas sazonais de turismo e cultura com protagonista local.</div></div>
-</div></div>
-
-<div class="card" data-tipo="desejo">
-<div class="card-top"><div class="dia-num">56</div><div class="card-meta"><span class="tipo-badge t-desejo">Desejo</span><span class="semana-tag">Sem. 8</span></div></div>
-<div class="pergunta">"Se Marataízes fosse uma pessoa, qual seria o maior defeito e a maior qualidade dela?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Personificação da cidade. Revela a autopercepção coletiva de forma criativa e não ameaçadora.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas criativas e reveladoras. Debate divertido sobre o "caráter" da cidade. Alto compartilhamento.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Os "defeitos" mais citados revelam o que a cidade reconhece que precisa melhorar — pauta futura.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo B</span><span class="rc-pergunta">"Qual é a praia mais bonita do litoral sul do ES?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">8s</span></div>
+  <div class="bloco-txt ab">"O litoral sul do ES tem praias que o Brasil ainda não descobriu direito. <em>Na sua opinião, qual é a mais bonita — e o que faz ela especial?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">8s</span></div>
+  <div class="bloco-txt fe">"Cada lugar citado aqui merecia mais gente. <em>Manda esse vídeo pra quem ainda não conheceu o sul do ES.</em>"</div>
+</div>
+<div class="nota">O CTA "manda pra quem não conheceu" expande o alcance para fora de Marataízes — esse é o tipo de post que traz seguidores de outras cidades do ES.</div>
+</div>
+</div>
 
 </div>
 
-<div class="semana-label">Semana 9 · Dias 57–63 · Reconhecimento e orgulho comunitário</div>
-<div class="grid">
+<!-- DESEJO -->
+<div class="tipo-section t-desejo" data-tipo="desejo">
+<div class="tipo-header">
+  <span class="tipo-badge">Desejo</span>
+  <span class="tipo-desc">Futuro e sonho com tom esperançoso. Raul como alguém que também quer ver a cidade melhorar — não como fiscal do que falta.</span>
+</div>
 
-<div class="card" data-tipo="orgulho">
-<div class="card-top"><div class="dia-num">57</div><div class="card-meta"><span class="tipo-badge t-orgulho">Orgulho</span><span class="semana-tag">Sem. 9</span></div></div>
-<div class="pergunta">"Qual voluntário ou pessoa que ajuda a cidade sem ganhar nada por isso merece ser homenageado?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Reconhecimento do capital social invisível da cidade. Emoção genuína garantida.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Indicações emocionadas. A pessoa citada compartilha. A rede dela descobre a TV Marataízes.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O mais indicado vira protagonista de mini-doc de pertencimento da semana seguinte.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo A</span><span class="rc-pergunta">"Qual sonho você tem pra Marataízes que ainda parece longe de acontecer?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt ab">"Toda cidade tem um futuro que depende do que quem vive nela consegue imaginar. <em>Qual é o sonho que você tem pra Marataízes — aquele que ainda parece distante mas você não desiste de querer?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt fe">"O que a cidade sonha hoje é o que a cidade vai cobrar amanhã. <em>Comenta o seu sonho aqui — sem filtro.</em>"</div>
+</div>
+</div>
+</div>
 
-<div class="card" data-tipo="curiosidade">
-<div class="card-top"><div class="dia-num">58</div><div class="card-meta"><span class="tipo-badge t-curiosidade">Curiosidade</span><span class="semana-tag">Sem. 9</span></div></div>
-<div class="pergunta">"Você sabe por que Marataízes tem esse nome? De onde veio?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Curiosidade histórica sobre origem do nome da cidade. Muitos não sabem — e ficam curiosos.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Versões diferentes nos comentários. Debate sobre a história real. Alto engajamento de quem pesquisa.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">A história do nome vira pauta de memória com Ivilise ou especialista local — com a resposta definitiva.</div></div>
-</div></div>
-
-<div class="card" data-tipo="utilidade">
-<div class="card-top"><div class="dia-num">59</div><div class="card-meta"><span class="tipo-badge t-utilidade">Utilidade</span><span class="semana-tag">Sem. 9</span></div></div>
-<div class="pergunta">"Qual dica de Marataízes você daria pra quem acabou de se mudar pra cá?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Guia prático construído pela cidade para novos moradores. Alta utilidade, alto compartilhamento.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Dicas variadas e específicas. Compartilhamento por quem conhece alguém se mudando pra lá.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As dicas mais práticas viram conteúdo de utilidade pública permanente do perfil.</div></div>
-</div></div>
-
-<div class="card" data-tipo="politica">
-<div class="card-top"><div class="dia-num">60</div><div class="card-meta"><span class="tipo-badge t-politica">Política cidadã</span><span class="semana-tag">Sem. 9</span></div></div>
-<div class="pergunta">"Você sabe o nome do vereador do seu bairro — e o que ele fez nos últimos meses?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Engajamento cívico com pergunta simples. Revela o grau real de conexão entre cidadão e representante.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Maioria diz que não sabe o nome. Isso é dado editorial — e revela oportunidade de cobertura da Câmara.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">A desconexão revelada vira pauta de aproximação entre câmara e cidade — sem confronto.</div></div>
-</div></div>
-
-<div class="card" data-tipo="memoria">
-<div class="card-top"><div class="dia-num">61</div><div class="card-meta"><span class="tipo-badge t-memoria">Memória</span><span class="semana-tag">Sem. 9</span></div></div>
-<div class="pergunta">"Qual estabelecimento de Marataízes que fechou você sente mais falta — e o que ele tinha de especial?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Nostalgia comercial com memória afetiva. Cada lugar citado tem uma história por trás.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Histórias detalhadas. Ex-donos e frequentadores se encontrando nos comentários. Alta emoção.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O lugar mais citado vira pauta de memória com os donos ou frequentadores como protagonistas.</div></div>
-</div></div>
-
-<div class="card" data-tipo="humor">
-<div class="card-top"><div class="dia-num">62</div><div class="card-meta"><span class="tipo-badge t-humor">Humor</span><span class="semana-tag">Sem. 9</span></div></div>
-<div class="pergunta">"Qual é a reclamação favorita do marataizense — a que todo mundo faz mas ninguém resolve?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Problema real com tom de humor coletivo. A cidade ri de si mesma com cumplicidade.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Identificação imediata. Respostas com "ISSO!" nos comentários. Compartilhamento em grupos de WhatsApp.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As reclamações recorrentes com humor revelam os problemas reais que a cidade aceita mas não deveria.</div></div>
-</div></div>
-
-<div class="card" data-tipo="ranking">
-<div class="card-top"><div class="dia-num">63</div><div class="card-meta"><span class="tipo-badge t-ranking">Ranking</span><span class="semana-tag">Sem. 9</span></div></div>
-<div class="pergunta">"Qual é o peixe ou fruto do mar de Marataízes que você mais gosta — e onde comer o melhor?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Identidade gastronômica e pesqueira com debate entre preferências. Ativa o comércio local naturalmente.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Debate animado entre preferências. Restaurantes e peixarias marcados. Compartilhamento amplo.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O peixeiro ou restaurante mais citado vira protagonista de pauta de identidade gastronômica local.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo B</span><span class="rc-pergunta">"O que você gostaria que seus filhos ainda encontrassem aqui daqui a 20 anos?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt ab">"A cidade que a gente entrega pra próxima geração depende do que a gente decide preservar agora. <em>O que você quer que seus filhos — ou os filhos dos seus filhos — ainda encontrem em Marataízes daqui a 20 anos?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt fe">"Isso que vocês disseram aqui é o que vale mais do que qualquer plano de governo. <em>Manda pra quem tem filho ou neto em Marataízes.</em>"</div>
+</div>
+<div class="nota">Para perguntas intergeracionais, o CTA "manda pra quem tem filho ou neto" é o mais cirúrgico — atinge exatamente quem vai ter a resposta mais emocional e o maior engajamento.</div>
+</div>
+</div>
 
 </div>
 
-<div class="semana-label">Semana 10 · Dias 64–70 · Futuro, conflitos leves e pertencimento profundo</div>
-<div class="grid">
+<!-- MEMÓRIA -->
+<div class="tipo-section t-memoria" data-tipo="memoria">
+<div class="tipo-header">
+  <span class="tipo-badge">Memória</span>
+  <span class="tipo-desc">Passado coletivo com emoção presente. Raul mais suave, mais pausado. A câmera pode estar mais quieta — o silêncio antes da pergunta funciona.</span>
+</div>
 
-<div class="card" data-tipo="opiniao">
-<div class="card-top"><div class="dia-num">64</div><div class="card-meta"><span class="tipo-badge t-opiniao">Opinião</span><span class="semana-tag">Sem. 10</span></div></div>
-<div class="pergunta">"Marataízes precisa crescer mais rápido ou precisa crescer melhor? Qual a diferença na sua vida?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Debate sobre modelo de desenvolvimento urbano com dois lados genuínos. Alta profundidade de resposta.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Debate polarizado positivamente. Visões diferentes de desenvolvimento. Compartilhamento amplo.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As tensões reveladas viram pauta de planejamento urbano com dado público verificável.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo A</span><span class="rc-pergunta">"Qual é a sua memória mais antiga de Marataízes?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt ab">"A cidade que você vê hoje não é a mesma de quando você chegou aqui pela primeira vez — ou de quando você nasceu aqui. <em>Qual é a memória mais antiga que você tem de Marataízes? A primeira imagem que vem?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt fe">"Cada resposta aqui é uma camada da história dessa cidade que nunca foi escrita em livro nenhum. <em>Comenta a sua memória — pode ser um detalhe pequeno, esses são os melhores.</em>"</div>
+</div>
+<div class="nota">"Pode ser um detalhe pequeno, esses são os melhores" incentiva quem acha que a própria memória não é suficientemente importante para compartilhar. Esses comentários costumam ser os mais emocionais.</div>
+</div>
+</div>
 
-<div class="card" data-tipo="cultura">
-<div class="card-top"><div class="dia-num">65</div><div class="card-meta"><span class="tipo-badge t-cultura">Cultura</span><span class="semana-tag">Sem. 10</span></div></div>
-<div class="pergunta">"Qual manifestação cultural ou artística de Marataízes você acha que merecia mais apoio?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Cultura local com recorte de valorização. Artistas e grupos citados compartilham com a rede.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Indicações variadas. Os grupos e artistas citados tomam conhecimento e compartilham com entusiasmo.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O mais citado vira pauta de cultura com protagonista e ângulo de valorização e apoio necessário.</div></div>
-</div></div>
-
-<div class="card" data-tipo="desejo">
-<div class="card-top"><div class="dia-num">66</div><div class="card-meta"><span class="tipo-badge t-desejo">Desejo</span><span class="semana-tag">Sem. 10</span></div></div>
-<div class="pergunta">"O que você gostaria que seus filhos ou netos ainda encontrassem em Marataízes daqui a 20 anos?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Futuro da cidade com emoção intergeracional. Um dos temas mais profundos e compartilháveis.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas muito emocionais sobre natureza, comunidade, valores. Alto compartilhamento entre pais.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O que mais for citado como "queremos preservar" revela o que a cidade mais valoriza em si mesma.</div></div>
-</div></div>
-
-<div class="card" data-tipo="comercio">
-<div class="card-top"><div class="dia-num">67</div><div class="card-meta"><span class="tipo-badge t-comercio">Comércio</span><span class="semana-tag">Sem. 10</span></div></div>
-<div class="pergunta">"Você prefere comprar no comércio local ou nas redes grandes — e o que te faz escolher?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Debate sobre comércio local vs. grandes redes. Dois lados honestos — sem julgamento.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Debate honesto. Comerciantes locais comentam. Consumidores justificam suas escolhas.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Os motivos de preferência revelam o que o comércio local precisaria fazer para reter o consumidor.</div></div>
-</div></div>
-
-<div class="card" data-tipo="nostalgia">
-<div class="card-top"><div class="dia-num">68</div><div class="card-meta"><span class="tipo-badge t-nostalgia">Nostalgia</span><span class="semana-tag">Sem. 10</span></div></div>
-<div class="pergunta">"Qual era o programa favorito das crianças de Marataízes antes do celular existir?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Nostalgia geracional com toque de debate sobre infância atual. Conecta gerações nos comentários.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Histórias de infância, debate entre gerações, compartilhamento por pais para filhos.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As brincadeiras e espaços citados revelam o que mudou na infância — pauta de mudança social.</div></div>
-</div></div>
-
-<div class="card" data-tipo="turismo">
-<div class="card-top"><div class="dia-num">69</div><div class="card-meta"><span class="tipo-badge t-turismo">Turismo</span><span class="semana-tag">Sem. 10</span></div></div>
-<div class="pergunta">"Qual trilha, ponto natural ou lugar de Marataízes você acha que vale cada metro de caminhada?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Turismo de experiência com voz local. Específico, pessoal, irreproduzível por agência.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Indicações com histórias pessoais. Compartilhamento por quem ama o lugar citado. Novos seguidores de fora.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O lugar mais citado vira pauta de turismo com o conhecedor local como guia e protagonista.</div></div>
-</div></div>
-
-<div class="card" data-tipo="problema">
-<div class="card-top"><div class="dia-num">70</div><div class="card-meta"><span class="tipo-badge t-problema">Problema real</span><span class="semana-tag">Sem. 10</span></div></div>
-<div class="pergunta">"O que você acha que Marataízes poderia aprender com cidades vizinhas — sem medo de admitir?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Autocrítica saudável com abertura para aprender. Tom maduro e sem orgulho excessivo.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas honestas sobre o que falta. Debate comparativo com cidades vizinhas. Alto engajamento.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As boas práticas citadas de outras cidades viram pautas de relevância pública comparativa.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo B</span><span class="rc-pergunta">"Qual professor mudou sua vida em Marataízes — e você nunca esqueceu?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt ab">"Tem gente que passou pela nossa vida aqui em Marataízes e deixou uma marca que a gente carrega até hoje sem perceber. <em>Qual professor ou professora mudou algo em você — de um jeito que você nunca esqueceu?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt fe">"Tem professor que vai ver esse vídeo e vai descobrir que mudou uma vida sem saber. <em>Marca o nome dele aqui — merece saber.</em>"</div>
+</div>
+<div class="nota">"Tem professor que vai ver esse vídeo e vai descobrir" cria emoção antecipada — a pessoa imagina o professor sendo marcado e já fica emocionada antes de comentar.</div>
+</div>
+</div>
 
 </div>
 
-<div class="semana-label">Semana 11 · Dias 71–77 · Identidade laboral e cotidiano profundo</div>
-<div class="grid">
+<!-- CURIOSIDADE -->
+<div class="tipo-section t-curiosidade" data-tipo="curiosidade">
+<div class="tipo-header">
+  <span class="tipo-badge">Curiosidade</span>
+  <span class="tipo-desc">Descoberta e surpresa. Raul como alguém que genuinamente não sabia — e quer descobrir junto com a cidade.</span>
+</div>
 
-<div class="card" data-tipo="orgulho">
-<div class="card-top"><div class="dia-num">71</div><div class="card-meta"><span class="tipo-badge t-orgulho">Orgulho</span><span class="semana-tag">Sem. 11</span></div></div>
-<div class="pergunta">"Qual é o trabalho mais difícil que você conhece em Marataízes — e que quase ninguém vê?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Visibilidade do trabalho invisível. Pescadores, agricultores, marisqueiras — protagonistas sem holofote.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Indicações emocionadas. Os trabalhadores citados e suas famílias compartilham com orgulho.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O trabalho mais citado vira mini-doc de um dia na vida do trabalhador — conteúdo de pertencimento forte.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo A</span><span class="rc-pergunta">"O que você sabe sobre Marataízes que surpreenderia a maioria?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt ab">"Toda cidade esconde coisa que só quem vive nela de verdade sabe. <em>O que você sabe sobre Marataízes que a maioria das pessoas não sabe — e que ia surpreender quem ouvisse?</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt fe">"Aprendi coisas aqui hoje que eu — que moro aqui — não sabia. <em>Comenta mais uma que você sabe — minha curiosidade não acabou.</em>"</div>
+</div>
+<div class="nota">Raul admitindo que aprendeu algo novo ("que eu não sabia") cria identificação — ele não é o especialista, é o curioso. Isso incentiva quem sabe algo a compartilhar sem medo de parecer pretensioso.</div>
+</div>
+</div>
 
-<div class="card" data-tipo="curiosidade">
-<div class="card-top"><div class="dia-num">72</div><div class="card-meta"><span class="tipo-badge t-curiosidade">Curiosidade</span><span class="semana-tag">Sem. 11</span></div></div>
-<div class="pergunta">"Qual é o lugar de Marataízes que parece que parou no tempo — e ainda está igual a décadas atrás?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Patrimônio vivo com curiosidade territorial. Revelar o que resistiu à mudança como valor, não como atraso.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Indicações com fotos e histórias. Nostalgia positiva. Compartilhamento por quem conhece o lugar.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O lugar mais citado vira pauta de patrimônio e identidade territorial com protagonista humano.</div></div>
-</div></div>
-
-<div class="card" data-tipo="opiniao">
-<div class="card-top"><div class="dia-num">73</div><div class="card-meta"><span class="tipo-badge t-opiniao">Opinião</span><span class="semana-tag">Sem. 11</span></div></div>
-<div class="pergunta">"O pescador, o agricultor e o construtor — quem você acha que mais construiu Marataízes?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Debate sobre identidade fundadora da cidade. Cada grupo tem seus defensores fervorosos.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Debate rico entre representantes de cada setor. Compartilhamento por quem pertence a cada grupo.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">A resposta dominante revela a identidade laboral que a cidade prioriza — pauta de cultura do trabalho.</div></div>
-</div></div>
-
-<div class="card" data-tipo="humor">
-<div class="card-top"><div class="dia-num">74</div><div class="card-meta"><span class="tipo-badge t-humor">Humor</span><span class="semana-tag">Sem. 11</span></div></div>
-<div class="pergunta">"Qual é o tipo de pessoa que só existe em Marataízes — o personagem típico da cidade?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Humor de identidade com personagens locais. Cada cidade tem os seus — e adora reconhecê-los.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas criativas e engraçadas. Marcação de pessoas que "são exatamente assim." Alto compartilhamento.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Os personagens típicos revelam traços culturais que viram conteúdo de identidade e de humor.</div></div>
-</div></div>
-
-<div class="card" data-tipo="desejo">
-<div class="card-top"><div class="dia-num">75</div><div class="card-meta"><span class="tipo-badge t-desejo">Desejo</span><span class="semana-tag">Sem. 11</span></div></div>
-<div class="pergunta">"O que você faria diferente se fosse o prefeito de Marataízes por um dia?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Política cidadã com criatividade. Sem confronto — a cidade governa em imaginação.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas sérias e engraçadas misturadas. Debate sobre prioridades. Alto engajamento.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As medidas mais citadas revelam o que a cidade considera urgente — pauta de relevância pública.</div></div>
-</div></div>
-
-<div class="card" data-tipo="memoria">
-<div class="card-top"><div class="dia-num">76</div><div class="card-meta"><span class="tipo-badge t-memoria">Memória</span><span class="semana-tag">Sem. 11</span></div></div>
-<div class="pergunta">"Qual era o som de Marataízes antigamente — o que você ouvia e que hoje não ouve mais?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Memória sonora — tão íntima quanto a olfativa. Gera narrativa afetiva única e inesperada.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas poéticas: sino de igreja, apito de barco, pregão de vendedor. Alta emoção nos comentários.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Os sons perdidos revelam o que mudou na cidade — pauta de transformação urbana e cultural.</div></div>
-</div></div>
-
-<div class="card" data-tipo="comercio">
-<div class="card-top"><div class="dia-num">77</div><div class="card-meta"><span class="tipo-badge t-comercio">Comércio</span><span class="semana-tag">Sem. 11</span></div></div>
-<div class="pergunta">"Qual é o mercadinho, padaria ou boteco de Marataízes que parece parte da família de quem frequenta?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Comércio local como tecido social. O estabelecimento que é mais do que um negócio — é um ponto de encontro.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Histórias emocionantes de clientes sobre o lugar. O dono compartilha com toda a rede. Alta emoção.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O mais citado vira protagonista de conteúdo de identidade comercial e comunitária.</div></div>
-</div></div>
+<div class="roteiro-card">
+<div class="rc-header"><span class="rc-num">Modelo B</span><span class="rc-pergunta">"Você sabe de onde veio o nome Marataízes?"</span></div>
+<div class="rc-body">
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#378ADD">Abertura <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt ab">"A gente passa a vida falando o nome de onde mora sem nunca parar pra pensar de onde esse nome veio. <em>Você sabe a origem do nome Marataízes? Pra mim, foi uma descoberta — quero saber se você já sabia.</em>"</div>
+</div>
+<div class="bloco">
+  <div class="bloco-lbl" style="color:#1D9E75">Fechamento <span class="bloco-tempo">10s</span></div>
+  <div class="bloco-txt fe">"As versões são diferentes. A história real a gente vai trazer em breve com quem pesquisou de verdade. <em>Comenta a versão que você conhece — mesmo que não tenha certeza.</em>"</div>
+</div>
+<div class="nota">"Mesmo que não tenha certeza" é uma das frases mais poderosas para gerar comentários — remove o medo de estar errado e abre espaço para versões incompletas, que são frequentemente as mais interessantes.</div>
+</div>
+</div>
 
 </div>
 
-<div class="semana-label">Semana 12 · Dias 78–84 · Debates maduros e fechamento de ciclo</div>
-<div class="grid">
-
-<div class="card" data-tipo="opiniao">
-<div class="card-top"><div class="dia-num">78</div><div class="card-meta"><span class="tipo-badge t-opiniao">Opinião</span><span class="semana-tag">Sem. 12</span></div></div>
-<div class="pergunta">"Você acha que Marataízes cuida bem do seu litoral e da sua natureza — ou está deixando perder?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Meio ambiente com voz cidadã. Debate maduro sobre preservação e desenvolvimento.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Debate entre preservacionistas e desenvolvimentistas. Ambientalistas locais se manifestam.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Os pontos de degradação citados viram pauta de relevância pública ambiental com dado verificável.</div></div>
-</div></div>
-
-<div class="card" data-tipo="ranking">
-<div class="card-top"><div class="dia-num">79</div><div class="card-meta"><span class="tipo-badge t-ranking">Ranking</span><span class="semana-tag">Sem. 12</span></div></div>
-<div class="pergunta">"Qual é o melhor café da manhã de Marataízes — e onde tomar?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Debate gastronômico leve e altamente compartilhável. Ativa o comércio local naturalmente.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Debate animado. Padarias e cafés marcados. Novos clientes indo por indicação do vídeo.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O vencedor do debate vira protagonista de conteúdo de comércio local e possível parceiro comercial.</div></div>
-</div></div>
-
-<div class="card" data-tipo="politica">
-<div class="card-top"><div class="dia-num">80</div><div class="card-meta"><span class="tipo-badge t-politica">Política cidadã</span><span class="semana-tag">Sem. 12</span></div></div>
-<div class="pergunta">"O que você acha que poderia ser feito pela comunidade — sem depender de nenhum governo?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Autonomia comunitária. Revela o que a cidade pode fazer por si mesma — tom de empoderamento.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas criativas e propositivas. Pessoas que já fazem algo assim se identificam e compartilham.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As iniciativas citadas revelam projetos comunitários em andamento que viram pauta de protagonismo.</div></div>
-</div></div>
-
-<div class="card" data-tipo="nostalgia">
-<div class="card-top"><div class="dia-num">81</div><div class="card-meta"><span class="tipo-badge t-nostalgia">Nostalgia</span><span class="semana-tag">Sem. 12</span></div></div>
-<div class="pergunta">"Se você pudesse voltar a um dia específico de Marataízes no passado, qual seria — e por quê?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Nostalgia máxima com escolha pessoal. Cada resposta é uma história única e emocionante.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Histórias profundas e emocionais. Compartilhamento por quem viveu a mesma época ou evento.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Os momentos mais citados revelam os eventos que definiram a cidade — candidatos a episódios do Memórias.</div></div>
-</div></div>
-
-<div class="card" data-tipo="curiosidade">
-<div class="card-top"><div class="dia-num">82</div><div class="card-meta"><span class="tipo-badge t-curiosidade">Curiosidade</span><span class="semana-tag">Sem. 12</span></div></div>
-<div class="pergunta">"Qual é o lugar de Marataízes onde você nunca entrou — mas sempre teve curiosidade?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Curiosidade territorial genuína. Revela os lugares misteriosos ou fechados da cidade.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas surpreendentes. Os donos dos lugares citados podem aparecer nos comentários. Alto engajamento.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">O lugar mais citado vira pauta de curiosidade — Raul entra no lugar e mostra o que tem dentro.</div></div>
-</div></div>
-
-<div class="card" data-tipo="orgulho">
-<div class="card-top"><div class="dia-num">83</div><div class="card-meta"><span class="tipo-badge t-orgulho">Orgulho</span><span class="semana-tag">Sem. 12</span></div></div>
-<div class="pergunta">"Qual história de superação de alguém de Marataízes você acha que merecia ser contada?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Protagonismo de superação humana. O mais poderoso formato de pertencimento emocional.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Histórias emocionantes. A pessoa indicada compartilha com toda a rede. Alta emoção garantida.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">A história mais impactante vira mini-doc de pertencimento — o maior conteúdo do projeto até então.</div></div>
-</div></div>
-
-<div class="card" data-tipo="humor">
-<div class="card-top"><div class="dia-num">84</div><div class="card-meta"><span class="tipo-badge t-humor">Humor</span><span class="semana-tag">Sem. 12</span></div></div>
-<div class="pergunta">"Qual é a coisa mais capixaba que existe em Marataízes — que só capixaba entende?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Identidade regional dentro da identidade local. Pertencimento em duas camadas simultâneas.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas com orgulho capixaba e marataizense ao mesmo tempo. Compartilhamento amplo no ES.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Os traços capixabas citados revelam a identidade regional que conecta Marataízes ao ES mais amplo.</div></div>
-</div></div>
-
-</div>
-
-<div class="semana-label">Semana 13 · Dias 85–90 · Fechamento — síntese, futuro e manifesto</div>
-<div class="grid">
-
-<div class="card" data-tipo="opiniao">
-<div class="card-top"><div class="dia-num">85</div><div class="card-meta"><span class="tipo-badge t-opiniao">Opinião</span><span class="semana-tag">Sem. 13</span></div></div>
-<div class="pergunta">"Nos últimos 3 meses você notou alguma mudança em Marataízes — pra melhor ou pra pior?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Avaliação coletiva do presente com olhar ativo. A cidade que acompanha a TV passa a notar mais.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas concretas sobre o cotidiano. Debate entre otimistas e céticos. Alto engajamento.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As mudanças positivas viram pauta de celebração. As negativas viram pauta de relevância pública.</div></div>
-</div></div>
-
-<div class="card" data-tipo="memoria">
-<div class="card-top"><div class="dia-num">86</div><div class="card-meta"><span class="tipo-badge t-memoria">Memória</span><span class="semana-tag">Sem. 13</span></div></div>
-<div class="pergunta">"Qual é a frase ou ensinamento de alguém de Marataízes que você carrega pra sempre?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Sabedoria popular local com emoção genuína. Conecta gerações e revela a filosofia coletiva da cidade.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Frases de pais, avós, professores. Alta emoção. Compartilhamento amplo por identificação com a sabedoria.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As frases coletadas constroem o manifesto de sabedoria local da TV Marataízes.</div></div>
-</div></div>
-
-<div class="card" data-tipo="desejo">
-<div class="card-top"><div class="dia-num">87</div><div class="card-meta"><span class="tipo-badge t-desejo">Desejo</span><span class="semana-tag">Sem. 13</span></div></div>
-<div class="pergunta">"O que você quer que a TV Marataízes investigue, mostre ou conte que ainda não fez?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">A cidade pauta a TV. Esse é o momento em que o espelho se vira — e a audiência vira redação.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Sugestões variadas e reveladoras. A cidade que sugere sente que tem poder sobre a TV — e isso fideliza.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">Esse post sozinho gera a grade editorial do mês 4 inteiro. É o banco de pautas mais valioso dos 90 dias.</div></div>
-</div></div>
-
-<div class="card" data-tipo="orgulho">
-<div class="card-top"><div class="dia-num">88</div><div class="card-meta"><span class="tipo-badge t-orgulho">Orgulho</span><span class="semana-tag">Sem. 13</span></div></div>
-<div class="pergunta">"O que você mais gosta em ser de Marataízes — a coisa que nenhuma outra cidade tem?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Pertencimento máximo. A cidade celebra a si mesma com orgulho total no penúltimo dia dos 90.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas emocionadas e orgulhosas. Um dos posts com maior compartilhamento do projeto inteiro.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As respostas constroem o manifesto definitivo de identidade da TV Marataízes.</div></div>
-</div></div>
-
-<div class="card" data-tipo="opiniao">
-<div class="card-top"><div class="dia-num">89</div><div class="card-meta"><span class="tipo-badge t-opiniao">Opinião</span><span class="semana-tag">Sem. 13</span></div></div>
-<div class="pergunta">"Se você tivesse que apresentar Marataízes para o Brasil em 30 segundos, o que você diria?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">Síntese de identidade com urgência de pitch. A cidade se apresenta para o mundo com suas próprias palavras.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">Respostas criativas, orgulhosas e variadas. Alto compartilhamento fora de Marataízes. Novo público.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As melhores respostas viram o tagline da TV Marataízes — construído pela cidade, não pelo fundador.</div></div>
-</div></div>
-
-<div class="card" data-tipo="orgulho">
-<div class="card-top"><div class="dia-num">90</div><div class="card-meta"><span class="tipo-badge t-orgulho">Orgulho</span><span class="semana-tag">Sem. 13</span></div></div>
-<div class="pergunta">"Depois de tudo que você viveu aqui, o que Marataízes significa pra você?"</div>
-<div class="row">
-<div class="row-item"><div class="row-lbl">Objetivo</div><div class="row-val">O fechamento dos 90 dias. A pergunta mais simples e mais profunda. A cidade diz o que é — em suas próprias palavras.</div></div>
-<div class="row-item"><div class="row-lbl">Reação</div><div class="row-val">O post mais emocionante dos 90 dias. Histórias completas nos comentários. Compartilhamento máximo. O maior post da história da TV Marataízes até então.</div></div>
-<div class="row-item"><div class="row-lbl">Pauta futura</div><div class="row-val">As respostas constroem o material para o balanço em câmera direta de Raul — e o lançamento do mês 4.</div></div>
-</div></div>
-
-</div>
 </div>
 
 <script>
-let tipoAtivo='todos';
-let buscaAtiva='';
-
-function filtrar(tipo){
-  tipoAtivo=tipo;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('on'));
-  event.target.classList.add('on');
-  aplicar();
-}
-
-function buscar(val){
-  buscaAtiva=val.toLowerCase();
-  aplicar();
-}
-
-function aplicar(){
-  const cards=document.querySelectorAll('.card');
-  let vis=0;
-  cards.forEach(c=>{
-    const tipoOk=tipoAtivo==='todos'||c.dataset.tipo===tipoAtivo;
-    const txt=c.innerText.toLowerCase();
-    const buscaOk=buscaAtiva===''||txt.includes(buscaAtiva);
-    const show=tipoOk&&buscaOk;
-    c.classList.toggle('hidden',!show);
-    if(show)vis++;
-  });
-  document.getElementById('stats').textContent=vis+' pergunta'+(vis!==1?'s':'');
-
-  document.querySelectorAll('.semana-label').forEach(lbl=>{
-    const grid=lbl.nextElementSibling;
-    if(!grid)return;
-    const temVisivel=[...grid.querySelectorAll('.card')].some(c=>!c.classList.contains('hidden'));
-    lbl.classList.toggle('hidden',!temVisivel);
+function filtrar(tipo, btn){
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.tipo-section').forEach(s=>{
+    s.classList.toggle('hidden', tipo !== 'todos' && s.dataset.tipo !== tipo);
   });
 }
 </script>
