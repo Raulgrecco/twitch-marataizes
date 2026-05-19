@@ -7,237 +7,332 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --black: #0A0A0A; --off-black: #111111; --dark: #181818; --card: #1E1E1E;
-    --border: rgba(255,255,255,0.08); --border-strong: rgba(255,255,255,0.15);
-    --gold: #C9A84C; --gold-light: #E8C97A; --gold-dim: rgba(201,168,76,0.15);
-    --red-tv: #E8372A; --red-dim: rgba(232,55,42,0.12);
-    --white: #FFFFFF; --gray: #999999; --gray-light: #CCCCCC;
-    --font-display: 'Bebas Neue', sans-serif;
-    --font-serif: 'DM Serif Display', serif;
-    --font-body: 'DM Sans', sans-serif;
-  }
-  html { scroll-behavior: smooth; }
-  body { background: var(--black); color: var(--white); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #0A0A0A; --off-black: #111111; --dark: #181818; --card: #1E1E1E;
+  --border: rgba(255,255,255,0.08); --border-strong: rgba(255,255,255,0.15);
+  --gold: #C9A84C; --gold-light: #E8C97A; --gold-dim: rgba(201,168,76,0.15);
+  --red-tv: #E8372A; --red-dim: rgba(232,55,42,0.12);
+  --white: #FFFFFF; --gray: #999999; --gray-light: #CCCCCC;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-serif: 'DM Serif Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--white); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 2rem; height: 64px;
-    background: rgba(10,10,10,0.95); backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-logo { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.05em; color: var(--white); text-decoration: none; }
-  .nav-logo span { color: var(--red-tv); }
-  .nav-links { display: flex; gap: 1.5rem; align-items: center; }
-  .nav-links a { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray); text-decoration: none; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--white); }
-  .nav-cta { background: var(--red-tv) !important; color: var(--white) !important; padding: 0.45rem 1.1rem; border-radius: 4px; }
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem; height: 64px;
+  background: rgba(10,10,10,0.95); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.05em; color: var(--white); text-decoration: none; }
+.nav-logo span { color: var(--red-tv); }
+.nav-links { display: flex; gap: 1.5rem; align-items: center; }
+.nav-links a { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--white); }
+.nav-cta { background: var(--red-tv) !important; color: var(--white) !important; padding: 0.45rem 1.1rem; border-radius: 4px; }
 
-  .hero {
-    min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center; padding: 7rem 2rem 5rem; position: relative; overflow: hidden;
-  }
-  .hero::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(232,55,42,0.06) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-eyebrow {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em;
-    text-transform: uppercase; color: var(--red-tv);
-    border: 1px solid rgba(232,55,42,0.3); padding: 0.35rem 0.9rem; border-radius: 2px; margin-bottom: 2rem;
-  }
-  .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red-tv); animation: pulse 2s infinite; }
-  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
-  .hero h1 { font-family: var(--font-display); font-size: clamp(3.5rem, 9vw, 8rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 0.3em; }
-  .hero h1 em { font-family: var(--font-serif); font-style: italic; color: var(--gold); }
-  .hero-sub { font-size: clamp(1rem, 2.5vw, 1.25rem); color: var(--gray-light); max-width: 560px; margin: 1.5rem auto 3rem; font-weight: 300; line-height: 1.7; }
-  .hero-sub strong { color: var(--white); font-weight: 500; }
+/* ── HERO ── */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 7rem 2rem 5rem; position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(232,55,42,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--red-tv);
+  border: 1px solid rgba(232,55,42,0.3); padding: 0.35rem 0.9rem; border-radius: 2px; margin-bottom: 2rem;
+}
+.hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red-tv); animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
 
-  /* INSTAGRAM BADGE NO HERO */
-  .hero-insta-badge {
-    display: inline-flex; align-items: center; gap: 0.6rem;
-    background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25);
-    padding: 0.5rem 1.1rem; border-radius: 3px; margin-bottom: 1.5rem;
-    font-size: 0.82rem; color: var(--gold-light); font-weight: 500;
-  }
-  .hero-insta-badge span { font-family: var(--font-display); font-size: 1.1rem; color: var(--gold); }
+.hero h1 { font-family: var(--font-display); font-size: clamp(3.5rem, 9vw, 8rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 0.3em; }
+.hero h1 em { font-family: var(--font-serif); font-style: italic; color: var(--gold); }
 
-  .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-  .btn-primary { background: var(--red-tv); color: var(--white); padding: 0.85rem 2.2rem; border-radius: 3px; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
-  .btn-primary:hover { background: #ff4436; transform: translateY(-1px); }
-  .btn-ghost { background: transparent; color: var(--white); padding: 0.85rem 2.2rem; border-radius: 3px; border: 1px solid var(--border-strong); font-size: 0.9rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: border-color 0.2s, transform 0.15s; display: inline-block; }
-  .btn-ghost:hover { border-color: var(--white); transform: translateY(-1px); }
+.hero-insta-badge {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25);
+  padding: 0.5rem 1.1rem; border-radius: 3px; margin-bottom: 1.5rem;
+  font-size: 0.82rem; color: var(--gold-light); font-weight: 500;
+}
+.hero-insta-badge span { font-family: var(--font-display); font-size: 1.1rem; color: var(--gold); }
 
-  .stats-bar { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 2rem; display: flex; justify-content: center; gap: 0; }
-  .stat-item { text-align: center; padding: 0 3rem; border-right: 1px solid var(--border); }
-  .stat-item:last-child { border-right: none; }
-  .stat-number { font-family: var(--font-display); font-size: 2.5rem; letter-spacing: 0.03em; color: var(--gold); display: block; }
-  .stat-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); }
+.hero-sub { font-size: clamp(1rem, 2.5vw, 1.25rem); color: var(--gray-light); max-width: 560px; margin: 1.5rem auto 3rem; font-weight: 300; line-height: 1.7; }
+.hero-sub strong { color: var(--white); font-weight: 500; }
 
-  .section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
-  .section-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); margin-bottom: 0.8rem; }
-  .section-title { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.8rem); line-height: 1; letter-spacing: 0.03em; margin-bottom: 1rem; }
-  .section-title em { font-family: var(--font-serif); font-style: italic; color: var(--gold); }
-  .section-desc { font-size: 1.05rem; color: var(--gray-light); max-width: 540px; line-height: 1.7; font-weight: 300; margin-bottom: 3.5rem; }
+.hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-primary { background: var(--red-tv); color: var(--white); padding: 0.85rem 2.2rem; border-radius: 3px; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
+.btn-primary:hover { background: #ff4436; transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--white); padding: 0.85rem 2.2rem; border-radius: 3px; border: 1px solid var(--border-strong); font-size: 0.9rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: border-color 0.2s, transform 0.15s; display: inline-block; }
+.btn-ghost:hover { border-color: var(--white); transform: translateY(-1px); }
 
-  .world-divider { position: relative; text-align: center; padding: 5rem 2rem; overflow: hidden; }
-  .world-divider::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--border); }
-  .world-divider-label { position: relative; display: inline-block; background: var(--black); padding: 1.5rem 3rem; border: 1px solid var(--border-strong); border-radius: 2px; }
-  .world-divider-label p { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); margin-bottom: 0.3rem; }
-  .world-divider-label h3 { font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 0.05em; color: var(--gold); }
+/* ── STATS BAR ── */
+.stats-bar { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 2rem; display: flex; justify-content: center; gap: 0; }
+.stat-item { text-align: center; padding: 0 3rem; border-right: 1px solid var(--border); }
+.stat-item:last-child { border-right: none; }
+.stat-number { font-family: var(--font-display); font-size: 2.5rem; letter-spacing: 0.03em; color: var(--gold); display: block; }
+.stat-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); }
 
-  .plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-bottom: 1rem; }
-  .plan-card { background: var(--card); padding: 2.2rem 2rem; position: relative; transition: background 0.2s; }
-  .plan-card:hover { background: #222222; }
-  .plan-card.featured { background: #1A1A1A; }
-  .plan-card.featured::before { content: 'MAIS VENDIDO'; position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--black); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; padding: 0.3rem 1rem; border-radius: 0 0 4px 4px; }
-  .plan-tag { display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); border: 1px solid var(--border-strong); padding: 0.2rem 0.6rem; border-radius: 2px; margin-bottom: 1.2rem; }
-  .plan-name { font-family: var(--font-display); font-size: 1.6rem; letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.5rem; }
-  .plan-tagline { font-size: 0.85rem; color: var(--gray); margin-bottom: 1.8rem; font-weight: 300; line-height: 1.5; }
-  .plan-price { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
-  .plan-price-number { font-family: var(--font-display); font-size: 3rem; letter-spacing: 0.02em; color: var(--white); line-height: 1; }
-  .plan-price-currency { font-size: 1.2rem; color: var(--gray); vertical-align: top; margin-top: 0.4rem; display: inline-block; }
-  .plan-price-period { font-size: 0.8rem; color: var(--gray); display: block; margin-top: 0.3rem; font-weight: 400; }
-  .plan-features { list-style: none; margin-bottom: 2rem; }
-  .plan-features li { font-size: 0.88rem; color: var(--gray-light); padding: 0.55rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: flex-start; gap: 0.7rem; line-height: 1.4; }
-  .plan-features li::before { content: '—'; color: var(--gold); font-size: 0.75rem; flex-shrink: 0; margin-top: 0.05rem; }
-  .plan-features li.highlight { color: var(--white); }
-  .plan-features li.highlight::before { content: '★'; color: var(--gold); }
-  .plan-cta { display: block; text-align: center; padding: 0.8rem 1.5rem; border-radius: 3px; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
-  .plan-cta-ghost { border: 1px solid var(--border-strong); color: var(--gray-light); }
-  .plan-cta-ghost:hover { border-color: var(--white); color: var(--white); }
-  .plan-cta-gold { background: var(--gold); color: var(--black); }
-  .plan-cta-gold:hover { background: var(--gold-light); }
+/* ── SECTION ── */
+.section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
+.section-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); margin-bottom: 0.8rem; }
+.section-title { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.8rem); line-height: 1; letter-spacing: 0.03em; margin-bottom: 1rem; }
+.section-title em { font-family: var(--font-serif); font-style: italic; color: var(--gold); }
+.section-desc { font-size: 1.05rem; color: var(--gray-light); max-width: 540px; line-height: 1.7; font-weight: 300; margin-bottom: 3.5rem; }
 
-  .url-pill { display: inline-block; font-size: 0.75rem; font-family: monospace; background: rgba(201,168,76,0.12); color: var(--gold); padding: 0.2rem 0.5rem; border-radius: 3px; margin-top: 0.2rem; }
+/* ── PROOF STRIP ── */
+.proof-strip {
+  background: var(--dark); border: 1px solid var(--border);
+  border-radius: 6px; padding: 1.8rem 2.5rem;
+  display: flex; align-items: center; gap: 2rem;
+  margin-bottom: 3.5rem; flex-wrap: wrap;
+}
+.proof-strip-icon { font-size: 1.8rem; flex-shrink: 0; }
+.proof-strip-text h4 { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 0.25rem; }
+.proof-strip-text p { font-size: 0.85rem; color: var(--gray); font-weight: 300; line-height: 1.5; }
+.proof-strip-stat { margin-left: auto; text-align: right; flex-shrink: 0; }
+.proof-strip-stat strong { font-family: var(--font-display); font-size: 2.2rem; color: var(--gold); display: block; letter-spacing: 0.03em; line-height: 1; }
+.proof-strip-stat span { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); }
 
-  .commitment { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem 2rem; display: flex; align-items: center; gap: 1.5rem; margin-top: 3rem; flex-wrap: wrap; }
-  .commitment-icon { font-size: 2rem; flex-shrink: 0; }
-  .commitment-text h4 { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 0.2rem; }
-  .commitment-text p { font-size: 0.85rem; color: var(--gray-light); font-weight: 300; }
+/* ── PLANS GRID ── */
+.plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-bottom: 1.5rem; }
+.plan-card { background: var(--card); padding: 2.2rem 2rem; position: relative; transition: background 0.2s; display: flex; flex-direction: column; }
+.plan-card:hover { background: #222222; }
+.plan-card.featured { background: #191919; }
+.plan-card.featured::before { content: 'MAIS CONTRATADO'; position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--black); font-size: 0.58rem; font-weight: 700; letter-spacing: 0.15em; padding: 0.28rem 1rem; border-radius: 0 0 4px 4px; white-space: nowrap; }
+.plan-card.featured::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); }
 
-  .tv-section { background: var(--off-black); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 6rem 2rem; }
-  .tv-inner { max-width: 1100px; margin: 0 auto; }
-  .tv-plans-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3.5rem; }
-  .tv-plan-card { background: var(--dark); border: 1px solid var(--border); border-radius: 6px; padding: 2.5rem; position: relative; transition: border-color 0.2s; }
-  .tv-plan-card:hover { border-color: var(--border-strong); }
-  .tv-plan-card.tv-featured { border-color: var(--gold); }
-  .tv-plan-card.tv-featured::before { content: 'MAIS COMPLETO'; position: absolute; top: -1px; right: 2rem; background: var(--gold); color: var(--black); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; padding: 0.3rem 1rem; border-radius: 0 0 4px 4px; }
-  .tv-badge { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 2px; margin-bottom: 1.5rem; background: var(--red-dim); color: var(--red-tv); border: 1px solid rgba(232,55,42,0.2); }
-  .tv-plan-name { font-family: var(--font-display); font-size: 2.2rem; letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.4rem; }
-  .tv-plan-sub { font-size: 0.88rem; color: var(--gray); margin-bottom: 1.8rem; font-weight: 300; line-height: 1.5; max-width: 380px; }
-  .tv-price-row { display: flex; align-items: baseline; gap: 0.4rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
-  .tv-price-main { font-family: var(--font-display); font-size: 4rem; letter-spacing: 0.02em; color: var(--white); line-height: 1; }
-  .tv-price-detail { font-size: 0.8rem; color: var(--gray); line-height: 1.4; }
-  .tv-features { list-style: none; margin-bottom: 2.5rem; }
-  .tv-features li { font-size: 0.9rem; color: var(--gray-light); padding: 0.7rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: flex-start; gap: 0.8rem; line-height: 1.4; }
-  .tv-features li::before { content: '—'; color: var(--red-tv); font-size: 0.75rem; flex-shrink: 0; margin-top: 0.05rem; }
-  .tv-features li.tv-highlight { color: var(--white); font-weight: 500; }
-  .tv-features li.tv-highlight::before { content: '★'; color: var(--gold); }
-  .tv-cta { display: block; text-align: center; padding: 1rem 2rem; border-radius: 3px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
-  .tv-cta-main { background: var(--red-tv); color: var(--white); }
-  .tv-cta-main:hover { background: #ff4436; }
-  .tv-cta-gold { background: var(--gold); color: var(--black); }
-  .tv-cta-gold:hover { background: var(--gold-light); }
+.plan-tag { display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); border: 1px solid var(--border-strong); padding: 0.2rem 0.6rem; border-radius: 2px; margin-bottom: 1.2rem; }
+.plan-name { font-family: var(--font-display); font-size: 2rem; letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.5rem; line-height: 1; }
+.plan-tagline { font-size: 0.85rem; color: var(--gray); margin-bottom: 1.8rem; font-weight: 300; line-height: 1.55; flex: 1; }
 
-  .diff-bar { background: var(--dark); border: 1px solid var(--border); border-radius: 6px; padding: 2rem 2.5rem; display: flex; align-items: center; gap: 3rem; margin: 3rem 0; flex-wrap: wrap; }
-  .diff-col { flex: 1; min-width: 200px; }
-  .diff-col-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); margin-bottom: 0.8rem; }
-  .diff-col ul { list-style: none; }
-  .diff-col ul li { font-size: 0.88rem; color: var(--gray-light); padding: 0.35rem 0; display: flex; align-items: center; gap: 0.6rem; }
-  .diff-sep { text-align: center; min-width: 120px; font-family: var(--font-serif); font-style: italic; color: var(--gray); font-size: 0.95rem; line-height: 1.5; }
-  .diff-sep strong { display: block; font-family: var(--font-display); font-style: normal; font-size: 2.5rem; color: var(--gold); letter-spacing: 0.05em; margin-bottom: 0.2rem; }
+.plan-price { margin-bottom: 1.8rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+.plan-price-number { font-family: var(--font-display); font-size: 3.5rem; letter-spacing: 0.02em; color: var(--white); line-height: 1; }
+.featured .plan-price-number { color: var(--gold); }
+.plan-price-currency { font-size: 1.2rem; color: var(--gray); vertical-align: top; margin-top: 0.4rem; display: inline-block; }
+.plan-price-period { font-size: 0.78rem; color: var(--gray); display: block; margin-top: 0.3rem; }
 
-  .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3rem; }
-  .step { position: relative; }
-  .step-num { font-family: var(--font-display); font-size: 5rem; color: rgba(255,255,255,0.04); position: absolute; top: -1rem; left: -0.5rem; line-height: 1; pointer-events: none; }
-  .step-content { position: relative; padding-top: 1rem; }
-  .step-title { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
-  .step-desc { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+.plan-features { list-style: none; margin-bottom: 2rem; }
+.plan-features li { font-size: 0.88rem; color: var(--gray-light); padding: 0.55rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: flex-start; gap: 0.7rem; line-height: 1.4; }
+.plan-features li:last-child { border-bottom: none; }
+.plan-features li::before { content: '—'; color: var(--gold); font-size: 0.75rem; flex-shrink: 0; margin-top: 0.1rem; }
+.plan-features li.highlight { color: var(--white); }
+.plan-features li.highlight::before { content: '★'; color: var(--gold); }
 
-  .final-cta { text-align: center; padding: 8rem 2rem; position: relative; overflow: hidden; }
-  .final-cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(232,55,42,0.05) 0%, transparent 70%); }
-  .final-cta-pre { font-size: 1.1rem; color: var(--gold-light); font-weight: 500; margin-bottom: 1.5rem; position: relative; }
-  .final-cta h2 { font-family: var(--font-display); font-size: clamp(2.5rem, 7vw, 6rem); line-height: 0.95; letter-spacing: 0.03em; margin-bottom: 1.5rem; position: relative; }
-  .final-cta h2 em { font-family: var(--font-serif); font-style: italic; color: var(--gold); }
-  .final-cta p { font-size: 1.05rem; color: var(--gray-light); max-width: 480px; margin: 0 auto 2.5rem; font-weight: 300; position: relative; }
-  .final-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; }
+.plan-cta { display: block; text-align: center; padding: 0.8rem 1.5rem; border-radius: 3px; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; margin-top: auto; }
+.plan-cta-ghost { border: 1px solid var(--border-strong); color: var(--gray-light); }
+.plan-cta-ghost:hover { border-color: var(--white); color: var(--white); }
+.plan-cta-red { background: var(--red-tv); color: var(--white); }
+.plan-cta-red:hover { background: #ff4436; }
+.plan-cta-gold { background: var(--gold); color: var(--black); }
+.plan-cta-gold:hover { background: var(--gold-light); }
 
-  footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; }
-  footer p { font-size: 0.78rem; color: var(--gray); letter-spacing: 0.05em; }
-  footer a { color: var(--gray); text-decoration: none; }
-  footer a:hover { color: var(--white); }
+.url-pill { display: inline-block; font-size: 0.72rem; font-family: monospace; background: rgba(201,168,76,0.12); color: var(--gold); padding: 0.18rem 0.5rem; border-radius: 3px; margin-top: 0.25rem; }
 
-  @media (max-width: 768px) {
-    .nav-links { display: none; }
-    .plans-grid { grid-template-columns: 1fr; }
-    .tv-plans-grid { grid-template-columns: 1fr; }
-    .steps-grid { grid-template-columns: 1fr 1fr; }
-    .stats-bar { flex-wrap: wrap; gap: 2rem; }
-    .stat-item { border-right: none; padding: 0 1.5rem; }
-    .diff-bar { flex-direction: column; }
-  }
+/* ── NOTE BELOW PLANS ── */
+.plans-note { font-size: 0.8rem; color: var(--gray); text-align: center; padding: 0.8rem; }
+.plans-note a { color: var(--gray-light); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ── BRIDGE ── */
+.bridge {
+  background: var(--off-black);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 5rem 2rem;
+}
+.bridge-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+}
+.bridge-left .section-label { margin-bottom: 0.8rem; }
+.bridge-left .section-title { margin-bottom: 1rem; }
+.bridge-left p { font-size: 0.95rem; color: var(--gray); font-weight: 300; line-height: 1.75; margin-bottom: 2rem; }
+.bridge-right {
+  background: var(--dark); border: 1px solid var(--border-strong);
+  border-radius: 6px; padding: 2.5rem 2rem; position: relative;
+}
+.bridge-right::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--red-tv), var(--gold));
+  border-radius: 6px 6px 0 0;
+}
+.bridge-plan-name { font-family: var(--font-display); font-size: 2rem; letter-spacing: 0.04em; margin-bottom: 0.3rem; }
+.bridge-plan-sub { font-size: 0.85rem; color: var(--gray); font-weight: 300; line-height: 1.5; margin-bottom: 1.8rem; }
+.bridge-price { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+.bridge-price-row { display: flex; align-items: baseline; gap: 0.15rem; }
+.bridge-currency { font-size: 1.1rem; color: var(--gray); align-self: flex-start; margin-top: 0.4rem; }
+.bridge-amount { font-family: var(--font-display); font-size: 3.5rem; color: var(--white); line-height: 1; }
+.bridge-period { font-size: 0.78rem; color: var(--gray); display: block; margin-top: 0.3rem; }
+.bridge-features { list-style: none; margin-bottom: 2rem; }
+.bridge-features li { font-size: 0.88rem; color: var(--gray-light); padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; gap: 0.7rem; align-items: flex-start; line-height: 1.4; }
+.bridge-features li:last-child { border-bottom: none; }
+.bridge-features li::before { content: '—'; color: var(--red-tv); font-size: 0.75rem; flex-shrink: 0; margin-top: 0.1rem; }
+.bridge-features li.hi { color: var(--white); }
+.bridge-features li.hi::before { content: '★'; color: var(--gold); }
+.bridge-tag { display: inline-block; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red-tv); border: 1px solid rgba(232,55,42,0.3); padding: 0.2rem 0.6rem; border-radius: 2px; margin-bottom: 1.2rem; }
+
+/* ── HOW IT WORKS ── */
+.steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3rem; }
+.step { position: relative; }
+.step-num { font-family: var(--font-display); font-size: 5rem; color: rgba(255,255,255,0.04); position: absolute; top: -1rem; left: -0.5rem; line-height: 1; pointer-events: none; }
+.step-content { position: relative; padding-top: 1rem; }
+.step-title { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
+.step-desc { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+
+/* ── FINAL CTA ── */
+.final-cta { text-align: center; padding: 8rem 2rem; position: relative; overflow: hidden; }
+.final-cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(232,55,42,0.05) 0%, transparent 70%); }
+.final-cta-pre { font-size: 1.1rem; color: var(--gold-light); font-weight: 500; margin-bottom: 1.5rem; position: relative; }
+.final-cta h2 { font-family: var(--font-display); font-size: clamp(2.5rem, 7vw, 6rem); line-height: 0.95; letter-spacing: 0.03em; margin-bottom: 1.5rem; position: relative; }
+.final-cta h2 em { font-family: var(--font-serif); font-style: italic; color: var(--gold); }
+.final-cta p { font-size: 1.05rem; color: var(--gray-light); max-width: 480px; margin: 0 auto 2.5rem; font-weight: 300; position: relative; }
+.final-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; }
+
+/* ── FOOTER ── */
+footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; }
+footer p { font-size: 0.78rem; color: var(--gray); letter-spacing: 0.05em; }
+footer a { color: var(--gray); text-decoration: none; }
+footer a:hover { color: var(--white); }
+
+/* ── WORLD DIVIDER ── */
+.world-divider { position: relative; text-align: center; padding: 5rem 2rem; overflow: hidden; }
+.world-divider::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--border); }
+.world-divider-label { position: relative; display: inline-block; background: var(--black); padding: 1.5rem 3rem; border: 1px solid var(--border-strong); border-radius: 2px; }
+.world-divider-label p { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); margin-bottom: 0.3rem; }
+.world-divider-label h3 { font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 0.05em; color: var(--gold); }
+
+/* ── TV SECTION ── */
+.tv-section { background: var(--off-black); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 6rem 2rem; }
+.tv-inner { max-width: 1100px; margin: 0 auto; }
+.tv-plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3.5rem; }
+.tv-plan-card { background: var(--dark); border: 1px solid var(--border); border-radius: 6px; padding: 2.5rem; position: relative; transition: border-color 0.2s; display: flex; flex-direction: column; }
+.tv-plan-card:hover { border-color: var(--border-strong); }
+.tv-plan-card.tv-featured { border-color: var(--gold); }
+.tv-plan-card.tv-featured::before { content: 'MAIS COMPLETO'; position: absolute; top: -1px; right: 2rem; background: var(--gold); color: var(--black); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; padding: 0.3rem 1rem; border-radius: 0 0 4px 4px; }
+.tv-badge { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 2px; margin-bottom: 1.5rem; background: var(--red-dim); color: var(--red-tv); border: 1px solid rgba(232,55,42,0.2); }
+.tv-plan-name { font-family: var(--font-display); font-size: 2.2rem; letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.4rem; }
+.tv-plan-sub { font-size: 0.88rem; color: var(--gray); margin-bottom: 1.8rem; font-weight: 300; line-height: 1.5; max-width: 380px; }
+.tv-price-row { display: flex; align-items: baseline; gap: 0.4rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.tv-price-main { font-family: var(--font-display); font-size: 4rem; letter-spacing: 0.02em; color: var(--white); line-height: 1; }
+.tv-price-detail { font-size: 0.8rem; color: var(--gray); line-height: 1.4; }
+.tv-features { list-style: none; margin-bottom: 2.5rem; flex: 1; }
+.tv-features li { font-size: 0.9rem; color: var(--gray-light); padding: 0.7rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: flex-start; gap: 0.8rem; line-height: 1.4; }
+.tv-features li:last-child { border-bottom: none; }
+.tv-features li::before { content: '—'; color: var(--red-tv); font-size: 0.75rem; flex-shrink: 0; margin-top: 0.05rem; }
+.tv-features li.tv-highlight { color: var(--white); font-weight: 500; }
+.tv-features li.tv-highlight::before { content: '★'; color: var(--gold); }
+.tv-cta { display: block; text-align: center; padding: 1rem 2rem; border-radius: 3px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; margin-top: auto; }
+.tv-cta-main { background: var(--red-tv); color: var(--white); }
+.tv-cta-main:hover { background: #ff4436; }
+.tv-cta-gold { background: var(--gold); color: var(--black); }
+.tv-cta-gold:hover { background: var(--gold-light); }
+
+.diff-bar { background: var(--dark); border: 1px solid var(--border); border-radius: 6px; padding: 2rem 2.5rem; display: flex; align-items: center; gap: 3rem; margin: 3rem 0; flex-wrap: wrap; }
+.diff-col { flex: 1; min-width: 200px; }
+.diff-col-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); margin-bottom: 0.8rem; }
+.diff-col ul { list-style: none; }
+.diff-col ul li { font-size: 0.88rem; color: var(--gray-light); padding: 0.35rem 0; display: flex; align-items: center; gap: 0.6rem; }
+.diff-sep { text-align: center; min-width: 120px; font-family: var(--font-serif); font-style: italic; color: var(--gray); font-size: 0.95rem; line-height: 1.5; }
+.diff-sep strong { display: block; font-family: var(--font-display); font-style: normal; font-size: 2.5rem; color: var(--gold); letter-spacing: 0.05em; margin-bottom: 0.2rem; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .tv-plans-grid { grid-template-columns: 1fr; }
+  .diff-bar { flex-direction: column; }
+  .nav-links { display: none; }
+  .plans-grid { grid-template-columns: 1fr; }
+  .steps-grid { grid-template-columns: 1fr 1fr; }
+  .stats-bar { flex-wrap: wrap; gap: 2rem; }
+  .stat-item { border-right: none; padding: 0 1.5rem; }
+  .bridge-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .proof-strip { flex-direction: column; align-items: flex-start; }
+  .proof-strip-stat { margin-left: 0; text-align: left; }
+}
 </style>
 </head>
 <body>
 
+<!-- ── NAV ── -->
 <nav>
   <a href="https://tvmarataizes.digital" class="nav-logo">TV <span>Marataízes</span></a>
   <div class="nav-links">
-    <a href="#guia">Guia Digital</a>
+    <a href="#planos">Planos</a>
     <a href="#tv">TV & Agência</a>
     <a href="#como">Como funciona</a>
     <a href="https://wa.me/5528999036141?text=Quero+anunciar+na+TV+Marataízes" class="nav-cta">Falar agora</a>
   </div>
 </nav>
 
+<!-- ── HERO ── -->
 <section class="hero">
   <div class="hero-eyebrow">Canal 300 · Soul TV · Sul do ES · Ao vivo 24h</div>
 
-  <h1>Sua empresa<br>aparecendo toda semana<br>para <em>Marataízes</em></h1>
+  <h1>Seu concorrente<br>aparece.<br><em>E você?</em></h1>
 
   <div class="hero-insta-badge">
     <span>200K+</span> visualizações mensais no Instagram da TV Marataízes
   </div>
 
   <p class="hero-sub">
-    A única TV independente do Sul do Espírito Santo.<br>
-    <strong>237 mil views por campanha.</strong> Escolha como quer aparecer.
+    Hoje as pessoas não procuram empresas. <strong>Elas descobrem vendo.</strong><br>
+    Quem aparece no Instagram da TV Marataízes, vende. Simples assim.
   </p>
+
   <div class="hero-actions">
-    <a href="#guia" class="btn-ghost">Guia Digital — a partir de R$99</a>
-    <a href="#tv" class="btn-primary">TV & Agência — a partir de R$6.500</a>
+    <a href="#planos" class="btn-primary">Ver planos — a partir de R$99</a>
+    <a href="https://wa.me/5528999036141?text=Quero+anunciar+na+TV+Marataízes" class="btn-ghost">Falar agora</a>
   </div>
 </section>
 
+<!-- ── STATS ── -->
 <div class="stats-bar">
   <div class="stat-item"><span class="stat-number">237K</span><span class="stat-label">Views por campanha</span></div>
-  <div class="stat-item"><span class="stat-number">69K</span><span class="stat-label">Pessoas alcançadas</span></div>
+  <div class="stat-item"><span class="stat-number">200K+</span><span class="stat-label">Seguidores Instagram</span></div>
   <div class="stat-item"><span class="stat-number">8</span><span class="stat-label">Cidades cobertas</span></div>
-  <div class="stat-item"><span class="stat-number">300</span><span class="stat-label">Canal Soul TV</span></div>
+  <div class="stat-item"><span class="stat-number">Canal 300</span><span class="stat-label">Soul TV Nacional</span></div>
 </div>
 
-<section class="section" id="guia">
-  <div class="section-label">Frente 1 · Presença digital</div>
-  <h2 class="section-title">Guia <em>Digital</em></h2>
-  <p class="section-desc">Entre no portal da TV Marataízes. Seja encontrado quando alguém pesquisa pelo seu segmento na cidade. Sem produção, sem complexidade.</p>
+<!-- ── PLANOS ── -->
+<section class="section" id="planos">
+  <div class="section-label">Presença digital · Instagram + Guia</div>
+  <h2 class="section-title">Aparece.<br><em>Todo mês.</em></h2>
+  <p class="section-desc">Sem produção complicada. Sem contrato longo para começar. Você manda os dados, a gente coloca no ar em 24h.</p>
 
+  <!-- PROOF STRIP -->
+  <div class="proof-strip">
+    <div class="proof-strip-icon">📱</div>
+    <div class="proof-strip-text">
+      <h4>A TV Marataízes só trabalha com Instagram.</h4>
+      <p>É onde Marataízes olha. Sem dispersão, sem enrolação. Stories que aparecem para quem mora aqui.</p>
+    </div>
+    <div class="proof-strip-stat">
+      <strong>200K+</strong>
+      <span>seguidores locais</span>
+    </div>
+  </div>
+
+  <!-- GRID DE PLANOS -->
   <div class="plans-grid">
 
+    <!-- PRESENÇA R$99 -->
     <div class="plan-card">
       <div class="plan-tag">Entrada</div>
       <div class="plan-name">Presença</div>
-      <p class="plan-tagline">Seu negócio no portal da única TV do Sul do ES. Simples e imediato.</p>
+      <p class="plan-tagline">Seu negócio no guia digital da TV. Quando alguém procura no Google pelo seu segmento em Marataízes, você aparece.</p>
       <div class="plan-price">
         <div class="plan-price-number"><span class="plan-price-currency">R$</span>99</div>
         <span class="plan-price-period">por mês · sem fidelidade</span>
       </div>
       <ul class="plan-features">
-        <li>Nome da empresa no guia digital</li>
+        <li>Listagem no guia digital da TV Marataízes</li>
         <li>WhatsApp direto para o cliente</li>
         <li>Aparece nas buscas do Google</li>
         <li>Categoria exclusiva do seu segmento</li>
@@ -246,58 +341,53 @@
       <a href="https://wa.me/5528999036141?text=Quero+o+Plano+Presença+R$99+-+TV+Marataízes" class="plan-cta plan-cta-ghost">Quero esse plano</a>
     </div>
 
-    <!-- PLANO 249 — VERSÃO FINAL -->
+    <!-- MOVIMENTO R$149 -->
     <div class="plan-card featured">
       <div class="plan-tag">O que mais traz cliente</div>
-      <div class="plan-name">Visibilidade</div>
-      <p class="plan-tagline">Seu negócio aparece nos <strong style="color:var(--gold)">Stories da TV toda semana</strong> — a cidade inteira vê.</p>
+      <div class="plan-name">Movimento</div>
+      <p class="plan-tagline">Sua empresa aparece <strong style="color:var(--gold)">3x por semana nos Stories</strong> do Instagram da TV — a cidade inteira vê.</p>
       <div class="plan-price">
-        <div class="plan-price-number"><span class="plan-price-currency">R$</span>249</div>
-        <span class="plan-price-period">por mês · mínimo 6 meses</span>
+        <div class="plan-price-number"><span class="plan-price-currency">R$</span>149</div>
+        <span class="plan-price-period">por mês · mínimo 3 meses</span>
       </div>
       <ul class="plan-features">
         <li>Tudo do plano Presença</li>
-        <li class="highlight">4 stories/mês nas redes da TV Marataízes</li>
-        <li class="highlight">Vídeo de apresentação do local</li>
-        <li class="highlight">
-          Página exclusiva indexada no Google<br>
-          <span class="url-pill">tvmarataizes.digital/seuestablecimento</span>
-        </li>
-        <li>Apoiador em programa à sua escolha</li>
-        <li>WhatsApp direto na sua página</li>
+        <li class="highlight">3 stories/semana no Instagram da TV</li>
+        <li class="highlight">Link direto para o seu WhatsApp no story</li>
+        <li>Aparece para os 200K+ seguidores</li>
+        <li>Publicado em até 24 horas</li>
       </ul>
-      <a href="https://wa.me/5528999036141?text=Quero+o+Plano+Visibilidade+R$249+-+TV+Marataízes" class="plan-cta plan-cta-gold">Quero esse plano</a>
+      <a href="https://wa.me/5528999036141?text=Quero+o+Plano+Movimento+R$149+-+TV+Marataízes" class="plan-cta plan-cta-gold">Quero esse plano</a>
     </div>
 
+    <!-- DOMÍNIO LOCAL R$249 -->
     <div class="plan-card">
-      <div class="plan-tag">Completo</div>
-      <div class="plan-name">Autoridade</div>
-      <p class="plan-tagline">Máxima frequência. 8 stories e 1 post no feed por mês — você é visto toda semana, toda hora.</p>
+      <div class="plan-tag">Presença máxima</div>
+      <div class="plan-name">Domínio Local</div>
+      <p class="plan-tagline">Frequência máxima. Stories, post no feed e página própria. Você é visto toda semana, toda hora, em todo lugar.</p>
       <div class="plan-price">
-        <div class="plan-price-number"><span class="plan-price-currency">R$</span>399</div>
-        <span class="plan-price-period">por mês · mínimo 6 meses</span>
+        <div class="plan-price-number"><span class="plan-price-currency">R$</span>249</div>
+        <span class="plan-price-period">por mês · mínimo 3 meses</span>
       </div>
       <ul class="plan-features">
-        <li>Tudo do plano Visibilidade</li>
-        <li class="highlight">8 stories/mês nas redes da TV</li>
-        <li class="highlight">1 post no feed da TV por mês</li>
-        <li>Menção no ticker do portal</li>
-        <li>Relatório mensal de visualizações</li>
+        <li>Tudo do plano Movimento</li>
+        <li class="highlight">Stories diários — frequência máxima</li>
+        <li class="highlight">1 post no feed do Instagram da TV/mês</li>
+        <li class="highlight">
+          Página exclusiva no portal da TV<br>
+          <span class="url-pill">tvmarataizes.digital/seuNegocio</span>
+        </li>
+        <li>Destaque no topo da categoria no guia</li>
       </ul>
-      <a href="https://wa.me/5528999036141?text=Quero+o+Plano+Autoridade+R$399+-+TV+Marataízes" class="plan-cta plan-cta-ghost">Quero esse plano</a>
+      <a href="https://wa.me/5528999036141?text=Quero+o+Plano+Domínio+Local+R$249+-+TV+Marataízes" class="plan-cta plan-cta-ghost">Quero esse plano</a>
     </div>
 
   </div>
+  <p class="plans-note">Dúvidas sobre qual plano escolher? <a href="https://wa.me/5528999036141?text=Preciso+de+ajuda+para+escolher+um+plano">Fale agora pelo WhatsApp</a> — respondemos em até 2h.</p>
 
-  <div class="commitment">
-    <div class="commitment-icon">⚡</div>
-    <div class="commitment-text">
-      <h4>Guia + redes sociais da TV.</h4>
-      <p>Os planos acima combinam presença digital com visibilidade nas redes da TV Marataízes. A programação do Canal 300 faz parte dos planos completos abaixo.</p>
-    </div>
-  </div>
 </section>
 
+<!-- ── WORLD DIVIDER ── -->
 <div class="world-divider">
   <div class="world-divider-label">
     <p>A partir daqui</p>
@@ -305,6 +395,7 @@
   </div>
 </div>
 
+<!-- ── TV & AGÊNCIA ── -->
 <section class="tv-section" id="tv">
   <div class="tv-inner">
     <div class="section-label">Frente 2 · TV & Agência</div>
@@ -335,6 +426,27 @@
 
     <div class="tv-plans-grid">
 
+      <!-- PLANO AGÊNCIA R$2.500 -->
+      <div class="tv-plan-card" style="border-color: rgba(232,55,42,0.3);">
+        <div class="tv-badge">Agência · Instagram · Estratégia</div>
+        <div class="tv-plan-name">Agência</div>
+        <p class="tv-plan-sub">A Macuca Produções assume sua comunicação — criação, gestão e presença garantida no Instagram da TV toda semana. Você foca no negócio.</p>
+        <div class="tv-price-row">
+          <div class="tv-price-main">2.500</div>
+          <div class="tv-price-detail">R$ por mês<br><span style="color: var(--gray); font-size:0.75rem;">mínimo 3 meses · sem setup</span></div>
+        </div>
+        <ul class="tv-features">
+          <li class="tv-highlight">Gestão completa do Instagram da sua empresa</li>
+          <li class="tv-highlight">12 posts/mês — criação, arte e copy estratégico</li>
+          <li class="tv-highlight">Stories diários no Instagram da sua empresa</li>
+          <li>Identidade de voz e posicionamento de marca</li>
+          <li>Gestão de campanhas pagas (verba do cliente)</li>
+          <li>Atendimento direto com a equipe Macuca</li>
+        </ul>
+        <a href="https://wa.me/5528999036141?text=Quero+o+Plano+Agência+R$2.500+-+Macuca+Produções" class="tv-cta tv-cta-main">Quero esse plano</a>
+      </div>
+
+      <!-- PLANO CANAL R$6.500 -->
       <div class="tv-plan-card">
         <div class="tv-badge">TV · Agência · Produção</div>
         <div class="tv-plan-name">Canal</div>
@@ -344,19 +456,20 @@
           <div class="tv-price-detail">R$ por mês<br><span style="color: var(--gray); font-size:0.75rem;">mínimo 6 meses</span></div>
         </div>
         <ul class="tv-features">
-          <li class="tv-highlight">Inserções semanais na grade do Canal 300</li>
+          <li class="tv-highlight">Gestão completa do Instagram da sua empresa</li>
+          <li class="tv-highlight">1 post no feed da TV Marataízes por mês</li>
+          <li class="tv-highlight">3 stories/semana no Instagram da TV</li>
           <li class="tv-highlight">Macuca Produções como sua agência exclusiva</li>
+          <li>Inserções semanais na grade do Canal 300</li>
           <li>Produção de vídeo profissional mensal</li>
-          <li>Gestão completa das redes sociais</li>
           <li>Campanha impulsionada inclusa</li>
-          <li>Stories semanais TV + Instagram integrados</li>
-          <li>Relatório mensal de alcance e leads</li>
           <li>Página exclusiva no portal da TV</li>
           <li>Atendimento direto com a produção</li>
         </ul>
         <a href="https://wa.me/5528999036141?text=Quero+o+Plano+Canal+R$6.500+-+TV+Marataízes" class="tv-cta tv-cta-main">Quero esse plano</a>
       </div>
 
+      <!-- PLANO DOMÍNIO R$9.500 -->
       <div class="tv-plan-card tv-featured">
         <div class="tv-badge">TV · Agência · Exclusividade</div>
         <div class="tv-plan-name">Domínio</div>
@@ -366,9 +479,11 @@
           <div class="tv-price-detail">R$ por mês<br><span style="color: var(--gray); font-size:0.75rem;">mínimo 6 meses</span></div>
         </div>
         <ul class="tv-features">
-          <li class="tv-highlight">Tudo do plano Canal</li>
+          <li class="tv-highlight">Gestão completa do Instagram da sua empresa</li>
+          <li class="tv-highlight">1 post no feed da TV Marataízes por mês</li>
+          <li class="tv-highlight">Stories diários no Instagram da TV — toda semana, todo dia</li>
           <li class="tv-highlight">Exclusividade total no segmento — zero concorrência</li>
-          <li class="tv-highlight">Vinheta em todos os blocos da grade</li>
+          <li class="tv-highlight">Vinheta em todos os blocos da grade do Canal 300</li>
           <li>Presença ativa em coberturas ao vivo</li>
           <li>Participação em programas e eventos da TV</li>
           <li>Produção de vídeo institucional mensal premium</li>
@@ -383,6 +498,7 @@
   </div>
 </section>
 
+<!-- ── COMO FUNCIONA ── -->
 <section class="section" id="como">
   <div class="section-label">Processo</div>
   <h2 class="section-title">Do <em>WhatsApp</em><br>ao ar em 24h</h2>
@@ -404,30 +520,32 @@
     <div class="step">
       <div class="step-num">03</div>
       <div class="step-content">
-        <div class="step-title">Publicamos em 24h</div>
-        <p class="step-desc">Seu card ou página vai ao ar. Google indexa em poucos dias. Para TV, agendamos a produção.</p>
+        <div class="step-title">No ar em 24h</div>
+        <p class="step-desc">Seu card ou página vai ao ar. Google indexa em poucos dias. Stories começam na próxima semana.</p>
       </div>
     </div>
     <div class="step">
       <div class="step-num">04</div>
       <div class="step-content">
         <div class="step-title">Clientes te encontram</div>
-        <p class="step-desc">Quem pesquisa pelo seu segmento em Marataízes passa a ver o seu negócio. Toda semana.</p>
+        <p class="step-desc">Quem vê o Instagram da TV descobre você. Quem pesquisa no Google, também. Todo mês.</p>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ── FINAL CTA ── -->
 <section class="final-cta">
-  <p class="final-cta-pre">Hoje, quem aparece nos Stories da TV Marataízes vende mais.</p>
-  <h2>Ou sua empresa<br>aparece aqui...<br><em>ou é esquecida.</em></h2>
-  <p>Seu concorrente já está olhando para isso. A decisão é sua.</p>
+  <p class="final-cta-pre">Hoje, quem aparece no Instagram da TV Marataízes vende mais.</p>
+  <h2>Seu concorrente<br>já está olhando<br><em>para isso.</em></h2>
+  <p>A decisão é sua. Mas ela não espera.</p>
   <div class="final-actions">
-    <a href="https://wa.me/5528999036141?text=Quero+entrar+no+Guia+-+TV+Marataízes" class="btn-ghost">Entrar no Guia — a partir de R$99</a>
+    <a href="#planos" class="btn-ghost">Guia Digital — a partir de R$99</a>
     <a href="https://wa.me/5528999036141?text=Quero+o+Plano+de+TV+e+Agência+-+TV+Marataízes" class="btn-primary">TV & Agência — falar agora</a>
   </div>
 </section>
 
+<!-- ── FOOTER ── -->
 <footer>
   <p>© 2026 TV Marataízes · Canal 300 Soul TV · Marataízes ES · (28) 99903-6141 ·
     <a href="https://tvmarataizes.digital">Portal</a> ·
