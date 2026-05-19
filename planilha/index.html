@@ -192,9 +192,15 @@ function getVencimento(c){
   if(!c.entrada)return null;
   const entrada=new Date(c.entrada+'T00:00:00');
   const h=hoje();
-  let venc=new Date(h.getFullYear(),h.getMonth(),entrada.getDate());
   const hd=new Date(h.getFullYear(),h.getMonth(),h.getDate());
-  if(venc<hd)venc.setMonth(venc.getMonth()+1);
+  // Vencimento deste mês
+  let venc=new Date(h.getFullYear(),h.getMonth(),entrada.getDate());
+  // Se já foi pago este mês, retorna o próximo vencimento
+  if(isPagoMesAtual(c)){
+    return new Date(h.getFullYear(),h.getMonth()+1,entrada.getDate());
+  }
+  // Se o vencimento deste mês ainda não chegou ou é hoje → retorna ele
+  // Se já passou → retorna ele mesmo (atrasado)
   return venc;
 }
 
