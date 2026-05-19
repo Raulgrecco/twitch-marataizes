@@ -102,6 +102,9 @@ select.form-control option{background:var(--bg3)}
 .empty-icon{font-size:2rem;margin-bottom:.75rem}
 .empty-text{font-size:.85rem;font-family:'DM Mono',monospace}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.dia-btn{padding:.4rem .75rem;border-radius:6px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-size:.75rem;font-family:'Syne',sans-serif;font-weight:700;cursor:pointer;transition:all .15s;user-select:none}
+.dia-btn.selected{border-color:var(--yellow);background:rgba(245,200,66,.15);color:var(--yellow)}
+.dia-btn.disabled{opacity:.3;pointer-events:none}
 @media(max-width:600px){.stats-row{grid-template-columns:repeat(2,1fr)}.form-row{grid-template-columns:1fr}.card-badges{display:none}header{padding:0 1rem}}
 </style>
 </head>
@@ -156,9 +159,19 @@ select.form-control option{background:var(--bg3)}
           <option value="99">R$ 99 — Guia digital (sem stories)</option>
         </select>
       </div>
-      <div class="form-row">
-        <div class="form-group"><label>Data de Entrada</label><input class="form-control" id="f-entrada" type="date"></div>
-        <div class="form-group" id="grupo-story-dia"><label>Dia do Story <span id="story-dia-hint" style="color:var(--yellow);font-size:.6rem;font-family:'DM Mono',monospace"></span></label><input class="form-control" id="f-story-dia" placeholder="Ex: quarta e sexta"></div>
+      <div class="form-group"><label>Data de Entrada</label><input class="form-control" id="f-entrada" type="date"></div>
+      <div class="form-group" id="grupo-story-dia">
+        <label>Dias do Story <span id="story-dia-hint" style="color:var(--yellow);font-size:.6rem;font-family:'DM Mono',monospace"></span></label>
+        <div id="dias-picker" style="display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.4rem">
+          <label class="dia-btn" data-dia="seg"><input type="checkbox" value="seg" style="display:none">Seg</label>
+          <label class="dia-btn" data-dia="ter"><input type="checkbox" value="ter" style="display:none">Ter</label>
+          <label class="dia-btn" data-dia="qua"><input type="checkbox" value="qua" style="display:none">Qua</label>
+          <label class="dia-btn" data-dia="qui"><input type="checkbox" value="qui" style="display:none">Qui</label>
+          <label class="dia-btn" data-dia="sex"><input type="checkbox" value="sex" style="display:none">Sex</label>
+          <label class="dia-btn" data-dia="sab"><input type="checkbox" value="sab" style="display:none">Sáb</label>
+          <label class="dia-btn" data-dia="dom"><input type="checkbox" value="dom" style="display:none">Dom</label>
+        </div>
+        <input type="hidden" id="f-story-dia">
       </div>
       <div class="form-group"><label>Observações</label><textarea class="form-control" id="f-obs" rows="2" placeholder="Permuta: almoço, produto, etc."></textarea></div>
     </div>
@@ -245,21 +258,16 @@ function planFrequencia(p){return p==='249'||p==='125+125'||p==='permuta'?'diari
 function waLink(n,m){return'https://wa.me/'+n+'?text='+encodeURIComponent(m);}
 
 function isStoryHoje(c){
-  // Plano 99: sem stories
   if(c.plano==='99') return false;
-  // Planos 9500 (TV): stories diários — mantém
-  // Planos 249, 125+125, permuta: 4 stories/semana — verifica storyDia
-  // Plano 149: 2 stories/semana — verifica storyDia
   if(!c.storyDia) return false;
-  const d = c.storyDia.toLowerCase();
-  const dw = getDayOfWeek().toLowerCase();
-  const dm = getDayOfMonth();
-  const partes = d.split(/[,e\/\s]+/).map(x=>x.trim()).filter(x=>x.length>1);
-  for(const p of partes){
-    if(dw.startsWith(p.slice(0,3))) return true;
+  const dw=getDayOfWeek().toLowerCase(); // ex: "segunda-feira"
+  const mapaAbrev={seg:'segunda',ter:'terça',qua:'quarta',qui:'quinta',sex:'sexta',sab:'sáb',dom:'dom'};
+  const dias=c.storyDia.split(',').map(x=>x.trim().toLowerCase()).filter(Boolean);
+  for(const d of dias){
+    const nome=mapaAbrev[d]||d;
+    if(dw.startsWith(nome.slice(0,3))) return true;
+    if(dw.startsWith(d.slice(0,3))) return true;
   }
-  const num = parseInt(d.replace(/\D/g,''));
-  if(!isNaN(num)&&num===dm) return true;
   return false;
 }
 
@@ -488,7 +496,10 @@ function openModal(id=null){
     document.getElementById('f-story-dia').value='';
     document.getElementById('f-obs').value='';
   }
-  atualizarCampoStory();
+  // Init day picker with saved days
+  const savedDias=(document.getElementById('f-story-dia').value||'').split(',').map(x=>x.trim()).filter(Boolean);
+  initDiaPicker(savedDias);
+  atualizarHint();
   document.getElementById('modal-overlay').classList.add('open');
 }
 
@@ -528,26 +539,65 @@ function setFilter(filter,el){
 
 function render(){renderHoje();renderStats();renderCards();if(currentTab==='stories')renderStories();if(currentTab==='financeiro')renderFinanceiro();}
 
+function getDiasPermitidos(plano){
+  if(plano==='249'||plano==='125+125'||plano==='permuta') return 4;
+  if(plano==='149') return 2;
+  return 0;
+}
+
+function syncStoryDia(){
+  const selecionados=Array.from(document.querySelectorAll('.dia-btn.selected')).map(b=>b.dataset.dia);
+  document.getElementById('f-story-dia').value=selecionados.join(',');
+}
+
+function initDiaPicker(diasSelecionados=[]){
+  const plano=document.getElementById('f-plano').value;
+  const max=getDiasPermitidos(plano);
+  const btns=document.querySelectorAll('.dia-btn');
+  btns.forEach(btn=>{
+    btn.classList.remove('selected','disabled');
+    if(diasSelecionados.includes(btn.dataset.dia)) btn.classList.add('selected');
+    btn.onclick=function(){
+      const jaSelected=this.classList.contains('selected');
+      const totalSelected=document.querySelectorAll('.dia-btn.selected').length;
+      if(!jaSelected&&totalSelected>=max) return;
+      this.classList.toggle('selected');
+      syncStoryDia();
+      atualizarHint();
+    };
+  });
+  syncStoryDia();
+}
+
+function atualizarHint(){
+  const plano=document.getElementById('f-plano').value;
+  const max=getDiasPermitidos(plano);
+  const hint=document.getElementById('story-dia-hint');
+  const picker=document.getElementById('dias-picker');
+  if(max===0){
+    hint.textContent='→ sem stories';
+    picker.style.display='none';
+    return;
+  }
+  picker.style.display='flex';
+  const sel=document.querySelectorAll('.dia-btn.selected').length;
+  hint.textContent='→ escolha '+max+' dias ('+sel+'/'+max+' selecionados)';
+  hint.style.color=sel===max?'var(--green)':'var(--yellow)';
+}
+
 function atualizarCampoStory(){
   const plano=document.getElementById('f-plano').value;
-  const hint=document.getElementById('story-dia-hint');
-  const input=document.getElementById('f-story-dia');
-  if(plano==='249'||plano==='125+125'||plano==='permuta'){
-    hint.textContent='→ 4 dias por semana';
-    input.placeholder='Ex: seg, qua, qui, sab';
-    input.style.opacity='1';
-    input.disabled=false;
-  }else if(plano==='149'){
-    hint.textContent='→ 2 dias por semana';
-    input.placeholder='Ex: quarta e sexta';
-    input.style.opacity='1';
-    input.disabled=false;
-  }else{
-    hint.textContent='→ sem stories';
-    input.placeholder='Plano só guia';
-    input.style.opacity='.3';
-    input.disabled=true;
+  const max=getDiasPermitidos(plano);
+  const picker=document.getElementById('dias-picker');
+  // Limpa seleção se mudou de plano
+  document.querySelectorAll('.dia-btn.selected').forEach(b=>b.classList.remove('selected'));
+  if(max===0){
+    picker.style.display='none';
+  } else {
+    picker.style.display='flex';
   }
+  initDiaPicker();
+  atualizarHint();
 }
 
 document.getElementById('modal-overlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
