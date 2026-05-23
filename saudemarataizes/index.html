@@ -1334,6 +1334,17 @@
 
   /* ── ADMIN OPEN/CLOSE ── */
   function openAdmin() {
+    var senha = prompt('Senha de acesso:');
+    if (senha === null) return;
+    // hash simples — nao expoe a senha no codigo
+    var h = 0;
+    for (var i = 0; i < senha.length; i++) {
+      h = (Math.imul(31, h) + senha.charCodeAt(i)) | 0;
+    }
+    if (h !== -997859780) {
+      alert('Senha incorreta.');
+      return;
+    }
     document.getElementById('public-page').style.display = 'none';
     document.getElementById('admin-panel').style.display = 'block';
     window.scrollTo(0, 0);
