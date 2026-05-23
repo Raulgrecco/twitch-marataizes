@@ -868,7 +868,7 @@
         <p>A TV Marataízes abre espaço para ouvir a população, verificar relatos e acompanhar a realidade da saúde no município.</p>
         <div class="hero-cta">
           <a href="#relato" class="btn btn-primary" style="font-size:17px;padding:18px 36px;letter-spacing:.3px;box-shadow:0 0 0 4px rgba(200,16,46,.3);animation:btnPulse 2s ease-in-out infinite;">
-            📝 Conte sua experiência
+            📝 Envie aqui seu relato
           </a>
           <a href="#relatos" class="btn" style="background:rgba(255,255,255,.15);color:white;border:2px solid rgba(255,255,255,.5);font-size:15px;padding:18px 28px;">
             👁 Ver relatos verificados
@@ -956,7 +956,7 @@
 
       <div style="text-align:center;margin-top:36px;">
         <p style="font-size:14px;color:var(--muted);margin-bottom:16px;">Os relatos publicados passaram por verificação da equipe da TV Marataízes.</p>
-        <a href="#relato" class="btn btn-outline">Envie também o seu relato</a>
+        <a href="#relato" class="btn btn-primary" style="font-size:16px;padding:16px 32px;">📝 Envie aqui seu relato</a>
       </div>
     </div>
   </section>
@@ -1019,8 +1019,8 @@
               <label for="relato-texto">Seu relato *</label>
               <textarea id="relato-texto" placeholder="Descreva sua experiência com a saúde pública de Marataízes. Seja específico: quando aconteceu, onde, qual foi o problema ou elogio..." required></textarea>
             </div>
-            <button class="btn btn-primary form-submit-btn" onclick="enviarRelato()">
-              📨 Enviar meu relato
+            <button class="btn form-submit-btn" onclick="enviarRelato()" style="background:linear-gradient(135deg,#e8a020,#c8102e);color:white;width:100%;justify-content:center;font-size:17px;padding:18px;letter-spacing:.3px;box-shadow:0 4px 24px rgba(200,16,46,.4);border:none;">
+              🎙️ Meu depoimento pode mudar algo
             </button>
             <p class="privacy-note">Seus dados são usados apenas para verificação editorial. Nada será publicado sem sua confirmação.</p>
           </div>
@@ -1390,12 +1390,12 @@
       document.getElementById('relato-form').style.display = 'none';
       document.getElementById('form-success').style.display = 'block';
       btn.disabled = false;
-      btn.textContent = '📨 Enviar meu relato';
+      btn.textContent = '🎙️ Meu depoimento pode mudar algo';
       showToast('Relato enviado com sucesso!', 'success');
     }).catch(function() {
       showToast('Erro ao enviar. Tente novamente.', 'error');
       btn.disabled = false;
-      btn.textContent = '📨 Enviar meu relato';
+      btn.textContent = '🎙️ Meu depoimento pode mudar algo';
     });
   }
 
