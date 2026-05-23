@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saúde em Marataízes | TV Marataízes</title>
+  <meta name="description" content="A TV Marataízes abre espaço para a população relatar experiências reais com a saúde pública de Marataízes. Participe, conte sua história." />
+  <meta property="og:title" content="Como está a saúde pública em Marataízes? | TV Marataízes" />
+  <meta property="og:description" content="Envie seu relato e ajude a TV Marataízes a acompanhar a realidade da saúde no município." />
+  <meta property="og:url" content="https://tvmarataizes.digital/saudemarataizes" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── CSS Variables ─── */
+    :root {
+      --red:       #C8102E;
+      --red-dark:  #9B0C24;
+      --red-light: #f8e4e8;
+      --ink:       #111318;
+      --ink-soft:  #2e333d;
+      --muted:     #5c6370;
+      --rule:      #e2e5ea;
+      --bg:        #f5f6f8;
+      --white:     #ffffff;
+      --gold:      #d4a017;
+      --green:     #1a7a4a;
+      --green-bg:  #eaf5ef;
+      --font-head: 'Playfair Display', Georgia, serif;
+      --font-body: 'Source Sans 3', system-ui, sans-serif;
+      --radius:    6px;
+      --shadow:    0 2px 16px rgba(0,0,0,.08);
+      --shadow-md: 0 6px 32px rgba(0,0,0,.12);
+    }
+
+    /* ─── Reset ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── Utility ─── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    .section { padding: 72px 0; }
+    .section-alt { background: var(--bg); }
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--red);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 2px;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(26px, 4vw, 38px);
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .section-desc {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 580px;
+      line-height: 1.7;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all .2s ease;
+    }
+    .btn-primary {
+      background: var(--red);
+      color: var(--white);
+    }
+    .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(200,16,46,.35); }
+    .btn-outline {
+      background: transparent;
+      color: var(--red);
+      border: 2px solid var(--red);
+    }
+    .btn-outline:hover { background: var(--red); color: var(--white); }
+
+    /* ─── Topbar ─── */
+    .topbar {
+      background: var(--ink);
+      color: rgba(255,255,255,.65);
+      font-size: 12px;
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .topbar-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .topbar-date { display: flex; align-items: center; gap: 6px; }
+
+    /* ─── Header ─── */
+    header {
+      background: var(--white);
+      border-bottom: 3px solid var(--red);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+      height: 64px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 22px;
+      color: var(--ink);
+    }
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--red);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+    .logo span { color: var(--red); }
+    .header-tag {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: var(--red-light);
+      color: var(--red);
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+    .admin-btn {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      background: none;
+      border: 1px solid var(--rule);
+      padding: 6px 14px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .admin-btn:hover { border-color: var(--red); color: var(--red); }
+
+    /* ─── Hero ─── */
+    .hero {
+      background: var(--ink);
+      background-image:
+        radial-gradient(ellipse at 70% 50%, rgba(200,16,46,.18) 0%, transparent 60%),
+        repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,.03) 60px),
+        repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,.03) 60px);
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,.6) 0%, rgba(0,0,0,.2) 100%);
+    }
+    .hero-pulse {
+      position: absolute;
+      right: -60px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      border: 1px solid rgba(200,16,46,.2);
+      animation: pulse 3s ease-in-out infinite;
+    }
+    .hero-pulse::before {
+      content: '';
+      position: absolute;
+      inset: 30px;
+      border-radius: 50%;
+      border: 1px solid rgba(200,16,46,.15);
+      animation: pulse 3s ease-in-out infinite .5s;
+    }
+    .hero-pulse::after {
+      content: '';
+      position: absolute;
+      inset: 80px;
+      border-radius: 50%;
+      border: 1px solid rgba(200,16,46,.1);
+    }
+    @keyframes pulse { 0%,100%{transform:scale(1) translateY(-50%)} 50%{transform:scale(1.04) translateY(-50%)} }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(200,16,46,.85);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px;
+      background: white;
+      border-radius: 50%;
+      animation: blink 1.4s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(32px, 5.5vw, 58px);
+      font-weight: 900;
+      line-height: 1.1;
+      color: white;
+      margin-bottom: 20px;
+    }
+    .hero h1 em { color: #ff6b7a; font-style: normal; }
+    .hero p {
+      font-size: clamp(15px, 2vw, 18px);
+      color: rgba(255,255,255,.8);
+      line-height: 1.7;
+      margin-bottom: 36px;
+      max-width: 520px;
+    }
+    .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,.4);
+      font-size: 12px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-scroll::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,.2);
+      animation: scrollLine 1.6s ease-in-out infinite;
+    }
+    @keyframes scrollLine { 0%{height:40px;opacity:1} 100%{height:0;opacity:0} }
+
+    /* ─── Stats ─── */
+    .stats-bar {
+      background: var(--red);
+      color: white;
+      padding: 20px 0;
+    }
+    .stats-inner {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+      text-align: center;
+    }
+    .stat-item strong { display: block; font-family: var(--font-head); font-size: 28px; }
+    .stat-item span { font-size: 13px; opacity: .85; }
+
+    /* ─── Video Section ─── */
+    .video-card {
+      background: var(--white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--rule);
+    }
+    .video-embed-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: var(--ink);
+      overflow: hidden;
+    }
+    .video-embed-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .video-meta {
+      padding: 28px 32px;
+    }
+    .video-meta h3 {
+      font-family: var(--font-head);
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    .video-meta p { color: var(--muted); font-size: 16px; }
+
+    /* ─── Relatos Cards ─── */
+    .relatos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .relato-card {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 28px;
+      border: 1px solid var(--rule);
+      box-shadow: var(--shadow);
+      position: relative;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .relato-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .relato-card::before {
+      content: '"';
+      font-family: var(--font-head);
+      font-size: 80px;
+      color: var(--red-light);
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      line-height: 1;
+    }
+    .relato-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .relato-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--red);
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: var(--font-head);
+    }
+    .relato-avatar.green { background: var(--green); }
+    .relato-author-info strong { display: block; font-weight: 700; font-size: 15px; }
+    .relato-author-info span { font-size: 13px; color: var(--muted); }
+    .relato-text { font-size: 15px; color: var(--ink-soft); line-height: 1.65; margin-bottom: 18px; }
+    .relato-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      background: var(--green-bg);
+      color: var(--green);
+    }
+    .relato-badge.pending { background: #fff8e6; color: #a07000; }
+    .relato-check { font-size: 12px; }
+
+    /* ─── Form Section ─── */
+    .form-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .form-intro h2 { margin-bottom: 16px; }
+    .form-intro p { color: var(--muted); margin-bottom: 24px; }
+    .form-features { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .form-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15px;
+      color: var(--ink-soft);
+    }
+    .form-features li::before {
+      content: '✓';
+      background: var(--red);
+      color: white;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .form-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 36px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--rule);
+    }
+    .form-card h3 {
+      font-family: var(--font-head);
+      font-size: 20px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--rule);
+    }
+    .field { margin-bottom: 20px; }
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink-soft);
+      margin-bottom: 7px;
+      letter-spacing: .3px;
+    }
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--rule);
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--ink);
+      background: var(--bg);
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+      resize: vertical;
+    }
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      border-color: var(--red);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(200,16,46,.1);
+    }
+    .field textarea { min-height: 130px; }
+    .field-note { font-size: 12px; color: var(--muted); margin-top: 6px; }
+    .form-submit-btn {
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+      justify-content: center;
+    }
+    .privacy-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 14px;
+      line-height: 1.5;
+    }
+    .privacy-note::before { content: '🔒'; flex-shrink: 0; font-size: 14px; }
+    #form-success {
+      display: none;
+      text-align: center;
+      padding: 32px;
+    }
+    #form-success .success-icon { font-size: 56px; margin-bottom: 16px; }
+    #form-success h4 { font-family: var(--font-head); font-size: 22px; margin-bottom: 10px; }
+    #form-success p { color: var(--muted); }
+
+    /* ─── Editorial Section ─── */
+    .editorial-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .editorial-text p {
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--ink-soft);
+      margin-bottom: 16px;
+    }
+    .editorial-text p strong { color: var(--red); }
+    .editorial-pillars {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .pillar {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 24px;
+      border: 1px solid var(--rule);
+      border-left: 4px solid var(--red);
+      box-shadow: var(--shadow);
+    }
+    .pillar-icon { font-size: 28px; margin-bottom: 10px; }
+    .pillar strong { display: block; font-size: 16px; margin-bottom: 4px; }
+    .pillar p { font-size: 14px; color: var(--muted); margin: 0; }
+
+    /* ─── Admin Panel ─── */
+    #admin-panel {
+      display: none;
+      background: #1a1d23;
+      color: #c8cdd6;
+      min-height: 100vh;
+      font-family: var(--font-body);
+    }
+    .admin-topbar {
+      background: #111318;
+      border-bottom: 2px solid var(--red);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .admin-topbar h2 {
+      font-family: var(--font-head);
+      font-size: 18px;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .admin-topbar h2 .badge {
+      background: var(--red);
+      color: white;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+    .admin-close {
+      background: rgba(255,255,255,.1);
+      border: none;
+      color: rgba(255,255,255,.7);
+      padding: 7px 16px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 13px;
+      font-family: var(--font-body);
+      transition: background .2s;
+    }
+    .admin-close:hover { background: rgba(255,255,255,.2); }
+    .admin-body { padding: 28px 24px; max-width: 1100px; margin: 0 auto; }
+    .admin-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .admin-stat {
+      background: #22262e;
+      border-radius: 8px;
+      padding: 18px 20px;
+      border: 1px solid #2d323c;
+    }
+    .admin-stat .count {
+      font-family: var(--font-head);
+      font-size: 32px;
+      color: white;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .admin-stat .label { font-size: 12px; color: #6b7280; }
+    .admin-stat.red .count { color: var(--red); }
+    .admin-stat.gold .count { color: var(--gold); }
+    .admin-stat.green .count { color: #22c55e; }
+    .admin-filters {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      background: #22262e;
+      border: 1px solid #2d323c;
+      color: #9ca3af;
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--red);
+      border-color: var(--red);
+      color: white;
+    }
+    .admin-list { display: flex; flex-direction: column; gap: 16px; }
+    .admin-item {
+      background: #22262e;
+      border-radius: 10px;
+      border: 1px solid #2d323c;
+      padding: 22px 24px;
+      transition: border-color .2s;
+    }
+    .admin-item:hover { border-color: #3d424f; }
+    .admin-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .admin-item-info { display: flex; align-items: center; gap: 14px; }
+    .admin-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      color: white;
+      flex-shrink: 0;
+    }
+    .admin-name { font-weight: 700; font-size: 15px; color: white; }
+    .admin-phone { font-size: 13px; color: #6b7280; }
+    .admin-time { font-size: 12px; color: #4b5563; }
+    .admin-relato {
+      font-size: 14px;
+      color: #9ca3af;
+      line-height: 1.6;
+      background: #1a1d23;
+      border-radius: 6px;
+      padding: 14px 16px;
+      border-left: 3px solid #2d323c;
+      margin-bottom: 16px;
+    }
+    .admin-item-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .status-select {
+      background: #1a1d23;
+      border: 1px solid #2d323c;
+      color: #c8cdd6;
+      padding: 7px 14px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-family: var(--font-body);
+      cursor: pointer;
+      outline: none;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    .status-badge.pendente { background: rgba(212,160,23,.15); color: var(--gold); }
+    .status-badge.confirmado { background: rgba(34,197,94,.12); color: #22c55e; }
+    .status-badge.publicado { background: rgba(59,130,246,.12); color: #60a5fa; }
+    .wa-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #25D366;
+      color: white;
+      padding: 9px 18px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 700;
+      font-family: var(--font-body);
+      text-decoration: none;
+      transition: background .2s;
+    }
+    .wa-btn:hover { background: #1ebe5d; }
+    .wa-icon { font-size: 16px; }
+    .admin-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .admin-empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: #4b5563;
+    }
+    .admin-empty .icon { font-size: 48px; margin-bottom: 16px; opacity: .4; }
+
+    /* ─── Footer ─── */
+    footer {
+      background: var(--ink);
+      color: rgba(255,255,255,.65);
+      padding: 56px 0 32px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .logo { color: white; margin-bottom: 16px; }
+    .footer-brand p { font-size: 14px; line-height: 1.7; max-width: 320px; }
+    .footer-col h4 {
+      font-family: var(--font-head);
+      font-size: 16px;
+      color: white;
+      margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li { font-size: 14px; }
+    .footer-col ul li a:hover { color: white; }
+    .footer-rule { border: none; border-top: 1px solid rgba(255,255,255,.1); margin-bottom: 24px; }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .footer-bottom a { color: rgba(255,255,255,.5); }
+    .footer-bottom a:hover { color: white; }
+
+    /* ─── Toast ─── */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--ink);
+      color: white;
+      padding: 14px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: var(--shadow-md);
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all .3s ease;
+      z-index: 9999;
+      max-width: 320px;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { border-left: 4px solid var(--green); }
+    .toast.error { border-left: 4px solid var(--red); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+      .section { padding: 48px 0; }
+      .form-wrap { grid-template-columns: 1fr; gap: 32px; }
+      .editorial-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .admin-stats { grid-template-columns: repeat(2, 1fr); }
+      .hero-cta { flex-direction: column; }
+      .hero-cta .btn { width: 100%; justify-content: center; }
+      .header-tag { display: none; }
+      .topbar-links { display: none; }
+      .admin-item-footer { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 480px) {
+      .admin-stats { grid-template-columns: 1fr 1fr; }
+      .relatos-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── TOPBAR ─── -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-date">
+      <span>📅</span>
+      <span id="current-date"></span>
+    </div>
+    <div class="topbar-links" style="display:flex;gap:20px;align-items:center;">
+      <span>Marataízes, Espírito Santo</span>
+      <span>|</span>
+      <a href="https://tvmarataizes.digital" style="color:rgba(255,255,255,.65);transition:color .2s" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,.65)'">tvmarataizes.digital</a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── HEADER ─── -->
+<header>
+  <div class="header-inner">
+    <a href="https://tvmarataizes.digital" class="logo">
+      <div class="logo-icon">TV</div>
+      TV <span>Marataízes</span>
+    </a>
+    <div class="header-tag">Observatório da Saúde</div>
+    <button class="admin-btn" onclick="openAdmin()">⚙ Painel Editorial</button>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════
+     PÁGINA PÚBLICA
+════════════════════════════════════════ -->
+<div id="public-page">
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="hero-pulse"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Jornalismo participativo
+        </div>
+        <h1>Como está a saúde pública em <em>Marataízes?</em></h1>
+        <p>A TV Marataízes abre espaço para ouvir a população, verificar relatos e acompanhar a realidade da saúde no município.</p>
+        <div class="hero-cta">
+          <a href="#relato" class="btn btn-primary" style="font-size:16px;padding:16px 32px;">
+            📝 Quero relatar minha experiência
+          </a>
+          <a href="#relatos" class="btn" style="background:rgba(255,255,255,.12);color:white;border:1.5px solid rgba(255,255,255,.3);">
+            Ver relatos verificados
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">Rolar</div>
+  </section>
+
+  <!-- ─── STATS BAR ─── -->
+  <div class="stats-bar">
+    <div class="container">
+      <div class="stats-inner">
+        <div class="stat-item">
+          <strong id="stat-total">0</strong>
+          <span>Relatos recebidos</span>
+        </div>
+        <div class="stat-item">
+          <strong id="stat-confirmados">0</strong>
+          <span>Confirmados pela redação</span>
+        </div>
+        <div class="stat-item">
+          <strong id="stat-publicados">0</strong>
+          <span>Publicados</span>
+        </div>
+        <div class="stat-item">
+          <strong>✓</strong>
+          <span>Verificação editorial</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SEÇÃO 1 — VÍDEO ─── -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Entrevista oficial</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;">
+        <div>
+          <h2 class="section-title">Entrevista completa com a Secretária Municipal de Saúde</h2>
+          <p class="section-desc">Para garantir transparência e espaço para todos os lados, publicamos a íntegra da entrevista concedida à TV Marataízes. Ouça a posição oficial da gestão municipal.</p>
+          <div style="margin-top:24px;padding:20px;background:var(--red-light);border-radius:8px;border-left:4px solid var(--red);">
+            <p style="font-size:14px;color:var(--red-dark);font-weight:600;margin:0;">
+              📺 A TV Marataízes garante espaço para todos os lados. A íntegra está disponível abaixo.
+            </p>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-embed-wrap">
+            <iframe
+              src="https://tvmarataizes.digital/saudemarataizes"
+              allowfullscreen
+              allow="autoplay; fullscreen"
+              title="Entrevista com a Secretária Municipal de Saúde de Marataízes"
+            ></iframe>
+          </div>
+          <div class="video-meta">
+            <h3>Secretária Municipal de Saúde</h3>
+            <p>Confira a entrevista completa concedida à equipe da TV Marataízes sobre a situação da saúde pública no município.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SEÇÃO 2 — RELATOS VERIFICADOS ─── -->
+  <section class="section section-alt" id="relatos">
+    <div class="container">
+      <div class="section-label">Relatos verificados</div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:8px;">
+        <div>
+          <h2 class="section-title">O que a população está relatando</h2>
+          <p class="section-desc">Histórias confirmadas pela nossa redação. Cada relato passou por verificação editorial antes de ser publicado.</p>
+        </div>
+      </div>
+
+      <div class="relatos-grid" id="relatos-publicados-grid">
+        <!-- Cards fixos de exemplo -->
+        <div class="relato-card">
+          <div class="relato-author">
+            <div class="relato-avatar">M</div>
+            <div class="relato-author-info">
+              <strong>Maria</strong>
+              <span>Barra · Consulta</span>
+            </div>
+          </div>
+          <p class="relato-text">"Tentei marcar consulta na UBS por três semanas seguidas. Sempre ouço que não tem vaga. Precisei ir à emergência por algo que poderia ter sido resolvido no posto."</p>
+          <span class="relato-badge"><span class="relato-check">✓</span> Relato confirmado pela redação</span>
+        </div>
+
+        <div class="relato-card">
+          <div class="relato-author">
+            <div class="relato-avatar">C</div>
+            <div class="relato-author-info">
+              <strong>Carlos</strong>
+              <span>Pontal · Medicamento</span>
+            </div>
+          </div>
+          <p class="relato-text">"Minha medicação para pressão faltou na farmácia da unidade por mais de 30 dias. Fui em quatro postos diferentes e nenhum tinha estoque."</p>
+          <span class="relato-badge"><span class="relato-check">✓</span> Relato confirmado pela redação</span>
+        </div>
+
+        <div class="relato-card">
+          <div class="relato-author">
+            <div class="relato-avatar green">A</div>
+            <div class="relato-author-info">
+              <strong>Ana</strong>
+              <span>Cidade Nova · Atendimento</span>
+            </div>
+          </div>
+          <p class="relato-text">"Fui ao posto esta semana e fui bem atendida. A enfermeira foi atenciosa e resolvi meu problema no mesmo dia. Fico feliz quando funciona assim."</p>
+          <span class="relato-badge"><span class="relato-check">✓</span> Relato confirmado pela redação</span>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:36px;">
+        <p style="font-size:14px;color:var(--muted);margin-bottom:16px;">Os relatos publicados passaram por verificação da equipe da TV Marataízes.</p>
+        <a href="#relato" class="btn btn-outline">Envie também o seu relato</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SEÇÃO 3 — FORMULÁRIO ─── -->
+  <section class="section" id="relato">
+    <div class="container">
+      <div class="form-wrap">
+        <div class="form-intro">
+          <div class="section-label">Participação popular</div>
+          <h2 class="section-title">Envie sua experiência com a saúde pública</h2>
+          <p>Quer relatar sua experiência com a saúde pública em Marataízes? Nossa equipe fará contato para confirmar seu relato antes de qualquer publicação.</p>
+          <ul class="form-features">
+            <li>Seu relato não será publicado sem confirmação</li>
+            <li>Nossa equipe entrará em contato pelo WhatsApp</li>
+            <li>Experiências positivas e negativas são bem-vindas</li>
+            <li>Você pode relatar sobre qualquer área da saúde pública</li>
+            <li>Seu número de telefone não será divulgado</li>
+          </ul>
+          <div style="margin-top:28px;padding:20px;background:var(--bg);border-radius:8px;border:1px solid var(--rule);">
+            <p style="font-size:13px;color:var(--muted);margin:0;line-height:1.7;">
+              <strong style="color:var(--ink);">Posso relatar sobre:</strong><br>
+              falta de medicamentos • atendimento • demora • marcação de consultas • exames • transporte • funcionamento das unidades • e muito mais.
+            </p>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <h3>Seu relato</h3>
+          <div id="relato-form">
+            <div class="field">
+              <label for="nome">Nome completo *</label>
+              <input type="text" id="nome" placeholder="Seu nome" required />
+            </div>
+            <div class="field">
+              <label for="whatsapp">WhatsApp *</label>
+              <input type="tel" id="whatsapp" placeholder="(28) 9 0000-0000" required />
+              <p class="field-note">Usaremos apenas para confirmar seu relato. Não será divulgado.</p>
+            </div>
+            <div class="field">
+              <label for="bairro">Bairro / Localidade</label>
+              <input type="text" id="bairro" placeholder="Ex: Barra, Pontal, Centro..." />
+            </div>
+            <div class="field">
+              <label for="tema">Tema principal</label>
+              <select id="tema">
+                <option value="">Selecione o tema</option>
+                <option>Falta de medicamento</option>
+                <option>Atendimento</option>
+                <option>Demora / fila</option>
+                <option>Marcação de consultas</option>
+                <option>Exames</option>
+                <option>Transporte / SAMU</option>
+                <option>Funcionamento da unidade</option>
+                <option>Experiência positiva</option>
+                <option>Outro</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="relato-texto">Seu relato *</label>
+              <textarea id="relato-texto" placeholder="Descreva sua experiência com a saúde pública de Marataízes. Seja específico: quando aconteceu, onde, qual foi o problema ou elogio..." required></textarea>
+            </div>
+            <button class="btn btn-primary form-submit-btn" onclick="enviarRelato()">
+              📨 Enviar meu relato
+            </button>
+            <p class="privacy-note">Seus dados são usados apenas para verificação editorial. Nada será publicado sem sua confirmação.</p>
+          </div>
+          <div id="form-success">
+            <div class="success-icon">✅</div>
+            <h4>Relato recebido!</h4>
+            <p>Nossa equipe entrará em contato pelo WhatsApp para verificar as informações antes de qualquer publicação.</p>
+            <button class="btn btn-outline" style="margin-top:20px;" onclick="resetForm()">Enviar outro relato</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SEÇÃO 4 — EDITORIAL ─── -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="editorial-grid">
+        <div class="editorial-text">
+          <div class="section-label">Posicionamento editorial</div>
+          <h2 class="section-title">Jornalismo responsável a serviço de Marataízes</h2>
+          <p>A <strong>TV Marataízes</strong> acredita em jornalismo responsável. Nosso compromisso é ouvir a população, verificar informações e garantir espaço para todos os lados.</p>
+          <p>Quando há respostas, reconhecemos. Quando há demandas, acompanhamos. Nossa cobertura não serve a interesses políticos — serve ao interesse público.</p>
+          <p>Cada relato recebido passa por nossa equipe editorial antes de qualquer publicação ou divulgação.</p>
+        </div>
+        <div class="editorial-pillars">
+          <div class="pillar">
+            <div class="pillar-icon">🎙️</div>
+            <strong>Ouvimos a população</strong>
+            <p>Espaço aberto para relatos reais, sem censura prévia ou filtro político.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">🔍</div>
+            <strong>Verificamos as informações</strong>
+            <p>Nenhum relato é publicado sem confirmação editorial e contato com o interessado.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">⚖️</div>
+            <strong>Garantimos todos os lados</strong>
+            <p>A gestão municipal tem espaço garantido para se posicionar sobre cada tema abordado.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">📊</div>
+            <strong>Acompanhamos com transparência</strong>
+            <p>Publicamos os dados que recebemos e as respostas das autoridades competentes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo">
+            <div class="logo-icon">TV</div>
+            TV <span>Marataízes</span>
+          </div>
+          <p>O portal de notícias de Marataízes e região. Jornalismo independente, verificado e comprometido com o interesse público.</p>
+          <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;">
+            <a href="https://tvmarataizes.digital" style="font-size:13px;background:rgba(255,255,255,.1);padding:7px 14px;border-radius:20px;color:rgba(255,255,255,.7);">🌐 tvmarataizes.digital</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Observatório da Saúde</h4>
+          <ul>
+            <li><a href="#relatos">Relatos verificados</a></li>
+            <li><a href="#relato">Enviar relato</a></li>
+            <li><a href="#" onclick="openAdmin()">Painel editorial</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>TV Marataízes</h4>
+          <ul>
+            <li><a href="https://tvmarataizes.digital">Portal de notícias</a></li>
+            <li><a href="https://tvmarataizes.digital">Cobertura local</a></li>
+            <li><a href="https://tvmarataizes.digital">Contato</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="footer-rule" />
+      <div class="footer-bottom">
+        <span>© 2025 TV Marataízes. Todos os direitos reservados.</span>
+        <span>Jornalismo responsável · Marataízes, ES</span>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /public-page -->
+
+
+<!-- ════════════════════════════════════════
+     PAINEL ADMINISTRATIVO
+════════════════════════════════════════ -->
+<div id="admin-panel">
+  <div class="admin-topbar">
+    <h2>
+      ⚙ Painel Editorial — Observatório da Saúde
+      <span class="badge" id="admin-pendentes-badge">0 pendentes</span>
+    </h2>
+    <button class="admin-close" onclick="closeAdmin()">✕ Fechar painel</button>
+  </div>
+
+  <div class="admin-body">
+    <!-- Stats -->
+    <div class="admin-stats">
+      <div class="admin-stat red">
+        <div class="count" id="adm-total">0</div>
+        <div class="label">Total de relatos</div>
+      </div>
+      <div class="admin-stat gold">
+        <div class="count" id="adm-pendentes">0</div>
+        <div class="label">Pendentes</div>
+      </div>
+      <div class="admin-stat green">
+        <div class="count" id="adm-confirmados">0</div>
+        <div class="label">Confirmados</div>
+      </div>
+      <div class="admin-stat">
+        <div class="count" id="adm-publicados">0</div>
+        <div class="label">Publicados</div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="admin-filters">
+      <button class="filter-btn active" onclick="filterAdmin('todos', this)">Todos</button>
+      <button class="filter-btn" onclick="filterAdmin('Pendente', this)">Pendentes</button>
+      <button class="filter-btn" onclick="filterAdmin('Confirmado', this)">Confirmados</button>
+      <button class="filter-btn" onclick="filterAdmin('Publicado', this)">Publicados</button>
+    </div>
+
+    <!-- List -->
+    <div class="admin-list" id="admin-list"></div>
+  </div>
+</div>
+
+<!-- ─── TOAST ─── -->
+<div class="toast" id="toast"></div>
+
+<script>
+  /* ─────────────────────────────────────────
+     DATA STORE (localStorage)
+  ───────────────────────────────────────── */
+  const STORE_KEY = 'tvmar_saude_relatos';
+  let relatos = [];
+
+  function loadRelatos() {
+    try {
+      relatos = JSON.parse(localStorage.getItem(STORE_KEY) || '[]');
+    } catch(e) { relatos = []; }
+  }
+
+  function saveRelatos() {
+    localStorage.setItem(STORE_KEY, JSON.stringify(relatos));
+  }
+
+  /* ─────────────────────────────────────────
+     DATE
+  ───────────────────────────────────────── */
+  function setDate() {
+    const d = new Date();
+    const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
+    document.getElementById('current-date').textContent = d.toLocaleDateString('pt-BR', opts);
+  }
+
+  /* ─────────────────────────────────────────
+     STATS
+  ───────────────────────────────────────── */
+  function updateStats() {
+    const total = relatos.length;
+    const confirmados = relatos.filter(r => r.status === 'Confirmado').length;
+    const publicados  = relatos.filter(r => r.status === 'Publicado').length;
+    const pendentes   = relatos.filter(r => r.status === 'Pendente').length;
+
+    // Public
+    document.getElementById('stat-total').textContent = total;
+    document.getElementById('stat-confirmados').textContent = confirmados;
+    document.getElementById('stat-publicados').textContent = publicados;
+
+    // Admin
+    document.getElementById('adm-total').textContent = total;
+    document.getElementById('adm-pendentes').textContent = pendentes;
+    document.getElementById('adm-confirmados').textContent = confirmados;
+    document.getElementById('adm-publicados').textContent = publicados;
+    document.getElementById('admin-pendentes-badge').textContent = pendentes + ' pendentes';
+  }
+
+  /* ─────────────────────────────────────────
+     FORM
+  ───────────────────────────────────────── */
+  function enviarRelato() {
+    const nome   = document.getElementById('nome').value.trim();
+    const wa     = document.getElementById('whatsapp').value.trim();
+    const bairro = document.getElementById('bairro').value.trim();
+    const tema   = document.getElementById('tema').value;
+    const texto  = document.getElementById('relato-texto').value.trim();
+
+    if (!nome) { showToast('Informe seu nome.', 'error'); return; }
+    if (!wa)   { showToast('Informe seu WhatsApp.', 'error'); return; }
+    if (!texto) { showToast('Escreva seu relato.', 'error'); return; }
+
+    const novoRelato = {
+      id: Date.now(),
+      nome,
+      whatsapp: wa,
+      bairro: bairro || 'Não informado',
+      tema: tema || 'Não especificado',
+      relato: texto,
+      status: 'Pendente',
+      data: new Date().toLocaleString('pt-BR')
+    };
+
+    relatos.unshift(novoRelato);
+    saveRelatos();
+    updateStats();
+
+    document.getElementById('relato-form').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+    showToast('✅ Relato enviado com sucesso!', 'success');
+  }
+
+  function resetForm() {
+    document.getElementById('nome').value = '';
+    document.getElementById('whatsapp').value = '';
+    document.getElementById('bairro').value = '';
+    document.getElementById('tema').value = '';
+    document.getElementById('relato-texto').value = '';
+    document.getElementById('relato-form').style.display = 'block';
+    document.getElementById('form-success').style.display = 'none';
+  }
+
+  /* ─────────────────────────────────────────
+     ADMIN PANEL
+  ───────────────────────────────────────── */
+  let adminFilter = 'todos';
+
+  function openAdmin() {
+    document.getElementById('public-page').style.display = 'none';
+    document.getElementById('admin-panel').style.display = 'block';
+    renderAdmin();
+    window.scrollTo(0, 0);
+  }
+
+  function closeAdmin() {
+    document.getElementById('admin-panel').style.display = 'none';
+    document.getElementById('public-page').style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+
+  function filterAdmin(filter, btn) {
+    adminFilter = filter;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderAdmin();
+  }
+
+  function renderAdmin() {
+    const list = document.getElementById('admin-list');
+    let filtered = adminFilter === 'todos'
+      ? relatos
+      : relatos.filter(r => r.status === adminFilter);
+
+    if (filtered.length === 0) {
+      list.innerHTML = `
+        <div class="admin-empty">
+          <div class="icon">📋</div>
+          <p>${adminFilter === 'todos' ? 'Nenhum relato recebido ainda.' : 'Nenhum relato nesta categoria.'}</p>
+        </div>`;
+      return;
+    }
+
+    list.innerHTML = filtered.map(r => {
+      const waMsg = encodeURIComponent(
+        `Olá! Aqui é da equipe da TV Marataízes 📺\n\nRecebemos seu relato sobre a saúde pública de Marataízes.\n\nPara garantir informação responsável antes de eventual publicação, poderia confirmar melhor seu caso?\n\nSeu problema foi com:\n• falta de medicamento?\n• atendimento?\n• exame?\n• consulta?\n• transporte?\n• outro?\n\nObrigado pela colaboração 🙏`
+      );
+      const waNum = r.whatsapp.replace(/\D/g, '');
+      const waFull = waNum.startsWith('55') ? waNum : '55' + waNum;
+      const waLink = `https://wa.me/${waFull}?text=${waMsg}`;
+
+      const statusClass = r.status.toLowerCase();
+      const statusIcon  = r.status === 'Pendente' ? '⏳' : r.status === 'Confirmado' ? '✅' : '📢';
+
+      return `
+        <div class="admin-item" id="item-${r.id}">
+          <div class="admin-item-header">
+            <div class="admin-item-info">
+              <div class="admin-avatar">${r.nome.charAt(0).toUpperCase()}</div>
+              <div>
+                <div class="admin-name">${r.nome}</div>
+                <div class="admin-phone">${r.whatsapp} · ${r.bairro} · ${r.tema}</div>
+              </div>
+            </div>
+            <div class="admin-time">${r.data}</div>
+          </div>
+          <div class="admin-relato">${r.relato}</div>
+          <div class="admin-item-footer">
+            <div class="admin-actions">
+              <span class="status-badge ${statusClass}">${statusIcon} ${r.status}</span>
+              <select class="status-select" onchange="updateStatus(${r.id}, this.value)">
+                <option ${r.status==='Pendente'?'selected':''}>Pendente</option>
+                <option ${r.status==='Confirmado'?'selected':''}>Confirmado</option>
+                <option ${r.status==='Publicado'?'selected':''}>Publicado</option>
+              </select>
+            </div>
+            <a class="wa-btn" href="${waLink}" target="_blank">
+              <span class="wa-icon">💬</span> Confirmar via WhatsApp
+            </a>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  function updateStatus(id, newStatus) {
+    const idx = relatos.findIndex(r => r.id === id);
+    if (idx === -1) return;
+    relatos[idx].status = newStatus;
+    saveRelatos();
+    updateStats();
+    renderAdmin();
+    showToast('Status atualizado: ' + newStatus, 'success');
+  }
+
+  /* ─────────────────────────────────────────
+     TOAST
+  ───────────────────────────────────────── */
+  let toastTimer;
+  function showToast(msg, type = 'success') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast ' + type + ' show';
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
+  /* ─────────────────────────────────────────
+     INIT
+  ───────────────────────────────────────── */
+  document.addEventListener('DOMContentLoaded', () => {
+    setDate();
+    loadRelatos();
+    updateStats();
+  });
+</script>
+</body>
+</html>
