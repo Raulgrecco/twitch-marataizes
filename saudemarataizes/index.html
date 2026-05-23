@@ -947,55 +947,10 @@
       </div>
 
       <div class="relatos-grid" id="relatos-publicados-grid">
-
-        <div class="relato-card">
-          <div class="relato-author">
-            <div class="relato-avatar">S</div>
-            <div class="relato-author-info">
-              <strong>Sivana Simões</strong>
-              <span>@simoessivana · UPA 24h</span>
-            </div>
-          </div>
-          <p class="relato-text">"Eu queria saber por que eu já vim aqui umas 10 vezes, e chega hoje não tenho cadastro. Vergonha isso aqui. Hega aqui pode ta morrendo, ninguém faz nada, te trata igual cachorro."</p>
-          <span class="relato-badge"><span class="relato-check">✓</span> Relato confirmado pela redação</span>
+        <div class="admin-empty" style="grid-column:1/-1;padding:40px 0;">
+          <div class="icon" style="font-size:32px;margin-bottom:12px;">⏳</div>
+          <p style="color:var(--muted);">Carregando relatos verificados...</p>
         </div>
-
-        <div class="relato-card">
-          <div class="relato-author">
-            <div class="relato-avatar">N</div>
-            <div class="relato-author-info">
-              <strong>Nathi Ferreira</strong>
-              <span>@nathi_ferreira8 · UPA / Atendimento</span>
-            </div>
-          </div>
-          <p class="relato-text">"Está horrível depender da UPA. Aqui em casa descartamos a UPA de primeira e já vamos direto para Cachoeiro — ainda mais depois de meu filho receber diagnóstico errado. É um absurdo Marataízes não ter um lugar digno para pronto atendimento."</p>
-          <span class="relato-badge"><span class="relato-check">✓</span> Relato confirmado pela redação</span>
-        </div>
-
-        <div class="relato-card">
-          <div class="relato-author">
-            <div class="relato-avatar">E</div>
-            <div class="relato-author-info">
-              <strong>Ellen Rodrigues</strong>
-              <span>@ellen.rodrigues · Estrutura</span>
-            </div>
-          </div>
-          <p class="relato-text">"Já passou do tempo de ter hospital com todas as áreas funcionando em Marataízes. Isso é vergonha depender de saúde vizinha."</p>
-          <span class="relato-badge"><span class="relato-check">✓</span> Relato confirmado pela redação</span>
-        </div>
-
-        <div class="relato-card">
-          <div class="relato-author">
-            <div class="relato-avatar">A</div>
-            <div class="relato-author-info">
-              <strong>Ana Martis</strong>
-              <span>@ana_martis_zac · Qualidade do atendimento</span>
-            </div>
-          </div>
-          <p class="relato-text">"Sem falar que os médicos mal olham os pacientes. Esses médicos novos que estão na UPA mal sabem examinar um paciente."</p>
-          <span class="relato-badge"><span class="relato-check">✓</span> Relato confirmado pela redação</span>
-        </div>
-
       </div>
 
       <div style="text-align:center;margin-top:36px;">
@@ -1211,34 +1166,173 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzjiexV9uKgtiMZxGyjFp-TFePUjAB81Tpyow9honnVE-QMfkiJ-2RJlqVUOWaLdJ6ltQ/exec';
-  let relatos = [];
-  let adminFilter = 'todos';
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbytTPIGOM0gZetdyKmS6b9Vn2RBquOHceZa0_28XloT-ao_nDWT9ylbw1CJTPEyer5njA/exec';
+  var relatos = [];
+  var adminFilter = 'todos';
 
+  /* ── DATA ── */
   function setDate() {
     try {
-      const d = new Date();
+      var d = new Date();
       document.getElementById('current-date').textContent = d.toLocaleDateString('pt-BR', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
     } catch(e) {}
   }
 
-  function updateStats() {
-    try {
-      const total       = relatos.length;
-      const pendentes   = relatos.filter(function(r){ return r.status === 'Pendente'; }).length;
-      const confirmados = relatos.filter(function(r){ return r.status === 'Confirmado'; }).length;
-      const publicados  = relatos.filter(function(r){ return r.status === 'Publicado'; }).length;
-      document.getElementById('stat-total').textContent       = total;
-      document.getElementById('stat-confirmados').textContent = confirmados;
-      document.getElementById('stat-publicados').textContent  = publicados;
-      document.getElementById('adm-total').textContent        = total;
-      document.getElementById('adm-pendentes').textContent    = pendentes;
-      document.getElementById('adm-confirmados').textContent  = confirmados;
-      document.getElementById('adm-publicados').textContent   = publicados;
-      document.getElementById('admin-pendentes-badge').textContent = pendentes + ' pendentes';
-    } catch(e) {}
+  /* ── JSONP helper ── */
+  function jsonp(url, cb) {
+    var name = 'cb' + Date.now();
+    window[name] = function(data) {
+      try { delete window[name]; } catch(e) {}
+      var s = document.getElementById('_jsonp');
+      if (s) s.parentNode.removeChild(s);
+      cb(data);
+    };
+    var s = document.createElement('script');
+    s.id = '_jsonp';
+    s.src = url + (url.indexOf('?') > -1 ? '&' : '?') + 'callback=' + name + '&t=' + Date.now();
+    s.onerror = function() { cb(null); };
+    document.head.appendChild(s);
   }
 
+  /* ── SEÇÃO PÚBLICA: carrega apenas PUBLICADOS ── */
+  function carregarPublicos() {
+    jsonp(SCRIPT_URL, function(data) {
+      var grid = document.getElementById('relatos-publicados-grid');
+      if (!data || !data.relatos) {
+        grid.innerHTML = '<p style="color:var(--muted);grid-column:1/-1;">Nenhum relato publicado ainda.</p>';
+        return;
+      }
+      var publicados = data.relatos.filter(function(r) { return r.status === 'Publicado'; });
+      if (publicados.length === 0) {
+        grid.innerHTML = '<p style="color:var(--muted);grid-column:1/-1;">Nenhum relato publicado ainda.</p>';
+        return;
+      }
+      var html = '';
+      for (var i = 0; i < publicados.length; i++) {
+        var r = publicados[i];
+        var inicial = r.nome ? r.nome.charAt(0).toUpperCase() : '?';
+        html += '<div class="relato-card">';
+        html += '<div class="relato-author">';
+        html += '<div class="relato-avatar">' + inicial + '</div>';
+        html += '<div class="relato-author-info">';
+        html += '<strong>' + r.nome + '</strong>';
+        html += '<span>' + r.bairro + ' · ' + r.tema + '</span>';
+        html += '</div></div>';
+        html += '<p class="relato-text">"' + r.relato + '"</p>';
+        html += '<span class="relato-badge"><span class="relato-check">✓</span> Relato confirmado pela redação</span>';
+        html += '</div>';
+      }
+      grid.innerHTML = html;
+      /* atualiza contadores publicos */
+      document.getElementById('stat-publicados').textContent = publicados.length;
+    });
+  }
+
+  /* ── STATS ── */
+  function updateStats() {
+    var total       = relatos.length;
+    var pendentes   = relatos.filter(function(r){ return r.status === 'Pendente'; }).length;
+    var confirmados = relatos.filter(function(r){ return r.status === 'Confirmado'; }).length;
+    var publicados  = relatos.filter(function(r){ return r.status === 'Publicado'; }).length;
+    document.getElementById('stat-total').textContent       = total;
+    document.getElementById('stat-confirmados').textContent = confirmados;
+    document.getElementById('adm-total').textContent        = total;
+    document.getElementById('adm-pendentes').textContent    = pendentes;
+    document.getElementById('adm-confirmados').textContent  = confirmados;
+    document.getElementById('adm-publicados').textContent   = publicados;
+    document.getElementById('admin-pendentes-badge').textContent = pendentes + ' pendentes';
+  }
+
+  /* ── ADMIN: carrega todos os relatos ── */
+  function carregarRelatos() {
+    var list = document.getElementById('admin-list');
+    list.innerHTML = '<div class="admin-empty"><div class="icon">⏳</div><p>Carregando relatos...</p></div>';
+    jsonp(SCRIPT_URL, function(data) {
+      if (data && data.relatos) {
+        relatos = data.relatos;
+      }
+      updateStats();
+      renderAdmin();
+    });
+  }
+
+  /* ── MUDAR STATUS — atualiza planilha via Apps Script ── */
+  function atualizarStatus(rowIndex, novoStatus) {
+    var r = relatos[rowIndex];
+    if (!r) return;
+    relatos[rowIndex].status = novoStatus;
+    updateStats();
+    renderAdmin();
+    showToast('Salvando...', 'success');
+
+    /* Atualiza na planilha */
+    fetch(SCRIPT_URL + '?action=update&id=' + r.id + '&status=' + encodeURIComponent(novoStatus))
+      .then(function() {
+        showToast('Status: ' + novoStatus, 'success');
+        if (novoStatus === 'Publicado') {
+          carregarPublicos(); /* atualiza seção pública */
+        }
+      })
+      .catch(function() {
+        showToast('Status atualizado localmente.', 'success');
+      });
+  }
+
+  /* ── RENDER ADMIN ── */
+  function renderAdmin() {
+    var list = document.getElementById('admin-list');
+    var filtered = adminFilter === 'todos' ? relatos : relatos.filter(function(r){ return r.status === adminFilter; });
+
+    if (!filtered || filtered.length === 0) {
+      list.innerHTML = '<div class="admin-empty"><div class="icon">📋</div><p>Nenhum relato encontrado.</p></div>';
+      return;
+    }
+
+    var waBase = 'Ola! Aqui e da equipe da TV Marataizes' +
+      '%0A%0ARecebemos seu relato sobre a saude publica de Marataizes.' +
+      '%0A%0APoderia confirmar melhor seu caso?' +
+      '%0A%0ASeu problema foi com:%0A- falta de medicamento?%0A- atendimento?%0A- exame?%0A- consulta?%0A- transporte?%0A- outro?' +
+      '%0A%0AObrigado pela colaboracao!';
+
+    var html = '';
+    for (var i = 0; i < relatos.length; i++) {
+      var r = relatos[i];
+      var inFiltered = adminFilter === 'todos' || r.status === adminFilter;
+      if (!inFiltered) continue;
+
+      var waNum = String(r.whatsapp).replace(/[^0-9]/g, '');
+      if (waNum.indexOf('55') !== 0) waNum = '55' + waNum;
+      var waLink = 'https://wa.me/' + waNum + '?text=' + waBase;
+      var statusIcon = r.status === 'Confirmado' ? '✅' : r.status === 'Publicado' ? '📢' : '⏳';
+      var inicial = r.nome ? r.nome.charAt(0).toUpperCase() : '?';
+      var idx = i;
+
+      html += '<div class="admin-item">';
+      html += '<div class="admin-item-header">';
+      html += '<div class="admin-item-info">';
+      html += '<div class="admin-avatar">' + inicial + '</div>';
+      html += '<div><div class="admin-name">' + r.nome + '</div>';
+      html += '<div class="admin-phone">' + r.whatsapp + ' · ' + r.bairro + ' · ' + r.tema + '</div></div>';
+      html += '</div>';
+      html += '<div class="admin-time">' + r.data + '</div>';
+      html += '</div>';
+      html += '<div class="admin-relato">' + r.relato + '</div>';
+      html += '<div class="admin-item-footer">';
+      html += '<div class="admin-actions">';
+      html += '<span class="status-badge ' + String(r.status).toLowerCase() + '">' + statusIcon + ' ' + r.status + '</span>';
+      html += '<select class="status-select" onchange="atualizarStatus(' + idx + ', this.value)">';
+      html += '<option' + (r.status==='Pendente'?' selected':'') + '>Pendente</option>';
+      html += '<option' + (r.status==='Confirmado'?' selected':'') + '>Confirmado</option>';
+      html += '<option' + (r.status==='Publicado'?' selected':'') + '>Publicado</option>';
+      html += '</select>';
+      html += '</div>';
+      html += '<a class="wa-btn" href="' + waLink + '" target="_blank">💬 Confirmar via WhatsApp</a>';
+      html += '</div></div>';
+    }
+    list.innerHTML = html || '<div class="admin-empty"><div class="icon">📋</div><p>Nenhum relato.</p></div>';
+  }
+
+  /* ── ADMIN OPEN/CLOSE ── */
   function openAdmin() {
     document.getElementById('public-page').style.display = 'none';
     document.getElementById('admin-panel').style.display = 'block';
@@ -1259,70 +1353,7 @@
     renderAdmin();
   }
 
-  function carregarRelatos() {
-    var list = document.getElementById('admin-list');
-    list.innerHTML = '<div class="admin-empty"><div class="icon">⏳</div><p>Carregando relatos...</p></div>';
-
-    var cbName = 'cb' + Date.now();
-    window[cbName] = function(data) {
-      try { delete window[cbName]; } catch(e) {}
-      var tag = document.getElementById('jsonp-tag');
-      if (tag) tag.parentNode.removeChild(tag);
-      if (data && data.relatos) {
-        relatos = data.relatos;
-      }
-      updateStats();
-      renderAdmin();
-    };
-
-    var tag = document.createElement('script');
-    tag.id = 'jsonp-tag';
-    tag.src = SCRIPT_URL + '?callback=' + cbName + '&t=' + Date.now();
-    tag.onerror = function() {
-      list.innerHTML = '<div class="admin-empty"><div class="icon">❌</div><p>Erro ao carregar. Tente novamente.</p></div>';
-    };
-    document.head.appendChild(tag);
-  }
-
-  function renderAdmin() {
-    var list = document.getElementById('admin-list');
-    var filtered = adminFilter === 'todos' ? relatos : relatos.filter(function(r){ return r.status === adminFilter; });
-
-    if (!filtered || filtered.length === 0) {
-      list.innerHTML = '<div class="admin-empty"><div class="icon">📋</div><p>Nenhum relato encontrado.</p></div>';
-      return;
-    }
-
-    var html = '';
-    for (var i = 0; i < filtered.length; i++) {
-      var r = filtered[i];
-      var waMsg = encodeURIComponent('Ola! Aqui e da equipe da TV Marataizes' + '\n\n' + 'Recebemos seu relato sobre a saude publica de Marataizes.' + '\n\n' + 'Poderia confirmar melhor seu caso?' + '\n\n' + 'Seu problema foi com:' + '\n' + '- falta de medicamento?' + '\n' + '- atendimento?' + '\n' + '- exame?' + '\n' + '- consulta?' + '\n' + '- transporte?' + '\n' + '- outro?' + '\n\n' + 'Obrigado pela colaboracao!');
-      var waNum = String(r.whatsapp).replace(/[^0-9]/g, '');
-      if (waNum.indexOf('55') !== 0) waNum = '55' + waNum;
-      var waLink = 'https://wa.me/' + waNum + '?text=' + waMsg;
-      var statusIcon = r.status === 'Confirmado' ? '✅' : r.status === 'Publicado' ? '📢' : '⏳';
-      var inicial = r.nome ? r.nome.charAt(0).toUpperCase() : '?';
-
-      html += '<div class="admin-item">';
-      html += '<div class="admin-item-header">';
-      html += '<div class="admin-item-info">';
-      html += '<div class="admin-avatar">' + inicial + '</div>';
-      html += '<div><div class="admin-name">' + r.nome + '</div>';
-      html += '<div class="admin-phone">' + r.whatsapp + ' · ' + r.bairro + ' · ' + r.tema + '</div></div>';
-      html += '</div>';
-      html += '<div class="admin-time">' + r.data + '</div>';
-      html += '</div>';
-      html += '<div class="admin-relato">' + r.relato + '</div>';
-      html += '<div class="admin-item-footer">';
-      html += '<div class="admin-actions">';
-      html += '<span class="status-badge ' + String(r.status).toLowerCase() + '">' + statusIcon + ' ' + r.status + '</span>';
-      html += '</div>';
-      html += '<a class="wa-btn" href="' + waLink + '" target="_blank">💬 Confirmar via WhatsApp</a>';
-      html += '</div></div>';
-    }
-    list.innerHTML = html;
-  }
-
+  /* ── FORMULÁRIO ── */
   function enviarRelato() {
     var nome   = document.getElementById('nome').value.trim();
     var wa     = document.getElementById('whatsapp').value.trim();
@@ -1342,13 +1373,13 @@
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nome: nome, whatsapp: wa, bairro: bairro || 'Não informado', tema: tema || 'Não especificado', relato: texto })
+      body: JSON.stringify({ nome: nome, whatsapp: wa, bairro: bairro || 'Nao informado', tema: tema || 'Nao especificado', relato: texto })
     }).then(function() {
       document.getElementById('relato-form').style.display = 'none';
       document.getElementById('form-success').style.display = 'block';
-      showToast('Relato enviado com sucesso!', 'success');
       btn.disabled = false;
       btn.textContent = '📨 Enviar meu relato';
+      showToast('Relato enviado com sucesso!', 'success');
     }).catch(function() {
       showToast('Erro ao enviar. Tente novamente.', 'error');
       btn.disabled = false;
@@ -1363,6 +1394,7 @@
     document.getElementById('form-success').style.display = 'none';
   }
 
+  /* ── TOAST ── */
   var toastTimer;
   function showToast(msg, type) {
     var t = document.getElementById('toast');
@@ -1372,9 +1404,10 @@
     toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 4000);
   }
 
+  /* ── INIT ── */
   document.addEventListener('DOMContentLoaded', function() {
     setDate();
-    updateStats();
+    carregarPublicos();
   });
 </script>
 </body>
