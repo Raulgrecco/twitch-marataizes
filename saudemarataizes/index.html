@@ -1208,113 +1208,116 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  /* ─────────────────────────────────────────
-     DATA STORE (localStorage)
-  ───────────────────────────────────────── */
-  const STORE_KEY = 'tvmar_saude_relatos';
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyYuoI0CoSEHCnbkf4THMdq_zouEluDSN-72gmU4u2-01Bbsi3zBa2ySVPwusVsLgv5BA/exec';
   let relatos = [];
 
-  function loadRelatos() {
-    try {
-      relatos = JSON.parse(localStorage.getItem(STORE_KEY) || '[]');
-    } catch(e) { relatos = []; }
-  }
-
-  function saveRelatos() {
-    localStorage.setItem(STORE_KEY, JSON.stringify(relatos));
-  }
-
-  /* ─────────────────────────────────────────
-     DATE
-  ───────────────────────────────────────── */
   function setDate() {
     const d = new Date();
-    const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
-    document.getElementById('current-date').textContent = d.toLocaleDateString('pt-BR', opts);
+    document.getElementById('current-date').textContent = d.toLocaleDateString('pt-BR', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
   }
 
-  /* ─────────────────────────────────────────
-     STATS
-  ───────────────────────────────────────── */
   function updateStats() {
-    const total = relatos.length;
+    const total       = relatos.length;
     const confirmados = relatos.filter(r => r.status === 'Confirmado').length;
     const publicados  = relatos.filter(r => r.status === 'Publicado').length;
     const pendentes   = relatos.filter(r => r.status === 'Pendente').length;
-
-    // Public
-    document.getElementById('stat-total').textContent = total;
+    document.getElementById('stat-total').textContent       = total;
     document.getElementById('stat-confirmados').textContent = confirmados;
-    document.getElementById('stat-publicados').textContent = publicados;
-
-    // Admin
-    document.getElementById('adm-total').textContent = total;
-    document.getElementById('adm-pendentes').textContent = pendentes;
-    document.getElementById('adm-confirmados').textContent = confirmados;
-    document.getElementById('adm-publicados').textContent = publicados;
+    document.getElementById('stat-publicados').textContent  = publicados;
+    document.getElementById('adm-total').textContent        = total;
+    document.getElementById('adm-pendentes').textContent    = pendentes;
+    document.getElementById('adm-confirmados').textContent  = confirmados;
+    document.getElementById('adm-publicados').textContent   = publicados;
     document.getElementById('admin-pendentes-badge').textContent = pendentes + ' pendentes';
   }
 
-  /* ─────────────────────────────────────────
-     FORM
-  ───────────────────────────────────────── */
+  /* ── FORM: envia para o Google Sheets via Apps Script ── */
   function enviarRelato() {
-    const nome   = document.getElementById('nome').value.trim();
-    const wa     = document.getElementById('whatsapp').value.trim();
-    const bairro = document.getElementById('bairro').value.trim();
-    const tema   = document.getElementById('tema').value;
-    const texto  = document.getElementById('relato-texto').value.trim();
+    const nome  = document.getElementById('nome').value.trim();
+    const wa    = document.getElementById('whatsapp').value.trim();
+    const bairro= document.getElementById('bairro').value.trim();
+    const tema  = document.getElementById('tema').value;
+    const texto = document.getElementById('relato-texto').value.trim();
 
-    if (!nome) { showToast('Informe seu nome.', 'error'); return; }
-    if (!wa)   { showToast('Informe seu WhatsApp.', 'error'); return; }
+    if (!nome)  { showToast('Informe seu nome.', 'error'); return; }
+    if (!wa)    { showToast('Informe seu WhatsApp.', 'error'); return; }
     if (!texto) { showToast('Escreva seu relato.', 'error'); return; }
 
-    const novoRelato = {
-      id: Date.now(),
+    const btn = document.querySelector('.form-submit-btn');
+    btn.disabled = true;
+    btn.textContent = '⏳ Enviando...';
+
+    const payload = {
       nome,
       whatsapp: wa,
       bairro: bairro || 'Não informado',
       tema: tema || 'Não especificado',
-      relato: texto,
-      status: 'Pendente',
-      data: new Date().toLocaleString('pt-BR')
+      relato: texto
     };
 
-    relatos.unshift(novoRelato);
-    saveRelatos();
-    updateStats();
-
-    document.getElementById('relato-form').style.display = 'none';
-    document.getElementById('form-success').style.display = 'block';
-    showToast('✅ Relato enviado com sucesso!', 'success');
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(() => {
+      const novoRelato = { id: Date.now(), ...payload, status: 'Pendente', data: new Date().toLocaleString('pt-BR') };
+      relatos.unshift(novoRelato);
+      updateStats();
+      document.getElementById('relato-form').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+      showToast('Relato enviado! Chegou na planilha da TV Marataizes.', 'success');
+    })
+    .catch(() => {
+      showToast('Erro ao enviar. Tente novamente.', 'error');
+      btn.disabled = false;
+      btn.textContent = 'Enviar meu relato';
+    });
   }
 
   function resetForm() {
-    document.getElementById('nome').value = '';
-    document.getElementById('whatsapp').value = '';
-    document.getElementById('bairro').value = '';
+    ['nome','whatsapp','bairro','relato-texto'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('tema').value = '';
-    document.getElementById('relato-texto').value = '';
+    const btn = document.querySelector('.form-submit-btn');
+    btn.disabled = false;
+    btn.textContent = 'Enviar meu relato';
     document.getElementById('relato-form').style.display = 'block';
     document.getElementById('form-success').style.display = 'none';
   }
 
-  /* ─────────────────────────────────────────
-     ADMIN PANEL
-  ───────────────────────────────────────── */
+  /* ── ADMIN ── */
   let adminFilter = 'todos';
 
   function openAdmin() {
     document.getElementById('public-page').style.display = 'none';
     document.getElementById('admin-panel').style.display = 'block';
-    renderAdmin();
     window.scrollTo(0, 0);
+    fetchRelatosSheet();
   }
 
   function closeAdmin() {
     document.getElementById('admin-panel').style.display = 'none';
     document.getElementById('public-page').style.display = 'block';
     window.scrollTo(0, 0);
+  }
+
+  function fetchRelatosSheet() {
+    const list = document.getElementById('admin-list');
+    list.innerHTML = '<div class="admin-empty"><div class="icon">⏳</div><p>Carregando relatos da planilha do Google Sheets...</p></div>';
+    fetch(APPS_SCRIPT_URL + '?action=list')
+      .then(r => r.json())
+      .then(data => {
+        if (data && data.relatos && data.relatos.length > 0) {
+          relatos = data.relatos;
+        }
+        updateStats();
+        renderAdmin();
+      })
+      .catch(() => {
+        renderAdmin();
+        showToast('Sem conexao com a planilha. Mostrando relatos da sessao.', 'error');
+      });
   }
 
   function filterAdmin(filter, btn) {
@@ -1326,88 +1329,65 @@
 
   function renderAdmin() {
     const list = document.getElementById('admin-list');
-    let filtered = adminFilter === 'todos'
-      ? relatos
-      : relatos.filter(r => r.status === adminFilter);
+    const filtered = adminFilter === 'todos' ? relatos : relatos.filter(r => r.status === adminFilter);
 
     if (filtered.length === 0) {
-      list.innerHTML = `
-        <div class="admin-empty">
-          <div class="icon">📋</div>
-          <p>${adminFilter === 'todos' ? 'Nenhum relato recebido ainda.' : 'Nenhum relato nesta categoria.'}</p>
-        </div>`;
+      list.innerHTML = '<div class="admin-empty"><div class="icon">📋</div><p>Nenhum relato encontrado. Os relatos enviados pelo formulario aparecem aqui e na planilha do Google Sheets.</p></div>';
       return;
     }
 
     list.innerHTML = filtered.map(r => {
-      const waMsg = encodeURIComponent(
-        `Olá! Aqui é da equipe da TV Marataízes 📺\n\nRecebemos seu relato sobre a saúde pública de Marataízes.\n\nPara garantir informação responsável antes de eventual publicação, poderia confirmar melhor seu caso?\n\nSeu problema foi com:\n• falta de medicamento?\n• atendimento?\n• exame?\n• consulta?\n• transporte?\n• outro?\n\nObrigado pela colaboração 🙏`
-      );
-      const waNum = r.whatsapp.replace(/\D/g, '');
+      const waMsg = encodeURIComponent('Ola! Aqui e da equipe da TV Marataizes\n\nRecebemos seu relato sobre a saude publica de Marataizes.\n\nPara garantir informacao responsavel antes de eventual publicacao, poderia confirmar melhor seu caso?\n\nSeu problema foi com:\n- falta de medicamento?\n- atendimento?\n- exame?\n- consulta?\n- transporte?\n- outro?\n\nObrigado pela colaboracao');
+      const waNum  = r.whatsapp.replace(/\D/g, '');
       const waFull = waNum.startsWith('55') ? waNum : '55' + waNum;
-      const waLink = `https://wa.me/${waFull}?text=${waMsg}`;
-
-      const statusClass = r.status.toLowerCase();
-      const statusIcon  = r.status === 'Pendente' ? '⏳' : r.status === 'Confirmado' ? '✅' : '📢';
-
-      return `
-        <div class="admin-item" id="item-${r.id}">
-          <div class="admin-item-header">
-            <div class="admin-item-info">
-              <div class="admin-avatar">${r.nome.charAt(0).toUpperCase()}</div>
-              <div>
-                <div class="admin-name">${r.nome}</div>
-                <div class="admin-phone">${r.whatsapp} · ${r.bairro} · ${r.tema}</div>
-              </div>
-            </div>
-            <div class="admin-time">${r.data}</div>
-          </div>
-          <div class="admin-relato">${r.relato}</div>
-          <div class="admin-item-footer">
-            <div class="admin-actions">
-              <span class="status-badge ${statusClass}">${statusIcon} ${r.status}</span>
-              <select class="status-select" onchange="updateStatus(${r.id}, this.value)">
-                <option ${r.status==='Pendente'?'selected':''}>Pendente</option>
-                <option ${r.status==='Confirmado'?'selected':''}>Confirmado</option>
-                <option ${r.status==='Publicado'?'selected':''}>Publicado</option>
-              </select>
-            </div>
-            <a class="wa-btn" href="${waLink}" target="_blank">
-              <span class="wa-icon">💬</span> Confirmar via WhatsApp
-            </a>
-          </div>
-        </div>`;
+      const waLink = 'https://wa.me/' + waFull + '?text=' + waMsg;
+      const statusIcon = r.status === 'Pendente' ? '⏳' : r.status === 'Confirmado' ? '✅' : '📢';
+      const safeId = String(r.id).replace(/[^a-zA-Z0-9]/g, '_');
+      return '<div class="admin-item" id="item-' + safeId + '">' +
+        '<div class="admin-item-header">' +
+          '<div class="admin-item-info">' +
+            '<div class="admin-avatar">' + r.nome.charAt(0).toUpperCase() + '</div>' +
+            '<div><div class="admin-name">' + r.nome + '</div>' +
+            '<div class="admin-phone">' + r.whatsapp + ' · ' + r.bairro + ' · ' + r.tema + '</div></div>' +
+          '</div>' +
+          '<div class="admin-time">' + r.data + '</div>' +
+        '</div>' +
+        '<div class="admin-relato">' + r.relato + '</div>' +
+        '<div class="admin-item-footer">' +
+          '<div class="admin-actions">' +
+            '<span class="status-badge ' + r.status.toLowerCase() + '">' + statusIcon + ' ' + r.status + '</span>' +
+            '<select class="status-select" onchange="updateStatus(' + JSON.stringify(r.id) + ', this.value)">' +
+              '<option ' + (r.status==='Pendente'?'selected':'') + '>Pendente</option>' +
+              '<option ' + (r.status==='Confirmado'?'selected':'') + '>Confirmado</option>' +
+              '<option ' + (r.status==='Publicado'?'selected':'') + '>Publicado</option>' +
+            '</select>' +
+          '</div>' +
+          '<a class="wa-btn" href="' + waLink + '" target="_blank"><span class="wa-icon">💬</span> Confirmar via WhatsApp</a>' +
+        '</div>' +
+      '</div>';
     }).join('');
   }
 
   function updateStatus(id, newStatus) {
-    const idx = relatos.findIndex(r => r.id === id);
+    const idx = relatos.findIndex(r => r.id == id);
     if (idx === -1) return;
     relatos[idx].status = newStatus;
-    saveRelatos();
     updateStats();
     renderAdmin();
     showToast('Status atualizado: ' + newStatus, 'success');
   }
 
-  /* ─────────────────────────────────────────
-     TOAST
-  ───────────────────────────────────────── */
   let toastTimer;
-  function showToast(msg, type = 'success') {
+  function showToast(msg, type) {
     const t = document.getElementById('toast');
     t.textContent = msg;
-    t.className = 'toast ' + type + ' show';
+    t.className = 'toast ' + (type||'success') + ' show';
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 4000);
   }
 
-  /* ─────────────────────────────────────────
-     INIT
-  ───────────────────────────────────────── */
   document.addEventListener('DOMContentLoaded', () => {
     setDate();
-    loadRelatos();
     updateStats();
   });
 </script>
