@@ -1167,7 +1167,10 @@
       ⚙ Painel Editorial — Observatório da Saúde
       <span class="badge" id="admin-pendentes-badge">0 pendentes</span>
     </h2>
-    <button class="admin-close" onclick="closeAdmin()">✕ Fechar painel</button>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <a href="https://docs.google.com/spreadsheets/d/1VyAQTj7bvs2sgulKSsZehPEv5-eCM54nkh-OqruPTNs/edit" target="_blank" style="background:#25D366;color:white;padding:7px 16px;border-radius:6px;font-size:13px;font-family:var(--font-body);font-weight:700;text-decoration:none;">📊 Abrir Planilha</a>
+      <button class="admin-close" onclick="closeAdmin()">✕ Fechar painel</button>
+    </div>
   </div>
 
   <div class="admin-body">
@@ -1293,7 +1296,7 @@
     document.getElementById('public-page').style.display = 'none';
     document.getElementById('admin-panel').style.display = 'block';
     window.scrollTo(0, 0);
-    fetchRelatosSheet();
+    renderAdmin();
   }
 
   function closeAdmin() {
@@ -1303,21 +1306,10 @@
   }
 
   function fetchRelatosSheet() {
-    const list = document.getElementById('admin-list');
-    list.innerHTML = '<div class="admin-empty"><div class="icon">⏳</div><p>Carregando relatos da planilha do Google Sheets...</p></div>';
-    fetch(APPS_SCRIPT_URL + '?action=list')
-      .then(r => r.json())
-      .then(data => {
-        if (data && data.relatos && data.relatos.length > 0) {
-          relatos = data.relatos;
-        }
-        updateStats();
-        renderAdmin();
-      })
-      .catch(() => {
-        renderAdmin();
-        showToast('Sem conexao com a planilha. Mostrando relatos da sessao.', 'error');
-      });
+    // Abre a planilha direto — sem CORS
+    window.open('https://docs.google.com/spreadsheets/d/1VyAQTj7bvs2sgulKSsZehPEv5-eCM54nkh-OqruPTNs/edit', '_blank');
+    // Mostra relatos da sessao no painel
+    renderAdmin();
   }
 
   function filterAdmin(filter, btn) {
