@@ -303,6 +303,7 @@
       animation: scrollLine 1.6s ease-in-out infinite;
     }
     @keyframes scrollLine { 0%{height:40px;opacity:1} 100%{height:0;opacity:0} }
+    @keyframes btnPulse { 0%,100%{box-shadow:0 0 0 4px rgba(200,16,46,.3)} 50%{box-shadow:0 0 0 12px rgba(200,16,46,0)} }
 
     /* ─── Stats ─── */
     .stats-bar {
@@ -866,11 +867,11 @@
         <h1>Como está a saúde pública em <em>Marataízes?</em></h1>
         <p>A TV Marataízes abre espaço para ouvir a população, verificar relatos e acompanhar a realidade da saúde no município.</p>
         <div class="hero-cta">
-          <a href="#relato" class="btn btn-primary" style="font-size:16px;padding:16px 32px;">
-            📝 Quero relatar minha experiência
+          <a href="#relato" class="btn btn-primary" style="font-size:17px;padding:18px 36px;letter-spacing:.3px;box-shadow:0 0 0 4px rgba(200,16,46,.3);animation:btnPulse 2s ease-in-out infinite;">
+            📝 Conte sua experiência
           </a>
-          <a href="#relatos" class="btn" style="background:rgba(255,255,255,.12);color:white;border:1.5px solid rgba(255,255,255,.3);">
-            Ver relatos verificados
+          <a href="#relatos" class="btn" style="background:rgba(255,255,255,.15);color:white;border:2px solid rgba(255,255,255,.5);font-size:15px;padding:18px 28px;">
+            👁 Ver relatos verificados
           </a>
         </div>
       </div>
@@ -921,7 +922,7 @@
             <iframe
               src="https://player.castr.com/vod/7b00JeljjbqzY8HC"
               allowfullscreen
-              allow="autoplay; fullscreen; picture-in-picture"
+              allow="fullscreen; picture-in-picture"
               frameborder="0"
               title="Entrevista com a Secretária Municipal de Saúde de Marataízes"
             ></iframe>
