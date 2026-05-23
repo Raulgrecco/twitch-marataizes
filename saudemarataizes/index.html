@@ -1211,7 +1211,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyYuoI0CoSEHCnbkf4THMdq_zouEluDSN-72gmU4u2-01Bbsi3zBa2ySVPwusVsLgv5BA/exec';
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzjiexV9uKgtiMZxGyjFp-TFePUjAB81Tpyow9honnVE-QMfkiJ-2RJlqVUOWaLdJ6ltQ/exec';
   let relatos = [];
 
   function setDate() {
@@ -1234,13 +1234,13 @@
     document.getElementById('admin-pendentes-badge').textContent = pendentes + ' pendentes';
   }
 
-  /* ── FORM: envia para o Google Sheets via Apps Script ── */
+  /* ── ENVIAR relato → Google Sheets ── */
   function enviarRelato() {
-    const nome  = document.getElementById('nome').value.trim();
-    const wa    = document.getElementById('whatsapp').value.trim();
-    const bairro= document.getElementById('bairro').value.trim();
-    const tema  = document.getElementById('tema').value;
-    const texto = document.getElementById('relato-texto').value.trim();
+    const nome   = document.getElementById('nome').value.trim();
+    const wa     = document.getElementById('whatsapp').value.trim();
+    const bairro = document.getElementById('bairro').value.trim();
+    const tema   = document.getElementById('tema').value;
+    const texto  = document.getElementById('relato-texto').value.trim();
 
     if (!nome)  { showToast('Informe seu nome.', 'error'); return; }
     if (!wa)    { showToast('Informe seu WhatsApp.', 'error'); return; }
@@ -1250,27 +1250,18 @@
     btn.disabled = true;
     btn.textContent = '⏳ Enviando...';
 
-    const payload = {
-      nome,
-      whatsapp: wa,
-      bairro: bairro || 'Não informado',
-      tema: tema || 'Não especificado',
-      relato: texto
-    };
-
-    fetch(APPS_SCRIPT_URL, {
+    fetch(SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({ nome, whatsapp: wa, bairro: bairro || 'Não informado', tema: tema || 'Não especificado', relato: texto })
     })
     .then(() => {
-      const novoRelato = { id: Date.now(), ...payload, status: 'Pendente', data: new Date().toLocaleString('pt-BR') };
-      relatos.unshift(novoRelato);
-      updateStats();
       document.getElementById('relato-form').style.display = 'none';
       document.getElementById('form-success').style.display = 'block';
-      showToast('Relato enviado! Chegou na planilha da TV Marataizes.', 'success');
+      showToast('Relato enviado com sucesso!', 'success');
+      btn.disabled = false;
+      btn.textContent = 'Enviar meu relato';
     })
     .catch(() => {
       showToast('Erro ao enviar. Tente novamente.', 'error');
@@ -1282,11 +1273,34 @@
   function resetForm() {
     ['nome','whatsapp','bairro','relato-texto'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('tema').value = '';
-    const btn = document.querySelector('.form-submit-btn');
-    btn.disabled = false;
-    btn.textContent = 'Enviar meu relato';
     document.getElementById('relato-form').style.display = 'block';
     document.getElementById('form-success').style.display = 'none';
+  }
+
+  /* ── CARREGAR relatos via JSONP (sem CORS) ── */
+  function carregarRelatos() {
+    const list = document.getElementById('admin-list');
+    list.innerHTML = '<div class="admin-empty"><div class="icon">⏳</div><p>Carregando relatos...</p></div>';
+
+    const callbackName = 'cb_' + Date.now();
+
+    window[callbackName] = function(data) {
+      delete window[callbackName];
+      document.getElementById('jsonp-tag') && document.getElementById('jsonp-tag').remove();
+      if (data && Array.isArray(data.relatos)) {
+        relatos = data.relatos;
+      }
+      updateStats();
+      renderAdmin();
+    };
+
+    const tag = document.createElement('script');
+    tag.id = 'jsonp-tag';
+    tag.src = SCRIPT_URL + '?callback=' + callbackName + '&t=' + Date.now();
+    tag.onerror = function() {
+      list.innerHTML = '<div class="admin-empty"><div class="icon">❌</div><p>Erro ao carregar relatos. Tente reabrir o painel.</p></div>';
+    };
+    document.head.appendChild(tag);
   }
 
   /* ── ADMIN ── */
@@ -1296,20 +1310,13 @@
     document.getElementById('public-page').style.display = 'none';
     document.getElementById('admin-panel').style.display = 'block';
     window.scrollTo(0, 0);
-    renderAdmin();
+    carregarRelatos();
   }
 
   function closeAdmin() {
     document.getElementById('admin-panel').style.display = 'none';
     document.getElementById('public-page').style.display = 'block';
     window.scrollTo(0, 0);
-  }
-
-  function fetchRelatosSheet() {
-    // Abre a planilha direto — sem CORS
-    window.open('https://docs.google.com/spreadsheets/d/1VyAQTj7bvs2sgulKSsZehPEv5-eCM54nkh-OqruPTNs/edit', '_blank');
-    // Mostra relatos da sessao no painel
-    renderAdmin();
   }
 
   function filterAdmin(filter, btn) {
@@ -1324,21 +1331,35 @@
     const filtered = adminFilter === 'todos' ? relatos : relatos.filter(r => r.status === adminFilter);
 
     if (filtered.length === 0) {
-      list.innerHTML = '<div class="admin-empty"><div class="icon">📋</div><p>Nenhum relato encontrado. Os relatos enviados pelo formulario aparecem aqui e na planilha do Google Sheets.</p></div>';
+      list.innerHTML = '<div class="admin-empty"><div class="icon">📋</div><p>Nenhum relato encontrado.</p></div>';
       return;
     }
 
     list.innerHTML = filtered.map(r => {
-      const waMsg = encodeURIComponent('Ola! Aqui e da equipe da TV Marataizes\n\nRecebemos seu relato sobre a saude publica de Marataizes.\n\nPara garantir informacao responsavel antes de eventual publicacao, poderia confirmar melhor seu caso?\n\nSeu problema foi com:\n- falta de medicamento?\n- atendimento?\n- exame?\n- consulta?\n- transporte?\n- outro?\n\nObrigado pela colaboracao');
-      const waNum  = r.whatsapp.replace(/\D/g, '');
+      const waMsg = encodeURIComponent('Olá! Aqui é da equipe da TV Marataízes 📺
+
+Recebemos seu relato sobre a saúde pública de Marataízes.
+
+Para garantir informação responsável antes de eventual publicação, poderia confirmar melhor seu caso?
+
+Seu problema foi com:
+• falta de medicamento?
+• atendimento?
+• exame?
+• consulta?
+• transporte?
+• outro?
+
+Obrigado pela colaboração 🙏');
+      const waNum  = String(r.whatsapp).replace(/\D/g, '');
       const waFull = waNum.startsWith('55') ? waNum : '55' + waNum;
       const waLink = 'https://wa.me/' + waFull + '?text=' + waMsg;
-      const statusIcon = r.status === 'Pendente' ? '⏳' : r.status === 'Confirmado' ? '✅' : '📢';
-      const safeId = String(r.id).replace(/[^a-zA-Z0-9]/g, '_');
-      return '<div class="admin-item" id="item-' + safeId + '">' +
+      const statusIcon = r.status === 'Confirmado' ? '✅' : r.status === 'Publicado' ? '📢' : '⏳';
+
+      return '<div class="admin-item">' +
         '<div class="admin-item-header">' +
           '<div class="admin-item-info">' +
-            '<div class="admin-avatar">' + r.nome.charAt(0).toUpperCase() + '</div>' +
+            '<div class="admin-avatar">' + String(r.nome).charAt(0).toUpperCase() + '</div>' +
             '<div><div class="admin-name">' + r.nome + '</div>' +
             '<div class="admin-phone">' + r.whatsapp + ' · ' + r.bairro + ' · ' + r.tema + '</div></div>' +
           '</div>' +
@@ -1347,12 +1368,7 @@
         '<div class="admin-relato">' + r.relato + '</div>' +
         '<div class="admin-item-footer">' +
           '<div class="admin-actions">' +
-            '<span class="status-badge ' + r.status.toLowerCase() + '">' + statusIcon + ' ' + r.status + '</span>' +
-            '<select class="status-select" onchange="updateStatus(' + JSON.stringify(r.id) + ', this.value)">' +
-              '<option ' + (r.status==='Pendente'?'selected':'') + '>Pendente</option>' +
-              '<option ' + (r.status==='Confirmado'?'selected':'') + '>Confirmado</option>' +
-              '<option ' + (r.status==='Publicado'?'selected':'') + '>Publicado</option>' +
-            '</select>' +
+            '<span class="status-badge ' + String(r.status).toLowerCase() + '">' + statusIcon + ' ' + r.status + '</span>' +
           '</div>' +
           '<a class="wa-btn" href="' + waLink + '" target="_blank"><span class="wa-icon">💬</span> Confirmar via WhatsApp</a>' +
         '</div>' +
@@ -1362,18 +1378,15 @@
 
   function updateStatus(id, newStatus) {
     const idx = relatos.findIndex(r => r.id == id);
-    if (idx === -1) return;
-    relatos[idx].status = newStatus;
-    updateStats();
-    renderAdmin();
-    showToast('Status atualizado: ' + newStatus, 'success');
+    if (idx !== -1) { relatos[idx].status = newStatus; updateStats(); renderAdmin(); }
+    showToast('Status: ' + newStatus, 'success');
   }
 
   let toastTimer;
   function showToast(msg, type) {
     const t = document.getElementById('toast');
     t.textContent = msg;
-    t.className = 'toast ' + (type||'success') + ' show';
+    t.className = 'toast ' + (type || 'success') + ' show';
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => t.classList.remove('show'), 4000);
   }
