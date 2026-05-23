@@ -1296,21 +1296,7 @@
     var html = '';
     for (var i = 0; i < filtered.length; i++) {
       var r = filtered[i];
-      var waMsg = encodeURIComponent('Olá! Aqui é da equipe da TV Marataízes
-
-Recebemos seu relato sobre a saúde pública de Marataízes.
-
-Poderia confirmar melhor seu caso?
-
-Seu problema foi com:
-- falta de medicamento?
-- atendimento?
-- exame?
-- consulta?
-- transporte?
-- outro?
-
-Obrigado pela colaboração!');
+      var waMsg = encodeURIComponent('Ola! Aqui e da equipe da TV Marataizes' + '\n\n' + 'Recebemos seu relato sobre a saude publica de Marataizes.' + '\n\n' + 'Poderia confirmar melhor seu caso?' + '\n\n' + 'Seu problema foi com:' + '\n' + '- falta de medicamento?' + '\n' + '- atendimento?' + '\n' + '- exame?' + '\n' + '- consulta?' + '\n' + '- transporte?' + '\n' + '- outro?' + '\n\n' + 'Obrigado pela colaboracao!');
       var waNum = String(r.whatsapp).replace(/[^0-9]/g, '');
       if (waNum.indexOf('55') !== 0) waNum = '55' + waNum;
       var waLink = 'https://wa.me/' + waNum + '?text=' + waMsg;
