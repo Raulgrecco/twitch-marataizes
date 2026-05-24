@@ -228,6 +228,33 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .banner-full-item:hover img{opacity:.92}
 @media(max-width:900px){.videos-grid{grid-template-columns:1fr 1fr}.banner-full-row{grid-template-columns:1fr}}
 @media(max-width:600px){.videos-grid{grid-template-columns:1fr}}
+
+/* ── MODAL MATÉRIA ── */
+#article-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1500;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
+#article-modal.open{display:flex}
+.article-modal-box{background:#fff;border-radius:14px;width:100%;max-width:780px;margin:auto;box-shadow:0 24px 64px rgba(0,0,0,.35);overflow:hidden;animation:modalIn .25s ease}
+@keyframes modalIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.article-modal-header{position:relative}
+.article-modal-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;max-height:340px}
+.article-modal-close{position:absolute;top:12px;right:14px;width:36px;height:36px;background:rgba(0,0,0,.55);border:none;border-radius:50%;color:#fff;font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.article-modal-close:hover{background:rgba(0,0,0,.85)}
+.article-modal-body{padding:28px 32px 32px}
+.article-modal-cat{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:3px 9px;border-radius:3px;color:#fff;margin-bottom:12px}
+.article-modal-title{font-family:'Playfair Display',serif;font-size:clamp(20px,3vw,28px);font-weight:900;color:#1A1A1A;line-height:1.2;margin-bottom:8px}
+.article-modal-sub{font-size:15px;color:#555;line-height:1.5;margin-bottom:14px;font-style:italic;border-left:3px solid #E8370D;padding-left:12px}
+.article-modal-meta{font-size:12px;color:#999;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #eee;display:flex;align-items:center;gap:8px}
+.article-modal-text{font-size:16px;line-height:1.8;color:#2d2d2d}
+.article-modal-text p{margin-bottom:1.2em}
+.article-modal-share{margin-top:24px;padding-top:16px;border-top:1px solid #eee;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.article-modal-share span{font-size:12px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-right:4px}
+.share-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:6px;font-size:12px;font-weight:700;color:#fff;cursor:pointer;border:none;transition:opacity .2s}
+.share-btn:hover{opacity:.85}
+.share-wpp{background:#25D366}
+.share-fb{background:#1877F2}
+.share-copy{background:#555}
+/* card clicável */
+.news-card,.news-list-item,.slide-content,.thumb{cursor:pointer}
+.news-card:active,.news-list-item:active{transform:scale(.99)}
 /* ── CATEGORY COLORS ── */
 .cat-marataizes{background:#F97316}
 .cat-politica{background:#DC2626}
@@ -458,6 +485,32 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 
 <!-- ── ADMIN OVERLAY ── -->
 
+<!-- MODAL MATÉRIA -->
+<div id="article-modal" onclick="if(event.target===this)closeArticle()">
+  <div class="article-modal-box">
+    <div class="article-modal-header">
+      <img id="am-img" class="article-modal-img" src="" alt="">
+      <button class="article-modal-close" onclick="closeArticle()">✕</button>
+    </div>
+    <div class="article-modal-body">
+      <span id="am-cat" class="article-modal-cat"></span>
+      <h2 id="am-title" class="article-modal-title"></h2>
+      <p id="am-sub" class="article-modal-sub"></p>
+      <div class="article-modal-meta">
+        <span>📅</span><span id="am-date"></span>
+        <span style="margin-left:auto">TV Sul Capixaba</span>
+      </div>
+      <div id="am-body" class="article-modal-text"></div>
+      <div class="article-modal-share">
+        <span>Compartilhar:</span>
+        <button class="share-btn share-wpp" onclick="shareWpp()">💬 WhatsApp</button>
+        <button class="share-btn share-fb" onclick="shareFb()">Facebook</button>
+        <button class="share-btn share-copy" onclick="shareCopy()">🔗 Copiar link</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- MODAL VÍDEO -->
 <div id="video-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:2000;align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)closeVideo()">
   <div style="width:100%;max-width:860px;background:#000;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.6)">
@@ -591,113 +644,123 @@ const DEFAULT_DATA = {
   slides: [
     {
       img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80',
-      cat: 'Marataízes', catClass: 'cat-marataizes',
+      cat: 'Sul Capixaba', catClass: 'cat-sul',
       title: 'Obras de revitalização da orla de Marataízes começam em março',
       sub: 'Prefeitura confirma investimento de R$ 12 milhões para modernizar toda a faixa litorânea da cidade',
-      link: '#',
+      body: 'A Prefeitura de Marataízes anunciou oficialmente o início das obras de revitalização da orla municipal para o próximo mês de março. O projeto, com investimento de R$ 12 milhões, vai transformar completamente a faixa litorânea da cidade.\n\nO plano inclui novo calçadão de 4 km, ciclovia, iluminação LED, quiosques padronizados, área de lazer infantil, academia ao ar livre e paisagismo tropical. As obras serão executadas em três etapas para minimizar o impacto durante a temporada de verão.\n\nA empresa vencedora da licitação tem prazo de 18 meses para conclusão. O prefeito garantiu que a obra não vai interromper o acesso às praias durante a execução.\n\n"Marataízes vai ter a orla que merece. Esse é um projeto que vai mudar a cara da cidade e atrair muito mais turismo para o nosso município", declarou o prefeito.',
     },
     {
       img: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=1200&q=80',
       cat: 'Turismo', catClass: 'cat-turismo',
       title: 'Festival de Inverno do Sul Capixaba reúne 50 mil pessoas em Piúma',
       sub: 'Evento cultural gratuito movimenta economia regional e reforça identidade capixaba',
-      link: '#',
+      body: 'O Festival de Inverno do Sul Capixaba superou todas as expectativas nesta edição, reunindo mais de 50 mil visitantes ao longo de três dias de evento em Piúma. Os números representam um crescimento de 45% em relação ao ano anterior.\n\nA programação incluiu shows de artistas capixabas e regionais, feira de artesanato com mais de 80 expositores, gastronomia típica do litoral sul e apresentações culturais que celebraram a identidade da região.\n\nO impacto econômico também foi sentido: hotéis e pousadas de Piúma, Anchieta e Marataízes operaram com 100% de ocupação nos três dias do festival. Restaurantes relataram faturamento até três vezes maior que o habitual.\n\nA organização já confirma a próxima edição para julho de 2026, com estrutura ainda maior e mais atrações.',
     },
     {
       img: 'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=1200&q=80',
       cat: 'Saúde', catClass: 'cat-saude',
       title: 'Novo hospital regional será construído em Cachoeiro de Itapemirim',
       sub: 'Governo do Estado confirma unidade com 200 leitos para atender todo o sul capixaba',
-      link: '#',
+      body: 'O Governo do Estado do Espírito Santo confirmou nesta semana a construção de um novo hospital regional em Cachoeiro de Itapemirim, que será referência para toda a região sul do estado. A unidade terá 200 leitos, incluindo UTI adulto e neonatal, centro cirúrgico com seis salas e serviços de diagnóstico por imagem.\n\nO investimento total é de R$ 85 milhões, sendo 60% oriundos de recursos federais do Ministério da Saúde e 40% do governo estadual. O terreno já foi adquirido no bairro São Geraldo e a licitação para o projeto executivo deve ocorrer ainda no primeiro semestre.\n\nA previsão é que o hospital esteja operando em 2027. Será a maior unidade hospitalar pública do sul capixaba, com capacidade para realizar mais de 15 mil atendimentos por mês.\n\nAtualmente, moradores do sul do ES precisam se deslocar até Vitória para procedimentos de maior complexidade. Com o novo hospital, estima-se reduzir em 70% esses deslocamentos.',
     },
     {
       img: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1200&q=80',
       cat: 'Sul Capixaba', catClass: 'cat-sul',
       title: 'Concurso público abre 150 vagas em municípios do sul capixaba',
       sub: 'Cargos nas áreas de saúde, educação e administração com salários até R$ 8 mil',
-      link: '#',
+      body: 'Uma série de concursos públicos abertos por municípios do sul do Espírito Santo somam 150 vagas disponíveis para candidatos da região. Os certames contemplam cargos nas áreas de Saúde, Educação e Administração Pública, com salários que chegam a R$ 8 mil.\n\nEntre as oportunidades, destacam-se vagas para médico clínico geral, enfermeiro, professor de matemática, assistente social e contador. Os municípios participantes são Marataízes, Itapemirim, Piúma, Anchieta e Presidente Kennedy.\n\nAs provas estão previstas para ocorrer entre junho e agosto de 2025. Os editais completos, com requisitos, conteúdo programático e cronograma, estão disponíveis nos sites das prefeituras e no Diário Oficial do Estado.\n\nEspecialistas em concursos públicos recomendam atenção aos prazos de inscrição, que variam entre os municípios. Alguns editais encerram as inscrições já no próximo mês.',
     },
   ],
   blocks: [
     {
       section: 'ultimas', label: 'Última Notícia 1',
-      img: 'https://images.unsplash.com/photo-1569025743873-ea3a9ade89f9?w=400&q=80',
+      img: 'https://images.unsplash.com/photo-1569025743873-ea3a9ade89f9?w=800&q=80',
       cat: 'Política', catClass: 'cat-politica',
       title: 'Câmara Municipal de Marataízes aprova orçamento de R$ 280 milhões para 2025',
       sub: 'Votação unânime prioriza saúde, educação e infraestrutura para o próximo ano',
       date: '24/05/2025',
+      body: 'A Câmara Municipal de Marataízes aprovou por unanimidade, na sessão desta terça-feira, o orçamento municipal para o exercício de 2025, no valor de R$ 280 milhões.\n\nO documento, enviado pelo Executivo em outubro do ano passado, destina 35% dos recursos para a área de Saúde, 28% para Educação e 18% para Infraestrutura e obras públicas. O restante é dividido entre administração, assistência social e serviços gerais.\n\nO presidente da Câmara destacou a aprovação como um avanço para a cidade. "É o maior orçamento da história de Marataízes. Isso demonstra o crescimento e a maturidade administrativa do nosso município", afirmou.\n\nEntre as obras previstas estão a revitalização da orla, a construção de uma nova UBS no bairro Nova Marataízes e a pavimentação de vias no interior do município.',
     },
     {
       section: 'ultimas', label: 'Última Notícia 2',
-      img: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&q=80',
+      img: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80',
       cat: 'Polícia', catClass: 'cat-policia',
       title: 'PM apreende 40 kg de drogas em abordagem na BR-101 sul',
       sub: 'Suspeitos tentavam transportar entorpecentes em fundo falso de caminhão',
       date: '23/05/2025',
+      body: 'A Polícia Militar do Espírito Santo apreendeu nesta quarta-feira 40 quilogramas de entorpecentes durante uma abordagem de rotina na BR-101, no trecho que corta o município de Itapemirim.\n\nDe acordo com os militares, a droga estava escondida em um compartimento falso construído no assoalho de um caminhão de carga. Os dois ocupantes do veículo, um homem de 34 anos e outro de 28, foram presos em flagrante.\n\nO material apreendido, composto por cocaína e maconha, foi encaminhado à Delegacia Regional de Cachoeiro de Itapemirim para os procedimentos legais. A PM informou que as investigações seguem para identificar a origem e o destino da droga.\n\nA operação faz parte do programa Verão Seguro, que intensifica o policiamento nas rodovias do sul do Espírito Santo durante a temporada.',
     },
     {
       section: 'ultimas', label: 'Última Notícia 3',
-      img: 'https://images.unsplash.com/photo-1476158085676-e67f57ed9ed7?w=400&q=80',
+      img: 'https://images.unsplash.com/photo-1476158085676-e67f57ed9ed7?w=800&q=80',
       cat: 'Turismo', catClass: 'cat-turismo',
       title: 'Temporada de turismo bate recorde em Anchieta com 120 mil visitantes',
       sub: 'Alta temporada consolida município como principal destino do litoral sul capixaba',
       date: '22/05/2025',
+      body: 'Anchieta registrou neste verão o maior número de visitantes de sua história. Segundo dados divulgados pela Secretaria Municipal de Turismo, mais de 120 mil turistas circularam pelo município entre dezembro e fevereiro, um crescimento de 34% em relação à temporada anterior.\n\nA Praia de Iriri e a Praia dos Castelhanos foram os destinos mais procurados, atraindo famílias de todo o estado e de estados vizinhos como Minas Gerais e Rio de Janeiro.\n\nO secretário municipal de Turismo atribuiu o desempenho à melhoria da infraestrutura viária e ao trabalho de divulgação realizado em feiras de turismo. "Anchieta tem um potencial imenso. Estamos trabalhando para que o turismo se torne uma das principais bases da economia local", disse.\n\nA expectativa é que os dados econômicos do setor de serviços, a serem divulgados em abril, confirmem o impacto positivo da temporada na geração de empregos e renda no município.',
     },
     {
       section: 'politica', label: 'Política 1',
-      img: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?w=400&q=80',
+      img: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?w=800&q=80',
       cat: 'Política', catClass: 'cat-politica',
       title: 'Vereador propõe criação de zona especial de turismo em Presidente Kennedy',
       sub: 'Projeto incentiva empreendimentos sustentáveis na faixa costeira',
       date: '21/05/2025',
+      body: 'Um projeto de lei apresentado na Câmara Municipal de Presidente Kennedy propõe a criação de uma Zona Especial de Interesse Turístico (ZEIT) ao longo de toda a faixa costeira do município.\n\nDe autoria do vereador Carlos Eduardo Fonseca, a proposta estabelece incentivos fiscais para empreendimentos turísticos sustentáveis instalados na área delimitada, como hotéis, pousadas, restaurantes e centros de esportes náuticos.\n\n"Presidente Kennedy tem um litoral privilegiado e ainda pouco explorado. Com regulamentação adequada, podemos atrair investimentos sérios sem comprometer o meio ambiente", explicou o vereador na tribuna.\n\nO projeto foi encaminhado às comissões de Finanças e Meio Ambiente para análise antes da votação em plenário, prevista para o mês que vem.',
     },
     {
       section: 'politica', label: 'Política 2',
-      img: 'https://images.unsplash.com/photo-1519764622345-23439dd774f7?w=400&q=80',
+      img: 'https://images.unsplash.com/photo-1519764622345-23439dd774f7?w=800&q=80',
       cat: 'Política', catClass: 'cat-politica',
       title: 'Governo amplia programa de bolsas para universitários do sul capixaba',
       sub: 'Mais 300 estudantes serão beneficiados com bolsas integrais no próximo semestre',
       date: '20/05/2025',
+      body: 'O Governo do Espírito Santo anunciou a ampliação do Programa de Bolsas Universitárias para estudantes do sul do estado. A partir do segundo semestre de 2025, serão disponibilizadas 300 novas bolsas integrais em faculdades parceiras da região.\n\nPodem se candidatar jovens com renda familiar de até três salários mínimos, que tenham cursado o ensino médio integralmente em escola pública e obtido nota mínima de 550 pontos no ENEM.\n\nAs cidades contempladas são Marataízes, Itapemirim, Presidente Kennedy, Piúma, Anchieta e Cachoeiro de Itapemirim. As inscrições abrem em junho, pelo portal do Governo do Estado.\n\n"Educação é o caminho para transformar o sul capixaba. Estamos investindo no futuro dos nossos jovens", afirmou o governador durante a divulgação do programa.',
     },
     {
       section: 'saude', label: 'Saúde 1',
-      img: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&q=80',
+      img: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80',
       cat: 'Saúde', catClass: 'cat-saude',
       title: 'Campanha de vacinação contra dengue começa segunda-feira em Marataízes',
       sub: 'Postos de saúde funcionarão em horário estendido para vacinar toda a população',
       date: '24/05/2025',
+      body: 'A Secretaria Municipal de Saúde de Marataízes inicia na próxima segunda-feira uma ampla campanha de vacinação contra a dengue. Todos os postos de saúde do município funcionarão em horário estendido, das 7h às 19h, durante os primeiros quinze dias da campanha.\n\nA vacina, do tipo Qdenga, está disponível gratuitamente para crianças e adolescentes entre 10 e 14 anos. É necessário apresentar cartão de vacinação e documento de identidade.\n\nA Secretaria alerta para a importância de eliminar criadouros do mosquito Aedes aegypti. "A vacina é fundamental, mas precisa andar junto com o combate ao mosquito. Água parada é o principal inimigo", destacou a secretária de Saúde.\n\nMarataízes registrou 47 casos confirmados de dengue no primeiro trimestre de 2025, número 60% maior que o mesmo período do ano anterior, segundo o boletim epidemiológico municipal.',
     },
     {
       section: 'saude', label: 'Saúde 2',
-      img: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400&q=80',
+      img: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80',
       cat: 'Saúde', catClass: 'cat-saude',
       title: 'CAPS de Piúma amplia atendimento para adolescentes com saúde mental',
       sub: 'Unidade passa a oferecer acompanhamento psicológico duas vezes por semana',
       date: '22/05/2025',
+      body: 'O Centro de Atenção Psicossocial (CAPS) de Piúma anunciou a ampliação de sua capacidade de atendimento a adolescentes com transtornos de saúde mental. A partir deste mês, a unidade passará a oferecer consultas com psicólogos duas vezes por semana, contra uma única sessão semanal anterior.\n\nA medida atende uma demanda crescente identificada após a pandemia. Segundo a coordenação do CAPS, os casos de ansiedade, depressão e automutilação entre jovens de 12 a 18 anos aumentaram 40% nos últimos dois anos no município.\n\nOs atendimentos são gratuitos e os encaminhamentos podem ser feitos por qualquer unidade de saúde de Piúma. Familiares também recebem orientação e apoio durante o processo.\n\n"Saúde mental é saúde. E cuidar dos nossos jovens hoje é investir no futuro da nossa cidade", afirmou a secretária municipal de Saúde.',
     },
     {
       section: 'saude', label: 'Saúde 3',
-      img: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80',
+      img: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&q=80',
       cat: 'Saúde', catClass: 'cat-saude',
       title: 'Posto de saúde de Piúma passa por reforma e amplia atendimento à população',
       sub: 'Unidade ganhará novos consultórios e equipamentos de diagnóstico modernos',
       date: '19/05/2025',
+      body: 'A principal Unidade Básica de Saúde de Piúma iniciou nesta semana uma reforma ampla que vai modernizar completamente a estrutura física do prédio. As obras, com prazo de 90 dias, são financiadas com recursos federais do Programa Previne Brasil.\n\nAo final da reforma, a UBS contará com dois novos consultórios médicos, uma sala de curativos ampliada, equipamentos de eletrocardiograma e ultrassonografia e acessibilidade completa para pessoas com deficiência.\n\nDurante as obras, o atendimento segue normalmente em estrutura provisória montada no salão comunitário adjacente à unidade. Não há interrupção nos serviços de vacinação, coleta de exames e consultas de rotina.\n\nSegundo a Prefeitura, a UBS atende atualmente cerca de 800 pacientes por mês e, após a reforma, terá capacidade para ampliar esse número em 40%.',
     },
     {
       section: 'turismo', label: 'Turismo 1',
-      img: 'https://images.unsplash.com/photo-1555126634-323283e090fa?w=400&q=80',
+      img: 'https://images.unsplash.com/photo-1555126634-323283e090fa?w=800&q=80',
       cat: 'Cultura', catClass: 'cat-cultura',
       title: 'Festival Gastronômico de Anchieta celebra frutos do mar capixabas',
       sub: 'Evento reúne chefs renomados e pescadores locais em celebração da culinária regional',
       date: '20/05/2025',
+      body: 'A quarta edição do Festival Gastronômico de Anchieta reuniu neste final de semana chefs renomados do Espírito Santo e pescadores artesanais locais em uma celebração da culinária capixaba à beira-mar.\n\nO evento, realizado na orla da Praia de Anchieta, apresentou ao público pratos elaborados com ingredientes frescos diretamente dos barcos pesqueiros da região: peixe-espada, camarão, polvo e lagosta foram os protagonistas dos menus.\n\nAlém das degustações, o festival contou com oficinas de culinária abertas ao público, apresentações musicais com artistas locais e uma feira de produtos artesanais. A entrada foi gratuita.\n\n"O objetivo é valorizar o que temos de mais rico: o mar, o peixe fresco e o saber fazer dos nossos pescadores", disse a organizadora do evento. A próxima edição está prevista para outubro.',
     },
     {
       section: 'turismo', label: 'Turismo 2',
-      img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&q=80',
+      img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80',
       cat: 'Cultura', catClass: 'cat-cultura',
       title: 'Carnaval 2025: Cachoeiro anuncia programação com atrações nacionais',
       sub: 'Evento terá três dias de festa com sambas-enredo e shows no centro histórico',
       date: '18/05/2025',
+      body: 'A Prefeitura de Cachoeiro de Itapemirim divulgou a programação oficial do Carnaval 2025, que promete ser o maior da história da cidade. Ao longo de três dias, o centro histórico receberá atrações nacionais, desfiles de escolas de samba e blocos de rua.\n\nA abertura oficial acontece na sexta-feira de Carnaval com show de um artista de renome nacional ainda a ser anunciado. No sábado e domingo, as escolas de samba do município desfilam na avenida principal, seguidas de show de encerramento.\n\nO investimento da Prefeitura para o evento é de R$ 2,8 milhões, sendo parte do recurso oriundo de patrocínio de empresas locais. A estimativa é atrair 80 mil pessoas ao longo dos dias de festa, movimentando hotéis, restaurantes e o comércio local.\n\nAs inscrições para blocos de rua estão abertas até o dia 30 de janeiro pelo site da Secretaria Municipal de Cultura.',
     },
     // sidebar mais lidas
     {
@@ -793,14 +856,15 @@ function renderCarousel() {
   const dotsEl   = document.getElementById('carousel-dots');
   const thumbsEl = document.getElementById('carousel-thumbs');
 
-  slidesEl.innerHTML = slides.map(s => `
+  slidesEl.innerHTML = slides.map((s,i) => `
     <div class="slide">
       <img src="${s.img}" alt="${s.title}" loading="lazy">
       <div class="slide-overlay"></div>
-      <div class="slide-content">
+      <div class="slide-content" onclick="openArticle(data.slides[${i}])" style="cursor:pointer">
         <span class="slide-cat ${s.catClass}">${s.cat}</span>
         <div class="slide-title">${s.title}</div>
         <div class="slide-sub">${s.sub || ''}</div>
+        <div style="margin-top:10px;display:inline-flex;align-items:center;gap:6px;background:rgba(232,55,13,.85);color:#fff;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:700;letter-spacing:.3px">Ler matéria completa →</div>
       </div>
     </div>
   `).join('');
@@ -843,23 +907,27 @@ function resetAutoplay() {
 }
 
 function renderGridUltimas() {
-  const items = data.blocks.filter(b => b.section === 'ultimas');
-  document.getElementById('grid-ultimas').innerHTML = items.map(a => newsCard(a)).join('');
+  document.getElementById('grid-ultimas').innerHTML = data.blocks
+    .map((a,i) => ({a,i})).filter(({a}) => a.section === 'ultimas')
+    .map(({a,i}) => newsCard(a,i)).join('');
 }
 
 function renderListPolitica() {
-  const items = data.blocks.filter(b => b.section === 'politica');
-  document.getElementById('list-politica').innerHTML = items.map(a => newsListItem(a)).join('');
+  document.getElementById('list-politica').innerHTML = data.blocks
+    .map((a,i) => ({a,i})).filter(({a}) => a.section === 'politica')
+    .map(({a,i}) => newsListItem(a,i)).join('');
 }
 
 function renderGridSaude() {
-  const items = data.blocks.filter(b => b.section === 'saude');
-  document.getElementById('grid-saude').innerHTML = items.map(a => newsCard(a)).join('');
+  document.getElementById('grid-saude').innerHTML = data.blocks
+    .map((a,i) => ({a,i})).filter(({a}) => a.section === 'saude')
+    .map(({a,i}) => newsCard(a,i)).join('');
 }
 
 function renderListTurismo() {
-  const items = data.blocks.filter(b => b.section === 'turismo');
-  document.getElementById('list-turismo').innerHTML = items.map(a => newsListItem(a)).join('');
+  document.getElementById('list-turismo').innerHTML = data.blocks
+    .map((a,i) => ({a,i})).filter(({a}) => a.section === 'turismo')
+    .map(({a,i}) => newsListItem(a,i)).join('');
 }
 
 function renderVideos() {
@@ -899,9 +967,10 @@ function renderSidebar() {
   document.getElementById('sidebar-interior').innerHTML = interior.map(a => sidebarItem(a)).join('');
 }
 
-function newsCard(a) {
+function newsCard(a, idx) {
+  const ref = idx !== undefined ? `data.blocks[${idx}]` : 'null';
   return `
-    <div class="news-card">
+    <div class="news-card" onclick="openArticle(${ref !== 'null' ? ref : JSON.stringify(a).replace(/`/g,'\`')})">
       <div class="news-card-img">
         <img src="${a.img}" alt="${a.title}" loading="lazy">
         <span class="news-card-cat ${a.catClass}">${a.cat}</span>
@@ -917,9 +986,10 @@ function newsCard(a) {
     </div>`;
 }
 
-function newsListItem(a) {
+function newsListItem(a, idx) {
+  const ref = idx !== undefined ? `data.blocks[${idx}]` : 'null';
   return `
-    <div class="news-list-item">
+    <div class="news-list-item" onclick="openArticle(${ref})" style="cursor:pointer">
       <div class="news-list-img">
         <img src="${a.img}" alt="${a.title}" loading="lazy">
       </div>
@@ -932,8 +1002,9 @@ function newsListItem(a) {
 }
 
 function sidebarItem(a) {
+  const safe = JSON.stringify({title:a.title,img:a.img,cat:a.cat,catClass:a.catClass,sub:a.sub||'',date:a.date||'',body:a.body||a.sub||''}).replace(/"/g,'&quot;');
   return `
-    <div class="sidebar-news-item">
+    <div class="sidebar-news-item" onclick='openArticle(JSON.parse(this.dataset.a))' data-a="${safe}" style="cursor:pointer">
       <div class="sidebar-news-img">
         <img src="${a.img}" alt="${a.title}" loading="lazy">
       </div>
@@ -1014,6 +1085,10 @@ function buildAdminForm() {
           <label>Subtítulo / linha fina</label>
           <input type="text" value="${esc(s.sub||'')}" onchange="data.slides[${i}].sub=this.value">
         </div>
+        <div class="admin-field full">
+          <label>Texto completo da matéria</label>
+          <textarea style="height:100px" onchange="data.slides[${i}].body=this.value">${esc(s.body||'')}</textarea>
+        </div>
         <div class="admin-field">
           <label>URL da imagem</label>
           <input type="text" value="${esc(s.img)}" onchange="updateSlideImg(${i},this.value)">
@@ -1053,9 +1128,13 @@ function buildAdminForm() {
         </div>
         ${b.sub !== undefined ? `
         <div class="admin-field full">
-          <label>Subtítulo</label>
+          <label>Subtítulo / chamada</label>
           <input type="text" value="${esc(b.sub||'')}" onchange="data.blocks[${i}].sub=this.value">
         </div>` : ''}
+        <div class="admin-field full">
+          <label>Texto completo da matéria</label>
+          <textarea style="height:100px" onchange="data.blocks[${i}].body=this.value">${esc(b.body||'')}</textarea>
+        </div>
         <div class="admin-field">
           <label>URL da imagem</label>
           <input type="text" value="${esc(b.img)}" onchange="updateBlockImg(${i},this.value)">
@@ -1160,6 +1239,53 @@ function showToast(msg) {
   setTimeout(() => t.remove(), 3000);
 }
 
+
+// ── MODAL MATÉRIA ────────────────────────────────────────────────
+let _currentArticle = null;
+
+function openArticle(a) {
+  if (!a) return;
+  _currentArticle = a;
+  document.getElementById('am-img').src   = a.img || '';
+  document.getElementById('am-img').alt   = a.title || '';
+  document.getElementById('am-title').textContent = a.title || '';
+  document.getElementById('am-sub').textContent   = a.sub || '';
+  document.getElementById('am-date').textContent  = a.date || '';
+  // Categoria com cor
+  const catEl = document.getElementById('am-cat');
+  catEl.textContent  = a.cat || '';
+  catEl.className    = 'article-modal-cat ' + (a.catClass || '');
+  // Texto completo — quebras de linha viram parágrafos
+  const bodyEl = document.getElementById('am-body');
+  const bodyText = a.body || a.sub || 'Conteúdo em breve.';
+  bodyEl.innerHTML = bodyText.split('\n\n').map(p => p.trim() ? `<p>${p.trim()}</p>` : '').join('');
+  // Abre modal
+  const modal = document.getElementById('article-modal');
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  modal.scrollTop = 0;
+}
+
+function closeArticle() {
+  document.getElementById('article-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function shareWpp() {
+  const txt = encodeURIComponent((_currentArticle?.title || '') + ' — TV Sul Capixaba');
+  window.open('https://wa.me/?text=' + txt, '_blank');
+}
+function shareFb() {
+  window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(location.href), '_blank');
+}
+function shareCopy() {
+  navigator.clipboard?.writeText(location.href).then(() => showToast('🔗 Link copiado!'));
+}
+
+// Tecla ESC fecha modal
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeArticle(); closeVideo(); }
+});
 // ═══════════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════════
