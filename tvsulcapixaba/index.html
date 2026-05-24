@@ -205,6 +205,29 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .btn-login:hover{background:var(--brand-dark)}
 .login-error{color:var(--brand);font-size:12px;margin-top:-4px;display:none}
 
+
+/* ── VÍDEOS GRID ── */
+.videos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.video-card{background:#111;border-radius:10px;overflow:hidden;cursor:pointer;position:relative;border:1px solid #222;transition:transform .2s,box-shadow .2s}
+.video-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.3)}
+.video-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:#1a1a1a}
+.video-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.video-card:hover .video-thumb img{transform:scale(1.05)}
+.play-btn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.play-btn span{width:48px;height:48px;background:rgba(232,55,13,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s}
+.video-card:hover .play-btn span{transform:scale(1.15);background:var(--brand)}
+.play-icon{width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:18px solid #fff;margin-left:4px}
+.video-duration{position:absolute;bottom:7px;right:8px;background:rgba(0,0,0,.8);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;letter-spacing:.3px}
+.video-info{padding:12px}
+.video-title{color:#fff;font-size:13px;font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.video-meta{color:#888;font-size:11px;margin-top:5px}
+/* ── BANNER FULL ROW ── */
+.banner-full-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px}
+.banner-full-item{border-radius:10px;overflow:hidden;border:1px solid var(--border);background:#fff}
+.banner-full-item img{width:100%;height:120px;object-fit:cover;display:block;transition:opacity .2s}
+.banner-full-item:hover img{opacity:.92}
+@media(max-width:900px){.videos-grid{grid-template-columns:1fr 1fr}.banner-full-row{grid-template-columns:1fr}}
+@media(max-width:600px){.videos-grid{grid-template-columns:1fr}}
 /* ── CATEGORY COLORS ── */
 .cat-marataizes{background:#F97316}
 .cat-politica{background:#DC2626}
@@ -274,8 +297,6 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
   <div class="nav-inner">
     <div class="nav-item active">Início</div>
     <div class="nav-sep"></div>
-    <div class="nav-item">Marataízes</div>
-    <div class="nav-item">Itapemirim</div>
     <div class="nav-item">Sul Capixaba</div>
     <div class="nav-sep"></div>
     <div class="nav-item">Política</div>
@@ -285,7 +306,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
     <div class="nav-item">Cultura</div>
     <div class="nav-item">Economia</div>
     <div class="nav-sep"></div>
-    <div class="nav-item" style="color:var(--brand-gold)">📹 Vídeos</div>
+    <div class="nav-item" style="color:var(--brand-gold)" onclick="document.getElementById('section-videos').scrollIntoView({behavior:'smooth'})">📹 Vídeos</div>
   </div>
 </nav>
 
@@ -318,6 +339,31 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
       </div>
       <div class="news-grid" id="grid-ultimas"></div>
     </section>
+
+    <!-- VÍDEOS (Castr) -->
+    <section class="news-section" id="section-videos">
+      <div class="section-title">
+        <h2>📹 Vídeos</h2>
+        <a href="#" style="color:var(--brand-gold)">Ver todos →</a>
+      </div>
+      <div class="videos-grid" id="grid-videos"></div>
+    </section>
+
+    <!-- BANNER FULL — Piaquê + Drogaria Pacheco -->
+    <div class="banner-full-row" id="banner-full-row">
+      <div class="banner-full-item">
+        <a href="#" target="_blank" rel="noopener">
+          <img id="banner1-img" src="https://placehold.co/580x120/e8370d/ffffff?text=Piaquê+Sul+Capixaba" alt="Piaquê">
+        </a>
+        <div class="banner-label">PUBLICIDADE</div>
+      </div>
+      <div class="banner-full-item">
+        <a href="#" target="_blank" rel="noopener">
+          <img id="banner2-img" src="https://placehold.co/580x120/003b7a/ffffff?text=Drogaria+Pacheco" alt="Drogaria Pacheco">
+        </a>
+        <div class="banner-label">PUBLICIDADE</div>
+      </div>
+    </div>
 
     <!-- POLÍTICA -->
     <section class="news-section">
@@ -411,6 +457,19 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 </footer>
 
 <!-- ── ADMIN OVERLAY ── -->
+
+<!-- MODAL VÍDEO -->
+<div id="video-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:2000;align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)closeVideo()">
+  <div style="width:100%;max-width:860px;background:#000;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.6)">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#111">
+      <span id="video-modal-title" style="color:#fff;font-size:14px;font-weight:600;font-family:'Source Sans 3',sans-serif"></span>
+      <button onclick="closeVideo()" style="color:#aaa;font-size:22px;line-height:1;cursor:pointer;background:none;border:none;font-family:inherit">✕</button>
+    </div>
+    <div style="position:relative;padding-bottom:56.25%;height:0">
+      <iframe id="video-modal-iframe" src="" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="autoplay;fullscreen" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
 <div class="admin-overlay" id="admin-overlay">
   <div class="admin-panel">
 
@@ -451,6 +510,31 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
           <div class="admin-slides-list" id="admin-blocks-list"></div>
         </div>
 
+        <!-- VÍDEOS -->
+        <div class="admin-section">
+          <div class="admin-section-title">📹 Vídeos (URLs Castr)</div>
+          <div class="admin-slides-list" id="admin-videos-list"></div>
+        </div>
+
+        <!-- BANNERS -->
+        <div class="admin-section">
+          <div class="admin-section-title">🖼 Banners (Piaquê / Drogaria Pacheco)</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="admin-field">
+              <label>Banner 1 — imagem URL</label>
+              <input type="text" id="cfg-b1img" placeholder="https://...">
+              <label style="margin-top:6px">Banner 1 — link de destino</label>
+              <input type="text" id="cfg-b1link" placeholder="https://piraqueoficial.com.br">
+            </div>
+            <div class="admin-field">
+              <label>Banner 2 — imagem URL</label>
+              <input type="text" id="cfg-b2img" placeholder="https://...">
+              <label style="margin-top:6px">Banner 2 — link de destino</label>
+              <input type="text" id="cfg-b2link" placeholder="https://drogariapacheco.com.br">
+            </div>
+          </div>
+        </div>
+
         <!-- CONFIG -->
         <div class="admin-section">
           <div class="admin-section-title">⚙️ Configurações</div>
@@ -486,35 +570,11 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 
 <script>
 
-// SHA-256 puro JS (sem dependência externa)
-function sha256(str) {
-  function rr(w,b){return(w>>>b)|(w<<(32-b))}
-  const K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
-  const H=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];
-  const msg=new TextEncoder().encode(str);
-  const len=msg.length;
-  const bits=len*8;
-  const blocks=Math.ceil((len+9)/64);
-  const m=new Uint32Array(blocks*16);
-  for(let i=0;i<len;i++)m[i>>2]|=msg[i]<<(24-(i%4)*8);
-  m[len>>2]|=0x80<<(24-(len%4)*8);
-  m[blocks*16-2]=Math.floor(bits/2**32);
-  m[blocks*16-1]=bits>>>0;
-  const h=[...H];
-  for(let i=0;i<blocks;i++){
-    const w=new Uint32Array(64);
-    for(let j=0;j<16;j++)w[j]=m[i*16+j];
-    for(let j=16;j<64;j++){const s0=rr(w[j-15],7)^rr(w[j-15],18)^(w[j-15]>>>3);const s1=rr(w[j-2],17)^rr(w[j-2],19)^(w[j-2]>>>10);w[j]=(w[j-16]+s0+w[j-7]+s1)>>>0}
-    let[a,b,c,d,e,f,g,hh]=[...h];
-    for(let j=0;j<64;j++){const S1=rr(e,6)^rr(e,11)^rr(e,25);const ch=(e&f)^(~e&g);const t1=(hh+S1+ch+K[j]+w[j])>>>0;const S0=rr(a,2)^rr(a,13)^rr(a,22);const maj=(a&b)^(a&c)^(b&c);const t2=(S0+maj)>>>0;hh=g;g=f;f=e;e=(d+t1)>>>0;d=c;c=b;b=a;a=(t1+t2)>>>0}
-    h[0]=(h[0]+a)>>>0;h[1]=(h[1]+b)>>>0;h[2]=(h[2]+c)>>>0;h[3]=(h[3]+d)>>>0;h[4]=(h[4]+e)>>>0;h[5]=(h[5]+f)>>>0;h[6]=(h[6]+g)>>>0;h[7]=(h[7]+hh)>>>0
-  }
-  return h.map(x=>x.toString(16).padStart(8,'0')).join('')
-}
+function sha256(str){function rr(w,b){return(w>>>b)|(w<<(32-b))}const K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];const H=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];const msg=new TextEncoder().encode(str);const len=msg.length;const bits=len*8;const blocks=Math.ceil((len+9)/64);const m=new Uint32Array(blocks*16);for(let i=0;i<len;i++)m[i>>2]|=msg[i]<<(24-(i%4)*8);m[len>>2]|=0x80<<(24-(len%4)*8);m[blocks*16-2]=Math.floor(bits/2**32);m[blocks*16-1]=bits>>>0;const h=[...H];for(let i=0;i<blocks;i++){const w=new Uint32Array(64);for(let j=0;j<16;j++)w[j]=m[i*16+j];for(let j=16;j<64;j++){const s0=rr(w[j-15],7)^rr(w[j-15],18)^(w[j-15]>>>3);const s1=rr(w[j-2],17)^rr(w[j-2],19)^(w[j-2]>>>10);w[j]=(w[j-16]+s0+w[j-7]+s1)>>>0}let[a,b,c,d,e,f,g,hh]=[...h];for(let j=0;j<64;j++){const S1=rr(e,6)^rr(e,11)^rr(e,25);const ch=(e&f)^(~e&g);const t1=(hh+S1+ch+K[j]+w[j])>>>0;const S0=rr(a,2)^rr(a,13)^rr(a,22);const maj=(a&b)^(a&c)^(b&c);const t2=(S0+maj)>>>0;hh=g;g=f;f=e;e=(d+t1)>>>0;d=c;c=b;b=a;a=(t1+t2)>>>0}h[0]=(h[0]+a)>>>0;h[1]=(h[1]+b)>>>0;h[2]=(h[2]+c)>>>0;h[3]=(h[3]+d)>>>0;h[4]=(h[4]+e)>>>0;h[5]=(h[5]+f)>>>0;h[6]=(h[6]+g)>>>0;h[7]=(h[7]+hh)>>>0}return h.map(x=>x.toString(16).padStart(8,'0')).join('')}
 // ═══════════════════════════════════════════════════════════
 // DADOS — edite aqui ou use o painel admin
 // ═══════════════════════════════════════════════════════════
-const ADMIN_HASH = '4939a75895dfe88116df85cf25722855ef5cddbb764ef67e18c107ead3ac0745'; // senha protegida por hash SHA-256
+const ADMIN_HASH = '4939a75895dfe88116df85cf25722855ef5cddbb764ef67e18c107ead3ac0745'; // SHA-256
 const STORAGE_KEY = 'tvsulcapixaba_data';
 
 const DEFAULT_DATA = {
@@ -522,6 +582,10 @@ const DEFAULT_DATA = {
     wpp: '5528999999999',
     weather: 'Marataízes: 28°C',
     live: 'https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4',
+    banner1Link: '#',
+    banner2Link: '#',
+    banner1Img: 'https://placehold.co/580x120/e8370d/ffffff?text=Piaquê+Sul+Capixaba',
+    banner2Img: 'https://placehold.co/580x120/003b7a/ffffff?text=Drogaria+Pacheco',
     ticker: 'Obras da orla de Marataízes começam em março com investimento de R$ 12 milhões | Festival de Inverno reúne 50 mil pessoas em Piúma | Novo hospital regional será construído em Cachoeiro | PM prende suspeitos de furtos em Itapemirim | Campanha de vacinação contra dengue começa segunda-feira',
   },
   slides: [
@@ -710,6 +774,7 @@ function render() {
   renderListPolitica();
   renderGridSaude();
   renderListTurismo();
+  renderVideos();
   renderSidebar();
   applyConfig();
 }
@@ -797,6 +862,36 @@ function renderListTurismo() {
   document.getElementById('list-turismo').innerHTML = items.map(a => newsListItem(a)).join('');
 }
 
+function renderVideos() {
+  const vids = data.blocks.filter(b => b.section === 'video');
+  document.getElementById('grid-videos').innerHTML = vids.map((v,i) => `
+    <div class="video-card" onclick="openVideo('${v.castr||''}','${v.title}')">
+      <div class="video-thumb">
+        <img src="${v.thumb||''}" alt="${v.title}" loading="lazy">
+        <div class="play-btn"><span><div class="play-icon"></div></span></div>
+        <div class="video-duration">${v.duration||''}</div>
+      </div>
+      <div class="video-info">
+        <div class="video-title">${v.title}</div>
+        <div class="video-meta">TV Sul Capixaba</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Modal de vídeo
+function openVideo(url, title) {
+  if (!url) return;
+  const modal = document.getElementById('video-modal');
+  document.getElementById('video-modal-title').textContent = title;
+  document.getElementById('video-modal-iframe').src = url;
+  modal.style.display = 'flex';
+}
+function closeVideo() {
+  document.getElementById('video-modal').style.display = 'none';
+  document.getElementById('video-modal-iframe').src = '';
+}
+
 function renderSidebar() {
   const lidas    = data.blocks.filter(b => b.section === 'mais-lidas');
   const interior = data.blocks.filter(b => b.section === 'interior');
@@ -853,6 +948,16 @@ function applyConfig() {
   document.getElementById('weather-text').textContent = data.config.weather;
   const liveIframe = document.querySelector('.player-wrapper iframe');
   if (liveIframe && data.config.live) liveIframe.src = data.config.live;
+  // Banners
+  const b1 = document.getElementById('banner1-img');
+  const b2 = document.getElementById('banner2-img');
+  if (b1 && data.config.banner1Img) b1.src = data.config.banner1Img;
+  if (b2 && data.config.banner2Img) b2.src = data.config.banner2Img;
+  const row = document.getElementById('banner-full-row');
+  if (row) {
+    row.querySelector('a').href = data.config.banner1Link || '#';
+    row.querySelectorAll('a')[1].href = data.config.banner2Link || '#';
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -970,6 +1075,30 @@ function buildAdminForm() {
     </div>
   `).join('');
 
+  // Vídeos
+  const videosList = document.getElementById('admin-videos-list');
+  const vids = data.blocks.filter(b => b.section === 'video');
+  const vidIdxMap = vids.map(v => data.blocks.indexOf(v));
+  videosList.innerHTML = vids.map((v, vi) => {
+    const i = vidIdxMap[vi];
+    return `
+    <div class="admin-slide-item">
+      <div class="admin-slide-num" style="background:#111;font-size:9px;text-align:center;line-height:1.2;padding:2px">${v.label||'Vídeo '+(vi+1)}</div>
+      <div class="admin-slide-fields">
+        <div class="admin-field full"><label>Título do vídeo</label><input type="text" value="${esc(v.title)}" onchange="data.blocks[${i}].title=this.value"></div>
+        <div class="admin-field full"><label>URL Castr (embed)</label><input type="text" value="${esc(v.castr||'')}" onchange="data.blocks[${i}].castr=this.value" placeholder="https://player.castr.com/..."></div>
+        <div class="admin-field full"><label>URL da thumbnail</label><input type="text" value="${esc(v.thumb||'')}" onchange="data.blocks[${i}].thumb=this.value"></div>
+        <div class="admin-field"><label>Duração (ex: 05:12 ou AO VIVO)</label><input type="text" value="${esc(v.duration||'')}" onchange="data.blocks[${i}].duration=this.value"></div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Banners
+  document.getElementById('cfg-b1img').value  = data.config.banner1Img  || '';
+  document.getElementById('cfg-b1link').value = data.config.banner1Link || '';
+  document.getElementById('cfg-b2img').value  = data.config.banner2Img  || '';
+  document.getElementById('cfg-b2link').value = data.config.banner2Link || '';
+
   // Config
   document.getElementById('cfg-wpp').value     = data.config.wpp;
   document.getElementById('cfg-ticker').value  = data.config.ticker;
@@ -1009,10 +1138,14 @@ function esc(s) {
 }
 
 function saveAll() {
-  data.config.wpp     = document.getElementById('cfg-wpp').value;
-  data.config.ticker  = document.getElementById('cfg-ticker').value;
-  data.config.live    = document.getElementById('cfg-live').value;
-  data.config.weather = document.getElementById('cfg-weather').value;
+  data.config.wpp        = document.getElementById('cfg-wpp').value;
+  data.config.ticker     = document.getElementById('cfg-ticker').value;
+  data.config.live       = document.getElementById('cfg-live').value;
+  data.config.weather    = document.getElementById('cfg-weather').value;
+  data.config.banner1Img  = document.getElementById('cfg-b1img').value;
+  data.config.banner1Link = document.getElementById('cfg-b1link').value;
+  data.config.banner2Img  = document.getElementById('cfg-b2img').value;
+  data.config.banner2Link = document.getElementById('cfg-b2link').value;
   saveData();
   render();
   closeAdmin();
