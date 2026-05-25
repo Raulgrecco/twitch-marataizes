@@ -113,7 +113,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .news-card{background:#fff;border-radius:10px;overflow:hidden;border:1px solid var(--border);transition:box-shadow .2s,transform .2s;display:flex;flex-direction:column}
 .news-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.1);transform:translateY(-2px)}
 .news-card-img{position:relative;aspect-ratio:16/10;overflow:hidden;background:#e8e6e0}
-.news-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.news-card-img img{width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform .4s}
 .news-card:hover .news-card-img img{transform:scale(1.05)}
 .news-card-cat{position:absolute;top:8px;left:8px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 7px;border-radius:3px;color:#fff}
 .news-card-body{padding:14px;flex:1;display:flex;flex-direction:column}
@@ -127,8 +127,8 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .news-list{display:flex;flex-direction:column;gap:12px}
 .news-list-item{background:#fff;border-radius:8px;overflow:hidden;border:1px solid var(--border);display:flex;gap:0;transition:box-shadow .2s}
 .news-list-item:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
-.news-list-img{width:130px;flex-shrink:0;position:relative;overflow:hidden}
-.news-list-img img{width:100%;height:100%;object-fit:cover;display:block}
+.news-list-img{width:130px;height:96px;flex-shrink:0;position:relative;overflow:hidden;border-radius:0}
+.news-list-img img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
 .news-list-body{padding:12px 14px;flex:1;display:flex;flex-direction:column;justify-content:space-between}
 .news-list-cat{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 6px;border-radius:3px;color:#fff;display:inline-block;margin-bottom:5px;align-self:flex-start}
 .news-list-title{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;line-height:1.3;color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -143,7 +143,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .sidebar-news-item:last-child{border-bottom:none}
 .sidebar-news-item:hover{background:#faf9f7}
 .sidebar-news-img{width:64px;height:50px;flex-shrink:0;border-radius:6px;overflow:hidden;background:#e8e6e0}
-.sidebar-news-img img{width:100%;height:100%;object-fit:cover}
+.sidebar-news-img img{width:100%;height:100%;object-fit:cover;object-position:center}
 .sidebar-news-title{font-size:12px;font-weight:600;line-height:1.3;color:var(--ink);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .sidebar-news-date{font-size:10px;color:var(--ink-3);margin-top:3px}
 /* Banner sidebar */
@@ -365,21 +365,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
       <div class="news-grid" id="grid-ultimas"></div>
     </section>
 
-    <!-- VÍDEOS (Castr) -->
-    <section class="news-section" id="section-videos">
-      <div class="section-title">
-        <h2>📹 Vídeos</h2>
-        <a href="#" style="color:var(--brand-gold)">Ver todos →</a>
-      </div>
-      <div class="videos-grid" id="grid-videos"></div>
-    </section>
-      <div class="banner-full-item">
-        <a href="#" target="_blank" rel="noopener">
-          <img id="banner2-img" src="https://images.unsplash.com/photo-1576671081837-49000212a370?w=580&h=120&fit=crop&crop=center&q=80" alt="Drogaria Pacheco">
-        </a>
-        <div class="banner-label" style="font-size:9px;letter-spacing:1px;color:#aaa;text-align:center;padding:3px;background:#fafaf8">✦ PUBLICIDADE — Drogaria Pacheco</div>
-      </div>
-    </div>
+
 
     <!-- DESTAQUE EDITORIAL -->
     <div style="margin-bottom:28px;background:linear-gradient(135deg,#1a1a1a,#2d2d2d);border-radius:12px;overflow:hidden;display:flex;min-height:130px;cursor:pointer" onclick="openArticle(data.blocks.find(b=>b.section==='economia'))">
@@ -447,6 +433,22 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
       </div>
       <div class="news-list" id="list-economia"></div>
     </section>
+
+    <!-- VÍDEOS (Castr) -->
+    <section class="news-section" id="section-videos">
+      <div class="section-title">
+        <h2>📹 Vídeos</h2>
+        <a href="#" style="color:var(--brand-gold)">Ver todos →</a>
+      </div>
+      <div class="videos-grid" id="grid-videos"></div>
+    </section>
+      <div class="banner-full-item">
+        <a href="#" target="_blank" rel="noopener">
+          <img id="banner2-img" src="https://images.unsplash.com/photo-1576671081837-49000212a370?w=580&h=120&fit=crop&crop=center&q=80" alt="Drogaria Pacheco">
+        </a>
+        <div class="banner-label" style="font-size:9px;letter-spacing:1px;color:#aaa;text-align:center;padding:3px;background:#fafaf8">✦ PUBLICIDADE — Drogaria Pacheco</div>
+      </div>
+    </div>
 
   </main>
 
