@@ -1121,13 +1121,13 @@ function buildAdminForm() {
   videosList.innerHTML = vids.map((v, vi) => {
     const i = vidIdxMap[vi];
     return `
-    <div class="admin-slide-item">
+    <div class="admin-slide-item" id="video-card-${i}">
       <div class="admin-slide-num" style="background:#111;font-size:9px;text-align:center;line-height:1.2;padding:2px">${v.label||'Vídeo '+(vi+1)}</div>
       <div class="admin-slide-fields">
-        <div class="admin-field full"><label>Título do vídeo</label><input type="text" value="${esc(v.title)}" onchange="data.blocks[${i}].title=this.value"></div>
-        <div class="admin-field full"><label>URL Castr (embed)</label><input type="text" value="${esc(v.castr||'')}" onchange="data.blocks[${i}].castr=this.value" placeholder="https://player.castr.com/..."></div>
-        <div class="admin-field full"><label>URL da thumbnail</label><input type="text" value="${esc(v.thumb||'')}" onchange="data.blocks[${i}].thumb=this.value"></div>
-        <div class="admin-field"><label>Duração (ex: 05:12 ou AO VIVO)</label><input type="text" value="${esc(v.duration||'')}" onchange="data.blocks[${i}].duration=this.value"></div>
+        <div class="admin-field full"><label>Título do vídeo</label><input type="text" data-field="title" value="${esc(v.title)}" oninput="data.blocks[${i}].title=this.value"></div>
+        <div class="admin-field full"><label>URL Castr (embed)</label><input type="text" data-field="castr" value="${esc(v.castr||'')}" oninput="data.blocks[${i}].castr=this.value" placeholder="https://player.castr.com/..."></div>
+        <div class="admin-field full"><label>URL da thumbnail</label><input type="text" data-field="thumb" value="${esc(v.thumb||'')}" oninput="data.blocks[${i}].thumb=this.value"></div>
+        <div class="admin-field"><label>Duração (ex: 05:12 ou AO VIVO)</label><input type="text" data-field="duration" value="${esc(v.duration||'')}" oninput="data.blocks[${i}].duration=this.value"></div>
       </div>
     </div>`;
   }).join('');
@@ -1154,33 +1154,33 @@ function buildSlideCard(s, i) {
     <div class="admin-slide-fields">
       <div class="admin-field full">
         <label>Título da manchete</label>
-        <input type="text" value="${esc(s.title)}" oninput="data.slides[${i}].title=this.value;livePreviewUpdate('slide',${i})">
+        <input type="text" data-field="title" value="${esc(s.title)}" oninput="data.slides[${i}].title=this.value;livePreviewUpdate('slide',${i})">
       </div>
       <div class="admin-field full">
         <label>Subtítulo / linha fina</label>
-        <input type="text" value="${esc(s.sub||'')}" oninput="data.slides[${i}].sub=this.value">
+        <input type="text" data-field="sub" value="${esc(s.sub||'')}" oninput="data.slides[${i}].sub=this.value">
       </div>
       <div class="admin-field">
         <label>Autor</label>
-        <input type="text" value="${esc(s.autor||'Redação TV Sul Capixaba')}" oninput="data.slides[${i}].autor=this.value">
+        <input type="text" data-field="autor" value="${esc(s.autor||'Redação TV Sul Capixaba')}" oninput="data.slides[${i}].autor=this.value">
       </div>
       <div class="admin-field full">
         <label>Texto completo da matéria</label>
-        <textarea style="height:100px" oninput="data.slides[${i}].body=this.value">${esc(s.body||'')}</textarea>
+        <textarea data-field="body" style="height:100px" oninput="data.slides[${i}].body=this.value">${esc(s.body||'')}</textarea>
       </div>
       <div class="admin-field">
         <label>Categoria</label>
-        <input type="text" value="${esc(s.cat)}" oninput="data.slides[${i}].cat=this.value">
+        <input type="text" data-field="cat" value="${esc(s.cat)}" oninput="data.slides[${i}].cat=this.value">
       </div>
       <div class="admin-field">
         <label>Cor da categoria</label>
-        <select onchange="data.slides[${i}].catClass=this.value">${catOptions(s.catClass)}</select>
+        <select data-field="catClass" onchange="data.slides[${i}].catClass=this.value">${catOptions(s.catClass)}</select>
       </div>
       <div class="admin-field full">
         <label>Imagem — URL ou upload</label>
         <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start">
           <div style="flex:1;min-width:180px">
-            <input type="text" placeholder="https://..." value="${esc(s.img)}" oninput="updateSlideImg(${i},this.value)" style="margin-bottom:6px">
+            <input type="text" data-field="img" placeholder="https://..." value="${esc(s.img)}" oninput="updateSlideImg(${i},this.value)" style="margin-bottom:6px">
             <label class="upload-btn">
               📁 Upload do computador
               <input type="file" accept="image/*" onchange="uploadImg(event,'slide',${i})" style="display:none">
@@ -1222,31 +1222,31 @@ function buildBlockCard(b, i) {
     <div class="admin-slide-fields">
       <div class="admin-field full">
         <label>Título</label>
-        <input type="text" value="${esc(b.title)}" oninput="data.blocks[${i}].title=this.value">
+        <input type="text" data-field="title" value="${esc(b.title)}" oninput="data.blocks[${i}].title=this.value">
       </div>
       <div class="admin-field full">
         <label>Subtítulo / chamada</label>
-        <input type="text" value="${esc(b.sub||'')}" oninput="data.blocks[${i}].sub=this.value">
+        <input type="text" data-field="sub" value="${esc(b.sub||'')}" oninput="data.blocks[${i}].sub=this.value">
       </div>
       <div class="admin-field full">
         <label>Texto completo da matéria</label>
-        <textarea style="height:110px" oninput="data.blocks[${i}].body=this.value">${esc(b.body||'')}</textarea>
+        <textarea data-field="body" style="height:110px" oninput="data.blocks[${i}].body=this.value">${esc(b.body||'')}</textarea>
       </div>
       <div class="admin-field">
         <label>Categoria</label>
-        <input type="text" value="${esc(b.cat)}" placeholder="Categoria" oninput="data.blocks[${i}].cat=this.value">
-        <select style="margin-top:6px" onchange="data.blocks[${i}].catClass=this.value">${catOptions(b.catClass)}</select>
+        <input type="text" data-field="cat" value="${esc(b.cat)}" placeholder="Categoria" oninput="data.blocks[${i}].cat=this.value">
+        <select data-field="catClass" style="margin-top:6px" onchange="data.blocks[${i}].catClass=this.value">${catOptions(b.catClass)}</select>
       </div>
       <div class="admin-field">
         <label>Data / Autor</label>
-        <input type="text" value="${esc(b.date||'')}" placeholder="dd/mm/aaaa" oninput="data.blocks[${i}].date=this.value" style="margin-bottom:6px">
-        <input type="text" value="${esc(b.autor||'Redação TV Sul Capixaba')}" placeholder="Autor" oninput="data.blocks[${i}].autor=this.value">
+        <input type="text" data-field="date" value="${esc(b.date||'')}" placeholder="dd/mm/aaaa" oninput="data.blocks[${i}].date=this.value" style="margin-bottom:6px">
+        <input type="text" data-field="autor" value="${esc(b.autor||'Redação TV Sul Capixaba')}" placeholder="Autor" oninput="data.blocks[${i}].autor=this.value">
       </div>
       <div class="admin-field full">
         <label>Imagem — URL ou upload</label>
         <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start">
           <div style="flex:1;min-width:180px">
-            <input type="text" placeholder="https://..." value="${esc(b.img||'')}" oninput="updateBlockImg(${i},this.value)" style="margin-bottom:6px">
+            <input type="text" data-field="img" placeholder="https://..." value="${esc(b.img||'')}" oninput="updateBlockImg(${i},this.value)" style="margin-bottom:6px">
             <label class="upload-btn">
               📁 Upload do computador
               <input type="file" accept="image/*" onchange="uploadImg(event,'block',${i})" style="display:none">
@@ -1383,55 +1383,67 @@ function esc(s) {
   return String(s).replace(/"/g,'&quot;').replace(/</g,'&lt;');
 }
 
+// ── Leitura robusta por data-field ───────────────────────────────
+function readField(card, field) {
+  const el = card.querySelector('[data-field="' + field + '"]');
+  return el ? el.value : null;
+}
+
+// ── saveAll: lê TUDO do DOM por data-field, sem depender de ordem ─
 function saveAll() {
-  // ── Lê config ────────────────────────────────────────────
+
+  // CONFIG — IDs fixos no HTML estático
   data.config.wpp     = document.getElementById('cfg-wpp').value;
   data.config.ticker  = document.getElementById('cfg-ticker').value;
   data.config.live    = document.getElementById('cfg-live').value;
   data.config.weather = document.getElementById('cfg-weather').value;
 
-  // ── Lê slides do DOM (garante que nada se perde) ─────────
+  // SLIDES — id="slide-card-N"
   data.slides.forEach((s, i) => {
     const card = document.getElementById('slide-card-' + i);
     if (!card) return;
-    const inputs = card.querySelectorAll('input[type=text]');
-    const ta     = card.querySelector('textarea');
-    const sel    = card.querySelector('select');
-    // ordem real dos inputs no DOM do buildSlideCard:
-    // [0]=título [1]=subtítulo [2]=autor [3]=categoria [4]=url-img
-    if (inputs[0]) s.title  = inputs[0].value;
-    if (inputs[1]) s.sub    = inputs[1].value;
-    if (inputs[2]) s.autor  = inputs[2].value;
-    if (inputs[3]) s.cat    = inputs[3].value;
-    if (ta)        s.body   = ta.value;
-    if (sel)       s.catClass = sel.value;
-    // inputs[4] = url da imagem — já gerenciado por oninput/upload
-    // img já é atualizado por oninput/upload em tempo real
+    const v = f => readField(card, f);
+    if (v('title')    !== null) s.title    = v('title');
+    if (v('sub')      !== null) s.sub      = v('sub');
+    if (v('autor')    !== null) s.autor    = v('autor');
+    if (v('body')     !== null) s.body     = v('body');
+    if (v('cat')      !== null) s.cat      = v('cat');
+    if (v('catClass') !== null) s.catClass = v('catClass');
+    if (v('img')      !== null && v('img') !== '') s.img = v('img');
+    // upload base64 já fica em s.img via uploadImg(); só sobrescreve se o campo URL não está vazio
   });
 
-  // ── Lê blocks do DOM ─────────────────────────────────────
+  // BLOCKS — id="block-card-N" (matérias editoriais)
   data.blocks.forEach((b, i) => {
-    if (b.section === 'video' || b.section === 'mais-lidas' || b.section === 'interior') return;
+    if (['video','mais-lidas','interior'].includes(b.section)) return;
     const card = document.getElementById('block-card-' + i);
     if (!card) return;
-    const inputs = card.querySelectorAll('input[type=text]');
-    const ta     = card.querySelector('textarea');
-    const sel    = card.querySelector('select');
-    // ordem real dos inputs no DOM do buildBlockCard:
-    // [0]=título [1]=subtítulo [2]=categoria [3]=data [4]=autor [5]=url-img
-    if (inputs[0]) b.title  = inputs[0].value;
-    if (inputs[1]) b.sub    = inputs[1].value;
-    if (ta)        b.body   = ta.value;
-    if (inputs[2]) b.cat    = inputs[2].value;
-    if (sel)       b.catClass = sel.value;
-    if (inputs[3]) b.date   = inputs[3].value;
-    if (inputs[4]) b.autor  = inputs[4].value;
-    // inputs[5] = url da imagem — já gerenciado por oninput/upload
+    const v = f => readField(card, f);
+    if (v('title')    !== null) b.title    = v('title');
+    if (v('sub')      !== null) b.sub      = v('sub');
+    if (v('body')     !== null) b.body     = v('body');
+    if (v('cat')      !== null) b.cat      = v('cat');
+    if (v('catClass') !== null) b.catClass = v('catClass');
+    if (v('date')     !== null) b.date     = v('date');
+    if (v('autor')    !== null) b.autor    = v('autor');
+    if (v('img')      !== null && v('img') !== '') b.img = v('img');
+  });
+
+  // VÍDEOS — id="video-card-N" (índice global do bloco)
+  data.blocks.forEach((b, i) => {
+    if (b.section !== 'video') return;
+    const card = document.getElementById('video-card-' + i);
+    if (!card) return;
+    const v = f => readField(card, f);
+    if (v('title')    !== null) b.title    = v('title');
+    if (v('castr')    !== null) b.castr    = v('castr');
+    if (v('thumb')    !== null) b.thumb    = v('thumb');
+    if (v('duration') !== null) b.duration = v('duration');
   });
 
   saveData();
 
-  // Limpa e re-renderiza o portal
+  // Re-renderiza o portal
   ['grid-ultimas','grid-saude','list-politica','list-policia',
    'list-turismo','grid-cultura','list-economia',
    'grid-videos','sidebar-mais-lidas','sidebar-interior'].forEach(id => {
@@ -1440,7 +1452,7 @@ function saveAll() {
   });
   render();
   closeAdmin();
-  showToast('✅ Alterações salvas! Portal atualizado.');
+  showToast('✅ Salvo! Portal atualizado.');
 }
 
 function showToast(msg) {
