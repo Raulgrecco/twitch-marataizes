@@ -808,12 +808,39 @@ let data = loadData();
 let currentSlide = 0;
 let autoplayTimer;
 
+// ── Imagens base64 em keys separados ─────────────────────────────
+const IMG_PREFIX = 'tvsul_img_';
+
+function saveImg(key, base64) {
+  try { localStorage.setItem(IMG_PREFIX + key, base64); return true; }
+  catch(e) { return false; }
+}
+
+function loadImg(key) {
+  try { return localStorage.getItem(IMG_PREFIX + key) || ''; }
+  catch(e) { return ''; }
+}
+
+function deleteImg(key) {
+  try { localStorage.removeItem(IMG_PREFIX + key); } catch(e) {}
+}
+
+// Resolve imagem de um item: suporta .img e .thumb, URLs externas,
+// referências internas (IMG_PREFIX) e base64 legado
+function resolveImg(item) {
+  // Vídeos usam .thumb, demais usam .img
+  const raw = item.img || item.thumb || '';
+  if (!raw) return '';
+  if (raw.startsWith('data:'))      return raw;               // base64 legado
+  if (raw.startsWith(IMG_PREFIX))   return loadImg(raw.slice(IMG_PREFIX.length)); // ref interna
+  return raw;                                                  // URL externa
+}
+
 function loadData() {
   try {
-    const saved    = localStorage.getItem(STORAGE_KEY);
-    const version  = localStorage.getItem(STORAGE_KEY + '_version');
+    const saved   = localStorage.getItem(STORAGE_KEY);
+    const version = localStorage.getItem(STORAGE_KEY + '_version');
     if (saved && version === DATA_VERSION) return JSON.parse(saved);
-    // Versão diferente ou não existe → reseta com dados novos
     localStorage.removeItem(STORAGE_KEY);
   } catch(e){}
   return JSON.parse(JSON.stringify(DEFAULT_DATA));
@@ -821,26 +848,16 @@ function loadData() {
 
 function saveData() {
   try {
-    const payload = JSON.stringify(data);
-    localStorage.setItem(STORAGE_KEY, payload);
+    // Garante que nenhum base64 inline vai no payload principal
+    const slim = JSON.parse(JSON.stringify(data));
+    slim.slides.forEach(s => { if (s.img && s.img.startsWith('data:')) s.img = ''; });
+    slim.blocks.forEach(b => { if (b.img && b.img.startsWith('data:')) b.img = ''; });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(slim));
     localStorage.setItem(STORAGE_KEY + '_version', DATA_VERSION);
     return true;
   } catch(e) {
-    // localStorage cheio — tenta salvar sem as imagens base64
-    showToast('⚠️ Armazenamento cheio! Comprimindo imagens e salvando...');
-    try {
-      const slim = JSON.parse(JSON.stringify(data));
-      // Remove base64 das imagens (mantém só URLs externas)
-      slim.slides.forEach(s => { if (s.img && s.img.startsWith('data:')) s.img = ''; });
-      slim.blocks.forEach(b => { if (b.img && b.img.startsWith('data:')) b.img = ''; });
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(slim));
-      localStorage.setItem(STORAGE_KEY + '_version', DATA_VERSION);
-      setTimeout(() => showToast('💡 Use URLs externas para imagens grandes (ex: Unsplash, ImgBB).'), 3500);
-      return true;
-    } catch(e2) {
-      showToast('❌ Erro ao salvar. Tente imagens menores ou use URL externa.');
-      return false;
-    }
+    showToast('❌ Erro ao salvar dados. Tente recarregar a página.');
+    return false;
   }
 }
 
@@ -878,7 +895,7 @@ function renderCarousel() {
 
   slidesEl.innerHTML = slides.map((s,i) => `
     <div class="slide">
-      <img src="${s.img}" alt="${s.title}" loading="lazy">
+      <img src="${resolveImg(s)}" alt="${s.title}" loading="lazy">
       <div class="slide-overlay"></div>
       <div class="slide-content" onclick="openArticle(data.slides[${i}])" style="cursor:pointer">
         <span class="slide-cat ${s.catClass}">${s.cat}</span>
@@ -895,7 +912,7 @@ function renderCarousel() {
 
   thumbsEl.innerHTML = slides.map((s, i) => `
     <div class="thumb ${i===0?'active':''}" onclick="goToSlide(${i})">
-      <img src="${s.img}" alt="${s.title}" loading="lazy">
+      <img src="${resolveImg(s)}" alt="${s.title}" loading="lazy">
       <div class="thumb-label">${s.title}</div>
     </div>
   `).join('');
@@ -981,7 +998,7 @@ function renderVideos() {
   document.getElementById('grid-videos').innerHTML = vids.map((v,i) => `
     <div class="video-card" onclick="openVideo('${v.castr||''}','${v.title}')">
       <div class="video-thumb">
-        <img src="${v.thumb||''}" alt="${v.title}" loading="lazy">
+        <img src="${resolveImg(v)||''}" alt="${v.title}" loading="lazy">
         <div class="play-btn"><span><div class="play-icon"></div></span></div>
         <div class="video-duration">${v.duration||''}</div>
       </div>
@@ -1018,7 +1035,7 @@ function newsCard(a, idx) {
   return `
     <div class="news-card" onclick="openArticle(${ref !== 'null' ? ref : JSON.stringify(a).replace(/`/g,'\`')})">
       <div class="news-card-img">
-        <img src="${a.img}" alt="${a.title}" loading="lazy">
+        <img src="${resolveImg(a)}" alt="${a.title}" loading="lazy">
         <span class="news-card-cat ${a.catClass}">${a.cat}</span>
       </div>
       <div class="news-card-body">
@@ -1037,7 +1054,7 @@ function newsListItem(a, idx) {
   return `
     <div class="news-list-item" onclick="openArticle(${ref})" style="cursor:pointer">
       <div class="news-list-img">
-        <img src="${a.img}" alt="${a.title}" loading="lazy">
+        <img src="${resolveImg(a)}" alt="${a.title}" loading="lazy">
       </div>
       <div class="news-list-body">
         <span class="news-list-cat ${a.catClass}">${a.cat}</span>
@@ -1048,11 +1065,11 @@ function newsListItem(a, idx) {
 }
 
 function sidebarItemRanked(a, rank) {
-  const safe = JSON.stringify({title:a.title,img:a.img,cat:a.cat,catClass:a.catClass,sub:a.sub||'',date:a.date||'',body:a.body||a.sub||''}).replace(/"/g,'&quot;');
+  const safe = JSON.stringify({title:a.title,img:resolveImg(a),cat:a.cat,catClass:a.catClass,sub:a.sub||'',date:a.date||'',body:a.body||a.sub||''}).replace(/"/g,'&quot;');
   return `
     <div class="sidebar-news-item" onclick='openArticle(JSON.parse(this.dataset.a))' data-a="${safe}">
       <div style="width:22px;height:22px;background:var(--brand);color:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0">${rank}</div>
-      <div class="sidebar-news-img"><img src="${a.img}" alt="${a.title}" loading="lazy"></div>
+      <div class="sidebar-news-img"><img src="${resolveImg(a)}" alt="${a.title}" loading="lazy"></div>
       <div style="flex:1;min-width:0">
         <div class="sidebar-news-title">${a.title}</div>
         <div class="sidebar-news-date">${a.date||''}</div>
@@ -1061,11 +1078,11 @@ function sidebarItemRanked(a, rank) {
 }
 
 function sidebarItem(a) {
-  const safe = JSON.stringify({title:a.title,img:a.img,cat:a.cat,catClass:a.catClass,sub:a.sub||'',date:a.date||'',body:a.body||a.sub||''}).replace(/"/g,'&quot;');
+  const safe = JSON.stringify({title:a.title,img:resolveImg(a),cat:a.cat,catClass:a.catClass,sub:a.sub||'',date:a.date||'',body:a.body||a.sub||''}).replace(/"/g,'&quot;');
   return `
     <div class="sidebar-news-item" onclick='openArticle(JSON.parse(this.dataset.a))' data-a="${safe}" style="cursor:pointer">
       <div class="sidebar-news-img">
-        <img src="${a.img}" alt="${a.title}" loading="lazy">
+        <img src="${resolveImg(a)}" alt="${a.title}" loading="lazy">
       </div>
       <div>
         <div class="sidebar-news-title">${a.title}</div>
@@ -1207,14 +1224,14 @@ function buildSlideCard(s, i) {
             </label>
           </div>
           <div class="img-preview" id="prev-slide-${i}">
-            <img src="${s.img||''}" alt="" onerror="this.src=''">
+            <img src="${resolveImg(s)||''}" alt="" onerror="this.src=''">
           </div>
         </div>
       </div>
       <div class="admin-field full" style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;padding:12px">
         <label style="color:#0369a1;font-weight:700">👁 Preview ao vivo</label>
         <div id="live-prev-slide-${i}" style="margin-top:8px;background:#1a1a1a;border-radius:8px;overflow:hidden;position:relative;aspect-ratio:16/6;cursor:pointer" onclick="previewArticle('slide',${i})">
-          <img src="${s.img||''}" style="width:100%;height:100%;object-fit:cover;object-position:center" onerror="this.style.display='none'">
+          <img src="${resolveImg(s)||''}" style="width:100%;height:100%;object-fit:cover;object-position:center" onerror="this.style.display='none'">
           <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8),transparent);display:flex;align-items:flex-end;padding:12px">
             <div>
               <span style="background:var(--brand);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:1px" class="prev-cat-${i}">${esc(s.cat)}</span>
@@ -1273,7 +1290,7 @@ function buildBlockCard(b, i) {
             </label>
           </div>
           <div class="img-preview" id="prev-block-${i}">
-            <img src="${b.img||''}" alt="" onerror="this.src=''">
+            <img src="${resolveImg(b)||''}" alt="" onerror="this.src=''">
           </div>
         </div>
       </div>
@@ -1310,8 +1327,14 @@ function uploadImg(event, type, idx) {
   }
 
   function applyImg(url) {
+    const kb = Math.round(url.length * 0.75 / 1024);
     if (type === 'slide') {
-      data.slides[idx].img = url;
+      // Salva base64 em key próprio e guarda só a referência no objeto
+      const imgKey = 'slide_' + idx;
+      const ok = saveImg(imgKey, url);
+      if (!ok) { showToast('❌ Imagem muito grande. Use uma foto menor ou URL externa.'); return; }
+      data.slides[idx].img = IMG_PREFIX + imgKey; // referência, não base64
+      // Atualiza previews com a imagem real
       const prev = document.querySelector('#prev-slide-' + idx + ' img');
       if (prev) { prev.src = url; prev.style.display = ''; }
       const livePrev = document.querySelector('#live-prev-slide-' + idx + ' img');
@@ -1319,14 +1342,16 @@ function uploadImg(event, type, idx) {
       const imgField = document.querySelector('#slide-card-' + idx + ' [data-field="img"]');
       if (imgField) imgField.value = '';
     } else {
-      data.blocks[idx].img = url;
+      const imgKey = 'block_' + idx;
+      const ok = saveImg(imgKey, url);
+      if (!ok) { showToast('❌ Imagem muito grande. Use uma foto menor ou URL externa.'); return; }
+      data.blocks[idx].img = IMG_PREFIX + imgKey;
       const prev = document.querySelector('#prev-block-' + idx + ' img');
       if (prev) { prev.src = url; prev.style.display = ''; }
       const imgField = document.querySelector('#block-card-' + idx + ' [data-field="img"]');
       if (imgField) imgField.value = '';
     }
-    const kb = Math.round(url.length * 0.75 / 1024);
-    showToast('✅ Imagem carregada (' + kb + ' KB). Clique em Salvar.');
+    showToast('✅ Imagem salva (' + kb + ' KB). Clique em Salvar para publicar.');
   }
 
   const reader = new FileReader();
@@ -1532,7 +1557,7 @@ function openArticle(a) {
   if (!a) return;
   _currentArticle = a;
   recordView(a.title);
-  document.getElementById('am-img').src   = a.img || '';
+  document.getElementById('am-img').src   = resolveImg(a) || '';
   document.getElementById('am-img').alt   = a.title || '';
   document.getElementById('am-title').textContent = a.title || '';
   document.getElementById('am-sub').textContent   = a.sub || '';
