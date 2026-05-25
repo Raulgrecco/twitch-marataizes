@@ -675,7 +675,8 @@ function sha256(str){function rr(w,b){return(w>>>b)|(w<<(32-b))}const K=[0x428a2
 // DADOS — edite aqui ou use o painel admin
 // ═══════════════════════════════════════════════════════════
 const ADMIN_HASH = '4939a75895dfe88116df85cf25722855ef5cddbb764ef67e18c107ead3ac0745'; // SHA-256
-const STORAGE_KEY = 'tvsulcapixaba_data';
+const STORAGE_KEY    = 'tvsulcapixaba_data';
+const DATA_VERSION   = '2026-05-v3'; // muda aqui para forçar reset do localStorage
 
 const DEFAULT_DATA = {
   config: {
@@ -864,7 +865,7 @@ const DEFAULT_DATA = {
       title: 'Temporada de inverno no sul do ES deve atrair 180 mil turistas segundo estimativa estadual',
       sub: 'Hotéis e pousadas já registram reservas acima de 70% para os meses de julho e agosto',
       date: '23/05/2026',
-      body: 'A Secretaria Estadual de Turismo do Espírito Santo divulgou nesta semana projeção que aponta para 180 mil turistas visitando o litoral sul do estado ao longo da temporada de inverno, entre junho e agosto de 2026. O número representa crescimento de 22% em relação ao mesmo período de 2025.\n\nSegundo os dados da pesquisa realizada com operadoras de turismo e plataformas de hospedagem, hotéis e pousadas de Anchieta, Piúma e Marataízes já têm ocupação média de 73% comprometida para julho. Para agosto, a taxa sobe para 81%.\n\nO secretário estadual de Turismo destaca que o sul capixaba está se consolidando como destino preferencial para famílias do interior de Minas Gerais que buscam praias mais tranquilas e acessíveis durante as férias escolares.\n\nAs prefeituras da região estão ajustando a oferta de serviços para o período: Anchieta reforça a iluminação da orla, Piúma contrata guardas-vidas extras e Marataízes amplia o serviço de coleta de lixo nas praias.',
+      body: 'A Secretaria Estadual de Turismo do Espírito Santo divulgou nesta semana projeção que aponta para 180 mil turistas visitando o litoral sul do estado ao longo da temporada de inverno, entre junho e agosto de 2026. O número representa crescimento de 22% em relação ao mesmo período do ano anterior.\n\nSegundo os dados da pesquisa realizada com operadoras de turismo e plataformas de hospedagem, hotéis e pousadas de Anchieta, Piúma e Marataízes já têm ocupação média de 73% comprometida para julho. Para agosto, a taxa sobe para 81%.\n\nO secretário estadual de Turismo destaca que o sul capixaba está se consolidando como destino preferencial para famílias do interior de Minas Gerais que buscam praias mais tranquilas e acessíveis durante as férias escolares.\n\nAs prefeituras da região estão ajustando a oferta de serviços para o período: Anchieta reforça a iluminação da orla, Piúma contrata guardas-vidas extras e Marataízes amplia o serviço de coleta de lixo nas praias.',
     },
     {
       section: 'turismo', label: 'Turismo 2',
@@ -886,7 +887,7 @@ const DEFAULT_DATA = {
       title: 'Grupo de teatro de Marataízes estreia espetáculo sobre a história da pesca no ES',
       sub: 'Peça gratuita será encenada no Centro Cultural do município durante todo o mês de junho',
       date: '22/05/2026',
-      body: 'O grupo de teatro Ventos do Mar, de Marataízes, estreia no próximo sábado o espetáculo "Maré Alta", uma peça que narra a trajetória de famílias de pescadores artesanais do sul capixaba ao longo de três gerações.\n\nCom texto de autoria coletiva desenvolvido ao longo de um ano de pesquisa com comunidades pesqueiras da região, a montagem reúne 14 atores locais, além de músicos ao vivo que executam melodias tradicionais da cultura litorânea capixaba.\n\nAs apresentações serão gratuitas e acontecerão todas as sextas e sábados do mês de junho, às 19h, no Centro Cultural de Marataízes. A capacidade é de 180 lugares por sessão, com retirada de ingressos a partir de quarta-feira no local.\n\nO espetáculo foi contemplado pelo edital de fomento à cultura do Município e pelo Prêmio Capixaba de Teatro 2025, o que permitiu a montagem com recursos suficientes para produção cenográfica e divulgação ampla.',
+      body: 'O grupo de teatro Ventos do Mar, de Marataízes, estreia no próximo sábado o espetáculo "Maré Alta", uma peça que narra a trajetória de famílias de pescadores artesanais do sul capixaba ao longo de três gerações.\n\nCom texto de autoria coletiva desenvolvido ao longo de um ano de pesquisa com comunidades pesqueiras da região, a montagem reúne 14 atores locais, além de músicos ao vivo que executam melodias tradicionais da cultura litorânea capixaba.\n\nAs apresentações serão gratuitas e acontecerão todas as sextas e sábados do mês de junho, às 19h, no Centro Cultural de Marataízes. A capacidade é de 180 lugares por sessão, com retirada de ingressos a partir de quarta-feira no local.\n\nO espetáculo foi contemplado pelo edital de fomento à cultura do Município e pelo Prêmio Capixaba de Teatro, o que permitiu a montagem com recursos suficientes para produção cenográfica e divulgação ampla.',
     },
     {
       section: 'cultura', label: 'Cultura 2',
@@ -928,7 +929,7 @@ const DEFAULT_DATA = {
       title: 'Geração de empregos formais no sul do ES cresce 12% no primeiro trimestre de 2026',
       sub: 'Dados do Ministério do Trabalho mostram saldo positivo de 1.340 vagas na região',
       date: '22/05/2026',
-      body: 'O sul do Espírito Santo fechou o primeiro trimestre de 2026 com saldo positivo de 1.340 empregos formais, representando crescimento de 12% em relação ao mesmo período de 2025, conforme dados divulgados pelo Ministério do Trabalho e Previdência a partir do Cadastro Geral de Empregados e Desempregados (CAGED).\n\nOs setores que mais geraram vagas foram construção civil (418 postos), comércio varejista (312), saúde e serviços sociais (289) e turismo e hospedagem (201). O setor de indústria de transformação — com destaque para mármore e granito — também apresentou crescimento, com 120 novas vagas.\n\nCachoeiro de Itapemirim liderou a geração de empregos na região, com 680 novas vagas formais no período. Marataízes ficou em segundo lugar, com 320, seguida por Anchieta com 180.\n\nEconomistas ligados à Federação do Comércio do ES avaliam que o crescimento no sul do estado tende a se acelerar no segundo semestre com a entrada em operação de novos empreendimentos anunciados para a região.',
+      body: 'O sul do Espírito Santo fechou o primeiro trimestre de 2026 com saldo positivo de 1.340 empregos formais, representando crescimento de 12% em relação ao mesmo período do ano anterior, conforme dados divulgados pelo Ministério do Trabalho e Previdência a partir do Cadastro Geral de Empregados e Desempregados (CAGED).\n\nOs setores que mais geraram vagas foram construção civil (418 postos), comércio varejista (312), saúde e serviços sociais (289) e turismo e hospedagem (201). O setor de indústria de transformação — com destaque para mármore e granito — também apresentou crescimento, com 120 novas vagas.\n\nCachoeiro de Itapemirim liderou a geração de empregos na região, com 680 novas vagas formais no período. Marataízes ficou em segundo lugar, com 320, seguida por Anchieta com 180.\n\nEconomistas ligados à Federação do Comércio do ES avaliam que o crescimento no sul do estado tende a se acelerar no segundo semestre com a entrada em operação de novos empreendimentos anunciados para a região.',
     },
 
     // ── MAIS LIDAS (sidebar) ─────────────────────────────────
@@ -1027,14 +1028,18 @@ let autoplayTimer;
 
 function loadData() {
   try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) return JSON.parse(saved);
+    const saved    = localStorage.getItem(STORAGE_KEY);
+    const version  = localStorage.getItem(STORAGE_KEY + '_version');
+    if (saved && version === DATA_VERSION) return JSON.parse(saved);
+    // Versão diferente ou não existe → reseta com dados novos
+    localStorage.removeItem(STORAGE_KEY);
   } catch(e){}
   return JSON.parse(JSON.stringify(DEFAULT_DATA));
 }
 
 function saveData() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  localStorage.setItem(STORAGE_KEY + '_version', DATA_VERSION);
 }
 
 // ═══════════════════════════════════════════════════════════
