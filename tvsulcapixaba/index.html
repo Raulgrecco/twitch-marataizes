@@ -820,8 +820,28 @@ function loadData() {
 }
 
 function saveData() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  localStorage.setItem(STORAGE_KEY + '_version', DATA_VERSION);
+  try {
+    const payload = JSON.stringify(data);
+    localStorage.setItem(STORAGE_KEY, payload);
+    localStorage.setItem(STORAGE_KEY + '_version', DATA_VERSION);
+    return true;
+  } catch(e) {
+    // localStorage cheio — tenta salvar sem as imagens base64
+    showToast('⚠️ Armazenamento cheio! Comprimindo imagens e salvando...');
+    try {
+      const slim = JSON.parse(JSON.stringify(data));
+      // Remove base64 das imagens (mantém só URLs externas)
+      slim.slides.forEach(s => { if (s.img && s.img.startsWith('data:')) s.img = ''; });
+      slim.blocks.forEach(b => { if (b.img && b.img.startsWith('data:')) b.img = ''; });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(slim));
+      localStorage.setItem(STORAGE_KEY + '_version', DATA_VERSION);
+      setTimeout(() => showToast('💡 Use URLs externas para imagens grandes (ex: Unsplash, ImgBB).'), 3500);
+      return true;
+    } catch(e2) {
+      showToast('❌ Erro ao salvar. Tente imagens menores ou use URL externa.');
+      return false;
+    }
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1269,33 +1289,48 @@ function btnStyle(bg) {
 function uploadImg(event, type, idx) {
   const file = event.target.files[0];
   if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    const url = e.target.result;
+
+  // Comprime via canvas para reduzir tamanho antes de salvar
+  function compressAndApply(dataUrl) {
+    const img = new Image();
+    img.onload = function() {
+      const canvas = document.createElement('canvas');
+      // Máximo 1200px de largura mantendo proporção
+      const maxW = 1200;
+      const scale = img.width > maxW ? maxW / img.width : 1;
+      canvas.width  = Math.round(img.width  * scale);
+      canvas.height = Math.round(img.height * scale);
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      // Qualidade 0.82 — boa qualidade visual, tamanho reduzido
+      const compressed = canvas.toDataURL('image/jpeg', 0.82);
+      applyImg(compressed);
+    };
+    img.src = dataUrl;
+  }
+
+  function applyImg(url) {
     if (type === 'slide') {
-      // Grava base64 no objeto de dados imediatamente
       data.slides[idx].img = url;
-      // Atualiza preview miniatura
       const prev = document.querySelector('#prev-slide-' + idx + ' img');
       if (prev) { prev.src = url; prev.style.display = ''; }
-      // Atualiza preview ao vivo
       const livePrev = document.querySelector('#live-prev-slide-' + idx + ' img');
       if (livePrev) { livePrev.src = url; livePrev.style.display = ''; }
-      // Limpa campo URL para não sobrescrever o base64 no saveAll
       const imgField = document.querySelector('#slide-card-' + idx + ' [data-field="img"]');
       if (imgField) imgField.value = '';
     } else {
-      // Grava base64 no objeto de dados imediatamente
       data.blocks[idx].img = url;
-      // Atualiza preview miniatura
       const prev = document.querySelector('#prev-block-' + idx + ' img');
       if (prev) { prev.src = url; prev.style.display = ''; }
-      // Limpa campo URL para não sobrescrever o base64 no saveAll
       const imgField = document.querySelector('#block-card-' + idx + ' [data-field="img"]');
       if (imgField) imgField.value = '';
     }
-    showToast('✅ Imagem carregada! Clique em Salvar para confirmar.');
-  };
+    const kb = Math.round(url.length * 0.75 / 1024);
+    showToast('✅ Imagem carregada (' + kb + ' KB). Clique em Salvar.');
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(e) { compressAndApply(e.target.result); };
   reader.readAsDataURL(file);
 }
 
