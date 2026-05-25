@@ -1384,20 +1384,60 @@ function esc(s) {
 }
 
 function saveAll() {
-  data.config.wpp        = document.getElementById('cfg-wpp').value;
-  data.config.ticker     = document.getElementById('cfg-ticker').value;
-  data.config.live       = document.getElementById('cfg-live').value;
-  data.config.weather    = document.getElementById('cfg-weather').value;
+  // ── Lê config ────────────────────────────────────────────
+  data.config.wpp     = document.getElementById('cfg-wpp').value;
+  data.config.ticker  = document.getElementById('cfg-ticker').value;
+  data.config.live    = document.getElementById('cfg-live').value;
+  data.config.weather = document.getElementById('cfg-weather').value;
+
+  // ── Lê slides do DOM (garante que nada se perde) ─────────
+  data.slides.forEach((s, i) => {
+    const card = document.getElementById('slide-card-' + i);
+    if (!card) return;
+    const inputs = card.querySelectorAll('input[type=text]');
+    const ta     = card.querySelector('textarea');
+    const sel    = card.querySelector('select');
+    // ordem real dos inputs no DOM do buildSlideCard:
+    // [0]=título [1]=subtítulo [2]=autor [3]=categoria [4]=url-img
+    if (inputs[0]) s.title  = inputs[0].value;
+    if (inputs[1]) s.sub    = inputs[1].value;
+    if (inputs[2]) s.autor  = inputs[2].value;
+    if (inputs[3]) s.cat    = inputs[3].value;
+    if (ta)        s.body   = ta.value;
+    if (sel)       s.catClass = sel.value;
+    // inputs[4] = url da imagem — já gerenciado por oninput/upload
+    // img já é atualizado por oninput/upload em tempo real
+  });
+
+  // ── Lê blocks do DOM ─────────────────────────────────────
+  data.blocks.forEach((b, i) => {
+    if (b.section === 'video' || b.section === 'mais-lidas' || b.section === 'interior') return;
+    const card = document.getElementById('block-card-' + i);
+    if (!card) return;
+    const inputs = card.querySelectorAll('input[type=text]');
+    const ta     = card.querySelector('textarea');
+    const sel    = card.querySelector('select');
+    // ordem real dos inputs no DOM do buildBlockCard:
+    // [0]=título [1]=subtítulo [2]=categoria [3]=data [4]=autor [5]=url-img
+    if (inputs[0]) b.title  = inputs[0].value;
+    if (inputs[1]) b.sub    = inputs[1].value;
+    if (ta)        b.body   = ta.value;
+    if (inputs[2]) b.cat    = inputs[2].value;
+    if (sel)       b.catClass = sel.value;
+    if (inputs[3]) b.date   = inputs[3].value;
+    if (inputs[4]) b.autor  = inputs[4].value;
+    // inputs[5] = url da imagem — já gerenciado por oninput/upload
+  });
 
   saveData();
-  // Invalida cache visual — força re-render limpo
+
+  // Limpa e re-renderiza o portal
   ['grid-ultimas','grid-saude','list-politica','list-policia',
    'list-turismo','grid-cultura','list-economia',
    'grid-videos','sidebar-mais-lidas','sidebar-interior'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.innerHTML = '';
   });
-  // Re-render completo
   render();
   closeAdmin();
   showToast('✅ Alterações salvas! Portal atualizado.');
