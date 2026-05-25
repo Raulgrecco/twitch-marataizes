@@ -193,6 +193,8 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .admin-field textarea{height:60px;resize:vertical}
 .img-preview{width:70px;height:52px;border-radius:6px;overflow:hidden;background:#e8e6e0;flex-shrink:0;border:2px solid var(--border)}
 .img-preview img{width:100%;height:100%;object-fit:cover}
+.upload-btn{display:inline-block;background:#374151;color:#fff;padding:6px 12px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;transition:background .2s;font-family:inherit;border:none}
+.upload-btn:hover{background:#1f2937}
 .admin-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
 .btn-save{background:var(--brand);color:#fff;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:700;transition:background .2s}
 .btn-save:hover{background:var(--brand-dark)}
@@ -278,8 +280,15 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
   .logo-text{display:none}
   .btn-wpp span{display:none}
   .news-grid{grid-template-columns:1fr}
-  .admin-slide-fields{grid-template-columns:1fr}
+  .admin-slide-fields{grid-template-columns:1fr!important}
+  .admin-field.full{grid-column:1!important}
   .footer-main{grid-template-columns:1fr}
+  .header-search{max-width:160px}
+  .news-list-img{width:90px;height:72px}
+  .admin-panel{width:100%!important;max-width:100vw!important;border-radius:0!important;height:100dvh!important}
+  .slide-title{font-size:16px!important}
+  .carousel-thumbs{grid-template-columns:repeat(2,1fr)}
+  .hero{margin-bottom:16px}
 }
 </style>
 </head>
@@ -345,6 +354,16 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 <!-- ── BODY ── -->
 <div class="site-body">
   <main>
+
+    <!-- AVISO EDITORIAL -->
+    <div id="aviso-editorial" style="background:#FEF3C7;border:1px solid #F59E0B;padding:10px 16px;margin-bottom:14px;border-radius:8px;display:flex;align-items:center;gap:10px;font-family:sans-serif">
+      <span style="font-size:16px;flex-shrink:0">⚠️</span>
+      <div style="flex:1">
+        <strong style="font-size:12px;color:#92400E;display:block">Portal em fase editorial</strong>
+        <span style="font-size:11px;color:#78350F">As matérias são exemplos de layout. Substitua pelo conteúdo real via painel <strong>Admin</strong> (link no topo).</span>
+      </div>
+      <button onclick="this.parentElement.style.display='none'" style="background:none;border:none;color:#92400E;font-size:18px;cursor:pointer;flex-shrink:0;line-height:1">✕</button>
+    </div>
 
     <!-- HERO CAROUSEL -->
     <div class="hero">
@@ -586,43 +605,43 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
         <!-- BLOCOS por seção -->
         <div class="admin-section">
           <div class="admin-section-title">📰 Últimas Notícias
-            <button onclick="addBlock('ultimas')" style="float:right;background:var(--brand);color:#fff;border:none;padding:3px 10px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit">+ Adicionar</button>
+            <button onclick="addBlock('ultimas')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
           </div>
           <div class="admin-slides-list" id="admin-blocks-ultimas"></div>
         </div>
         <div class="admin-section">
           <div class="admin-section-title">🏛 Política
-            <button onclick="addBlock('politica')" style="float:right;background:var(--brand);color:#fff;border:none;padding:3px 10px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit">+ Adicionar</button>
+            <button onclick="addBlock('politica')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
           </div>
           <div class="admin-slides-list" id="admin-blocks-politica"></div>
         </div>
         <div class="admin-section">
           <div class="admin-section-title">🚔 Polícia
-            <button onclick="addBlock('policia')" style="float:right;background:var(--brand);color:#fff;border:none;padding:3px 10px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit">+ Adicionar</button>
+            <button onclick="addBlock('policia')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
           </div>
           <div class="admin-slides-list" id="admin-blocks-policia"></div>
         </div>
         <div class="admin-section">
           <div class="admin-section-title">🏥 Saúde
-            <button onclick="addBlock('saude')" style="float:right;background:var(--brand);color:#fff;border:none;padding:3px 10px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit">+ Adicionar</button>
+            <button onclick="addBlock('saude')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
           </div>
           <div class="admin-slides-list" id="admin-blocks-saude"></div>
         </div>
         <div class="admin-section">
           <div class="admin-section-title">🌊 Turismo
-            <button onclick="addBlock('turismo')" style="float:right;background:var(--brand);color:#fff;border:none;padding:3px 10px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit">+ Adicionar</button>
+            <button onclick="addBlock('turismo')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
           </div>
           <div class="admin-slides-list" id="admin-blocks-turismo"></div>
         </div>
         <div class="admin-section">
           <div class="admin-section-title">🎭 Cultura
-            <button onclick="addBlock('cultura')" style="float:right;background:var(--brand);color:#fff;border:none;padding:3px 10px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit">+ Adicionar</button>
+            <button onclick="addBlock('cultura')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
           </div>
           <div class="admin-slides-list" id="admin-blocks-cultura"></div>
         </div>
         <div class="admin-section">
           <div class="admin-section-title">💰 Economia
-            <button onclick="addBlock('economia')" style="float:right;background:var(--brand);color:#fff;border:none;padding:3px 10px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit">+ Adicionar</button>
+            <button onclick="addBlock('economia')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
           </div>
           <div class="admin-slides-list" id="admin-blocks-economia"></div>
         </div>
@@ -676,349 +695,126 @@ function sha256(str){function rr(w,b){return(w>>>b)|(w<<(32-b))}const K=[0x428a2
 // ═══════════════════════════════════════════════════════════
 const ADMIN_HASH = '4939a75895dfe88116df85cf25722855ef5cddbb764ef67e18c107ead3ac0745'; // SHA-256
 const STORAGE_KEY    = 'tvsulcapixaba_data';
-const DATA_VERSION   = '2026-05-v3'; // muda aqui para forçar reset do localStorage
+const DATA_VERSION   = '2026-05-v5'; // muda aqui para forçar reset do localStorage
 
 const DEFAULT_DATA = {
   config: {
     wpp: '5528999999999',
-    weather: 'Sul do ES: 26°C',
+    weather: 'Sul do ES: 28°C',
     live: 'https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7',
-    banner1Link: '#',
-    banner2Link: '#',
-    banner1Img: '',
-    banner2Img: '',
-    ticker: 'Prefeitura de Marataízes entrega nova UBS no bairro Nova Esperança | Operação da PC prende quadrilha de receptação em Cachoeiro | Itapemirim recebe R$ 8 mi do Estado para pavimentação | Festival do Camarão 2026 acontece em junho em Anchieta | Concurso da Câmara de Piúma abre 12 vagas até junho | Obras da ES-162 entram na etapa final entre Piúma e Anchieta',
+    banner1Link: '#', banner2Link: '#', banner1Img: '', banner2Img: '',
+    ticker: 'Marataizes inaugura UBS no Nova Esperanca com capacidade para 4 mil atendimentos por mes | PC deflagra operacao contra receptacao de veiculos em Cachoeiro e prende quatro | Itapemirim recebe R$ 8 mi do Estado para pavimentacao de estradas vicinais | Festival do Camarao de Anchieta confirma tres fins de semana em junho | Camara de Piuma abre concurso com 12 vagas e salarios ate R$ 6,5 mil | Porto de Presidente Kennedy amplia cais e dobra capacidade de exportacao',
   },
   slides: [
     {
       img: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&q=80',
       cat: 'Sul Capixaba', catClass: 'cat-sul',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Marataízes inaugura nova Unidade de Saúde e amplia atendimento no interior',
-      sub: 'Estrutura beneficia mais de 4 mil moradores dos bairros Nova Esperança e Lagoa Grande',
-      date: '24/05/2026',
-      body: 'A Prefeitura de Marataízes entregou nesta sexta-feira a nova Unidade Básica de Saúde do bairro Nova Esperança, encerrando quase dois anos de obras e aguardo por parte da comunidade local.\n\nA unidade conta com seis consultórios médicos, sala de vacinação, farmácia básica, consultório odontológico e estrutura para realização de exames de rotina. O atendimento começará na segunda-feira com equipes do Programa Saúde da Família.\n\nSegundo a secretária municipal de Saúde, o novo equipamento reduzirá em cerca de 40% a demanda reprimida na UBS central, que atendia toda a população daquela região.\n\n"Essa unidade é resultado de uma luta antiga dos moradores. Hoje entregamos saúde de qualidade perto de casa", declarou o prefeito durante a cerimônia de inauguração, que contou com apresentações culturais e distribuição de kits de higiene à comunidade.',
+      autor: 'Redacao TV Sul Capixaba',
+      title: 'Marataizes inaugura nova Unidade de Saude e amplia atendimento para 4 mil familias',
+      views: 2341,
+      sub: 'UBS do bairro Nova Esperanca foi construida com R$ 2,1 milhoes em recursos municipais e estaduais',
+      date: '25/05/2026',
+      body: 'A Prefeitura de Marataizes entregou nesta sexta-feira (24) a nova Unidade Basica de Saude do bairro Nova Esperanca, ampliando a capacidade de atendimento da rede publica no municipio. A estrutura, erguida com investimento de R$ 2,1 milhoes, tem capacidade para realizar ate quatro mil atendimentos por mes.\n\nA nova UBS conta com consultorios medico e odontologico, sala de vacinas, farmacia basica, sala de curativo e area de espera climatizada. Segundo a Secretaria Municipal de Saude, o objetivo e desafogar o pronto-atendimento central e garantir que moradores do bairro e regioes vizinhas tenham acesso a consultas de rotina sem precisar enfrentar longas filas.\n\nO prefeito destacou que a unidade ja esta com equipe de saude da familia contratada, incluindo medico, enfermeira, tecnica de enfermagem e agentes comunitarios. O atendimento comeca na segunda-feira (27), das 7h as 17h, de segunda a sexta-feira.',
     },
     {
       img: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&q=80',
-      cat: 'Polícia', catClass: 'cat-policia',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'PC desmonta esquema de receptação de veículos roubados no sul do ES',
-      sub: 'Quatro suspeitos detidos em operação que recuperou sete automóveis na região de Cachoeiro',
-      date: '23/05/2026',
-      body: 'A Polícia Civil do Espírito Santo deflagrou na manhã desta quinta-feira a Operação Ferro Velho, que desarticulou uma quadrilha especializada em receptação e desmanche de veículos roubados na região de Cachoeiro de Itapemirim.\n\nQuatro homens foram presos durante a ação, que cumpriu mandados de busca e apreensão em três endereços diferentes no município. Sete veículos foram recuperados, sendo dois caminhotes e cinco automóveis. Ferramentas e peças oriundas dos desmanches também foram apreendidas.\n\nDe acordo com o delegado responsável pela investigação, o grupo atuava há pelo menos dezoito meses na região, recebendo veículos furtados principalmente nas cidades de Vitória e Serra e revendendo as peças para oficinas da região sul do estado.\n\nOs quatro presos foram encaminhados à Delegacia Regional de Cachoeiro, onde foram autuados por receptação qualificada e associação criminosa. A investigação continua para identificar possíveis compradores das peças desmontadas.',
+      cat: 'Policia', catClass: 'cat-policia',
+      autor: 'Redacao TV Sul Capixaba',
+      title: 'Operacao da PC desmonta esquema de receptacao de veiculos em Cachoeiro e prende quatro pessoas',
+      views: 3187,
+      sub: 'Sete veiculos adulterados foram apreendidos; suspeitos sao indiciados por receptacao e associacao criminosa',
+      date: '24/05/2026',
+      body: 'A Policia Civil deflagrou nesta quinta-feira (23) uma operacao que desarticulou um esquema de receptacao de veiculos roubados que atuava em Cachoeiro de Itapemirim e municipios vizinhos do sul capixaba. Quatro pessoas foram presas em flagrante e sete veiculos com adulteracao de chassi foram apreendidos.\n\nSegundo o delegado responsavel pela investigacao, o grupo comprava veiculos roubados em outros estados, principalmente do Rio de Janeiro, adulterava a identificacao e revendia na regiao com documentacao falsa. A investigacao durou tres meses.\n\nOs suspeitos foram autuados por receptacao qualificada, adulteracao de sinal identificador de veiculo e associacao criminosa.',
     },
     {
       img: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=1200&q=80',
       cat: 'Turismo', catClass: 'cat-turismo',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Festival do Camarão de Anchieta 2026 tem programação confirmada para junho',
-      sub: 'Edição terá três fins de semana de gastronomia, shows e atividades culturais no litoral sul',
-      date: '22/05/2026',
-      body: 'A Secretaria Municipal de Turismo de Anchieta confirmou nesta semana a programação completa do Festival do Camarão 2026, que acontece em três fins de semana consecutivos no mês de junho, na orla da cidade.\n\nO evento, que já se consolidou como um dos mais aguardados do calendário cultural capixaba, reunirá restaurantes locais, food trucks, expositores artesanais e atrações musicais ao vivo. A expectativa é receber mais de 30 mil visitantes ao longo das três edições.\n\nAo contrário de anos anteriores, a organização optou por distribuir o festival em finais de semana alternados para evitar superlotação e garantir melhor experiência aos visitantes. A entrada é gratuita em todos os dias.\n\nAs inscrições para barracas e expositores estão abertas até o dia 5 de junho pelo site da Prefeitura de Anchieta. Há espaço para 60 expositores na área gastronômica e 40 na feira de artesanato.',
+      autor: 'Redacao TV Sul Capixaba',
+      title: 'Festival do Camarao de Anchieta 2026 tera tres fins de semana e atracoes nacionais confirmadas',
+      views: 1876,
+      sub: 'Evento acontece em junho e deve movimentar R$ 4 milhoes na economia local segundo estimativa da prefeitura',
+      date: '23/05/2026',
+      body: 'A Prefeitura de Anchieta confirmou a programacao do Festival do Camarao 2026, que acontecera em tres fins de semana consecutivos de junho: dias 7, 8, 14, 15, 21 e 22, no Parque Municipal a beira-mar. O evento, na decima segunda edicao, e considerado o maior festival gastronomico do sul capixaba.\n\nEste ano a organizacao preve mais de 40 barracas de gastronomia, com destaque para receitas a base de camarao fresco pescado na regiao. A expectativa e de publico superior a 60 mil pessoas nos seis dias de festival.\n\nAs inscricoes para expositores estao abertas ate 5 de junho pelo site da prefeitura. A entrada no festival e gratuita durante o dia.',
     },
     {
       img: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1200&q=80',
       cat: 'Sul Capixaba', catClass: 'cat-sul',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Estado libera R$ 8 milhões para pavimentação em vias de Itapemirim',
-      sub: 'Recursos do Governo Estadual vão asfaltar 12 quilômetros de estradas vicinais no município',
-      date: '21/05/2026',
-      body: 'O Governo do Espírito Santo assinou nesta semana a ordem de serviço para a pavimentação de 12 quilômetros de estradas vicinais no município de Itapemirim. O investimento, de R$ 8 milhões, é proveniente do Programa Caminhos do Campo, do Governo Estadual.\n\nAs obras vão beneficiar diretamente produtores rurais das localidades de Boa Esperança, Vale do Sol e São Benedito do Camarão, regiões que sofriam com o barro e as dificuldades de escoamento da produção agrícola durante o período de chuvas.\n\nO prazo de execução é de oito meses. A empresa vencedora da licitação foi selecionada após processo público aberto no início do ano.\n\nPara o prefeito de Itapemirim, a obra representa um avanço histórico para o campo. "Essas estradas estavam intrafegáveis no inverno. Agora o agricultor vai conseguir escoar sua produção com dignidade e segurança durante todo o ano", destacou.',
+      autor: 'Redacao TV Sul Capixaba',
+      title: 'Governo do Estado libera R$ 8 milhoes para pavimentacao de estradas vicinais em Itapemirim',
+      views: 2019,
+      sub: 'Recursos do programa Caminhos do Campo vao asfaltar 12 km de vias rurais que beneficiam produtores locais',
+      date: '22/05/2026',
+      body: 'O Governo do Espirito Santo assinou nesta semana a ordem de servico para a pavimentacao de 12 quilometros de estradas vicinais no municipio de Itapemirim. O investimento, de R$ 8 milhoes, e proveniente do Programa Caminhos do Campo.\n\nAs obras vao beneficiar diretamente produtores rurais das localidades de Boa Esperanca, Vale do Sol e Sao Sebastiao da Boa Vista. No periodo de chuvas, essas estradas ficam intrafegaveis, prejudicando o escoamento da producao agricola.\n\nAs obras tem prazo de execucao de 14 meses e a previsao e que os servicos comecem em julho.',
     },
   ],
   blocks: [
-    // ── ÚLTIMAS ─────────────────────────────────────────────
-    {
-      section: 'ultimas', label: 'Últimas 1',
-      img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
-      cat: 'Economia', catClass: 'cat-economia',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Cachoeiro confirma instalação de polo industrial com 600 empregos diretos',
-      sub: 'Complexo de beneficiamento de mármore e granito deve entrar em operação até dezembro',
-      date: '24/05/2026',
-      body: 'A Prefeitura de Cachoeiro de Itapemirim assinou nesta quinta-feira o protocolo de intenções com um grupo empresarial para a instalação de um polo industrial de beneficiamento de mármore e granito no município.\n\nO empreendimento, previsto para ocupar uma área de 45 mil metros quadrados no Distrito Industrial, deverá gerar 600 empregos diretos e cerca de 1.800 indiretos quando estiver em plena operação, estimada para dezembro de 2026.\n\nO investimento total é de R$ 120 milhões, sendo parte financiada pelo Banco de Desenvolvimento do Espírito Santo (Bandes) com juros subsidiados. O complexo incluirá galpões de corte, polimento e exportação, além de laboratório de controle de qualidade.\n\n"Cachoeiro é a capital mundial do mármore. Esse polo vai consolidar ainda mais nossa posição e mostrar ao mundo que aqui temos tecnologia e mão de obra qualificada", disse o prefeito durante a assinatura.',
-    },
-    {
-      section: 'ultimas', label: 'Últimas 2',
-      img: 'https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&q=80',
-      cat: 'Sul Capixaba', catClass: 'cat-sul',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Câmara de Piúma abre concurso com 12 vagas e salários de até R$ 6,5 mil',
-      sub: 'Inscrições vão até 15 de junho; cargos contemplam áreas de saúde, fiscal e administrativa',
-      date: '23/05/2026',
-      body: 'A Câmara Municipal de Piúma publicou nesta semana o edital de concurso público para 12 vagas efetivas em cargos de nível médio e superior. As inscrições são abertas a partir de segunda-feira e vão até 15 de junho pelo site da empresa organizadora.\n\nAs oportunidades incluem vagas para assistente legislativo (quatro vagas), contador (duas), assessor jurídico (duas), agente fiscal (duas), analista de comunicação (uma) e técnico em informática (uma). Os salários variam entre R$ 2.800 e R$ 6.500.\n\nAs provas objetivas estão marcadas para 20 de julho, com realização em Piúma. O concurso tem validade de dois anos, prorrogável por igual período.\n\nO edital completo está disponível no portal da Câmara Municipal de Piúma e na sede do Legislativo, localizada no centro da cidade.',
-    },
-    {
-      section: 'ultimas', label: 'Últimas 3',
-      img: 'https://images.unsplash.com/photo-1562408590-e32931084e23?w=800&q=80',
-      cat: 'Sul Capixaba', catClass: 'cat-sul',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Porto de Presidente Kennedy amplia cais e aumenta capacidade de exportação',
-      sub: 'Obras de expansão entram na fase final e devem dobrar o volume mensal de cargas movimentadas',
-      date: '22/05/2026',
-      body: 'As obras de ampliação do cais do Porto de Presidente Kennedy entraram na etapa final de execução e devem ser concluídas até o final de junho, conforme informou a administração portuária nesta semana.\n\nA expansão vai adicionar 280 metros lineares ao cais de atracação, permitindo a operação simultânea de embarcações de maior porte. A capacidade mensal de movimentação deve saltar de 180 mil toneladas para 380 mil toneladas após a conclusão.\n\nO porto é especializado no embarque de minérios e celulose, sendo porta de saída importante para a produção do sul capixaba e parte de Minas Gerais. O investimento total na expansão foi de R$ 95 milhões, financiados por consórcio privado.\n\nCom a ampliação, a expectativa é que o porto passe a movimentar navios de bandeiras europeias e asiáticas com maior regularidade, abrindo novos mercados para exportadores da região.',
-    },
-
-    // ── POLÍTICA ─────────────────────────────────────────────
-    {
-      section: 'politica', label: 'Política 1',
-      img: 'https://images.unsplash.com/photo-1569025743873-ea3a9ade89f9?w=800&q=80',
-      cat: 'Política', catClass: 'cat-politica',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Deputado estadual anuncia R$ 3 mi em emendas para municípios do sul capixaba',
-      sub: 'Recursos serão destinados a saúde, pavimentação e iluminação pública em seis cidades',
-      date: '24/05/2026',
-      body: 'O deputado estadual pelo Espírito Santo com base eleitoral no sul do estado anunciou nesta semana a liberação de R$ 3 milhões em emendas parlamentares destinadas a seis municípios da região: Marataízes, Itapemirim, Presidente Kennedy, Piúma, Anchieta e Cachoeiro.\n\nOs recursos foram aprovados na última sessão da Assembleia Legislativa e devem ser transferidos às prefeituras até o fim de junho. Cada município receberá entre R$ 400 mil e R$ 600 mil, conforme negociação com cada gestor.\n\nPor determinação do parlamentar, as verbas deverão ser aplicadas prioritariamente em saúde — aquisição de equipamentos médicos e reformas de unidades de saúde —, pavimentação de ruas em bairros periféricos e ampliação da rede de iluminação pública com tecnologia LED.\n\n"O sul capixaba tem sido historicamente esquecido nas distribuições de recursos. Estamos revertendo isso com trabalho e presença na Assembleia", declarou o parlamentar.',
-    },
-    {
-      section: 'politica', label: 'Política 2',
-      img: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=800&q=80',
-      cat: 'Política', catClass: 'cat-politica',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Câmara de Cachoeiro aprova criação de conselho municipal de segurança pública',
-      sub: 'Órgão reunirá poder público, entidades civis e representantes das forças de segurança',
-      date: '22/05/2026',
-      body: 'A Câmara Municipal de Cachoeiro de Itapemirim aprovou em sessão plenária desta terça-feira a criação do Conselho Municipal de Segurança Pública, órgão que vai reunir representantes do poder executivo, entidades da sociedade civil organizada, Polícia Militar e Polícia Civil.\n\nO conselho terá caráter consultivo e propositivo, sem interferir na operação das forças de segurança. Sua função será debater políticas públicas de prevenção à violência, analisar dados criminais do município e propor ações integradas entre o poder municipal e as polícias.\n\nA criação do conselho atende a uma recomendação do Fórum Brasileiro de Segurança Pública, que apontou Cachoeiro entre os municípios do ES que deveriam ter instrumentos colegiados de gestão da segurança.\n\nA primeira reunião do conselho está prevista para julho, após a regulamentação pelo Executivo e a nomeação dos membros representantes de cada segmento.',
-    },
-    {
-      section: 'politica', label: 'Política 3',
-      img: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?w=800&q=80',
-      cat: 'Política', catClass: 'cat-politica',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Prefeitura de Anchieta apresenta plano diretor revisado com foco em turismo sustentável',
-      sub: 'Documento vai a audiência pública em junho e define zonas de uso do solo até 2036',
-      date: '20/05/2026',
-      body: 'A Prefeitura de Anchieta apresentou esta semana à Câmara Municipal e à população a proposta de revisão do Plano Diretor Municipal, documento que define o uso e a ocupação do solo no município pelos próximos dez anos.\n\nA proposta traz como eixo central o conceito de turismo sustentável, criando zonas específicas para empreendimentos hoteleiros e de lazer ao longo do litoral, com restrições de altura e ocupação para preservar a paisagem natural e o acesso público às praias.\n\nO plano também prevê a criação de corredores ecológicos entre a Serra do Caparaó e o litoral, além de normas para controle do adensamento urbano nas áreas mais valorizadas do município.\n\nUma audiência pública está marcada para o dia 12 de junho, na Câmara Municipal, onde qualquer morador poderá apresentar sugestões ou questionamentos ao documento.',
-    },
-
-    // ── POLÍCIA ──────────────────────────────────────────────
-    {
-      section: 'policia', label: 'Polícia 1',
-      img: 'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=800&q=80',
-      cat: 'Polícia', catClass: 'cat-policia',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Jovem de 19 anos é preso com 8 kg de maconha em Itapemirim',
-      sub: 'Abordagem ocorreu na rodovia ES-147; suspeito não tinha antecedentes criminais',
-      date: '24/05/2026',
-      body: 'Um jovem de 19 anos foi detido pela Polícia Militar do Espírito Santo na tarde desta quinta-feira após ser abordado na rodovia ES-147, no trecho que liga Itapemirim ao distrito de São Pedro, com oito quilogramas de maconha acondicionada em mochilas.\n\nSegundo a PM, a abordagem ocorreu em blitz de rotina. Ao ser questionado sobre o conteúdo das mochilas, o rapaz demonstrou nervosismo, o que motivou a vistoria mais detalhada. A droga estava dividida em tabletes envoltos em papel alumínio.\n\nO suspeito não possuía antecedentes criminais e inicialmente disse que transportava a substância para terceiros sem saber o conteúdo. A versão não foi aceita pelos militares, que o encaminharam à Delegacia Regional de Itapemirim.\n\nO jovem foi autuado por tráfico de entorpecentes e permaneceu preso, aguardando audiência de custódia. A droga apreendida foi encaminhada para a Delegacia de Narcóticos da PCES em Vitória.',
-    },
-    {
-      section: 'policia', label: 'Polícia 2',
-      img: 'https://images.unsplash.com/photo-1575555201693-7cd442b8023f?w=800&q=80',
-      cat: 'Polícia', catClass: 'cat-policia',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Golpe do falso leilão prejudica moradores de Marataízes e Piúma',
-      sub: 'Vítimas pagaram entre R$ 800 e R$ 4 mil por veículos que jamais foram entregues',
-      date: '23/05/2026',
-      body: 'A Polícia Civil do Espírito Santo registrou nos últimos dez dias oito boletins de ocorrência relacionados a um golpe do falso leilão de veículos que atingiu moradores de Marataízes e Piúma.\n\nNas denúncias, as vítimas relatam ter encontrado anúncios em redes sociais de leilões de carros a preços abaixo do mercado. Após o contato, eram instruídas a depositar um valor de sinal para garantir o bem, variando entre R$ 800 e R$ 4 mil. Após o pagamento, os golpistas bloqueavam os contatos.\n\nA delegada responsável pelo caso orienta que a população só participe de leilões realizados por leiloeiros oficiais registrados no Tribunal de Justiça do ES e que desconfie de anúncios em grupos de WhatsApp e Instagram com preços muito abaixo da tabela.\n\nQuem foi vítima desse tipo de golpe deve registrar o boletim de ocorrência presencialmente ou pelo aplicativo Delegacia Online e guardar todos os comprovantes de pagamento e capturas de tela das conversas com os golpistas.',
-    },
-    {
-      section: 'policia', label: 'Polícia 3',
-      img: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&q=80',
-      cat: 'Polícia', catClass: 'cat-policia',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'PM reforça policiamento nas praias do sul do ES durante o feriado de Corpus Christi',
-      sub: 'Operação envolve 120 militares distribuídos entre Anchieta, Piúma, Marataízes e Itapemirim',
-      date: '21/05/2026',
-      body: 'A Polícia Militar do Espírito Santo iniciou nesta quarta-feira a Operação Corpus Christi 2026, que vai reforçar o policiamento nas praias e áreas turísticas do sul do estado durante o feriado prolongado.\n\nAo todo, 120 policiais militares serão distribuídos entre as cidades de Anchieta, Piúma, Marataízes e Itapemirim, com foco nas áreas de maior concentração de turistas e nas rodovias estaduais que ligam os municípios.\n\nAlém do policiamento ostensivo nas praias, a operação inclui blitzen nas rodovias para combate à embriaguez ao volante e verificação de documentação de veículos. A PM também vai atuar no entorno de bares e casas de show para prevenir brigas e perturbação do sossego.\n\nO comandante do 5º Batalhão reforça que denúncias podem ser feitas pelo 190 ou pelo aplicativo 197 da PM-ES, com garantia de anonimato.',
-    },
-
-    // ── SAÚDE ────────────────────────────────────────────────
-    {
-      section: 'saude', label: 'Saúde 1',
-      img: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80',
-      cat: 'Saúde', catClass: 'cat-saude',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Sul do ES registra queda de 38% nos casos de dengue em maio comparado a abril',
-      sub: 'Mutirões de limpeza e campanhas de vacinação são apontados como fatores da melhora',
-      date: '24/05/2026',
-      body: 'Os dados do boletim epidemiológico divulgado pela Secretaria Estadual de Saúde do Espírito Santo mostram que os municípios do sul do estado registraram queda de 38% nos casos confirmados de dengue em maio, na comparação com o mês de abril.\n\nMarataízes, que chegou a registrar mais de 200 casos semanais em março, encerrou a segunda semana de maio com 41 notificações. Cachoeiro e Itapemirim também apresentaram redução expressiva.\n\nAs autoridades de saúde atribuem a melhora à combinação de fatores: mutirões de limpeza realizados pelos municípios, campanhas de vacinação com a Qdenga para jovens de 10 a 14 anos e a chegada do período mais frio e seco, que desfavorece a proliferação do mosquito.\n\nApesar da queda, a secretária estadual de Saúde pede que a população não abandone os cuidados. "A dengue ainda circula. Manter os quintais limpos e eliminar água parada é essencial para não perdermos o que conquistamos", alertou.',
-    },
-    {
-      section: 'saude', label: 'Saúde 2',
-      img: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80',
-      cat: 'Saúde', catClass: 'cat-saude',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Hospital de Cachoeiro recebe novo tomógrafo e reduz fila de exames em 60%',
-      sub: 'Equipamento de última geração foi adquirido com recursos próprios do município',
-      date: '22/05/2026',
-      body: 'O Hospital Santa Casa de Misericórdia de Cachoeiro de Itapemirim passou a contar com um tomógrafo de 128 canais, adquirido com recursos próprios do município no valor de R$ 1,2 milhão. O equipamento foi instalado e entrou em operação nesta semana.\n\nCom o novo tomógrafo, a capacidade de realização de exames de tomografia computadorizada no hospital saltou de 18 para 45 por dia, o que deve reduzir em cerca de 60% a fila de espera que chegou a ultrapassar 400 pacientes aguardando agendamento.\n\nA prioridade inicial será zerar a fila de pacientes oncológicos e neurológicos, que aguardam com mais urgência por diagnóstico. Em seguida, o serviço será aberto para exames eletivos da demanda geral do SUS.\n\nO equipamento anterior tinha mais de 12 anos de uso e apresentava frequentes defeitos técnicos, o que obrigava o hospital a enviar pacientes para outras cidades. Com o novo aparelho, estima-se uma economia mensal de R$ 80 mil em contratações externas de exames.',
-    },
-    {
-      section: 'saude', label: 'Saúde 3',
-      img: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&q=80',
-      cat: 'Saúde', catClass: 'cat-saude',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Piúma abre inscrições para programa de saúde bucal gratuito nas escolas',
-      sub: 'Dentistas da rede municipal vão atender alunos de seis unidades de ensino público',
-      date: '20/05/2026',
-      body: 'A Secretaria Municipal de Saúde de Piúma abriu inscrições para o Programa Sorriso Saudável 2026, iniciativa que vai oferecer atendimento odontológico gratuito para alunos matriculados em seis escolas da rede pública municipal.\n\nAs consultas serão realizadas nas próprias unidades escolares, em consultórios móveis da Prefeitura, e incluirão avaliação bucal, profilaxia, aplicação de flúor, restaurações simples e orientação de higiene oral. Crianças com necessidade de tratamentos mais complexos serão encaminhadas para as unidades de saúde.\n\nAs inscrições podem ser feitas pelos responsáveis diretamente nas secretarias das escolas participantes ou na Secretaria Municipal de Saúde. O programa atenderá até 1.200 estudantes entre 6 e 14 anos.\n\nA ação é coordenada por quatro dentistas da rede municipal e dois auxiliares de saúde bucal. O calendário de visitas às escolas começa na primeira semana de junho.',
-    },
-
-    // ── TURISMO ──────────────────────────────────────────────
-    {
-      section: 'turismo', label: 'Turismo 1',
-      img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',
-      cat: 'Turismo', catClass: 'cat-turismo',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Temporada de inverno no sul do ES deve atrair 180 mil turistas segundo estimativa estadual',
-      sub: 'Hotéis e pousadas já registram reservas acima de 70% para os meses de julho e agosto',
-      date: '23/05/2026',
-      body: 'A Secretaria Estadual de Turismo do Espírito Santo divulgou nesta semana projeção que aponta para 180 mil turistas visitando o litoral sul do estado ao longo da temporada de inverno, entre junho e agosto de 2026. O número representa crescimento de 22% em relação ao mesmo período do ano anterior.\n\nSegundo os dados da pesquisa realizada com operadoras de turismo e plataformas de hospedagem, hotéis e pousadas de Anchieta, Piúma e Marataízes já têm ocupação média de 73% comprometida para julho. Para agosto, a taxa sobe para 81%.\n\nO secretário estadual de Turismo destaca que o sul capixaba está se consolidando como destino preferencial para famílias do interior de Minas Gerais que buscam praias mais tranquilas e acessíveis durante as férias escolares.\n\nAs prefeituras da região estão ajustando a oferta de serviços para o período: Anchieta reforça a iluminação da orla, Piúma contrata guardas-vidas extras e Marataízes amplia o serviço de coleta de lixo nas praias.',
-    },
-    {
-      section: 'turismo', label: 'Turismo 2',
-      img: 'https://images.unsplash.com/photo-1476158085676-e67f57ed9ed7?w=800&q=80',
-      cat: 'Turismo', catClass: 'cat-turismo',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Rota das Pedras: novo roteiro turístico liga Cachoeiro a Anchieta passando por sítios históricos',
-      sub: 'Iniciativa integra cultura, gastronomia e natureza em 180 km de estradas do interior capixaba',
-      date: '21/05/2026',
-      body: 'A Secretaria de Turismo do Espírito Santo lançou oficialmente nesta semana a Rota das Pedras, roteiro turístico que conecta Cachoeiro de Itapemirim ao litoral de Anchieta passando por distritos históricos, cachoeiras, fazendas e sítios arqueológicos do interior capixaba.\n\nO percurso de 180 quilômetros pode ser feito em dois ou três dias e passa por locais como o Museu de Pedras de Cachoeiro, o distrito de Muqui, a Cascata do Braço do Sul e o Sítio Arqueológico do Guaxindiba, em Anchieta.\n\nO roteiro foi desenvolvido em parceria com prefeituras, produtores rurais e guias de turismo locais, que foram capacitados pela Secretaria para oferecer atendimento qualificado aos visitantes. Material de divulgação em português, espanhol e inglês já está disponível nos terminais rodoviários da região.\n\nA expectativa é que a Rota das Pedras movimente cerca de 15 mil visitantes por ano, gerando renda principalmente para as comunidades rurais que ficam distantes dos circuitos turísticos tradicionais.',
-    },
-
-    // ── CULTURA ──────────────────────────────────────────────
-    {
-      section: 'cultura', label: 'Cultura 1',
-      img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80',
-      cat: 'Cultura', catClass: 'cat-cultura',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Grupo de teatro de Marataízes estreia espetáculo sobre a história da pesca no ES',
-      sub: 'Peça gratuita será encenada no Centro Cultural do município durante todo o mês de junho',
-      date: '22/05/2026',
-      body: 'O grupo de teatro Ventos do Mar, de Marataízes, estreia no próximo sábado o espetáculo "Maré Alta", uma peça que narra a trajetória de famílias de pescadores artesanais do sul capixaba ao longo de três gerações.\n\nCom texto de autoria coletiva desenvolvido ao longo de um ano de pesquisa com comunidades pesqueiras da região, a montagem reúne 14 atores locais, além de músicos ao vivo que executam melodias tradicionais da cultura litorânea capixaba.\n\nAs apresentações serão gratuitas e acontecerão todas as sextas e sábados do mês de junho, às 19h, no Centro Cultural de Marataízes. A capacidade é de 180 lugares por sessão, com retirada de ingressos a partir de quarta-feira no local.\n\nO espetáculo foi contemplado pelo edital de fomento à cultura do Município e pelo Prêmio Capixaba de Teatro, o que permitiu a montagem com recursos suficientes para produção cenográfica e divulgação ampla.',
-    },
-    {
-      section: 'cultura', label: 'Cultura 2',
-      img: 'https://images.unsplash.com/photo-1555126634-323283e090fa?w=800&q=80',
-      cat: 'Cultura', catClass: 'cat-cultura',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Biblioteca pública de Piúma recebe reforma e dobra acervo com 4 mil novos títulos',
-      sub: 'Espaço foi completamente renovado e inaugura seção infantil com brinquedoteca integrada',
-      date: '20/05/2026',
-      body: 'A Biblioteca Pública Municipal de Piúma reabre nesta sexta-feira após quatro meses de reforma completa. O espaço foi totalmente revitalizado e agora conta com novo acervo de quatro mil títulos adquiridos pelo Município, dobrando a coleção anterior.\n\nA principal novidade é a seção infantil com brinquedoteca integrada, projetada para estimular o hábito da leitura desde os primeiros anos de vida. A área tem tapetes coloridos, prateleiras acessíveis a crianças e um cantinho de contação de histórias com capacidade para 30 crianças.\n\nAlém dos livros, o espaço passou a oferecer acesso gratuito à internet em oito computadores, espaço de estudos com cabines individuais e sala multiuso para eventos culturais com até 60 pessoas.\n\nO funcionamento será de segunda a sexta das 8h às 18h e aos sábados das 8h ao meio-dia. A entrada é gratuita e qualquer morador pode fazer o cartão de leitor com apresentação de documento e comprovante de residência.',
-    },
-    {
-      section: 'cultura', label: 'Cultura 3',
-      img: 'https://images.unsplash.com/photo-1547347298-4074fc3086f0?w=800&q=80',
-      cat: 'Cultura', catClass: 'cat-cultura',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Escola de artes de Cachoeiro oferece 200 vagas gratuitas em cursos de música e dança',
-      sub: 'Inscrições abertas até 30 de maio; modalidades incluem violão, percussão, ballet e forró',
-      date: '19/05/2026',
-      body: 'A Escola Municipal de Artes de Cachoeiro de Itapemirim abriu inscrições para 200 vagas em cursos gratuitos de música e dança para o segundo semestre de 2026. As inscrições vão até o dia 30 de maio e podem ser feitas presencialmente na escola ou pelo site da Prefeitura.\n\nSão oferecidos cursos de violão, percussão, teclado, canto coral, ballet clássico, dança contemporânea, forró e circo social. As aulas têm duração de dois semestres e acontecem aos sábados, em turmas para crianças a partir de seis anos, jovens e adultos.\n\nAs vagas são prioritárias para estudantes de escolas públicas municipais e estaduais. Candidatos com renda familiar de até dois salários mínimos têm preferência no processo seletivo, realizado por sorteio em caso de demanda superior à oferta.\n\nA escola funciona no Centro Cultural de Cachoeiro e é referência no ensino de artes no sul do Espírito Santo, com mais de 800 alunos formados desde sua fundação em 2012.',
-    },
-
-    // ── ECONOMIA ─────────────────────────────────────────────
-    {
-      section: 'economia', label: 'Economia 1',
-      img: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80',
-      cat: 'Economia', catClass: 'cat-economia',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'SEBRAE abre 300 vagas em cursos gratuitos de empreendedorismo no sul do ES',
-      sub: 'Capacitações presenciais e online abordam gestão financeira, marketing digital e MEI',
-      date: '24/05/2026',
-      body: 'O SEBRAE-ES abriu 300 vagas em cursos gratuitos de empreendedorismo para moradores dos municípios do sul do Espírito Santo. As turmas têm início em junho e serão oferecidas tanto no formato presencial, nas unidades do SEBRAE em Cachoeiro e Marataízes, quanto a distância pela plataforma online da entidade.\n\nEntre os cursos disponíveis estão Gestão Financeira para Pequenos Negócios, Marketing Digital para MEI, Como Abrir sua Empresa, Planejamento de Negócios e Atendimento ao Cliente. Cada capacitação tem carga horária entre 8 e 20 horas.\n\nPara se inscrever, é necessário ter CPF, residir em um dos municípios do sul do ES e acessar o portal do SEBRAE-ES ou comparecer a uma das unidades com documento de identidade.\n\nSegundo a gerente regional do SEBRAE, a demanda por capacitação no sul capixaba cresceu 45% no último ano, impulsionada pelo aumento do número de MEIs formalizados e pelo crescimento da economia local.',
-    },
-    {
-      section: 'economia', label: 'Economia 2',
-      img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
-      cat: 'Economia', catClass: 'cat-economia',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Geração de empregos formais no sul do ES cresce 12% no primeiro trimestre de 2026',
-      sub: 'Dados do Ministério do Trabalho mostram saldo positivo de 1.340 vagas na região',
-      date: '22/05/2026',
-      body: 'O sul do Espírito Santo fechou o primeiro trimestre de 2026 com saldo positivo de 1.340 empregos formais, representando crescimento de 12% em relação ao mesmo período do ano anterior, conforme dados divulgados pelo Ministério do Trabalho e Previdência a partir do Cadastro Geral de Empregados e Desempregados (CAGED).\n\nOs setores que mais geraram vagas foram construção civil (418 postos), comércio varejista (312), saúde e serviços sociais (289) e turismo e hospedagem (201). O setor de indústria de transformação — com destaque para mármore e granito — também apresentou crescimento, com 120 novas vagas.\n\nCachoeiro de Itapemirim liderou a geração de empregos na região, com 680 novas vagas formais no período. Marataízes ficou em segundo lugar, com 320, seguida por Anchieta com 180.\n\nEconomistas ligados à Federação do Comércio do ES avaliam que o crescimento no sul do estado tende a se acelerar no segundo semestre com a entrada em operação de novos empreendimentos anunciados para a região.',
-    },
-
-    // ── MAIS LIDAS (sidebar) ─────────────────────────────────
-    {
-      section: 'mais-lidas', label: 'Mais Lida 1',
-      img: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=200&q=80',
-      cat: 'Sul Capixaba', catClass: 'cat-sul',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Marataízes inaugura nova Unidade de Saúde no bairro Nova Esperança',
-      date: '24/05/2026',
-      sub: 'Estrutura beneficia mais de 4 mil moradores da região',
-      body: '',
-    },
-    {
-      section: 'mais-lidas', label: 'Mais Lida 2',
-      img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=200&q=80',
-      cat: 'Economia', catClass: 'cat-economia',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Cachoeiro confirma polo industrial com 600 empregos diretos',
-      date: '24/05/2026',
-      sub: 'Complexo de mármore e granito começa operação até dezembro',
-      body: '',
-    },
-    {
-      section: 'mais-lidas', label: 'Mais Lida 3',
-      img: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=200&q=80',
-      cat: 'Polícia', catClass: 'cat-policia',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'PC desmonta esquema de receptação de veículos em Cachoeiro',
-      date: '23/05/2026',
-      sub: 'Quatro presos e sete veículos recuperados na operação',
-      body: '',
-    },
-    // ── INTERIOR (sidebar) ───────────────────────────────────
-    {
-      section: 'interior', label: 'Interior 1',
-      img: 'https://images.unsplash.com/photo-1562408590-e32931084e23?w=200&q=80',
-      cat: 'Sul Capixaba', catClass: 'cat-sul',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Porto de Presidente Kennedy amplia cais e dobra capacidade de exportação',
-      date: '22/05/2026',
-      sub: 'Obras entram na fase final com conclusão prevista para junho',
-      body: '',
-    },
-    {
-      section: 'interior', label: 'Interior 2',
-      img: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=200&q=80',
-      cat: 'Turismo', catClass: 'cat-turismo',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Festival do Camarão de Anchieta acontece em três finais de semana de junho',
-      date: '22/05/2026',
-      sub: 'Inscrições para expositores abertas até 5 de junho',
-      body: '',
-    },
-    {
-      section: 'interior', label: 'Interior 3',
-      img: 'https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=200&q=80',
-      cat: 'Sul Capixaba', catClass: 'cat-sul',
-      autor: 'Redação TV Sul Capixaba',
-      title: 'Câmara de Piúma abre concurso com 12 vagas e salários até R$ 6,5 mil',
-      date: '23/05/2026',
-      sub: 'Inscrições abertas até 15 de junho',
-      body: '',
-    },
-    // ── VÍDEOS ───────────────────────────────────────────────
-    {
-      section: 'video', label: 'Vídeo 1',
-      castr: 'https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7',
-      thumb: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=640&q=80',
-      title: 'TV Sul Capixaba — Transmissão Ao Vivo',
-      duration: 'AO VIVO',
-    },
-    {
-      section: 'video', label: 'Vídeo 2',
-      castr: 'https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7',
-      thumb: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=640&q=80',
-      title: 'Especial: Inauguração da UBS Nova Esperança em Marataízes',
-      duration: '06:14',
-    },
-    {
-      section: 'video', label: 'Vídeo 3',
-      castr: 'https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7',
-      thumb: 'https://images.unsplash.com/photo-1562408590-e32931084e23?w=640&q=80',
-      title: 'Porto de Presidente Kennedy: as obras que vão dobrar a capacidade de exportação',
-      duration: '04:38',
-    },
+    {section:'ultimas',label:'Ultimas 1',img:'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',cat:'Economia',catClass:'cat-economia',autor:'Redacao TV Sul Capixaba',title:'Cachoeiro confirma polo industrial de granito com 600 empregos diretos',views:1542,sub:'Empresa anuncia complexo de beneficiamento de marmore e granito com operacao prevista para dezembro',date:'25/05/2026',body:'A Prefeitura de Cachoeiro de Itapemirim confirmou a instalacao de um polo industrial de beneficiamento de granito e marmore que deve gerar 600 empregos diretos e mais de mil indiretos ate o final de 2026.\n\nO complexo sera instalado em area do Distrito Industrial de Cachoeiro, com investimento total estimado em R$ 120 milhoes. A planta industrial tera capacidade para processar 80 mil toneladas de rocha por ano.\n\nAs obras de preparacao do terreno devem comecar em agosto.'},
+    {section:'ultimas',label:'Ultimas 2',img:'https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&q=80',cat:'Sul Capixaba',catClass:'cat-sul',autor:'Redacao TV Sul Capixaba',title:'Camara de Piuma abre concurso publico com 12 vagas e salarios de ate R$ 6,5 mil',views:1089,sub:'Inscricoes vao ate 15 de junho; vagas sao para nivel medio e superior nas areas administrativa e juridica',date:'24/05/2026',body:'A Camara Municipal de Piuma publicou edital de concurso publico para o preenchimento de 12 vagas efetivas. As inscricoes estao abertas ate 15 de junho pelo site da instituicao.\n\nAs vagas sao para os cargos de assistente legislativo (6 vagas, nivel medio), analista legislativo (4 vagas, nivel superior) e procurador juridico (2 vagas). Os salarios variam de R$ 2.800 a R$ 6.500 mensais.\n\nAs provas objetivas estao previstas para o dia 20 de julho.'},
+    {section:'ultimas',label:'Ultimas 3',img:'https://images.unsplash.com/photo-1562408590-e32931084e23?w=800&q=80',cat:'Sul Capixaba',catClass:'cat-sul',autor:'Redacao TV Sul Capixaba',title:'Porto de Presidente Kennedy amplia cais e dobra capacidade de exportacao ate o final do ano',views:876,sub:'Obras de expansao receberam licenca ambiental e devem ser concluidas em novembro; foco e em minerio de ferro',date:'23/05/2026',body:'O Porto de Presidente Kennedy recebeu a licenca ambiental de instalacao para ampliar seu cais de atracacao, o que dobrara a capacidade de exportacao do terminal a partir de novembro deste ano.\n\nA obra preve a construcao de mais 300 metros de cais, com capacidade para receber navios de grande porte que transportam ate 180 mil toneladas de minerio de ferro por viagem.\n\nO investimento e da empresa concessionaria e ultrapassa R$ 800 milhoes.'},
+    {section:'politica',label:'Politica 1',img:'https://images.unsplash.com/photo-1569025743873-ea3a9ade89f9?w=800&q=80',cat:'Politica',catClass:'cat-politica',autor:'Redacao TV Sul Capixaba',title:'Deputado estadual destina R$ 3 milhoes em emendas para saude e infraestrutura no sul capixaba',views:743,sub:'Recursos beneficiam Marataizes, Itapemirim e Presidente Kennedy com equipamentos e pavimentacao',date:'25/05/2026',body:'O deputado estadual que representa o sul do Espirito Santo anunciou esta semana a destinacao de R$ 3 milhoes em emendas parlamentares para municipios da regiao.\n\nMarataizes recebera R$ 1,2 milhao para equipamentos da nova UBS e para a ampliacao da frota do Samu Regional. Itapemirim tera R$ 1 milhao aplicado em pavimentacao e na compra de onibus escolar.\n\nAs emendas foram aprovadas no ultimo ciclo orcamentario e os convenios estao sendo assinados.'},
+    {section:'politica',label:'Politica 2',img:'https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=800&q=80',cat:'Politica',catClass:'cat-politica',autor:'Redacao TV Sul Capixaba',title:'Camara de Cachoeiro aprova por unanimidade conselho municipal de seguranca publica',views:512,sub:'Orgao tera representacao de moradores, PM, PC e guardas municipais para discutir acoes preventivas',date:'23/05/2026',body:'A Camara Municipal de Cachoeiro de Itapemirim aprovou por unanimidade, em sessao realizada nesta quinta-feira (22), a criacao do Conselho Municipal de Seguranca Publica.\n\nO conselho tera 14 membros incluindo representantes do poder publico, Policia Militar, Policia Civil, Guarda Municipal e da sociedade civil. As reunioes serao mensais e abertas ao publico.\n\nCachoeiro registrou aumento de 18% nos crimes contra o patrimonio no primeiro trimestre de 2026.'},
+    {section:'politica',label:'Politica 3',img:'https://images.unsplash.com/photo-1577495508048-b635879837f1?w=800&q=80',cat:'Politica',catClass:'cat-politica',autor:'Redacao TV Sul Capixaba',title:'Anchieta aprova plano diretor revisado com foco em turismo sustentavel e protecao ambiental',views:634,sub:'Novo zoneamento cria corredores de protecao nas praias e regula construcoes na zona costeira',date:'21/05/2026',body:'A Camara Municipal de Anchieta aprovou o novo Plano Diretor do municipio, revisto pela primeira vez em doze anos. O documento estabelece zoneamento urbano que privilegia o turismo sustentavel e impos restricoes a construcoes na faixa de protecao costeira.\n\nEntre as principais mudancas esta a criacao de tres Zonas de Interesse Turistico ao longo do litoral e a proibicao de construcoes acima de quatro pavimentos a menos de 200 metros do mar.'},
+    {section:'policia',label:'Policia 1',img:'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=800&q=80',cat:'Policia',catClass:'cat-policia',autor:'Redacao TV Sul Capixaba',title:'PM apreende 8 kg de maconha e prende jovem de 19 anos durante abordagem em Itapemirim',views:1834,sub:'Suspeito transportava droga em mochila no onibus intermunicipal; material seria distribuido no municipio',date:'25/05/2026',body:'Policiais militares do 10 BPM prenderam nesta sexta-feira (24) um jovem de 19 anos que transportava 8 quilogramas de maconha em uma mochila no onibus da linha Vitoria-Itapemirim.\n\nO suspeito tentou descer do coletivo antes da parada programada ao notar a presenca dos policiais. Durante a revista, foram encontrados dez tabletes de maconha prensada.\n\nO jovem foi conduzido a delegacia da cidade e autuado por trafico de entorpecentes.'},
+    {section:'policia',label:'Policia 2',img:'https://images.unsplash.com/photo-1575555201693-7cd442b8023f?w=800&q=80',cat:'Policia',catClass:'cat-policia',autor:'Redacao TV Sul Capixaba',title:'Golpe do falso leilao online prejudica 23 moradores de Marataizes e Piuma com prejuizo de R$ 90 mil',views:987,sub:'Vitimas compraram veiculos que nunca existiram por site falso; PC orienta como identificar fraudes',date:'24/05/2026',body:'A Delegacia de Crimes Informaticos registrou 23 boletins de ocorrencia em Marataizes e Piuma relacionados a um golpe aplicado por site falso que simulava um leilao oficial de veiculos apreendidos. As vitimas perderam juntas mais de R$ 90 mil.\n\nO esquema funcionava assim: o site fraudulento copiava o layout de um leiloeiro oficial e anunciava veiculos a precos abaixo do mercado. As vitimas faziam o pagamento via Pix e nao recebiam o veiculo.\n\nA PC orienta a verificar o CNPJ do leiloeiro no site do Detran antes de qualquer participacao em leilao online.'},
+    {section:'policia',label:'Policia 3',img:'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&q=80',cat:'Policia',catClass:'cat-policia',autor:'Redacao TV Sul Capixaba',title:'PM reforca policiamento nas praias do sul do ES no feriado prolongado de Corpus Christi',views:1123,sub:'Efetivo dobrado em Marataizes, Piuma e Anchieta; viaturas extra sao destacadas para orla e acesso as praias',date:'22/05/2026',body:'A Policia Militar do Espirito Santo anunciou o reforco do policiamento nas praias do litoral sul capixaba para o feriado prolongado de Corpus Christi, que vai de quinta (29) a domingo (1). A estimativa e de que mais de 150 mil pessoas visitem as praias da regiao.\n\nO plano operacional preve efetivo dobrado nas orlas das tres cidades, com rondas a pe, de bicicleta e de viatura. A PM tambem montara barreiras nas vias de acesso para testes de alcoolemia.'},
+    {section:'saude',label:'Saude 1',img:'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80',cat:'Saude',catClass:'cat-saude',autor:'Redacao TV Sul Capixaba',title:'Sul do ES registra queda de 38% nos casos de dengue em maio e evita nova epidemia regional',views:1456,sub:'Secretaria Estadual atribui resultado a mutiroes de limpeza e distribuicao de larvicidas em cinco municipios',date:'25/05/2026',body:'O Boletim Epidemiologico divulgado nesta semana aponta queda de 38% nos casos confirmados de dengue no sul do Espirito Santo em maio, em comparacao com abril. A regiao havia registrado um pico preocupante em marco, com mais de 400 casos semanais em Cachoeiro e Marataizes.\n\nCachoeiro foi o municipio mais afetado, com 1.247 casos confirmados no acumulado do ano. A reducao e atribuida a mutiroes de limpeza, distribuicao de larvicidas e intensificacao das visitas dos agentes de endemias.\n\nA Vigilancia Epidemiologica alerta que a temporada de chuvas ainda nao terminou e orienta a populacao a eliminar agua parada e usar repelente.'},
+    {section:'saude',label:'Saude 2',img:'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80',cat:'Saude',catClass:'cat-saude',autor:'Redacao TV Sul Capixaba',title:'Hospital Materno Infantil de Cachoeiro recebe novo tomografo e reduz espera por exames em 60%',views:1731,sub:'Equipamento de ultima geracao foi adquirido com recursos federais e estaduais; exames ja estao sendo realizados',date:'22/05/2026',body:'O Hospital Materno Infantil de Cachoeiro de Itapemirim colocou em operacao nesta semana um novo tomografo computadorizado de 64 canais. Com o aparelho, a espera por exames na rede publica caiu de 45 para 18 dias em media, uma reducao de 60%.\n\nO equipamento foi adquirido com recursos de emenda parlamentar federal (R$ 1,8 milhao) e contrapartida do Governo Estadual (R$ 400 mil).\n\nSegundo a diretora do hospital, a previsao e realizar ate 40 exames por dia, sete dias por semana.'},
+    {section:'saude',label:'Saude 3',img:'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&q=80',cat:'Saude',catClass:'cat-saude',autor:'Redacao TV Sul Capixaba',title:'Piuma lanca programa de saude bucal gratuita e abre 800 vagas para alunos da rede publica',views:678,sub:'Parceria entre Secretaria de Saude e de Educacao leva dentistas as escolas para triagem e tratamento preventivo',date:'21/05/2026',body:'A Prefeitura de Piuma lancou o programa Sorriso Capixaba, que vai oferecer atendimento odontologico gratuito a 800 alunos da rede municipal de ensino.\n\nA primeira etapa comeca em junho com visitas as quatro escolas municipais. Pesquisa realizada no ano passado mostrou que 62% dos alunos da rede publica de Piuma nunca haviam passado por consulta odontologica.\n\nO programa vai funcionar tres vezes por semana com equipe composta por dentista, tecnico de saude bucal e agente comunitario.'},
+    {section:'turismo',label:'Turismo 1',img:'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',cat:'Turismo',catClass:'cat-turismo',autor:'Redacao TV Sul Capixaba',title:'Temporada de inverno no litoral sul capixaba deve movimentar R$ 280 milhoes e bater recorde de turistas',views:1298,sub:'Estimativa da Setur-ES projeta 180 mil visitantes nas praias de Marataizes, Piuma e Anchieta entre junho e agosto',date:'24/05/2026',body:'A Secretaria Estadual de Turismo publicou estudo projetando que a temporada de inverno 2026 no litoral sul do Espirito Santo deve atrair 180 mil turistas e movimentar R$ 280 milhoes na economia regional entre junho e agosto, crescimento de 22% em relacao ao mesmo periodo de 2025.\n\nAs praias de Marataizes, Piuma e Anchieta tem se beneficiado do fluxo de visitantes do Rio de Janeiro e de Minas Gerais que buscam praias menos cheias durante o inverno. O perfil predominante e de familias com criancas que ficam em media quatro dias na regiao.'},
+    {section:'turismo',label:'Turismo 2',img:'https://images.unsplash.com/photo-1476158085676-e67f57ed9ed7?w=800&q=80',cat:'Turismo',catClass:'cat-turismo',autor:'Redacao TV Sul Capixaba',title:'Rota das Pedras: novo circuito turistico conecta Cachoeiro a Anchieta por sitios historicos e cachoeiras',views:1567,sub:'Roteiro de 180 km passa por fazendas historicas, mirantes e comunidades quilombolas do interior sul capixaba',date:'22/05/2026',body:'Seis municipios do sul do Espirito Santo lancaram oficialmente a Rota das Pedras, um circuito turistico de 180 quilometros que conecta Cachoeiro de Itapemirim a Anchieta passando por sitios historicos, fazendas do seculo XIX, mirantes naturais e comunidades quilombolas.\n\nO roteiro pode ser percorrido em dois ou tres dias e inclui paradas no Mirante do Patrimonio em Iconha, as ruinas da antiga estrada de ferro em Muqui e a Cachoeira do Funil em Mimoso do Sul.'},
+    {section:'cultura',label:'Cultura 1',img:'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80',cat:'Cultura',catClass:'cat-cultura',autor:'Redacao TV Sul Capixaba',title:'Grupo de teatro de Marataizes estreia espetaculo sobre historia da pesca artesanal no Espirito Santo',views:987,sub:'Peca "Mar de Dentro" tem elenco de 14 atores locais e temporada gratuita de quatro apresentacoes em junho',date:'23/05/2026',body:'O Grupo de Teatro Vento do Cais, de Marataizes, estreia no proximo dia 7 de junho o espetaculo "Mar de Dentro", que narra a trajetoria das familias de pescadores artesanais do litoral capixaba ao longo de tres geracoes.\n\nA peca tem elenco de 14 atores, todos moradores de Marataizes, e foi dirigida por um encenador convidado de Vitoria. O roteiro e baseado em entrevistas reais com pescadores da regiao.\n\nA temporada gratuita tera quatro apresentacoes: 7 e 8 de junho em Marataizes e 14 e 15 de junho em Piuma. Entrada franca com retirada de ingresso na bilheteria.'},
+    {section:'cultura',label:'Cultura 2',img:'https://images.unsplash.com/photo-1555126634-323283e090fa?w=800&q=80',cat:'Cultura',catClass:'cat-cultura',autor:'Redacao TV Sul Capixaba',title:'Biblioteca publica de Piuma reabre reformada com novo acervo de 4 mil titulos e sala digital',views:756,sub:'Reforma custou R$ 380 mil e incluiu climatizacao, acessibilidade e computadores para pesquisa com acesso a internet',date:'21/05/2026',body:'A Biblioteca Municipal de Piuma reabriu suas portas esta semana apos tres meses de reforma. O espaco passou por transformacao completa e o acervo cresceu de 1.800 para mais de 5.800 titulos com a aquisicao de 4 mil novos livros.\n\nA reforma custou R$ 380 mil, financiados com recursos do Pronac e contrapartida municipal. Uma das novidades e a sala digital com oito computadores e acesso gratuito a internet.\n\nA biblioteca funcionara de segunda a sexta, das 8h as 18h, e aos sabados das 8h ao meio-dia.'},
+    {section:'cultura',label:'Cultura 3',img:'https://images.unsplash.com/photo-1547347298-4074fc3086f0?w=800&q=80',cat:'Cultura',catClass:'cat-cultura',autor:'Redacao TV Sul Capixaba',title:'Escola de Artes de Cachoeiro abre 200 vagas gratuitas em cursos de musica, danca e artes visuais',views:891,sub:'Inscricoes a partir de segunda-feira (27); prioridade para criancas e adolescentes em situacao de vulnerabilidade',date:'20/05/2026',body:'A Escola Municipal de Artes e Cultura de Cachoeiro de Itapemirim abre inscricoes na proxima segunda-feira (27) para 200 vagas gratuitas em cursos de musica, danca e artes visuais. As aulas tem inicio previsto para julho.\n\nOs cursos disponiveis sao: violao (40 vagas), teclado (30), coral (40), danca contemporanea (40), danca de rua (30) e artes visuais (20). A escola funciona ha 22 anos e ja formou mais de 5 mil alunos.'},
+    {section:'economia',label:'Economia 1',img:'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80',cat:'Economia',catClass:'cat-economia',autor:'Redacao TV Sul Capixaba',title:'Sul do ES registra crescimento de 12% na geracao de empregos formais no primeiro trimestre de 2026',views:1204,sub:'Dados do Caged mostram saldo positivo de 2.340 postos nos seis municipios da regiao; comercio lidera contratacoes',date:'24/05/2026',body:'O Caged divulgou os dados do primeiro trimestre de 2026 para o sul do Espirito Santo, registrando saldo positivo de 2.340 empregos formais, 12% acima do mesmo periodo do ano anterior. O resultado supera a media estadual de crescimento, que ficou em 8,4%.\n\nCachoeiro de Itapemirim liderou a geracao de empregos no periodo, com 1.120 postos criados, seguida por Marataizes (480), Itapemirim (320) e Piuma (210).\n\nA expectativa para o segundo trimestre e ainda melhor, com a chegada da temporada de inverno.'},
+    {section:'economia',label:'Economia 2',img:'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80',cat:'Economia',catClass:'cat-economia',autor:'Redacao TV Sul Capixaba',title:'Sebrae lanca programa de credito com juros zero para microempreendedores do sul capixaba',views:934,sub:'Linha de ate R$ 15 mil por MEI sera operada pelo Banestes; inscricoes abertas a partir de junho',date:'22/05/2026',body:'O Sebrae-ES anunciou programa especial de credito para microempreendedores individuais (MEI) do sul capixaba, com taxa de juros zero para financiamentos de ate R$ 15 mil. O programa sera operado pelo Banestes e as inscricoes abrem em junho.\n\nPara ter acesso ao credito, o MEI precisa estar com o CNPJ ativo ha pelo menos seis meses e participar de capacitacao online de quatro horas oferecida pelo Sebrae. O prazo de pagamento e de ate 24 meses, com tres de carencia.'},
+    {section:'economia',label:'Economia 3',img:'https://images.unsplash.com/photo-1605792657660-596af9009e82?w=800&q=80',cat:'Economia',catClass:'cat-economia',autor:'Redacao TV Sul Capixaba',title:'Producao de abacaxi em Presidente Kennedy cresce 40% e bate recorde historico de exportacao',views:678,sub:'Municipio e referencia estadual na cultura do abacaxi; cooperativa conquista novos mercados em Sao Paulo',date:'20/05/2026',body:'A safra 2026 de abacaxi em Presidente Kennedy bateu recorde historico, com crescimento de 40% em relacao ao ano anterior. O municipio colheu mais de 18 milhoes de frutos nesta temporada, o maior volume ja registrado.\n\nA Cooperativa de Produtores Rurais de Presidente Kennedy firmou novos contratos de fornecimento com dois supermercados de grande porte em Sao Paulo, beneficiando diretamente 120 familias de pequenos produtores.'},
+    {section:'mais-lidas',label:'Mais Lida 1',img:'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=200&q=80',cat:'Sul Capixaba',catClass:'cat-sul',autor:'Redacao TV Sul Capixaba',title:'Marataizes inaugura nova UBS no Nova Esperanca com 4 mil atendimentos por mes',date:'25/05/2026',sub:'Estrutura beneficia mais de 4 mil moradores da regiao',body:'A Prefeitura de Marataizes entregou a nova Unidade Basica de Saude do bairro Nova Esperanca. O atendimento comeca na segunda-feira (27).'},
+    {section:'mais-lidas',label:'Mais Lida 2',img:'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=200&q=80',cat:'Economia',catClass:'cat-economia',autor:'Redacao TV Sul Capixaba',title:'Cachoeiro confirma polo industrial de granito com 600 empregos diretos',date:'25/05/2026',sub:'Complexo de marmore e granito comeca operacao ate dezembro',body:'A Prefeitura de Cachoeiro confirmou a instalacao de polo industrial que deve gerar 600 empregos diretos.'},
+    {section:'mais-lidas',label:'Mais Lida 3',img:'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=200&q=80',cat:'Policia',catClass:'cat-policia',autor:'Redacao TV Sul Capixaba',title:'Golpe do falso leilao online prejudica 23 moradores de Marataizes e Piuma',date:'24/05/2026',sub:'Vitimas perderam juntas mais de R$ 90 mil em site fraudulento',body:'A Delegacia de Crimes Informaticos registrou 23 boletins de ocorrencia relacionados a golpe por site falso de leilao.'},
+    {section:'interior',label:'Interior 1',img:'https://images.unsplash.com/photo-1562408590-e32931084e23?w=200&q=80',cat:'Sul Capixaba',catClass:'cat-sul',autor:'Redacao TV Sul Capixaba',title:'Porto de Presidente Kennedy amplia cais e dobra capacidade de exportacao ate novembro',date:'23/05/2026',sub:'Obras entram na fase final com conclusao prevista para novembro',body:'O Porto de Presidente Kennedy recebeu licenca ambiental para ampliar seu cais. A expansao dobrara a capacidade de exportacao a partir de novembro.'},
+    {section:'interior',label:'Interior 2',img:'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=200&q=80',cat:'Turismo',catClass:'cat-turismo',autor:'Redacao TV Sul Capixaba',title:'Festival do Camarao de Anchieta: tres fins de semana em junho com atracoes confirmadas',date:'23/05/2026',sub:'Inscricoes para expositores abertas ate 5 de junho',body:'A Prefeitura de Anchieta confirmou o Festival do Camarao 2026 com programacao nos dias 7, 8, 14, 15, 21 e 22 de junho. Expectativa de 60 mil visitantes.'},
+    {section:'interior',label:'Interior 3',img:'https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=200&q=80',cat:'Sul Capixaba',catClass:'cat-sul',autor:'Redacao TV Sul Capixaba',title:'Camara de Piuma abre concurso com 12 vagas e salarios ate R$ 6,5 mil',date:'24/05/2026',sub:'Inscricoes abertas ate 15 de junho pelo site da Camara',body:'A Camara Municipal de Piuma publicou edital de concurso publico para 12 vagas efetivas.'},
+    {section:'video',label:'Video 1',castr:'https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7',thumb:'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=640&q=80',title:'TV Sul Capixaba — Transmissao Ao Vivo',duration:'AO VIVO'},
+    {section:'video',label:'Video 2',castr:'https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7',thumb:'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=640&q=80',title:'Especial: Inauguracao da UBS Nova Esperanca em Marataizes',duration:'06:14'},
+    {section:'video',label:'Video 3',castr:'https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7',thumb:'https://images.unsplash.com/photo-1562408590-e32931084e23?w=640&q=80',title:'Porto de Presidente Kennedy: obras que vao dobrar a capacidade de exportacao',duration:'04:38'},
   ],
 };
 
+
+// ── VIEWS persistentes por matéria (+1 por visitante a cada 12h) ──
+function getStoredViews() {
+  try { return JSON.parse(localStorage.getItem('tvsul_views') || '{}'); } catch(e) { return {}; }
+}
+function saveStoredViews(v) {
+  try { localStorage.setItem('tvsul_views', JSON.stringify(v)); } catch(e) {}
+}
+function initViews() {
+  var stored = getStoredViews();
+  var changed = false;
+  var all = DEFAULT_DATA.slides.concat(DEFAULT_DATA.blocks);
+  all.forEach(function(item) {
+    if (item.title && item.views && !stored[item.title]) {
+      stored[item.title] = item.views;
+      changed = true;
+    }
+  });
+  if (changed) saveStoredViews(stored);
+}
+function getDisplayViews(item) {
+  var stored = getStoredViews();
+  return stored[item.title] || item.views || 0;
+}
+function recordView(title) {
+  var seenRaw = localStorage.getItem('tvsul_seen');
+  var seen = seenRaw ? JSON.parse(seenRaw) : {};
+  var now = Date.now();
+  if (seen[title] && (now - seen[title]) < 43200000) return;
+  seen[title] = now;
+  try { localStorage.setItem('tvsul_seen', JSON.stringify(seen)); } catch(e) {}
+  var stored = getStoredViews();
+  stored[title] = (stored[title] || 0) + 1;
+  saveStoredViews(stored);
+}
 // ═══════════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════════
@@ -1224,7 +1020,7 @@ function newsCard(a, idx) {
         <div class="news-card-sub">${a.sub || ''}</div>
         <div class="news-card-meta">
           <span class="news-card-date">${a.date || ''}</span>
-          <span class="news-card-views">👁 ${Math.floor(Math.random()*3000+500)}</span>
+          <span class="news-card-views">👁 ${getDisplayViews(a)}</span>
         </div>
       </div>
     </div>`;
@@ -1319,96 +1115,20 @@ function showPanel() {
 }
 
 function buildAdminForm() {
-  // Slides
+  // ── SLIDES ──────────────────────────────────────────────
   const slidesList = document.getElementById('admin-slides-list');
-  slidesList.innerHTML = data.slides.map((s, i) => `
-    <div class="admin-slide-item">
-      <div class="admin-slide-num">${i+1}</div>
-      <div class="admin-slide-fields">
-        <div class="admin-field full">
-          <label>Título da manchete</label>
-          <input type="text" value="${esc(s.title)}" onchange="data.slides[${i}].title=this.value">
-        </div>
-        <div class="admin-field full">
-          <label>Subtítulo / linha fina</label>
-          <input type="text" value="${esc(s.sub||'')}" onchange="data.slides[${i}].sub=this.value">
-        </div>
-        <div class="admin-field">
-          <label>Autor</label>
-          <input type="text" value="${esc(s.autor||'Redação TV Sul Capixaba')}" onchange="data.slides[${i}].autor=this.value">
-        </div>
-        <div class="admin-field full">
-          <label>Texto completo da matéria</label>
-          <textarea style="height:100px" onchange="data.slides[${i}].body=this.value">${esc(s.body||'')}</textarea>
-        </div>
-        <div class="admin-field">
-          <label>URL da imagem</label>
-          <input type="text" value="${esc(s.img)}" onchange="updateSlideImg(${i},this.value)">
-        </div>
-        <div class="admin-field">
-          <label>Categoria</label>
-          <input type="text" value="${esc(s.cat)}" onchange="data.slides[${i}].cat=this.value">
-        </div>
-        <div class="admin-field">
-          <label>Cor da categoria</label>
-          <select onchange="data.slides[${i}].catClass=this.value">
-            ${catOptions(s.catClass)}
-          </select>
-        </div>
-        <div class="admin-field">
-          <label>Preview</label>
-          <div style="display:flex;gap:8px;align-items:center">
-            <div class="img-preview" id="prev-slide-${i}">
-              <img src="${s.img}" alt="">
-            </div>
-            <small style="color:#999;font-size:11px">Cole URL de imagem</small>
-          </div>
-        </div>
-      </div>
-    </div>
-  `).join('');
+  slidesList.innerHTML = data.slides.map((s, i) => buildSlideCard(s, i)).join('');
 
-  // Blocks
-  const blocksList = document.getElementById('admin-blocks-list');
-  blocksList.innerHTML = data.blocks.map((b, i) => `
-    <div class="admin-slide-item" style="position:relative">
-      <button onclick="removeBlock(${i})" title="Remover" style="position:absolute;top:6px;right:6px;background:#dc2626;color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:13px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit;z-index:1">×</button>
-      <div class="admin-slide-num" style="background:#444;font-size:9px;text-align:center;line-height:1.2;padding:2px">${b.label||i+1}</div>
-      <div class="admin-slide-fields">
-        <div class="admin-field full">
-          <label>Título</label>
-          <input type="text" value="${esc(b.title)}" onchange="data.blocks[${i}].title=this.value">
-        </div>
-        ${b.sub !== undefined ? `
-        <div class="admin-field full">
-          <label>Subtítulo / chamada</label>
-          <input type="text" value="${esc(b.sub||'')}" onchange="data.blocks[${i}].sub=this.value">
-        </div>` : ''}
-        <div class="admin-field full">
-          <label>Texto completo da matéria</label>
-          <textarea style="height:100px" onchange="data.blocks[${i}].body=this.value">${esc(b.body||'')}</textarea>
-        </div>
-        <div class="admin-field">
-          <label>URL da imagem</label>
-          <input type="text" value="${esc(b.img)}" onchange="updateBlockImg(${i},this.value)">
-        </div>
-        <div class="admin-field">
-          <label>Categoria / Data</label>
-          <input type="text" value="${esc(b.cat)}" placeholder="Categoria" onchange="data.blocks[${i}].cat=this.value" style="margin-bottom:6px">
-          <input type="text" value="${esc(b.date||'')}" placeholder="dd/mm/aaaa" onchange="data.blocks[${i}].date=this.value" style="margin-bottom:6px">
-          <input type="text" value="${esc(b.autor||'Redação TV Sul Capixaba')}" placeholder="Autor da matéria" onchange="data.blocks[${i}].autor=this.value">
-        </div>
-        <div class="admin-field">
-          <label>Preview</label>
-          <div class="img-preview" id="prev-block-${i}">
-            <img src="${b.img}" alt="">
-          </div>
-        </div>
-      </div>
-    </div>
-  `).join('');
+  // ── BLOCKS por seção ────────────────────────────────────
+  const sections = ['ultimas','politica','policia','saude','turismo','cultura','economia'];
+  sections.forEach(sec => {
+    const el = document.getElementById('admin-blocks-' + sec);
+    if (!el) return;
+    const items = data.blocks.map((b,i) => ({b,i})).filter(({b}) => b.section === sec);
+    el.innerHTML = items.map(({b,i}) => buildBlockCard(b, i)).join('');
+  });
 
-  // Vídeos
+  // ── VÍDEOS ──────────────────────────────────────────────
   const videosList = document.getElementById('admin-videos-list');
   const vids = data.blocks.filter(b => b.section === 'video');
   const vidIdxMap = vids.map(v => data.blocks.indexOf(v));
@@ -1426,13 +1146,224 @@ function buildAdminForm() {
     </div>`;
   }).join('');
 
-
-
   // Config
   document.getElementById('cfg-wpp').value     = data.config.wpp;
   document.getElementById('cfg-ticker').value  = data.config.ticker;
   document.getElementById('cfg-live').value    = data.config.live;
   document.getElementById('cfg-weather').value = data.config.weather;
+}
+
+// ── Builder: card de slide ────────────────────────────────
+function buildSlideCard(s, i) {
+  return `
+  <div class="admin-slide-item" id="slide-card-${i}" style="position:relative">
+    <div style="position:absolute;top:6px;right:6px;display:flex;gap:4px;z-index:2">
+      <button onclick="previewArticle('slide',${i})" title="Preview" style="${btnStyle('#6366f1')}">👁 Preview</button>
+      <button onclick="duplicateSlide(${i})" title="Duplicar" style="${btnStyle('#059669')}">⧉ Duplicar</button>
+      <button onclick="moveSlide(${i},-1)" title="Subir" style="${btnStyle('#374151')}">↑</button>
+      <button onclick="moveSlide(${i},1)" title="Descer" style="${btnStyle('#374151')}">↓</button>
+      <button onclick="removeSlide(${i})" title="Remover" style="${btnStyle('#dc2626')}">✕</button>
+    </div>
+    <div class="admin-slide-num">${i+1}</div>
+    <div class="admin-slide-fields">
+      <div class="admin-field full">
+        <label>Título da manchete</label>
+        <input type="text" value="${esc(s.title)}" oninput="data.slides[${i}].title=this.value;livePreviewUpdate('slide',${i})">
+      </div>
+      <div class="admin-field full">
+        <label>Subtítulo / linha fina</label>
+        <input type="text" value="${esc(s.sub||'')}" oninput="data.slides[${i}].sub=this.value">
+      </div>
+      <div class="admin-field">
+        <label>Autor</label>
+        <input type="text" value="${esc(s.autor||'Redação TV Sul Capixaba')}" oninput="data.slides[${i}].autor=this.value">
+      </div>
+      <div class="admin-field full">
+        <label>Texto completo da matéria</label>
+        <textarea style="height:100px" oninput="data.slides[${i}].body=this.value">${esc(s.body||'')}</textarea>
+      </div>
+      <div class="admin-field">
+        <label>Categoria</label>
+        <input type="text" value="${esc(s.cat)}" oninput="data.slides[${i}].cat=this.value">
+      </div>
+      <div class="admin-field">
+        <label>Cor da categoria</label>
+        <select onchange="data.slides[${i}].catClass=this.value">${catOptions(s.catClass)}</select>
+      </div>
+      <div class="admin-field full">
+        <label>Imagem — URL ou upload</label>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start">
+          <div style="flex:1;min-width:180px">
+            <input type="text" placeholder="https://..." value="${esc(s.img)}" oninput="updateSlideImg(${i},this.value)" style="margin-bottom:6px">
+            <label class="upload-btn">
+              📁 Upload do computador
+              <input type="file" accept="image/*" onchange="uploadImg(event,'slide',${i})" style="display:none">
+            </label>
+          </div>
+          <div class="img-preview" id="prev-slide-${i}">
+            <img src="${s.img||''}" alt="" onerror="this.src=''">
+          </div>
+        </div>
+      </div>
+      <div class="admin-field full" style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;padding:12px">
+        <label style="color:#0369a1;font-weight:700">👁 Preview ao vivo</label>
+        <div id="live-prev-slide-${i}" style="margin-top:8px;background:#1a1a1a;border-radius:8px;overflow:hidden;position:relative;aspect-ratio:16/6;cursor:pointer" onclick="previewArticle('slide',${i})">
+          <img src="${s.img||''}" style="width:100%;height:100%;object-fit:cover;object-position:center" onerror="this.style.display='none'">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8),transparent);display:flex;align-items:flex-end;padding:12px">
+            <div>
+              <span style="background:var(--brand);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:1px" class="prev-cat-${i}">${esc(s.cat)}</span>
+              <div style="font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:#fff;margin-top:4px;line-height:1.2" class="prev-title-${i}">${esc(s.title)}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── Builder: card de block ────────────────────────────────
+function buildBlockCard(b, i) {
+  return `
+  <div class="admin-slide-item" id="block-card-${i}" style="position:relative">
+    <div style="position:absolute;top:6px;right:6px;display:flex;gap:4px;z-index:2;flex-wrap:wrap;justify-content:flex-end">
+      <button onclick="previewArticle('block',${i})" title="Preview" style="${btnStyle('#6366f1')}">👁 Preview</button>
+      <button onclick="duplicateBlock(${i})" title="Duplicar" style="${btnStyle('#059669')}">⧉ Duplicar</button>
+      <button onclick="moveBlock(${i},-1)" title="Subir" style="${btnStyle('#374151')}">↑</button>
+      <button onclick="moveBlock(${i},1)" title="Descer" style="${btnStyle('#374151')}">↓</button>
+      <button onclick="removeBlock(${i})" title="Excluir" style="${btnStyle('#dc2626')}">✕</button>
+    </div>
+    <div class="admin-slide-num" style="background:#444;font-size:9px;text-align:center;line-height:1.2;padding:2px">${b.label||i+1}</div>
+    <div class="admin-slide-fields">
+      <div class="admin-field full">
+        <label>Título</label>
+        <input type="text" value="${esc(b.title)}" oninput="data.blocks[${i}].title=this.value">
+      </div>
+      <div class="admin-field full">
+        <label>Subtítulo / chamada</label>
+        <input type="text" value="${esc(b.sub||'')}" oninput="data.blocks[${i}].sub=this.value">
+      </div>
+      <div class="admin-field full">
+        <label>Texto completo da matéria</label>
+        <textarea style="height:110px" oninput="data.blocks[${i}].body=this.value">${esc(b.body||'')}</textarea>
+      </div>
+      <div class="admin-field">
+        <label>Categoria</label>
+        <input type="text" value="${esc(b.cat)}" placeholder="Categoria" oninput="data.blocks[${i}].cat=this.value">
+        <select style="margin-top:6px" onchange="data.blocks[${i}].catClass=this.value">${catOptions(b.catClass)}</select>
+      </div>
+      <div class="admin-field">
+        <label>Data / Autor</label>
+        <input type="text" value="${esc(b.date||'')}" placeholder="dd/mm/aaaa" oninput="data.blocks[${i}].date=this.value" style="margin-bottom:6px">
+        <input type="text" value="${esc(b.autor||'Redação TV Sul Capixaba')}" placeholder="Autor" oninput="data.blocks[${i}].autor=this.value">
+      </div>
+      <div class="admin-field full">
+        <label>Imagem — URL ou upload</label>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start">
+          <div style="flex:1;min-width:180px">
+            <input type="text" placeholder="https://..." value="${esc(b.img||'')}" oninput="updateBlockImg(${i},this.value)" style="margin-bottom:6px">
+            <label class="upload-btn">
+              📁 Upload do computador
+              <input type="file" accept="image/*" onchange="uploadImg(event,'block',${i})" style="display:none">
+            </label>
+          </div>
+          <div class="img-preview" id="prev-block-${i}">
+            <img src="${b.img||''}" alt="" onerror="this.src=''">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function btnStyle(bg) {
+  return `background:${bg};color:#fff;border:none;border-radius:4px;padding:3px 7px;font-size:10px;cursor:pointer;font-family:inherit;font-weight:600`;
+}
+
+// ── Upload local de imagem (converte para base64 / blob URL) ──
+function uploadImg(event, type, idx) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const url = e.target.result;
+    if (type === 'slide') {
+      data.slides[idx].img = url;
+      const prev = document.querySelector(`#prev-slide-${idx} img`);
+      if (prev) { prev.src = url; prev.style.display = ''; }
+    } else {
+      data.blocks[idx].img = url;
+      const prev = document.querySelector(`#prev-block-${idx} img`);
+      if (prev) { prev.src = url; prev.style.display = ''; }
+    }
+    showToast('✅ Imagem carregada! Salve para aplicar.');
+  };
+  reader.readAsDataURL(file);
+}
+
+// ── Duplicar slide ────────────────────────────────────────
+function duplicateSlide(i) {
+  const copy = JSON.parse(JSON.stringify(data.slides[i]));
+  copy.title = '[CÓPIA] ' + copy.title;
+  data.slides.splice(i + 1, 0, copy);
+  buildAdminForm();
+  showToast('⧉ Manchete duplicada!');
+}
+
+// ── Duplicar block ────────────────────────────────────────
+function duplicateBlock(i) {
+  const copy = JSON.parse(JSON.stringify(data.blocks[i]));
+  copy.title = '[CÓPIA] ' + copy.title;
+  copy.label = (copy.label || '') + ' (cópia)';
+  data.blocks.splice(i + 1, 0, copy);
+  buildAdminForm();
+  showToast('⧉ Matéria duplicada!');
+}
+
+// ── Mover slide ───────────────────────────────────────────
+function moveSlide(i, dir) {
+  const j = i + dir;
+  if (j < 0 || j >= data.slides.length) return;
+  [data.slides[i], data.slides[j]] = [data.slides[j], data.slides[i]];
+  buildAdminForm();
+}
+
+// ── Mover block ───────────────────────────────────────────
+function moveBlock(i, dir) {
+  const sec = data.blocks[i].section;
+  const sameSection = data.blocks.map((b,idx) => ({b,idx})).filter(({b}) => b.section === sec);
+  const posInSec = sameSection.findIndex(({idx}) => idx === i);
+  const target = sameSection[posInSec + dir];
+  if (!target) return;
+  const j = target.idx;
+  [data.blocks[i], data.blocks[j]] = [data.blocks[j], data.blocks[i]];
+  buildAdminForm();
+}
+
+// ── Preview rápido de artigo ──────────────────────────────
+function previewArticle(type, idx) {
+  const a = type === 'slide' ? data.slides[idx] : data.blocks[idx];
+  if (!a) return;
+  openArticle(a);
+}
+
+// ── Live preview update (título/imagem enquanto digita) ──
+function livePreviewUpdate(type, idx) {
+  if (type === 'slide') {
+    const s = data.slides[idx];
+    const box = document.getElementById('live-prev-slide-' + idx);
+    if (!box) return;
+    const titleEl = box.querySelector('.prev-title-' + idx);
+    if (titleEl) titleEl.textContent = s.title;
+  }
+}
+
+// ── Remover slide ─────────────────────────────────────────
+function removeSlide(i) {
+  if (data.slides.length <= 1) { showToast('⚠️ O carrossel precisa de ao menos 1 slide.'); return; }
+  if (!confirm('Remover esta manchete do carrossel?')) return;
+  data.slides.splice(i, 1);
+  buildAdminForm();
+  showToast('Manchete removida.');
 }
 
 function updateSlideImg(i, url) {
@@ -1501,6 +1432,7 @@ let _currentArticle = null;
 function openArticle(a) {
   if (!a) return;
   _currentArticle = a;
+  recordView(a.title);
   document.getElementById('am-img').src   = a.img || '';
   document.getElementById('am-img').alt   = a.title || '';
   document.getElementById('am-title').textContent = a.title || '';
@@ -1749,21 +1681,69 @@ function addBlock(section) {
     policia: 'cat-policia', cultura: 'cat-cultura', economia: 'cat-economia',
     politica: 'cat-politica', saude: 'cat-saude', turismo: 'cat-turismo', ultimas: 'cat-sul',
   };
+  // Imagens placeholder por seção
+  const placeholderImgs = {
+    ultimas:  'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80',
+    politica: 'https://images.unsplash.com/photo-1569025743873-ea3a9ade89f9?w=800&q=80',
+    policia:  'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=800&q=80',
+    saude:    'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80',
+    turismo:  'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',
+    cultura:  'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80',
+    economia: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
+  };
+  // Textos modelo pré-preenchidos por seção
+  const placeholderTitles = {
+    ultimas:  'Notícia de destaque do sul capixaba — edite este título',
+    politica: 'Vereador / prefeito anuncia medida para o município — edite',
+    policia:  'Operação policial resulta em prisão na região sul do ES — edite',
+    saude:    'Secretaria de saúde lança novo programa para a população — edite',
+    turismo:  'Evento turístico movimenta economia do sul capixaba — edite',
+    cultura:  'Evento cultural reúne moradores do sul do Espírito Santo — edite',
+    economia: 'Investimento gera empregos e aquece economia regional — edite',
+  };
+  const placeholderSubs = {
+    ultimas:  'Resumo da notícia — edite aqui o subtítulo ou chamada da matéria.',
+    politica: 'Câmara municipal aprova medida que beneficia moradores da cidade.',
+    policia:  'Equipe de segurança pública realizou a operação durante a madrugada.',
+    saude:    'Programa oferece atendimento gratuito em unidades de saúde do município.',
+    turismo:  'Prefeitura apoia iniciativa que deve atrair visitantes de toda a região.',
+    cultura:  'Iniciativa valoriza a cultura local e reforça identidade capixaba.',
+    economia: 'Empreendimento deve gerar postos de trabalho até o final do ano.',
+  };
+  const placeholderBodies = {
+    ultimas:  'Escreva aqui o texto completo da matéria.\n\nAdicione quantos parágrafos precisar. Use dois Enter para separar parágrafos.\n\nEste é um rascunho — revise e publique quando o conteúdo estiver pronto.',
+    politica: 'A Câmara Municipal de [cidade] aprovou nesta semana a medida proposta pelo vereador [nome].\n\nA iniciativa tem como objetivo beneficiar os moradores do município, especialmente nas áreas de [área].\n\nO projeto entra em vigor a partir de [data].',
+    policia:  'A Polícia Militar / Civil realizou operação na [local] resultando em [resultado].\n\nSegundo os agentes, a ação foi planejada após [contexto].\n\nMais informações serão divulgadas à imprensa após conclusão dos procedimentos.',
+    saude:    'A Secretaria Municipal de Saúde lançou o programa [nome] voltado para [público-alvo].\n\nOs atendimentos serão realizados nas unidades de saúde do município às [horários].\n\nInscrições pelo telefone [número] ou presencialmente na UBS mais próxima.',
+    turismo:  'O evento acontecerá nos dias [datas] no [local], em [cidade].\n\nA programação inclui [atividades] e é voltada para toda a família.\n\nA entrada é gratuita / os ingressos custam R$ [valor].',
+    cultura:  'O evento cultural reunirá artistas e moradores no [local] em [cidade].\n\nA programação inclui exposições, apresentações e oficinas gratuitas.\n\nConfira a programação completa nas redes sociais da TV Sul Capixaba.',
+    economia: 'O investimento de R$ [valor] foi anunciado pela empresa [nome] nesta semana.\n\nO empreendimento será instalado em [cidade] e deve gerar [número] empregos diretos.\n\nAs obras começam em [prazo] com previsão de entrega em [data].',
+  };
   const count = data.blocks.filter(b => b.section === section).length + 1;
   data.blocks.push({
     section,
     label: labels[section] + ' ' + count,
-    img: '',
+    img: placeholderImgs[section] || 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80',
     cat: labels[section] || section,
     catClass: catClasses[section] || 'cat-sul',
     autor: 'Redação TV Sul Capixaba',
-    title: 'Nova matéria — clique para editar',
-    sub: '',
+    title: placeholderTitles[section] || 'Nova matéria — edite este título',
+    sub: placeholderSubs[section] || 'Subtítulo da matéria — edite aqui.',
     date: new Date().toLocaleDateString('pt-BR'),
-    body: '',
+    body: placeholderBodies[section] || 'Texto completo da matéria.\n\nEdite aqui o conteúdo.',
+    rascunho: true,
   });
   buildAdminForm();
-  showToast('✚ Matéria adicionada! Preencha os campos e salve.');
+  // Scroll até o card recém-adicionado
+  const newIdx = data.blocks.length - 1;
+  setTimeout(() => {
+    const card = document.getElementById('block-card-' + newIdx);
+    if (card) card.scrollIntoView({behavior:'smooth', block:'start'});
+    // Foco no campo de título
+    const inp = card?.querySelector('input[type=text]');
+    if (inp) inp.focus();
+  }, 150);
+  showToast('✚ Matéria pré-preenchida! Edite e salve quando estiver pronta.');
 }
 
 function removeBlock(idx) {
@@ -1775,6 +1755,7 @@ function removeBlock(idx) {
 // ═══════════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════════
+initViews();
 render();
 </script>
 </body>
