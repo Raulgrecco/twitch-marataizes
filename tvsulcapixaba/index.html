@@ -68,7 +68,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 /* ── TICKER ── */
 .ticker{background:var(--brand);color:#fff;padding:7px 0;overflow:hidden;white-space:nowrap}
 .ticker-label{display:inline-block;background:var(--brand-dark);padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-right:16px;border-radius:2px}
-.ticker-track{display:inline-flex;gap:0;animation:marquee 45s linear infinite}
+.ticker-track{display:inline-flex;gap:0;animation:marquee 90s linear infinite}
 .ticker-track:hover{animation-play-state:paused}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .ticker-item{font-size:12px;font-weight:600;padding:0 24px;border-right:1px solid rgba(255,255,255,.25)}
@@ -880,11 +880,33 @@ function render() {
 }
 
 function renderTicker() {
-  const items = data.config.ticker.split('|').map(s => s.trim()).filter(Boolean);
+  // Gera ticker automaticamente das matérias reais (slides + blocos editoriais)
+  // Usa o campo manual do admin só se não houver matérias
+  const fromBlocks = data.blocks
+    .filter(b => !['mais-lidas','interior','video'].includes(b.section) && b.title)
+    .map(b => b.title);
+  const fromSlides = data.slides.map(s => s.title).filter(Boolean);
+  // Intercala slides e matérias para variar
+  let items = [];
+  const maxSlides = fromSlides.length;
+  const maxBlocks = fromBlocks.length;
+  const total = Math.max(maxSlides, maxBlocks);
+  for (let i = 0; i < total; i++) {
+    if (i < maxSlides) items.push(fromSlides[i]);
+    if (i < maxBlocks) items.push(fromBlocks[i]);
+  }
+  // Fallback para o campo manual se não houver matérias
+  if (items.length === 0) {
+    items = data.config.ticker.split('|').map(s => s.trim()).filter(Boolean);
+  }
   const doubled = [...items, ...items];
-  document.getElementById('ticker-track').innerHTML = doubled.map(t =>
+  const track = document.getElementById('ticker-track');
+  track.innerHTML = doubled.map(t =>
     `<span class="ticker-item">${t}</span>`
   ).join('');
+  // Velocidade proporcional: ~5s por item para leitura confortável
+  const duration = Math.max(60, items.length * 5);
+  track.style.animationDuration = duration + 's';
 }
 
 function renderCarousel() {
@@ -1024,8 +1046,39 @@ function closeVideo() {
 }
 
 function renderSidebar() {
-  const lidas    = data.blocks.filter(b => b.section === 'mais-lidas');
-  const interior = data.blocks.filter(b => b.section === 'interior');
+  // Mais Lidas: pega as matérias reais ordenadas por views (decrescente)
+  // Inclui slides e blocos editoriais, exclui seções auxiliares
+  const editorial = [
+    ...data.slides.map(s => ({...s, _views: getDisplayViews(s)})),
+    ...data.blocks
+      .filter(b => !['mais-lidas','interior','video'].includes(b.section))
+      .map(b => ({...b, _views: getDisplayViews(b)}))
+  ];
+  const topLidas = editorial
+    .filter(a => a.title)
+    .sort((a, b) => (b._views || 0) - (a._views || 0))
+    .slice(0, 3);
+
+  // Fallback para seção manual se não houver matérias reais
+  const lidas = topLidas.length > 0
+    ? topLidas
+    : data.blocks.filter(b => b.section === 'mais-lidas');
+
+  // Interior Sul ES: pega as matérias mais recentes da categoria Sul Capixaba
+  // das seções editoriais reais (não a seção auxiliar estática)
+  const interiorReal = [
+    ...data.slides.filter(s => s.catClass === 'cat-sul' && s.title),
+    ...data.blocks.filter(b =>
+      !['mais-lidas','interior','video'].includes(b.section) &&
+      b.catClass === 'cat-sul' && b.title
+    )
+  ].slice(0, 3);
+
+  // Fallback para seção manual se não houver matérias Sul Capixaba
+  const interior = interiorReal.length > 0
+    ? interiorReal
+    : data.blocks.filter(b => b.section === 'interior');
+
   document.getElementById('sidebar-mais-lidas').innerHTML = lidas.map((a, i) => sidebarItemRanked(a, i+1)).join('');
   document.getElementById('sidebar-interior').innerHTML = interior.map(a => sidebarItem(a)).join('');
 }
