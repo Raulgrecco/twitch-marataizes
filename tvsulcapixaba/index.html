@@ -74,7 +74,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .ticker-item{font-size:12px;font-weight:600;padding:0 24px;border-right:1px solid rgba(255,255,255,.25)}
 
 /* ── LAYOUT ── */
-.site-body{max-width:1200px;margin:0 auto;padding:20px 16px;display:grid;grid-template-columns:1fr var(--sidebar-w);gap:28px}
+.site-body{max-width:1200px;margin:0 auto;padding:16px 16px;display:grid;grid-template-columns:1fr var(--sidebar-w);gap:24px}
 
 /* ── CAROUSEL HERO ── */
 .hero{margin-bottom:28px;position:relative}
@@ -108,7 +108,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .section-title a:hover{text-decoration:underline}
 
 /* ── NEWS GRID ── */
-.news-section{margin-bottom:32px}
+.news-section{margin-bottom:28px}
 .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .news-card{background:#fff;border-radius:10px;overflow:hidden;border:1px solid var(--border);transition:box-shadow .2s,transform .2s;display:flex;flex-direction:column}
 .news-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.1);transform:translateY(-2px)}
@@ -137,24 +137,25 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 /* ── SIDEBAR ── */
 .sidebar{display:flex;flex-direction:column;gap:20px}
 .sidebar-box{background:#fff;border-radius:10px;border:1px solid var(--border);overflow:hidden}
-.sidebar-box-title{background:var(--ink);color:#fff;padding:10px 14px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.sidebar-box-title{background:var(--brand);color:#fff;padding:8px 12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;display:flex;align-items:center;gap:6px}
 .sidebar-news{display:flex;flex-direction:column}
-.sidebar-news-item{display:flex;gap:10px;padding:10px 12px;border-bottom:1px solid var(--border);transition:background .15s}
+.sidebar-news-item{display:flex;gap:8px;padding:8px 10px;border-bottom:1px solid var(--border);transition:background .15s;cursor:pointer}
 .sidebar-news-item:last-child{border-bottom:none}
 .sidebar-news-item:hover{background:#faf9f7}
-.sidebar-news-img{width:64px;height:50px;flex-shrink:0;border-radius:6px;overflow:hidden;background:#e8e6e0}
+.sidebar-news-img{width:60px;height:46px;flex-shrink:0;border-radius:5px;overflow:hidden;background:#e8e6e0}
 .sidebar-news-img img{width:100%;height:100%;object-fit:cover;object-position:center}
-.sidebar-news-title{font-size:12px;font-weight:600;line-height:1.3;color:var(--ink);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.sidebar-news-title{font-size:12px;font-weight:600;line-height:1.3;color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .sidebar-news-date{font-size:10px;color:var(--ink-3);margin-top:3px}
 /* Banner sidebar */
 .banner-box{border-radius:10px;overflow:hidden;border:1px solid var(--border)}
 .banner-box img{width:100%;display:block}
 .banner-label{text-align:center;font-size:9px;color:#aaa;padding:3px;background:#fafaf8;letter-spacing:1px}
 /* Player sidebar */
+.player-box{border:2px solid var(--brand)!important}
 .player-box .player-wrapper{position:relative;padding-bottom:56.25%;height:0;overflow:hidden}
 .player-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
-.player-header{background:var(--brand);color:#fff;padding:10px 14px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
-.player-live-dot{width:8px;height:8px;background:#fff;border-radius:50%;animation:blink 1.1s step-end infinite;flex-shrink:0}
+.player-header{background:var(--brand);color:#fff;padding:8px 12px;display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px}
+.player-live-dot{width:7px;height:7px;background:#fff;border-radius:50%;animation:blink 1.1s step-end infinite;flex-shrink:0}
 
 /* ── FOOTER ── */
 .footer{background:var(--ink);color:#aaa;margin-top:40px}
@@ -458,10 +459,10 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
     <div class="sidebar-box player-box">
       <div class="player-header">
         <span class="player-live-dot"></span>
-        TV Marataízes — Ao Vivo
+        📺 ANUNCIANTES TV SUL CAPIXABA + TV MARATAÍZES
       </div>
       <div class="player-wrapper">
-        <iframe src="https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        <iframe src="https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7" allow="autoplay; fullscreen" allowfullscreen></iframe>
       </div>
     </div>
 
@@ -687,7 +688,7 @@ const DEFAULT_DATA = {
   config: {
     wpp: '5528999999999',
     weather: 'Sul do ES: 26°C',
-    live: 'https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4',
+    live: 'https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7',
     banner1Link: '#',
     banner2Link: '#',
     banner1Img: '',
@@ -1002,21 +1003,21 @@ const DEFAULT_DATA = {
     // ── VÍDEOS ───────────────────────────────────────────────
     {
       section: 'video', label: 'Vídeo 1',
-      castr: 'https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4',
+      castr: 'https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7',
       thumb: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=640&q=80',
       title: 'TV Sul Capixaba — Transmissão Ao Vivo',
       duration: 'AO VIVO',
     },
     {
       section: 'video', label: 'Vídeo 2',
-      castr: 'https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4',
+      castr: 'https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7',
       thumb: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=640&q=80',
       title: 'Especial: Inauguração da UBS Nova Esperança em Marataízes',
       duration: '06:14',
     },
     {
       section: 'video', label: 'Vídeo 3',
-      castr: 'https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4',
+      castr: 'https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7',
       thumb: 'https://images.unsplash.com/photo-1562408590-e32931084e23?w=640&q=80',
       title: 'Porto de Presidente Kennedy: as obras que vão dobrar a capacidade de exportação',
       duration: '04:38',
@@ -1208,7 +1209,7 @@ function closeVideo() {
 function renderSidebar() {
   const lidas    = data.blocks.filter(b => b.section === 'mais-lidas');
   const interior = data.blocks.filter(b => b.section === 'interior');
-  document.getElementById('sidebar-mais-lidas').innerHTML = lidas.map(a => sidebarItem(a)).join('');
+  document.getElementById('sidebar-mais-lidas').innerHTML = lidas.map((a, i) => sidebarItemRanked(a, i+1)).join('');
   document.getElementById('sidebar-interior').innerHTML = interior.map(a => sidebarItem(a)).join('');
 }
 
@@ -1242,6 +1243,19 @@ function newsListItem(a, idx) {
         <span class="news-list-cat ${a.catClass}">${a.cat}</span>
         <div class="news-list-title">${a.title}</div>
         <div class="news-list-date">${a.date || ''}</div>
+      </div>
+    </div>`;
+}
+
+function sidebarItemRanked(a, rank) {
+  const safe = JSON.stringify({title:a.title,img:a.img,cat:a.cat,catClass:a.catClass,sub:a.sub||'',date:a.date||'',body:a.body||a.sub||''}).replace(/"/g,'&quot;');
+  return `
+    <div class="sidebar-news-item" onclick='openArticle(JSON.parse(this.dataset.a))' data-a="${safe}">
+      <div style="width:22px;height:22px;background:var(--brand);color:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0">${rank}</div>
+      <div class="sidebar-news-img"><img src="${a.img}" alt="${a.title}" loading="lazy"></div>
+      <div style="flex:1;min-width:0">
+        <div class="sidebar-news-title">${a.title}</div>
+        <div class="sidebar-news-date">${a.date||''}</div>
       </div>
     </div>`;
 }
