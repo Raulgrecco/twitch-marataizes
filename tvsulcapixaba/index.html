@@ -1273,15 +1273,28 @@ function uploadImg(event, type, idx) {
   reader.onload = function(e) {
     const url = e.target.result;
     if (type === 'slide') {
+      // Grava base64 no objeto de dados imediatamente
       data.slides[idx].img = url;
-      const prev = document.querySelector(`#prev-slide-${idx} img`);
+      // Atualiza preview miniatura
+      const prev = document.querySelector('#prev-slide-' + idx + ' img');
       if (prev) { prev.src = url; prev.style.display = ''; }
+      // Atualiza preview ao vivo
+      const livePrev = document.querySelector('#live-prev-slide-' + idx + ' img');
+      if (livePrev) { livePrev.src = url; livePrev.style.display = ''; }
+      // Limpa campo URL para não sobrescrever o base64 no saveAll
+      const imgField = document.querySelector('#slide-card-' + idx + ' [data-field="img"]');
+      if (imgField) imgField.value = '';
     } else {
+      // Grava base64 no objeto de dados imediatamente
       data.blocks[idx].img = url;
-      const prev = document.querySelector(`#prev-block-${idx} img`);
+      // Atualiza preview miniatura
+      const prev = document.querySelector('#prev-block-' + idx + ' img');
       if (prev) { prev.src = url; prev.style.display = ''; }
+      // Limpa campo URL para não sobrescrever o base64 no saveAll
+      const imgField = document.querySelector('#block-card-' + idx + ' [data-field="img"]');
+      if (imgField) imgField.value = '';
     }
-    showToast('✅ Imagem carregada! Salve para aplicar.');
+    showToast('✅ Imagem carregada! Clique em Salvar para confirmar.');
   };
   reader.readAsDataURL(file);
 }
@@ -1353,14 +1366,18 @@ function removeSlide(i) {
 }
 
 function updateSlideImg(i, url) {
+  if (!url) return; // campo vazio após upload — não apaga o base64
   data.slides[i].img = url;
-  const prev = document.querySelector(`#prev-slide-${i} img`);
+  const prev = document.querySelector('#prev-slide-' + i + ' img');
   if (prev) prev.src = url;
+  const livePrev = document.querySelector('#live-prev-slide-' + i + ' img');
+  if (livePrev) livePrev.src = url;
 }
 
 function updateBlockImg(i, url) {
+  if (!url) return; // campo vazio após upload — não apaga o base64
   data.blocks[i].img = url;
-  const prev = document.querySelector(`#prev-block-${i} img`);
+  const prev = document.querySelector('#prev-block-' + i + ' img');
   if (prev) prev.src = url;
 }
 
@@ -1409,8 +1426,16 @@ function saveAll() {
     if (v('body')     !== null) s.body     = v('body');
     if (v('cat')      !== null) s.cat      = v('cat');
     if (v('catClass') !== null) s.catClass = v('catClass');
-    if (v('img')      !== null && v('img') !== '') s.img = v('img');
-    // upload base64 já fica em s.img via uploadImg(); só sobrescreve se o campo URL não está vazio
+    // img: usa campo URL só se não for vazio E não houver base64 já gravado pelo upload
+    const sImgField = v('img');
+    if (sImgField !== null) {
+      if (sImgField !== '' && !sImgField.startsWith('data:')) {
+        // usuário digitou/colou URL — usa ela
+        s.img = sImgField;
+      }
+      // se sImgField está vazio e s.img já é base64 → mantém o upload
+      // se sImgField está vazio e s.img é URL → mantém a URL atual
+    }
   });
 
   // BLOCKS — id="block-card-N" (matérias editoriais)
@@ -1426,7 +1451,8 @@ function saveAll() {
     if (v('catClass') !== null) b.catClass = v('catClass');
     if (v('date')     !== null) b.date     = v('date');
     if (v('autor')    !== null) b.autor    = v('autor');
-    if (v('img')      !== null && v('img') !== '') b.img = v('img');
+    const bImgField = v('img');
+    if (bImgField !== null && bImgField !== '' && !bImgField.startsWith('data:')) b.img = bImgField;
   });
 
   // VÍDEOS — id="video-card-N" (índice global do bloco)
