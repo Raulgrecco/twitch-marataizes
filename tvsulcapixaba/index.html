@@ -1295,32 +1295,37 @@ function render() {
 }
 
 function renderTicker() {
-  // Gera ticker automaticamente das matérias reais (slides + blocos editoriais)
-  // Usa o campo manual do admin só se não houver matérias
+  // Pega títulos de TODAS as matérias reais do Firestore (slides + blocks)
+  const fromSlides = data.slides.map(s => s.title).filter(Boolean);
   const fromBlocks = data.blocks
     .filter(b => !['mais-lidas','interior','video'].includes(b.section) && b.title)
     .map(b => b.title);
-  const fromSlides = data.slides.map(s => s.title).filter(Boolean);
-  // Intercala slides e matérias para variar
+
+  // Intercala slides e matérias
   let items = [];
-  const maxSlides = fromSlides.length;
-  const maxBlocks = fromBlocks.length;
-  const total = Math.max(maxSlides, maxBlocks);
+  const total = Math.max(fromSlides.length, fromBlocks.length);
   for (let i = 0; i < total; i++) {
-    if (i < maxSlides) items.push(fromSlides[i]);
-    if (i < maxBlocks) items.push(fromBlocks[i]);
+    if (i < fromSlides.length) items.push(fromSlides[i]);
+    if (i < fromBlocks.length) items.push(fromBlocks[i]);
   }
-  // Fallback para o campo manual se não houver matérias
+
+  // Fallback: campo manual do admin
   if (items.length === 0) {
-    items = data.config.ticker.split('|').map(s => s.trim()).filter(Boolean);
+    items = (data.config.ticker || '').split('|').map(s => s.trim()).filter(Boolean);
   }
-  const doubled = [...items, ...items];
+
+  if (items.length === 0) return;
+
+  // Dobra só se tiver poucos itens (para o loop ficar contínuo)
+  const doubled = items.length < 8 ? [...items, ...items] : [...items, ...items];
+
   const track = document.getElementById('ticker-track');
   track.innerHTML = doubled.map(t =>
-    `<span class="ticker-item">${t}</span>`
+    '<span class="ticker-item">' + t + '</span>'
   ).join('');
-  // Velocidade proporcional: ~5s por item para leitura confortável
-  const duration = Math.max(60, items.length * 5);
+
+  // 8 segundos por item para leitura confortável — mínimo 120s
+  const duration = Math.max(120, items.length * 8);
   track.style.animationDuration = duration + 's';
 }
 
@@ -1461,35 +1466,38 @@ function closeVideo() {
 }
 
 function renderSidebar() {
-  // Mais Lidas: pega as matérias reais ordenadas por views (decrescente)
-  // Inclui slides e blocos editoriais, exclui seções auxiliares
-  const editorial = [
-    ...data.slides.map(s => ({...s, _views: getDisplayViews(s)})),
-    ...data.blocks
-      .filter(b => !['mais-lidas','interior','video'].includes(b.section))
-      .map(b => ({...b, _views: getDisplayViews(b)}))
+  const SKIP = ['mais-lidas','interior','video'];
+
+  // Todas as matérias editoriais reais (slides + blocks)
+  const allItems = [
+    ...data.slides.filter(s => s.title),
+    ...data.blocks.filter(b => !SKIP.includes(b.section) && b.title)
   ];
-  const topLidas = editorial
-    .filter(a => a.title)
-    .sort((a, b) => (b._views || 0) - (a._views || 0))
+
+  // ── MAIS LIDAS: ordena por views reais (campo do Firestore) ─────
+  const topLidas = allItems
+    .slice()
+    .sort((a, b) => ((b.views || 0) + (getDisplayViews(b) || 0)) - ((a.views || 0) + (getDisplayViews(a) || 0)))
     .slice(0, 3);
 
-  // Fallback para seção manual se não houver matérias reais
   const lidas = topLidas.length > 0
     ? topLidas
     : data.blocks.filter(b => b.section === 'mais-lidas');
 
-  // Interior Sul ES: pega as matérias mais recentes da categoria Sul Capixaba
-  // das seções editoriais reais (não a seção auxiliar estática)
-  const interiorReal = [
-    ...data.slides.filter(s => s.catClass === 'cat-sul' && s.title),
-    ...data.blocks.filter(b =>
-      !['mais-lidas','interior','video'].includes(b.section) &&
-      b.catClass === 'cat-sul' && b.title
-    )
-  ].slice(0, 3);
+  // ── INTERIOR SUL ES: 3 matérias mais recentes (qualquer seção) ──
+  // Ordena por data decrescente, pega as 3 primeiras
+  function parseDate(d) {
+    if (!d) return 0;
+    const p = d.split('/');
+    if (p.length === 3) return new Date(p[2], p[1]-1, p[0]).getTime();
+    return new Date(d).getTime() || 0;
+  }
 
-  // Fallback para seção manual se não houver matérias Sul Capixaba
+  const interiorReal = allItems
+    .slice()
+    .sort((a, b) => parseDate(b.date) - parseDate(a.date))
+    .slice(0, 3);
+
   const interior = interiorReal.length > 0
     ? interiorReal
     : data.blocks.filter(b => b.section === 'interior');
@@ -1611,13 +1619,26 @@ function buildAdminForm() {
   slidesList.innerHTML = data.slides.map((s, i) => buildSlideCard(s, i)).join('');
 
   // ── BLOCKS por seção ────────────────────────────────────
-  const sections = ['ultimas','politica','policia','saude','turismo','cultura','economia'];
-  sections.forEach(sec => {
+  const knownSections = ['ultimas','politica','policia','saude','turismo','cultura','economia'];
+  knownSections.forEach(sec => {
     const el = document.getElementById('admin-blocks-' + sec);
     if (!el) return;
     const items = data.blocks.map((b,i) => ({b,i})).filter(({b}) => b.section === sec);
     el.innerHTML = items.map(({b,i}) => buildBlockCard(b, i)).join('');
   });
+
+  // Matérias com section desconhecida aparecem na seção mais próxima ou na última conhecida
+  const unknownItems = data.blocks
+    .map((b,i) => ({b,i}))
+    .filter(({b}) => !['mais-lidas','interior','video',...knownSections].includes(b.section));
+  if (unknownItems.length > 0) {
+    // Tenta encontrar a seção mais parecida ou coloca em economia (última)
+    unknownItems.forEach(({b,i}) => {
+      const targetSec = knownSections.includes(b.section) ? b.section : 'economia';
+      const el = document.getElementById('admin-blocks-' + targetSec);
+      if (el) el.innerHTML += buildBlockCard(b, i);
+    });
+  }
 
   // ── VÍDEOS ──────────────────────────────────────────────
   const videosList = document.getElementById('admin-videos-list');
