@@ -2151,14 +2151,21 @@ function closeArticle() {
 }
 
 function shareWpp() {
-  const txt = encodeURIComponent((_currentArticle?.title || '') + ' — TV Sul Capixaba');
+  const title = (_currentArticle && _currentArticle.title) ? _currentArticle.title : 'TV Sul Capixaba';
+  const txt = encodeURIComponent(title + ' — TV Sul Capixaba\n' + 'https://tvsulcapixaba.com.br');
   window.open('https://wa.me/?text=' + txt, '_blank');
 }
 function shareFb() {
-  window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(location.href), '_blank');
+  window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent('https://tvsulcapixaba.com.br'), '_blank');
 }
 function shareCopy() {
-  navigator.clipboard?.writeText(location.href).then(() => showToast('🔗 Link copiado!'));
+  const title = (_currentArticle && _currentArticle.title) ? _currentArticle.title : '';
+  const text = title ? title + ' — TV Sul Capixaba\n' + 'https://tvsulcapixaba.com.br' : 'https://tvsulcapixaba.com.br';
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => showToast('🔗 Link copiado!'));
+  } else {
+    showToast('🔗 ' + 'https://tvsulcapixaba.com.br');
+  }
 }
 
 // Tecla ESC fecha modal
