@@ -706,7 +706,7 @@ function sha256(str){function rr(w,b){return(w>>>b)|(w<<(32-b))}const K=[0x428a2
 // ═══════════════════════════════════════════════════════════
 const ADMIN_HASH = '4939a75895dfe88116df85cf25722855ef5cddbb764ef67e18c107ead3ac0745'; // SHA-256
 const STORAGE_KEY    = 'tvsulcapixaba_data';
-const DATA_VERSION   = '2026-05-v6'; // muda aqui para forçar reset do localStorage
+const DATA_VERSION   = '2026-05-v7'; // muda aqui para forçar reset do localStorage
 
 // ── Firebase config ───────────────────────────────────────────────
 const firebaseConfig = {
@@ -1213,7 +1213,9 @@ function loadData() {
     const saved   = localStorage.getItem(STORAGE_KEY);
     const version = localStorage.getItem(STORAGE_KEY + '_version');
     if (saved && version === DATA_VERSION) return JSON.parse(saved);
+    // Versão diferente — limpa tudo e usa DEFAULT_DATA
     localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(STORAGE_KEY + '_version');
   } catch(e){}
   return JSON.parse(JSON.stringify(DEFAULT_DATA));
 }
@@ -3165,7 +3167,7 @@ function sha256(str){function rr(w,b){return(w>>>b)|(w<<(32-b))}const K=[0x428a2
 // ═══════════════════════════════════════════════════════════
 const ADMIN_HASH = '4939a75895dfe88116df85cf25722855ef5cddbb764ef67e18c107ead3ac0745'; // SHA-256
 const STORAGE_KEY    = 'tvsulcapixaba_data';
-const DATA_VERSION   = '2026-05-v6'; // muda aqui para forçar reset do localStorage
+const DATA_VERSION   = '2026-05-v7'; // muda aqui para forçar reset do localStorage
 
 // ── Firebase config ───────────────────────────────────────────────
 const firebaseConfig = {
@@ -3672,7 +3674,9 @@ function loadData() {
     const saved   = localStorage.getItem(STORAGE_KEY);
     const version = localStorage.getItem(STORAGE_KEY + '_version');
     if (saved && version === DATA_VERSION) return JSON.parse(saved);
+    // Versão diferente — limpa tudo e usa DEFAULT_DATA
     localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(STORAGE_KEY + '_version');
   } catch(e){}
   return JSON.parse(JSON.stringify(DEFAULT_DATA));
 }
