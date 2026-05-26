@@ -156,7 +156,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .banner-label{text-align:center;font-size:9px;color:#aaa;padding:3px;background:#fafaf8;letter-spacing:1px}
 /* Player sidebar */
 .player-box{border:2px solid var(--brand)!important}
-.player-box .player-wrapper{position:relative;padding-bottom:56.25%;height:0;overflow:hidden}
+.player-box .player-wrapper{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#111}
 .player-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
 .player-header{background:var(--brand);color:#fff;padding:8px 12px;display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px}
 .player-live-dot{width:7px;height:7px;background:#fff;border-radius:50%;animation:blink 1.1s step-end infinite;flex-shrink:0}
@@ -374,7 +374,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
         <span class="player-live-dot"></span>
         📺 ANUNCIANTES TV SUL CAPIXABA + TV MARATAÍZES
       </div>
-      <div class="player-wrapper" id="mobile-player-wrapper">
+      <div class="player-wrapper" id="mobile-player-wrapper" style="background:#000">
         <div class="mobile-player-play" id="mobile-play-btn" onclick="startMobilePlayer()">
           <div class="play-icon">
             <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
@@ -493,13 +493,12 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
         📺 ANUNCIANTES TV SUL CAPIXABA + TV MARATAÍZES
       </div>
       <div class="player-wrapper">
-        <div class="mobile-player-play" id="desktop-play-btn" onclick="startDesktopPlayer()" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.75);cursor:pointer;gap:8px;z-index:2;border-radius:0">
+        <div id="desktop-play-btn" onclick="startDesktopPlayer()" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.85);cursor:pointer;gap:8px;z-index:2;border-radius:0">
   <div style="width:52px;height:52px;background:var(--brand);border-radius:50%;display:flex;align-items:center;justify-content:center">
     <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff" style="margin-left:3px"><polygon points="5,3 19,12 5,21"/></svg>
   </div>
   <span style="color:#fff;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase">Clique para assistir</span>
 </div>
-<iframe id="desktop-player-iframe" src="" allow="autoplay; fullscreen" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;display:none"></iframe>
       </div>
     </div>
 
@@ -1600,8 +1599,7 @@ function sidebarItem(a) {
 
 function applyConfig() {
   document.getElementById('weather-text').textContent = data.config.weather;
-  const liveIframe = document.querySelector('.player-wrapper iframe');
-  if (liveIframe && data.config.live) liveIframe.src = data.config.live;
+  // player carregado via JS ao clicar — não atualiza iframe automaticamente
   // Banners removidos — espaço para matérias
 }
 
@@ -2588,14 +2586,20 @@ function importBackup(event) {
 // ── Player mobile: carrega iframe só quando usuário toca ────────
 function startDesktopPlayer() {
   var btn = document.getElementById('desktop-play-btn');
-  var iframe = document.getElementById('desktop-player-iframe');
-  if (!iframe) return;
-  if (btn) btn.style.display = 'none';
+  var wrapper = btn ? btn.parentElement : null;
+  if (!wrapper) return;
+  // Remove o botão
+  btn.style.display = 'none';
+  // Cria iframe do zero — Safari só bloqueia áudio de iframes já existentes no DOM
   var src = (data && data.config && data.config.live)
     ? data.config.live
     : 'https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7';
+  var iframe = document.createElement('iframe');
   iframe.src = src;
-  iframe.style.display = 'block';
+  iframe.allow = 'autoplay; fullscreen';
+  iframe.allowFullscreen = true;
+  iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:none';
+  wrapper.appendChild(iframe);
 }
 
 function startMobilePlayer() {
