@@ -493,7 +493,13 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
         📺 ANUNCIANTES TV SUL CAPIXABA + TV MARATAÍZES
       </div>
       <div class="player-wrapper">
-        <iframe src="https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        <div class="mobile-player-play" id="desktop-play-btn" onclick="startDesktopPlayer()" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.75);cursor:pointer;gap:8px;z-index:2;border-radius:0">
+  <div style="width:52px;height:52px;background:var(--brand);border-radius:50%;display:flex;align-items:center;justify-content:center">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff" style="margin-left:3px"><polygon points="5,3 19,12 5,21"/></svg>
+  </div>
+  <span style="color:#fff;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase">Clique para assistir</span>
+</div>
+<iframe id="desktop-player-iframe" src="" allow="autoplay; fullscreen" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;display:none"></iframe>
       </div>
     </div>
 
@@ -2580,6 +2586,18 @@ function importBackup(event) {
 
 
 // ── Player mobile: carrega iframe só quando usuário toca ────────
+function startDesktopPlayer() {
+  var btn = document.getElementById('desktop-play-btn');
+  var iframe = document.getElementById('desktop-player-iframe');
+  if (!iframe) return;
+  if (btn) btn.style.display = 'none';
+  var src = (data && data.config && data.config.live)
+    ? data.config.live
+    : 'https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7';
+  iframe.src = src;
+  iframe.style.display = 'block';
+}
+
 function startMobilePlayer() {
   var wrapper = document.getElementById('mobile-player-wrapper');
   var btn = document.getElementById('mobile-play-btn');
@@ -2591,7 +2609,7 @@ function startMobilePlayer() {
     ? data.config.live
     : 'https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7';
   var iframe = document.createElement('iframe');
-  iframe.src = src + '?autoplay=1';
+  iframe.src = src;
   iframe.allow = 'autoplay; fullscreen';
   iframe.allowFullscreen = true;
   iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:none';
