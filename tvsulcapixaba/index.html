@@ -663,27 +663,17 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
           </div>
         </div>
 
-        <!-- BACKUP / RESTAURAÇÃO -->
         <div class="admin-section">
           <div class="admin-section-title">📦 Backup &amp; Restauração</div>
           <div style="background:#f8f8f6;border:1px solid #e0ddd5;border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px">
-            <p style="margin:0;font-size:12px;color:#666;line-height:1.5">
-              O backup exporta <strong>tudo</strong>: matérias, slides, vídeos, imagens, configurações e estatísticas.<br>
-              Restaurar sobrescreve o conteúdo atual com o arquivo selecionado.
-            </p>
+            <p style="margin:0;font-size:12px;color:#666;line-height:1.5">O backup exporta <strong>tudo</strong>: matérias, slides, vídeos, imagens, configurações e estatísticas. Restaurar sobrescreve o conteúdo atual.</p>
             <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-              <button onclick="exportBackup()" style="background:#1a1a1a;color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">
-                📦 Exportar Backup Completo
-              </button>
-              <label style="background:#059669;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px">
-                ♻️ Restaurar Backup
-                <input type="file" accept=".json" onchange="importBackup(event)" style="display:none">
-              </label>
+              <button onclick="exportBackup()" style="background:#1a1a1a;color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">📦 Exportar Backup Completo</button>
+              <label style="background:#059669;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px">♻️ Restaurar Backup<input type="file" accept=".json" onchange="importBackup(event)" style="display:none"></label>
             </div>
             <div id="backup-status" style="font-size:12px;color:#059669;min-height:16px;font-weight:600"></div>
           </div>
         </div>
-
         <div class="admin-actions">
           <button class="btn-cancel" onclick="closeAdmin()">Cancelar</button>
           <button class="btn-save" onclick="saveAll()">💾 Salvar tudo</button>
@@ -1951,133 +1941,69 @@ function removeBlock(idx) {
   showToast('Matéria removida.');
 }
 // ═══════════════════════════════════════════════════════════
-// BACKUP / RESTAURAÇÃO COMPLETA
-// ═══════════════════════════════════════════════════════════
-
+// BACKUP
 function exportBackup() {
-  const status = document.getElementById('backup-status');
-  if (status) status.textContent = '⏳ Coletando dados...';
+  var status = document.getElementById('backup-status');
+  if (status) status.textContent = 'Coletando...';
   try {
-    const backup = {
-      _meta: {
-        version: DATA_VERSION,
-        exportedAt: new Date().toISOString(),
-        portal: 'TV Sul Capixaba',
-      },
-      keys: {}
-    };
-
-    // Chaves fixas do sistema
-    const fixedKeys = [
-      STORAGE_KEY,
-      STORAGE_KEY + '_version',
-      'tvsul_views',
-      'tvsul_seen',
-    ];
-    fixedKeys.forEach(k => {
-      const v = localStorage.getItem(k);
-      if (v !== null) backup.keys[k] = v;
-    });
-
-    // Todas as chaves de imagem tvsul_img_*
-    let imgCount = 0;
-    for (let i = 0; i < localStorage.length; i++) {
-      const k = localStorage.key(i);
-      if (k && k.startsWith(IMG_PREFIX)) {
-        const v = localStorage.getItem(k);
-        if (v !== null) { backup.keys[k] = v; imgCount++; }
-      }
+    var backup = { _meta: { exportedAt: new Date().toISOString(), portal: 'TV Sul Capixaba' }, keys: {} };
+    var fixedKeys = [STORAGE_KEY, STORAGE_KEY + '_version', 'tvsul_views', 'tvsul_seen'];
+    fixedKeys.forEach(function(k) { var v = localStorage.getItem(k); if (v !== null) backup.keys[k] = v; });
+    var imgCount = 0;
+    for (var i = 0; i < localStorage.length; i++) {
+      var k = localStorage.key(i);
+      if (k && k.startsWith('tvsul')) { var v = localStorage.getItem(k); if (v !== null && !backup.keys[k]) { backup.keys[k] = v; if (k.startsWith(IMG_PREFIX)) imgCount++; } }
     }
-
-    // Qualquer outra chave tvsul* (expansões futuras)
-    for (let i = 0; i < localStorage.length; i++) {
-      const k = localStorage.key(i);
-      if (k && k.startsWith('tvsul') && !backup.keys[k]) {
-        const v = localStorage.getItem(k);
-        if (v !== null) backup.keys[k] = v;
-      }
-    }
-
-    const json = JSON.stringify(backup, null, 2);
-    const blob = new Blob([json], { type: 'application/json' });
-    const url  = URL.createObjectURL(blob);
-    const a    = document.createElement('a');
-    const now  = new Date();
-    const stamp = now.getFullYear() + '-' +
-      String(now.getMonth()+1).padStart(2,'0') + '-' +
-      String(now.getDate()).padStart(2,'0') + '_' +
-      String(now.getHours()).padStart(2,'0') + 'h' +
-      String(now.getMinutes()).padStart(2,'0');
-    a.href = url;
+    var json = JSON.stringify(backup, null, 2);
+    var a = document.createElement('a');
+    var now = new Date();
+    var stamp = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + '_' + String(now.getHours()).padStart(2,'0') + 'h' + String(now.getMinutes()).padStart(2,'0');
+    a.href = URL.createObjectURL(new Blob([json], {type:'application/json'}));
     a.download = 'portal-backup-' + stamp + '.json';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-
-    const totalKeys = Object.keys(backup.keys).length;
-    const sizeKB = Math.round(json.length / 1024);
-    if (status) status.textContent = '✅ Backup exportado! ' + totalKeys + ' chaves / ~' + sizeKB + ' KB (' + imgCount + ' imagens)';
-    showToast('📦 Backup completo exportado!');
-  } catch(e) {
-    if (status) status.textContent = '❌ Erro ao exportar: ' + e.message;
-    console.error('exportBackup:', e);
-  }
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    var total = Object.keys(backup.keys).length;
+    var kb = Math.round(json.length / 1024);
+    if (status) status.textContent = 'Exportado: ' + total + ' chaves / ' + kb + ' KB (' + imgCount + ' imagens)';
+    showToast('📦 Backup exportado!');
+  } catch(e) { if (status) status.textContent = 'Erro: ' + e.message; }
 }
 
 function importBackup(event) {
-  const file = event.target.files[0];
+  var file = event.target.files[0];
   if (!file) return;
-  const status = document.getElementById('backup-status');
-  if (status) status.textContent = '⏳ Lendo arquivo...';
-
-  const reader = new FileReader();
+  var status = document.getElementById('backup-status');
+  if (status) status.textContent = 'Lendo arquivo...';
+  var reader = new FileReader();
   reader.onload = function(e) {
     try {
-      const backup = JSON.parse(e.target.result);
-      if (!backup.keys || typeof backup.keys !== 'object') {
-        throw new Error('Arquivo inválido: estrutura não reconhecida.');
-      }
-      const dataStr = backup._meta && backup._meta.exportedAt
-        ? new Date(backup._meta.exportedAt).toLocaleString('pt-BR')
-        : 'data desconhecida';
-      if (!confirm('Restaurar backup de ' + dataStr + '? Isso substituirá TODO o conteúdo atual. Confirmar?')) {
-        if (status) status.textContent = '⚠️ Restauração cancelada.';
+      var backup = JSON.parse(e.target.result);
+      if (!backup.keys || typeof backup.keys !== 'object') throw new Error('Arquivo inválido');
+      var dataStr = backup._meta && backup._meta.exportedAt ? new Date(backup._meta.exportedAt).toLocaleString('pt-BR') : 'data desconhecida';
+      if (!confirm('Restaurar backup de ' + dataStr + '? Isso substituirá todo o conteúdo atual.')) {
+        if (status) status.textContent = 'Cancelado.';
         event.target.value = '';
         return;
       }
-      if (status) status.textContent = '⏳ Restaurando...';
-      let restored = 0, errors = 0;
-      Object.entries(backup.keys).forEach(([k, v]) => {
-        try { localStorage.setItem(k, v); restored++; }
-        catch(err) { errors++; console.warn('Erro chave:', k, err); }
+      if (status) status.textContent = 'Restaurando...';
+      var restored = 0; var errors = 0;
+      Object.keys(backup.keys).forEach(function(k) {
+        try { localStorage.setItem(k, backup.keys[k]); restored++; } catch(err) { errors++; }
       });
-
-      // Recarrega dados e re-renderiza tudo
       data = loadData();
       render();
       buildAdminForm();
-
-      const totalKeys = Object.keys(backup.keys).length;
-      const imgKeys = Object.keys(backup.keys).filter(k => k.startsWith(IMG_PREFIX)).length;
-      const msg = '✅ Restaurado! ' + restored + '/' + totalKeys + ' chaves (' + imgKeys + ' imagens)' +
-        (errors > 0 ? ' | ⚠️ ' + errors + ' erro(s)' : '');
-      if (status) status.textContent = msg;
-      showToast('♻️ Backup restaurado com sucesso!');
+      var total = Object.keys(backup.keys).length;
+      var imgKeys = Object.keys(backup.keys).filter(function(k) { return k.startsWith(IMG_PREFIX); }).length;
+      if (status) status.textContent = 'Restaurado! ' + restored + '/' + total + ' chaves (' + imgKeys + ' imagens)' + (errors > 0 ? ' | ' + errors + ' erro(s)' : '');
+      showToast('♻️ Backup restaurado!');
     } catch(err) {
-      if (status) status.textContent = '❌ Erro: ' + err.message;
-      showToast('❌ Erro ao ler o arquivo de backup.');
-      console.error('importBackup:', err);
+      if (status) status.textContent = 'Erro: ' + err.message;
+      showToast('Erro ao ler backup.');
     }
     event.target.value = '';
   };
-  reader.onerror = function() {
-    if (status) status.textContent = '❌ Erro ao ler o arquivo.';
-  };
   reader.readAsText(file, 'UTF-8');
 }
-
-// ═══════════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════════
 initViews();
