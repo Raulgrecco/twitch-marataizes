@@ -160,6 +160,14 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .player-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
 .player-header{background:var(--brand);color:#fff;padding:8px 12px;display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px}
 .player-live-dot{width:7px;height:7px;background:#fff;border-radius:50%;animation:blink 1.1s step-end infinite;flex-shrink:0}
+.mobile-player-box{display:none;margin:0 0 16px 0;border:2px solid var(--brand);border-radius:10px;overflow:hidden}
+.mobile-player-box .player-header{border-radius:0}
+.mobile-player-box .player-wrapper{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#000}
+.mobile-player-box .player-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.mobile-player-play{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.6);cursor:pointer;gap:8px;z-index:2}
+.mobile-player-play .play-icon{width:56px;height:56px;background:var(--brand);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.mobile-player-play .play-icon svg{width:24px;height:24px;fill:#fff;margin-left:4px}
+.mobile-player-play span{color:#fff;font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
 
 /* ── FOOTER ── */
 .footer{background:var(--ink);color:#aaa;margin-top:40px}
@@ -293,6 +301,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
   .slide-title{font-size:16px!important}
   .carousel-thumbs{grid-template-columns:repeat(2,1fr)}
   .hero{margin-bottom:16px}
+  .mobile-player-box{display:block!important}
 }
 </style>
 </head>
@@ -358,6 +367,22 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 <!-- ── BODY ── -->
 <div class="site-body">
   <main>
+
+    <!-- PLAYER MOBILE (visível só no celular) -->
+    <div class="mobile-player-box" id="mobile-player-box">
+      <div class="player-header">
+        <span class="player-live-dot"></span>
+        📺 ANUNCIANTES TV SUL CAPIXABA + TV MARATAÍZES
+      </div>
+      <div class="player-wrapper" id="mobile-player-wrapper">
+        <div class="mobile-player-play" id="mobile-play-btn" onclick="startMobilePlayer()">
+          <div class="play-icon">
+            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          <span>Toque para assistir aos nossos anunciantes</span>
+        </div>
+      </div>
+    </div>
 
     <!-- HERO CAROUSEL -->
     <div class="hero">
@@ -2553,6 +2578,25 @@ function importBackup(event) {
   reader.readAsText(file, 'UTF-8');
 }
 
+
+// ── Player mobile: carrega iframe só quando usuário toca ────────
+function startMobilePlayer() {
+  var wrapper = document.getElementById('mobile-player-wrapper');
+  var btn = document.getElementById('mobile-play-btn');
+  if (!wrapper) return;
+  // Remove o botão de play
+  if (btn) btn.style.display = 'none';
+  // Cria o iframe com autoplay
+  var src = (data && data.config && data.config.live)
+    ? data.config.live
+    : 'https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7';
+  var iframe = document.createElement('iframe');
+  iframe.src = src + '?autoplay=1';
+  iframe.allow = 'autoplay; fullscreen';
+  iframe.allowFullscreen = true;
+  iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:none';
+  wrapper.appendChild(iframe);
+}
 
 // ═══════════════════════════════════════════════════════════
 // INIT
