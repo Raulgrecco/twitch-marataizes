@@ -1628,13 +1628,19 @@ function buildAdminForm() {
   });
 
   // Matérias com section desconhecida aparecem na seção mais próxima ou na última conhecida
+  // Matérias com section desconhecida — usa catClass para determinar seção correta
+  const catClassMap = {
+    'cat-sul': 'ultimas', 'cat-politica': 'politica', 'cat-policia': 'policia',
+    'cat-saude': 'saude', 'cat-turismo': 'turismo', 'cat-cultura': 'cultura',
+    'cat-economia': 'economia'
+  };
   const unknownItems = data.blocks
     .map((b,i) => ({b,i}))
     .filter(({b}) => !['mais-lidas','interior','video',...knownSections].includes(b.section));
   if (unknownItems.length > 0) {
-    // Tenta encontrar a seção mais parecida ou coloca em economia (última)
     unknownItems.forEach(({b,i}) => {
-      const targetSec = knownSections.includes(b.section) ? b.section : 'economia';
+      // Primeiro tenta mapear pelo catClass, senão usa a section como fallback, senão ultimas
+      const targetSec = catClassMap[b.catClass] || (knownSections.includes(b.section) ? b.section : 'ultimas');
       const el = document.getElementById('admin-blocks-' + targetSec);
       if (el) el.innerHTML += buildBlockCard(b, i);
     });
