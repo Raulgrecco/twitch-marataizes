@@ -2041,14 +2041,7 @@ function importBackup(event) {
       const dataStr = backup._meta && backup._meta.exportedAt
         ? new Date(backup._meta.exportedAt).toLocaleString('pt-BR')
         : 'data desconhecida';
-      if (!confirm(
-        'Restaurar backup de ' + dataStr + '?
-
-' +
-        'Isso substituirá TODO o conteúdo atual.
-
-Confirmar?'
-      )) {
+      if (!confirm('Restaurar backup de ' + dataStr + '? Isso substituirá TODO o conteúdo atual. Confirmar?')) {
         if (status) status.textContent = '⚠️ Restauração cancelada.';
         event.target.value = '';
         return;
