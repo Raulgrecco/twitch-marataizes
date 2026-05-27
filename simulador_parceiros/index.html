@@ -584,7 +584,7 @@ function calc(){
   document.getElementById('r2').textContent=fmt(rec)+'/mês';
   document.getElementById('r3').textContent=fmt(total);
   document.getElementById('r-total').textContent=fmt(total);
-  var nomes={49:'R$49',99:'R$99',249:'R$249',1490:'R$1.490',2800:'R$2.800',4500:'R$4.500',6500:'R$6.500'};
+  var nomes={99:'R$99',149:'R$149',249:'R$249',2500:'R$2.500',6500:'R$6.500',9500:'R$9.500'};
   document.getElementById('r-desc').textContent='Com '+n+' cliente'+(n>1?'s':'')+' no plano '+nomes[plano]+' em 12 meses';
 }
 document.getElementById('slider').addEventListener('input',calc);
