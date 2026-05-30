@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TV Sul Capixaba — Portal de Notícias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --brand: #E8370D;
+  --brand-dark: #C02D0A;
+  --brand-gold: #F5A623;
+  --ink: #1A1A1A;
+  --ink-2: #3D3D3D;
+  --ink-3: #6B6B6B;
+  --paper: #F7F5F0;
+  --white: #FFFFFF;
+  --border: #E0DDD6;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Source Sans 3',sans-serif;background:var(--paper);color:var(--ink);line-height:1.5}
+img{max-width:100%;display:block}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--ink);color:#aaa;font-size:12px;padding:6px 0;flex-shrink:0}
+.topbar-inner{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center}
+.topbar-date{color:#aaa}
+.topbar-site{color:var(--brand-gold);font-weight:700;letter-spacing:.5px}
+
+/* ── HEADER ── */
+.header{background:#fff;border-bottom:4px solid var(--brand);box-shadow:0 2px 8px rgba(0,0,0,.1);flex-shrink:0}
+.header-main{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:72px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-icon{width:50px;height:50px;background:var(--brand);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:900;font-family:'Playfair Display',serif;flex-shrink:0}
+.logo-text{line-height:1.1}
+.logo-name{font-family:'Playfair Display',serif;font-size:19px;font-weight:900;color:var(--ink);letter-spacing:-.3px}
+.logo-sub{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--brand);font-weight:700}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.live-badge{display:flex;align-items:center;gap:6px;background:var(--brand);color:#fff;padding:8px 16px;border-radius:6px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.live-dot{width:8px;height:8px;background:#fff;border-radius:50%;animation:blink 1.1s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.weather-badge{background:#f0ede8;color:var(--ink-2);padding:8px 14px;border-radius:6px;font-size:13px;font-weight:600}
+
+/* ── TICKER ── */
+.ticker{background:var(--brand);color:#fff;padding:8px 0;overflow:hidden;white-space:nowrap;flex-shrink:0}
+.ticker-label{display:inline-block;background:var(--brand-dark);padding:3px 12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-right:16px;border-radius:2px}
+.ticker-track{display:inline-flex;animation:marquee 60s linear infinite}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ticker-item{font-size:12px;font-weight:600;padding:0 28px;border-right:1px solid rgba(255,255,255,.3)}
+
+/* ── SCROLL CONTAINER ── */
+.page{display:flex;flex-direction:column;height:100vh}
+.scroll-container{flex:1;overflow:hidden;position:relative}
+.scroll-track{position:absolute;top:0;left:0;right:0;will-change:transform}
+
+/* ── HERO SLIDES ── */
+.hero-section{padding:20px 20px 0;max-width:1200px;margin:0 auto;width:100%}
+.hero-grid{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:24px}
+.hero-main{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:16/9;background:#111}
+.hero-main img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.2) 55%,transparent 100%)}
+.hero-content{position:absolute;bottom:0;left:0;right:0;padding:28px}
+.hero-cat{display:inline-block;background:var(--brand);color:#fff;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:3px 10px;border-radius:3px;margin-bottom:10px}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(18px,2.5vw,26px);font-weight:900;color:#fff;line-height:1.2;margin-bottom:8px;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.82);line-height:1.4}
+.hero-side{display:flex;flex-direction:column;gap:10px}
+.side-card{position:relative;border-radius:10px;overflow:hidden;flex:1;background:#111;cursor:pointer}
+.side-card img{width:100%;height:100%;object-fit:cover;display:block}
+.side-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.1) 60%,transparent 100%)}
+.side-content{position:absolute;bottom:0;left:0;right:0;padding:14px}
+.side-cat{display:inline-block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:3px;color:#fff;margin-bottom:6px}
+.side-title{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:#fff;line-height:1.25;text-shadow:0 1px 3px rgba(0,0,0,.5)}
+
+/* ── SECTION ── */
+.content-section{padding:0 20px;max-width:1200px;margin:0 auto;width:100%;margin-bottom:28px}
+.section-header{display:flex;align-items:center;margin-bottom:16px}
+.section-header h2{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--ink);border-left:4px solid var(--brand);padding-left:12px;line-height:1}
+.section-header .badge{margin-left:12px;background:var(--brand);color:#fff;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 9px;border-radius:20px}
+
+/* ── NEWS GRID ── */
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.news-card{background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border);display:flex;flex-direction:column;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.news-card-img{position:relative;aspect-ratio:16/10;overflow:hidden;background:#e8e6e0}
+.news-card-img img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.news-card-cat{position:absolute;top:8px;left:8px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 8px;border-radius:3px;color:#fff}
+.news-card-body{padding:14px;flex:1;display:flex;flex-direction:column}
+.news-card-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;line-height:1.3;color:var(--ink);margin-bottom:6px}
+.news-card-sub{font-size:12px;color:var(--ink-3);line-height:1.4;flex:1}
+.news-card-meta{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px solid var(--border)}
+.news-card-date{font-size:11px;color:var(--ink-3)}
+.news-card-views{font-size:11px;color:var(--ink-3)}
+
+/* ── LIST ── */
+.news-list{display:flex;flex-direction:column;gap:12px}
+.news-list-item{background:#fff;border-radius:10px;overflow:hidden;border:1px solid var(--border);display:flex;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+.news-list-img{width:140px;height:100px;flex-shrink:0;overflow:hidden;background:#e8e6e0}
+.news-list-img img{width:100%;height:100%;object-fit:cover;display:block}
+.news-list-body{padding:14px 16px;flex:1;display:flex;flex-direction:column;justify-content:space-between}
+.news-list-cat{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 7px;border-radius:3px;color:#fff;display:inline-block;margin-bottom:6px;align-self:flex-start}
+.news-list-title{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;line-height:1.3;color:var(--ink)}
+.news-list-date{font-size:11px;color:var(--ink-3);margin-top:6px}
+
+/* ── CATEGORY COLORS ── */
+.cat-marataizes{background:#F97316}
+.cat-politica{background:#DC2626}
+.cat-policia{background:#1D4ED8}
+.cat-saude{background:#059669}
+.cat-turismo{background:#D97706}
+.cat-cultura{background:#7C3AED}
+.cat-economia{background:#0369A1}
+.cat-sul{background:#6366F1}
+.cat-esporte{background:#0284C7}
+
+/* ── DIVIDER ── */
+.section-divider{height:3px;background:linear-gradient(to right,var(--brand),transparent);margin:0 20px 24px;max-width:1160px}
+
+/* ── FOOTER SPACER ── */
+.scroll-spacer{height:60px}
+
+/* ── SCROLL CONTROLS ── */
+.scroll-controls{position:fixed;bottom:16px;right:16px;display:flex;gap:8px;z-index:200}
+.ctrl-btn{background:rgba(0,0,0,.7);color:#fff;border:none;padding:8px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Source Sans 3',sans-serif;transition:background .2s}
+.ctrl-btn:hover{background:rgba(0,0,0,.9)}
+.ctrl-btn.active{background:var(--brand)}
+.speed-label{background:rgba(0,0,0,.5);color:#fff;padding:8px 12px;border-radius:6px;font-size:11px;font-weight:600;display:flex;align-items:center}
+
+/* placeholder img */
+.img-placeholder{width:100%;height:100%;background:linear-gradient(135deg,#e8e6e0,#d0cdc6);display:flex;align-items:center;justify-content:center;color:#aaa;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <span class="topbar-date" id="topbar-date"></span>
+      <span class="topbar-site">tvmarataizes.digital/tvsulcapixaba</span>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-main">
+      <div class="logo">
+        <div class="logo-icon">TV</div>
+        <div class="logo-text">
+          <div class="logo-name">TV Sul Capixaba</div>
+          <div class="logo-sub">Portal de Notícias · Marataízes ES</div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="weather-badge">☀️ Sul do ES: 28°C</div>
+        <div class="live-badge">
+          <span class="live-dot"></span>
+          AO VIVO
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <span class="ticker-label">Urgente</span>
+    <span class="ticker-track" id="ticker-track">
+      <span class="ticker-item">Marataízes inaugura UBS no Nova Esperança com capacidade para 4 mil atendimentos por mês</span>
+      <span class="ticker-item">PC deflagra operação contra receptação de veículos em Cachoeiro e prende quatro</span>
+      <span class="ticker-item">Itapemirim recebe R$ 8 mi do Estado para pavimentação de estradas vicinais</span>
+      <span class="ticker-item">Festival do Camarão de Anchieta confirma três fins de semana em junho</span>
+      <span class="ticker-item">Câmara de Piúma abre concurso com 12 vagas e salários até R$ 6,5 mil</span>
+      <span class="ticker-item">Porto de Presidente Kennedy amplia cais e dobra capacidade de exportação</span>
+      <span class="ticker-item">Sul do ES registra queda de 38% nos casos de dengue em maio</span>
+      <span class="ticker-item">Sebrae lança programa de crédito com juros zero para microempreendedores</span>
+      <!-- duplicata para loop contínuo -->
+      <span class="ticker-item">Marataízes inaugura UBS no Nova Esperança com capacidade para 4 mil atendimentos por mês</span>
+      <span class="ticker-item">PC deflagra operação contra receptação de veículos em Cachoeiro e prende quatro</span>
+      <span class="ticker-item">Itapemirim recebe R$ 8 mi do Estado para pavimentação de estradas vicinais</span>
+      <span class="ticker-item">Festival do Camarão de Anchieta confirma três fins de semana em junho</span>
+      <span class="ticker-item">Câmara de Piúma abre concurso com 12 vagas e salários até R$ 6,5 mil</span>
+      <span class="ticker-item">Porto de Presidente Kennedy amplia cais e dobra capacidade de exportação</span>
+      <span class="ticker-item">Sul do ES registra queda de 38% nos casos de dengue em maio</span>
+      <span class="ticker-item">Sebrae lança programa de crédito com juros zero para microempreendedores</span>
+    </span>
+  </div>
+
+  <!-- SCROLL CONTAINER -->
+  <div class="scroll-container" id="scroll-container">
+    <div class="scroll-track" id="scroll-track">
+
+      <!-- HERO -->
+      <div class="hero-section">
+        <div class="hero-grid">
+          <!-- Destaque principal -->
+          <div class="hero-main">
+            <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=900&q=80" alt="" onerror="this.style.display='none'">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+              <span class="hero-cat cat-sul" style="background:#6366F1">Sul Capixaba</span>
+              <div class="hero-title">Marataízes inaugura nova Unidade de Saúde e amplia atendimento para 4 mil famílias</div>
+              <div class="hero-sub">UBS do bairro Nova Esperança foi construída com R$ 2,1 milhões em recursos municipais e estaduais</div>
+            </div>
+          </div>
+          <!-- Lateral -->
+          <div class="hero-side">
+            <div class="side-card">
+              <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=80" alt="" onerror="this.style.display='none'">
+              <div class="side-overlay"></div>
+              <div class="side-content">
+                <span class="side-cat cat-policia" style="background:#1D4ED8">Polícia</span>
+                <div class="side-title">Operação da PC desmonta esquema de receptação de veículos em Cachoeiro</div>
+              </div>
+            </div>
+            <div class="side-card">
+              <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&q=80" alt="" onerror="this.style.display='none'">
+              <div class="side-overlay"></div>
+              <div class="side-content">
+                <span class="side-cat cat-turismo" style="background:#D97706">Turismo</span>
+                <div class="side-title">Festival do Camarão de Anchieta 2026 tera três fins de semana em junho</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- ÚLTIMAS NOTÍCIAS -->
+      <div class="content-section">
+        <div class="section-header">
+          <h2>Últimas Notícias</h2>
+          <span class="badge">Hoje</span>
+        </div>
+        <div class="news-grid">
+          <div class="news-card">
+            <div class="news-card-img">
+              <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80" alt="" onerror="this.parentNode.innerHTML='<div class=img-placeholder>Foto</div>'">
+              <span class="news-card-cat cat-economia" style="background:#0369A1">Economia</span>
+            </div>
+            <div class="news-card-body">
+              <div class="news-card-title">Cachoeiro confirma polo industrial de granito com 600 empregos diretos</div>
+              <div class="news-card-sub">Empresa anuncia complexo de beneficiamento de mármore e granito com operação prevista para dezembro</div>
+              <div class="news-card-meta">
+                <span class="news-card-date">25/05/2026</span>
+                <span class="news-card-views">👁 1.542 visualizações</span>
+              </div>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="news-card-img">
+              <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=600&q=80" alt="" onerror="this.parentNode.innerHTML='<div class=img-placeholder>Foto</div>'">
+              <span class="news-card-cat cat-sul" style="background:#6366F1">Sul Capixaba</span>
+            </div>
+            <div class="news-card-body">
+              <div class="news-card-title">Câmara de Piúma abre concurso público com 12 vagas e salários de até R$ 6,5 mil</div>
+              <div class="news-card-sub">Inscrições vão até 15 de junho; vagas são para nível médio e superior nas áreas administrativa e jurídica</div>
+              <div class="news-card-meta">
+                <span class="news-card-date">24/05/2026</span>
+                <span class="news-card-views">👁 1.089 visualizações</span>
+              </div>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="news-card-img">
+              <img src="https://images.unsplash.com/photo-1562408590-e32931084e23?w=600&q=80" alt="" onerror="this.parentNode.innerHTML='<div class=img-placeholder>Foto</div>'">
+              <span class="news-card-cat cat-sul" style="background:#6366F1">Sul Capixaba</span>
+            </div>
+            <div class="news-card-body">
+              <div class="news-card-title">Porto de Presidente Kennedy amplia cais e dobra capacidade de exportação até o final do ano</div>
+              <div class="news-card-sub">Obras de expansão receberam licença ambiental e devem ser concluídas em novembro; foco é em minério de ferro</div>
+              <div class="news-card-meta">
+                <span class="news-card-date">23/05/2026</span>
+                <span class="news-card-views">👁 876 visualizações</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- POLÍTICA -->
+      <div class="content-section">
+        <div class="section-header">
+          <h2>Política</h2>
+        </div>
+        <div class="news-list">
+          <div class="news-list-item">
+            <div class="news-list-img">
+              <img src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=300&q=80" alt="" onerror="this.parentNode.innerHTML='<div class=img-placeholder>Foto</div>'">
+            </div>
+            <div class="news-list-body">
+              <span class="news-list-cat cat-politica" style="background:#DC2626">Política</span>
+              <div class="news-list-title">Deputado estadual destina R$ 3 milhões em emendas para saúde e infraestrutura no sul capixaba</div>
+              <div class="news-list-date">25/05/2026 · 743 visualizações</div>
+            </div>
+          </div>
+          <div class="news-list-item">
+            <div class="news-list-img">
+              <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=300&q=80" alt="" onerror="this.parentNode.innerHTML='<div class=img-placeholder>Foto</div>'">
+            </div>
+            <div class="news-list-body">
+              <span class="news-list-cat cat-politica" style="background:#DC2626">Política</span>
+              <div class="news-list-title">Câmara de Cachoeiro aprova por unanimidade conselho municipal de segurança pública</div>
+              <div class="news-list-date">23/05/2026 · 512 visualizações</div>
+            </div>
+          </div>
+          <div class="news-list-item">
+            <div class="news-list-img">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80" alt="" onerror="this.parentNode.innerHTML='<div class=img-placeholder>Foto</div>'">
+            </div>
+            <div class="news-list-body">
+              <span class="news-list-cat cat-politica" style="background:#DC2626">Política</span>
+              <div class="news-list-title">Anchieta aprova plano diretor revisado com foco em turismo sustentável e proteção ambiental</div>
+              <div class="news-list-date">21/05/2026 · 634 visualizações</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- SAÚDE -->
+      <div class="content-section">
+        <div class="section-header">
+          <h2>Saúde</h2>
+        </div>
+        <div class="news-grid">
+          <div class="news-card">
+            <div class="news-card-img">
+              <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&q=80" alt="" onerror="this.parentNode.innerHTML='<div class=img-placeholder>Foto</div>'">
+              <span class="news-card-cat cat-saude" style="background:#059669">Saúde</span>
+            </div>
+            <div class="news-card-body">
+              <div class="news-card-title">Sul do ES registra queda de 38% nos casos de dengue em maio</div>
+              <div class="news-card-sub">Secretaria Estadual atribui resultado a mutirões de limpeza e distribuição de larvicidas em cinco municípios</div>
+              <div class="news-card-meta">
+                <span class="news-card-date">25/05/2026</span>
+                <span class="news-card-views">👁 1.456 visualizações</span>
+              </div>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="news-card-img">
+              <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?w=600&q=80" alt="" onerror="this.parentNode.innerHTML='<div class=img-placeholder>Foto</div>'">
+              <span class="news-card-cat cat-saude" style="background:#059669">Saúde</span>
+            </div>
+            <div class="news-card-body">
+              <div class="news-card-title">Hospital Materno Infantil de Cachoeiro recebe novo tomógrafo e reduz espera por exames em 60%</div>
+              <div class="news-card-sub">Equipamento de última geração foi adquirido com recursos federais e estaduais; exames já estão sendo realizados</div>
+              <div class="news-card-meta">
+                <span class="news-card-date">22/05/2026</span>
+                <span class="news-card-views">👁 1.731 visualizações</span>
+              </div>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="news-card-img">
+              <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=600&q=80" alt="" onerror="this.parentNode.innerHTML='<div class=img-placeholder>Foto</div>'">
+              <span class="news-card-cat cat-saude" style="background:#059669">Saúde</span>
+            </div>
+            <div class="news-card-body">
+              <div class="news-card-title">Piúma lança programa de saúde bucal gratuita e abre 800 vagas para alunos da rede pública</div>
+              <div class="news-card-sub">Parceria entre Secretaria de Saúde e de Educação leva dentistas às escolas para triagem e tratamento preventivo</div>
+              <div class="news-card-meta">
+                <span class="news-card-date">21/05/2026</span>
+                <span class="news-card-views">👁 678 visualizações</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- POLÍCIA -->
+      <div class="content-section">
+        <div class="section-header">
+          <h2>Segurança</h2>
+        </div>
+        <div class="news-list">
+          <div class="news-list-item">
+            <div class="news-list-img">
+              <img src="https://images.unsplash.com/photo-1580741569354-4e2d7a0c30f8?w=300&q=80" alt="" onerror="this.parentNode.innerHTML='<div class=img-placeholder>Foto</div>'">
+            </div>
+            <div class="news-list-body">
+              <span class="news-list-cat cat-policia" style="background:#1D4ED8">Polícia</span>
+              <div class="news-list-title">PM apreende 8 kg de maconha e prende jovem de 19 anos durante abordagem em Itapemirim</div>
+              <div class="news-list-date">25/05/2026 · 1.834 visualizações</div>
+            </div>
+          </div>
+          <div class="news-list-item">
+            <div class="news-list-img">
+              <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=300&q=80" alt="" onerror="this.parentNode.innerHTML='<div class=img-placeholder>Foto</div>'">
+            </div>
+            <div class="news-list-body">
+              <span class="news-list-cat cat-policia" style="background:#1D4ED8">Polícia</span>
+              <div class="news-list-title">Golpe do falso leilão online prejudica 23 moradores de Marataízes e Piúma com prejuízo de R$ 90 mil</div>
+              <div class="news-list-date">24/05/2026 · 987 visualizações</div>
+            </div>
+          </div>
+          <div class="news-list-item">
+            <div class="news-list-img">
+              <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=300&q=80" alt="" onerror="this.parentNode.innerHTML='<div class=img-placeholder>Foto</div>'">
+            </div>
+            <div class="news-list-body">
+              <span class="news-list-cat cat-policia" style="background:#1D4ED8">Polícia</span>
+              <div class="news-list-title">PM reforça policiamento nas praias do sul do ES no feriado prolongado de Corpus Christi</div>
+              <div class="news-list-date">22/05/2026 · 1.123 visualizações</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- TURISMO & CULTURA -->
+      <div class="content-section">
+        <div class="section-header">
+          <h2>Turismo &amp; Cultura</h2>
+        </div>
+        <div class="news-grid">
+          <div class="news-card">
+            <div class="news-card-img">
+              <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80" alt="" onerror="this.parentNode.innerHTML='<div class=img-placeholder>Foto</div>'">
+              <span class="news-card-cat cat-turismo" style="background:#D97706">Turismo</span>
+            </div>
+            <div class="news-card-body">
+              <div class="news-card-title">Temporada de inverno no litoral sul capixaba deve movimentar R$ 280 milhões</div>
+              <div class="news-card-sub">Estimativa da Setur-ES projeta 180 mil visitantes nas praias de Marataízes, Piúma e Anchieta entre junho e agosto</div>
+              <div class="news-card-meta">
+                <span class="news-card-date">24/05/2026</span>
+                <span class="news-card-views">👁 1.298 visualizações</span>
+              </div>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="news-card-img">
+              <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=600&q=80" alt="" onerror="this.parentNode.innerHTML='<div class=img-placeholder>Foto</div>'">
+              <span class="news-card-cat cat-cultura" style="background:#7C3AED">Cultura</span>
+            </div>
+            <div class="news-card-body">
+              <div class="news-card-title">Grupo de teatro de Marataízes estreia espetáculo sobre história da pesca artesanal no ES</div>
+              <div class="news-card-sub">Peça "Mar de Dentro" tem elenco de 14 atores locais e temporada gratuita de quatro apresentações em junho</div>
+              <div class="news-card-meta">
+                <span class="news-card-date">23/05/2026</span>
+                <span class="news-card-views">👁 987 visualizações</span>
+              </div>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="news-card-img">
+              <img src="https://images.unsplash.com/photo-1555126634-323283e090fa?w=600&q=80" alt="" onerror="this.parentNode.innerHTML='<div class=img-placeholder>Foto</div>'">
+              <span class="news-card-cat cat-cultura" style="background:#7C3AED">Cultura</span>
+            </div>
+            <div class="news-card-body">
+              <div class="news-card-title">Biblioteca pública de Piúma reabre reformada com novo acervo de 4 mil títulos e sala digital</div>
+              <div class="news-card-sub">Reforma custou R$ 380 mil e incluiu climatização, acessibilidade e computadores para pesquisa com internet</div>
+              <div class="news-card-meta">
+                <span class="news-card-date">21/05/2026</span>
+                <span class="news-card-views">👁 756 visualizações</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- ECONOMIA -->
+      <div class="content-section">
+        <div class="section-header">
+          <h2>Economia</h2>
+        </div>
+        <div class="news-list">
+          <div class="news-list-item">
+            <div class="news-list-img">
+              <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=300&q=80" alt="" onerror="this.parentNode.innerHTML='<div class=img-placeholder>Foto</div>'">
+            </div>
+            <div class="news-list-body">
+              <span class="news-list-cat cat-economia" style="background:#0369A1">Economia</span>
+              <div class="news-list-title">Sul do ES registra crescimento de 12% na geração de empregos formais no primeiro trimestre de 2026</div>
+              <div class="news-list-date">24/05/2026 · 1.204 visualizações</div>
+            </div>
+          </div>
+          <div class="news-list-item">
+            <div class="news-list-img">
+              <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=300&q=80" alt="" onerror="this.parentNode.innerHTML='<div class=img-placeholder>Foto</div>'">
+            </div>
+            <div class="news-list-body">
+              <span class="news-list-cat cat-economia" style="background:#0369A1">Economia</span>
+              <div class="news-list-title">Sebrae lança programa de crédito com juros zero para microempreendedores do sul capixaba</div>
+              <div class="news-list-date">22/05/2026 · 934 visualizações</div>
+            </div>
+          </div>
+          <div class="news-list-item">
+            <div class="news-list-img">
+              <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=300&q=80" alt="" onerror="this.parentNode.innerHTML='<div class=img-placeholder>Foto</div>'">
+            </div>
+            <div class="news-list-body">
+              <span class="news-list-cat cat-economia" style="background:#0369A1">Economia</span>
+              <div class="news-list-title">Produção de abacaxi em Presidente Kennedy cresce 40% e bate recorde histórico de exportação</div>
+              <div class="news-list-date">20/05/2026 · 678 visualizações</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-spacer"></div>
+
+    </div><!-- /scroll-track -->
+  </div><!-- /scroll-container -->
+
+</div><!-- /page -->
+
+<!-- CONTROLES -->
+<div class="scroll-controls">
+  <span class="speed-label">Vel:</span>
+  <button class="ctrl-btn" onclick="setSpeed(0.3)">Lento</button>
+  <button class="ctrl-btn active" onclick="setSpeed(0.7)">Médio</button>
+  <button class="ctrl-btn" onclick="setSpeed(1.5)">Rápido</button>
+  <button class="ctrl-btn" id="pause-btn" onclick="togglePause()">⏸ Pausar</button>
+</div>
+
+<script>
+// Data no topbar
+(function(){
+  var d = new Date();
+  var dias = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
+  var meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  document.getElementById('topbar-date').textContent =
+    dias[d.getDay()] + ', ' + d.getDate() + ' de ' + meses[d.getMonth()] + ' de ' + d.getFullYear();
+})();
+
+// Auto-scroll
+var container = document.getElementById('scroll-container');
+var track = document.getElementById('scroll-track');
+var pos = 0;
+var speed = 0.7;
+var paused = false;
+var raf;
+var trackH, containerH;
+
+function measure() {
+  trackH = track.scrollHeight;
+  containerH = container.clientHeight;
+}
+
+function animate() {
+  if (!paused) {
+    pos += speed;
+    if (pos >= trackH - containerH) {
+      pos = 0;
+    }
+    track.style.transform = 'translateY(-' + pos + 'px)';
+  }
+  raf = requestAnimationFrame(animate);
+}
+
+function setSpeed(s) {
+  speed = s;
+  document.querySelectorAll('.ctrl-btn').forEach(function(b){
+    if (b.textContent !== '⏸ Pausar' && b.textContent !== '▶ Retomar') b.classList.remove('active');
+  });
+  event.target.classList.add('active');
+}
+
+function togglePause() {
+  paused = !paused;
+  var btn = document.getElementById('pause-btn');
+  btn.textContent = paused ? '▶ Retomar' : '⏸ Pausar';
+  btn.classList.toggle('active', paused);
+}
+
+// Pause on hover
+container.addEventListener('mouseenter', function(){ paused = true; });
+container.addEventListener('mouseleave', function(){ paused = false; });
+
+window.addEventListener('resize', measure);
+measure();
+animate();
+</script>
+</body>
+</html>
