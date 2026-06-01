@@ -1383,6 +1383,7 @@ function saveData() {
     slim.blocks.forEach(function(b) {
       if (b.img   && b.img.startsWith('data:'))   b.img   = '';
       if (b.thumb && b.thumb.startsWith('data:')) b.thumb = '';
+      if (!b.views) b.views = 200;
     });
     localStorage.setItem(STORAGE_KEY, JSON.stringify(slim));
     localStorage.setItem(STORAGE_KEY + '_version', DATA_VERSION);
@@ -2511,6 +2512,7 @@ function addBlock(section) {
     sub: placeholderSubs[section] || 'Subtítulo da matéria — edite aqui.',
     date: new Date().toLocaleDateString('pt-BR'),
     body: placeholderBodies[section] || 'Texto completo da matéria.\n\nEdite aqui o conteúdo.',
+    views: 200,
     rascunho: true,
   });
   buildAdminForm();
