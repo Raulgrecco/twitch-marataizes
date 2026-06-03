@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Centro Sul Capixaba — Comunicação, Formação e Inclusão Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #0a0a0a; --ink-mid: #3a3a3a; --ink-light: #7a7a7a;
+  --rule: #e0ddd8; --bg: #faf9f7; --bg-alt: #f2f0ec;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--bg); color: var(--ink); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 3rem; background: rgba(250,249,247,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--rule); }
+.nav-brand { font-family: var(--serif); font-size: 0.92rem; font-weight: 500; color: var(--ink); text-decoration: none; }
+.nav-links { display: flex; gap: 1.5rem; list-style: none; }
+.nav-links a { font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--ink); }
+
+/* HERO */
+.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 3rem 5rem; position: relative; border-bottom: 1px solid var(--rule); }
+.hero-bg { position: absolute; inset: 0; background: linear-gradient(150deg, #060606 0%, #141414 55%, #202020 100%); z-index: 0; }
+.hero-grid { position: absolute; inset: 0; z-index: 1; background-image: linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px); background-size: 64px 64px; }
+.hero-content { position: relative; z-index: 2; max-width: 940px; }
+.hero-eyebrow { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.38); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+.hero-eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: rgba(255,255,255,0.22); }
+.hero-title { font-family: var(--serif); font-size: clamp(2.4rem, 5vw, 4.8rem); font-weight: 400; line-height: 1.08; color: #fff; margin-bottom: 0.4rem; letter-spacing: -0.01em; }
+.hero-title em { font-style: italic; color: rgba(255,255,255,0.45); }
+.hero-tagline { font-family: var(--serif); font-size: clamp(0.92rem, 1.5vw, 1.15rem); color: rgba(255,255,255,0.35); margin-bottom: 2.25rem; font-style: italic; }
+.hero-sub { font-size: 0.92rem; font-weight: 300; color: rgba(255,255,255,0.45); max-width: 560px; line-height: 1.82; margin-bottom: 3rem; }
+.hero-meta { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+.hero-meta-item .val { font-family: var(--serif); font-size: 2.1rem; color: #fff; display: block; line-height: 1; margin-bottom: 4px; }
+.hero-meta-item .lbl { font-size: 0.65rem; letter-spacing: 0.09em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+
+section { padding: 5.5rem 3rem; border-bottom: 1px solid var(--rule); }
+.sec-hdr { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 2.75rem; }
+.sec-num { font-family: var(--serif); font-size: 0.8rem; color: var(--ink-light); font-style: italic; }
+.sec-ttl { font-size: 0.68rem; letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink-light); }
+.statement { font-family: var(--serif); font-size: clamp(1.3rem, 2.1vw, 1.75rem); font-weight: 400; line-height: 1.42; max-width: 700px; color: var(--ink); margin-bottom: 1.75rem; }
+.statement em { font-style: italic; color: var(--ink-mid); }
+.body-text { font-size: 0.9rem; color: var(--ink-mid); line-height: 1.72; max-width: 640px; margin-bottom: 0.9rem; }
+
+/* PROBLEMA */
+.prob-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 2rem 0; }
+.prob-item { background: var(--bg); padding: 1.6rem 1.4rem; }
+.prob-val { font-family: var(--serif); font-size: 2rem; color: var(--ink); display: block; line-height: 1; margin-bottom: 5px; }
+.prob-lbl { font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-light); display: block; margin-bottom: 6px; }
+.prob-desc { font-size: 0.79rem; color: var(--ink-mid); line-height: 1.55; }
+
+/* EIXOS */
+.eixos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 2.5rem 0; }
+.eixo { background: var(--bg-alt); padding: 2rem 1.75rem; }
+.eixo-num { font-family: var(--serif); font-size: 0.72rem; color: var(--ink-light); font-style: italic; margin-bottom: 0.65rem; display: block; }
+.eixo-title { font-family: var(--serif); font-size: 1.05rem; font-weight: 500; color: var(--ink); margin-bottom: 0.7rem; line-height: 1.3; }
+.eixo-text { font-size: 0.82rem; color: var(--ink-mid); line-height: 1.6; }
+.eixo-items { list-style: none; margin-top: 0.9rem; display: flex; flex-direction: column; gap: 3px; }
+.eixo-items li { font-size: 0.77rem; color: var(--ink-light); padding-left: 1rem; position: relative; }
+.eixo-items li::before { content: '—'; position: absolute; left: 0; color: var(--rule); }
+
+/* IMPACTO */
+.cases { display: flex; flex-direction: column; }
+.case { display: grid; grid-template-columns: 38px 1fr; gap: 0 1.75rem; padding: 1.7rem 0; border-top: 1px solid var(--rule); align-items: start; }
+.case:last-child { border-bottom: 1px solid var(--rule); }
+.case-num { font-family: var(--serif); font-size: 0.8rem; color: var(--ink-light); font-style: italic; padding-top: 2px; }
+.case-title { font-family: var(--serif); font-size: 0.98rem; font-weight: 500; margin-bottom: 0.38rem; color: var(--ink); }
+.case-text { font-size: 0.84rem; color: var(--ink-mid); line-height: 1.65; margin-bottom: 0.5rem; max-width: 580px; }
+.case-result { font-size: 0.77rem; letter-spacing: 0.04em; color: var(--ink); font-weight: 500; display: flex; align-items: center; gap: 0.5rem; }
+.case-result::before { content: ''; display: inline-block; width: 14px; height: 1px; background: var(--ink); }
+
+/* GRID GENÉRICO */
+.grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 2rem 0; }
+.grid-item { background: var(--bg); padding: 1.5rem 1.25rem; }
+.grid-val { font-family: var(--serif); font-size: 1.9rem; color: var(--ink); display: block; line-height: 1; margin-bottom: 4px; }
+.grid-lbl { font-size: 0.67rem; letter-spacing: 0.06em; color: var(--ink-light); text-transform: uppercase; margin-bottom: 4px; display: block; }
+.grid-desc { font-size: 0.78rem; color: var(--ink-mid); line-height: 1.5; }
+
+.reach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(125px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-bottom: 1.5rem; }
+.reach-item { background: var(--bg-alt); padding: 1.6rem 1.25rem; }
+.reach-val { font-family: var(--serif); font-size: 1.9rem; color: var(--ink); display: block; line-height: 1; margin-bottom: 5px; }
+.reach-lbl { font-size: 0.67rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-light); }
+.note { font-size: 0.81rem; color: var(--ink-light); line-height: 1.65; font-style: italic; max-width: 500px; }
+.muni-wrap { display: flex; flex-wrap: wrap; gap: 7px; margin: 1.25rem 0; }
+.muni { font-size: 0.77rem; letter-spacing: 0.04em; border: 1px solid var(--rule); padding: 5px 11px; color: var(--ink-mid); }
+.muni.plus { color: var(--ink-light); border-style: dashed; }
+
+/* LEGADO */
+.legado-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin: 2rem 0; }
+.leg-statement { font-family: var(--serif); font-size: clamp(1.15rem, 1.85vw, 1.5rem); font-weight: 400; line-height: 1.46; color: var(--ink); }
+.leg-statement em { color: var(--ink-mid); font-style: italic; }
+.leg-list { display: flex; flex-direction: column; }
+.leg-item { display: flex; gap: 1rem; padding: 0.85rem 0; border-top: 0.5px solid var(--rule); align-items: flex-start; }
+.leg-item:last-child { border-bottom: 0.5px solid var(--rule); }
+.leg-num { font-family: var(--serif); font-size: 1.5rem; color: var(--ink); line-height: 1; flex-shrink: 0; width: 68px; }
+.leg-text { font-size: 0.83rem; color: var(--ink-mid); line-height: 1.5; padding-top: 4px; }
+.leg-text strong { display: block; color: var(--ink); font-size: 0.84rem; margin-bottom: 1px; }
+
+/* MODELOS */
+.models-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(265px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 2rem 0; }
+.model-card { background: var(--bg); padding: 1.75rem; }
+.model-label { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 0.45rem; }
+.model-title { font-family: var(--serif); font-size: 0.98rem; font-weight: 500; color: var(--ink); margin-bottom: 0.65rem; }
+.model-text { font-size: 0.8rem; color: var(--ink-mid); line-height: 1.62; margin-bottom: 0.65rem; }
+.model-adapt { font-size: 0.76rem; color: var(--ink); line-height: 1.5; border-top: 0.5px solid var(--rule); padding-top: 0.6rem; margin-top: 0.6rem; }
+.model-adapt strong { display: block; font-size: 0.65rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 2px; }
+
+/* ALINHAMENTO */
+.align-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 2rem 0; }
+.align-item { background: var(--bg); padding: 1.35rem 1.2rem; }
+.align-tag { font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); display: block; margin-bottom: 0.4rem; }
+.align-title { font-family: var(--serif); font-size: 0.9rem; font-weight: 500; color: var(--ink); margin-bottom: 0.28rem; }
+.align-desc { font-size: 0.77rem; color: var(--ink-mid); line-height: 1.5; }
+
+/* GOVERNANÇA */
+.gov-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 2rem 0; }
+.gov-item { background: var(--bg); padding: 1.5rem 1.3rem; }
+.gov-title { font-family: var(--serif); font-size: 0.92rem; font-weight: 500; color: var(--ink); margin-bottom: 0.5rem; }
+.gov-text { font-size: 0.8rem; color: var(--ink-mid); line-height: 1.58; }
+
+/* BLINDAGEM */
+.blind-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 2rem 0; }
+.blind-col { padding: 2rem 1.75rem; }
+.blind-col.sim { background: var(--bg); }
+.blind-col.nao { background: #fdf6f6; }
+.blind-col-title { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; }
+.blind-col-title span { font-size: 1rem; }
+.blind-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+.blind-list li { font-size: 0.84rem; color: var(--ink-mid); padding: 0.65rem 0; border-bottom: 0.5px solid var(--rule); display: flex; align-items: flex-start; gap: 0.6rem; line-height: 1.45; }
+.blind-list li:last-child { border-bottom: none; }
+.blind-list li .mark { flex-shrink: 0; font-size: 0.82rem; margin-top: 1px; }
+.blind-list.sim .mark { color: #2a7a2a; }
+.blind-list.nao .mark { color: #a02020; }
+
+/* RESISTÊNCIA */
+.resist-block { margin-bottom: 2.5rem; }
+.resist-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--rule); }
+.obj-table { width: 100%; border-collapse: collapse; font-size: 0.79rem; }
+.obj-table thead tr { border-bottom: 1px solid var(--ink); }
+.obj-table th { font-size: 0.65rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-light); padding: 7px 10px; text-align: left; font-weight: 500; }
+.obj-table tbody tr { border-bottom: 0.5px solid var(--rule); }
+.obj-table td { padding: 10px 10px; color: var(--ink-mid); line-height: 1.48; vertical-align: top; }
+.obj-table td:first-child { color: var(--ink); font-weight: 500; width: 22%; }
+.obj-table td:nth-child(2) { width: 8%; text-align: center; }
+.obj-table td:nth-child(3) { width: 35%; }
+.obj-table td:last-child { width: 35%; color: var(--ink); }
+.risco-alto { color: #a02020; font-weight: 500; }
+.risco-medio { color: #8a6000; font-weight: 500; }
+.risco-baixo { color: #2a7a2a; font-weight: 500; }
+
+/* ESTRUTURA */
+.struct-list { display: flex; flex-direction: column; }
+.struct-item { display: grid; grid-template-columns: 170px 1fr; gap: 2rem; padding: 1.35rem 0; border-top: 1px solid var(--rule); align-items: start; }
+.struct-item:last-child { border-bottom: 1px solid var(--rule); }
+.struct-label { font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-light); padding-top: 2px; }
+.struct-value { font-size: 0.87rem; color: var(--ink-mid); line-height: 1.55; }
+.struct-value strong { color: var(--ink); font-weight: 500; }
+
+/* DIRETOR */
+.dir-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+.dir-statement { font-family: var(--serif); font-size: clamp(1.1rem, 1.75vw, 1.42rem); font-weight: 400; line-height: 1.47; color: var(--ink); }
+.dir-statement em { font-style: italic; color: var(--ink-mid); }
+.cred-row { padding: 0.78rem 0; border-top: 1px solid var(--rule); font-size: 0.83rem; color: var(--ink-mid); line-height: 1.5; }
+.cred-row:last-child { border-bottom: 1px solid var(--rule); }
+.cred-row strong { color: var(--ink); font-weight: 500; display: block; font-size: 0.65rem; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 2px; }
+
+/* NOTAS */
+.nota { background: var(--bg-alt); border-left: 2px solid var(--ink); padding: 1rem 1.25rem; margin: 1.5rem 0; }
+.nota p { font-size: 0.84rem; color: var(--ink-mid); line-height: 1.65; margin: 0; }
+.nota p strong { color: var(--ink); }
+
+/* DARK */
+.dark-sec { background: var(--ink); border-bottom: none; }
+.dark-sec .sec-ttl, .dark-sec .sec-num { color: rgba(255,255,255,0.22); }
+.prop-statement { font-family: var(--serif); font-size: clamp(1.3rem, 2.5vw, 2rem); font-weight: 400; line-height: 1.32; max-width: 720px; margin-bottom: 2.75rem; color: #fff; }
+.prop-statement em { color: rgba(255,255,255,0.42); font-style: italic; }
+.prop-items { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 1px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.07); margin-bottom: 2.5rem; }
+.prop-item { background: var(--ink); padding: 1.5rem; }
+.prop-item-title { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 0.6rem; }
+.prop-item-text { font-size: 0.83rem; color: rgba(255,255,255,0.6); line-height: 1.62; }
+.prop-note { font-size: 0.81rem; color: rgba(255,255,255,0.3); line-height: 1.72; max-width: 540px; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 1.2rem; }
+
+/* SCORE */
+.score-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 2rem 0; }
+.score-item { background: var(--bg); padding: 1.4rem 1.2rem; }
+.score-val { font-family: var(--serif); font-size: 2.2rem; color: var(--ink); display: block; line-height: 1; margin-bottom: 4px; }
+.score-lbl { font-size: 0.67rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-light); }
+.veredicto { border: 1px solid var(--ink); padding: 1.75rem; margin: 2rem 0; }
+.veredicto-title { font-family: var(--serif); font-size: 1.1rem; font-weight: 500; color: var(--ink); margin-bottom: 0.75rem; }
+.veredicto-text { font-size: 0.88rem; color: var(--ink-mid); line-height: 1.7; }
+
+footer { padding: 2.5rem 3rem; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1.5rem; }
+.footer-brand { font-family: var(--serif); font-size: 0.92rem; color: var(--ink); margin-bottom: 0.3rem; }
+.footer-detail { font-size: 0.73rem; color: var(--ink-light); line-height: 1.7; }
+.footer-contact { text-align: right; }
+.footer-contact a { display: block; font-size: 0.75rem; color: var(--ink-mid); text-decoration: none; line-height: 1.85; }
+.footer-contact a:hover { color: var(--ink); }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+.hero-eyebrow { animation: fadeUp 0.6s ease both; }
+.hero-title { animation: fadeUp 0.6s 0.1s ease both; }
+.hero-tagline { animation: fadeUp 0.6s 0.18s ease both; }
+.hero-sub { animation: fadeUp 0.6s 0.25s ease both; }
+.hero-meta { animation: fadeUp 0.6s 0.32s ease both; }
+
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .hero { padding-bottom: 3.5rem; }
+  section { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+  .eixos, .dir-grid, .legado-grid, .blind-grid, .struct-item { grid-template-columns: 1fr; gap: 1.5rem; }
+  .struct-label { padding-top: 0; }
+  footer { padding: 2rem 1.5rem; }
+  .footer-contact { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="#">Centro Sul Capixaba</a>
+  <ul class="nav-links">
+    <li><a href="#problema">O Problema</a></li>
+    <li><a href="#missao">Missão</a></li>
+    <li><a href="#impacto">Impacto</a></li>
+    <li><a href="#legado">Legado</a></li>
+    <li><a href="#modelos">Referências</a></li>
+    <li><a href="#blindagem">Blindagem</a></li>
+    <li><a href="#governanca">Governança</a></li>
+    <li><a href="#resistencia">Auditoria</a></li>
+    <li><a href="#proposta">Proposta</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding-top:0; border:none;">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Apresentação Institucional · 2025</p>
+    <h1 class="hero-title">Centro Sul Capixaba<br><em>de Comunicação, Formação</em><br><em>e Inclusão Digital</em></h1>
+    <p class="hero-tagline">Marataízes · Piúma · Sul do Espírito Santo</p>
+    <p class="hero-sub">Um programa regional integrado que forma jovens comunicadores, promove inclusão digital e conecta os municípios do Sul do Espírito Santo através de comunicação pública de interesse coletivo.<br><br><strong style="color: rgba(255,255,255,0.7); font-weight:500;">O projeto não cria uma emissora. Ele cria uma rede permanente de oportunidades para os jovens e municípios do Sul do ES.</strong></p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><span class="val">680k+</span><span class="lbl">Habitantes no Sul do ES</span></div>
+      <div class="hero-meta-item"><span class="val">8→26</span><span class="lbl">Municípios — fase inicial e expansão</span></div>
+      <div class="hero-meta-item"><span class="val">25+</span><span class="lbl">Anos de experiência</span></div>
+      <div class="hero-meta-item"><span class="val">Lei Rouanet</span><span class="lbl">Projeto aprovado — formação de jovens</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 POR QUE O SUL CAPIXABA -->
+<section id="problema">
+  <div class="sec-hdr"><span class="sec-num">01</span><span class="sec-ttl">Por que o Sul Capixaba?</span></div>
+  <p class="statement">O Sul do Espírito Santo tem mais de 680 mil habitantes em 26 municípios — o equivalente populacional a uma grande capital regional — e ainda <em>não tem uma rede regional integrada de comunicação pública, formação profissional e inclusão digital.</em></p>
+  <div class="prob-grid">
+    <div class="prob-item">
+      <span class="prob-val">680k+</span>
+      <span class="prob-lbl">Habitantes em 26 municípios</span>
+      <p class="prob-desc">O equivalente populacional a uma grande capital regional — distribuído em 26 municípios sem uma rede integrada de comunicação pública, formação e inclusão digital.</p>
+    </div>
+    <div class="prob-item">
+      <span class="prob-val">Zero</span>
+      <span class="prob-lbl">Centros de formação audiovisual</span>
+      <p class="prob-desc">Nenhum centro de formação profissional em comunicação, audiovisual ou tecnologia criativa em toda a região do Sul do ES.</p>
+    </div>
+    <div class="prob-item">
+      <span class="prob-val">Alta</span>
+      <span class="prob-lbl">Evasão de jovens talentos</span>
+      <p class="prob-desc">Jovens com vocação para comunicação e tecnologia precisam migrar para Vitória, Rio ou São Paulo — por falta de oportunidade local.</p>
+    </div>
+    <div class="prob-item">
+      <span class="prob-val">+150km</span>
+      <span class="prob-lbl">Da Grande Vitória</span>
+      <p class="prob-desc">Concentração de oportunidades em Vitória faz com que jovens do Sul do ES precisem deixar a região para se qualificar e trabalhar.</p>
+    </div>
+    <div class="prob-item">
+      <span class="prob-val">Baixa</span>
+      <span class="prob-lbl">Cobertura de interesse público</span>
+      <p class="prob-desc">Municípios como Presidente Kennedy, Rio Novo do Sul e Anchieta têm cobertura mínima — a população fica sem canal de acesso ao poder público.</p>
+    </div>
+    <div class="prob-item">
+      <span class="prob-val">Pronto</span>
+      <span class="prob-lbl">Solução já em operação</span>
+      <p class="prob-desc">A infraestrutura já existe e funciona. O projeto estrutura e escala o que já opera — com legado permanente para toda a região.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 MISSÃO E EIXOS -->
+<section id="missao" style="background: var(--bg-alt);">
+  <div class="sec-hdr"><span class="sec-num">02</span><span class="sec-ttl">Missão e estrutura do programa</span></div>
+  <p class="statement">O projeto não cria uma emissora. <em>Ele cria uma rede permanente de formação profissional, inclusão digital e comunicação pública</em> — utilizando a estrutura já operante como plataforma de entrega.</p>
+  <p class="body-text">O projeto possui aprovação pela Lei Rouanet para formação audiovisual de jovens em Itapemirim, Presidente Kennedy, Marataízes e Rio Novo do Sul. A proposta amplia esse alcance para toda a região com estrutura permanente e sede em Piúma.</p>
+  <div class="eixos">
+    <div class="eixo">
+      <span class="eixo-num">Eixo I</span>
+      <h3 class="eixo-title">Formação e Capacitação Profissional</h3>
+      <p class="eixo-text">Oficinas presenciais de comunicação, audiovisual e tecnologia para jovens do Sul do ES — com certificação e inserção no mercado criativo regional.</p>
+      <ul class="eixo-items">
+        <li>Produção audiovisual e câmera</li>
+        <li>Edição e pós-produção digital</li>
+        <li>Fotografia e comunicação digital</li>
+        <li>IA aplicada à comunicação</li>
+        <li>Educação midiática e ética</li>
+        <li>Empreendedorismo criativo</li>
+        <li>Futuro do trabalho em comunicação</li>
+      </ul>
+    </div>
+    <div class="eixo">
+      <span class="eixo-num">Eixo II</span>
+      <h3 class="eixo-title">Unidade Móvel de Comunicação e Inclusão Digital</h3>
+      <p class="eixo-text">Estrutura itinerante que percorre todos os municípios do Sul do ES realizando oficinas, capacitação tecnológica e comunicação de interesse público onde não há infraestrutura fixa.</p>
+      <ul class="eixo-items">
+        <li>Oficinas em municípios sem sede</li>
+        <li>Cobertura de eventos e cultura local</li>
+        <li>Registro de memória e patrimônio</li>
+        <li>Inclusão digital em comunidades</li>
+        <li>Alertas de defesa civil e saúde pública</li>
+        <li>Divulgação de serviços e ações públicas</li>
+        <li>Sustentabilidade pós-projeto: operação via parcerias municipais</li>
+      </ul>
+    </div>
+    <div class="eixo">
+      <span class="eixo-num">Eixo III</span>
+      <h3 class="eixo-title">Rede de Jovens Comunicadores do Sul Capixaba</h3>
+      <p class="eixo-text">Jovens formados pelo programa tornam-se comunicadores locais permanentes, produzindo conteúdo de interesse público em seus municípios.</p>
+      <ul class="eixo-items">
+        <li>Turismo e cultura regional</li>
+        <li>Educação e oportunidades locais</li>
+        <li>Esporte e economia municipal</li>
+        <li>Saúde e campanhas públicas</li>
+        <li>Histórias e personagens locais</li>
+        <li>Memória e patrimônio imaterial</li>
+        <li>Sustentabilidade: jovens formados continuam após o projeto</li>
+      </ul>
+    </div>
+  </div>
+  <div class="nota"><p><strong>Sustentabilidade após os 24 meses:</strong> a unidade móvel passa a operar em parceria com as prefeituras dos municípios atendidos. Os jovens comunicadores formados continuam produzindo conteúdo de forma autônoma. A rede se sustenta pela combinação de parcerias municipais, projetos culturais e produção de conteúdo de interesse público — não depende de recurso contínuo para existir.</p></div>
+</section>
+
+<!-- 03 IMPACTO REAL -->
+<section id="impacto">
+  <div class="sec-hdr"><span class="sec-num">03</span><span class="sec-ttl">Comunicação pública — casos reais de impacto</span></div>
+  <p class="statement">Para muitos moradores do Sul do ES, <em>a rede já é o único canal de acesso ao poder público que funciona.</em> Os casos abaixo não são exceções — são a rotina diária.</p>
+  <div class="cases">
+    <div class="case">
+      <span class="case-num">i.</span>
+      <div>
+        <h3 class="case-title">Ponte da Barra do Itapemirim — segurança de crianças</h3>
+        <p class="case-text">Moradores relataram o abandono dos guarda-corpos da ponte usada por crianças para ir à escola. A rede apurou, contactou o DER e veiculou a cobertura de interesse público.</p>
+        <p class="case-result">Reforma iniciada em menos de duas semanas pelo DER</p>
+      </div>
+    </div>
+    <div class="case">
+      <span class="case-num">ii.</span>
+      <div>
+        <h3 class="case-title">Farmácia Popular — desabastecimento de medicamentos essenciais</h3>
+        <p class="case-text">A rede veiculou o desabastecimento crônico de medicamentos para saúde mental, cardíacos e crônicos — forçando moradores a adquirir do próprio bolso o que deveria ser gratuito.</p>
+        <p class="case-result">Prefeitura publicou contratação de 7 fiscais de saúde no Diário Oficial</p>
+      </div>
+    </div>
+    <div class="case">
+      <span class="case-num">iii.</span>
+      <div>
+        <h3 class="case-title">Crianças fora da escola — família em vulnerabilidade social</h3>
+        <p class="case-text">Uma moradora relatou crianças sem acesso à escola em família com histórico de vulnerabilidade. A rede acionou o CRAS imediatamente — integrando comunicação pública e proteção social.</p>
+        <p class="case-result">Crianças matriculadas. Moradora ligou para agradecer à rede</p>
+      </div>
+    </div>
+    <div class="case">
+      <span class="case-num">iv.</span>
+      <div>
+        <h3 class="case-title">Canal permanente de participação cidadã</h3>
+        <p class="case-text">A rede recebe pedidos, relatos e demandas da população todos os dias — funcionando como ponte entre o cidadão e o poder público em municípios sem outro canal acessível e gratuito.</p>
+        <p class="case-result">Cobertura contínua de interesse público regional</p>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 2.5rem;">
+    <p class="sec-ttl" style="margin-bottom: 1.2rem;">Alcance digital — campanha regional recente</p>
+    <div class="reach-grid">
+      <div class="reach-item"><span class="reach-val">237k</span><span class="reach-lbl">Visualizações</span></div>
+      <div class="reach-item"><span class="reach-val">69,9k</span><span class="reach-lbl">Alcance</span></div>
+      <div class="reach-item"><span class="reach-val">50,3k</span><span class="reach-lbl">Engajamentos</span></div>
+      <div class="reach-item"><span class="reach-val">1.126</span><span class="reach-lbl">Novos seguidores</span></div>
+      <div class="reach-item"><span class="reach-val">R$1.508</span><span class="reach-lbl">Investimento</span></div>
+    </div>
+    <p class="note">R$ 20/dia geraram 237 mil visualizações e alcançaram quase 70 mil pessoas. Estrutura com tração real — pronta para escalar.</p>
+    <p style="font-size:0.67rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-light); margin: 2rem 0 0.9rem;">Municípios — fase inicial (expansão progressiva para os 26 do Sul do ES)</p>
+    <div class="muni-wrap">
+      <span class="muni">Marataízes</span><span class="muni">Itapemirim</span><span class="muni">Presidente Kennedy</span>
+      <span class="muni">Piúma</span><span class="muni">Anchieta</span><span class="muni">Rio Novo do Sul</span>
+      <span class="muni plus">+ expansão em curso</span>
+    </div>
+  </div>
+</section>
+
+<!-- 04 LEGADO -->
+<section id="legado" style="background: var(--bg-alt);">
+  <div class="sec-hdr"><span class="sec-num">04</span><span class="sec-ttl">Legado — o que permanece após os 24 meses</span></div>
+  <p class="statement">Em 24 meses, o Sul Capixaba terá <em>uma rede permanente que continua funcionando muito depois do recurso inicial.</em></p>
+  <div class="legado-grid">
+    <div>
+      <p class="leg-statement">O legado não é uma TV fortalecida. <em>É uma geração de jovens formados, uma rede ativa e uma região conectada</em> — independente de qualquer recurso futuro.</p>
+      <p class="body-text" style="margin-top:1.25rem;">Cada entrega abaixo é verificável, auditável e permanente — garantindo retorno social duradouro para os municípios e para a população do Sul do ES, muito além do período do projeto.</p>
+    </div>
+    <div class="leg-list">
+      <div class="leg-item"><span class="leg-num">480+</span><div class="leg-text"><strong>Jovens formados e certificados</strong>Capacitados em audiovisual, comunicação digital, tecnologia e IA.</div></div>
+      <div class="leg-item"><span class="leg-num">40+</span><div class="leg-text"><strong>Jovens comunicadores locais ativos</strong>Rede permanente produzindo conteúdo de interesse público em seus municípios.</div></div>
+      <div class="leg-item"><span class="leg-num">1</span><div class="leg-text"><strong>Unidade móvel em operação</strong>Veículo adaptado percorrendo o Sul do ES — sustentado por parcerias municipais após o projeto.</div></div>
+      <div class="leg-item"><span class="leg-num">1</span><div class="leg-text"><strong>Centro regional em Piúma</strong>Sede permanente com estúdio e equipe — primeira unidade regional fora de Marataízes.</div></div>
+      <div class="leg-item"><span class="leg-num">8→26</span><div class="leg-text"><strong>Municípios com cobertura regional</strong>Fase inicial: 8 municípios prioritários. Expansão progressiva para os 26 municípios do Sul do ES via rede de jovens comunicadores e unidade móvel.</div></div>
+      <div class="leg-item"><span class="leg-num">1.200+</span><div class="leg-text"><strong>Acervo audiovisual regional</strong>Memória, cultura, turismo e interesse público do Sul Capixaba — patrimônio permanente.</div></div>
+    </div>
+  </div>
+  <div style="margin-top:3rem;">
+    <p class="sec-ttl" style="margin-bottom:1.5rem;">Indicadores de impacto — 24 meses</p>
+    <div class="grid-auto">
+      <div class="grid-item"><span class="grid-lbl">Jovens formados</span><span class="grid-val">480+</span><p class="grid-desc">20 por turma, 4 turmas/ano em cada município — com certificação.</p></div>
+      <div class="grid-item"><span class="grid-lbl">Municípios atendidos</span><span class="grid-val">8→26</span><p class="grid-desc">Fase inicial: 8 municípios prioritários, com expansão progressiva para os 26 municípios do Sul do ES via unidade móvel.</p></div>
+      <div class="grid-item"><span class="grid-lbl">Jovens comunicadores</span><span class="grid-val">40+</span><p class="grid-desc">Atuando em seus municípios após a formação — legado permanente.</p></div>
+      <div class="grid-item"><span class="grid-lbl">Empregos diretos</span><span class="grid-val">12+</span><p class="grid-desc">Postos de trabalho em comunicação, audiovisual e tecnologia no Sul do ES.</p></div>
+      <div class="grid-item"><span class="grid-lbl">Conteúdos produzidos</span><span class="grid-val">1.200+</span><p class="grid-desc">Reportagens, documentários e conteúdos de interesse público distribuídos gratuitamente.</p></div>
+      <div class="grid-item"><span class="grid-lbl">Pessoas alcançadas</span><span class="grid-val">500k+</span><p class="grid-desc">Projeção de alcance total — televisão, portais e plataformas digitais combinados.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 MODELOS INSPIRADORES -->
+<section id="modelos">
+  <div class="sec-hdr"><span class="sec-num">05</span><span class="sec-ttl">Referências nacionais — metodologias testadas</span></div>
+  <p class="statement">O Centro Sul Capixaba não é uma ideia isolada. <em>Segue metodologias reconhecidas e financiadas com sucesso no Brasil.</em></p>
+  <div class="models-grid">
+    <div class="model-card">
+      <p class="model-label">São Paulo · Instituto Criar · desde 2003</p>
+      <h3 class="model-title">Instituto Criar de TV, Cinema e Novas Mídias</h3>
+      <p class="model-text">Fundado pelo apresentador Luciano Huck, já formou mais de 2.900 jovens em audiovisual. Pesquisa Quaest: 88% dos veteranos trabalhavam na área após a formação. Parceiro da Prefeitura de SP — formou 400+ jovens em 2025 com apoio do programa Bolsa Trabalho.</p>
+      <div class="model-adapt"><strong>Adaptação para o Sul Capixaba</strong>Mesmo modelo de formação técnica integral em audiovisual — aplicado ao interior litorâneo do Sul do ES, onde não existe infraestrutura equivalente.</div>
+    </div>
+    <div class="model-card">
+      <p class="model-label">Nacional · Canal Futura / Fundação Roberto Marinho · desde 1997</p>
+      <h3 class="model-title">Canal Futura — Geração Futura Juventudes</h3>
+      <p class="model-text">Experiência pioneira de comunicação para transformação social viabilizada pela Lei Rouanet. O programa Geração Futura, desde 2006, conecta televisão educativa a jovens comunicadores de todo o Brasil. Mais de 1,4 milhão de professores acompanham o canal regularmente.</p>
+      <div class="model-adapt"><strong>Adaptação para o Sul Capixaba</strong>Televisão como plataforma educativa e de formação de jovens comunicadores — com foco regional no Sul do ES.</div>
+    </div>
+    <div class="model-card">
+      <p class="model-label">Rio de Janeiro · AfroReggae · desde 1993</p>
+      <h3 class="model-title">AfroReggae — Audiovisual e Transformação Social</h3>
+      <p class="model-text">ONG que captou mais de R$ 5 milhões via Lei de Incentivo à Cultura usando audiovisual como ferramenta de transformação social. Referência da ONU. Milhares de jovens formados — muitos hoje profissionais reconhecidos do audiovisual nacional.</p>
+      <div class="model-adapt"><strong>Adaptação para o Sul Capixaba</strong>Formação de comunicadores comunitários como agentes de transformação local — nos municípios do Sul Capixaba.</div>
+    </div>
+    <div class="model-card">
+      <p class="model-label">Brasil · Ministério das Comunicações · 2024</p>
+      <h3 class="model-title">Carreta Digital</h3>
+      <p class="model-text">Unidade móvel federal de capacitação itinerante. Em 2025, beneficiou mais de 6 mil estudantes da rede pública em quatro estados com aulas de informática, robótica e programação — demonstrando a efetividade do modelo móvel em territórios sem infraestrutura fixa.</p>
+      <div class="model-adapt"><strong>Adaptação para o Sul Capixaba</strong>Modelo de unidade móvel itinerante — aplicado à comunicação, audiovisual e inclusão digital nos municípios do Sul do ES.</div>
+    </div>
+    <div class="model-card">
+      <p class="model-label">Brasil · CUFA · Comunicação Comunitária</p>
+      <h3 class="model-title">Central Única das Favelas</h3>
+      <p class="model-text">Organização que criou redes de comunicadores comunitários em territórios do interior e periferias — com conteúdo local que chegou a plataformas nacionais e internacionais, demonstrando o potencial do comunicador formado em seu próprio território.</p>
+      <div class="model-adapt"><strong>Adaptação para o Sul Capixaba</strong>Rede de jovens comunicadores locais como agentes de cidadania — adaptada ao contexto municipal do Sul Capixaba.</div>
+    </div>
+    <div class="model-card">
+      <p class="model-label">Brasil · Ministério das Comunicações · 18 anos</p>
+      <h3 class="model-title">Computadores para Inclusão</h3>
+      <p class="model-text">Programa com 18 anos que beneficiou 2.157 escolas e capacitou quase 59,5 mil pessoas — demonstrando sustentabilidade e escala de projetos de inclusão digital com suporte institucional público e parceria com entidades locais estabelecidas.</p>
+      <div class="model-adapt"><strong>Adaptação para o Sul Capixaba</strong>Lógica de capacitação digital contínua com suporte público — aplicada ao audiovisual e à comunicação comunitária regional.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 ALINHAMENTO POLÍTICAS PÚBLICAS -->
+<section style="background: var(--bg-alt);">
+  <div class="sec-hdr"><span class="sec-num">06</span><span class="sec-ttl">Alinhamento às políticas públicas federais</span></div>
+  <p class="statement">O Centro Sul Capixaba contribui diretamente para <em>nove áreas prioritárias das políticas públicas federais</em> em vigor.</p>
+  <div class="align-grid">
+    <div class="align-item"><span class="align-tag">Ministério das Comunicações</span><p class="align-title">Comunicação pública regional</p><p class="align-desc">Fortalecimento da comunicação de interesse coletivo em regiões sem infraestrutura adequada.</p></div>
+    <div class="align-item"><span class="align-tag">MEC / Secretaria da Juventude</span><p class="align-title">Formação profissional da juventude</p><p class="align-desc">Capacitação técnica em comunicação, audiovisual e tecnologia — geração de oportunidades no interior.</p></div>
+    <div class="align-item"><span class="align-tag">Ministério das Comunicações</span><p class="align-title">Inclusão digital</p><p class="align-desc">Unidade móvel levando capacitação tecnológica a municípios sem infraestrutura fixa — alinhado à Carreta Digital federal.</p></div>
+    <div class="align-item"><span class="align-tag">Câmara dos Deputados · IA em debate</span><p class="align-title">Inteligência Artificial e inovação</p><p class="align-desc">IA aplicada à comunicação e produção de conteúdo — alinhado ao debate federal sobre regulação e uso de IA.</p></div>
+    <div class="align-item"><span class="align-tag">Secretaria da Juventude</span><p class="align-title">Fixação de talentos no interior</p><p class="align-desc">Jovens qualificados que permanecem em seus municípios — combate ao êxodo regional.</p></div>
+    <div class="align-item"><span class="align-tag">Ministério da Cultura</span><p class="align-title">Economia criativa</p><p class="align-desc">Geração de renda no setor audiovisual — validado pelo MinC via Ponto de Cultura e dois projetos Lei Rouanet aprovados.</p></div>
+    <div class="align-item"><span class="align-tag">MinC / IPHAN</span><p class="align-title">Memória e identidade cultural</p><p class="align-desc">Registro audiovisual do patrimônio imaterial e histórias dos municípios do Sul Capixaba.</p></div>
+    <div class="align-item"><span class="align-tag">Ministério do Turismo</span><p class="align-title">Turismo e desenvolvimento regional</p><p class="align-desc">Produção de conteúdo que valoriza e divulga o potencial turístico e econômico do Sul do ES.</p></div>
+    <div class="align-item"><span class="align-tag">Defesa Civil / Ministério da Saúde</span><p class="align-title">Comunicação de emergência e saúde</p><p class="align-desc">Canal para alertas, campanhas de vacinação e informações emergenciais — comunicação a serviço da segurança pública.</p></div>
+  </div>
+</section>
+
+<!-- 07 BLINDAGEM -->
+<section id="blindagem">
+  <div class="sec-hdr"><span class="sec-num">07</span><span class="sec-ttl">Blindagem — o que o recurso financia e o que não financia</span></div>
+  <p class="statement">Transparência total sobre a <em>destinação de cada real do recurso público</em> — antes, durante e após a execução.</p>
+  <div class="blind-grid">
+    <div class="blind-col sim">
+      <p class="blind-col-title"><span>✓</span> O recurso financia exclusivamente</p>
+      <ul class="blind-list sim">
+        <li><span class="mark">✓</span>Formação de jovens em audiovisual, comunicação e tecnologia</li>
+        <li><span class="mark">✓</span>Equipamentos pedagógicos para as oficinas de formação</li>
+        <li><span class="mark">✓</span>Unidade móvel de capacitação itinerante</li>
+        <li><span class="mark">✓</span>Infraestrutura da sede regional em Piúma</li>
+        <li><span class="mark">✓</span>Produção de conteúdo de interesse público e educativo</li>
+        <li><span class="mark">✓</span>Inclusão digital em municípios sem infraestrutura fixa</li>
+        <li><span class="mark">✓</span>Registro e preservação da memória cultural regional</li>
+        <li><span class="mark">✓</span>Capacitação tecnológica e IA aplicada à comunicação</li>
+        <li><span class="mark">✓</span>Comunicação pública de interesse coletivo</li>
+        <li><span class="mark">✓</span>Formação da rede de jovens comunicadores locais</li>
+      </ul>
+    </div>
+    <div class="blind-col nao">
+      <p class="blind-col-title"><span>✗</span> O recurso não financia</p>
+      <ul class="blind-list nao">
+        <li><span class="mark">✗</span>Operação comercial de emissora ou canal de TV</li>
+        <li><span class="mark">✗</span>Programação comercial ou de entretenimento privado</li>
+        <li><span class="mark">✗</span>Publicidade privada ou comercial</li>
+        <li><span class="mark">✗</span>Campanhas políticas ou partidárias</li>
+        <li><span class="mark">✗</span>Atividades de partidos políticos</li>
+        <li><span class="mark">✗</span>Promoção pessoal de qualquer natureza</li>
+        <li><span class="mark">✗</span>Despesas de moradia ou consumo pessoal</li>
+        <li><span class="mark">✗</span>Produção de conteúdo de interesse exclusivamente comercial</li>
+        <li><span class="mark">✗</span>Aquisição de ativos não relacionados ao objeto do projeto</li>
+        <li><span class="mark">✗</span>Qualquer despesa não prevista no plano de trabalho aprovado</li>
+      </ul>
+    </div>
+  </div>
+  <div class="nota"><p><strong>Nota jurídica:</strong> Todo o recurso será executado com prestação de contas trimestral, relatórios de impacto, registros fotográficos, listas de presença e documentação completa conforme exigências da Lei 14.133/2021 e normas do órgão repassador. O projeto admite auditoria a qualquer momento durante e após a execução.</p></div>
+</section>
+
+<!-- 08 GOVERNANÇA -->
+<section id="governanca" style="background: var(--bg-alt);">
+  <div class="sec-hdr"><span class="sec-num">08</span><span class="sec-ttl">Governança e prestação de contas</span></div>
+  <p class="statement">O projeto opera com <em>governança transparente, indicadores mensuráveis e prestação de contas contínua</em> — desde o primeiro dia de execução.</p>
+  <div class="gov-grid">
+    <div class="gov-item">
+      <h3 class="gov-title">Relatórios trimestrais</h3>
+      <p class="gov-text">Relatório de execução financeira e de impacto a cada três meses — com demonstrativo de despesas, comprovantes e indicadores alcançados, disponibilizados ao órgão repassador.</p>
+    </div>
+    <div class="gov-item">
+      <h3 class="gov-title">Registro de presença</h3>
+      <p class="gov-text">Lista de presença física em todas as oficinas — com nome, CPF, município de origem e assinatura de cada participante. Arquivo permanente disponível para auditoria.</p>
+    </div>
+    <div class="gov-item">
+      <h3 class="gov-title">Registro fotográfico e audiovisual</h3>
+      <p class="gov-text">Documentação fotográfica e em vídeo de todas as oficinas, eventos e atividades da unidade móvel — com data, localização e identificação dos participantes.</p>
+    </div>
+    <div class="gov-item">
+      <h3 class="gov-title">Metas mensuráveis</h3>
+      <p class="gov-text">Indicadores quantitativos por trimestre: número de jovens formados, municípios atendidos, conteúdos produzidos, horas de oficina realizadas — com comparativo de execução vs. meta.</p>
+    </div>
+    <div class="gov-item">
+      <h3 class="gov-title">Relatório final de impacto</h3>
+      <p class="gov-text">Ao término dos 24 meses: relatório completo de impacto social — com histórias dos jovens formados, resultados por município, acervo audiovisual produzido e análise de legado.</p>
+    </div>
+    <div class="gov-item">
+      <h3 class="gov-title">Transparência pública</h3>
+      <p class="gov-text">Todos os relatórios publicados na plataforma digital da rede — acessíveis à população, ao órgão repassador e a qualquer órgão de controle a qualquer momento.</p>
+    </div>
+    <div class="gov-item">
+      <h3 class="gov-title">Certificações preexistentes</h3>
+      <p class="gov-text">Ponto de Cultura certificado pelo Ministério da Cultura. Dois projetos aprovados pela Lei Rouanet — histórico de execução e prestação de contas junto ao MinC já estabelecido.</p>
+    </div>
+    <div class="gov-item">
+      <h3 class="gov-title">Auditorias admitidas</h3>
+      <p class="gov-text">O projeto admite auditoria financeira e de execução a qualquer momento — por parte do órgão repassador, CGU, TCU ou qualquer órgão de controle competente.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 09 TESTE DE RESISTÊNCIA -->
+<section id="resistencia">
+  <div class="sec-hdr"><span class="sec-num">09</span><span class="sec-ttl">Teste de resistência institucional</span></div>
+  <p class="statement">As objeções mais difíceis — <em>do gabinete, do controle, da imprensa e dos adversários</em> — e as respostas que o projeto já tem prontas.</p>
+
+  <div class="resist-block">
+    <p class="resist-label">A — Objeções do gabinete parlamentar</p>
+    <div style="overflow-x:auto;">
+    <table class="obj-table">
+      <thead><tr><th>Objeção</th><th>Risco</th><th>Resposta</th><th>Resolve onde</th></tr></thead>
+      <tbody>
+        <tr><td>Beneficia empresa privada?</td><td class="risco-baixo">Baixo</td><td>O recurso financia formação de jovens e inclusão digital — não operação comercial. A blindagem explicita isso com clareza.</td><td>Seção 07 — Blindagem</td></tr>
+        <tr><td>É apoio a uma emissora?</td><td class="risco-baixo">Baixo</td><td>O nome, a narrativa e os eixos do projeto posicionam comunicação como ferramenta — não como produto final. A emissora é infraestrutura de apoio.</td><td>Hero + Seção 02</td></tr>
+        <tr><td>Qual o retorno político?</td><td class="risco-baixo">Baixo</td><td>480 jovens formados, 8 municípios, 12 empregos. Legado verificável e comunicável em campanha eleitoral.</td><td>Seção 04 — Legado</td></tr>
+        <tr><td>O parlamentar consegue defender publicamente?</td><td class="risco-baixo">Baixo</td><td>"Investi na formação de jovens comunicadores e na inclusão digital de 8 municípios do Sul do ES." Narrativa simples, verificável.</td><td>Seção 04 + 06</td></tr>
+        <tr><td>Enquadramento na emenda é possível?</td><td class="risco-medio">Médio</td><td>Compatível com "esporte, educação, lazer e inclusão social" — rubrica já utilizada. Assessor de orçamento confirma o enquadramento específico.</td><td>Seção 06 — Políticas</td></tr>
+        <tr><td>Sustentabilidade pós-projeto?</td><td class="risco-medio">Médio</td><td>Unidade móvel operada via parcerias municipais. Jovens formados continuam independentemente. Detalhado no Eixo II e III.</td><td>Seção 02 — Eixos</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="resist-block">
+    <p class="resist-label">B — Objeções dos órgãos de controle (CGU / TCU)</p>
+    <div style="overflow-x:auto;">
+    <table class="obj-table">
+      <thead><tr><th>Objeção</th><th>Risco</th><th>Resposta</th><th>Resolve onde</th></tr></thead>
+      <tbody>
+        <tr><td>CNPJ de empresa privada pode receber?</td><td class="risco-alto">Alto</td><td>Depende da modalidade de emenda. Assessor jurídico do gabinete define o enquadramento correto — via prefeitura de Piúma ou outra estrutura adequada.</td><td>A definir com gabinete</td></tr>
+        <tr><td>Prestação de contas como será feita?</td><td class="risco-baixo">Baixo</td><td>Relatórios trimestrais, registro de presença, documentação fotográfica, relatório final de impacto — tudo especificado na seção de governança.</td><td>Seção 08 — Governança</td></tr>
+        <tr><td>Indicadores são verificáveis?</td><td class="risco-baixo">Baixo</td><td>Sim — número de jovens, horas de oficina, municípios atendidos, conteúdos produzidos. Todos auditáveis com documentação física.</td><td>Seção 04 — Legado</td></tr>
+        <tr><td>O objeto é compatível com a rubrica?</td><td class="risco-medio">Médio</td><td>Formação profissional, educação e inclusão digital estão alinhados com a rubrica de "esporte, educação, lazer e inclusão social".</td><td>Seção 06 — Políticas</td></tr>
+        <tr><td>Existe histórico de execução?</td><td class="risco-baixo">Baixo</td><td>Sim — Ponto de Cultura certificado pelo MinC e dois projetos executados via Lei Rouanet. Histórico de prestação de contas estabelecido.</td><td>Seção 07 + 10</td></tr>
+        <tr><td>O recurso pode ser desviado para fins pessoais?</td><td class="risco-baixo">Baixo</td><td>A blindagem explicita o que o recurso NÃO financia. Auditoria admitida a qualquer momento conforme especificado na governança.</td><td>Seção 07 + 08</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="resist-block">
+    <p class="resist-label">C — Objeções da imprensa</p>
+    <div style="overflow-x:auto;">
+    <table class="obj-table">
+      <thead><tr><th>Objeção</th><th>Risco</th><th>Resposta</th><th>Resolve onde</th></tr></thead>
+      <tbody>
+        <tr><td>Deputado financiou TV?</td><td class="risco-medio">Médio</td><td>O recurso financiou formação de jovens, inclusão digital e comunicação pública — não uma emissora. O nome e a estrutura do projeto comprovam isso.</td><td>Hero + Seção 07</td></tr>
+        <tr><td>Benefício restrito a Marataízes?</td><td class="risco-baixo">Baixo</td><td>Oito municípios atendidos, unidade móvel itinerante, sede em Piúma. O projeto é explicitamente regional — não local.</td><td>Seção 01 + 04</td></tr>
+        <tr><td>Quem é Raul Grecco e por que ele?</td><td class="risco-medio">Médio</td><td>25 anos de carreira, TV Globo, Cannes, John Toll, Marisa Monte — currículo nacional sólido que escolheu voltar ao Sul do ES. Não é personalismo, é competência comprovada.</td><td>Seção 10 — Diretor</td></tr>
+        <tr><td>Conflito de interesse — deputado da comunicação apoia TV?</td><td class="risco-medio">Médio</td><td>O projeto é de formação e inclusão digital — não de emissora comercial. O deputado defende comunicação pública, não comunicação privada.</td><td>Seção 06 + 07</td></tr>
+        <tr><td>Os jovens realmente serão formados?</td><td class="risco-baixo">Baixo</td><td>Cine Arte Marataízes existe há mais de 5 anos com oficinas contínuas. Lei Rouanet aprovada para formação em 4 municípios. Histórico real e verificável.</td><td>Seção 10 — Estrutura</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="resist-block">
+    <p class="resist-label">D — Objeções de adversários políticos</p>
+    <div style="overflow-x:auto;">
+    <table class="obj-table">
+      <thead><tr><th>Objeção</th><th>Risco</th><th>Resposta</th><th>Resolve onde</th></tr></thead>
+      <tbody>
+        <tr><td>Emenda para TV do amigo?</td><td class="risco-medio">Médio</td><td>O recurso é para formação de jovens e inclusão digital — documentado, auditável e alinhado às políticas federais. Qualquer adversário que atacar está atacando formação de jovens.</td><td>Seção 04 + 07 + 08</td></tr>
+        <tr><td>Por que Piúma e não outra cidade?</td><td class="risco-baixo">Baixo</td><td>Piúma é geograficamente central no Sul do ES — acesso a todos os municípios da região. E a unidade móvel atende todos os outros municípios igualmente.</td><td>Seção 01 + 04</td></tr>
+        <tr><td>Só beneficia o Sul do ES?</td><td class="risco-baixo">Baixo</td><td>O Sul do ES tem 680 mil habitantes sem estrutura de comunicação pública regional. É exatamente o tipo de intervenção que uma emenda parlamentar deve fazer.</td><td>Seção 01</td></tr>
+        <tr><td>Projeto não tem histórico de entrega?</td><td class="risco-baixo">Baixo</td><td>Cinco anos de Cine Arte, dois projetos Lei Rouanet executados, Ponto de Cultura, 300+ documentários produzidos. Histórico robusto e verificável.</td><td>Seção 10 — Estrutura</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- 10 ESTRUTURA E DIRETOR -->
+<section id="estrutura" style="background: var(--bg-alt);">
+  <div class="sec-hdr"><span class="sec-num">10</span><span class="sec-ttl">Infraestrutura em operação e equipe de execução</span></div>
+  <p class="statement">O projeto não começa do zero. <em>A estrutura já existe, já opera e já tem histórico de prestação de contas.</em></p>
+  <div class="struct-list">
+    <div class="struct-item"><span class="struct-label">Televisão regional</span><span class="struct-value"><strong>TV Marataízes — Canal 300</strong><br>Televisão regional em operação 24 horas cobrindo o Sul do ES — infraestrutura de suporte ao programa.</span></div>
+    <div class="struct-item"><span class="struct-label">Portal digital âncora</span><span class="struct-value"><strong>tvsulcapixaba.com.br</strong><br>Portal de notícias em expansão — plataforma digital central da rede regional.</span></div>
+    <div class="struct-item"><span class="struct-label">Portal local</span><span class="struct-value"><strong>tvmarataizes.digital</strong><br>Portal de notícias local com cobertura diária — já em operação.</span></div>
+    <div class="struct-item"><span class="struct-label">Certificação federal</span><span class="struct-value"><strong>Ponto de Cultura</strong> certificado pelo Ministério da Cultura<br><strong>Dois projetos aprovados pela Lei Rouanet</strong> — Festival de Cinema de Marataízes e formação audiovisual em quatro municípios.</span></div>
+    <div class="struct-item"><span class="struct-label">Histórico de formação</span><span class="struct-value"><strong>Cine Arte Marataízes — 5+ anos de oficinas contínuas</strong><br>Câmera, edição, fotografia e cinema para jovens e adultos do Sul do ES. Histórico real e verificável de formação audiovisual na região.</span></div>
+  </div>
+
+  <div style="margin-top:3rem;">
+    <p class="sec-ttl" style="margin-bottom:2rem;">Responsável pela execução</p>
+    <div class="dir-grid">
+      <div>
+        <p class="dir-statement">Raul Grecco Reis da Silva é a garantia técnica e institucional do projeto. <em>25 anos de carreira nacional e internacional em audiovisual — com escolha deliberada de construir no Sul do ES.</em></p>
+        <p class="body-text" style="margin-top:1.25rem;">Não é um projeto de fora chegando à região. É a região desenvolvendo seus próprios meios — por alguém com vínculo anterior à própria formação da cidade de Marataízes. O currículo não é biografia. É a garantia de que o projeto será executado com qualidade profissional comprovada.</p>
+      </div>
+      <div>
+        <div class="cred-row"><strong>Televisão</strong>TV Globo — direção de making of, programa infantil Penadinho</div>
+        <div class="cred-row"><strong>Cinema internacional</strong>Assistente de câmera de John Toll (Oscar — Coração Valente), Fábio Barreto, Breno Silveira, Andrucha Waddington</div>
+        <div class="cred-row"><strong>Música</strong>DVDs de Marisa Monte, Gal Costa, Maria Bethânia, Caetano Veloso e Djavan</div>
+        <div class="cred-row"><strong>Festival de Cannes</strong>Curta exibido no Cannes Short Film Corner · Festival de Brasília 2006</div>
+        <div class="cred-row"><strong>Competição internacional</strong>3º lugar — Orange Clipes, França, 2005</div>
+        <div class="cred-row"><strong>Produção executiva</strong>DVD "Mulheres da Mangueira" — Beth Carvalho, Chico Buarque, Zeca Pagodinho, Alcione · Patrocínio Petrobras</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 PROPOSTA -->
+<section id="proposta" class="dark-sec">
+  <div class="sec-hdr"><span class="sec-num">11</span><span class="sec-ttl">Proposta</span></div>
+  <p class="prop-statement">Implantar o Centro Sul Capixaba de Comunicação, Formação e Inclusão Digital — <em>com sede em Piúma e unidade móvel cobrindo todos os municípios do Sul do Espírito Santo.</em></p>
+  <div class="prop-items">
+    <div class="prop-item"><p class="prop-item-title">Formação profissional</p><p class="prop-item-text">480+ jovens capacitados em comunicação, audiovisual, tecnologia e IA — com certificação e inserção no mercado criativo regional.</p></div>
+    <div class="prop-item"><p class="prop-item-title">Unidade móvel</p><p class="prop-item-text">Veículo adaptado percorrendo todos os municípios — oficinas, cobertura e inclusão digital onde não há infraestrutura fixa.</p></div>
+    <div class="prop-item"><p class="prop-item-title">Jovens comunicadores</p><p class="prop-item-text">Rede de 40+ jovens comunicadores locais produzindo conteúdo de interesse público em seus próprios municípios.</p></div>
+    <div class="prop-item"><p class="prop-item-title">Centro regional</p><p class="prop-item-text">Sede permanente em Piúma com estúdio, equipamentos e equipe local — primeira unidade regional fora de Marataízes.</p></div>
+  </div>
+  <p class="prop-note">A estrutura já existe, já opera e já tem impacto documentável. O apoio viabiliza o salto de uma operação local para uma rede regional permanente — com legado verificável para os jovens, para os municípios e para o Sul do Espírito Santo.</p>
+</section>
+
+<!-- 12 CONTATO INSTITUCIONAL -->
+<section>
+  <div class="sec-hdr"><span class="sec-num">12</span><span class="sec-ttl">Contato institucional</span></div>
+  <p class="statement">A estrutura já existe, já opera e já tem impacto documentável. <em>O próximo passo é a conversa.</em></p>
+  <div class="nota"><p><strong>Para o gabinete:</strong> O projeto está pronto para análise institucional. Orçamento detalhado disponível para apresentação institucional.</p></div>
+  <div class="nota" style="margin-top:1rem;"><p><strong>Contato:</strong> Raul Grecco Reis da Silva · (21) 97923-4333 · raulgreccoreis@gmail.com · tvsulcapixaba.com.br</p></div>
+</section>
+
+<footer>
+  <div>
+    <p class="footer-brand">Centro Sul Capixaba de Comunicação, Formação e Inclusão Digital</p>
+    <p class="footer-detail">Raul Grecco Reis da Silva · Macuca Produções<br>Marataízes · Piúma · Sul do Espírito Santo</p>
+  </div>
+  <div class="footer-contact">
+    <a href="https://tvsulcapixaba.com.br">tvsulcapixaba.com.br</a>
+    <a href="https://tvmarataizes.digital">tvmarataizes.digital</a>
+    <a href="https://macucaproducoes.com.br">macucaproducoes.com.br</a>
+    <a href="tel:+5521979234333">(21) 97923-4333</a>
+  </div>
+</footer>
+
+</body>
+</html>
