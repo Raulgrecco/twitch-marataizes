@@ -482,6 +482,79 @@ body{background:var(--black);color:var(--white);font-family:'Montserrat',-apple-
   .seg-sub           { font-size: 1.05rem; }
 }
 
+
+/* ── CASE SOLO ── */
+.case-solo{
+  min-height:70vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:8rem 2rem;
+  text-align:center;
+  position:relative;overflow:hidden;
+  background:var(--black);
+}
+.case-solo-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 65% 55% at 50% 50%,rgba(200,0,30,0.09) 0%,transparent 65%);
+  pointer-events:none;
+}
+.case-solo-inner{max-width:680px;margin:0 auto;}
+.case-solo-pre{
+  font-size:1.2rem;font-weight:300;
+  color:var(--g4);
+  margin-bottom:2.5rem;
+  letter-spacing:0.02em;
+}
+.case-solo-main{
+  font-size:clamp(2rem,5vw,3.8rem);
+  font-weight:800;line-height:1.15;
+  letter-spacing:-0.03em;
+  color:var(--white);
+}
+.case-solo-main em{
+  font-style:italic;font-weight:300;color:var(--red);
+}
+
+/* ── TRÊS BLOCOS WRAP ── */
+.case-three-wrap{
+  padding:6rem 2rem;
+  background:var(--g1);
+  text-align:center;
+  border-top:1px solid rgba(255,255,255,0.05);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.case-three-label{
+  font-size:0.82rem;font-weight:800;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--g3);margin-bottom:2.5rem;
+}
+.case-three{
+  display:flex;align-items:center;justify-content:center;
+  gap:0;flex-wrap:wrap;
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:16px;overflow:hidden;
+  max-width:760px;margin:0 auto;
+}
+.case-three-col{
+  flex:1;min-width:160px;
+  padding:2rem 1.5rem;
+  background:var(--off);
+  display:flex;flex-direction:column;gap:0.5rem;
+  text-align:center;
+}
+.case-three-sep{
+  font-size:1.5rem;font-weight:200;color:var(--g3);
+  padding:1rem;background:var(--black);flex-shrink:0;
+}
+.case-three-who{font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--g3);}
+.case-three-what{font-size:1rem;font-weight:600;color:var(--white);line-height:1.3;}
+
+@media(max-width:640px){
+  .case-solo-pre{font-size:1rem;}
+  .case-three{flex-direction:column;}
+  .case-three-sep{padding:0.5rem;width:100%;border-top:1px solid rgba(255,255,255,0.06);}
+  .case-three-col{width:100%;border-right:none;}
+}
+
 </style>
 </head>
 <body>
@@ -564,7 +637,7 @@ body{background:var(--black);color:var(--white);font-family:'Montserrat',-apple-
 
 <!-- STATS -->
 <div class="stats-wrap">
-  <h2 class="stats-h reveal">18 meses. <span class="red">Sem parar.</span><br>Sem concorrente.</h2>
+  <h2 class="stats-h reveal">18 meses. <span class="red">Sem parar.</span><br>Exclusividade total.</h2>
 
   <div class="stats-row reveal">
     <div class="s-cell">
@@ -580,8 +653,8 @@ body{background:var(--black);color:var(--white);font-family:'Montserrat',-apple-
       <span class="s-l">posts no feed<br>qui · sex · sáb</span>
     </div>
     <div class="s-cell">
-      <span class="s-n">0</span>
-      <span class="s-l">exclusividade<br>automotiva</span>
+      <span class="s-n">1</span>
+      <span class="s-l">única loja<br>automotiva</span>
     </div>
   </div>
 
@@ -636,7 +709,7 @@ body{background:var(--black);color:var(--white);font-family:'Montserrat',-apple-
     Todo mês, a Cleber Veículos terá presença editorial em
     <a href="https://www.tvsulcapixaba.com.br" target="_blank">tvsulcapixaba.com.br</a> —
     o portal de notícias do sul do Espírito Santo.
-    Conteúdo jornalístico, não publicitário. Presença que indexa no Google e constrói autoridade.
+    Conteúdo editorial sobre o mercado automotivo regional, com publicação permanente no portal.
   </p>
 </div>
 
@@ -652,24 +725,33 @@ body{background:var(--black);color:var(--white);font-family:'Montserrat',-apple-
 </div>
 
 
-<!-- POR QUE ESTA OPORTUNIDADE EXISTE -->
+<!-- PARCERIA -->
 <div class="opp-section">
   <div class="opp-bg"></div>
   <div class="opp-inner">
-    <p class="opp-tag reveal">Por que esta oportunidade existe</p>
+    <p class="opp-tag reveal">A parceria</p>
     <h2 class="opp-h reveal">
-      Não estamos<br>vendendo mídia.<br>
-      <span class="red">Estamos escolhendo<br>um parceiro.</span>
+      Não estamos vendendo mídia.<br>
+      <span class="red">Estamos escolhendo um parceiro.</span>
     </h2>
     <div class="opp-body reveal">
-      <p>A TV Marataízes está construindo sua grade própria de conteúdo regional. Em vez de vender espaços publicitários para dezenas de anunciantes, decidimos criar projetos de longo prazo com parceiros estratégicos.</p>
-      <p>A Cleber Veículos foi escolhida porque possui <strong>estoque ativo, presença digital consolidada e reconhecimento regional</strong>.</p>
-      <p>Nosso interesse não é vender mídia por algumas semanas. Nosso interesse é construir, durante 18 meses, a principal referência automotiva da região.</p>
+      <p>A TV Marataízes está construindo sua grade própria de conteúdo regional. Em vez de vender espaços para dezenas de anunciantes, criamos projetos de longo prazo com parceiros estratégicos.</p>
+      <p>A Cleber Veículos foi escolhida porque possui <strong>estoque ativo, presença digital consolidada e reconhecimento regional.</strong></p>
+      <p>Por isso, propomos uma parceria baseada em comprometimento de longo prazo — não em campanhas isoladas.</p>
     </div>
     <div class="opp-manifesto reveal">
       Uma parceria. Um programa. Uma loja.<br>
       <span class="red">Durante 18 meses.</span>
     </div>
+  </div>
+</div>
+
+<!-- CASE SOLO -->
+<div class="case-solo">
+  <div class="case-solo-bg"></div>
+  <div class="case-solo-inner reveal">
+    <p class="case-solo-pre">Não estamos oferecendo publicidade.</p>
+    <p class="case-solo-main">Estamos convidando a Cleber Veículos para se tornar o <em>primeiro grande case automotivo</em> da TV Marataízes.</p>
   </div>
 </div>
 
@@ -698,10 +780,6 @@ body{background:var(--black);color:var(--white);font-family:'Montserrat',-apple-
       </div>
       <div class="seg-item">
         <span class="seg-check">✓</span>
-        <span>Entregas definidas em contrato: programa semanal na TV, conteúdo semanal no Instagram, chamadas promocionais e exclusividade do segmento</span>
-      </div>
-      <div class="seg-item">
-        <span class="seg-check">✓</span>
         <span>Caso as entregas contratuais não sejam cumpridas, a Cleber Veículos poderá rescindir o acordo e solicitar a devolução imediata do veículo</span>
       </div>
       <div class="seg-item">
@@ -713,51 +791,23 @@ body{background:var(--black);color:var(--white);font-family:'Montserrat',-apple-
   </div>
 </div>
 
-<!-- O CASE -->
-<div class="case-section">
-  <div class="case-bg"></div>
-  <div class="case-inner">
-    <p class="case-tag reveal">Por que propomos este modelo</p>
-    <h2 class="case-h reveal">
-      Um grande <em>case</em><br>
-      vale mais do que<br>
-      <span class="red">dezenas de anúncios.</span>
-    </h2>
-    <div class="case-body reveal">
-      <p>A Cleber Veículos não está sendo convidada para comprar publicidade.</p>
-      <p><strong>Está sendo convidada para se tornar o primeiro grande case automotivo da TV Marataízes.</strong></p>
-      <p>Durante 18 meses, vamos documentar, divulgar e fortalecer a presença da marca em TV, Instagram e portal regional.</p>
+<!-- TRÊS BLOCOS FINAIS -->
+<div class="case-three-wrap">
+  <p class="case-three-label reveal">Se isso acontecer, todos ganham.</p>
+  <div class="case-three reveal">
+    <div class="case-three-col">
+      <span class="case-three-who">A Cleber Veículos</span>
+      <span class="case-three-what">fortalece sua marca</span>
     </div>
-    <div class="case-legacy reveal">
-      <p class="case-legacy-label">O que permanece ao final dos 18 meses</p>
-      <div class="case-legacy-grid">
-        <div class="case-legacy-item">Acervo de conteúdo produzido</div>
-        <div class="case-legacy-item">Presença digital construída</div>
-        <div class="case-legacy-item">Posicionamento conquistado</div>
-        <div class="case-legacy-item">Matérias publicadas no portal</div>
-        <div class="case-legacy-item">Reconhecimento regional gerado</div>
-        <div class="case-legacy-item">Histórico de um case de sucesso</div>
-      </div>
+    <div class="case-three-sep">+</div>
+    <div class="case-three-col">
+      <span class="case-three-who">A TV Marataízes</span>
+      <span class="case-three-what">valida seu modelo</span>
     </div>
-    <div class="case-closing reveal">
-      <p>Enquanto investimentos em publicidade desaparecem quando a campanha termina,</p>
-      <p class="case-closing-strong">um case continua gerando valor.</p>
-    </div>
-    <div class="case-three reveal">
-      <div class="case-three-col">
-        <span class="case-three-who">A Cleber Veículos</span>
-        <span class="case-three-what">fortalece sua marca</span>
-      </div>
-      <div class="case-three-sep">+</div>
-      <div class="case-three-col">
-        <span class="case-three-who">A TV Marataízes</span>
-        <span class="case-three-what">valida seu modelo</span>
-      </div>
-      <div class="case-three-sep">+</div>
-      <div class="case-three-col">
-        <span class="case-three-who">A parceria</span>
-        <span class="case-three-what">vira referência regional</span>
-      </div>
+    <div class="case-three-sep">+</div>
+    <div class="case-three-col">
+      <span class="case-three-who">A parceria</span>
+      <span class="case-three-what">vira referência regional</span>
     </div>
   </div>
 </div>
@@ -781,7 +831,7 @@ body{background:var(--black);color:var(--white);font-family:'Montserrat',-apple-
     </div>
     <div class="p-c">
       <p class="p-c-l">Territórios</p>
-      <p class="p-c-v">MRT · ITP · KNY</p>
+      <p class="p-c-v">Marataízes · Itapemirim · Presidente Kennedy</p>
     </div>
     <div class="p-c">
       <p class="p-c-l">Exclusividade</p>
