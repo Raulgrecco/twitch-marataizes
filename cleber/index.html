@@ -562,6 +562,54 @@ body{background:var(--black);color:var(--white);font-family:'Montserrat',-apple-
   animation-fill-mode:both;
 }
 
+
+/* ── CREDIBILIDADE ── */
+.cred-section{
+  padding:7rem 2rem;
+  background:var(--g1);
+  border-top:1px solid rgba(255,255,255,0.05);
+  text-align:center;
+}
+.cred-inner{max-width:700px;margin:0 auto;}
+.cred-tag{
+  font-size:0.82rem;font-weight:800;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--g3);margin-bottom:1.5rem;
+}
+.cred-h{
+  font-size:clamp(2rem,5vw,3.5rem);font-weight:700;
+  letter-spacing:-0.03em;color:var(--white);
+  margin-bottom:0.75rem;
+}
+.cred-sub{
+  font-size:1rem;font-weight:300;color:var(--g3);
+  margin-bottom:2.5rem;line-height:1.6;
+}
+.cred-pills{
+  display:flex;flex-wrap:wrap;gap:0.65rem;
+  justify-content:center;margin-bottom:2.5rem;
+}
+.cred-pill{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:100px;
+  padding:0.55rem 1.25rem;
+  font-size:0.8rem;font-weight:500;
+  color:rgba(245,245,247,0.65);
+}
+.cred-close{
+  font-size:1rem;font-weight:500;
+  color:rgba(245,245,247,0.5);
+  line-height:1.6;
+  border-top:1px solid rgba(255,255,255,0.06);
+  padding-top:2rem;
+  font-style:italic;
+}
+
+@media(max-width:640px){
+  .cred-pill{font-size:0.85rem;}
+  .cred-close{font-size:0.95rem;}
+}
+
 </style>
 </head>
 <body>
@@ -848,6 +896,28 @@ body{background:var(--black);color:var(--white);font-family:'Montserrat',-apple-
   <p class="prop-guar">
     Veículo em comodato durante o contrato. Cumpridas as entregas, transferência formalizada ao final dos 18 meses. Em caso de descumprimento, o veículo é devolvido integralmente.
   </p>
+</div>
+
+
+<!-- CREDIBILIDADE -->
+<div class="cred-section">
+  <div class="cred-inner">
+    <p class="cred-tag reveal">Quem está por trás</p>
+    <h2 class="cred-h reveal">Raul Grecco</h2>
+    <p class="cred-sub reveal">Diretor, produtor audiovisual e fundador da TV Marataízes.</p>
+    <div class="cred-pills reveal">
+      <span class="cred-pill">TV Globo · 1998</span>
+      <span class="cred-pill">25 anos de experiência</span>
+      <span class="cred-pill">600+ produções publicitárias</span>
+      <span class="cred-pill">Coca-Cola · Volkswagen · Heineken · McDonald's</span>
+      <span class="cred-pill">Cannes Short Film Corner</span>
+      <span class="cred-pill">Soul TV · Canal 300</span>
+      <span class="cred-pill">130.185 impactos em 8 meses</span>
+      <span class="cred-pill">Lei Rouanet · Secult-ES</span>
+      <span class="cred-pill">Ponto de Cultura · Ministério da Cultura</span>
+    </div>
+    <p class="cred-close reveal">O Partida é produzido por quem já fez isso antes — em escala nacional.</p>
+  </div>
 </div>
 
 <!-- FOOTER -->
