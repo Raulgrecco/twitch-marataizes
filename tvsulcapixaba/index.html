@@ -244,14 +244,15 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .sidebar-cidades-btn:hover{background:var(--brand-dark)}
 
 /* Card mobile Encontre sua Cidade — aparece só quando sidebar some */
-.mobile-cidades-card{display:none;background:var(--brand);border-radius:10px;margin:0 0 20px 0;overflow:hidden;cursor:pointer}
-.mobile-cidades-card-inner{padding:16px}
+.mobile-cidades-card{display:block;background:var(--brand);border-radius:10px;margin:0 0 20px 0;overflow:hidden;cursor:pointer}
+.mobile-cidades-card-inner{padding:20px 24px}
 .mobile-cidades-card-eyebrow{font-size:10px;color:rgba(255,255,255,.75);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
-.mobile-cidades-card-titulo{font-size:18px;font-weight:900;color:#fff;font-family:'Playfair Display',serif;margin-bottom:4px;line-height:1.2}
-.mobile-cidades-card-sub{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:12px}
-.mobile-cidades-card-chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
-.mobile-cidades-card-chips span{background:rgba(255,255,255,.2);color:#fff;border-radius:20px;font-size:10px;padding:3px 8px;font-weight:600}
-.mobile-cidades-card-cta{background:#fff;color:var(--brand);border-radius:6px;padding:10px 16px;font-size:12px;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:.5px}
+.mobile-cidades-card-titulo{font-size:22px;font-weight:900;color:#fff;font-family:'Playfair Display',serif;margin-bottom:6px;line-height:1.2}
+.mobile-cidades-card-sub{font-size:13px;color:rgba(255,255,255,.85);margin-bottom:14px}
+.mobile-cidades-card-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.mobile-cidades-card-chips span{background:rgba(255,255,255,.2);color:#fff;border-radius:20px;font-size:11px;padding:4px 10px;font-weight:600}
+.mobile-cidades-card-cta{background:#fff;color:var(--brand);border-radius:6px;padding:11px 16px;font-size:12px;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:.5px}
+.sidebar-cidades-box{display:none}
 @media(max-width:900px){
   .mobile-cidades-card{display:block}
 }
