@@ -997,10 +997,8 @@ function tscLoadCidade(cidadeId, cidadeNome) {
   if (typeof data !== 'undefined' && data && data.blocks) {
     var noticias = data.blocks.filter(function(b) {
       if (!b.title) return false;
-      // Critério 1: campo cidade explícito (qualquer section)
+      // Critério principal: campo cidade explícito preenchido
       if (b.cidade && b.cidade === cidadeId) return true;
-      // Critério 2: fallback por nome da cidade no título (section turismo)
-      if (b.section === 'turismo' && !b.cidade && b.title && b.title.toLowerCase().indexOf(cidadeNome.toLowerCase()) !== -1) return true;
       return false;
     });
 
@@ -2299,12 +2297,13 @@ function buildAdminForm() {
   knownSections.forEach(sec => {
     const el = document.getElementById('admin-blocks-' + sec);
     if (!el) return;
-    const items = data.blocks.map((b,i) => ({b,i})).filter(({b}) => b.section === sec);
+    // Exclui matérias com cidade preenchida — essas vão para a área Cidades
+    const items = data.blocks.map((b,i) => ({b,i})).filter(({b}) => b.section === sec && (!b.cidade || b.cidade === ''));
     el.innerHTML = items.map(({b,i}) => buildBlockCard(b, i)).join('');
   });
 
-  // Matérias com section desconhecida aparecem na seção mais próxima ou na última conhecida
   // Matérias com section desconhecida — usa catClass para determinar seção correta
+  // Também exclui matérias com cidade preenchida
   const catClassMap = {
     'cat-sul': 'ultimas', 'cat-politica': 'politica', 'cat-policia': 'policia',
     'cat-saude': 'saude', 'cat-turismo': 'turismo', 'cat-cultura': 'cultura',
@@ -2314,10 +2313,9 @@ function buildAdminForm() {
   };
   const unknownItems = data.blocks
     .map((b,i) => ({b,i}))
-    .filter(({b}) => !['mais-lidas','interior','video',...knownSections].includes(b.section));
+    .filter(({b}) => !['mais-lidas','interior','video',...knownSections].includes(b.section) && (!b.cidade || b.cidade === ''));
   if (unknownItems.length > 0) {
     unknownItems.forEach(({b,i}) => {
-      // Primeiro tenta mapear pelo catClass, senão usa a section como fallback, senão ultimas
       const targetSec = catClassMap[b.catClass] || (knownSections.includes(b.section) ? b.section : 'ultimas');
       const el = document.getElementById('admin-blocks-' + targetSec);
       if (el) el.innerHTML += buildBlockCard(b, i);
@@ -2375,8 +2373,8 @@ function buildAdminCidades() {
     TSC_MUNICIPIOS.sul
   );
 
-  // Matérias de turismo indexadas
-  const blocos = data.blocks.map((b,i) => ({b,i})).filter(({b}) => b.section === 'turismo');
+  // Matérias com cidade atribuída — independente de section
+  const blocos = data.blocks.map((b,i) => ({b,i})).filter(({b}) => b.cidade && b.cidade !== '');
 
   // Sem cidade atribuída
   const semCidade = blocos.filter(({b}) => !b.cidade || b.cidade === '');
