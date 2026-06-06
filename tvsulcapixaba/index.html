@@ -2374,11 +2374,22 @@ function buildAdminCidades() {
   );
 
   // REGRA ÚNICA: só matérias com cidade explicitamente preenchida
-  const blocos = data.blocks.map((b,i) => ({b,i})).filter(({b}) => b.cidade && b.cidade.trim() !== '');
+  // EXCEÇÃO: rascunhos recém-criados (rascunho:true) sem cidade aparecem para edição
+  const blocos = data.blocks.map((b,i) => ({b,i})).filter(({b}) => {
+    if (b.cidade && b.cidade.trim() !== '') return true;
+    if (b.rascunho && b.section === 'turismo') return true;
+    return false;
+  });
 
   // Limpa o div legado de "sem cidade" — não usamos mais
   const semEl = document.getElementById('admin-blocks-turismo-sem-cidade');
-  if (semEl) semEl.innerHTML = '';
+  if (semEl) {
+    const rascunhos = blocos.filter(({b}) => b.rascunho && (!b.cidade || b.cidade.trim() === ''));
+    semEl.innerHTML = rascunhos.length > 0
+      ? '<div style="background:#fef3c7;border:1px solid #f59e0b;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:#92400e;font-weight:700;">⚠️ Selecione a cidade antes de salvar</div>' +
+        '<div class="admin-slides-list">' + rascunhos.map(({b,i}) => buildBlockCard(b,i)).join('') + '</div>'
+      : '';
+  }
 
   // Agrupadas por município
   const gruposEl = document.getElementById('admin-cidades-grupos');
