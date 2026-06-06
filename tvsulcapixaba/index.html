@@ -1242,8 +1242,8 @@ if (document.readyState === 'loading') {
           </div>
           <div class="admin-slides-list" id="admin-blocks-saude"></div>
         </div>
-        <!-- ══ TURISMO SUL CAPIXABA — SEÇÃO DESTACADA ══ -->
-        <div class="admin-section" style="border:2px solid #003781;border-radius:10px;padding:14px;background:linear-gradient(135deg,#003781,#00509e);margin:12px 0;">
+        <!-- ══ CIDADES DO SUL CAPIXABA — SEÇÃO DESTACADA ══ -->
+        <div class="admin-section" id="admin-cidades-section" style="border:2px solid #003781;border-radius:10px;padding:14px;background:linear-gradient(135deg,#003781,#00509e);margin:12px 0;">
           <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.2);margin-bottom:14px;">
             <span style="color:#fff;font-size:13px;font-weight:800;letter-spacing:.5px;">📍 CIDADES DO SUL CAPIXABA</span>
             <button onclick="addBlock('turismo')" style="background:#fff;color:#003781;border:none;padding:6px 14px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:800;">✚ + Nova matéria</button>
@@ -1256,9 +1256,12 @@ if (document.readyState === 'loading') {
             4. Adicione parceiros com logo, WhatsApp e link<br>
             5. Clique em <strong style="color:#fff;">💾 Salvar tudo</strong>
           </div>
-          <div class="admin-slides-list" id="admin-blocks-turismo"></div>
+          <!-- matérias sem cidade atribuída -->
+          <div id="admin-blocks-turismo-sem-cidade" style="margin-bottom:8px"></div>
+          <!-- grupos por município — preenchidos por buildAdminCidades() -->
+          <div id="admin-cidades-grupos"></div>
         </div>
-        <!-- ══ FIM TURISMO ══ -->
+        <!-- ══ FIM CIDADES ══ -->
         <div class="admin-section">
           <div class="admin-section-title">🎭 Cultura
             <button onclick="addBlock('cultura')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
@@ -2335,6 +2338,9 @@ function buildAdminForm() {
     });
   }
 
+  // ── CIDADES agrupadas por município ─────────────────────
+  buildAdminCidades();
+
   // ── VÍDEOS ──────────────────────────────────────────────
   const videosList = document.getElementById('admin-videos-list');
   const vids = data.blocks.filter(b => b.section === 'video');
@@ -2372,6 +2378,53 @@ function buildAdminForm() {
   document.getElementById('cfg-ticker').value  = data.config.ticker;
   document.getElementById('cfg-live').value    = data.config.live;
   document.getElementById('cfg-weather').value = data.config.weather;
+}
+
+// ── Builder: cidades agrupadas por município ──────────────
+function buildAdminCidades() {
+  const todas = [].concat(
+    TSC_MUNICIPIOS.litoral,
+    TSC_MUNICIPIOS.cachoeiro,
+    TSC_MUNICIPIOS.serras,
+    TSC_MUNICIPIOS.sul
+  );
+
+  // Matérias de turismo indexadas
+  const blocos = data.blocks.map((b,i) => ({b,i})).filter(({b}) => b.section === 'turismo');
+
+  // Sem cidade atribuída
+  const semCidade = blocos.filter(({b}) => !b.cidade || b.cidade === '');
+  const semEl = document.getElementById('admin-blocks-turismo-sem-cidade');
+  if (semEl) {
+    semEl.innerHTML = semCidade.length > 0
+      ? '<div style="color:rgba(255,255,255,.7);font-size:11px;margin-bottom:6px;font-weight:700;">⚠️ Sem cidade atribuída</div>' +
+        '<div class="admin-slides-list">' + semCidade.map(({b,i}) => buildBlockCard(b,i)).join('') + '</div>'
+      : '';
+  }
+
+  // Agrupadas por município
+  const gruposEl = document.getElementById('admin-cidades-grupos');
+  if (!gruposEl) return;
+
+  let html = '';
+  todas.forEach(function(m) {
+    const materias = blocos.filter(({b}) => b.cidade === m.id);
+    // Só mostra município se tiver matérias
+    if (materias.length === 0) return;
+    html += `
+      <div style="margin-bottom:14px;background:rgba(255,255,255,.08);border-radius:8px;overflow:hidden;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,.15);cursor:pointer"
+             onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">
+          <span style="color:#fff;font-size:12px;font-weight:800;">${m.ico} ${m.nome} <span style="opacity:.7;font-weight:400;">(${materias.length} matéria${materias.length>1?'s':''})</span></span>
+          <span style="color:rgba(255,255,255,.6);font-size:14px;">▾</span>
+        </div>
+        <div style="padding:10px;" class="admin-slides-list">
+          ${materias.map(({b,i}) => buildBlockCard(b,i)).join('')}
+        </div>
+      </div>`;
+  });
+
+  gruposEl.innerHTML = html || '<div style="color:rgba(255,255,255,.6);font-size:12px;text-align:center;padding:10px;">Nenhuma matéria com cidade atribuída ainda.</div>';
 }
 
 // ── Builder: card de slide ────────────────────────────────
