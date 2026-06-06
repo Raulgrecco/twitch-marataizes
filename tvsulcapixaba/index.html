@@ -1064,11 +1064,10 @@ function cv2AbrirModal(id, nome) {
     }).join('') || '<div class="tsc-empty">Parceiros em breve.</div>';
 
     // Notícias
-    var mats = (d.materias || []).slice().sort(function(a,b){ return (b.data||'').localeCompare(a.data||''); });
+    var mats = (d.materias || []).slice().sort(function(a,b){ return (b.data||'').localeCompare(a.data||''); }); _cv2MatsAtual = mats;
     document.getElementById('cv2-modal-noticias-wrap').style.display = mats.length ? '' : 'none';
     document.getElementById('cv2-modal-noticias').innerHTML = mats.map(function(m) {
-      var mJson = JSON.stringify({title:m.titulo,sub:m.sub,body:m.body,date:m.data,autor:'Redação TV Sul Capixaba',img:m.img||''}).replace(/"/g,'&quot;');
-      return '<div style="border:1px solid #eee;border-radius:8px;overflow:hidden;cursor:pointer;" onclick="openArticle(' + mJson + ')">' +
+      return '<div style="border:1px solid #eee;border-radius:8px;overflow:hidden;cursor:pointer;margin-bottom:8px;" onclick="cv2OpenMateriaIdx(' + mats.indexOf(m) + ')">' +
         (m.img ? '<img src="' + m.img + '" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;">' : '') +
         '<div style="padding:10px 12px;"><div style="font-size:13px;font-weight:700;color:#1a1a1a;line-height:1.4;margin-bottom:4px;">' + m.titulo + '</div>' +
         '<div style="font-size:11px;color:#999;">' + (m.data||'') + '</div></div></div>';
@@ -1097,6 +1096,12 @@ function cv2AbrirModal(id, nome) {
   });
 }
 
+var _cv2MatsAtual = [];
+function cv2OpenMateriaIdx(idx) {
+  var m = _cv2MatsAtual[idx];
+  if (!m) return;
+  openArticle({title:m.titulo, sub:m.sub, body:m.body, date:m.data, autor:'Redação TV Sul Capixaba', img:m.img||''});
+}
 function cv2FecharModal() {
   document.getElementById('cv2-modal').style.display = 'none';
   document.body.style.overflow = '';
