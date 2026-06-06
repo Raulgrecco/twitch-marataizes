@@ -996,12 +996,19 @@ function tscLoadCidade(cidadeId, cidadeNome) {
   // Campo 'cidade' é o critério principal — título é fallback secundário
   if (typeof data !== 'undefined' && data && data.blocks) {
     var noticias = data.blocks.filter(function(b) {
-      if (b.section !== 'turismo') return false;
-      // Critério 1: campo cidade explícito (preferencial)
+      if (!b.title) return false;
+      // Critério 1: campo cidade explícito (qualquer section)
       if (b.cidade && b.cidade === cidadeId) return true;
-      // Critério 2: fallback por nome da cidade no título (menos confiável)
-      if (!b.cidade && b.title && b.title.toLowerCase().indexOf(cidadeNome.toLowerCase()) !== -1) return true;
+      // Critério 2: fallback por nome da cidade no título (section turismo)
+      if (b.section === 'turismo' && !b.cidade && b.title && b.title.toLowerCase().indexOf(cidadeNome.toLowerCase()) !== -1) return true;
       return false;
+    });
+
+    // Ordenar da mais recente para a mais antiga
+    noticias.sort(function(a, b) {
+      var da = a.date ? new Date(a.date.split('/').reverse().join('-')) : new Date(0);
+      var db = b.date ? new Date(b.date.split('/').reverse().join('-')) : new Date(0);
+      return db - da;
     });
 
     if (noticias.length > 0) {
