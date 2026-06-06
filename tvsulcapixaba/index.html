@@ -1211,103 +1211,89 @@ if (document.readyState === 'loading') {
       </div>
       <div class="admin-body">
 
-        <!-- CARROSSEL -->
-        <div class="admin-section">
-          <div class="admin-section-title">🎠 Carrossel Principal (manchetes)</div>
-          <div class="admin-slides-list" id="admin-slides-list"></div>
-        </div>
+        <!-- ══ ÁREA 1: PORTAL PRINCIPAL ══ -->
+        <div style="border:2px solid #d97706;border-radius:12px;padding:16px;background:#fffbeb;margin-bottom:20px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid #fde68a;">
+            <span style="font-size:18px;">📺</span>
+            <div>
+              <div style="font-size:13px;font-weight:800;color:#92400e;letter-spacing:.5px;text-transform:uppercase;">Portal Principal</div>
+              <div style="font-size:11px;color:#b45309;">TV Sul Capixaba — notícias gerais da região</div>
+            </div>
+          </div>
 
-        <!-- BLOCOS por seção -->
-        <div class="admin-section">
-          <div class="admin-section-title">📰 Últimas Notícias
-            <button onclick="addBlock('ultimas')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
+          <!-- CARROSSEL -->
+          <div class="admin-section">
+            <div class="admin-section-title">🎠 Carrossel (manchetes)</div>
+            <div class="admin-slides-list" id="admin-slides-list"></div>
           </div>
-          <div class="admin-slides-list" id="admin-blocks-ultimas"></div>
+
+          <div class="admin-section">
+            <div class="admin-section-title">📰 Últimas Notícias
+              <button onclick="addBlock('ultimas')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
+            </div>
+            <div class="admin-slides-list" id="admin-blocks-ultimas"></div>
+          </div>
+          <div class="admin-section">
+            <div class="admin-section-title">🏛 Política
+              <button onclick="addBlock('politica')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
+            </div>
+            <div class="admin-slides-list" id="admin-blocks-politica"></div>
+          </div>
+          <div class="admin-section">
+            <div class="admin-section-title">🚔 Polícia
+              <button onclick="addBlock('policia')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
+            </div>
+            <div class="admin-slides-list" id="admin-blocks-policia"></div>
+          </div>
+          <div class="admin-section">
+            <div class="admin-section-title">🏥 Saúde
+              <button onclick="addBlock('saude')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
+            </div>
+            <div class="admin-slides-list" id="admin-blocks-saude"></div>
+          </div>
+          <div class="admin-section">
+            <div class="admin-section-title">🎭 Cultura
+              <button onclick="addBlock('cultura')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
+            </div>
+            <div class="admin-slides-list" id="admin-blocks-cultura"></div>
+          </div>
+          <div class="admin-section">
+            <div class="admin-section-title">💰 Economia
+              <button onclick="addBlock('economia')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
+            </div>
+            <div class="admin-slides-list" id="admin-blocks-economia"></div>
+          </div>
+          <div class="admin-section" style="margin-bottom:0">
+            <div class="admin-section-title">📹 Vídeos (URLs Castr)</div>
+            <div class="admin-slides-list" id="admin-videos-list"></div>
+          </div>
         </div>
-        <div class="admin-section">
-          <div class="admin-section-title">🏛 Política
-            <button onclick="addBlock('politica')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
-          </div>
-          <div class="admin-slides-list" id="admin-blocks-politica"></div>
-        </div>
-        <div class="admin-section">
-          <div class="admin-section-title">🚔 Polícia
-            <button onclick="addBlock('policia')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
-          </div>
-          <div class="admin-slides-list" id="admin-blocks-policia"></div>
-        </div>
-        <div class="admin-section">
-          <div class="admin-section-title">🏥 Saúde
-            <button onclick="addBlock('saude')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
-          </div>
-          <div class="admin-slides-list" id="admin-blocks-saude"></div>
-        </div>
-        <!-- ══ CIDADES DO SUL CAPIXABA — SEÇÃO DESTACADA ══ -->
-        <div class="admin-section" id="admin-cidades-section" style="border:2px solid #003781;border-radius:10px;padding:14px;background:linear-gradient(135deg,#003781,#00509e);margin:12px 0;">
-          <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.2);margin-bottom:14px;">
-            <span style="color:#fff;font-size:13px;font-weight:800;letter-spacing:.5px;">📍 CIDADES DO SUL CAPIXABA</span>
-            <button onclick="addBlock('turismo')" style="background:#fff;color:#003781;border:none;padding:6px 14px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:800;">✚ + Nova matéria</button>
-          </div>
-          <div style="background:rgba(255,255,255,.12);border-radius:8px;padding:10px 12px;margin-bottom:14px;font-size:12px;color:rgba(255,255,255,.9);line-height:1.7;">
-            <strong style="color:#fff;">Como usar:</strong><br>
-            1. Clique em <strong style="color:#fff;">+ Nova matéria</strong><br>
-            2. Preencha título, texto e foto<br>
-            3. Selecione a <strong style="color:#fff;">📍 Cidade</strong> (ordem alfabética)<br>
-            4. Adicione parceiros com logo, WhatsApp e link<br>
-            5. Clique em <strong style="color:#fff;">💾 Salvar tudo</strong>
+        <!-- ══ FIM PORTAL PRINCIPAL ══ -->
+
+        <!-- ══ ÁREA 2: CIDADES DO SUL CAPIXABA ══ -->
+        <div id="admin-cidades-section" style="border:2px solid #b91c1c;border-radius:12px;padding:16px;background:#fff1f2;margin-bottom:20px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid #fecaca;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="font-size:18px;">📍</span>
+              <div>
+                <div style="font-size:13px;font-weight:800;color:#991b1b;letter-spacing:.5px;text-transform:uppercase;">Cidades do Sul Capixaba</div>
+                <div style="font-size:11px;color:#b91c1c;">Matérias agrupadas por município</div>
+              </div>
+            </div>
+            <button onclick="addBlock('turismo')" style="background:#b91c1c;color:#fff;border:none;padding:8px 16px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit;font-weight:800;">✚ + Nova matéria</button>
           </div>
           <!-- matérias sem cidade atribuída -->
           <div id="admin-blocks-turismo-sem-cidade" style="margin-bottom:8px"></div>
-          <!-- grupos por município — preenchidos por buildAdminCidades() -->
+          <!-- grupos por município -->
           <div id="admin-cidades-grupos"></div>
+
+          <!-- seções regionais legadas -->
+          <div class="admin-section" style="display:none"><div class="admin-slides-list" id="admin-blocks-litoral"></div></div>
+          <div class="admin-section" style="display:none"><div class="admin-slides-list" id="admin-blocks-cachoeiro"></div></div>
+          <div class="admin-section" style="display:none"><div class="admin-slides-list" id="admin-blocks-serras"></div></div>
+          <div class="admin-section" style="display:none"><div class="admin-slides-list" id="admin-blocks-sulprofundo"></div></div>
         </div>
         <!-- ══ FIM CIDADES ══ -->
-        <div class="admin-section">
-          <div class="admin-section-title">🎭 Cultura
-            <button onclick="addBlock('cultura')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
-          </div>
-          <div class="admin-slides-list" id="admin-blocks-cultura"></div>
-        </div>
-        <div class="admin-section">
-          <div class="admin-section-title">💰 Economia
-            <button onclick="addBlock('economia')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
-          </div>
-          <div class="admin-slides-list" id="admin-blocks-economia"></div>
-        </div>
-
-        <div class="admin-section">
-          <div class="admin-section-title">🌊 Litoral Sul
-            <button onclick="addBlock('litoral')" style="float:right;background:#0891b2;color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
-          </div>
-          <div class="admin-slides-list" id="admin-blocks-litoral"></div>
-        </div>
-
-        <div class="admin-section">
-          <div class="admin-section-title">🏙️ Cachoeiro e Região
-            <button onclick="addBlock('cachoeiro')" style="float:right;background:#7c3aed;color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
-          </div>
-          <div class="admin-slides-list" id="admin-blocks-cachoeiro"></div>
-        </div>
-
-        <div class="admin-section">
-          <div class="admin-section-title">⛰️ Serras do Sul
-            <button onclick="addBlock('serras')" style="float:right;background:#059669;color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
-          </div>
-          <div class="admin-slides-list" id="admin-blocks-serras"></div>
-        </div>
-
-        <div class="admin-section">
-          <div class="admin-section-title">🗺️ Sul Profundo
-            <button onclick="addBlock('sulprofundo')" style="float:right;background:#b45309;color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
-          </div>
-          <div class="admin-slides-list" id="admin-blocks-sulprofundo"></div>
-        </div>
-
-        <!-- VÍDEOS -->
-        <div class="admin-section">
-          <div class="admin-section-title">📹 Vídeos (URLs Castr)</div>
-          <div class="admin-slides-list" id="admin-videos-list"></div>
-        </div>
 
 
 
