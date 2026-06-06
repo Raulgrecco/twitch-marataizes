@@ -232,6 +232,30 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .sidebar-news-img img{width:100%;height:100%;object-fit:cover;object-position:center}
 .sidebar-news-title{font-size:12px;font-weight:600;line-height:1.3;color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .sidebar-news-date{font-size:10px;color:var(--ink-3);margin-top:3px}
+/* Box Encontre sua Cidade — sidebar desktop */
+.sidebar-cidades-box{background:#fff;border-radius:10px;border:1px solid var(--border);overflow:hidden}
+.sidebar-cidades-header{background:var(--brand);color:#fff;padding:10px 12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.sidebar-cidades-header strong{display:block;font-size:15px;text-transform:none;letter-spacing:0;margin-top:2px;font-family:'Playfair Display',serif}
+.sidebar-cidades-body{padding:12px}
+.sidebar-cidades-sub{font-size:11px;color:var(--ink-3);margin-bottom:10px;line-height:1.4}
+.sidebar-cidades-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.sidebar-cidades-tags span{background:#f5f3ee;border:1px solid var(--border);border-radius:20px;font-size:10px;font-weight:600;color:var(--ink-2);padding:3px 8px}
+.sidebar-cidades-btn{display:block;width:100%;background:var(--brand);color:#fff;border:none;border-radius:6px;padding:10px;font-size:12px;font-weight:700;text-align:center;cursor:pointer;transition:background .2s;text-transform:uppercase;letter-spacing:.5px}
+.sidebar-cidades-btn:hover{background:var(--brand-dark)}
+
+/* Card mobile Encontre sua Cidade — aparece só quando sidebar some */
+.mobile-cidades-card{display:none;background:var(--brand);border-radius:10px;margin:0 0 20px 0;overflow:hidden;cursor:pointer}
+.mobile-cidades-card-inner{padding:16px}
+.mobile-cidades-card-eyebrow{font-size:10px;color:rgba(255,255,255,.75);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.mobile-cidades-card-titulo{font-size:18px;font-weight:900;color:#fff;font-family:'Playfair Display',serif;margin-bottom:4px;line-height:1.2}
+.mobile-cidades-card-sub{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:12px}
+.mobile-cidades-card-chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+.mobile-cidades-card-chips span{background:rgba(255,255,255,.2);color:#fff;border-radius:20px;font-size:10px;padding:3px 8px;font-weight:600}
+.mobile-cidades-card-cta{background:#fff;color:var(--brand);border-radius:6px;padding:10px 16px;font-size:12px;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:.5px}
+@media(max-width:900px){
+  .mobile-cidades-card{display:block}
+}
+
 /* Banner sidebar */
 .banner-box{border-radius:10px;overflow:hidden;border:1px solid var(--border)}
 .banner-box img{width:100%;display:block}
@@ -523,6 +547,20 @@ gtag('config', 'G-KTRG77RWXP');
       <div class="carousel-thumbs" id="carousel-thumbs"></div>
     </div>
 
+    <!-- CARD MOBILE: Encontre sua Cidade (some em desktop, aparece em mobile) -->
+    <div class="mobile-cidades-card" onclick="document.getElementById('turismo-sul-capixaba').scrollIntoView({behavior:'smooth'})">
+      <div class="mobile-cidades-card-inner">
+        <div class="mobile-cidades-card-eyebrow">📍 Sul do Espírito Santo</div>
+        <div class="mobile-cidades-card-titulo">Encontre sua cidade</div>
+        <div class="mobile-cidades-card-sub">Notícias, vídeos e parceiros locais dos 27 municípios do Sul Capixaba.</div>
+        <div class="mobile-cidades-card-chips">
+          <span>Marataízes</span><span>Piúma</span><span>Anchieta</span>
+          <span>Kennedy</span><span>Cachoeiro</span><span>Alegre</span><span>+ 21 →</span>
+        </div>
+        <div class="mobile-cidades-card-cta">Ver todas as cidades ↓</div>
+      </div>
+    </div>
+
     <!-- ÚLTIMAS NOTÍCIAS -->
     <section class="news-section">
       <div class="section-title">
@@ -615,16 +653,29 @@ gtag('config', 'G-KTRG77RWXP');
   <!-- SIDEBAR -->
   <aside class="sidebar">
 
+    <!-- Encontre sua Cidade -->
+    <div class="sidebar-cidades-box">
+      <div class="sidebar-cidades-header">
+        📍 27 municípios
+        <strong>Encontre sua cidade</strong>
+      </div>
+      <div class="sidebar-cidades-body">
+        <div class="sidebar-cidades-sub">Notícias, vídeos e parceiros locais de cada cidade do Sul do ES.</div>
+        <div class="sidebar-cidades-tags">
+          <span>Marataízes</span><span>Piúma</span><span>Anchieta</span>
+          <span>Kennedy</span><span>Cachoeiro</span><span>Alegre</span>
+          <span>+ 21 cidades →</span>
+        </div>
+        <button class="sidebar-cidades-btn" onclick="document.getElementById('turismo-sul-capixaba').scrollIntoView({behavior:'smooth'})">
+          Ver todas as cidades
+        </button>
+      </div>
+    </div>
+
     <!-- Mais lidas -->
     <div class="sidebar-box">
       <div class="sidebar-box-title">🔥 Mais Lidas</div>
       <div class="sidebar-news" id="sidebar-mais-lidas"></div>
-    </div>
-
-    <!-- Banner -->
-    <div class="banner-box">
-      <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=300&h=250&fit=crop" alt="Anuncie aqui">
-      <div class="banner-label">PUBLICIDADE</div>
     </div>
 
     <!-- Últimas do interior -->
