@@ -378,7 +378,6 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .cat-economia{background:#0369A1}
 .cat-sul{background:#6366F1}
 .cat-esporte{background:#0284C7}
-.cat-turismosul{background:#0d9488}
 .cat-litoral{background:#0891b2}
 .cat-cachoeiro{background:#7c3aed}
 .cat-serras{background:#059669}
@@ -431,7 +430,6 @@ gtag('config', 'G-KTRG77RWXP');
       <a href="#" onclick="openInfo('sobre');return false">Sobre</a>
       <a href="#" onclick="openInfo('contato');return false">Contato</a>
       <a href="#" id="admin-open-btn">⚙ Admin</a>
-      <a href="#" id="admin-cidades-open-btn" style="color:#e53e3e;font-weight:700;">📍 Admin Cidades</a>
     </div>
   </div>
 </div>
@@ -551,16 +549,16 @@ gtag('config', 'G-KTRG77RWXP');
     </div>
 
     <!-- CARD MOBILE: Encontre sua Cidade (some em desktop, aparece em mobile) -->
-    <div class="mobile-cidades-card" onclick="document.getElementById('cidades-v2-section').scrollIntoView({behavior:'smooth'})">
+    <div class="mobile-cidades-card" onclick="document.getElementById('turismo-sul-capixaba').scrollIntoView({behavior:'smooth'})">
       <div class="mobile-cidades-card-inner">
         <div class="mobile-cidades-card-eyebrow">📍 Sul do Espírito Santo</div>
         <div class="mobile-cidades-card-titulo">Encontre sua cidade</div>
         <div class="mobile-cidades-card-sub">Notícias, vídeos e parceiros locais dos 27 municípios do Sul Capixaba.</div>
         <div class="mobile-cidades-card-chips">
-          <span onclick="event.stopPropagation();abrirCidadeV2('piuma','Piúma')" style="cursor:pointer">🌊 Piúma</span>
-          <span onclick="event.stopPropagation();abrirCidadeV2('castelo','Castelo')" style="cursor:pointer">🏰 Castelo</span>
-          <span onclick="event.stopPropagation();abrirCidadeV2('alegre','Alegre')" style="cursor:pointer">⛰️ Alegre</span>
-          <span onclick="event.stopPropagation();abrirCidadeV2('apiacah','Apiacá')" style="cursor:pointer">🌳 Apiacá</span>
+          <span onclick="event.stopPropagation();tscOpenModal('piuma')" style="cursor:pointer">🌊 Piúma</span>
+          <span onclick="event.stopPropagation();tscOpenModal('castelo')" style="cursor:pointer">🏰 Castelo</span>
+          <span onclick="event.stopPropagation();tscOpenModal('alegre')" style="cursor:pointer">⛰️ Alegre</span>
+          <span onclick="event.stopPropagation();tscOpenModal('apiacah')" style="cursor:pointer">🌳 Apiacá</span>
         </div>
         <div class="mobile-cidades-card-cta">Ver todas as cidades ↓</div>
       </div>
@@ -617,6 +615,15 @@ gtag('config', 'G-KTRG77RWXP');
       <div class="news-list" id="list-policia"></div>
     </section>
 
+    <!-- TURISMO -->
+    <section class="news-section">
+      <div class="section-title">
+        <h2>Turismo</h2>
+        <a href="#" onclick="filterCategory('cat-turismo',document.querySelectorAll('.nav-item')[6]);return false">Ver mais →</a>
+      </div>
+      <div class="news-list" id="list-turismo"></div>
+    </section>
+
     <!-- CULTURA -->
     <section class="news-section">
       <div class="section-title">
@@ -633,15 +640,6 @@ gtag('config', 'G-KTRG77RWXP');
         <a href="#" onclick="filterCategory('cat-economia',document.querySelectorAll('.nav-item')[8]);return false">Ver mais →</a>
       </div>
       <div class="news-list" id="list-economia"></div>
-    </section>
-
-    <!-- TURISMO SUL ES -->
-    <section class="news-section">
-      <div class="section-title">
-        <h2>🌴 Turismo Sul ES</h2>
-        <a href="#" onclick="filterCategory('cat-turismosul',null);window.scrollTo({top:0,behavior:'smooth'});return false">Ver mais →</a>
-      </div>
-      <div class="news-list" id="list-turismosul"></div>
     </section>
 
     <!-- VÍDEOS (Castr) -->
@@ -667,12 +665,12 @@ gtag('config', 'G-KTRG77RWXP');
       <div class="sidebar-cidades-body">
         <div class="sidebar-cidades-sub">Notícias, vídeos e parceiros locais de cada cidade do Sul do ES.</div>
         <div class="sidebar-cidades-tags">
-          <span onclick="abrirCidadeV2('piuma','Piúma')" style="cursor:pointer">🌊 Piúma</span>
-          <span onclick="abrirCidadeV2('castelo','Castelo')" style="cursor:pointer">🏰 Castelo</span>
-          <span onclick="abrirCidadeV2('alegre','Alegre')" style="cursor:pointer">⛰️ Alegre</span>
-          <span onclick="abrirCidadeV2('apiacah','Apiacá')" style="cursor:pointer">🌳 Apiacá</span>
+          <span onclick="tscOpenModal('piuma')" style="cursor:pointer">🌊 Piúma</span>
+          <span onclick="tscOpenModal('castelo')" style="cursor:pointer">🏰 Castelo</span>
+          <span onclick="tscOpenModal('alegre')" style="cursor:pointer">⛰️ Alegre</span>
+          <span onclick="tscOpenModal('apiacah')" style="cursor:pointer">🌳 Apiacá</span>
         </div>
-        <button class="sidebar-cidades-btn" onclick="document.getElementById('cidades-v2-section').scrollIntoView({behavior:'smooth'})">
+        <button class="sidebar-cidades-btn" onclick="document.getElementById('turismo-sul-capixaba').scrollIntoView({behavior:'smooth'})">
           Ver todas as cidades
         </button>
       </div>
@@ -774,13 +772,12 @@ gtag('config', 'G-KTRG77RWXP');
 .tsc-s-ok  { background: rgba(255,255,255,.2); color: #fff; }
 .tsc-s-soon{ background: #f0ede8; color: #888; }
 /* Parceiros */
-.tsc-parceiros-grid { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; padding: 10px 0; }
-.tsc-parceiro-logo { height: 80px; max-width: 180px; object-fit: contain; border-radius: 8px; border: 1px solid #eee; padding: 8px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+.tsc-parceiros-grid { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 6px 0; }
+.tsc-parceiro-logo { height: 40px; max-width: 100px; object-fit: contain; border-radius: 4px; border: 1px solid #eee; padding: 4px; background: #fff; }
 .tsc-parceiro-nome { font-size: 12px; font-weight: 600; color: var(--ink-2); padding: 6px 10px; background: #f5f5f5; border-radius: 5px; }
 /* Modal cidade */
 #tsc-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:2000; align-items:flex-start; justify-content:center; padding:20px; overflow-y:auto; }
-#tsc-modal { display:none !important; }
-#tsc-modal.open { display:none !important; }
+#tsc-modal.open { display:flex; }
 .tsc-modal-box { background:#fff; border-radius:14px; width:100%; max-width:820px; margin:auto; box-shadow:0 24px 64px rgba(0,0,0,.35); overflow:hidden; animation:tscIn .22s ease; }
 @keyframes tscIn { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
 .tsc-modal-hero { position:relative; aspect-ratio:16/9; background:#111; overflow:hidden; }
@@ -796,8 +793,8 @@ gtag('config', 'G-KTRG77RWXP');
 .tsc-noticia-card { border:1px solid #eee; border-radius:8px; overflow:hidden; cursor:pointer; transition:box-shadow .15s; }
 .tsc-noticia-card:hover { box-shadow:0 3px 12px rgba(0,0,0,.1); }
 .tsc-noticia-card img { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; }
-.tsc-noticia-card-body { padding:10px 12px; }
-.tsc-noticia-card-title { font-size:13px; font-weight:700; color:#1A1A1A; line-height:1.4; }
+.tsc-noticia-card-body { padding:8px 10px; }
+.tsc-noticia-card-title { font-size:12px; font-weight:700; color:#1A1A1A; line-height:1.35; }
 .tsc-noticia-card-date { font-size:10px; color:#999; margin-top:3px; }
 .tsc-videos-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .tsc-video-thumb { position:relative; aspect-ratio:16/9; background:#111; border-radius:8px; overflow:hidden; cursor:pointer; }
@@ -813,8 +810,8 @@ gtag('config', 'G-KTRG77RWXP');
 }
 </style>
 
-<!-- ══ TURISMO SUL CAPIXABA — OCULTO (dados preservados no Firebase) ══ -->
-<section id="turismo-sul-capixaba" style="display:none">
+<!-- ══ TURISMO SUL CAPIXABA ══ -->
+<section id="turismo-sul-capixaba">
 
   <div class="tsc-header">
     <h2>📍 Cidades do Sul Capixaba</h2>
@@ -843,55 +840,8 @@ gtag('config', 'G-KTRG77RWXP');
 
 </section>
 
-<!-- ══ CIDADES DO SUL CAPIXABA — NOVA ESTRUTURA ══ -->
-<section id="cidades-v2-section" style="max-width:1200px;margin:32px auto 0;padding:0 16px 40px;">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding-bottom:8px;border-bottom:3px solid #e53e3e;">
-    <h2 style="font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:#1a1a1a;">📍 Cidades do Sul Capixaba</h2>
-    <span style="font-size:11px;color:#888;font-weight:600;">27 cidades · Sul do ES</span>
-  </div>
-  <p style="font-size:13px;color:#666;margin-bottom:20px;">Clique em qualquer cidade para ver notícias, vídeos e parceiros locais.</p>
-  <div id="cidades-v2-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;"></div>
-</section>
-
-<!-- Modal Cidade V2 -->
-<div id="cidade-v2-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1500;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;" onclick="if(event.target===this)closeCidadeV2()">
-  <div style="background:#fff;border-radius:16px;width:100%;max-width:680px;margin:auto;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);">
-    <div id="cv2-hero" style="height:220px;background:#ddd;overflow:hidden;position:relative;">
-      <img id="cv2-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
-      <button onclick="closeCidadeV2()" style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,.5);color:#fff;border:none;border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer;line-height:1;">✕</button>
-    </div>
-    <div style="padding:20px;">
-      <h2 id="cv2-nome" style="font-family:'Playfair Display',serif;font-size:24px;font-weight:900;margin-bottom:8px;"></h2>
-      <p id="cv2-desc" style="font-size:13px;color:#555;margin-bottom:20px;line-height:1.6;"></p>
-
-      <!-- Parceiros -->
-      <div id="cv2-parceiros-section">
-        <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:#888;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #eee;">🤝 Parceiros &amp; Apoiadores</div>
-        <div id="cv2-parceiros" style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px;"></div>
-      </div>
-
-      <!-- Notícias -->
-      <div id="cv2-noticias-section">
-        <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:#888;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #eee;">📰 Notícias</div>
-        <div id="cv2-noticias" style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;"></div>
-      </div>
-
-      <!-- Vídeos -->
-      <div id="cv2-videos-section">
-        <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:#888;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #eee;">🎬 Vídeos</div>
-        <div id="cv2-videos" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px;"></div>
-      </div>
-
-      <!-- Pontos -->
-      <div id="cv2-pontos-section">
-        <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:#888;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #eee;">📍 Pontos Turísticos</div>
-        <div id="cv2-pontos" style="margin-bottom:20px;"></div>
-      </div>
-
-      <button onclick="window.open('https://wa.me/'+cidadeV2WppEnvio,'_blank')" id="cv2-wpp-btn" style="display:none;width:100%;background:#25d366;color:#fff;border:none;border-radius:8px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;">💬 Enviar matéria ou vídeo sobre esta cidade</button>
-    </div>
-  </div>
-</div>
+<!-- Modal município -->
+<div id="tsc-modal" onclick="if(event.target===this)tscCloseModal()">
   <div class="tsc-modal-box">
     <div class="tsc-modal-hero">
       <img id="tsc-modal-img" src="" alt="">
@@ -991,10 +941,11 @@ function tscRenderGrid(containerId, lista) {
 }
 
 function tscInit() {
-  // grids antigos desabilitados — sistema migrado para cidades_v2
-  // tscRenderGrid removido intencionalmente
+  tscRenderGrid('tsc-grid-litoral',   TSC_MUNICIPIOS.litoral);
+  tscRenderGrid('tsc-grid-cachoeiro', TSC_MUNICIPIOS.cachoeiro);
+  tscRenderGrid('tsc-grid-serras',    TSC_MUNICIPIOS.serras);
+  tscRenderGrid('tsc-grid-sul',       TSC_MUNICIPIOS.sul);
 }
-
 
 // ── Abrir modal ──
 function tscFindMunicipio(id) {
@@ -1045,17 +996,12 @@ function tscLoadCidade(cidadeId, cidadeNome) {
   // Campo 'cidade' é o critério principal — título é fallback secundário
   if (typeof data !== 'undefined' && data && data.blocks) {
     var noticias = data.blocks.filter(function(b) {
-      if (!b.title) return false;
-      // Critério principal: campo cidade explícito preenchido
+      if (b.section !== 'turismo') return false;
+      // Critério 1: campo cidade explícito (preferencial)
       if (b.cidade && b.cidade === cidadeId) return true;
+      // Critério 2: fallback por nome da cidade no título (menos confiável)
+      if (!b.cidade && b.title && b.title.toLowerCase().indexOf(cidadeNome.toLowerCase()) !== -1) return true;
       return false;
-    });
-
-    // Ordenar da mais recente para a mais antiga
-    noticias.sort(function(a, b) {
-      var da = a.date ? new Date(a.date.split('/').reverse().join('-')) : new Date(0);
-      var db = b.date ? new Date(b.date.split('/').reverse().join('-')) : new Date(0);
-      return db - da;
     });
 
     if (noticias.length > 0) {
@@ -1084,7 +1030,7 @@ function tscLoadCidade(cidadeId, cidadeNome) {
           '</div>';
       }).join('') + '</div>';
     } else {
-      vEl.innerHTML = '';
+      vEl.innerHTML = '<div class="tsc-empty">Nenhum vídeo ainda para ' + cidadeNome + '. Adicione o link Castr na matéria de turismo pelo painel admin.</div>';
     }
 
     // Pontos turísticos — usa pontoNome/pontoDesc das matérias de turismo
@@ -1165,103 +1111,6 @@ if (document.readyState === 'loading') {
 ════════════════════════════════════════════════════════════════ -->
 
 <!-- ── FOOTER ── -->
-<!-- ══ ADMIN CIDADES V2 ══ -->
-<div class="admin-overlay" id="admin-cidades-overlay" style="z-index:1100;">
-  <!-- Login -->
-  <div id="admin-cidades-login-panel">
-    <div class="admin-panel">
-      <div class="admin-header">
-        <h2>📍 Admin Cidades do Sul Capixaba</h2>
-        <button onclick="closeAdminCidades()">✕</button>
-      </div>
-      <div class="admin-login">
-        <h3>Acesso Restrito</h3>
-        <p>Digite a senha para gerenciar as cidades</p>
-        <input type="password" id="admin-cidades-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLoginCidades()">
-        <p class="login-error" id="admin-cidades-error">Senha incorreta.</p>
-        <button class="btn-login" onclick="doLoginCidades()">Entrar</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Painel -->
-  <div id="admin-cidades-panel" style="display:none;width:100%;max-width:760px;margin:auto;">
-    <div class="admin-panel">
-      <div class="admin-header">
-        <h2>📍 Admin Cidades do Sul Capixaba</h2>
-        <button onclick="closeAdminCidades()">✕</button>
-      </div>
-      <div class="admin-body">
-
-        <!-- Selector de cidade -->
-        <div class="admin-section">
-          <div class="admin-section-title">📍 Selecionar Município
-            <button onclick="salvarCidadeV2()" style="float:right;background:#25a244;color:#fff;border:none;padding:6px 16px;border-radius:5px;font-size:12px;cursor:pointer;font-family:inherit;font-weight:700;">💾 Salvar cidade</button>
-          </div>
-          <div class="admin-field" style="margin-bottom:12px;">
-            <label>Município</label>
-            <select id="cv2-admin-cidade-sel" onchange="carregarCidadeV2Admin(this.value)" style="width:100%;padding:8px;border:1.5px solid #ddd;border-radius:7px;font-size:13px;">
-              <option value="">-- Selecione --</option>
-            </select>
-          </div>
-          <div class="admin-field" style="margin-bottom:12px;">
-            <label>Descrição da cidade</label>
-            <textarea id="cv2-admin-desc" style="width:100%;height:60px;padding:8px;border:1.5px solid #ddd;border-radius:7px;font-size:13px;resize:vertical;" placeholder="Breve descrição do município..."></textarea>
-          </div>
-          <div class="admin-field" style="margin-bottom:12px;">
-            <label>Imagem principal (URL Firebase Storage)</label>
-            <div style="display:flex;gap:8px;align-items:flex-start;">
-              <input type="text" id="cv2-admin-img" placeholder="https://firebasestorage..." style="flex:1;padding:8px;border:1.5px solid #ddd;border-radius:7px;font-size:13px;">
-              <label style="background:#374151;color:#fff;padding:8px 12px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">
-                📁 Upload
-                <input type="file" accept="image/*" onchange="uploadCidadeV2Img(event)" style="display:none;">
-              </label>
-            </div>
-            <img id="cv2-admin-img-prev" src="" style="height:60px;margin-top:6px;border-radius:6px;display:none;">
-          </div>
-        </div>
-
-        <!-- Matérias -->
-        <div class="admin-section">
-          <div class="admin-section-title">📰 Matérias
-            <button onclick="addMateriaV2()" style="float:right;background:#e53e3e;color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700;">✚ + Matéria</button>
-          </div>
-          <div id="cv2-admin-materias"></div>
-        </div>
-
-        <!-- Parceiros -->
-        <div class="admin-section">
-          <div class="admin-section-title">🤝 Parceiros
-            <button onclick="addParceiroV2()" style="float:right;background:#d97706;color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700;">✚ + Parceiro</button>
-          </div>
-          <div id="cv2-admin-parceiros"></div>
-        </div>
-
-        <!-- Pontos -->
-        <div class="admin-section">
-          <div class="admin-section-title">📍 Pontos Turísticos
-            <button onclick="addPontoV2()" style="float:right;background:#059669;color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700;">✚ + Ponto</button>
-          </div>
-          <div id="cv2-admin-pontos"></div>
-        </div>
-
-        <!-- Vídeos -->
-        <div class="admin-section">
-          <div class="admin-section-title">🎬 Vídeos (Castr)
-            <button onclick="addVideoV2()" style="float:right;background:#6366f1;color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700;">✚ + Vídeo</button>
-          </div>
-          <div id="cv2-admin-videos"></div>
-        </div>
-
-        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:20px;">
-          <button onclick="salvarCidadeV2()" class="btn-save">💾 Salvar cidade</button>
-          <button onclick="closeAdminCidades()" class="btn-cancel">Fechar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <footer class="footer">
   <div class="footer-main">
     <div class="footer-brand">
@@ -1355,103 +1204,100 @@ if (document.readyState === 'loading') {
       </div>
       <div class="admin-body">
 
-        <!-- ══ ÁREA 1: PORTAL PRINCIPAL ══ -->
-        <div style="border:2px solid #d97706;border-radius:12px;padding:16px;background:#fffbeb;margin-bottom:20px;">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid #fde68a;">
-            <span style="font-size:18px;">📺</span>
-            <div>
-              <div style="font-size:13px;font-weight:800;color:#92400e;letter-spacing:.5px;text-transform:uppercase;">Portal Principal</div>
-              <div style="font-size:11px;color:#b45309;">TV Sul Capixaba — notícias gerais da região</div>
-            </div>
-          </div>
-
-          <!-- CARROSSEL -->
-          <div class="admin-section">
-            <div class="admin-section-title">🎠 Carrossel (manchetes)</div>
-            <div class="admin-slides-list" id="admin-slides-list"></div>
-          </div>
-
-          <div class="admin-section">
-            <div class="admin-section-title">📰 Últimas Notícias
-              <button onclick="addBlock('ultimas')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
-            </div>
-            <div class="admin-slides-list" id="admin-blocks-ultimas"></div>
-          </div>
-          <div class="admin-section">
-            <div class="admin-section-title">🏛 Política
-              <button onclick="addBlock('politica')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
-            </div>
-            <div class="admin-slides-list" id="admin-blocks-politica"></div>
-          </div>
-          <div class="admin-section">
-            <div class="admin-section-title">🚔 Polícia
-              <button onclick="addBlock('policia')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
-            </div>
-            <div class="admin-slides-list" id="admin-blocks-policia"></div>
-          </div>
-          <div class="admin-section">
-            <div class="admin-section-title">🏥 Saúde
-              <button onclick="addBlock('saude')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
-            </div>
-            <div class="admin-slides-list" id="admin-blocks-saude"></div>
-          </div>
-          <div class="admin-section">
-            <div class="admin-section-title">🎭 Cultura
-              <button onclick="addBlock('cultura')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
-            </div>
-            <div class="admin-slides-list" id="admin-blocks-cultura"></div>
-          </div>
-          <div class="admin-section">
-            <div class="admin-section-title">💰 Economia
-              <button onclick="addBlock('economia')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
-            </div>
-            <div class="admin-slides-list" id="admin-blocks-economia"></div>
-          </div>
-          <div class="admin-section">
-            <div class="admin-section-title">🌴 Turismo Sul ES
-              <button onclick="addBlock('turismosul')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
-            </div>
-            <div class="admin-slides-list" id="admin-blocks-turismosul"></div>
-          </div>
-          <div class="admin-section" style="margin-bottom:0">
-            <div class="admin-section-title">📹 Vídeos (URLs Castr)</div>
-            <div class="admin-slides-list" id="admin-videos-list"></div>
-          </div>
+        <!-- CARROSSEL -->
+        <div class="admin-section">
+          <div class="admin-section-title">🎠 Carrossel Principal (manchetes)</div>
+          <div class="admin-slides-list" id="admin-slides-list"></div>
         </div>
-        <!-- ══ FIM PORTAL PRINCIPAL ══ -->
 
-        <!-- ══ ÁREA 2: CIDADES DO SUL CAPIXABA ══ -->
-        <div id="admin-cidades-section" style="border:2px solid #b91c1c;border-radius:12px;padding:16px;background:#fff1f2;margin-bottom:20px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid #fecaca;">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <span style="font-size:18px;">📍</span>
-              <div>
-                <div style="font-size:13px;font-weight:800;color:#991b1b;letter-spacing:.5px;text-transform:uppercase;">Cidades do Sul Capixaba</div>
-                <div style="font-size:11px;color:#b91c1c;">Matérias agrupadas por município</div>
-              </div>
-            </div>
-            <button onclick="addBlockCidade()" style="background:#b91c1c;color:#fff;border:none;padding:8px 16px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit;font-weight:800;">✚ + Nova matéria</button>
+        <!-- BLOCOS por seção -->
+        <div class="admin-section">
+          <div class="admin-section-title">📰 Últimas Notícias
+            <button onclick="addBlock('ultimas')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
           </div>
-          <!-- instrução de uso -->
-          <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#9a3412;line-height:1.6;">
-            <strong>Como publicar uma matéria municipal:</strong><br>
-            1. Clique em <strong>+ Nova matéria</strong> — o card abre no Portal Principal (seção Turismo)<br>
+          <div class="admin-slides-list" id="admin-blocks-ultimas"></div>
+        </div>
+        <div class="admin-section">
+          <div class="admin-section-title">🏛 Política
+            <button onclick="addBlock('politica')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
+          </div>
+          <div class="admin-slides-list" id="admin-blocks-politica"></div>
+        </div>
+        <div class="admin-section">
+          <div class="admin-section-title">🚔 Polícia
+            <button onclick="addBlock('policia')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
+          </div>
+          <div class="admin-slides-list" id="admin-blocks-policia"></div>
+        </div>
+        <div class="admin-section">
+          <div class="admin-section-title">🏥 Saúde
+            <button onclick="addBlock('saude')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
+          </div>
+          <div class="admin-slides-list" id="admin-blocks-saude"></div>
+        </div>
+        <!-- ══ TURISMO SUL CAPIXABA — SEÇÃO DESTACADA ══ -->
+        <div class="admin-section" style="border:2px solid #003781;border-radius:10px;padding:14px;background:linear-gradient(135deg,#003781,#00509e);margin:12px 0;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.2);margin-bottom:14px;">
+            <span style="color:#fff;font-size:13px;font-weight:800;letter-spacing:.5px;">📍 CIDADES DO SUL CAPIXABA</span>
+            <button onclick="addBlock('turismo')" style="background:#fff;color:#003781;border:none;padding:6px 14px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:800;">✚ + Nova matéria</button>
+          </div>
+          <div style="background:rgba(255,255,255,.12);border-radius:8px;padding:10px 12px;margin-bottom:14px;font-size:12px;color:rgba(255,255,255,.9);line-height:1.7;">
+            <strong style="color:#fff;">Como usar:</strong><br>
+            1. Clique em <strong style="color:#fff;">+ Nova matéria</strong><br>
             2. Preencha título, texto e foto<br>
-            3. No campo <strong>📍 Cidade</strong>, selecione o município<br>
-            4. Clique em <strong>💾 Salvar tudo</strong> — a matéria aparece aqui agrupada pelo município
+            3. Selecione a <strong style="color:#fff;">📍 Cidade</strong> (ordem alfabética)<br>
+            4. Adicione parceiros com logo, WhatsApp e link<br>
+            5. Clique em <strong style="color:#fff;">💾 Salvar tudo</strong>
           </div>
-          <!-- matérias sem cidade atribuída -->
-          <div id="admin-blocks-turismo-sem-cidade" style="margin-bottom:8px"></div>
-          <!-- grupos por município -->
-          <div id="admin-cidades-grupos"></div>
-
-          <!-- seções regionais legadas -->
-          <div class="admin-section" style="display:none"><div class="admin-slides-list" id="admin-blocks-litoral"></div></div>
-          <div class="admin-section" style="display:none"><div class="admin-slides-list" id="admin-blocks-cachoeiro"></div></div>
-          <div class="admin-section" style="display:none"><div class="admin-slides-list" id="admin-blocks-serras"></div></div>
-          <div class="admin-section" style="display:none"><div class="admin-slides-list" id="admin-blocks-sulprofundo"></div></div>
+          <div class="admin-slides-list" id="admin-blocks-turismo"></div>
         </div>
-        <!-- ══ FIM CIDADES ══ -->
+        <!-- ══ FIM TURISMO ══ -->
+        <div class="admin-section">
+          <div class="admin-section-title">🎭 Cultura
+            <button onclick="addBlock('cultura')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
+          </div>
+          <div class="admin-slides-list" id="admin-blocks-cultura"></div>
+        </div>
+        <div class="admin-section">
+          <div class="admin-section-title">💰 Economia
+            <button onclick="addBlock('economia')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
+          </div>
+          <div class="admin-slides-list" id="admin-blocks-economia"></div>
+        </div>
+
+        <div class="admin-section">
+          <div class="admin-section-title">🌊 Litoral Sul
+            <button onclick="addBlock('litoral')" style="float:right;background:#0891b2;color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
+          </div>
+          <div class="admin-slides-list" id="admin-blocks-litoral"></div>
+        </div>
+
+        <div class="admin-section">
+          <div class="admin-section-title">🏙️ Cachoeiro e Região
+            <button onclick="addBlock('cachoeiro')" style="float:right;background:#7c3aed;color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
+          </div>
+          <div class="admin-slides-list" id="admin-blocks-cachoeiro"></div>
+        </div>
+
+        <div class="admin-section">
+          <div class="admin-section-title">⛰️ Serras do Sul
+            <button onclick="addBlock('serras')" style="float:right;background:#059669;color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
+          </div>
+          <div class="admin-slides-list" id="admin-blocks-serras"></div>
+        </div>
+
+        <div class="admin-section">
+          <div class="admin-section-title">🗺️ Sul Profundo
+            <button onclick="addBlock('sulprofundo')" style="float:right;background:#b45309;color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
+          </div>
+          <div class="admin-slides-list" id="admin-blocks-sulprofundo"></div>
+        </div>
+
+        <!-- VÍDEOS -->
+        <div class="admin-section">
+          <div class="admin-section-title">📹 Vídeos (URLs Castr)</div>
+          <div class="admin-slides-list" id="admin-videos-list"></div>
+        </div>
 
 
 
@@ -1785,32 +1631,6 @@ const DEFAULT_DATA = {
       "sub": "Linha de ate R$ 15 mil por MEI sera operada pelo Banestes; inscricoes abertas a partir de junho"
     },
     {
-      "section": "turismosul",
-      "label": "Turismo Sul ES 1",
-      "cat": "Turismo Sul ES",
-      "catClass": "cat-turismosul",
-      "title": "Turismo Sul ES — Teste 1 (substitua este conteúdo pelo admin)",
-      "sub": "Matéria de teste da editoria Turismo Sul ES. Edite pelo painel admin.",
-      "body": "Este é um conteúdo de teste para a nova editoria Turismo Sul ES.\n\nSubstitua pelo admin quando quiser publicar a primeira matéria real.",
-      "date": "06/06/2026",
-      "autor": "Redacao TV Sul Capixaba",
-      "img": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-      "views": 0
-    },
-    {
-      "section": "turismosul",
-      "label": "Turismo Sul ES 2",
-      "cat": "Turismo Sul ES",
-      "catClass": "cat-turismosul",
-      "title": "Turismo Sul ES — Teste 2 (substitua este conteúdo pelo admin)",
-      "sub": "Segunda matéria de teste da editoria Turismo Sul ES. Edite pelo painel admin.",
-      "body": "Este é o segundo conteúdo de teste para a nova editoria Turismo Sul ES.\n\nSubstitua pelo admin quando quiser publicar a matéria real.",
-      "date": "06/06/2026",
-      "autor": "Redacao TV Sul Capixaba",
-      "img": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
-      "views": 0
-    },
-    {
       "title": "Producao de abacaxi em Presidente Kennedy cresce 40% e bate recorde historico de exportacao",
       "section": "economia",
       "cat": "Economia",
@@ -2091,8 +1911,6 @@ function pushToFirestore(payload) {
 }
 
 function saveData() {
-  _saveLock = true;
-  setTimeout(function() { _saveLock = false; }, 5000); // libera listener após 5s
   try {
     var slim = JSON.parse(JSON.stringify(data));
     slim.slides.forEach(function(s) { if (s.img && s.img.startsWith('data:')) s.img = ''; });
@@ -2125,13 +1943,13 @@ function render() {
   renderGridUltimas();
   renderListPolitica();
   renderGridSaude();
+  renderListTurismo();
   renderListPolicia();
   renderVideos();
   renderLitoral();
   renderCachoeiro();
   renderSerras();
   renderSulProfundo();
-  renderListTurismoSul();
   renderGridCultura();
   renderListEconomia();
   renderSidebar();
@@ -2260,14 +2078,6 @@ function renderListTurismo() {
   if (!el) return;
   el.innerHTML = data.blocks
     .map((a,i) => ({a,i})).filter(({a}) => a.section === 'turismo')
-    .map(({a,i}) => newsListItem(a,i)).join('');
-}
-
-function renderListTurismoSul() {
-  const el = document.getElementById('list-turismosul');
-  if (!el) return;
-  el.innerHTML = data.blocks
-    .map((a,i) => ({a,i})).filter(({a}) => a.section === 'turismosul')
     .map(({a,i}) => newsListItem(a,i)).join('');
 }
 
@@ -2488,22 +2298,17 @@ function buildAdminForm() {
   const slidesList = document.getElementById('admin-slides-list');
   slidesList.innerHTML = data.slides.map((s, i) => buildSlideCard(s, i)).join('');
 
-  // Portal Principal: exclui matérias com cidade preenchida E rascunhos de cidade
-  const knownSections = ['ultimas','politica','policia','saude','turismo','turismosul','cultura','economia','litoral','cachoeiro','serras','sulprofundo'];
+  // ── BLOCKS por seção ────────────────────────────────────
+  const knownSections = ['ultimas','politica','policia','saude','turismo','cultura','economia','litoral','cachoeiro','serras','sulprofundo'];
   knownSections.forEach(sec => {
     const el = document.getElementById('admin-blocks-' + sec);
     if (!el) return;
-    const items = data.blocks.map((b,i) => ({b,i})).filter(({b}) => {
-      if (b.section !== sec) return false;
-      if (b.cidade && b.cidade.trim() !== '') return false; // tem cidade → vai para Cidades
-      if (b._cidadeRascunho) return false; // rascunho de cidade → vai para Cidades
-      return true;
-    });
+    const items = data.blocks.map((b,i) => ({b,i})).filter(({b}) => b.section === sec);
     el.innerHTML = items.map(({b,i}) => buildBlockCard(b, i)).join('');
   });
 
+  // Matérias com section desconhecida aparecem na seção mais próxima ou na última conhecida
   // Matérias com section desconhecida — usa catClass para determinar seção correta
-  // Também exclui matérias com cidade preenchida
   const catClassMap = {
     'cat-sul': 'ultimas', 'cat-politica': 'politica', 'cat-policia': 'policia',
     'cat-saude': 'saude', 'cat-turismo': 'turismo', 'cat-cultura': 'cultura',
@@ -2513,17 +2318,15 @@ function buildAdminForm() {
   };
   const unknownItems = data.blocks
     .map((b,i) => ({b,i}))
-    .filter(({b}) => !['mais-lidas','interior','video',...knownSections].includes(b.section) && (!b.cidade || b.cidade === ''));
+    .filter(({b}) => !['mais-lidas','interior','video',...knownSections].includes(b.section));
   if (unknownItems.length > 0) {
     unknownItems.forEach(({b,i}) => {
+      // Primeiro tenta mapear pelo catClass, senão usa a section como fallback, senão ultimas
       const targetSec = catClassMap[b.catClass] || (knownSections.includes(b.section) ? b.section : 'ultimas');
       const el = document.getElementById('admin-blocks-' + targetSec);
       if (el) el.innerHTML += buildBlockCard(b, i);
     });
   }
-
-  // ── CIDADES agrupadas por município ─────────────────────
-  buildAdminCidades();
 
   // ── VÍDEOS ──────────────────────────────────────────────
   const videosList = document.getElementById('admin-videos-list');
@@ -2562,53 +2365,6 @@ function buildAdminForm() {
   document.getElementById('cfg-ticker').value  = data.config.ticker;
   document.getElementById('cfg-live').value    = data.config.live;
   document.getElementById('cfg-weather').value = data.config.weather;
-}
-
-// ── Builder: cidades agrupadas por município ──────────────
-function buildAdminCidades() {
-  const todas = [].concat(
-    TSC_MUNICIPIOS.litoral,
-    TSC_MUNICIPIOS.cachoeiro,
-    TSC_MUNICIPIOS.serras,
-    TSC_MUNICIPIOS.sul
-  );
-
-  // Matérias com cidade preenchida
-  const comCidade = data.blocks.map((b,i) => ({b,i})).filter(({b}) => b.cidade && b.cidade.trim() !== '');
-  // Rascunhos nascidos na área Cidades (sem cidade ainda)
-  const rascunhos = data.blocks.map((b,i) => ({b,i})).filter(({b}) => b._cidadeRascunho && (!b.cidade || b.cidade.trim() === ''));
-
-  // Rascunhos no topo — aguardando seleção de cidade
-  const semEl = document.getElementById('admin-blocks-turismo-sem-cidade');
-  if (semEl) {
-    semEl.innerHTML = rascunhos.length > 0
-      ? '<div style="background:#fef3c7;border:1px solid #f59e0b;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:12px;color:#92400e;font-weight:700;">⚠️ Selecione a cidade no campo 📍 abaixo e salve</div>' +
-        '<div class="admin-slides-list">' + rascunhos.map(({b,i}) => buildBlockCard(b,i)).join('') + '</div>'
-      : '';
-  }
-
-  // Agrupadas por município
-  const gruposEl = document.getElementById('admin-cidades-grupos');
-  if (!gruposEl) return;
-
-  let html = '';
-  todas.forEach(function(m) {
-    const materias = comCidade.filter(({b}) => b.cidade === m.id);
-    if (materias.length === 0) return;
-    html += `
-      <div style="margin-bottom:14px;background:#fff;border-radius:8px;overflow:hidden;border:1px solid #fecaca;">
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:#fee2e2;cursor:pointer"
-             onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">
-          <span style="color:#991b1b;font-size:12px;font-weight:800;">${m.ico} ${m.nome} <span style="opacity:.7;font-weight:400;">(${materias.length} matéria${materias.length>1?'s':''})</span></span>
-          <span style="color:#b91c1c;font-size:14px;">▾</span>
-        </div>
-        <div style="padding:10px;" class="admin-slides-list">
-          ${materias.map(({b,i}) => buildBlockCard(b,i)).join('')}
-        </div>
-      </div>`;
-  });
-
-  gruposEl.innerHTML = html || '<div style="color:#b91c1c;font-size:12px;text-align:center;padding:16px;background:#fff1f2;border-radius:8px;">Nenhuma matéria municipal publicada ainda.</div>';
 }
 
 // ── Builder: card de slide ────────────────────────────────
@@ -3035,7 +2791,6 @@ function catOptions(current) {
     ['cat-policia','Polícia (azul)'],
     ['cat-saude','Saúde (verde)'],
     ['cat-turismo','Turismo (âmbar)'],
-    ['cat-turismosul','Turismo Sul ES (verde água)'],
     ['cat-cultura','Cultura (roxo)'],
     ['cat-economia','Economia (azul escuro)'],
     ['cat-sul','Sul Capixaba (índigo)'],
@@ -3408,11 +3163,11 @@ function closeArticle() {
 function addBlock(section) {
   const labels = {
     policia: 'Polícia', cultura: 'Cultura', economia: 'Economia',
-    politica: 'Política', saude: 'Saúde', turismo: 'Turismo', turismosul: 'Turismo Sul ES', ultimas: 'Últimas',
+    politica: 'Política', saude: 'Saúde', turismo: 'Turismo', ultimas: 'Últimas',
   };
   const catClasses = {
     policia: 'cat-policia', cultura: 'cat-cultura', economia: 'cat-economia',
-    politica: 'cat-politica', saude: 'cat-saude', turismo: 'cat-turismo', turismosul: 'cat-turismosul', ultimas: 'cat-sul',
+    politica: 'cat-politica', saude: 'cat-saude', turismo: 'cat-turismo', ultimas: 'cat-sul',
   };
   // Imagens placeholder por seção
   const placeholderImgs = {
@@ -3421,7 +3176,6 @@ function addBlock(section) {
     policia:  'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=800&q=80',
     saude:    'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80',
     turismo:  'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',
-    turismosul: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
     cultura:  'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80',
     economia: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
   };
@@ -3486,34 +3240,6 @@ function removeBlock(idx) {
   data.blocks.splice(idx, 1);
   buildAdminForm();
   showToast('Matéria removida.');
-}
-
-// Cria matéria diretamente na área Cidades
-function addBlockCidade() {
-  data.blocks.push({
-    section: 'turismo',
-    label: 'Cidade',
-    img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',
-    cat: 'Cidade',
-    catClass: 'cat-turismo',
-    autor: 'Redação TV Sul Capixaba',
-    title: 'Título da matéria — edite aqui',
-    sub: 'Subtítulo da matéria — edite aqui.',
-    date: new Date().toLocaleDateString('pt-BR'),
-    body: 'Texto completo da matéria.\n\nEdite aqui o conteúdo.',
-    views: 0,
-    _cidadeRascunho: true,
-    cidade: '',
-  });
-  buildAdminForm();
-  const newIdx = data.blocks.length - 1;
-  setTimeout(() => {
-    const card = document.getElementById('block-card-' + newIdx);
-    if (card) card.scrollIntoView({behavior:'smooth', block:'start'});
-    const inp = card?.querySelector('input[type=text]');
-    if (inp) inp.focus();
-  }, 150);
-  showToast('✚ Nova matéria municipal! Selecione a cidade e salve.');
 }
 // ═══════════════════════════════════════════════════════════
 // BACKUP / RESTAURAÇÃO COMPLETA
@@ -3708,11 +3434,8 @@ function startMobilePlayer() {
 // ═══════════════════════════════════════════════════════════
 initViews();
 render();
-var _saveLock = false; // bloqueia onSnapshot por 5s após save
-
 function startFirestoreListener() {
   DOC_REF.onSnapshot(function(doc) {
-    if (_saveLock) return; // ignora snapshots enquanto save está em progresso
     if (!doc.exists) return;
     var remote = doc.data();
     if (!remote || !remote.slides) return;
@@ -3724,359 +3447,6 @@ function startFirestoreListener() {
 }
 
 setTimeout(function() { startFirestoreListener(); }, 400);
-
-// ═══════════════════════════════════════════════════════════
-// ADMIN CIDADES V2 — estrutura independente
-// Collection: cidades_v2 / doc: por id do município
-// ═══════════════════════════════════════════════════════════
-
-const CV2_PASS = 'TV2026';
-const CV2_COL  = db.collection('cidades_v2');
-const CV2_IMGS = 'cidades_v2/';
-
-// Lista completa de municípios
-const CV2_MUNICIPIOS = [
-  {id:'marataizes',nome:'Marataízes',ico:'🍍'},
-  {id:'itapemirim',nome:'Itapemirim',ico:'🐟'},
-  {id:'piuma',nome:'Piúma',ico:'🐚'},
-  {id:'anchieta',nome:'Anchieta',ico:'⛪'},
-  {id:'kennedy',nome:'Presidente Kennedy',ico:'⚡'},
-  {id:'iconha',nome:'Iconha',ico:'🌿'},
-  {id:'rionovodosul',nome:'Rio Novo do Sul',ico:'🏞️'},
-  {id:'alfredochaves',nome:'Alfredo Chaves',ico:'🍇'},
-  {id:'cachoeiro',nome:'Cachoeiro de Itapemirim',ico:'💎'},
-  {id:'castelo',nome:'Castelo',ico:'🏰'},
-  {id:'vargemalta',nome:'Vargem Alta',ico:'☁️'},
-  {id:'muqui',nome:'Muqui',ico:'🌻'},
-  {id:'mimoso',nome:'Mimoso do Sul',ico:'🏡'},
-  {id:'atilio',nome:'Atílio Vivácqua',ico:'🌾'},
-  {id:'jeronimo',nome:'Jerônimo Monteiro',ico:'🌄'},
-  {id:'alegre',nome:'Alegre',ico:'🦅'},
-  {id:'guacui',nome:'Guaçuí',ico:'☕'},
-  {id:'ibatiba',nome:'Ibatiba',ico:'⛰️'},
-  {id:'iuna',nome:'Iúna',ico:'🌊'},
-  {id:'munizfreire',nome:'Muniz Freire',ico:'🌲'},
-  {id:'ibitirama',nome:'Ibitirama',ico:'🏔️'},
-  {id:'doresriopreto',nome:'Dores do Rio Preto',ico:'🌿'},
-  {id:'irupi',nome:'Irupi',ico:'🍃'},
-  {id:'divinosaolourenco',nome:'Divino de São Lourenço',ico:'⛪'},
-  {id:'apiacah',nome:'Apiacá',ico:'🌳'},
-  {id:'bom-jesus',nome:'Bom Jesus do Norte',ico:'⛅'},
-  {id:'saojosecalcado',nome:'São José do Calçado',ico:'🏘️'},
-];
-
-var cv2CidadeAtual = null; // dados da cidade em edição
-var cv2CidadeId    = '';
-var cidadeV2WppEnvio = '5528999036141';
-
-// ── Abrir/fechar Admin Cidades ────────────────────────────
-document.getElementById('admin-cidades-open-btn').addEventListener('click', function(e) {
-  e.preventDefault();
-  document.getElementById('admin-cidades-overlay').classList.add('open');
-  document.getElementById('admin-cidades-login-panel').style.display = '';
-  document.getElementById('admin-cidades-panel').style.display = 'none';
-  // Popular select de municípios
-  var sel = document.getElementById('cv2-admin-cidade-sel');
-  sel.innerHTML = '<option value="">-- Selecione --</option>' +
-    CV2_MUNICIPIOS.map(m => '<option value="'+m.id+'">'+m.ico+' '+m.nome+'</option>').join('');
-});
-
-function closeAdminCidades() {
-  document.getElementById('admin-cidades-overlay').classList.remove('open');
-}
-
-document.getElementById('admin-cidades-overlay').addEventListener('click', function(e) {
-  if (e.target === this) closeAdminCidades();
-});
-
-function doLoginCidades() {
-  var pass = document.getElementById('admin-cidades-pass').value;
-  var err  = document.getElementById('admin-cidades-error');
-  if (pass !== CV2_PASS) { err.style.display = 'block'; return; }
-  err.style.display = 'none';
-  document.getElementById('admin-cidades-login-panel').style.display = 'none';
-  document.getElementById('admin-cidades-panel').style.display = '';
-}
-
-// ── Carregar cidade no admin ──────────────────────────────
-function carregarCidadeV2Admin(cidadeId) {
-  if (!cidadeId) return;
-  cv2CidadeId = cidadeId;
-  document.getElementById('cv2-admin-materias').innerHTML  = '<div style="color:#888;font-size:12px;padding:8px;">Carregando...</div>';
-  document.getElementById('cv2-admin-parceiros').innerHTML = '';
-  document.getElementById('cv2-admin-pontos').innerHTML    = '';
-  document.getElementById('cv2-admin-videos').innerHTML    = '';
-
-  CV2_COL.doc(cidadeId).get().then(function(doc) {
-    cv2CidadeAtual = doc.exists ? doc.data() : {desc:'',img:'',materias:[],parceiros:[],pontos:[],videos:[]};
-    if (!cv2CidadeAtual.materias)  cv2CidadeAtual.materias  = [];
-    if (!cv2CidadeAtual.parceiros) cv2CidadeAtual.parceiros = [];
-    if (!cv2CidadeAtual.pontos)    cv2CidadeAtual.pontos    = [];
-    if (!cv2CidadeAtual.videos)    cv2CidadeAtual.videos    = [];
-    renderAdminCidadeV2();
-  }).catch(function() {
-    cv2CidadeAtual = {desc:'',img:'',materias:[],parceiros:[],pontos:[],videos:[]};
-    renderAdminCidadeV2();
-  });
-}
-
-function renderAdminCidadeV2() {
-  var d = cv2CidadeAtual;
-  document.getElementById('cv2-admin-desc').value = d.desc || '';
-  document.getElementById('cv2-admin-img').value  = d.img  || '';
-  var prev = document.getElementById('cv2-admin-img-prev');
-  if (d.img) { prev.src = d.img; prev.style.display = 'block'; } else { prev.style.display = 'none'; }
-
-  // Matérias
-  document.getElementById('cv2-admin-materias').innerHTML = (d.materias||[]).map(function(m,i) {
-    return '<div style="border:1.5px solid #eee;border-radius:8px;padding:12px;margin-bottom:10px;background:#fafaf8;">' +
-      '<div style="display:flex;justify-content:flex-end;gap:6px;margin-bottom:8px;">' +
-      '<button onclick="removeMateriaV2('+i+')" style="background:#dc2626;color:#fff;border:none;border-radius:4px;padding:3px 8px;font-size:11px;cursor:pointer;">✕ Remover</button></div>' +
-      '<div class="admin-field" style="margin-bottom:6px;"><label>Título</label><input type="text" value="'+esc(m.titulo||'')+'" oninput="cv2CidadeAtual.materias['+i+'].titulo=this.value" style="width:100%;padding:7px;border:1.5px solid #ddd;border-radius:6px;font-size:13px;"></div>' +
-      '<div class="admin-field" style="margin-bottom:6px;"><label>Subtítulo</label><input type="text" value="'+esc(m.sub||'')+'" oninput="cv2CidadeAtual.materias['+i+'].sub=this.value" style="width:100%;padding:7px;border:1.5px solid #ddd;border-radius:6px;font-size:13px;"></div>' +
-      '<div class="admin-field" style="margin-bottom:6px;"><label>Texto completo</label><textarea oninput="cv2CidadeAtual.materias['+i+'].body=this.value" style="width:100%;height:80px;padding:7px;border:1.5px solid #ddd;border-radius:6px;font-size:13px;resize:vertical;">'+esc(m.body||'')+'</textarea></div>' +
-      '<div class="admin-field" style="margin-bottom:6px;"><label>Data</label><input type="text" value="'+esc(m.data||'')+'" oninput="cv2CidadeAtual.materias['+i+'].data=this.value" placeholder="dd/mm/aaaa" style="width:100%;padding:7px;border:1.5px solid #ddd;border-radius:6px;font-size:13px;"></div>' +
-      '<div class="admin-field"><label>Imagem (URL ou upload)</label>' +
-      '<div style="display:flex;gap:6px;align-items:flex-start;">' +
-      '<input type="text" value="'+esc(m.img||'')+'" oninput="cv2CidadeAtual.materias['+i+'].img=this.value;document.getElementById(\'cv2-mat-prev-'+i+'\').src=this.value" style="flex:1;padding:7px;border:1.5px solid #ddd;border-radius:6px;font-size:13px;">' +
-      '<label style="background:#374151;color:#fff;padding:7px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">📁 Upload<input type="file" accept="image/*" onchange="uploadMateriaV2Img(event,'+i+')" style="display:none;"></label></div>' +
-      '<img id="cv2-mat-prev-'+i+'" src="'+esc(m.img||'')+'" style="height:50px;margin-top:6px;border-radius:6px;'+(m.img?'':'display:none;')+'"></div>' +
-      '</div>';
-  }).join('') || '<div style="color:#888;font-size:12px;padding:8px;">Nenhuma matéria. Clique em + Matéria.</div>';
-
-  // Parceiros
-  document.getElementById('cv2-admin-parceiros').innerHTML = (d.parceiros||[]).map(function(p,i) {
-    return '<div style="border:1.5px solid #fde68a;border-radius:8px;padding:12px;margin-bottom:10px;background:#fffbeb;">' +
-      '<div style="display:flex;justify-content:flex-end;margin-bottom:6px;">' +
-      '<button onclick="removeParceiroV2('+i+')" style="background:#dc2626;color:#fff;border:none;border-radius:4px;padding:3px 8px;font-size:11px;cursor:pointer;">✕</button></div>' +
-      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">' +
-      '<div class="admin-field"><label>Nome</label><input type="text" value="'+esc(p.nome||'')+'" oninput="cv2CidadeAtual.parceiros['+i+'].nome=this.value" style="width:100%;padding:7px;border:1.5px solid #ddd;border-radius:6px;font-size:13px;"></div>' +
-      '<div class="admin-field"><label>WhatsApp</label><input type="text" value="'+esc(p.wpp||'')+'" oninput="cv2CidadeAtual.parceiros['+i+'].wpp=this.value" placeholder="5528999..." style="width:100%;padding:7px;border:1.5px solid #ddd;border-radius:6px;font-size:13px;"></div>' +
-      '<div class="admin-field full" style="grid-column:1/-1;"><label>Link</label><input type="text" value="'+esc(p.link||'')+'" oninput="cv2CidadeAtual.parceiros['+i+'].link=this.value" placeholder="https://..." style="width:100%;padding:7px;border:1.5px solid #ddd;border-radius:6px;font-size:13px;"></div>' +
-      '<div class="admin-field full" style="grid-column:1/-1;"><label>Logo (URL ou upload)</label>' +
-      '<div style="display:flex;gap:6px;align-items:flex-start;">' +
-      '<input type="text" value="'+esc(p.logo||'')+'" oninput="cv2CidadeAtual.parceiros['+i+'].logo=this.value" style="flex:1;padding:7px;border:1.5px solid #ddd;border-radius:6px;font-size:13px;">' +
-      '<label style="background:#374151;color:#fff;padding:7px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">📁 Upload<input type="file" accept="image/*" onchange="uploadLogoV2(event,'+i+')" style="display:none;"></label></div>' +
-      (p.logo ? '<img src="'+esc(p.logo)+'" style="height:50px;margin-top:6px;border-radius:6px;">' : '') +
-      '</div></div></div>';
-  }).join('') || '<div style="color:#888;font-size:12px;padding:8px;">Nenhum parceiro.</div>';
-
-  // Pontos
-  document.getElementById('cv2-admin-pontos').innerHTML = (d.pontos||[]).map(function(p,i) {
-    return '<div style="border:1.5px solid #d1fae5;border-radius:8px;padding:10px;margin-bottom:8px;background:#f0fdf4;">' +
-      '<div style="display:flex;justify-content:flex-end;margin-bottom:4px;">' +
-      '<button onclick="removePontoV2('+i+')" style="background:#dc2626;color:#fff;border:none;border-radius:4px;padding:2px 7px;font-size:11px;cursor:pointer;">✕</button></div>' +
-      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">' +
-      '<div class="admin-field"><label>Nome do ponto</label><input type="text" value="'+esc(p.nome||'')+'" oninput="cv2CidadeAtual.pontos['+i+'].nome=this.value" style="width:100%;padding:7px;border:1.5px solid #ddd;border-radius:6px;font-size:13px;"></div>' +
-      '<div class="admin-field"><label>Descrição</label><input type="text" value="'+esc(p.desc||'')+'" oninput="cv2CidadeAtual.pontos['+i+'].desc=this.value" style="width:100%;padding:7px;border:1.5px solid #ddd;border-radius:6px;font-size:13px;"></div>' +
-      '</div></div>';
-  }).join('') || '<div style="color:#888;font-size:12px;padding:8px;">Nenhum ponto turístico.</div>';
-
-  // Vídeos
-  document.getElementById('cv2-admin-videos').innerHTML = (d.videos||[]).map(function(v,i) {
-    return '<div style="border:1.5px solid #e0e7ff;border-radius:8px;padding:10px;margin-bottom:8px;background:#eef2ff;">' +
-      '<div style="display:flex;justify-content:flex-end;margin-bottom:4px;">' +
-      '<button onclick="removeVideoV2('+i+')" style="background:#dc2626;color:#fff;border:none;border-radius:4px;padding:2px 7px;font-size:11px;cursor:pointer;">✕</button></div>' +
-      '<div class="admin-field" style="margin-bottom:6px;"><label>Título do vídeo</label><input type="text" value="'+esc(v.titulo||'')+'" oninput="cv2CidadeAtual.videos['+i+'].titulo=this.value" style="width:100%;padding:7px;border:1.5px solid #ddd;border-radius:6px;font-size:13px;"></div>' +
-      '<div class="admin-field"><label>URL Castr (embed)</label><input type="text" value="'+esc(v.url||'')+'" oninput="cv2CidadeAtual.videos['+i+'].url=this.value" placeholder="https://player.castr.com/vod/..." style="width:100%;padding:7px;border:1.5px solid #ddd;border-radius:6px;font-size:13px;"></div>' +
-      '</div>';
-  }).join('') || '<div style="color:#888;font-size:12px;padding:8px;">Nenhum vídeo.</div>';
-}
-
-// ── Adicionar itens ───────────────────────────────────────
-function addMateriaV2() {
-  if (!cv2CidadeAtual) { showToast('Selecione uma cidade primeiro.'); return; }
-  cv2CidadeAtual.materias.unshift({titulo:'',sub:'',body:'',data:new Date().toLocaleDateString('pt-BR'),img:''});
-  renderAdminCidadeV2();
-}
-function addParceiroV2() {
-  if (!cv2CidadeAtual) { showToast('Selecione uma cidade primeiro.'); return; }
-  cv2CidadeAtual.parceiros.push({nome:'',wpp:'',link:'',logo:''});
-  renderAdminCidadeV2();
-}
-function addPontoV2() {
-  if (!cv2CidadeAtual) { showToast('Selecione uma cidade primeiro.'); return; }
-  cv2CidadeAtual.pontos.push({nome:'',desc:''});
-  renderAdminCidadeV2();
-}
-function addVideoV2() {
-  if (!cv2CidadeAtual) { showToast('Selecione uma cidade primeiro.'); return; }
-  cv2CidadeAtual.videos.push({titulo:'',url:''});
-  renderAdminCidadeV2();
-}
-
-// ── Remover itens ─────────────────────────────────────────
-function removeMateriaV2(i)  { cv2CidadeAtual.materias.splice(i,1);  renderAdminCidadeV2(); }
-function removeParceiroV2(i) { cv2CidadeAtual.parceiros.splice(i,1); renderAdminCidadeV2(); }
-function removePontoV2(i)    { cv2CidadeAtual.pontos.splice(i,1);    renderAdminCidadeV2(); }
-function removeVideoV2(i)    { cv2CidadeAtual.videos.splice(i,1);    renderAdminCidadeV2(); }
-
-// ── Uploads Firebase Storage ──────────────────────────────
-function uploadCidadeV2Img(event) {
-  var file = event.target.files[0];
-  if (!file) return;
-  showToast('⏳ Enviando imagem da cidade...');
-  comprimirEEnviarV2(file, CV2_IMGS + 'cidade_' + cv2CidadeId + '_' + Date.now() + '.jpg', function(url) {
-    cv2CidadeAtual.img = url;
-    document.getElementById('cv2-admin-img').value = url;
-    var prev = document.getElementById('cv2-admin-img-prev');
-    prev.src = url; prev.style.display = 'block';
-    showToast('✅ Imagem enviada!');
-  });
-}
-function uploadMateriaV2Img(event, idx) {
-  var file = event.target.files[0];
-  if (!file) return;
-  showToast('⏳ Enviando imagem da matéria...');
-  comprimirEEnviarV2(file, CV2_IMGS + 'materia_' + cv2CidadeId + '_' + idx + '_' + Date.now() + '.jpg', function(url) {
-    cv2CidadeAtual.materias[idx].img = url;
-    var card = document.querySelectorAll('#cv2-admin-materias > div')[idx];
-    if (card) { var inp = card.querySelector('input[type=text]:last-of-type'); if(inp) inp.value = url; var img = document.getElementById('cv2-mat-prev-'+idx); if(img){img.src=url;img.style.display='block';} }
-    showToast('✅ Imagem enviada!');
-  });
-}
-function uploadLogoV2(event, idx) {
-  var file = event.target.files[0];
-  if (!file) return;
-  showToast('⏳ Enviando logo...');
-  comprimirEEnviarV2(file, CV2_IMGS + 'logo_' + cv2CidadeId + '_' + idx + '_' + Date.now() + '.jpg', function(url) {
-    cv2CidadeAtual.parceiros[idx].logo = url;
-    renderAdminCidadeV2();
-    showToast('✅ Logo enviado!');
-  });
-}
-function comprimirEEnviarV2(file, path, callback) {
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    var img = new Image();
-    img.onload = function() {
-      var canvas = document.createElement('canvas');
-      var maxW = 1200;
-      var scale = img.width > maxW ? maxW / img.width : 1;
-      canvas.width = Math.round(img.width * scale);
-      canvas.height = Math.round(img.height * scale);
-      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-      var compressed = canvas.toDataURL('image/jpeg', 0.82);
-      var byteStr = atob(compressed.split(',')[1]);
-      var arr = new Uint8Array(byteStr.length);
-      for (var i = 0; i < byteStr.length; i++) arr[i] = byteStr.charCodeAt(i);
-      var blob = new Blob([arr], {type:'image/jpeg'});
-      var ref = storage.ref(path);
-      ref.put(blob).then(function(snap) {
-        snap.ref.getDownloadURL().then(callback);
-      }).catch(function(err) { showToast('❌ Erro no upload: ' + err.message); });
-    };
-    img.src = e.target.result;
-  };
-  reader.readAsDataURL(file);
-}
-
-// ── Salvar cidade no Firestore ────────────────────────────
-function salvarCidadeV2() {
-  if (!cv2CidadeId || !cv2CidadeAtual) { showToast('Selecione uma cidade primeiro.'); return; }
-  cv2CidadeAtual.desc = document.getElementById('cv2-admin-desc').value;
-  cv2CidadeAtual.img  = document.getElementById('cv2-admin-img').value;
-  CV2_COL.doc(cv2CidadeId).set(cv2CidadeAtual).then(function() {
-    showToast('✅ Cidade salva com sucesso!');
-    renderCidadesV2Portal();
-  }).catch(function(e) { showToast('❌ Erro ao salvar: ' + e.message); });
-}
-
-// ── Renderizar grid de cidades no portal público ──────────
-function renderCidadesV2Portal() {
-  var grid = document.getElementById('cidades-v2-grid');
-  if (!grid) return;
-  grid.innerHTML = CV2_MUNICIPIOS.map(function(m) {
-    return '<div onclick="abrirCidadeV2(\''+m.id+'\',\''+m.nome+'\')" style="background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:14px 10px;text-align:center;cursor:pointer;transition:box-shadow .15s;" onmouseover="this.style.boxShadow=\'0 4px 16px rgba(0,0,0,.1)\'" onmouseout="this.style.boxShadow=\'\'">' +
-      '<div style="font-size:24px;margin-bottom:4px;">'+m.ico+'</div>' +
-      '<div style="font-size:12px;font-weight:700;color:#1a1a1a;line-height:1.3;">'+m.nome+'</div>' +
-      '</div>';
-  }).join('');
-}
-
-// ── Abrir modal de cidade no portal ──────────────────────
-function abrirCidadeV2(cidadeId, cidadeNome) {
-  var modal = document.getElementById('cidade-v2-modal');
-  modal.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-  document.getElementById('cv2-nome').textContent = cidadeNome;
-  document.getElementById('cv2-desc').textContent = '';
-  document.getElementById('cv2-img').src = '';
-  document.getElementById('cv2-parceiros').innerHTML = '<div style="color:#888;font-size:12px;">Carregando...</div>';
-  document.getElementById('cv2-noticias').innerHTML  = '<div style="color:#888;font-size:12px;">Carregando...</div>';
-  document.getElementById('cv2-videos').innerHTML    = '';
-  document.getElementById('cv2-pontos').innerHTML    = '';
-
-  if (typeof CV2_COL === 'undefined') { closeCidadeV2(); return; }
-
-  CV2_COL.doc(cidadeId).get().then(function(doc) {
-    var d = doc.exists ? doc.data() : {};
-
-    // Imagem e desc
-    if (d.img) { document.getElementById('cv2-img').src = d.img; }
-    document.getElementById('cv2-desc').textContent = d.desc || '';
-
-    // Parceiros
-    var parc = d.parceiros || [];
-    document.getElementById('cv2-parceiros-section').style.display = parc.length ? '' : 'none';
-    document.getElementById('cv2-parceiros').innerHTML = parc.map(function(p) {
-      var link = p.link || (p.wpp ? 'https://wa.me/'+p.wpp.replace(/\D/g,'') : '#');
-      return '<a href="'+link+'" target="_blank" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:4px;">' +
-        (p.logo ? '<img src="'+p.logo+'" style="height:80px;max-width:180px;object-fit:contain;border-radius:8px;border:1px solid #eee;padding:8px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.08);">' : '<span style="font-size:13px;font-weight:700;color:#1a1a1a;">'+p.nome+'</span>') +
-        (p.wpp ? '<span style="font-size:11px;color:#25d366;font-weight:700;">💬 WhatsApp</span>' : '') +
-        '</a>';
-    }).join('');
-
-    // Notícias
-    var mats = (d.materias || []).slice().sort(function(a,b){ return (b.data||'').localeCompare(a.data||''); });
-    document.getElementById('cv2-noticias-section').style.display = mats.length ? '' : 'none';
-    document.getElementById('cv2-noticias').innerHTML = mats.map(function(m) {
-      return '<div style="border:1px solid #eee;border-radius:8px;overflow:hidden;cursor:pointer;" onclick="abrirMateriaV2('+JSON.stringify(m).replace(/"/g,\'&quot;\')+\')">' +
-        (m.img ? '<img src="'+m.img+'" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;">' : '') +
-        '<div style="padding:10px 12px;"><div style="font-size:13px;font-weight:700;color:#1a1a1a;line-height:1.4;margin-bottom:4px;">'+m.titulo+'</div>' +
-        '<div style="font-size:11px;color:#999;">'+( m.data||'')+'</div></div></div>';
-    }).join('');
-
-    // Vídeos
-    var vids = d.videos || [];
-    document.getElementById('cv2-videos-section').style.display = vids.length ? '' : 'none';
-    document.getElementById('cv2-videos').innerHTML = vids.map(function(v) {
-      return '<div onclick="openVideo(\''+v.url+'\',\''+v.titulo+'\')" style="background:#111;border-radius:8px;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;">' +
-        '<div style="background:rgba(232,55,13,.9);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg></div>' +
-        '<div style="position:absolute;bottom:0;left:0;right:0;padding:6px 8px;background:rgba(0,0,0,.65);font-size:11px;color:#fff;border-radius:0 0 8px 8px;">'+v.titulo+'</div>' +
-        '</div>';
-    }).join('');
-
-    // Pontos
-    var pontos = d.pontos || [];
-    document.getElementById('cv2-pontos-section').style.display = pontos.length ? '' : 'none';
-    document.getElementById('cv2-pontos').innerHTML = pontos.map(function(p) {
-      return '<div style="padding:8px 0;border-bottom:1px solid #eee;"><strong style="font-size:13px;">'+p.nome+'</strong>' +
-        (p.desc ? '<div style="font-size:12px;color:#666;margin-top:2px;">'+p.desc+'</div>' : '') + '</div>';
-    }).join('');
-
-    document.getElementById('cv2-wpp-btn').style.display = '';
-  });
-}
-
-function closeCidadeV2() {
-  document.getElementById('cidade-v2-modal').style.display = 'none';
-  document.body.style.overflow = '';
-}
-
-// Modal de matéria V2
-function abrirMateriaV2(m) {
-  // Reutiliza o modal de artigo existente
-  var a = {title: m.titulo, sub: m.sub, body: m.body, date: m.data, autor: 'Redação TV Sul Capixaba', img: m.img};
-  openArticle(a);
-}
-
-// Inicializar grid de cidades no portal após DOM pronto
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', renderCidadesV2Portal);
-} else {
-  renderCidadesV2Portal();
-}
 </script>
 </body>
 </html>
