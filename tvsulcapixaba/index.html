@@ -11,7 +11,7 @@
 <meta name="keywords" content="TV Sul Capixaba, notícias sul capixaba, Marataízes, Cachoeiro de Itapemirim, Espírito Santo, portal de notícias, ao vivo">
 <meta name="author" content="TV Sul Capixaba">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://tvmarataizes.digital/tvsulcapixaba/">
+<link rel="canonical" href="https://tvsulcapixaba.com.br/">
 
 <!-- Google Search Console -->
 <meta name="google-site-verification" content="COLE_SEU_CODIGO_AQUI">
@@ -461,21 +461,83 @@ gtag('config', 'G-KTRG77RWXP');
 <div class="site-body">
   <main>
 
-    <!-- PLAYER MOBILE (visível só no celular) -->
-    <div class="mobile-player-box" id="mobile-player-box">
+    <!-- ═══ PLAYER TV SUL CAPIXABA — AO VIVO ═══
+         ADICIONADO: player real ao vivo antes do carrossel
+         NÃO altera nenhum outro elemento do portal -->
+
+    <!-- Mobile: visível só até 899px -->
+    <div id="sc-player-mobile" style="margin-bottom:12px;">
       <div class="player-header">
         <span class="player-live-dot"></span>
-        📺 ANUNCIANTES TV SUL CAPIXABA + TV MARATAÍZES
+        📺 TV SUL CAPIXABA — AO VIVO · CANAL 300 SOUL TV
       </div>
-      <div class="player-wrapper" id="mobile-player-wrapper" style="background:#000">
-        <div class="mobile-player-play" id="mobile-play-btn" onclick="startMobilePlayer()">
-          <div class="play-icon">
-            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+      <div class="player-wrapper" id="mobile-player-wrapper" style="background:#000;position:relative;">
+        <div id="mobile-play-btn" onclick="scStartMobile()" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.88);cursor:pointer;gap:10px;z-index:2;">
+          <div style="width:60px;height:60px;background:var(--brand);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:scPulse 1.8s ease-in-out infinite;">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="#fff" style="margin-left:3px"><polygon points="5,3 19,12 5,21"/></svg>
           </div>
-          <span>Toque para assistir aos nossos anunciantes</span>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span style="width:8px;height:8px;border-radius:50%;background:var(--brand);animation:scBlink 1.2s ease-in-out infinite;"></span>
+            <span style="color:var(--brand);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;">Ao Vivo</span>
+          </div>
+          <span style="color:rgba(255,255,255,.7);font-size:13px;">Toque para assistir</span>
         </div>
       </div>
     </div>
+
+    <!-- Desktop: visível só acima de 900px -->
+    <div id="sc-player-desktop" style="display:none;margin-bottom:20px;">
+      <div style="text-align:center;font-size:13px;font-weight:700;color:var(--ink-2);padding:8px 0;display:flex;align-items:center;justify-content:center;gap:8px;">
+        <span style="width:9px;height:9px;border-radius:50%;background:var(--brand);animation:scBlink 1.2s ease-in-out infinite;"></span>
+        TV SUL CAPIXABA — AO VIVO · 24H · CANAL 300 SOUL TV
+      </div>
+      <div id="sc-desk-wrap" onclick="scStartDesktop()" style="aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden;position:relative;cursor:pointer;">
+        <div id="sc-desk-overlay" style="position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,#1a0000 0%,#000 100%);border-radius:14px;">
+          <div style="width:80px;height:80px;border-radius:50%;background:var(--brand);display:flex;align-items:center;justify-content:center;animation:scPulse 1.8s ease-in-out infinite;margin-bottom:18px;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="#fff"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <span style="width:10px;height:10px;border-radius:50%;background:var(--brand);animation:scBlink 1.2s ease-in-out infinite;"></span>
+            <span style="color:var(--brand);font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;">Ao Vivo</span>
+          </div>
+          <p style="color:rgba(255,255,255,.75);font-size:14px;margin:0;">Clique para assistir</p>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      @keyframes scPulse{0%,100%{box-shadow:0 0 0 0 rgba(232,55,13,.5);}60%{box-shadow:0 0 0 22px rgba(232,55,13,0);}}
+      @keyframes scBlink{0%,100%{opacity:1;}50%{opacity:.2;}}
+      @media(min-width:900px){
+        #sc-player-desktop{display:block!important;}
+        #sc-player-mobile{display:none!important;}
+      }
+    </style>
+    <script>
+    function scStartMobile(){
+      var w=document.getElementById('mobile-player-wrapper');
+      var b=document.getElementById('mobile-play-btn');
+      if(!b||b.style.display==='none')return;
+      b.style.display='none';
+      var f=document.createElement('iframe');
+      f.src='https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on';
+      f.allow='autoplay;fullscreen';f.allowFullscreen=true;
+      f.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border:0';
+      w.appendChild(f);
+    }
+    function scStartDesktop(){
+      var w=document.getElementById('sc-desk-wrap');
+      var o=document.getElementById('sc-desk-overlay');
+      if(!o||o.style.display==='none')return;
+      o.style.display='none';w.style.cursor='default';w.onclick=null;
+      var f=document.createElement('iframe');
+      f.src='https://player.castr.com/live_809e4d1087af11f092f8f727f1f0bfd4?autoplay=on&muted=on';
+      f.allow='autoplay;fullscreen';f.allowFullscreen=true;
+      f.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border:0';
+      w.appendChild(f);
+    }
+    </script>
+    <!-- ═══ FIM PLAYER ═══ -->
 
     <!-- HERO CAROUSEL -->
     <div class="hero">
@@ -614,6 +676,381 @@ gtag('config', 'G-KTRG77RWXP');
     </div>
   </aside>
 </div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TURISMO SUL CAPIXABA — MÓDULO COMPLETO
+     Integrado ao Firebase/Firestore e admin existentes.
+     NÃO altera nenhum elemento anterior do portal.
+     Adicionado APÓS o conteúdo editorial, ANTES do footer.
+════════════════════════════════════════════════════════════════ -->
+
+<style id="turismo-sc-styles">
+/* ── Turismo Sul Capixaba ── */
+#turismo-sul-capixaba {
+  max-width: 1320px;
+  margin: 32px auto 0;
+  padding: 0 14px 40px;
+  font-family: 'Source Sans 3', sans-serif;
+}
+.tsc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 3px solid var(--brand);
+  margin-bottom: 20px;
+}
+.tsc-header h2 {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: .3px;
+  margin: 0;
+}
+.tsc-intro {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  padding: 14px 16px;
+  background: var(--color-bg, #f7f5f0);
+  border-radius: 8px;
+  border-left: 3px solid var(--brand);
+}
+.tsc-regiao-titulo {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--ink-3);
+  margin: 20px 0 10px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+.tsc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.tsc-cidade {
+  border-radius: 8px;
+  padding: 11px 13px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid var(--border);
+  background: var(--color-bg, #fafaf8);
+  cursor: pointer;
+  transition: box-shadow .15s, border-color .15s;
+  user-select: none;
+}
+.tsc-cidade:hover { box-shadow: 0 2px 10px rgba(0,0,0,.08); border-color: var(--brand); }
+.tsc-cidade-ico { font-size: 20px; flex-shrink: 0; }
+.tsc-cidade-nome { font-size: 12px; font-weight: 700; color: var(--ink); line-height: 1.25; }
+.tsc-cidade-status { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 3px; display: inline-block; margin-top: 3px; }
+.tsc-s-ok  { background: #e6f4ec; color: #005c2e; }
+.tsc-s-soon{ background: #f0ede8; color: #888; }
+/* Modal cidade */
+#tsc-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:2000; align-items:flex-start; justify-content:center; padding:20px; overflow-y:auto; }
+#tsc-modal.open { display:flex; }
+.tsc-modal-box { background:#fff; border-radius:14px; width:100%; max-width:820px; margin:auto; box-shadow:0 24px 64px rgba(0,0,0,.35); overflow:hidden; animation:tscIn .22s ease; }
+@keyframes tscIn { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+.tsc-modal-hero { position:relative; aspect-ratio:16/9; background:#111; overflow:hidden; }
+.tsc-modal-hero img { width:100%; height:100%; object-fit:cover; display:block; }
+.tsc-modal-close { position:absolute; top:12px; right:14px; width:36px; height:36px; background:rgba(0,0,0,.55); border:none; border-radius:50%; color:#fff; font-size:20px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.tsc-modal-close:hover { background:rgba(0,0,0,.85); }
+.tsc-modal-body { padding:24px 28px 28px; }
+.tsc-modal-nome { font-family:'Playfair Display',serif; font-size:clamp(20px,3vw,26px); font-weight:900; color:#1A1A1A; margin-bottom:6px; }
+.tsc-modal-desc { font-size:15px; color:#444; line-height:1.7; margin-bottom:18px; }
+.tsc-modal-section { margin-bottom:18px; }
+.tsc-modal-section-title { font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#888; margin-bottom:10px; padding-bottom:6px; border-bottom:2px solid #eee; }
+.tsc-noticias-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.tsc-noticia-card { border:1px solid #eee; border-radius:8px; overflow:hidden; cursor:pointer; transition:box-shadow .15s; }
+.tsc-noticia-card:hover { box-shadow:0 3px 12px rgba(0,0,0,.1); }
+.tsc-noticia-card img { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; }
+.tsc-noticia-card-body { padding:8px 10px; }
+.tsc-noticia-card-title { font-size:12px; font-weight:700; color:#1A1A1A; line-height:1.35; }
+.tsc-noticia-card-date { font-size:10px; color:#999; margin-top:3px; }
+.tsc-videos-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.tsc-video-thumb { position:relative; aspect-ratio:16/9; background:#111; border-radius:8px; overflow:hidden; cursor:pointer; }
+.tsc-video-thumb img { width:100%; height:100%; object-fit:cover; }
+.tsc-video-play { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+.tsc-video-play span { width:42px; height:42px; background:rgba(232,55,13,.85); border-radius:50%; display:flex; align-items:center; justify-content:center; }
+.tsc-empty { font-size:13px; color:#aaa; font-style:italic; padding:10px 0; }
+.tsc-cta-wpp { display:inline-flex; align-items:center; gap:8px; background:#25d366; color:#fff; font-size:13px; font-weight:700; padding:10px 18px; border-radius:8px; text-decoration:none; margin-top:4px; }
+@media(max-width:600px){
+  .tsc-grid { grid-template-columns:1fr 1fr; }
+  .tsc-noticias-grid,.tsc-videos-grid { grid-template-columns:1fr; }
+  .tsc-modal-body { padding:16px; }
+}
+</style>
+
+<!-- ══ TURISMO SUL CAPIXABA ══ -->
+<section id="turismo-sul-capixaba">
+
+  <div class="tsc-header">
+    <h2>🌊 Turismo Sul Capixaba</h2>
+    <span style="font-size:11px;color:var(--ink-3);font-weight:600;">27 municípios · Sul do ES</span>
+  </div>
+
+  <div class="tsc-intro">
+    O Sul do Espírito Santo reúne litoral, serras, rios e cultura em uma das regiões mais diversas do estado. Clique em qualquer município para ver notícias, vídeos e pontos turísticos. Conteúdo atualizado continuamente pela equipe da TV Sul Capixaba.
+  </div>
+
+  <!-- LITORAL -->
+  <div class="tsc-regiao-titulo">🌊 Litoral Sul</div>
+  <div class="tsc-grid" id="tsc-grid-litoral"></div>
+
+  <!-- CACHOEIRO E REGIÃO -->
+  <div class="tsc-regiao-titulo">🏙️ Cachoeiro e Região</div>
+  <div class="tsc-grid" id="tsc-grid-cachoeiro"></div>
+
+  <!-- SERRAS -->
+  <div class="tsc-regiao-titulo">⛰️ Serras do Sul</div>
+  <div class="tsc-grid" id="tsc-grid-serras"></div>
+
+  <!-- SUL PROFUNDO -->
+  <div class="tsc-regiao-titulo">🗺️ Sul Profundo</div>
+  <div class="tsc-grid" id="tsc-grid-sul"></div>
+
+</section>
+
+<!-- Modal município -->
+<div id="tsc-modal" onclick="if(event.target===this)tscCloseModal()">
+  <div class="tsc-modal-box">
+    <div class="tsc-modal-hero">
+      <img id="tsc-modal-img" src="" alt="">
+      <button class="tsc-modal-close" onclick="tscCloseModal()">✕</button>
+    </div>
+    <div class="tsc-modal-body">
+      <div class="tsc-modal-nome" id="tsc-modal-nome"></div>
+      <div class="tsc-modal-desc" id="tsc-modal-desc"></div>
+
+      <!-- Matérias -->
+      <div class="tsc-modal-section">
+        <div class="tsc-modal-section-title">📰 Matérias</div>
+        <div class="tsc-noticias-grid" id="tsc-modal-noticias"></div>
+      </div>
+
+      <!-- Vídeos -->
+      <div class="tsc-modal-section">
+        <div class="tsc-modal-section-title">📹 Vídeos</div>
+        <div class="tsc-videos-grid" id="tsc-modal-videos"></div>
+      </div>
+
+      <!-- Pontos turísticos -->
+      <div class="tsc-modal-section">
+        <div class="tsc-modal-section-title">📍 Pontos Turísticos</div>
+        <div id="tsc-modal-pontos"></div>
+      </div>
+
+      <a id="tsc-modal-wpp" href="#" target="_blank" rel="noopener" class="tsc-cta-wpp">
+        💬 Enviar matéria ou vídeo sobre esta cidade
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// DADOS DOS MUNICÍPIOS — apenas informações verificáveis
+// ═══════════════════════════════════════════════════════
+var TSC_MUNICIPIOS = {
+  litoral: [
+    { id:'marataizes',    nome:'Marataízes',         ico:'🍍', img:'https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/Praia%20da%20Barra.png', desc:'Marataízes é um município litorâneo do Sul do Espírito Santo, conhecido pelas praias de águas claras, pela produção de abacaxi e pela pesca artesanal. Sede da TV Marataízes e da Rede Sul Capixaba.', ok:true },
+    { id:'itapemirim',   nome:'Itapemirim',          ico:'🐟', img:'https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ITAPEMIRIM.png',          desc:'Itapemirim é um dos municípios mais antigos do ES, com história ligada à pesca, à Ilha dos Franceses e ao Monte Agha. Polo pesqueiro regional com destaque para exportação de atum.', ok:true },
+    { id:'piuma',        nome:'Piúma',               ico:'🐚', img:'https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/piuma.png',               desc:'Piúma é famosa pela Ilha do Mel, rica em ouriços-do-mar e crustáceos. A cidade tem vocação turística e gastronômica, com orla urbanizada e pesca artesanal preservada.', ok:true },
+    { id:'anchieta',     nome:'Anchieta',            ico:'⛪', img:'https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/anchieta.png',            desc:'Anchieta abriga o Santuário Nacional de Anchieta, um dos pontos de peregrinação mais importantes do Brasil, além de praias e forte potencial turístico histórico.', ok:true },
+    { id:'kennedy',      nome:'Presidente Kennedy',  ico:'⚡', img:'https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/kennedy.png',            desc:'Presidente Kennedy concentra parte significativa da indústria de petróleo e gás do Espírito Santo, com o Porto Central em desenvolvimento e ampla faixa litorânea.', ok:true },
+    { id:'iconha',       nome:'Iconha',              ico:'🌿', img:'', desc:'Conteúdo em expansão.', ok:false },
+    { id:'rionovodosul', nome:'Rio Novo do Sul',     ico:'🏞️', img:'', desc:'Conteúdo em expansão.', ok:false },
+    { id:'alfredochaves',nome:'Alfredo Chaves',      ico:'🍇', img:'', desc:'Conteúdo em expansão.', ok:false },
+  ],
+  cachoeiro: [
+    { id:'cachoeiro',    nome:'Cachoeiro de Itapemirim', ico:'💎', img:'', desc:'Cachoeiro de Itapemirim é a maior cidade do Sul do ES e principal polo econômico da região, conhecido pela produção de mármore e granito. Cidade natal de Roberto Carlos.', ok:true },
+    { id:'castelo',      nome:'Castelo',             ico:'🏰', img:'', desc:'Conteúdo em expansão.', ok:false },
+    { id:'vargemalta',   nome:'Vargem Alta',         ico:'☁️', img:'', desc:'Conteúdo em expansão.', ok:false },
+    { id:'muqui',        nome:'Muqui',               ico:'🌻', img:'', desc:'Conteúdo em expansão.', ok:false },
+    { id:'mimoso',       nome:'Mimoso do Sul',       ico:'🏡', img:'', desc:'Conteúdo em expansão.', ok:false },
+    { id:'atilio',       nome:'Atílio Vivácqua',     ico:'🌾', img:'', desc:'Conteúdo em expansão.', ok:false },
+    { id:'jeronimo',     nome:'Jerônimo Monteiro',   ico:'🌄', img:'', desc:'Conteúdo em expansão.', ok:false },
+  ],
+  serras: [
+    { id:'alegre',       nome:'Alegre',              ico:'🦅', img:'', desc:'Conteúdo em expansão.', ok:false },
+    { id:'guacui',       nome:'Guaçuí',              ico:'☕', img:'', desc:'Conteúdo em expansão.', ok:false },
+    { id:'ibatiba',      nome:'Ibatiba',             ico:'⛰️', img:'', desc:'Conteúdo em expansão.', ok:false },
+    { id:'iuna',         nome:'Iúna',                ico:'🌊', img:'', desc:'Conteúdo em expansão.', ok:false },
+    { id:'munizfreire',  nome:'Muniz Freire',        ico:'🌲', img:'', desc:'Conteúdo em expansão.', ok:false },
+    { id:'ibitirama',    nome:'Ibitirama',           ico:'🏔️', img:'', desc:'Conteúdo em expansão.', ok:false },
+    { id:'doresriopreto',nome:'Dores do Rio Preto',  ico:'🌿', img:'', desc:'Conteúdo em expansão.', ok:false },
+    { id:'irupi',        nome:'Irupi',               ico:'🍃', img:'', desc:'Conteúdo em expansão.', ok:false },
+    { id:'divinosaolourenco', nome:'Divino de São Lourenço', ico:'⛪', img:'', desc:'Conteúdo em expansão.', ok:false },
+  ],
+  sul: [
+    { id:'apiacah',      nome:'Apiacá',              ico:'🌳', img:'', desc:'Conteúdo em expansão.', ok:false },
+    { id:'bom-jesus',    nome:'Bom Jesus do Norte',  ico:'⛅', img:'', desc:'Conteúdo em expansão.', ok:false },
+    { id:'saojosecalcado',nome:'São José do Calçado',ico:'🏘️', img:'', desc:'Conteúdo em expansão.', ok:false },
+  ],
+};
+
+// Imagem padrão quando não há foto
+var TSC_IMG_DEFAULT = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80';
+
+// ── Renderizar grids ──
+function tscRenderGrid(containerId, lista) {
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = lista.map(function(m) {
+    return '<div class="tsc-cidade" onclick="tscOpenModal(\'' + m.id + '\')">' +
+      '<span class="tsc-cidade-ico">' + m.ico + '</span>' +
+      '<div><div class="tsc-cidade-nome">' + m.nome + '</div>' +
+      '<span class="tsc-cidade-status ' + (m.ok ? 'tsc-s-ok' : 'tsc-s-soon') + '">' +
+      (m.ok ? '✅ Cobertura ativa' : 'Em expansão') + '</span></div></div>';
+  }).join('');
+}
+
+function tscInit() {
+  tscRenderGrid('tsc-grid-litoral',   TSC_MUNICIPIOS.litoral);
+  tscRenderGrid('tsc-grid-cachoeiro', TSC_MUNICIPIOS.cachoeiro);
+  tscRenderGrid('tsc-grid-serras',    TSC_MUNICIPIOS.serras);
+  tscRenderGrid('tsc-grid-sul',       TSC_MUNICIPIOS.sul);
+}
+
+// ── Abrir modal ──
+function tscFindMunicipio(id) {
+  var todas = [].concat(TSC_MUNICIPIOS.litoral, TSC_MUNICIPIOS.cachoeiro, TSC_MUNICIPIOS.serras, TSC_MUNICIPIOS.sul);
+  for (var i = 0; i < todas.length; i++) { if (todas[i].id === id) return todas[i]; }
+  return null;
+}
+
+function tscOpenModal(id) {
+  var m = tscFindMunicipio(id);
+  if (!m) return;
+
+  document.getElementById('tsc-modal-nome').textContent = m.nome;
+  document.getElementById('tsc-modal-desc').textContent = m.desc;
+
+  var img = document.getElementById('tsc-modal-img');
+  img.src = (m.img && m.img !== '') ? m.img : TSC_IMG_DEFAULT;
+  img.alt = m.nome;
+
+  // WhatsApp
+  var wpp = document.getElementById('tsc-modal-wpp');
+  wpp.href = 'https://wa.me/5528999036141?text=Olá!+Tenho+uma+matéria+ou+vídeo+sobre+' + encodeURIComponent(m.nome) + '+para+a+TV+Sul+Capixaba';
+
+  // Carregar conteúdo do Firebase
+  tscLoadCidade(id, m.nome);
+
+  document.getElementById('tsc-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function tscCloseModal() {
+  document.getElementById('tsc-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') tscCloseModal(); });
+
+// ── Carregar matérias/vídeos/pontos do Firebase ──
+function tscLoadCidade(cidadeId, cidadeNome) {
+  var nEl = document.getElementById('tsc-modal-noticias');
+  var vEl = document.getElementById('tsc-modal-videos');
+  var pEl = document.getElementById('tsc-modal-pontos');
+
+  nEl.innerHTML = '<div class="tsc-empty">Carregando...</div>';
+  vEl.innerHTML = '<div class="tsc-empty">Carregando...</div>';
+  pEl.innerHTML = '<div class="tsc-empty">Carregando...</div>';
+
+  // Busca matérias de turismo com campo cidade=id no Firebase
+  // Campo 'cidade' é o critério principal — título é fallback secundário
+  if (typeof data !== 'undefined' && data && data.blocks) {
+    var noticias = data.blocks.filter(function(b) {
+      if (b.section !== 'turismo') return false;
+      // Critério 1: campo cidade explícito (preferencial)
+      if (b.cidade && b.cidade === cidadeId) return true;
+      // Critério 2: fallback por nome da cidade no título (menos confiável)
+      if (!b.cidade && b.title && b.title.toLowerCase().indexOf(cidadeNome.toLowerCase()) !== -1) return true;
+      return false;
+    });
+
+    if (noticias.length > 0) {
+      nEl.innerHTML = noticias.map(function(n) {
+        var imgSrc = n.imgUrl || (n.img ? (window.tscImgCache && window.tscImgCache[n.img] ? window.tscImgCache[n.img] : '') : '');
+        return '<div class="tsc-noticia-card" onclick="openArticle(data.blocks.find(b=>b.title===\'' + n.title.replace(/'/g,"\\'") + '\'))">' +
+          (imgSrc ? '<img src="' + imgSrc + '" alt="">' : '') +
+          '<div class="tsc-noticia-card-body">' +
+          '<div class="tsc-noticia-card-title">' + n.title + '</div>' +
+          '<div class="tsc-noticia-card-date">' + (n.date||'') + '</div>' +
+          '</div></div>';
+      }).join('');
+    } else {
+      nEl.innerHTML = '<div class="tsc-empty">Nenhuma matéria publicada ainda para ' + cidadeNome + '. Publique pelo painel admin na seção Turismo.</div>';
+    }
+
+    // Vídeos — filtra por cidade
+    var videos = (data.videos || []).filter(function(v) {
+      return v.cidade === cidadeId ||
+        (v.title && v.title.toLowerCase().indexOf(cidadeNome.toLowerCase()) !== -1);
+    });
+    if (videos.length > 0) {
+      vEl.innerHTML = videos.map(function(v) {
+        return '<div class="tsc-video-thumb" onclick="openVideo(\'' + v.url + '\',\'' + (v.title||'').replace(/'/g,"\\'") + '\')">' +
+          (v.thumb ? '<img src="' + v.thumb + '" alt="">' : '<div style="width:100%;height:100%;background:#222;"></div>') +
+          '<div class="tsc-video-play"><span><svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg></span></div>' +
+          '</div>';
+      }).join('');
+    } else {
+      vEl.innerHTML = '<div class="tsc-empty">Nenhum vídeo publicado ainda para ' + cidadeNome + '. Adicione vídeos pelo painel admin.</div>';
+    }
+
+    // Pontos turísticos
+    var pontos = (data.pontos || []).filter(function(p) {
+      return p.cidade === cidadeId;
+    });
+    if (pontos.length > 0) {
+      pEl.innerHTML = pontos.map(function(p) {
+        return '<div style="padding:8px 0;border-bottom:1px solid #eee;">' +
+          '<strong style="font-size:13px;">' + p.nome + '</strong>' +
+          (p.desc ? '<div style="font-size:12px;color:#666;margin-top:3px;">' + p.desc + '</div>' : '') +
+          '</div>';
+      }).join('');
+    } else {
+      pEl.innerHTML = '<div class="tsc-empty">Pontos turísticos em expansão. Adicione via painel admin.</div>';
+    }
+  } else {
+    // Dados ainda não carregados
+    setTimeout(function(){ tscLoadCidade(cidadeId, cidadeNome); }, 800);
+  }
+}
+
+// Helper para abrir vídeo no modal existente do portal
+function openVideo(url, title) {
+  var modal = document.getElementById('video-modal');
+  if (!modal) return;
+  var iframe = document.getElementById('video-modal-iframe');
+  var titleEl = document.getElementById('video-modal-title');
+  if (iframe) iframe.src = url + '?autoplay=1';
+  if (titleEl) titleEl.textContent = title;
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+// Inicializar após DOM pronto
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', tscInit);
+} else {
+  tscInit();
+}
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FIM TURISMO SUL CAPIXABA
+     Admin: publique matérias na seção "Turismo" com o campo
+     "cidade" preenchido com o ID do município (ex: piuma, anchieta).
+     Vídeos e pontos turísticos são gerenciados via Firestore.
+════════════════════════════════════════════════════════════════ -->
 
 <!-- ── FOOTER ── -->
 <footer class="footer">
@@ -1906,6 +2343,40 @@ function buildBlockCard(b, i) {
         <input type="text" data-field="cat" value="${esc(b.cat)}" placeholder="Categoria" oninput="data.blocks[${i}].cat=this.value">
         <select data-field="catClass" style="margin-top:6px" onchange="data.blocks[${i}].catClass=this.value">${catOptions(b.catClass)}</select>
       </div>
+      <div class="admin-field" style="${b.section==='turismo'?'':'display:none'}" id="campo-cidade-${i}">
+        <label>📍 Município (Turismo Sul Capixaba)</label>
+        <select data-field="cidade" onchange="data.blocks[${i}].cidade=this.value">
+          <option value="">-- Selecione o município --</option>
+          <option value="marataizes" ${b.cidade==="marataizes"?"selected":""}>Marataízes</option>
+          <option value="itapemirim" ${b.cidade==="itapemirim"?"selected":""}>Itapemirim</option>
+          <option value="piuma" ${b.cidade==="piuma"?"selected":""}>Piúma</option>
+          <option value="anchieta" ${b.cidade==="anchieta"?"selected":""}>Anchieta</option>
+          <option value="kennedy" ${b.cidade==="kennedy"?"selected":""}>Presidente Kennedy</option>
+          <option value="iconha" ${b.cidade==="iconha"?"selected":""}>Iconha</option>
+          <option value="rionovodosul" ${b.cidade==="rionovodosul"?"selected":""}>Rio Novo do Sul</option>
+          <option value="alfredochaves" ${b.cidade==="alfredochaves"?"selected":""}>Alfredo Chaves</option>
+          <option value="cachoeiro" ${b.cidade==="cachoeiro"?"selected":""}>Cachoeiro de Itapemirim</option>
+          <option value="castelo" ${b.cidade==="castelo"?"selected":""}>Castelo</option>
+          <option value="vargemalta" ${b.cidade==="vargemalta"?"selected":""}>Vargem Alta</option>
+          <option value="muqui" ${b.cidade==="muqui"?"selected":""}>Muqui</option>
+          <option value="mimoso" ${b.cidade==="mimoso"?"selected":""}>Mimoso do Sul</option>
+          <option value="atilio" ${b.cidade==="atilio"?"selected":""}>Atílio Vivácqua</option>
+          <option value="jeronimo" ${b.cidade==="jeronimo"?"selected":""}>Jerônimo Monteiro</option>
+          <option value="alegre" ${b.cidade==="alegre"?"selected":""}>Alegre</option>
+          <option value="guacui" ${b.cidade==="guacui"?"selected":""}>Guaçuí</option>
+          <option value="ibatiba" ${b.cidade==="ibatiba"?"selected":""}>Ibatiba</option>
+          <option value="iuna" ${b.cidade==="iuna"?"selected":""}>Iúna</option>
+          <option value="munizfreire" ${b.cidade==="munizfreire"?"selected":""}>Muniz Freire</option>
+          <option value="ibitirama" ${b.cidade==="ibitirama"?"selected":""}>Ibitirama</option>
+          <option value="doresriopreto" ${b.cidade==="doresriopreto"?"selected":""}>Dores do Rio Preto</option>
+          <option value="irupi" ${b.cidade==="irupi"?"selected":""}>Irupi</option>
+          <option value="divinosaolourenco" ${b.cidade==="divinosaolourenco"?"selected":""}>Divino de São Lourenço</option>
+          <option value="apiacah" ${b.cidade==="apiacah"?"selected":""}>Apiacá</option>
+          <option value="bom-jesus" ${b.cidade==="bom-jesus"?"selected":""}>Bom Jesus do Norte</option>
+          <option value="saojosecalcado" ${b.cidade==="saojosecalcado"?"selected":""}>São José do Calçado</option>
+        </select>
+        <div style="font-size:10px;color:#888;margin-top:4px;">Selecione o município para que esta matéria apareça no Turismo Sul Capixaba.</div>
+      </div>
       <div class="admin-field">
         <label>Data / Autor</label>
         <input type="text" data-field="date" value="${esc(b.date||'')}" placeholder="dd/mm/aaaa" oninput="data.blocks[${i}].date=this.value" style="margin-bottom:6px">
@@ -2159,6 +2630,7 @@ function saveAll() {
     if (v('catClass') !== null) b.catClass = v('catClass');
     if (v('date')     !== null) b.date     = v('date');
     if (v('autor')    !== null) b.autor    = v('autor');
+    if (v('cidade')   !== null) b.cidade   = v('cidade');  // campo turismo SC
     const bImgField = v('img');
     if (bImgField !== null && bImgField !== '' && !bImgField.startsWith('data:')) b.img = bImgField;
   });
