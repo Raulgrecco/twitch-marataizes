@@ -991,13 +991,10 @@ function tscRenderGrid(containerId, lista) {
 }
 
 function tscInit() {
-  // desabilitado — sistema de cidades migrado para cidades_v2
+  // grids antigos desabilitados — sistema migrado para cidades_v2
+  // tscRenderGrid removido intencionalmente
 }
-  tscRenderGrid('tsc-grid-litoral',   TSC_MUNICIPIOS.litoral);
-  tscRenderGrid('tsc-grid-cachoeiro', TSC_MUNICIPIOS.cachoeiro);
-  tscRenderGrid('tsc-grid-serras',    TSC_MUNICIPIOS.serras);
-  tscRenderGrid('tsc-grid-sul',       TSC_MUNICIPIOS.sul);
-}
+
 
 // ── Abrir modal ──
 function tscFindMunicipio(id) {
