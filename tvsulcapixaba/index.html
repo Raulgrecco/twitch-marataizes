@@ -378,6 +378,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .cat-economia{background:#0369A1}
 .cat-sul{background:#6366F1}
 .cat-esporte{background:#0284C7}
+.cat-turismosul{background:#0d9488}
 .cat-litoral{background:#0891b2}
 .cat-cachoeiro{background:#7c3aed}
 .cat-serras{background:#059669}
@@ -615,15 +616,6 @@ gtag('config', 'G-KTRG77RWXP');
       <div class="news-list" id="list-policia"></div>
     </section>
 
-    <!-- TURISMO -->
-    <section class="news-section">
-      <div class="section-title">
-        <h2>Turismo</h2>
-        <a href="#" onclick="filterCategory('cat-turismo',document.querySelectorAll('.nav-item')[6]);return false">Ver mais →</a>
-      </div>
-      <div class="news-list" id="list-turismo"></div>
-    </section>
-
     <!-- CULTURA -->
     <section class="news-section">
       <div class="section-title">
@@ -640,6 +632,15 @@ gtag('config', 'G-KTRG77RWXP');
         <a href="#" onclick="filterCategory('cat-economia',document.querySelectorAll('.nav-item')[8]);return false">Ver mais →</a>
       </div>
       <div class="news-list" id="list-economia"></div>
+    </section>
+
+    <!-- TURISMO SUL ES -->
+    <section class="news-section">
+      <div class="section-title">
+        <h2>🌴 Turismo Sul ES</h2>
+        <a href="#" onclick="filterCategory('cat-turismosul',null);window.scrollTo({top:0,behavior:'smooth'});return false">Ver mais →</a>
+      </div>
+      <div class="news-list" id="list-turismosul"></div>
     </section>
 
     <!-- VÍDEOS (Castr) -->
@@ -1261,6 +1262,12 @@ if (document.readyState === 'loading') {
             </div>
             <div class="admin-slides-list" id="admin-blocks-economia"></div>
           </div>
+          <div class="admin-section">
+            <div class="admin-section-title">🌴 Turismo Sul ES
+              <button onclick="addBlock('turismosul')" style="float:right;background:var(--brand);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">✚ + Adicionar</button>
+            </div>
+            <div class="admin-slides-list" id="admin-blocks-turismosul"></div>
+          </div>
           <div class="admin-section" style="margin-bottom:0">
             <div class="admin-section-title">📹 Vídeos (URLs Castr)</div>
             <div class="admin-slides-list" id="admin-videos-list"></div>
@@ -1633,6 +1640,32 @@ const DEFAULT_DATA = {
       "sub": "Linha de ate R$ 15 mil por MEI sera operada pelo Banestes; inscricoes abertas a partir de junho"
     },
     {
+      "section": "turismosul",
+      "label": "Turismo Sul ES 1",
+      "cat": "Turismo Sul ES",
+      "catClass": "cat-turismosul",
+      "title": "Turismo Sul ES — Teste 1 (substitua este conteúdo pelo admin)",
+      "sub": "Matéria de teste da editoria Turismo Sul ES. Edite pelo painel admin.",
+      "body": "Este é um conteúdo de teste para a nova editoria Turismo Sul ES.\n\nSubstitua pelo admin quando quiser publicar a primeira matéria real.",
+      "date": "06/06/2026",
+      "autor": "Redacao TV Sul Capixaba",
+      "img": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+      "views": 0
+    },
+    {
+      "section": "turismosul",
+      "label": "Turismo Sul ES 2",
+      "cat": "Turismo Sul ES",
+      "catClass": "cat-turismosul",
+      "title": "Turismo Sul ES — Teste 2 (substitua este conteúdo pelo admin)",
+      "sub": "Segunda matéria de teste da editoria Turismo Sul ES. Edite pelo painel admin.",
+      "body": "Este é o segundo conteúdo de teste para a nova editoria Turismo Sul ES.\n\nSubstitua pelo admin quando quiser publicar a matéria real.",
+      "date": "06/06/2026",
+      "autor": "Redacao TV Sul Capixaba",
+      "img": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
+      "views": 0
+    },
+    {
       "title": "Producao de abacaxi em Presidente Kennedy cresce 40% e bate recorde historico de exportacao",
       "section": "economia",
       "cat": "Economia",
@@ -1945,13 +1978,13 @@ function render() {
   renderGridUltimas();
   renderListPolitica();
   renderGridSaude();
-  renderListTurismo();
   renderListPolicia();
   renderVideos();
   renderLitoral();
   renderCachoeiro();
   renderSerras();
   renderSulProfundo();
+  renderListTurismoSul();
   renderGridCultura();
   renderListEconomia();
   renderSidebar();
@@ -2080,6 +2113,14 @@ function renderListTurismo() {
   if (!el) return;
   el.innerHTML = data.blocks
     .map((a,i) => ({a,i})).filter(({a}) => a.section === 'turismo')
+    .map(({a,i}) => newsListItem(a,i)).join('');
+}
+
+function renderListTurismoSul() {
+  const el = document.getElementById('list-turismosul');
+  if (!el) return;
+  el.innerHTML = data.blocks
+    .map((a,i) => ({a,i})).filter(({a}) => a.section === 'turismosul')
     .map(({a,i}) => newsListItem(a,i)).join('');
 }
 
@@ -2301,7 +2342,7 @@ function buildAdminForm() {
   slidesList.innerHTML = data.slides.map((s, i) => buildSlideCard(s, i)).join('');
 
   // Portal Principal: exclui matérias com cidade preenchida E rascunhos de cidade
-  const knownSections = ['ultimas','politica','policia','saude','turismo','cultura','economia','litoral','cachoeiro','serras','sulprofundo'];
+  const knownSections = ['ultimas','politica','policia','saude','turismo','turismosul','cultura','economia','litoral','cachoeiro','serras','sulprofundo'];
   knownSections.forEach(sec => {
     const el = document.getElementById('admin-blocks-' + sec);
     if (!el) return;
@@ -2847,6 +2888,7 @@ function catOptions(current) {
     ['cat-policia','Polícia (azul)'],
     ['cat-saude','Saúde (verde)'],
     ['cat-turismo','Turismo (âmbar)'],
+    ['cat-turismosul','Turismo Sul ES (verde água)'],
     ['cat-cultura','Cultura (roxo)'],
     ['cat-economia','Economia (azul escuro)'],
     ['cat-sul','Sul Capixaba (índigo)'],
@@ -3219,11 +3261,11 @@ function closeArticle() {
 function addBlock(section) {
   const labels = {
     policia: 'Polícia', cultura: 'Cultura', economia: 'Economia',
-    politica: 'Política', saude: 'Saúde', turismo: 'Turismo', ultimas: 'Últimas',
+    politica: 'Política', saude: 'Saúde', turismo: 'Turismo', turismosul: 'Turismo Sul ES', ultimas: 'Últimas',
   };
   const catClasses = {
     policia: 'cat-policia', cultura: 'cat-cultura', economia: 'cat-economia',
-    politica: 'cat-politica', saude: 'cat-saude', turismo: 'cat-turismo', ultimas: 'cat-sul',
+    politica: 'cat-politica', saude: 'cat-saude', turismo: 'cat-turismo', turismosul: 'cat-turismosul', ultimas: 'cat-sul',
   };
   // Imagens placeholder por seção
   const placeholderImgs = {
@@ -3232,6 +3274,7 @@ function addBlock(section) {
     policia:  'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=800&q=80',
     saude:    'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80',
     turismo:  'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',
+    turismosul: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
     cultura:  'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80',
     economia: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
   };
