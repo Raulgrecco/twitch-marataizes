@@ -728,15 +728,25 @@ gtag('config', 'G-KTRG77RWXP');
   border: 1px solid var(--border);
   background: var(--color-bg, #fafaf8);
   cursor: pointer;
-  transition: box-shadow .15s, border-color .15s;
+  transition: box-shadow .15s, border-color .15s, background .15s;
   user-select: none;
 }
-.tsc-cidade:hover { box-shadow: 0 2px 10px rgba(0,0,0,.08); border-color: var(--brand); }
+.tsc-cidade.tsc-ativa {
+  background: #003781;
+  border-color: #003781;
+}
+.tsc-cidade.tsc-ativa .tsc-cidade-nome { color: #fff; }
+.tsc-cidade.tsc-ativa:hover { box-shadow: 0 2px 14px rgba(0,55,129,.35); border-color: #0052cc; background: #0052cc; }
+.tsc-cidade:not(.tsc-ativa):hover { box-shadow: 0 2px 10px rgba(0,0,0,.08); border-color: var(--brand); }
 .tsc-cidade-ico { font-size: 20px; flex-shrink: 0; }
 .tsc-cidade-nome { font-size: 12px; font-weight: 700; color: var(--ink); line-height: 1.25; }
 .tsc-cidade-status { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 3px; display: inline-block; margin-top: 3px; }
-.tsc-s-ok  { background: #e6f4ec; color: #005c2e; }
+.tsc-s-ok  { background: rgba(255,255,255,.2); color: #fff; }
 .tsc-s-soon{ background: #f0ede8; color: #888; }
+/* Parceiros */
+.tsc-parceiros-grid { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 6px 0; }
+.tsc-parceiro-logo { height: 40px; max-width: 100px; object-fit: contain; border-radius: 4px; border: 1px solid #eee; padding: 4px; background: #fff; }
+.tsc-parceiro-nome { font-size: 12px; font-weight: 600; color: var(--ink-2); padding: 6px 10px; background: #f5f5f5; border-radius: 5px; }
 /* Modal cidade */
 #tsc-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:2000; align-items:flex-start; justify-content:center; padding:20px; overflow-y:auto; }
 #tsc-modal.open { display:flex; }
@@ -829,6 +839,12 @@ gtag('config', 'G-KTRG77RWXP');
       <div class="tsc-modal-section">
         <div class="tsc-modal-section-title">📍 Pontos Turísticos</div>
         <div id="tsc-modal-pontos"></div>
+      </div>
+
+      <!-- Parceiros -->
+      <div class="tsc-modal-section" id="tsc-modal-parceiros-section">
+        <div class="tsc-modal-section-title">🤝 Parceiros & Apoiadores</div>
+        <div id="tsc-modal-parceiros"></div>
       </div>
 
       <a id="tsc-modal-wpp" href="#" target="_blank" rel="noopener" class="tsc-cta-wpp">
@@ -1002,6 +1018,22 @@ function tscLoadCidade(cidadeId, cidadeNome) {
       pEl.innerHTML = '<div class="tsc-empty">Pontos turísticos em expansão. Adicione o nome do ponto na matéria de turismo pelo painel admin.</div>';
     }
 
+    // Parceiros — usa parceiroNome/parceiroLogo dos blocos de turismo da cidade
+    var parcEl = document.getElementById('tsc-modal-parceiros');
+    var parcSection = document.getElementById('tsc-modal-parceiros-section');
+    var blocosComParceiro = noticias.filter(function(b) { return b.parceiroNome && b.parceiroNome !== ''; });
+    if (blocosComParceiro.length > 0 && parcEl) {
+      parcEl.innerHTML = '<div class="tsc-parceiros-grid">' + blocosComParceiro.map(function(b) {
+        if (b.parceiroLogo && b.parceiroLogo !== '') {
+          return '<img class="tsc-parceiro-logo" src="' + b.parceiroLogo + '" alt="' + b.parceiroNome + '" title="' + b.parceiroNome + '">';
+        }
+        return '<span class="tsc-parceiro-nome">' + b.parceiroNome + '</span>';
+      }).join('') + '</div>';
+      if (parcSection) parcSection.style.display = '';
+    } else {
+      if (parcEl) parcEl.innerHTML = '<div class="tsc-empty">Nenhum parceiro cadastrado ainda. Adicione pelo painel admin.</div>';
+    }
+
   } else {
     // Dados ainda não carregados
     setTimeout(function(){ tscLoadCidade(cidadeId, cidadeNome); }, 800);
@@ -1161,18 +1193,18 @@ if (document.readyState === 'loading') {
           <div class="admin-slides-list" id="admin-blocks-saude"></div>
         </div>
         <!-- ══ TURISMO SUL CAPIXABA — SEÇÃO DESTACADA ══ -->
-        <div class="admin-section" style="border:2px solid #0369a1;border-radius:10px;padding:14px;background:linear-gradient(135deg,#e0f2fe,#f0f9ff);margin:8px 0;">
-          <div class="admin-section-title" style="color:#0369a1;border-bottom:2px solid #0369a1;font-size:13px;padding-bottom:10px;margin-bottom:14px;">
-            🌊 TURISMO SUL CAPIXABA
-            <button onclick="addBlock('turismo')" style="float:right;background:#0369a1;color:#fff;border:none;padding:5px 14px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700;">✚ + Nova matéria de turismo</button>
+        <div class="admin-section" style="border:2px solid #003781;border-radius:10px;padding:14px;background:linear-gradient(135deg,#003781,#00509e);margin:12px 0;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.2);margin-bottom:14px;">
+            <span style="color:#fff;font-size:13px;font-weight:800;letter-spacing:.5px;">🌊 TURISMO SUL CAPIXABA</span>
+            <button onclick="addBlock('turismo')" style="background:#fff;color:#003781;border:none;padding:6px 14px;border-radius:5px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:800;">✚ + Nova matéria</button>
           </div>
-          <div style="background:#fff;border:1px solid #bae6fd;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:#0369a1;line-height:1.6;">
-            <strong>Como usar:</strong><br>
-            1. Clique em <strong>+ Nova matéria de turismo</strong><br>
+          <div style="background:rgba(255,255,255,.12);border-radius:8px;padding:10px 12px;margin-bottom:14px;font-size:12px;color:rgba(255,255,255,.9);line-height:1.7;">
+            <strong style="color:#fff;">Como usar:</strong><br>
+            1. Clique em <strong style="color:#fff;">+ Nova matéria</strong><br>
             2. Preencha título, texto e foto<br>
-            3. No campo <strong>📍 Município</strong> selecione a cidade<br>
-            4. Adicione vídeo Castr no campo <strong>Link de vídeo (Castr)</strong><br>
-            5. Clique em 💾 Salvar tudo
+            3. No campo <strong style="color:#fff;">📍 Município</strong> selecione a cidade (ordem alfabética)<br>
+            4. Adicione link Castr, ponto turístico e parceiro se houver<br>
+            5. Clique em <strong style="color:#fff;">💾 Salvar tudo</strong>
           </div>
           <div class="admin-slides-list" id="admin-blocks-turismo"></div>
         </div>
@@ -2341,33 +2373,33 @@ function buildBlockCard(b, i) {
         <label>📍 Município (Turismo Sul Capixaba)</label>
         <select data-field="cidade" onchange="data.blocks[${i}].cidade=this.value">
           <option value="">-- Selecione o município --</option>
-          <option value="marataizes" ${b.cidade==="marataizes"?"selected":""}>Marataízes</option>
-          <option value="itapemirim" ${b.cidade==="itapemirim"?"selected":""}>Itapemirim</option>
-          <option value="piuma" ${b.cidade==="piuma"?"selected":""}>Piúma</option>
-          <option value="anchieta" ${b.cidade==="anchieta"?"selected":""}>Anchieta</option>
-          <option value="kennedy" ${b.cidade==="kennedy"?"selected":""}>Presidente Kennedy</option>
-          <option value="iconha" ${b.cidade==="iconha"?"selected":""}>Iconha</option>
-          <option value="rionovodosul" ${b.cidade==="rionovodosul"?"selected":""}>Rio Novo do Sul</option>
+          <option value="alegre" ${b.cidade==="alegre"?"selected":""}>Alegre</option>
           <option value="alfredochaves" ${b.cidade==="alfredochaves"?"selected":""}>Alfredo Chaves</option>
+          <option value="anchieta" ${b.cidade==="anchieta"?"selected":""}>Anchieta</option>
+          <option value="apiacah" ${b.cidade==="apiacah"?"selected":""}>Apiacá</option>
+          <option value="atilio" ${b.cidade==="atilio"?"selected":""}>Atílio Vivácqua</option>
+          <option value="bom-jesus" ${b.cidade==="bom-jesus"?"selected":""}>Bom Jesus do Norte</option>
           <option value="cachoeiro" ${b.cidade==="cachoeiro"?"selected":""}>Cachoeiro de Itapemirim</option>
           <option value="castelo" ${b.cidade==="castelo"?"selected":""}>Castelo</option>
-          <option value="vargemalta" ${b.cidade==="vargemalta"?"selected":""}>Vargem Alta</option>
-          <option value="muqui" ${b.cidade==="muqui"?"selected":""}>Muqui</option>
-          <option value="mimoso" ${b.cidade==="mimoso"?"selected":""}>Mimoso do Sul</option>
-          <option value="atilio" ${b.cidade==="atilio"?"selected":""}>Atílio Vivácqua</option>
-          <option value="jeronimo" ${b.cidade==="jeronimo"?"selected":""}>Jerônimo Monteiro</option>
-          <option value="alegre" ${b.cidade==="alegre"?"selected":""}>Alegre</option>
+          <option value="divinosaolourenco" ${b.cidade==="divinosaolourenco"?"selected":""}>Divino de São Lourenço</option>
+          <option value="doresriopreto" ${b.cidade==="doresriopreto"?"selected":""}>Dores do Rio Preto</option>
           <option value="guacui" ${b.cidade==="guacui"?"selected":""}>Guaçuí</option>
           <option value="ibatiba" ${b.cidade==="ibatiba"?"selected":""}>Ibatiba</option>
-          <option value="iuna" ${b.cidade==="iuna"?"selected":""}>Iúna</option>
-          <option value="munizfreire" ${b.cidade==="munizfreire"?"selected":""}>Muniz Freire</option>
           <option value="ibitirama" ${b.cidade==="ibitirama"?"selected":""}>Ibitirama</option>
-          <option value="doresriopreto" ${b.cidade==="doresriopreto"?"selected":""}>Dores do Rio Preto</option>
+          <option value="iconha" ${b.cidade==="iconha"?"selected":""}>Iconha</option>
           <option value="irupi" ${b.cidade==="irupi"?"selected":""}>Irupi</option>
-          <option value="divinosaolourenco" ${b.cidade==="divinosaolourenco"?"selected":""}>Divino de São Lourenço</option>
-          <option value="apiacah" ${b.cidade==="apiacah"?"selected":""}>Apiacá</option>
-          <option value="bom-jesus" ${b.cidade==="bom-jesus"?"selected":""}>Bom Jesus do Norte</option>
+          <option value="itapemirim" ${b.cidade==="itapemirim"?"selected":""}>Itapemirim</option>
+          <option value="iuna" ${b.cidade==="iuna"?"selected":""}>Iúna</option>
+          <option value="jeronimo" ${b.cidade==="jeronimo"?"selected":""}>Jerônimo Monteiro</option>
+          <option value="marataizes" ${b.cidade==="marataizes"?"selected":""}>Marataízes</option>
+          <option value="mimoso" ${b.cidade==="mimoso"?"selected":""}>Mimoso do Sul</option>
+          <option value="munizfreire" ${b.cidade==="munizfreire"?"selected":""}>Muniz Freire</option>
+          <option value="muqui" ${b.cidade==="muqui"?"selected":""}>Muqui</option>
+          <option value="piuma" ${b.cidade==="piuma"?"selected":""}>Piúma</option>
+          <option value="kennedy" ${b.cidade==="kennedy"?"selected":""}>Presidente Kennedy</option>
+          <option value="rionovodosul" ${b.cidade==="rionovodosul"?"selected":""}>Rio Novo do Sul</option>
           <option value="saojosecalcado" ${b.cidade==="saojosecalcado"?"selected":""}>São José do Calçado</option>
+          <option value="vargemalta" ${b.cidade==="vargemalta"?"selected":""}>Vargem Alta</option>
         </select>
         <div style="font-size:10px;color:#888;margin-top:4px;">Selecione o município para que esta matéria apareça no Turismo Sul Capixaba.</div>
       </div>
@@ -2383,6 +2415,14 @@ function buildBlockCard(b, i) {
       <div class="admin-field" style="${b.section==='turismo'?'':'display:none'}">
         <label>📝 Descrição do ponto turístico</label>
         <input type="text" data-field="pontoDesc" value="${esc(b.pontoDesc||'')}" oninput="data.blocks[${i}].pontoDesc=this.value" placeholder="Breve descrição verificável">
+      </div>
+      <div class="admin-field" style="${b.section==='turismo'?'':'display:none'}">
+        <label>🤝 Parceiro / Apoiador (nome)</label>
+        <input type="text" data-field="parceiroNome" value="${esc(b.parceiroNome||'')}" oninput="data.blocks[${i}].parceiroNome=this.value" placeholder="Ex: Prefeitura de Piúma">
+      </div>
+      <div class="admin-field" style="${b.section==='turismo'?'':'display:none'}">
+        <label>🖼️ Logo do parceiro (URL da imagem)</label>
+        <input type="text" data-field="parceiroLogo" value="${esc(b.parceiroLogo||'')}" oninput="data.blocks[${i}].parceiroLogo=this.value" placeholder="https://...logo.png">
       </div>
       <div class="admin-field">
         <label>Data / Autor</label>
@@ -2641,6 +2681,8 @@ function saveAll() {
     if (v('castrTurismo') !== null) b.castrTurismo = v('castrTurismo'); // turismo SC — vídeo
     if (v('pontoNome')    !== null) b.pontoNome    = v('pontoNome');    // turismo SC — ponto
     if (v('pontoDesc')    !== null) b.pontoDesc    = v('pontoDesc');    // turismo SC — descrição ponto
+    if (v('parceiroNome') !== null) b.parceiroNome = v('parceiroNome'); // turismo SC — parceiro nome
+    if (v('parceiroLogo') !== null) b.parceiroLogo = v('parceiroLogo'); // turismo SC — parceiro logo
     const bImgField = v('img');
     if (bImgField !== null && bImgField !== '' && !bImgField.startsWith('data:')) b.img = bImgField;
   });
