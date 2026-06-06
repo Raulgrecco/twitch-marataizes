@@ -1057,7 +1057,8 @@ function cv2AbrirModal(id, nome) {
     var parcs = d.parceiros || [];
     document.getElementById('cv2-modal-parceiros-wrap').style.display = parcs.length ? '' : 'none';
     document.getElementById('cv2-modal-parceiros').innerHTML = parcs.map(function(p) {
-      var link = p.link || (p.wpp ? 'https://wa.me/' + p.wpp.replace(/\D/g,'') : '#');
+      var rawLink = p.link || '';
+      var link = rawLink ? (rawLink.match(/^https?:\/\//) ? rawLink : 'https://' + rawLink) : (p.wpp ? 'https://wa.me/' + p.wpp.replace(/\D/g,'') : '#');
       return '<a href="' + link + '" target="_blank" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:4px;">' +
         (p.logo ? '<img src="' + p.logo + '" style="height:80px;max-width:180px;object-fit:contain;border-radius:8px;border:1px solid #eee;padding:8px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.08);">' : '<span style="font-weight:700;font-size:13px;">' + p.nome + '</span>') +
         (p.wpp ? '<span style="font-size:11px;color:#25d366;font-weight:700;">💬 WhatsApp</span>' : '') +
