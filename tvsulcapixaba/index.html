@@ -601,42 +601,6 @@ gtag('config', 'G-KTRG77RWXP');
       <div class="news-list" id="list-economia"></div>
     </section>
 
-    <!-- LITORAL SUL -->
-    <section class="news-section">
-      <div class="section-title">
-        <h2>🌊 Litoral Sul</h2>
-        <a href="#" onclick="filterCategory('cat-litoral',null);window.scrollTo({top:0,behavior:'smooth'});return false">Ver mais →</a>
-      </div>
-      <div class="news-list" id="list-litoral"></div>
-    </section>
-
-    <!-- CACHOEIRO E REGIÃO -->
-    <section class="news-section">
-      <div class="section-title">
-        <h2>🏙️ Cachoeiro e Região</h2>
-        <a href="#" onclick="filterCategory('cat-cachoeiro',null);window.scrollTo({top:0,behavior:'smooth'});return false">Ver mais →</a>
-      </div>
-      <div class="news-list" id="list-cachoeiro"></div>
-    </section>
-
-    <!-- SERRAS DO SUL -->
-    <section class="news-section">
-      <div class="section-title">
-        <h2>⛰️ Serras do Sul</h2>
-        <a href="#" onclick="filterCategory('cat-serras',null);window.scrollTo({top:0,behavior:'smooth'});return false">Ver mais →</a>
-      </div>
-      <div class="news-list" id="list-serras"></div>
-    </section>
-
-    <!-- SUL PROFUNDO -->
-    <section class="news-section">
-      <div class="section-title">
-        <h2>🗺️ Sul Profundo</h2>
-        <a href="#" onclick="filterCategory('cat-sulprofundo',null);window.scrollTo({top:0,behavior:'smooth'});return false">Ver mais →</a>
-      </div>
-      <div class="news-list" id="list-sulprofundo"></div>
-    </section>
-
     <!-- VÍDEOS (Castr) -->
     <section class="news-section" id="section-videos">
       <div class="section-title">
@@ -2078,34 +2042,24 @@ function renderListEconomia() {
     .map(({a,i}) => newsListItem(a,i)).join('');
 }
 
-function renderLitoral() {
-  const el = document.getElementById('list-litoral');
-  if (!el) return;
-  el.innerHTML = data.blocks
-    .map((a,i) => ({a,i})).filter(({a}) => a.section === 'litoral')
-    .map(({a,i}) => newsListItem(a,i)).join('') || '<p style="color:var(--ink-3);font-size:13px;padding:8px 0;">Nenhuma matéria publicada ainda. Adicione pelo painel admin.</p>';
+function renderRegional(section, title, icon) {
+  // Só mostra a seção se tiver conteúdo
+  const items = data.blocks.map((a,i) => ({a,i})).filter(({a}) => a.section === section);
+  if (!items.length) return;
+  const main = document.querySelector('main');
+  const videosSection = document.getElementById('section-videos');
+  if (!main || !videosSection) return;
+  const existing = document.getElementById('section-' + section);
+  const sec = existing || document.createElement('section');
+  sec.className = 'news-section';
+  sec.id = 'section-' + section;
+  sec.innerHTML = '<div class="section-title"><h2>' + icon + ' ' + title + '</h2><a href="#">Ver mais →</a></div><div class="news-list">' + items.map(({a,i}) => newsListItem(a,i)).join('') + '</div>';
+  if (!existing) main.insertBefore(sec, videosSection);
 }
-function renderCachoeiro() {
-  const el = document.getElementById('list-cachoeiro');
-  if (!el) return;
-  el.innerHTML = data.blocks
-    .map((a,i) => ({a,i})).filter(({a}) => a.section === 'cachoeiro')
-    .map(({a,i}) => newsListItem(a,i)).join('') || '<p style="color:var(--ink-3);font-size:13px;padding:8px 0;">Nenhuma matéria publicada ainda.</p>';
-}
-function renderSerras() {
-  const el = document.getElementById('list-serras');
-  if (!el) return;
-  el.innerHTML = data.blocks
-    .map((a,i) => ({a,i})).filter(({a}) => a.section === 'serras')
-    .map(({a,i}) => newsListItem(a,i)).join('') || '<p style="color:var(--ink-3);font-size:13px;padding:8px 0;">Nenhuma matéria publicada ainda.</p>';
-}
-function renderSulProfundo() {
-  const el = document.getElementById('list-sulprofundo');
-  if (!el) return;
-  el.innerHTML = data.blocks
-    .map((a,i) => ({a,i})).filter(({a}) => a.section === 'sulprofundo')
-    .map(({a,i}) => newsListItem(a,i)).join('') || '<p style="color:var(--ink-3);font-size:13px;padding:8px 0;">Nenhuma matéria publicada ainda.</p>';
-}
+function renderLitoral()    { renderRegional('litoral',    'Litoral Sul',        '🌊'); }
+function renderCachoeiro()  { renderRegional('cachoeiro',  'Cachoeiro e Região', '🏙️'); }
+function renderSerras()     { renderRegional('serras',     'Serras do Sul',      '⛰️'); }
+function renderSulProfundo(){ renderRegional('sulprofundo','Sul Profundo',       '🗺️'); }
 
 function renderVideos() {
   const vids = data.blocks.filter(b => b.section === 'video');
