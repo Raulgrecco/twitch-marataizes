@@ -2373,18 +2373,12 @@ function buildAdminCidades() {
     TSC_MUNICIPIOS.sul
   );
 
-  // Matérias com cidade atribuída — independente de section
-  const blocos = data.blocks.map((b,i) => ({b,i})).filter(({b}) => b.cidade && b.cidade !== '');
+  // REGRA ÚNICA: só matérias com cidade explicitamente preenchida
+  const blocos = data.blocks.map((b,i) => ({b,i})).filter(({b}) => b.cidade && b.cidade.trim() !== '');
 
-  // Sem cidade atribuída
-  const semCidade = blocos.filter(({b}) => !b.cidade || b.cidade === '');
+  // Limpa o div legado de "sem cidade" — não usamos mais
   const semEl = document.getElementById('admin-blocks-turismo-sem-cidade');
-  if (semEl) {
-    semEl.innerHTML = semCidade.length > 0
-      ? '<div style="color:rgba(255,255,255,.7);font-size:11px;margin-bottom:6px;font-weight:700;">⚠️ Sem cidade atribuída</div>' +
-        '<div class="admin-slides-list">' + semCidade.map(({b,i}) => buildBlockCard(b,i)).join('') + '</div>'
-      : '';
-  }
+  if (semEl) semEl.innerHTML = '';
 
   // Agrupadas por município
   const gruposEl = document.getElementById('admin-cidades-grupos');
@@ -2393,7 +2387,6 @@ function buildAdminCidades() {
   let html = '';
   todas.forEach(function(m) {
     const materias = blocos.filter(({b}) => b.cidade === m.id);
-    // Só mostra município se tiver matérias
     if (materias.length === 0) return;
     html += `
       <div style="margin-bottom:14px;background:rgba(255,255,255,.08);border-radius:8px;overflow:hidden;">
@@ -2408,7 +2401,7 @@ function buildAdminCidades() {
       </div>`;
   });
 
-  gruposEl.innerHTML = html || '<div style="color:rgba(255,255,255,.6);font-size:12px;text-align:center;padding:10px;">Nenhuma matéria com cidade atribuída ainda.</div>';
+  gruposEl.innerHTML = html || '<div style="color:#b91c1c;font-size:12px;text-align:center;padding:16px;background:rgba(185,28,28,.08);border-radius:8px;">Nenhuma matéria municipal ainda. Clique em "+ Nova matéria" e selecione uma cidade.</div>';
 }
 
 // ── Builder: card de slide ────────────────────────────────
