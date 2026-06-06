@@ -971,8 +971,9 @@ gtag('config', 'G-KTRG77RWXP');
 // ════════════════════════════════════════════════════════════════
 
 var CV2_PASS   = 'TV2026';
-var CV2_COL    = db.collection('cidades_v2');
 var CV2_PATH   = 'cidades_v2/';
+function cv2Col() { return db.collection('cidades_v2'); }
+function cv2Storage() { return storage; }
 var cv2Cidade  = null; // dados da cidade em edição
 var cv2CidadeId = '';
 
@@ -1046,7 +1047,7 @@ function cv2AbrirModal(id, nome) {
   document.getElementById('cv2-modal-pontos').innerHTML    = '';
   document.getElementById('cv2-modal-wpp').href = 'https://wa.me/5528999036141?text=Olá!+Tenho+uma+matéria+ou+vídeo+sobre+' + encodeURIComponent(nome) + '+para+a+TV+Sul+Capixaba';
 
-  CV2_COL.doc(id).get().then(function(doc) {
+  cv2Col().doc(id).get().then(function(doc) {
     var d = doc.exists ? doc.data() : {};
 
     if (d.img) document.getElementById('cv2-modal-img').src = d.img;
@@ -1138,7 +1139,7 @@ function cv2CarregarCidade(id) {
   if (!id) return;
   cv2CidadeId = id;
   cv2Cidade = null;
-  CV2_COL.doc(id).get().then(function(doc) {
+  cv2Col().doc(id).get().then(function(doc) {
     cv2Cidade = doc.exists ? doc.data() : {};
     if (!cv2Cidade.materias)  cv2Cidade.materias  = [];
     if (!cv2Cidade.parceiros) cv2Cidade.parceiros = [];
@@ -1260,7 +1261,7 @@ function cv2UploadImg(event, tipo, idx) {
       for (var i=0;i<bytes.length;i++) arr[i]=bytes.charCodeAt(i);
       var blob = new Blob([arr],{type:'image/jpeg'});
       var fname = CV2_PATH + tipo + '_' + cv2CidadeId + '_' + (idx!==undefined?idx+'_':'') + Date.now() + '.jpg';
-      storage.ref(fname).put(blob).then(function(snap){
+      cv2Storage().ref(fname).put(blob).then(function(snap){
         snap.ref.getDownloadURL().then(function(url){
           if (tipo==='cidade') {
             cv2Cidade.img = url;
@@ -1287,7 +1288,7 @@ function cv2Salvar() {
   if (!cv2CidadeId || !cv2Cidade) { showToast('Selecione um município primeiro.'); return; }
   cv2Cidade.desc = document.getElementById('cv2-campo-desc').value;
   cv2Cidade.img  = document.getElementById('cv2-campo-img').value;
-  CV2_COL.doc(cv2CidadeId).set(cv2Cidade).then(function(){
+  cv2Col().doc(cv2CidadeId).set(cv2Cidade).then(function(){
     showToast('✅ ' + cv2CidadeId + ' salvo com sucesso!');
   }).catch(function(e){ showToast('❌ Erro ao salvar: ' + e.message); });
 }
