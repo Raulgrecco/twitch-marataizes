@@ -181,7 +181,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.4);border:none;cursor:pointer;transition:background .2s,transform .2s}
 .dot.active{background:#fff;transform:scale(1.2)}
 /* Thumbs abaixo do carousel */
-.carousel-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px}
+.carousel-thumbs{display:none}
 .thumb{position:relative;border-radius:8px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color .2s}
 .thumb.active{border-color:var(--brand)}
 .thumb img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
@@ -554,8 +554,10 @@ gtag('config', 'G-KTRG77RWXP');
         <div class="mobile-cidades-card-titulo">Encontre sua cidade</div>
         <div class="mobile-cidades-card-sub">Notícias, vídeos e parceiros locais dos 27 municípios do Sul Capixaba.</div>
         <div class="mobile-cidades-card-chips">
-          <span>Marataízes</span><span>Piúma</span><span>Anchieta</span>
-          <span>Kennedy</span><span>Cachoeiro</span><span>Alegre</span><span>+ 21 →</span>
+          <span onclick="event.stopPropagation();tscOpenModal('piuma')" style="cursor:pointer">🌊 Piúma</span>
+          <span onclick="event.stopPropagation();tscOpenModal('castelo')" style="cursor:pointer">🏰 Castelo</span>
+          <span onclick="event.stopPropagation();tscOpenModal('alegre')" style="cursor:pointer">⛰️ Alegre</span>
+          <span onclick="event.stopPropagation();tscOpenModal('apiacah')" style="cursor:pointer">🌳 Apiacá</span>
         </div>
         <div class="mobile-cidades-card-cta">Ver todas as cidades ↓</div>
       </div>
@@ -662,9 +664,10 @@ gtag('config', 'G-KTRG77RWXP');
       <div class="sidebar-cidades-body">
         <div class="sidebar-cidades-sub">Notícias, vídeos e parceiros locais de cada cidade do Sul do ES.</div>
         <div class="sidebar-cidades-tags">
-          <span>Marataízes</span><span>Piúma</span><span>Anchieta</span>
-          <span>Kennedy</span><span>Cachoeiro</span><span>Alegre</span>
-          <span>+ 21 cidades →</span>
+          <span onclick="tscOpenModal('piuma')" style="cursor:pointer">🌊 Piúma</span>
+          <span onclick="tscOpenModal('castelo')" style="cursor:pointer">🏰 Castelo</span>
+          <span onclick="tscOpenModal('alegre')" style="cursor:pointer">⛰️ Alegre</span>
+          <span onclick="tscOpenModal('apiacah')" style="cursor:pointer">🌳 Apiacá</span>
         </div>
         <button class="sidebar-cidades-btn" onclick="document.getElementById('turismo-sul-capixaba').scrollIntoView({behavior:'smooth'})">
           Ver todas as cidades
