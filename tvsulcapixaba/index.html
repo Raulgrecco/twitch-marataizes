@@ -1946,6 +1946,8 @@ function pushToFirestore(payload) {
 }
 
 function saveData() {
+  _saveLock = true;
+  setTimeout(function() { _saveLock = false; }, 5000); // libera listener após 5s
   try {
     var slim = JSON.parse(JSON.stringify(data));
     slim.slides.forEach(function(s) { if (s.img && s.img.startsWith('data:')) s.img = ''; });
@@ -3561,8 +3563,11 @@ function startMobilePlayer() {
 // ═══════════════════════════════════════════════════════════
 initViews();
 render();
+var _saveLock = false; // bloqueia onSnapshot por 5s após save
+
 function startFirestoreListener() {
   DOC_REF.onSnapshot(function(doc) {
+    if (_saveLock) return; // ignora snapshots enquanto save está em progresso
     if (!doc.exists) return;
     var remote = doc.data();
     if (!remote || !remote.slides) return;
