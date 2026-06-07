@@ -396,10 +396,8 @@ function renderCards(){
           (c.whatsapp&&status!=='avisar'&&status!=='cobrar'?'<a href="'+waLink(c.whatsapp,msgAvisar(c.nome))+'" target="_blank" class="btn btn-ghost btn-sm">💬 Avisar</a>':'')+
           (c.whatsapp?'<a href="'+waLink(c.whatsapp,venc?msgCobrar(c.nome,venc):'')+'" target="_blank" class="btn btn-red btn-sm">💰 Cobrar+PIX</a>':'')+
           (c.whatsapp?'<a href="'+waLink(c.whatsapp,msgStory(c.nome))+'" target="_blank" class="btn btn-wa btn-sm">📸 Story no ar</a>':'')+
-          (status==='pago'
-            ? '<button class="btn btn-red btn-sm" onclick="desmarcarPago(\''+c.id+'\')">↩ Não Pago</button>'
-            : '<button class="btn btn-blue btn-sm" onclick="marcarPago(\''+c.id+'\')">🔵 Marcar Pago</button>'
-          )+
+          '<button class="btn btn-blue btn-sm" onclick="marcarPago(\''+c.id+'\')">🔵 Marcar Pago</button>'+
+          '<button class="btn btn-ghost btn-sm" onclick="desmarcarPago(\''+c.id+'\')">↩ Não Pago</button>'+
           '<button class="btn btn-ghost btn-sm" onclick="copyText(\''+encodeURIComponent(resumo)+'\')">📋 Copiar</button>'+
           '<button class="btn btn-ghost btn-sm" onclick="editCliente(\''+c.id+'\')">✏️ Editar</button>'+
           '<button class="btn btn-red btn-sm" onclick="deleteCliente(\''+c.id+'\')">🗑️</button>'+
