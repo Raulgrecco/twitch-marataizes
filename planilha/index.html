@@ -285,12 +285,14 @@ function showToast(msg){
   setTimeout(()=>t.classList.remove('show'),2800);
 }
 
-function msgAvisar(nome){return'Fala, '+nome+'! Tudo certo? 😊\n\nPassando pra te avisar que seu plano na TV Marataízes vence em 2 dias.\n\nQualquer dúvida me chama 👍';}
+function msgAvisar(nome){
+  return'Olá, '+nome+' 👋\n\nSistema TV Marataízes Digital — aviso automático.\n\nSeu plano vence em 2 dias. Para garantir a continuidade da sua presença no portal, realize o pagamento até a data de vencimento.\n\nQualquer dúvida é só responder esta mensagem.';
+}
 
 function msgCobrar(nome,venc){
   const mes=mesNome(venc);
   const dia=venc.getDate();
-  return'Fala, '+nome+'! 🎉\n\nParabéns — você tem sua página no Guia da TV Marataízes!\n\nHoje, dia '+dia+' de '+mes+', é o vencimento do seu plano.\n\nO PIX para hoje é:\n'+PIX+'\n\nMe confirma por aqui quando pagar 🙏';
+  return'📡 TV Marataízes Digital — cobrança automática.\n\nOlá, '+nome+'.\n\nHoje, '+dia+' de '+mes+', é a data de vencimento do seu plano no portal TV Marataízes Digital / TV Sul Capixaba.\n\nSua presença no portal permanece ativa mediante o pagamento mensal.\n\nChave PIX (CNPJ):\n59.245.417/0001-67\n\nApós o pagamento, responda esta mensagem com o comprovante para confirmarmos a renovação. ✅';
 }
 
 function msgStory(nome){return'Fala, '+nome+'! Seu story já está no ar hoje na TV Marataízes 🚀 Dá uma conferida lá no Instagram 👀';}
