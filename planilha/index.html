@@ -464,13 +464,17 @@ function marcarPago(id){
 }
 
 function desmarcarPago(id){
-  if(!confirm('Remover pagamento de '+mesNome(hoje())+'?'))return;
   const idx=clientes.findIndex(c=>c.id===id);
   if(idx<0)return;
-  const key=mesAtualKey();
-  clientes[idx].pagamentos=(clientes[idx].pagamentos||[]).filter(p=>String(p).slice(0,7)!==key);
+  // Pega o último pagamento registrado, seja do mês atual ou anterior
+  const pags=(clientes[idx].pagamentos||[]);
+  if(!pags.length){showToast('Nenhum pagamento registrado');return;}
+  const ultimo=pags[pags.length-1];
+  const ultimoMes=MESES[parseInt(String(ultimo).slice(5,7))-1];
+  if(!confirm('Remover pagamento de '+ultimoMes+'?'))return;
+  clientes[idx].pagamentos=pags.slice(0,-1);
   saveClientes(clientes);render();
-  showToast('↩ Pagamento de '+mesNome(hoje())+' removido');
+  showToast('↩ Pagamento de '+ultimoMes+' removido');
 }
 
 function deleteCliente(id){
