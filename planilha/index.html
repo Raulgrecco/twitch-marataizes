@@ -230,21 +230,25 @@ function getDiffDays(date){
   return Math.round((d-h)/(1000*60*60*24));
 }
 
+function mesAtualKey(){const h=hoje();return h.getFullYear()+'-'+String(h.getMonth()+1).padStart(2,'0');}
+
 function isPagoMesAtual(c){
   if(!c.pagamentos||!c.pagamentos.length)return false;
-  const h=hoje();
-  return c.pagamentos.some(p=>{const d=new Date(p);return d.getFullYear()===h.getFullYear()&&d.getMonth()===h.getMonth();});
+  const key=mesAtualKey();
+  return c.pagamentos.some(p=>String(p).slice(0,7)===key);
 }
 
 function getStatus(c){
+  // PAGO: somente via botão manual — nunca automático
   if(isPagoMesAtual(c))return'pago';
   const venc=getVencimento(c);
   if(!venc)return'ok';
   const diff=getDiffDays(venc);
-  if(diff<0)return'atrasado';
-  if(diff===0)return'cobrar';
-  if(diff<=2)return'avisar';
-  return'ok';
+  // Antes do vencimento: avisar com 5 dias de antecedência
+  if(diff>5)return'ok';
+  if(diff>0)return'avisar';
+  // No dia ou depois: atrasado — nunca vira pago sozinho
+  return'atrasado';
 }
 
 function statusBadge(status){
@@ -392,7 +396,10 @@ function renderCards(){
           (c.whatsapp&&status!=='avisar'&&status!=='cobrar'?'<a href="'+waLink(c.whatsapp,msgAvisar(c.nome))+'" target="_blank" class="btn btn-ghost btn-sm">💬 Avisar</a>':'')+
           (c.whatsapp?'<a href="'+waLink(c.whatsapp,venc?msgCobrar(c.nome,venc):'')+'" target="_blank" class="btn btn-red btn-sm">💰 Cobrar+PIX</a>':'')+
           (c.whatsapp?'<a href="'+waLink(c.whatsapp,msgStory(c.nome))+'" target="_blank" class="btn btn-wa btn-sm">📸 Story no ar</a>':'')+
-          '<button class="btn btn-blue btn-sm" onclick="marcarPago(\''+c.id+'\')">🔵 Marcar Pago</button>'+
+          (status==='pago'
+            ? '<button class="btn btn-red btn-sm" onclick="desmarcarPago(\''+c.id+'\')">↩ Não Pago</button>'
+            : '<button class="btn btn-blue btn-sm" onclick="marcarPago(\''+c.id+'\')">🔵 Marcar Pago</button>'
+          )+
           '<button class="btn btn-ghost btn-sm" onclick="copyText(\''+encodeURIComponent(resumo)+'\')">📋 Copiar</button>'+
           '<button class="btn btn-ghost btn-sm" onclick="editCliente(\''+c.id+'\')">✏️ Editar</button>'+
           '<button class="btn btn-red btn-sm" onclick="deleteCliente(\''+c.id+'\')">🗑️</button>'+
@@ -450,13 +457,22 @@ function marcarPago(id){
   const idx=clientes.findIndex(c=>c.id===id);
   if(idx<0)return;
   if(!clientes[idx].pagamentos)clientes[idx].pagamentos=[];
-  const h=hoje();
-  clientes[idx].pagamentos=clientes[idx].pagamentos.filter(p=>{
-    const d=new Date(p);return!(d.getFullYear()===h.getFullYear()&&d.getMonth()===h.getMonth());
-  });
-  clientes[idx].pagamentos.push(new Date().toISOString());
+  const key=mesAtualKey();
+  // Remove qualquer entrada deste mês antes de adicionar (evita duplicata)
+  clientes[idx].pagamentos=clientes[idx].pagamentos.filter(p=>String(p).slice(0,7)!==key);
+  clientes[idx].pagamentos.push(key);
   saveClientes(clientes);render();
   showToast('🔵 '+mesNome(hoje())+' marcado como PAGO!');
+}
+
+function desmarcarPago(id){
+  if(!confirm('Remover pagamento de '+mesNome(hoje())+'?'))return;
+  const idx=clientes.findIndex(c=>c.id===id);
+  if(idx<0)return;
+  const key=mesAtualKey();
+  clientes[idx].pagamentos=(clientes[idx].pagamentos||[]).filter(p=>String(p).slice(0,7)!==key);
+  saveClientes(clientes);render();
+  showToast('↩ Pagamento de '+mesNome(hoje())+' removido');
 }
 
 function deleteCliente(id){
