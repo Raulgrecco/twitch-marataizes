@@ -239,20 +239,18 @@ function isPagoMesAtual(c){
 }
 
 function getStatus(c){
-  // PAGO: somente via botão manual — nunca automático
   if(isPagoMesAtual(c))return'pago';
+  if(c.naoPago)return'atrasado';
   const venc=getVencimento(c);
   if(!venc)return'ok';
   const diff=getDiffDays(venc);
-  // Antes do vencimento: avisar com 5 dias de antecedência
   if(diff>5)return'ok';
   if(diff>0)return'avisar';
-  // No dia ou depois: atrasado — nunca vira pago sozinho
   return'atrasado';
 }
 
 function statusBadge(status){
-  const map={pago:['🔵 Pago','badge-blue'],avisar:['🟡 Avisar','badge-yellow'],cobrar:['🔴 Cobrar hoje','badge-red'],atrasado:['🔴 ATRASADO','badge-red'],ok:['✓ Em dia','badge-gray']};
+  const map={pago:['🔵 Pago','badge-blue'],avisar:['🟡 Avisar','badge-yellow'],cobrar:['🔴 Cobrar hoje','badge-red'],atrasado:['🔴 NÃO PAGO','badge-red'],ok:['✓ Em dia','badge-gray']};
   return map[status]||['—','badge-gray'];
 }
 
@@ -456,9 +454,9 @@ function marcarPago(id){
   if(idx<0)return;
   if(!clientes[idx].pagamentos)clientes[idx].pagamentos=[];
   const key=mesAtualKey();
-  // Remove qualquer entrada deste mês antes de adicionar (evita duplicata)
   clientes[idx].pagamentos=clientes[idx].pagamentos.filter(p=>String(p).slice(0,7)!==key);
   clientes[idx].pagamentos.push(key);
+  clientes[idx].naoPago=false;
   saveClientes(clientes);render();
   showToast('🔵 '+mesNome(hoje())+' marcado como PAGO!');
 }
@@ -466,10 +464,11 @@ function marcarPago(id){
 function desmarcarPago(id){
   const idx=clientes.findIndex(c=>c.id===id);
   if(idx<0)return;
-  if(!confirm('Marcar como NÃO PAGO? Isso vai remover todos os pagamentos registrados.'))return;
+  if(!confirm('Marcar como NÃO PAGO?'))return;
   clientes[idx].pagamentos=[];
+  clientes[idx].naoPago=true;
   saveClientes(clientes);render();
-  showToast('↩ Marcado como NÃO PAGO');
+  showToast('🔴 Marcado como NÃO PAGO');
 }
 
 function deleteCliente(id){
