@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TV Sul Capixaba — Prospecção</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0d0d;--bg2:#161616;--bg3:#1e1e1e;--bg4:#252525;
+  --border:#2a2a2a;--border2:#333;
+  --text:#f0f0f0;--text2:#999;--text3:#666;
+  --blue:#2d7dd2;--blue2:#1a5fa8;--blue-light:#e8f1fb;
+  --green:#1d9e75;--green2:#0f6e56;
+  --amber:#ba7517;--amber-light:#faeeda;
+  --red:#c0392b;
+  --purple:#6c5ce7;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+
+/* HEADER */
+.header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:50}
+.logo{font-size:13px;font-weight:600;letter-spacing:0.04em;color:var(--text);display:flex;align-items:center;gap:8px}
+.logo-dot{width:8px;height:8px;border-radius:50%;background:var(--blue)}
+.header-actions{display:flex;gap:8px}
+.btn-sm{padding:6px 12px;font-size:12px;border-radius:6px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);cursor:pointer;font-family:inherit;transition:all 0.15s}
+.btn-sm:hover{background:var(--bg4);color:var(--text)}
+.btn-sm.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn-sm.primary:hover{background:var(--blue2)}
+.btn-sm.success{background:var(--green);border-color:var(--green);color:#fff}
+.btn-sm.success:hover{background:var(--green2)}
+
+/* LAYOUT */
+.layout{display:flex;height:calc(100vh - 52px)}
+.sidebar{width:220px;background:var(--bg2);border-right:1px solid var(--border);padding:16px 0;flex-shrink:0;overflow-y:auto}
+.main{flex:1;overflow-y:auto;padding:20px}
+
+/* SIDEBAR NAV */
+.nav-section{padding:0 12px 8px;font-size:10px;font-weight:600;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;margin-top:16px}
+.nav-section:first-child{margin-top:0}
+.nav-item{display:flex;align-items:center;gap:8px;padding:8px 16px;font-size:13px;color:var(--text2);cursor:pointer;border-radius:0;transition:all 0.1s;border-left:2px solid transparent}
+.nav-item:hover{background:var(--bg3);color:var(--text)}
+.nav-item.active{background:var(--bg3);color:var(--text);border-left-color:var(--blue)}
+.nav-item .icon{width:16px;height:16px;opacity:0.7;flex-shrink:0}
+.nav-count{margin-left:auto;background:var(--bg4);border:1px solid var(--border2);border-radius:10px;font-size:10px;padding:1px 6px;color:var(--text3)}
+.nav-count.alert{background:#3a1a1a;border-color:#6b2020;color:#e74c3c}
+
+/* PANES */
+.pane{display:none}
+.pane.active{display:block}
+
+/* CARDS TOP */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:20px}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
+.stat-n{font-size:26px;font-weight:600;color:var(--text)}
+.stat-l{font-size:11px;color:var(--text3);margin-top:2px}
+
+/* SECTION TITLE */
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.section-title{font-size:14px;font-weight:500}
+
+/* FILTROS */
+.filtros{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.f-sel{padding:7px 10px;font-size:12px;background:var(--bg3);border:1px solid var(--border2);border-radius:6px;color:var(--text2);font-family:inherit;cursor:pointer}
+.f-sel:focus{outline:none;border-color:var(--blue)}
+
+/* METAS GRID */
+.metas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px}
+.meta-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
+.meta-nome{font-size:12px;font-weight:500;color:var(--text)}
+.meta-count{font-size:11px;color:var(--text3);margin-top:2px}
+.meta-bar{height:3px;background:var(--bg4);border-radius:2px;margin-top:8px;overflow:hidden}
+.meta-fill{height:100%;border-radius:2px;background:var(--blue);transition:width 0.4s}
+.meta-fill.done{background:var(--green)}
+
+/* LEAD LIST */
+.lead-list{display:flex;flex-direction:column;gap:6px}
+.lead-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;display:flex;align-items:flex-start;gap:12px;transition:border-color 0.15s}
+.lead-card:hover{border-color:var(--border2)}
+.lead-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;background:#1a3a5c;color:#5b9fd6}
+.lead-body{flex:1;min-width:0}
+.lead-nome{font-size:13px;font-weight:500;color:var(--text)}
+.lead-meta{font-size:11px;color:var(--text3);margin-top:2px}
+.lead-zap{font-size:12px;color:var(--blue);margin-top:4px;font-family:monospace}
+.lead-tags{display:flex;gap:4px;margin-top:5px;flex-wrap:wrap}
+.tag{font-size:10px;padding:2px 7px;border-radius:4px;font-weight:500}
+.t-farm{background:#0a2e24;color:#2ecc71}
+.t-clin{background:#1a1040;color:#9b59b6}
+.t-const{background:#2e1a00;color:#e67e22}
+.t-auto{background:#2e0a0a;color:#e74c3c}
+.t-super{background:#0a2000;color:#27ae60}
+.t-loja{background:#1a0a2e;color:#8e44ad}
+.t-outro{background:var(--bg4);color:var(--text3)}
+.lead-actions{display:flex;gap:6px;flex-shrink:0}
+.btn-icon{background:none;border:none;cursor:pointer;color:var(--text3);font-size:14px;padding:3px 5px;border-radius:4px;transition:all 0.15s}
+.btn-icon:hover{background:var(--bg4);color:var(--text)}
+.btn-icon.danger:hover{color:var(--red)}
+.btn-wpp{background:#0a2e1a;border:1px solid #1a5c33;color:#2ecc71;border-radius:5px;font-size:11px;padding:4px 8px;cursor:pointer;font-family:inherit;transition:all 0.15s}
+.btn-wpp:hover{background:#0f3d22}
+
+/* FORM */
+.form-box{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px;max-width:600px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-full{grid-column:1/-1}
+.field label{font-size:11px;color:var(--text3);display:block;margin-bottom:5px;font-weight:500;letter-spacing:0.03em;text-transform:uppercase}
+.field input,.field select,.field textarea{width:100%;padding:9px 11px;font-size:13px;background:var(--bg3);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-family:inherit;transition:border-color 0.15s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue)}
+.field select option{background:var(--bg3)}
+.btn-save{width:100%;padding:11px;background:var(--blue);border:none;border-radius:6px;color:#fff;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;margin-top:4px;transition:background 0.15s}
+.btn-save:hover{background:var(--blue2)}
+.toast{background:#0f3d22;border:1px solid #1a5c33;color:#2ecc71;border-radius:6px;padding:10px 14px;font-size:13px;margin-top:10px;display:none}
+
+/* TEXTOS DISPARO */
+.seg-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.seg-tab{padding:6px 14px;font-size:12px;border:1px solid var(--border2);border-radius:20px;background:transparent;color:var(--text2);cursor:pointer;font-family:inherit;transition:all 0.15s}
+.seg-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}
+.text-box{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px 18px;font-size:13px;line-height:1.7;color:var(--text2);white-space:pre-wrap;margin-bottom:10px;position:relative}
+.copy-btn{position:absolute;top:10px;right:10px;padding:5px 10px;background:var(--bg4);border:1px solid var(--border2);border-radius:5px;font-size:11px;color:var(--text3);cursor:pointer;font-family:inherit}
+.copy-btn:hover{background:var(--bg3);color:var(--text)}
+.copy-btn.copied{color:var(--green)}
+.text-note{font-size:11px;color:var(--text3);margin-bottom:16px}
+
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:22px;width:90%;max-width:500px;max-height:80vh;overflow-y:auto}
+.modal h3{font-size:15px;font-weight:500;margin-bottom:14px}
+.modal textarea{width:100%;height:220px;background:var(--bg3);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-family:monospace;font-size:12px;padding:10px;resize:none}
+.modal-close{width:100%;margin-top:10px;padding:9px;border:1px solid var(--border2);border-radius:6px;background:transparent;color:var(--text2);cursor:pointer;font-family:inherit;font-size:13px}
+
+/* EMPTY */
+.empty{text-align:center;padding:50px 20px;color:var(--text3);font-size:13px}
+.empty span{font-size:28px;display:block;margin-bottom:10px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo"><div class="logo-dot"></div>TV SUL CAPIXABA — PROSPECÇÃO</div>
+  <div class="header-actions">
+    <button class="btn-sm" onclick="exportarTudo()">⬇ Exportar backup</button>
+    <button class="btn-sm" onclick="document.getElementById('import-file').click()">⬆ Importar</button>
+    <input type="file" id="import-file" accept=".json" style="display:none" onchange="importarBackup(event)">
+    <button class="btn-sm success" onclick="abrirDisparo()">📤 Exportar ZAPs</button>
+    <button class="btn-sm primary" onclick="showPane('cadastro')">+ Empresa</button>
+  </div>
+</div>
+
+<div class="layout">
+  <div class="sidebar">
+    <div class="nav-section">Painel</div>
+    <div class="nav-item active" onclick="showPane('dashboard')">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </div>
+    <div class="nav-item" onclick="showPane('metas')">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+      Metas por cidade
+    </div>
+
+    <div class="nav-section">Leads</div>
+    <div class="nav-item" onclick="showPane('todos')">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Todos os leads <span class="nav-count" id="nc-todos">0</span>
+    </div>
+    <div class="nav-item" onclick="showPane('cadastro')">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Cadastrar empresa
+    </div>
+
+    <div class="nav-section">Disparo</div>
+    <div class="nav-item" onclick="showPane('textos')">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Textos de disparo
+    </div>
+
+    <div class="nav-section">Cidades</div>
+    <div id="sidebar-cidades"></div>
+  </div>
+
+  <div class="main">
+
+    <!-- DASHBOARD -->
+    <div class="pane active" id="pane-dashboard">
+      <div class="stats-row" id="stats-row"></div>
+      <div class="section-head"><span class="section-title">Últimos cadastros</span></div>
+      <div class="lead-list" id="recentes-list"></div>
+    </div>
+
+    <!-- METAS -->
+    <div class="pane" id="pane-metas">
+      <div class="section-head"><span class="section-title">Meta: 20 empresas por cidade</span></div>
+      <div class="metas-grid" id="metas-grid"></div>
+    </div>
+
+    <!-- TODOS -->
+    <div class="pane" id="pane-todos">
+      <div class="filtros">
+        <select class="f-sel" id="f-cidade" onchange="renderTodos()"><option value="">Todas as cidades</option></select>
+        <select class="f-sel" id="f-seg" onchange="renderTodos()">
+          <option value="">Todos os segmentos</option>
+          <option value="farm">Farmácia / Drogaria</option>
+          <option value="clin">Clínica / Saúde</option>
+          <option value="const">Material de Construção</option>
+          <option value="auto">Autopeças / Oficina</option>
+          <option value="super">Supermercado</option>
+          <option value="loja">Loja / Varejo</option>
+          <option value="outro">Outro</option>
+        </select>
+        <select class="f-sel" id="f-status" onchange="renderTodos()">
+          <option value="">Todos os status</option>
+          <option value="novo">Novo</option>
+          <option value="enviado">Enviado</option>
+          <option value="respondeu">Respondeu</option>
+          <option value="fechado">Fechado</option>
+          <option value="nao">Não quis</option>
+        </select>
+      </div>
+      <div class="lead-list" id="todos-list"></div>
+    </div>
+
+    <!-- CADASTRO -->
+    <div class="pane" id="pane-cadastro">
+      <div class="section-head"><span class="section-title">Nova empresa</span></div>
+      <div class="form-box">
+        <div class="form-grid">
+          <div class="field">
+            <label>Cidade *</label>
+            <select id="f-nova-cidade">
+              <option value="">Selecione...</option>
+              <option>Cachoeiro de Itapemirim</option><option>Castelo</option><option>Alegre</option>
+              <option>Guaçuí</option><option>Muniz Freire</option><option>Ibatiba</option>
+              <option>Iúna</option><option>Irupi</option><option>Ibitirama</option>
+              <option>Mimoso do Sul</option><option>Muqui</option><option>Atílio Vivácqua</option>
+              <option>Vargem Alta</option><option>Alfredo Chaves</option><option>Iconha</option>
+              <option>Rio Novo do Sul</option><option>Jerônimo Monteiro</option><option>Apiacá</option>
+              <option>Bom Jesus do Norte</option><option>São José do Calçado</option>
+              <option>Divino de São Lourenço</option><option>Dores do Rio Preto</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Segmento *</label>
+            <select id="f-nova-seg">
+              <option value="">Selecione...</option>
+              <option value="farm">Farmácia / Drogaria</option>
+              <option value="clin">Clínica / Saúde</option>
+              <option value="const">Material de Construção</option>
+              <option value="auto">Autopeças / Oficina</option>
+              <option value="super">Supermercado</option>
+              <option value="loja">Loja / Varejo</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+          <div class="field form-full">
+            <label>Nome da empresa *</label>
+            <input type="text" id="f-nova-nome" placeholder="Ex: Farmácia São João">
+          </div>
+          <div class="field">
+            <label>WhatsApp *</label>
+            <input type="tel" id="f-nova-zap" placeholder="(28) 99999-0000">
+          </div>
+          <div class="field">
+            <label>Telefone fixo</label>
+            <input type="tel" id="f-nova-tel" placeholder="(28) 3333-0000">
+          </div>
+          <div class="field">
+            <label>Instagram</label>
+            <input type="text" id="f-nova-ig" placeholder="@nome">
+          </div>
+          <div class="field">
+            <label>Site</label>
+            <input type="text" id="f-nova-site" placeholder="www.site.com.br">
+          </div>
+          <div class="field form-full">
+            <label>Contato (nome da pessoa)</label>
+            <input type="text" id="f-nova-contato" placeholder="Ex: Márcia — gerente">
+          </div>
+          <div class="field form-full">
+            <label>Observação</label>
+            <input type="text" id="f-nova-obs" placeholder="Ex: ligaram de volta, pedir proposta">
+          </div>
+        </div>
+        <button class="btn-save" onclick="salvar()">Salvar empresa</button>
+        <div class="toast" id="toast">✓ Empresa salva com sucesso!</div>
+      </div>
+    </div>
+
+    <!-- TEXTOS -->
+    <div class="pane" id="pane-textos">
+      <div class="section-head"><span class="section-title">Textos de disparo por segmento</span></div>
+      <p class="text-note">Texto único para todos os segmentos. Troque [CIDADE] antes de enviar — o botão Enviar já faz isso automaticamente.</p>
+      <div class="seg-tabs">
+        <button class="seg-tab active" onclick="showTexto('farm',this)">📤 Disparo principal</button>
+        <button class="seg-tab" onclick="showTexto('followup',this)">🔁 Follow-up (2 dias depois)</button>
+      </div>
+      <div id="texto-display"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL EXPORT -->
+<div class="modal-bg" id="modal-bg" onclick="fecharModal(event)">
+  <div class="modal">
+    <h3>📤 WhatsApps para disparo</h3>
+    <textarea id="export-text" readonly></textarea>
+    <button class="modal-close" onclick="document.getElementById('modal-bg').classList.remove('open')">Fechar</button>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'tvsulcapixaba_prospeccao_v1';
+const META = 20;
+const CIDADES = ['Cachoeiro de Itapemirim','Castelo','Alegre','Guaçuí','Muniz Freire','Ibatiba','Iúna','Irupi','Ibitirama','Mimoso do Sul','Muqui','Atílio Vivácqua','Vargem Alta','Alfredo Chaves','Iconha','Rio Novo do Sul','Jerônimo Monteiro','Apiacá','Bom Jesus do Norte','São José do Calçado','Divino de São Lourenço','Dores do Rio Preto'];
+const SEG_NOME = {farm:'Farmácia',clin:'Clínica',const:'Construção',auto:'Autopeças',super:'Supermercado',loja:'Loja',outro:'Outro'};
+const STATUS_NOME = {novo:'Novo',enviado:'Enviado',respondeu:'Respondeu',fechado:'Fechado ✓',nao:'Não quis'};
+const STATUS_COR = {novo:'#1a3a5c',enviado:'#2e1a00',respondeu:'#0a2e24',fechado:'#0f3d22',nao:'#2e0a0a'};
+const STATUS_TEXT = {novo:'#5b9fd6',enviado:'#e67e22',respondeu:'#2ecc71',fechado:'#27ae60',nao:'#e74c3c'};
+
+const TEXTO_PADRAO = `Olá, tudo bem?
+
+Sou da TV Marataízes Digital — canal que transmite 24 horas pelo portal e agora expandiu para todo o sul do ES através da TV Sul Capixaba.
+
+Estamos incluindo [CIDADE] na cobertura e sua empresa pode aparecer no portal junto às notícias da região: logo, contato e matéria de apresentação publicada por R$ 49,90/mês.
+
+Tem interesse?`;
+
+const TEXTOS = {
+  farm: TEXTO_PADRAO,
+  clin: TEXTO_PADRAO,
+  const: TEXTO_PADRAO,
+  auto: TEXTO_PADRAO,
+  super: TEXTO_PADRAO,
+  loja: TEXTO_PADRAO,
+  outro: TEXTO_PADRAO,
+  followup:`Oi! Tudo bem?
+
+Passei aqui pra saber se você teve chance de ver a mensagem que mandei sobre a TV Sul Capixaba.
+
+Tem interesse?`
+};
+
+let leads = [];
+let textoAtual = 'farm';
+
+function loadLeads(){
+  try{const d=localStorage.getItem(STORAGE_KEY);leads=d?JSON.parse(d):[];}catch(e){leads=[];}
+  render();
+}
+
+function saveLeads(){
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(leads));}catch(e){}
+}
+
+function salvar(){
+  const cidade=document.getElementById('f-nova-cidade').value;
+  const seg=document.getElementById('f-nova-seg').value;
+  const nome=document.getElementById('f-nova-nome').value.trim();
+  const zap=document.getElementById('f-nova-zap').value.trim();
+  if(!cidade||!seg||!nome||!zap){alert('Preencha: cidade, segmento, nome e WhatsApp.');return;}
+  leads.unshift({id:Date.now(),cidade,seg,nome,zap,
+    tel:document.getElementById('f-nova-tel').value.trim(),
+    ig:document.getElementById('f-nova-ig').value.trim(),
+    site:document.getElementById('f-nova-site').value.trim(),
+    contato:document.getElementById('f-nova-contato').value.trim(),
+    obs:document.getElementById('f-nova-obs').value.trim(),
+    status:'novo',
+    dt:new Date().toLocaleDateString('pt-BR')
+  });
+  saveLeads();
+  ['f-nova-nome','f-nova-tel','f-nova-zap','f-nova-ig','f-nova-site','f-nova-contato','f-nova-obs'].forEach(id=>document.getElementById(id).value='');
+  const t=document.getElementById('toast');t.style.display='block';setTimeout(()=>t.style.display='none',2500);
+  render();
+}
+
+function mudarStatus(id,status){
+  const l=leads.find(x=>x.id===id);if(!l)return;
+  l.status=status;saveLeads();render();
+}
+
+function deletar(id){
+  if(!confirm('Remover esta empresa?'))return;
+  leads=leads.filter(x=>x.id!==id);saveLeads();render();
+}
+
+function showPane(name){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('pane-'+name).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>{if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes("'"+name+"'"))n.classList.add('active');});
+  if(name==='todos')renderTodos();
+  if(name==='metas')renderMetas();
+  if(name==='dashboard')renderDashboard();
+  if(name==='textos')showTexto(textoAtual,null);
+}
+
+function render(){
+  updateNavCounts();
+  updateSidebarCidades();
+  updateFiltrosCidade();
+  renderDashboard();
+}
+
+function updateNavCounts(){
+  document.getElementById('nc-todos').textContent=leads.length;
+}
+
+function updateSidebarCidades(){
+  const counts={};leads.forEach(l=>counts[l.cidade]=(counts[l.cidade]||0)+1);
+  const sc=document.getElementById('sidebar-cidades');
+  const cidadesComLeads=CIDADES.filter(c=>counts[c]);
+  sc.innerHTML=cidadesComLeads.map(c=>`
+    <div class="nav-item" onclick="filtrarCidade('${c}')">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      ${c} <span class="nav-count">${counts[c]}</span>
+    </div>`).join('');
+}
+
+function filtrarCidade(c){
+  document.getElementById('f-cidade').value=c;
+  showPane('todos');
+}
+
+function updateFiltrosCidade(){
+  const sel=document.getElementById('f-cidade');
+  const val=sel.value;
+  const cids=[...new Set(leads.map(l=>l.cidade))].sort();
+  sel.innerHTML='<option value="">Todas as cidades</option>'+cids.map(c=>`<option ${c===val?'selected':''}>${c}</option>`).join('');
+}
+
+function renderDashboard(){
+  const total=leads.length;
+  const cidadesAtivas=new Set(leads.map(l=>l.cidade)).size;
+  const comZap=leads.filter(l=>l.zap).length;
+  const fechados=leads.filter(l=>l.status==='fechado').length;
+  document.getElementById('stats-row').innerHTML=`
+    <div class="stat-card"><div class="stat-n">${total}</div><div class="stat-l">Empresas cadastradas</div></div>
+    <div class="stat-card"><div class="stat-n">${cidadesAtivas}</div><div class="stat-l">Cidades com leads</div></div>
+    <div class="stat-card"><div class="stat-n">${comZap}</div><div class="stat-l">WhatsApps</div></div>
+    <div class="stat-card"><div class="stat-n">${fechados}</div><div class="stat-l">Fechados</div></div>`;
+  const rec=leads.slice(0,8);
+  document.getElementById('recentes-list').innerHTML=rec.length?rec.map(l=>leadHTML(l)).join(''):`<div class="empty"><span>📋</span>Nenhuma empresa cadastrada ainda.<br>Use <strong>+ Empresa</strong> para começar.</div>`;
+}
+
+function renderMetas(){
+  const counts={};leads.forEach(l=>counts[l.cidade]=(counts[l.cidade]||0)+1);
+  document.getElementById('metas-grid').innerHTML=CIDADES.map(c=>{
+    const n=counts[c]||0;const pct=Math.min(100,Math.round(n/META*100));
+    return `<div class="meta-card">
+      <div class="meta-nome">${c}</div>
+      <div class="meta-count">${n} / ${META}</div>
+      <div class="meta-bar"><div class="meta-fill ${pct>=100?'done':''}" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join('');
+}
+
+function renderTodos(){
+  const fc=document.getElementById('f-cidade').value;
+  const fs=document.getElementById('f-seg').value;
+  const fst=document.getElementById('f-status').value;
+  let f=leads.filter(l=>(!fc||l.cidade===fc)&&(!fs||l.seg===fs)&&(!fst||l.status===fst));
+  const cont=document.getElementById('todos-list');
+  cont.innerHTML=f.length?f.map(l=>leadHTML(l)).join(''):`<div class="empty"><span>🔍</span>Nenhum resultado para esse filtro.</div>`;
+}
+
+function leadHTML(l){
+  const ini=l.nome.substring(0,2).toUpperCase();
+  const statusOpts=Object.entries(STATUS_NOME).map(([k,v])=>`<option value="${k}" ${l.status===k?'selected':''}>${v}</option>`).join('');
+  const bc=STATUS_COR[l.status]||'#1a3a5c';
+  const tc=STATUS_TEXT[l.status]||'#5b9fd6';
+  return `<div class="lead-card">
+    <div class="lead-av" style="background:${bc};color:${tc}">${ini}</div>
+    <div class="lead-body">
+      <div class="lead-nome">${l.nome}</div>
+      <div class="lead-meta">${l.cidade} · ${SEG_NOME[l.seg]||l.seg} · ${l.dt||''}</div>
+      ${l.zap?`<div class="lead-zap">📱 ${l.zap}</div>`:''}
+      <div class="lead-tags">
+        <span class="tag t-${l.seg}">${SEG_NOME[l.seg]||l.seg}</span>
+        ${l.contato?`<span class="tag t-outro">👤 ${l.contato}</span>`:''}
+        ${l.ig?`<span class="tag t-outro">${l.ig}</span>`:''}
+        ${l.obs?`<span class="tag t-outro">${l.obs}</span>`:''}
+      </div>
+    </div>
+    <div class="lead-actions">
+      ${l.zap?`<button class="btn-wpp" onclick="abrirWpp('${l.zap}','${(l.nome||'').replace(/'/g,"\\'")}','${l.seg}','${(l.cidade||'').replace(/'/g,"\\'")}')">Enviar</button>`:''}
+      <select onchange="mudarStatus(${l.id},this.value)" style="background:${bc};border:1px solid #333;border-radius:5px;font-size:11px;padding:4px 6px;color:${tc};cursor:pointer;font-family:inherit">${statusOpts}</select>
+      <button class="btn-icon danger" onclick="deletar(${l.id})">×</button>
+    </div>
+  </div>`;
+}
+
+function abrirWpp(zap,nome,seg,cidade){
+  let txt=TEXTOS[seg]||TEXTOS.farm;
+  txt=txt.replace(/\[EMPRESA\]/g,nome).replace(/\[CIDADE\]/g,cidade);
+  const num=zap.replace(/\D/g,'');
+  const url=`https://wa.me/55${num}?text=${encodeURIComponent(txt)}`;
+  window.open(url,'_blank');
+}
+
+function showTexto(seg,btn){
+  textoAtual=seg;
+  if(btn){document.querySelectorAll('.seg-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+  const txt=TEXTOS[seg]||'';
+  document.getElementById('texto-display').innerHTML=`
+    <div class="text-box">${txt.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}<button class="copy-btn" onclick="copiarTexto(this,'${seg}')">Copiar</button></div>
+    <p class="text-note">Substitua <strong>[EMPRESA]</strong> e <strong>[CIDADE]</strong> antes de enviar. No botão "Enviar" da lista de leads, o texto já abre no WhatsApp com o nome e cidade preenchidos.</p>`;
+}
+
+function copiarTexto(btn,seg){
+  navigator.clipboard.writeText(TEXTOS[seg]||'').then(()=>{
+    btn.textContent='Copiado!';btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='Copiar';btn.classList.remove('copied');},2000);
+  });
+}
+
+function abrirDisparo(){
+  const fc=document.getElementById('f-cidade').value;
+  const fs=document.getElementById('f-seg').value;
+  let f=leads.filter(l=>(!fc||l.cidade===fc)&&(!fs||l.seg===fs)&&l.zap);
+  if(!f.length){alert('Nenhum WhatsApp cadastrado para exportar.');return;}
+  const lines=f.map(l=>`${l.cidade} | ${SEG_NOME[l.seg]||l.seg} | ${l.nome} | ${l.zap}${l.contato?' | '+l.contato:''}${l.obs?' | '+l.obs:''}`);
+  document.getElementById('export-text').value=lines.join('\n');
+  document.getElementById('modal-bg').classList.add('open');
+}
+
+function fecharModal(e){if(e.target===document.getElementById('modal-bg'))document.getElementById('modal-bg').classList.remove('open');}
+
+function exportarTudo(){
+  const blob=new Blob([JSON.stringify(leads,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='tvsulcapixaba_leads_'+new Date().toISOString().slice(0,10)+'.json';a.click();
+}
+
+function importarBackup(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    try{const d=JSON.parse(ev.target.result);if(Array.isArray(d)){leads=d;saveLeads();render();alert('Backup importado: '+d.length+' empresas.');}}
+    catch(err){alert('Arquivo inválido.');}
+  };r.readAsText(f);
+}
+
+showTexto('farm',null);
+loadLeads();
+</script>
+</body>
+</html>
