@@ -113,7 +113,7 @@ nav {
 
 .plan-tag { display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); border: 1px solid var(--border-strong); padding: 0.2rem 0.6rem; border-radius: 2px; margin-bottom: 1.2rem; }
 .plan-name { font-family: var(--font-display); font-size: 2rem; letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.5rem; line-height: 1; }
-.plan-tagline { font-size: 0.85rem; color: var(--gray); margin-bottom: 1.8rem; font-weight: 300; line-height: 1.55; flex: 1; }
+.plan-tagline { font-size: 0.85rem; color: var(--gray); margin-bottom: 1.8rem; font-weight: 300; line-height: 1.55; min-height: 5rem; }
 
 .plan-price { margin-bottom: 1.8rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
 .plan-price-number { font-family: var(--font-display); font-size: 3.5rem; letter-spacing: 0.02em; color: var(--white); line-height: 1; }
@@ -121,7 +121,7 @@ nav {
 .plan-price-currency { font-size: 1.2rem; color: var(--gray); vertical-align: top; margin-top: 0.4rem; display: inline-block; }
 .plan-price-period { font-size: 0.78rem; color: var(--gray); display: block; margin-top: 0.3rem; }
 
-.plan-features { list-style: none; margin-bottom: 2rem; }
+.plan-features { list-style: none; margin-bottom: 2rem; flex: 1; }
 .plan-features li { font-size: 0.88rem; color: var(--gray-light); padding: 0.55rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: flex-start; gap: 0.7rem; line-height: 1.4; }
 .plan-features li:last-child { border-bottom: none; }
 .plan-features li::before { content: '—'; color: var(--gold); font-size: 0.75rem; flex-shrink: 0; margin-top: 0.1rem; }
@@ -345,14 +345,14 @@ footer a:hover { color: var(--white); }
     <div class="plan-card featured">
       <div class="plan-tag">O que mais traz cliente</div>
       <div class="plan-name">Movimento</div>
-      <p class="plan-tagline">Sua empresa aparece <strong style="color:var(--gold)">3x por semana nos Stories</strong> do Instagram da TV — a cidade inteira vê.</p>
+      <p class="plan-tagline">Sua empresa aparece <strong style="color:var(--gold)">toda semana nos Stories</strong> do Instagram da TV — a cidade inteira vê.</p>
       <div class="plan-price">
         <div class="plan-price-number"><span class="plan-price-currency">R$</span>149</div>
         <span class="plan-price-period">por mês · mínimo 3 meses</span>
       </div>
       <ul class="plan-features">
         <li>Tudo do plano Presença</li>
-        <li class="highlight">2 stories/semana no Instagram da TV</li>
+        <li class="highlight">1 story/semana no Instagram da TV</li>
         <li class="highlight">Link direto para o seu WhatsApp no story</li>
         <li>Aparece para os 200K+ seguidores</li>
         <li>Publicado em até 24 horas</li>
@@ -364,19 +364,19 @@ footer a:hover { color: var(--white); }
     <div class="plan-card">
       <div class="plan-tag">Presença máxima</div>
       <div class="plan-name">Domínio Local</div>
-      <p class="plan-tagline">4 stories por semana. Feed e página própria. Você está no Instagram da TV toda semana, sem falta.</p>
+      <p class="plan-tagline">Além dos stories, você ganha uma página no portal da TV Marataízes. Google indexa, cliente encontra, sem fazer nada.</p>
       <div class="plan-price">
         <div class="plan-price-number"><span class="plan-price-currency">R$</span>249</div>
         <span class="plan-price-period">por mês · mínimo 3 meses</span>
       </div>
       <ul class="plan-features">
         <li>Tudo do plano Movimento</li>
-        <li class="highlight">4 stories/semana no Instagram da TV</li>
+        <li class="highlight">3 stories/semana no Instagram da TV</li>
         <li class="highlight">
           Página exclusiva no portal da TV<br>
           <span class="url-pill">tvmarataizes.digital/seuNegocio</span>
         </li>
-        <li>Destaque no topo da categoria no guia</li>
+        <li class="highlight">Destaque no topo da categoria no guia</li>
       </ul>
       <a href="https://wa.me/5528999036141?text=Quero+o+Plano+Domínio+Local+R$249+-+TV+Marataízes" class="plan-cta plan-cta-ghost">Quero esse plano</a>
     </div>
