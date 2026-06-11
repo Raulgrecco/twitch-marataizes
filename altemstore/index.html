@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Altem Store | Moda Masculina Premium em Marataízes</title>
+  <meta name="description" content="Qualidade e estilo para o seu dia a dia. Roupas masculinas premium, enviamos para todo o Brasil. Altem Store — Marataízes, ES."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --k:#060606;--k1:#0E0E0E;--k2:#161616;--k3:#222;--k4:#3A3A3A;
+      --g:#888;--g2:#BDBDBD;--w:#F2F2F2;--pu:#fff;
+      --ac:#E8C96A;--ac2:#C9A84C;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--k);color:var(--w);overflow-x:hidden}
+
+    .ticker{background:var(--ac);overflow:hidden;padding:8px 0;position:relative;z-index:50}
+    .ticker-track{display:inline-flex;animation:tick 25s linear infinite;white-space:nowrap}
+    .ticker:hover .ticker-track{animation-play-state:paused}
+    .ti{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+        color:var(--k);padding:0 24px;display:inline-flex;align-items:center;gap:12px}
+    .ti::after{content:'✦';opacity:.4}
+    @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;
+        display:flex;align-items:center;justify-content:space-between;
+        padding:18px 24px;transition:background .4s,padding .3s}
+    nav.solid{background:rgba(6,6,6,.96);backdrop-filter:blur(14px);padding:12px 24px;border-bottom:1px solid var(--k3)}
+    .nav-logo{height:30px;filter:invert(1) brightness(2)}
+    .nav-right{display:flex;align-items:center;gap:16px}
+    .nav-ig{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--g2);
+            text-decoration:none;font-weight:500;display:none}
+    @media(min-width:600px){.nav-ig{display:block}}
+    .nav-wa{display:flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.14em;
+            text-transform:uppercase;color:var(--pu);border:1px solid rgba(255,255,255,.18);
+            padding:8px 16px;text-decoration:none;font-weight:600;transition:border-color .2s,color .2s}
+    .nav-wa:hover{border-color:var(--ac);color:var(--ac)}
+    .nav-wa svg{width:13px;height:13px;fill:currentColor}
+
+    .waf{position:fixed;bottom:22px;right:18px;z-index:200;
+         background:#25D366;border-radius:50%;width:54px;height:54px;
+         display:flex;align-items:center;justify-content:center;
+         box-shadow:0 6px 28px rgba(37,211,102,.4);text-decoration:none;
+         animation:wap 3s infinite}
+    .waf svg{width:26px;height:26px;fill:#fff}
+    @keyframes wap{0%,100%{box-shadow:0 6px 28px rgba(37,211,102,.4)}
+      50%{box-shadow:0 6px 40px rgba(37,211,102,.65),0 0 0 10px rgba(37,211,102,.07)}}
+
+    .hero{position:relative;height:100svh;min-height:640px;overflow:hidden}
+    .hero-img{position:absolute;inset:0;
+      background:url('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/alt9.png') center 20%/cover no-repeat;
+      transform:scale(1.06);transition:transform 10s ease-out}
+    .hero-img.loaded{transform:scale(1)}
+    .grain{position:absolute;inset:0;z-index:1;opacity:.055;mix-blend-mode:overlay;pointer-events:none;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+    .hero-grad{position:absolute;inset:0;z-index:2;
+      background:linear-gradient(to bottom,rgba(6,6,6,.2) 0%,rgba(6,6,6,.0) 25%,rgba(6,6,6,.45) 60%,rgba(6,6,6,.97) 100%)}
+    .hero-vline{position:absolute;left:26px;top:18%;bottom:18%;width:1px;background:var(--ac);z-index:3;opacity:.38}
+    .hero-content{position:absolute;bottom:0;left:0;right:0;z-index:4;padding:0 24px 52px}
+    .hero-season{font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--ac);margin-bottom:8px;font-weight:700}
+    .hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(86px,24vw,200px);
+             line-height:.85;letter-spacing:.02em;color:var(--pu)}
+    .hero-h1 .out{color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.18)}
+    .hero-rule{width:42px;height:1px;background:var(--ac);margin:18px 0}
+    .hero-copy{font-size:13px;font-weight:300;color:var(--g2);line-height:1.7;
+               max-width:260px;margin-bottom:26px}
+    .hero-copy strong{color:var(--pu);font-weight:600}
+    .hero-btns{display:flex;gap:10px;flex-wrap:wrap}
+    .btn-fill{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+              background:var(--ac);color:var(--k);padding:13px 26px;
+              text-decoration:none;display:inline-flex;align-items:center;gap:7px;transition:background .2s,transform .15s}
+    .btn-fill:hover{background:var(--ac2);transform:translateY(-1px)}
+    .btn-line{font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+              color:var(--w);border:1px solid rgba(255,255,255,.22);padding:12px 22px;
+              text-decoration:none;display:inline-flex;align-items:center;gap:7px;transition:border-color .2s,color .2s}
+    .btn-line:hover{border-color:var(--ac);color:var(--ac)}
+    .btn-line svg,.btn-fill svg{width:13px;height:13px;fill:currentColor}
+    .hero-scroll{position:absolute;right:22px;bottom:52px;z-index:4;display:flex;flex-direction:column;
+      align-items:center;gap:8px;color:rgba(255,255,255,.22);font-size:9px;letter-spacing:.22em;
+      text-transform:uppercase;writing-mode:vertical-rl}
+    .sline{width:1px;height:44px;background:linear-gradient(to bottom,rgba(255,255,255,.28),transparent);
+           animation:sl 2s ease-in-out infinite}
+    @keyframes sl{0%,100%{opacity:1;transform:scaleY(1)}50%{opacity:.25;transform:scaleY(.3)}}
+
+    .mbig{background:var(--k1);padding:20px 0;overflow:hidden;border-top:1px solid var(--k3);border-bottom:1px solid var(--k3)}
+    .mbig-track{display:inline-flex;animation:tick 32s linear infinite}
+    .mbi{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,11vw,84px);letter-spacing:.06em;
+         color:transparent;-webkit-text-stroke:1px var(--k4);padding:0 36px;display:inline-block}
+    .mbi.s{color:var(--k3);-webkit-text-stroke:1px var(--k3)}
+
+    .drop{padding:96px 0 0;background:var(--k)}
+    .drop-hd{padding:0 24px 56px}
+    .dlabel{font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--ac);margin-bottom:10px;font-weight:700}
+    .drop-h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,15vw,104px);line-height:.88;letter-spacing:.02em;color:var(--pu)}
+    .drop-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+    .di{position:relative;overflow:hidden;background:var(--k2);cursor:pointer}
+    .di:first-child{grid-column:span 2}
+    .di img{width:100%;display:block;object-fit:cover;aspect-ratio:16/10;
+            filter:brightness(.82) contrast(1.05) saturate(.88);
+            transition:transform .7s cubic-bezier(.25,.46,.45,.94),filter .4s}
+    .di:first-child img{aspect-ratio:21/9}
+    .di:hover img{transform:scale(1.055);filter:brightness(.5) contrast(1.1) saturate(.7)}
+    .di-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,6,.92) 0%,transparent 55%);pointer-events:none}
+    .di-info{position:absolute;bottom:0;left:0;right:0;padding:18px 20px 22px}
+    .di-cat{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--ac);margin-bottom:5px;font-weight:700}
+    .di-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,5vw,34px);color:var(--pu);
+              letter-spacing:.04em;line-height:1;margin-bottom:10px}
+    .di-cta{display:inline-flex;align-items:center;gap:5px;font-size:10px;letter-spacing:.18em;
+            text-transform:uppercase;color:var(--ac);text-decoration:none;font-weight:700;
+            border-bottom:1px solid rgba(232,201,106,.28);padding-bottom:2px;transition:gap .2s,border-color .2s}
+    .di-cta:hover{gap:9px;border-color:var(--ac)}
+    @media(min-width:700px){
+      .drop-grid{grid-template-columns:repeat(4,1fr)}
+      .di:first-child{grid-column:span 2}
+    }
+
+    .ident{display:grid;grid-template-columns:1fr}
+    .id-foto{position:relative;min-height:420px;overflow:hidden}
+    .id-foto img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;
+                 filter:brightness(.7) contrast(1.08) saturate(.82)}
+    .id-foto-txt{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;
+                 padding:36px 28px;background:linear-gradient(to top,rgba(6,6,6,.92) 0%,transparent 55%)}
+    .id-foto-txt blockquote{font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,8vw,54px);
+      color:var(--pu);line-height:1;letter-spacing:.02em}
+    .id-foto-txt blockquote em{color:var(--ac);font-style:normal}
+    .id-right{background:var(--k1);padding:60px 28px;border-top:1px solid var(--k3)}
+    .id-label{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--ac);margin-bottom:26px;font-weight:700}
+    .id-body{font-size:15px;color:var(--g2);line-height:1.85;font-weight:300;max-width:420px;margin-bottom:36px}
+    .id-body strong{color:var(--pu);font-weight:600}
+    .id-stats{display:flex;gap:36px;border-top:1px solid var(--k3);padding-top:30px}
+    .id-stat h3{font-family:'Bebas Neue',sans-serif;font-size:42px;color:var(--pu);line-height:1;letter-spacing:.04em}
+    .id-stat p{font-size:10px;color:var(--g);letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
+    @media(min-width:700px){.ident{grid-template-columns:1fr 1fr}.id-foto{min-height:560px}}
+
+    .gal{background:var(--k)}
+    .gal-hd{padding:90px 24px 52px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px}
+    .gal-h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(54px,14vw,94px);line-height:.9;color:var(--pu)}
+    .gal-link{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ac);
+              text-decoration:none;font-weight:700;border-bottom:1px solid var(--ac);padding-bottom:2px;white-space:nowrap}
+    .gal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+    .gi{position:relative;overflow:hidden;cursor:pointer;background:var(--k2);aspect-ratio:1/1}
+    .gi:nth-child(1){grid-column:span 2;aspect-ratio:unset;min-height:240px}
+    .gi img{width:100%;height:100%;object-fit:cover;display:block;
+            filter:brightness(.82) saturate(.85);transition:transform .5s ease,filter .3s}
+    .gi:hover img{transform:scale(1.07);filter:brightness(.48) saturate(.6)}
+    .gi-ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
+    .gi:hover .gi-ov{opacity:1}
+    .gi-icon{width:44px;height:44px;border:1px solid rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center}
+    .gi-icon svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:1.5}
+
+    .lb{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.97);display:none;align-items:center;justify-content:center}
+    .lb.open{display:flex}
+    .lb img{max-width:90vw;max-height:88vh;object-fit:contain}
+    .lb-cls{position:absolute;top:20px;right:24px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+            color:var(--g);cursor:pointer;background:none;border:none;font-family:'Inter',sans-serif;font-weight:600}
+    .lb-cls:hover{color:var(--pu)}
+
+    .dest{padding:90px 0;background:var(--k1);border-top:1px solid var(--k3)}
+    .dest-hd{padding:0 24px 56px}
+    .dest-h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(50px,13vw,88px);line-height:.9;color:var(--pu)}
+    .dest-list{max-width:580px;margin:0 auto;padding:0 24px}
+    .drow{display:grid;grid-template-columns:44px 1fr;gap:18px;align-items:start;padding:26px 0;border-bottom:1px solid var(--k3)}
+    .drow:first-child{border-top:1px solid var(--k3)}
+    .dnum{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--k4);letter-spacing:.06em;line-height:1.2;padding-top:2px}
+    .drow h3{font-size:14px;font-weight:600;color:var(--pu);margin-bottom:3px}
+    .drow p{font-size:13px;color:var(--g);line-height:1.65}
+
+    .visit{padding:90px 24px;background:var(--k)}
+    .vt-h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,12vw,88px);line-height:.9;color:var(--pu);margin:48px 0 0}
+    .vt-grid{display:flex;flex-direction:column;gap:0;max-width:480px;margin:48px auto 0}
+    .vrow{display:grid;grid-template-columns:28px 1fr;gap:18px;align-items:start;padding:24px 0;border-bottom:1px solid var(--k3)}
+    .vrow:last-child{border-bottom:none}
+    .vic svg{width:17px;height:17px;fill:var(--ac);margin-top:3px}
+    .vrow h3{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--g);margin-bottom:5px}
+    .vrow p,.vrow a{font-size:14px;color:var(--w);text-decoration:none;font-weight:500;line-height:1.5}
+    .vrow a:hover{color:var(--ac)}
+    .mapa{max-width:480px;margin:32px auto 0;opacity:.6;filter:grayscale(1);transition:opacity .3s,filter .3s}
+    .mapa:hover{opacity:.88;filter:grayscale(.3)}
+    .mapa iframe{display:block;width:100%;height:210px;border:0}
+
+    .cta{position:relative;overflow:hidden;min-height:78vh;display:flex;flex-direction:column;
+         align-items:center;justify-content:center;text-align:center;padding:90px 24px}
+    .cta-bg{position:absolute;inset:0;
+      background:url('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/al10.png') center top/cover no-repeat;
+      filter:brightness(.11) saturate(.3);z-index:0}
+    .cta-grain{position:absolute;inset:0;z-index:1;opacity:.04;mix-blend-mode:overlay;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+    .cta-c{position:relative;z-index:2}
+    .cta-logo{height:48px;object-fit:contain;filter:invert(1) brightness(2);margin-bottom:48px}
+    .cta-h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(50px,14vw,108px);line-height:.92;color:var(--pu);letter-spacing:.02em;margin-bottom:32px}
+    .cta-h2 em{color:var(--ac);font-style:normal}
+    .cta-sub{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--g);margin-bottom:40px}
+    .btn-cta{font-size:11px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;
+             background:var(--ac);color:var(--k);padding:16px 42px;text-decoration:none;
+             display:inline-block;transition:background .2s,letter-spacing .2s,transform .15s}
+    .btn-cta:hover{background:var(--ac2);letter-spacing:.3em;transform:translateY(-1px)}
+
+    footer{background:#020202;border-top:1px solid var(--k3);padding:30px 24px;text-align:center;
+           font-size:11px;letter-spacing:.06em;color:var(--k4);line-height:2.2}
+    footer strong{color:var(--g2)}
+    footer a{color:var(--k4);text-decoration:none;transition:color .2s}
+    footer a:hover{color:var(--ac)}
+    .fsep{color:var(--k3);display:block;margin:4px 0}
+
+    .rv{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease}
+    .rv.on{opacity:1;transform:none}
+
+    /* SVG WA inline */
+    .wasvg path{d:path("M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z")}
+  </style>
+</head>
+<body>
+
+<div class="ticker"><div class="ticker-track">
+  <span class="ti">Altem Store</span><span class="ti">Moda Masculina</span>
+  <span class="ti">Enviamos para todo Brasil</span><span class="ti">Marataízes ES</span>
+  <span class="ti">Qualidade &amp; Estilo</span><span class="ti">WhatsApp (28) 99928-8446</span>
+  <span class="ti">Altem Store</span><span class="ti">Moda Masculina</span>
+  <span class="ti">Enviamos para todo Brasil</span><span class="ti">Marataízes ES</span>
+  <span class="ti">Qualidade &amp; Estilo</span><span class="ti">WhatsApp (28) 99928-8446</span>
+</div></div>
+
+<nav id="nav">
+  <img class="nav-logo" src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logoaltem.png" alt="Altem Store"/>
+  <div class="nav-right">
+    <a class="nav-ig" href="https://instagram.com/altem_store" target="_blank" rel="noopener">@altem_store</a>
+    <a class="nav-wa" href="https://wa.me/5528999288446" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+</nav>
+
+<a class="waf" href="https://wa.me/5528999288446" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="#fff"/></svg>
+</a>
+
+<section class="hero">
+  <div class="hero-img" id="hbg"></div>
+  <div class="grain"></div>
+  <div class="hero-grad"></div>
+  <div class="hero-vline"></div>
+  <div class="hero-content">
+    <p class="hero-season">Marataízes · ES &nbsp;/&nbsp; Moda Masculina</p>
+    <h1 class="hero-h1">AL<span class="out">TEM</span></h1>
+    <div class="hero-rule"></div>
+    <p class="hero-copy">Qualidade e estilo para o seu dia a dia.<br><strong>Não é qualquer coisa. É o que você merece usar.</strong></p>
+    <div class="hero-btns">
+      <a class="btn-fill" href="#drop">Ver lançamentos</a>
+      <a class="btn-line" href="https://wa.me/5528999288446" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Falar no WhatsApp
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="sline"></div><span>scroll</span></div>
+</section>
+
+<div class="mbig"><div class="mbig-track">
+  <span class="mbi">MODA MASCULINA</span><span class="mbi s">·</span>
+  <span class="mbi">CAMISAS</span><span class="mbi s">·</span>
+  <span class="mbi">CALÇAS</span><span class="mbi s">·</span>
+  <span class="mbi">BONÉS</span><span class="mbi s">·</span>
+  <span class="mbi">CALÇADOS</span><span class="mbi s">·</span>
+  <span class="mbi">ACESSÓRIOS</span><span class="mbi s">·</span>
+  <span class="mbi">MODA MASCULINA</span><span class="mbi s">·</span>
+  <span class="mbi">CAMISAS</span><span class="mbi s">·</span>
+  <span class="mbi">CALÇAS</span><span class="mbi s">·</span>
+  <span class="mbi">BONÉS</span><span class="mbi s">·</span>
+  <span class="mbi">CALÇADOS</span><span class="mbi s">·</span>
+  <span class="mbi">ACESSÓRIOS</span><span class="mbi s">·</span>
+</div></div>
+
+<section class="drop" id="drop">
+  <div class="drop-hd rv">
+    <div class="dlabel">Drop da semana</div>
+    <h2 class="drop-h2">NOVAS<br>PEÇAS.</h2>
+  </div>
+  <div class="drop-grid">
+    <div class="di"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/alt1.png" alt="Camisas" loading="lazy"/><div class="di-ov"></div>
+      <div class="di-info"><div class="di-cat">Destaque</div><div class="di-title">CAMISAS</div>
+        <a class="di-cta" href="https://wa.me/5528999288446?text=Quero%20ver%20as%20camisas">Ver disponibilidade →</a></div></div>
+    <div class="di"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/alt2.png" alt="Calças" loading="lazy"/><div class="di-ov"></div>
+      <div class="di-info"><div class="di-cat">New drop</div><div class="di-title">CALÇAS</div>
+        <a class="di-cta" href="https://wa.me/5528999288446?text=Quero%20ver%20as%20cal%C3%A7as">Ver →</a></div></div>
+    <div class="di"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/alt3.png" alt="Bonés" loading="lazy"/><div class="di-ov"></div>
+      <div class="di-info"><div class="di-cat">Limited</div><div class="di-title">BONÉS</div>
+        <a class="di-cta" href="https://wa.me/5528999288446?text=Quero%20ver%20os%20bon%C3%A9s">Ver →</a></div></div>
+    <div class="di"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/alt4.png" alt="Calçados" loading="lazy"/><div class="di-ov"></div>
+      <div class="di-info"><div class="di-cat">Exclusivo</div><div class="di-title">CALÇADOS</div>
+        <a class="di-cta" href="https://wa.me/5528999288446?text=Quero%20ver%20os%20cal%C3%A7ados">Ver →</a></div></div>
+  </div>
+</section>
+
+<section class="ident" id="ident">
+  <div class="id-foto">
+    <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/alt9.png" alt="Altem Store lifestyle" loading="lazy"/>
+    <div class="id-foto-txt">
+      <blockquote>O ESTILO<br>FALA ANTES<br><em>DE VOCÊ<br>ABRIR<br>A BOCA.</em></blockquote>
+    </div>
+  </div>
+  <div class="id-right">
+    <div class="id-label rv">Nossa identidade</div>
+    <p class="id-body rv">A Altem Store nasceu em Marataízes com um propósito simples:<br>
+      <strong>trazer moda masculina de verdade para a cidade.</strong><br><br>
+      Cada peça foi escolhida com critério. Qualidade primeiro, quantidade depois.</p>
+    <div class="id-stats rv">
+      <div class="id-stat"><h3>100%</h3><p>Curadoria própria</p></div>
+      <div class="id-stat"><h3>BR</h3><p>Enviamos pra todo país</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="gal" id="galeria">
+  <div class="gal-hd">
+    <h2 class="gal-h2 rv">O QUE<br>TEMOS.</h2>
+    <a class="gal-link rv" href="https://wa.me/5528999288446?text=Quero%20ver%20o%20acervo%20completo">Ver acervo →</a>
+  </div>
+  <div class="gal-grid">
+    <div class="gi" onclick="openLB('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/alt5.png')"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/alt5.png" alt="Altem" loading="lazy"/>
+      <div class="gi-ov"><div class="gi-icon"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div></div></div>
+    <div class="gi" onclick="openLB('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/alt6.png')"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/alt6.png" alt="Altem" loading="lazy"/>
+      <div class="gi-ov"><div class="gi-icon"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div></div></div>
+    <div class="gi" onclick="openLB('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/alt7.png')"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/alt7.png" alt="Altem" loading="lazy"/>
+      <div class="gi-ov"><div class="gi-icon"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div></div></div>
+    <div class="gi" onclick="openLB('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/alt8.png')"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/alt8.png" alt="Altem" loading="lazy"/>
+      <div class="gi-ov"><div class="gi-icon"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div></div></div>
+    <div class="gi" onclick="openLB('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/al10.png')"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/al10.png" alt="Altem" loading="lazy"/>
+      <div class="gi-ov"><div class="gi-icon"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div></div></div>
+    <div class="gi" onclick="openLB('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/alt9.png')"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/alt9.png" alt="Altem" loading="lazy"/>
+      <div class="gi-ov"><div class="gi-icon"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div></div></div>
+  </div>
+</section>
+
+<div class="lb" id="lb" onclick="closeLB()">
+  <button class="lb-cls" onclick="closeLB()">ESC · FECHAR</button>
+  <img id="lb-img" src="" alt=""/>
+</div>
+
+<section class="dest" id="dest">
+  <div class="dest-hd rv">
+    <div class="dlabel">Por que a Altem Store</div>
+    <h2 class="dest-h2">PRESENÇA<br>EM TUDO.</h2>
+  </div>
+  <div class="dest-list">
+    <div class="drow rv"><div class="dnum">01</div><div><h3>Enviamos para todo o Brasil</h3><p>Do Marataízes ao seu endereço — com segurança e agilidade.</p></div></div>
+    <div class="drow rv"><div class="dnum">02</div><div><h3>Produtos com curadoria</h3><p>Cada peça escolhida com critério. Qualidade primeiro, quantidade depois.</p></div></div>
+    <div class="drow rv"><div class="dnum">03</div><div><h3>Atendimento direto pelo WhatsApp</h3><p>Sem robô. Você fala com quem conhece cada peça do acervo.</p></div></div>
+    <div class="drow rv"><div class="dnum">04</div><div><h3>Drops frequentes</h3><p>Novidades constantes. Quem acompanha, veste primeiro.</p></div></div>
+    <div class="drow rv"><div class="dnum">05</div><div><h3>Moda masculina de verdade</h3><p>Para o homem que se cuida — e sabe que aparência é presença.</p></div></div>
+  </div>
+</section>
+
+<section class="visit" id="visita">
+  <div class="rv dlabel">Visite a loja</div>
+  <h2 class="vt-h2 rv">VENHA<br>PESSOALMENTE.</h2>
+  <div class="vt-grid">
+    <div class="vrow rv"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+      <div><h3>Endereço</h3><p>Av. Simão Soares, na rotatória da barra<br>Marataízes — ES</p></div></div>
+    <div class="vrow rv"><div class="vic"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
+      <div><h3>WhatsApp</h3><a href="https://wa.me/5528999288446">(28) 99928-8446</a></div></div>
+    <div class="vrow rv"><div class="vic"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      <div><h3>Instagram</h3><a href="https://instagram.com/altem_store" target="_blank" rel="noopener">@altem_store</a></div></div>
+    <div class="vrow rv"><div class="vic"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg></div>
+      <div><h3>Horário</h3><p>Segunda a Sábado · 9h às 18h</p></div></div>
+  </div>
+  <div class="mapa rv">
+    <iframe src="https://maps.google.com/maps?q=Av+Simao+Soares+Marataizes+ES&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Altem Store Marataízes"></iframe>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="cta-bg"></div>
+  <div class="cta-grain"></div>
+  <div class="cta-c">
+    <img class="cta-logo" src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logoaltem.png" alt="Altem Store" loading="lazy"/>
+    <h2 class="cta-h2 rv">QUALIDADE<br>E <em>ESTILO</em><br>PARA O SEU<br>DIA A DIA.</h2>
+    <p class="cta-sub rv">Moda Masculina · Marataízes · Todo o Brasil</p>
+    <a class="btn-cta rv" href="https://wa.me/5528999288446?text=Quero%20ver%20as%20pe%C3%A7as%20da%20Altem%20Store" target="_blank" rel="noopener">QUERO VER AS PEÇAS</a>
+  </div>
+</section>
+
+<footer>
+  <strong>Altem Store</strong> &nbsp;·&nbsp; Av. Simão Soares, Rotatória da Barra &nbsp;·&nbsp; Marataízes, ES<br>
+  (28) 99928-8446 &nbsp;·&nbsp; @altem_store
+  <span class="fsep">────────────</span>
+  Agenciado por <a href="https://tvmarataizes.digital/" target="_blank" rel="noopener">TV Marataízes</a>
+  &nbsp;·&nbsp; Produção: <a href="https://www.macucaproducoes.com.br/" target="_blank" rel="noopener">Macuca Produções</a>
+</footer>
+
+<script>
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>nav.classList.toggle('solid',scrollY>80),{passive:true});
+  window.addEventListener('load',()=>document.getElementById('hbg').classList.add('loaded'));
+  const obs=new IntersectionObserver((es)=>{
+    es.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('on'),i*85);obs.unobserve(e.target);}});
+  },{threshold:.1});
+  document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+  function openLB(src){document.getElementById('lb-img').src=src;document.getElementById('lb').classList.add('open');document.body.style.overflow='hidden'}
+  function closeLB(){document.getElementById('lb').classList.remove('open');document.body.style.overflow=''}
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB()});
+</script>
+</body>
+</html>
