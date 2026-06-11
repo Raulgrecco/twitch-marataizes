@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MS Store | Streetwear e Tênis Premium em Marataízes</title>
+  <meta name="description" content="Streetwear, tênis, bonés e acessórios premium. Conheça a MS Store em Marataízes e receba em todo o Brasil." />
+  <meta name="robots" content="index, follow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --preto:   #080808;
+      --c1:      #0F0F0F;
+      --c2:      #161616;
+      --c3:      #222222;
+      --c4:      #3A3A3A;
+      --c5:      #888;
+      --c6:      #BDBDBD;
+      --branco:  #F0F0F0;
+      --puro:    #FFFFFF;
+      --ouro:    #B8963E;
+      --ouro2:   #D4AF62;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--preto);
+      color: var(--branco);
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 28px;
+      mix-blend-mode: normal;
+      transition: background .4s, padding .3s;
+    }
+    nav.solid { background: var(--preto); padding: 14px 28px; }
+    .nav-logo { height: 32px; filter: invert(1) brightness(2); }
+    .nav-links { display: none; gap: 32px; }
+    .nav-links a {
+      font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--c6); text-decoration: none; font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--puro); }
+    .nav-wa {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--puro); text-decoration: none; font-weight: 600;
+      padding: 9px 18px; border: 1px solid rgba(255,255,255,.2);
+      transition: border-color .2s, background .2s;
+    }
+    .nav-wa:hover { border-color: var(--ouro); color: var(--ouro); }
+    .nav-wa svg { width: 14px; height: 14px; fill: currentColor; }
+    @media(min-width:700px) { .nav-links { display: flex; } }
+
+    /* ── WA FLOAT ── */
+    .wa-float {
+      position: fixed; bottom: 24px; right: 20px; z-index: 200;
+      background: #25D366; border-radius: 50%; width: 54px; height: 54px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 28px rgba(37,211,102,.4); text-decoration: none;
+      animation: wapulse 3s infinite;
+    }
+    .wa-float svg { width: 26px; height: 26px; fill: #fff; }
+    @keyframes wapulse {
+      0%,100% { box-shadow: 0 6px 28px rgba(37,211,102,.4); }
+      50% { box-shadow: 0 6px 40px rgba(37,211,102,.65), 0 0 0 10px rgba(37,211,102,.07); }
+    }
+
+    /* ── MARQUEE TOPO ── */
+    .marquee-bar {
+      background: var(--ouro); overflow: hidden; white-space: nowrap;
+      padding: 9px 0;
+    }
+    .marquee-track {
+      display: inline-flex; gap: 0;
+      animation: marquee 22s linear infinite;
+    }
+    .marquee-bar:hover .marquee-track { animation-play-state: paused; }
+    .marquee-item {
+      font-size: 11px; font-weight: 800; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--preto); padding: 0 28px;
+      display: inline-flex; align-items: center; gap: 14px;
+    }
+    .marquee-item::after { content: '✦'; opacity: .5; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 100svh; min-height: 640px;
+      overflow: hidden;
+    }
+    .hero-img {
+      position: absolute; inset: 0;
+      background: url('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ms1.png') center/cover no-repeat;
+      transform: scale(1.06);
+      transition: transform 10s ease-out;
+    }
+    .hero-img.loaded { transform: scale(1); }
+
+    /* Grain texture overlay */
+    .hero-grain {
+      position: absolute; inset: 0; z-index: 1;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: .06; mix-blend-mode: overlay;
+    }
+
+    /* Gradiente editorial — pesado na base, levinho no topo */
+    .hero-grad {
+      position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(
+        to bottom,
+        rgba(8,8,8,.15) 0%,
+        rgba(8,8,8,.0)  30%,
+        rgba(8,8,8,.5)  65%,
+        rgba(8,8,8,.96) 100%
+      );
+    }
+
+    /* Linha dourada vertical editorial */
+    .hero-line {
+      position: absolute; left: 28px; top: 20%; bottom: 20%;
+      width: 1px; background: var(--ouro); z-index: 3; opacity: .45;
+    }
+
+    .hero-content {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      z-index: 4; padding: 0 24px 48px;
+    }
+
+    /* Número de coleção — estilo lookbook */
+    .hero-season {
+      font-size: 10px; letter-spacing: .35em; text-transform: uppercase;
+      color: var(--ouro); margin-bottom: 6px; font-weight: 600;
+    }
+
+    /* Título quebrado em 2 linhas de peso diferente */
+    .hero-h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(80px, 22vw, 180px);
+      line-height: .88; letter-spacing: .02em;
+      color: var(--puro);
+      margin-bottom: 0;
+    }
+    .hero-h1 .dim { color: rgba(255,255,255,.18); }
+
+    .hero-rule { width: 48px; height: 1px; background: var(--ouro); margin: 20px 0; }
+
+    .hero-copy {
+      font-size: 13px; font-weight: 300; color: var(--c6);
+      line-height: 1.7; max-width: 280px; margin-bottom: 28px;
+      letter-spacing: .01em;
+    }
+    .hero-copy em { color: var(--puro); font-style: normal; font-weight: 600; }
+
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .btn-fill {
+      font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+      background: var(--ouro); color: var(--preto); padding: 13px 28px;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+      transition: background .2s, transform .15s;
+    }
+    .btn-fill:hover { background: var(--ouro2); transform: translateY(-1px); }
+
+    .btn-line {
+      font-size: 11px; font-weight: 500; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--branco); border: 1px solid rgba(255,255,255,.25); padding: 12px 24px;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-line:hover { border-color: var(--ouro); color: var(--ouro); }
+    .btn-line svg { width: 14px; height: 14px; fill: currentColor; }
+
+    /* Scroll indicator */
+    .hero-scroll-hint {
+      position: absolute; right: 24px; bottom: 48px; z-index: 4;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(255,255,255,.3); font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
+      writing-mode: vertical-rl;
+    }
+    .scroll-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, rgba(255,255,255,.3), transparent);
+      animation: scrollline 2s ease-in-out infinite;
+    }
+    @keyframes scrollline { 0%,100% { transform: scaleY(1); opacity: 1; } 50% { transform: scaleY(.4); opacity: .4; } }
+
+    /* ── MARQUEE CENTRAL ── */
+    .marquee-big {
+      background: var(--c1); padding: 24px 0; overflow: hidden; border-top: 1px solid var(--c3); border-bottom: 1px solid var(--c3);
+    }
+    .marquee-big-track {
+      display: inline-flex;
+      animation: marquee 30s linear infinite;
+    }
+    .marquee-big-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 10vw, 80px);
+      letter-spacing: .06em; color: transparent;
+      -webkit-text-stroke: 1px var(--c4);
+      padding: 0 40px;
+      display: inline-block;
+      transition: -webkit-text-stroke-color .2s, color .2s;
+    }
+    .marquee-big-item.fill { color: var(--c3); -webkit-text-stroke: 1px var(--c3); }
+
+    /* ── DROP ── */
+    .drop { padding: 100px 0 0; background: var(--preto); }
+    .drop-header { padding: 0 24px 60px; }
+    .drop-label {
+      font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
+      color: var(--ouro); margin-bottom: 12px; font-weight: 600;
+    }
+    .drop-h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 14vw, 100px);
+      line-height: .9; letter-spacing: .02em; color: var(--puro);
+    }
+
+    /* Grid editorial assimétrico */
+    .drop-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 2px;
+    }
+    .drop-item {
+      position: relative; overflow: hidden; cursor: pointer;
+      background: var(--c2);
+    }
+    .drop-item:nth-child(1) { grid-column: span 2; }
+    .drop-item img {
+      width: 100%; display: block; object-fit: cover;
+      aspect-ratio: 16/10;
+      filter: brightness(.82) contrast(1.06) saturate(.9);
+      transition: transform .7s cubic-bezier(.25,.46,.45,.94), filter .4s;
+    }
+    .drop-item:nth-child(1) img { aspect-ratio: 21/9; }
+    .drop-item:hover img { transform: scale(1.05); filter: brightness(.6) contrast(1.1) saturate(.8); }
+    .drop-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,.9) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .drop-info {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 20px 22px;
+    }
+    .drop-cat {
+      font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--ouro); margin-bottom: 6px; font-weight: 700;
+    }
+    .drop-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(24px, 5vw, 36px);
+      color: var(--puro); letter-spacing: .04em; line-height: 1;
+      margin-bottom: 10px;
+    }
+    .drop-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--ouro); text-decoration: none; font-weight: 700;
+      border-bottom: 1px solid rgba(184,150,62,.35); padding-bottom: 2px;
+      transition: gap .2s, border-color .2s;
+    }
+    .drop-cta:hover { gap: 10px; border-color: var(--ouro); }
+
+    /* ── IDENTIDADE ── */
+    .identidade { display: grid; grid-template-columns: 1fr; }
+    .id-foto { position: relative; min-height: 400px; overflow: hidden; }
+    .id-foto img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: brightness(.7) contrast(1.1) saturate(.85);
+    }
+    /* Texto sobreposto na foto */
+    .id-foto-text {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 36px 28px;
+      background: linear-gradient(to top, rgba(8,8,8,.88) 0%, transparent 60%);
+    }
+    .id-foto-text blockquote {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(32px, 8vw, 56px);
+      color: var(--puro); line-height: 1; letter-spacing: .02em;
+    }
+    .id-foto-text blockquote em { color: var(--ouro); font-style: normal; }
+
+    .id-texto {
+      background: var(--c1); padding: 60px 28px;
+      border-top: 1px solid var(--c3);
+    }
+    .id-label {
+      font-size: 10px; letter-spacing: .28em; text-transform: uppercase;
+      color: var(--ouro); margin-bottom: 28px; font-weight: 600;
+    }
+    .id-body {
+      font-size: 15px; color: var(--c6); line-height: 1.85;
+      font-weight: 300; max-width: 420px; margin-bottom: 36px;
+    }
+    .id-body strong { color: var(--puro); font-weight: 600; }
+    .id-stat {
+      display: flex; gap: 40px; border-top: 1px solid var(--c3); padding-top: 32px;
+    }
+    .id-stat-item h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 44px; color: var(--puro); line-height: 1; letter-spacing: .04em;
+    }
+    .id-stat-item p { font-size: 11px; color: var(--c5); letter-spacing: .08em; text-transform: uppercase; margin-top: 4px; }
+
+    @media(min-width:700px) {
+      .identidade { grid-template-columns: 1fr 1fr; }
+      .id-foto { min-height: 540px; }
+    }
+
+    /* ── GALERIA EDITORIAL ── */
+    .galeria { background: var(--preto); }
+    .galeria-header { padding: 90px 24px 52px; }
+    .galeria-header-row {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 20px; flex-wrap: wrap;
+    }
+    .galeria-h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 13vw, 90px);
+      line-height: .9; color: var(--puro); letter-spacing: .02em;
+    }
+    .galeria-link {
+      font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--ouro); text-decoration: none; font-weight: 700;
+      border-bottom: 1px solid var(--ouro); padding-bottom: 2px; white-space: nowrap;
+    }
+
+    /* Grid inspirado em lookbook editorial */
+    .galeria-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .g-item {
+      position: relative; overflow: hidden; cursor: pointer;
+      background: var(--c2); aspect-ratio: 1/1;
+    }
+    .g-item:nth-child(1) { grid-column: span 2; aspect-ratio: unset; min-height: 260px; }
+    .g-item img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: brightness(.85) saturate(.88);
+      transition: transform .5s ease, filter .3s;
+    }
+    .g-item:hover img { transform: scale(1.06); filter: brightness(.55) saturate(.7); }
+    .g-item-overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity .3s;
+    }
+    .g-item:hover .g-item-overlay { opacity: 1; }
+    .g-expand-icon {
+      width: 44px; height: 44px; border: 1px solid rgba(255,255,255,.6);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .g-expand-icon svg { width: 18px; height: 18px; stroke: #fff; fill: none; stroke-width: 1.5; }
+
+    /* LIGHTBOX */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,.97);
+      display: none; align-items: center; justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 88vh; object-fit: contain; }
+    .lb-close {
+      position: absolute; top: 20px; right: 24px;
+      font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--c6); cursor: pointer; background: none; border: none;
+      font-family: 'Inter', sans-serif; font-weight: 600;
+    }
+
+    /* ── DESTAQUES ── */
+    .destaques { padding: 90px 0; background: var(--c1); border-top: 1px solid var(--c3); }
+    .dest-header { padding: 0 24px 60px; }
+    .dest-h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 12vw, 86px);
+      line-height: .9; color: var(--puro); letter-spacing: .02em;
+    }
+    .dest-list { max-width: 600px; margin: 0 auto; padding: 0 24px; }
+    .dest-row {
+      display: grid; grid-template-columns: 48px 1fr;
+      gap: 20px; align-items: start;
+      padding: 28px 0; border-bottom: 1px solid var(--c3);
+    }
+    .dest-row:first-child { border-top: 1px solid var(--c3); }
+    .dest-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px; color: var(--c4); letter-spacing: .06em; line-height: 1.2;
+      padding-top: 2px;
+    }
+    .dest-row h3 { font-size: 15px; font-weight: 600; color: var(--puro); margin-bottom: 4px; }
+    .dest-row p { font-size: 13px; color: var(--c5); line-height: 1.65; }
+
+    /* ── VISITE ── */
+    .visita { padding: 90px 24px; background: var(--preto); }
+    .visita-grid { display: grid; grid-template-columns: 1fr; gap: 28px; max-width: 500px; margin: 52px auto 0; }
+    .v-row {
+      display: grid; grid-template-columns: 28px 1fr; gap: 18px; align-items: start;
+      padding-bottom: 28px; border-bottom: 1px solid var(--c3);
+    }
+    .v-row:last-child { border-bottom: none; }
+    .v-icon svg { width: 18px; height: 18px; fill: var(--ouro); margin-top: 2px; }
+    .v-row h3 { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--c5); margin-bottom: 6px; }
+    .v-row p, .v-row a { font-size: 15px; color: var(--branco); text-decoration: none; font-weight: 500; line-height: 1.5; }
+    .v-row a:hover { color: var(--ouro); }
+    .mapa-wrap { max-width: 500px; margin: 32px auto 0; opacity: .65; filter: grayscale(1); transition: opacity .3s, filter .3s; }
+    .mapa-wrap:hover { opacity: .9; filter: grayscale(.3); }
+    .mapa-wrap iframe { display: block; width: 100%; height: 220px; border: 0; }
+
+    /* ── CTA FINAL ── */
+    .cta {
+      position: relative; overflow: hidden;
+      min-height: 80vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 100px 24px;
+      background: var(--c1);
+    }
+    /* Foto de fundo com blend */
+    .cta-bg {
+      position: absolute; inset: 0;
+      background: url('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ms6.png') center/cover no-repeat;
+      filter: brightness(.15) saturate(.4);
+      z-index: 0;
+    }
+    .cta-grain {
+      position: absolute; inset: 0; z-index: 1;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: .05; mix-blend-mode: overlay;
+    }
+    .cta-content { position: relative; z-index: 2; }
+    .cta-logo { height: 52px; object-fit: contain; filter: invert(1) brightness(2); margin-bottom: 52px; }
+    .cta-h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 14vw, 110px);
+      line-height: .92; color: var(--puro); letter-spacing: .02em;
+      margin-bottom: 36px;
+    }
+    .cta-h2 em { color: var(--ouro); font-style: normal; }
+    .cta-sub {
+      font-size: 11px; letter-spacing: .25em; text-transform: uppercase;
+      color: var(--c5); margin-bottom: 44px;
+    }
+    .btn-cta {
+      font-size: 12px; font-weight: 800; letter-spacing: .22em; text-transform: uppercase;
+      background: var(--ouro); color: var(--preto); padding: 17px 44px;
+      text-decoration: none; display: inline-block;
+      transition: background .2s, letter-spacing .2s, transform .15s;
+    }
+    .btn-cta:hover { background: var(--ouro2); letter-spacing: .28em; transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #030303; border-top: 1px solid var(--c3);
+      padding: 32px 24px; text-align: center;
+      font-size: 11px; letter-spacing: .06em; color: var(--c4); line-height: 2.2;
+    }
+    footer strong { color: var(--c6); }
+    footer a { color: var(--c4); text-decoration: none; transition: color .2s; }
+    footer a:hover { color: var(--ouro); }
+    .footer-sep { color: var(--c3); margin: 4px 0; display: block; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-left { opacity: 0; transform: translateX(-20px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal-left.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<!-- MARQUEE TOPO -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span class="marquee-item">MS STORE</span>
+    <span class="marquee-item">Streetwear</span>
+    <span class="marquee-item">Tênis Premium</span>
+    <span class="marquee-item">Marataízes</span>
+    <span class="marquee-item">Acessórios</span>
+    <span class="marquee-item">Enviamos para todo Brasil</span>
+    <span class="marquee-item">MS STORE</span>
+    <span class="marquee-item">Streetwear</span>
+    <span class="marquee-item">Tênis Premium</span>
+    <span class="marquee-item">Marataízes</span>
+    <span class="marquee-item">Acessórios</span>
+    <span class="marquee-item">Enviamos para todo Brasil</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <img class="nav-logo" src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logoms.png" alt="MS Store" />
+  <div class="nav-links">
+    <a href="#drop">Drops</a>
+    <a href="#galeria">Acervo</a>
+    <a href="#visita">Loja</a>
+  </div>
+  <a class="nav-wa" href="https://wa.me/5528999439868" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    WhatsApp
+  </a>
+</nav>
+
+<!-- WA FLOAT -->
+<a class="wa-float" href="https://wa.me/5528999439868" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-img" id="heroBg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-grad"></div>
+  <div class="hero-line"></div>
+
+  <div class="hero-content">
+    <p class="hero-season">SS · 2026 &nbsp;/&nbsp; Marataízes, ES</p>
+    <h1 class="hero-h1">
+      MS<br><span class="dim">STORE</span>
+    </h1>
+    <div class="hero-rule"></div>
+    <p class="hero-copy">
+      Não seguimos tendência.<br>
+      <em>Selecionamos o que merece ser usado.</em>
+    </p>
+    <div class="hero-btns">
+      <a class="btn-fill" href="#drop">Ver lançamentos</a>
+      <a class="btn-line" href="https://wa.me/5528999439868" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Falar no WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    <span>scroll</span>
+  </div>
+</section>
+
+<!-- MARQUEE GRANDE -->
+<div class="marquee-big">
+  <div class="marquee-big-track">
+    <span class="marquee-big-item">STREETWEAR</span>
+    <span class="marquee-big-item fill">·</span>
+    <span class="marquee-big-item">TÊNIS</span>
+    <span class="marquee-big-item fill">·</span>
+    <span class="marquee-big-item">BONÉS</span>
+    <span class="marquee-big-item fill">·</span>
+    <span class="marquee-big-item">CAMISAS</span>
+    <span class="marquee-big-item fill">·</span>
+    <span class="marquee-big-item">ACESSÓRIOS</span>
+    <span class="marquee-big-item fill">·</span>
+    <span class="marquee-big-item">STREETWEAR</span>
+    <span class="marquee-big-item fill">·</span>
+    <span class="marquee-big-item">TÊNIS</span>
+    <span class="marquee-big-item fill">·</span>
+    <span class="marquee-big-item">BONÉS</span>
+    <span class="marquee-big-item fill">·</span>
+    <span class="marquee-big-item">CAMISAS</span>
+    <span class="marquee-big-item fill">·</span>
+    <span class="marquee-big-item">ACESSÓRIOS</span>
+    <span class="marquee-big-item fill">·</span>
+  </div>
+</div>
+
+<!-- DROP -->
+<section class="drop" id="drop">
+  <div class="drop-header reveal">
+    <div class="drop-label">Drop da semana</div>
+    <h2 class="drop-h2">ALGUMAS<br>PEÇAS<br>CHEGAM.</h2>
+  </div>
+  <div class="drop-grid">
+    <div class="drop-item">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ms2.png" alt="Tênis Selecionados" loading="lazy" />
+      <div class="drop-overlay"></div>
+      <div class="drop-info">
+        <div class="drop-cat">Destaque do drop</div>
+        <div class="drop-title">TÊNIS SELECIONADOS</div>
+        <a class="drop-cta" href="https://wa.me/5528999439868?text=Quero%20ver%20os%20t%C3%AAnis">Ver disponibilidade →</a>
+      </div>
+    </div>
+    <div class="drop-item">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ms3.png" alt="Bonés" loading="lazy" />
+      <div class="drop-overlay"></div>
+      <div class="drop-info">
+        <div class="drop-cat">New drop</div>
+        <div class="drop-title">BONÉS</div>
+        <a class="drop-cta" href="https://wa.me/5528999439868?text=Quero%20ver%20os%20bon%C3%A9s">Ver →</a>
+      </div>
+    </div>
+    <div class="drop-item">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ms4.png" alt="Camisas" loading="lazy" />
+      <div class="drop-overlay"></div>
+      <div class="drop-info">
+        <div class="drop-cat">Limited</div>
+        <div class="drop-title">CAMISAS</div>
+        <a class="drop-cta" href="https://wa.me/5528999439868?text=Quero%20ver%20as%20camisas">Ver →</a>
+      </div>
+    </div>
+    <div class="drop-item">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ms5.png" alt="Acessórios" loading="lazy" />
+      <div class="drop-overlay"></div>
+      <div class="drop-info">
+        <div class="drop-cat">Exclusivo</div>
+        <div class="drop-title">ACESSÓRIOS</div>
+        <a class="drop-cta" href="https://wa.me/5528999439868?text=Quero%20ver%20os%20acess%C3%B3rios">Ver →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IDENTIDADE -->
+<section class="identidade" id="identidade">
+  <div class="id-foto">
+    <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ms7.png" alt="MS Store lifestyle" loading="lazy" />
+    <div class="id-foto-text">
+      <blockquote>A FORMA COMO<br>VOCÊ SE VESTE<br>FALA <em>ANTES<br>DE VOCÊ.</em></blockquote>
+    </div>
+  </div>
+  <div class="id-texto">
+    <div class="id-label reveal">Nossa identidade</div>
+    <p class="id-body reveal">
+      A MS Store nasceu para quem gosta de <strong>presença, estilo e autenticidade.</strong><br><br>
+      Não trabalhamos com qualquer coisa — cada peça no nosso acervo passou por uma seleção criteriosa.<br><br>
+      Somos de Marataízes. Mas o estilo que trazemos não tem endereço fixo.
+    </p>
+    <div class="id-stat reveal">
+      <div class="id-stat-item">
+        <h3>100%</h3>
+        <p>Curadoria própria</p>
+      </div>
+      <div class="id-stat-item">
+        <h3>BR</h3>
+        <p>Enviamos pra todo país</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section class="galeria" id="galeria">
+  <div class="galeria-header">
+    <div class="galeria-header-row reveal">
+      <h2 class="galeria-h2">O QUE<br>TEMOS.</h2>
+      <a class="galeria-link" href="https://wa.me/5528999439868?text=Quero%20ver%20o%20acervo%20completo">Ver acervo →</a>
+    </div>
+  </div>
+  <div class="galeria-grid">
+    <div class="g-item" onclick="openLB('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ms1.png')">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ms1.png" alt="MS Store" loading="lazy" />
+      <div class="g-item-overlay"><div class="g-expand-icon"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div></div>
+    </div>
+    <div class="g-item" onclick="openLB('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ms2.png')">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ms2.png" alt="MS Store" loading="lazy" />
+      <div class="g-item-overlay"><div class="g-expand-icon"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div></div>
+    </div>
+    <div class="g-item" onclick="openLB('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ms3.png')">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ms3.png" alt="MS Store" loading="lazy" />
+      <div class="g-item-overlay"><div class="g-expand-icon"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div></div>
+    </div>
+    <div class="g-item" onclick="openLB('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ms4.png')">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ms4.png" alt="MS Store" loading="lazy" />
+      <div class="g-item-overlay"><div class="g-expand-icon"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div></div>
+    </div>
+    <div class="g-item" onclick="openLB('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ms5.png')">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ms5.png" alt="MS Store" loading="lazy" />
+      <div class="g-item-overlay"><div class="g-expand-icon"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div></div>
+    </div>
+    <div class="g-item" onclick="openLB('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ms6.png')">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/ms6.png" alt="MS Store" loading="lazy" />
+      <div class="g-item-overlay"><div class="g-expand-icon"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="lb" onclick="closeLB()">
+  <button class="lb-close">ESC · FECHAR</button>
+  <img id="lb-img" src="" alt="" />
+</div>
+
+<!-- DESTAQUES -->
+<section class="destaques" id="destaques">
+  <div class="dest-header reveal">
+    <div class="drop-label">Por que a MS Store</div>
+    <h2 class="dest-h2">PRESENÇA<br>EM TUDO.</h2>
+  </div>
+  <div class="dest-list">
+    <div class="dest-row reveal">
+      <div class="dest-num">01</div>
+      <div>
+        <h3>Enviamos para todo o Brasil</h3>
+        <p>Seu pedido chega onde você estiver — com segurança e agilidade.</p>
+      </div>
+    </div>
+    <div class="dest-row reveal">
+      <div class="dest-num">02</div>
+      <div>
+        <h3>Produtos com curadoria</h3>
+        <p>Nada aleatório. Cada peça passa por uma seleção antes de entrar no acervo.</p>
+      </div>
+    </div>
+    <div class="dest-row reveal">
+      <div class="dest-num">03</div>
+      <div>
+        <h3>Atendimento direto pelo WhatsApp</h3>
+        <p>Sem chatbot. Sem demora. Você fala com quem entende do produto.</p>
+      </div>
+    </div>
+    <div class="dest-row reveal">
+      <div class="dest-num">04</div>
+      <div>
+        <h3>Drops frequentes</h3>
+        <p>Novidades constantes. Quem acompanha, encontra primeiro.</p>
+      </div>
+    </div>
+    <div class="dest-row reveal">
+      <div class="dest-num">05</div>
+      <div>
+        <h3>Moda urbana autêntica</h3>
+        <p>Para quem usa roupa por escolha — não por acaso.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISITE -->
+<section class="visita" id="visita">
+  <div class="reveal">
+    <div class="drop-label">Visite a loja</div>
+    <h2 class="dest-h2">VENHA<br>PESSOALMENTE.</h2>
+  </div>
+  <div class="visita-grid">
+    <div class="v-row reveal">
+      <div class="v-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+      <div>
+        <h3>Endereço</h3>
+        <p>Marataízes — ES<br><span style="font-size:12px;color:#555;">Confirme o endereço pelo WhatsApp</span></p>
+      </div>
+    </div>
+    <div class="v-row reveal">
+      <div class="v-icon"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
+      <div>
+        <h3>WhatsApp</h3>
+        <a href="https://wa.me/5528999439868">(28) 99943-9868</a>
+      </div>
+    </div>
+    <div class="v-row reveal">
+      <div class="v-icon"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      <div>
+        <h3>Instagram</h3>
+        <a href="https://instagram.com/msstore_marataizes" target="_blank" rel="noopener">@msstore_marataizes</a>
+      </div>
+    </div>
+    <div class="v-row reveal">
+      <div class="v-icon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg></div>
+      <div>
+        <h3>Horário</h3>
+        <p>Segunda a Sábado · 9h às 18h</p>
+      </div>
+    </div>
+  </div>
+  <div class="mapa-wrap reveal">
+    <iframe src="https://maps.google.com/maps?q=Marataizes+ES&t=&z=14&ie=UTF8&iwloc=&output=embed" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="MS Store Marataízes"></iframe>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta">
+  <div class="cta-bg"></div>
+  <div class="cta-grain"></div>
+  <div class="cta-content">
+    <img class="cta-logo" src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logoms.png" alt="MS Store" loading="lazy" />
+    <h2 class="cta-h2 reveal">NEM TODO<br>MUNDO <em>USA.</em><br>QUEM USA,<br>SABE.</h2>
+    <p class="cta-sub reveal">Streetwear · Tênis · Acessórios · Marataízes</p>
+    <a class="btn-cta reveal" href="https://wa.me/5528999439868?text=Quero%20ver%20as%20pe%C3%A7as%20da%20MS%20Store" target="_blank" rel="noopener">
+      QUERO VER AS PEÇAS
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>MS Store</strong> &nbsp;·&nbsp; Marataízes, ES &nbsp;·&nbsp; (28) 99943-9868<br>
+  Streetwear · Tênis · Acessórios
+  <span class="footer-sep">────────────</span>
+  Agenciado por <a href="https://tvmarataizes.digital/" target="_blank" rel="noopener">TV Marataízes</a>
+  &nbsp;·&nbsp;
+  Produção: <a href="https://www.macucaproducoes.com.br/" target="_blank" rel="noopener">Macuca Produções</a>
+</footer>
+
+<script>
+  // Nav solid on scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('solid', window.scrollY > 80);
+  }, { passive: true });
+
+  // Hero bg com transição suave
+  window.addEventListener('load', () => {
+    const bg = document.getElementById('heroBg');
+    bg.classList.add('loaded');
+  });
+
+  // Reveal observer
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 90);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal, .reveal-left').forEach(el => obs.observe(el));
+
+  // Lightbox
+  function openLB(src) {
+    document.getElementById('lb-img').src = src;
+    document.getElementById('lb').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLB() {
+    document.getElementById('lb').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
+</script>
+</body>
+</html>
