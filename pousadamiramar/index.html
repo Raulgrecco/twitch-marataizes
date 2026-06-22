@@ -23,6 +23,7 @@
     nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:22px 32px;background:transparent;transition:background .4s,padding .3s}
     nav.solid{background:rgba(247,243,238,.96);backdrop-filter:blur(12px);padding:14px 32px;border-bottom:1px solid rgba(184,149,90,.15)}
     .nav-logo{height:38px;object-fit:contain}
+    nav.solid .nav-logo{mix-blend-mode:normal}
     .nav-links{display:none;gap:36px}
     @media(min-width:700px){.nav-links{display:flex}}
     .nav-links a{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--espuma);text-decoration:none;font-weight:500;transition:color .2s}
@@ -133,7 +134,7 @@
     .cta-final{position:relative;overflow:hidden;min-height:68vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:96px 32px}
     .cta-bg{position:absolute;inset:0;background:url('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/PHOTO-2026-06-22-14-45-29.jpg') center/cover no-repeat;filter:brightness(.16) saturate(.4);z-index:0}
     .cta-c{position:relative;z-index:1}
-    .cta-logo{height:56px;object-fit:contain;margin-bottom:44px;filter:brightness(10)}
+    .cta-logo{height:56px;object-fit:contain;margin-bottom:44px;}
     .cta-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,9vw,80px);font-weight:300;color:var(--espuma);line-height:.95;margin-bottom:14px}
     .cta-h2 em{font-style:italic;color:var(--ouro2)}
     .cta-sub{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:40px}
@@ -213,7 +214,7 @@
     <a class="gal-link rv" href="https://wa.me/5528999994808" target="_blank" rel="noopener">Falar sobre reserva →</a>
   </div>
   <div class="gal-grid">
-    <div class="gi" onclick="openLB('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/PHOTO-2026-06-22-14-45-04.jpg')">
+    <div class="gi" style="grid-column:span 2;aspect-ratio:unset;min-height:280px" onclick="openLB('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/PHOTO-2026-06-22-14-45-04.jpg')">
       <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/PHOTO-2026-06-22-14-45-04.jpg" alt="Pousada Miramar" loading="lazy"/>
       <div class="gi-ov"><div class="gi-icon"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div></div>
     </div>
@@ -235,6 +236,30 @@
     </div>
     <div class="gi" onclick="openLB('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/PHOTO-2026-06-22-14-45-31.jpg')">
       <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/PHOTO-2026-06-22-14-45-31.jpg" alt="Pousada Miramar" loading="lazy"/>
+      <div class="gi-ov"><div class="gi-icon"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div></div>
+    </div>
+    <div class="gi" onclick="openLB('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/PHOTO-2026-06-22-14-45-05.jpg')">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/PHOTO-2026-06-22-14-45-05.jpg" alt="Pousada Miramar" loading="lazy"/>
+      <div class="gi-ov"><div class="gi-icon"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div></div>
+    </div>
+    <div class="gi" onclick="openLB('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/PHOTO-2026-06-22-14-45-06.jpg')">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/PHOTO-2026-06-22-14-45-06.jpg" alt="Pousada Miramar" loading="lazy"/>
+      <div class="gi-ov"><div class="gi-icon"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div></div>
+    </div>
+    <div class="gi" onclick="openLB('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/PHOTO-2026-06-22-14-45-10.jpg')">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/PHOTO-2026-06-22-14-45-10.jpg" alt="Pousada Miramar" loading="lazy"/>
+      <div class="gi-ov"><div class="gi-icon"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div></div>
+    </div>
+    <div class="gi" onclick="openLB('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/PHOTO-2026-06-22-14-45-12.jpg')">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/PHOTO-2026-06-22-14-45-12.jpg" alt="Pousada Miramar" loading="lazy"/>
+      <div class="gi-ov"><div class="gi-icon"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div></div>
+    </div>
+    <div class="gi" onclick="openLB('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/PHOTO-2026-06-22-14-45-23.jpg')">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/PHOTO-2026-06-22-14-45-23.jpg" alt="Pousada Miramar" loading="lazy"/>
+      <div class="gi-ov"><div class="gi-icon"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div></div>
+    </div>
+    <div class="gi" onclick="openLB('https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/PHOTO-2026-06-22-14-45-34.jpg')">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/PHOTO-2026-06-22-14-45-34.jpg" alt="Pousada Miramar" loading="lazy"/>
       <div class="gi-ov"><div class="gi-icon"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div></div>
     </div>
   </div>
@@ -317,7 +342,7 @@
 <section class="cta-final">
   <div class="cta-bg"></div>
   <div class="cta-c">
-    <img class="cta-logo" src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/milogo.png" alt="Pousada Miramar" loading="lazy"/>
+    <img class="cta-logo" src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/milogo.png" alt="Pousada Miramar" loading="lazy" style="mix-blend-mode:screen;filter:invert(1) brightness(2)"/>
     <h2 class="cta-h2 rv">Marataízes<br>te <em>espera.</em></h2>
     <p class="cta-sub rv">Pousada Miramar · Cidade Nova · Marataízes, ES</p>
     <div class="cta-btns rv">
