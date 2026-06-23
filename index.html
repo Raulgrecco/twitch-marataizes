@@ -138,6 +138,7 @@ function loadLivePlayer(){
   <div style="position:relative;width:90%;max-width:960px;aspect-ratio:16/9;">
     <button onclick="closeVodModal()" style="position:absolute;top:-44px;right:0;background:none;border:none;color:#fff;font-size:32px;cursor:pointer;line-height:1;opacity:0.85;">✕</button>
     <div id="vod-player-wrap" style="width:100%;height:100%;"></div>
+    <div id="vod-modal-info"></div>
   </div>
 </div>
 
@@ -286,7 +287,7 @@ function loadLivePlayer(){
     <div class="gp-row" id="gp-prod-row">
 
       <!-- 1. Save The Date -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/gN9JmfM2i5QkxWMw')">
+      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/gN9JmfM2i5QkxWMw','Save The Date','Direção: Raul Grecco')">
         <div class="gp-card-thumb">
           <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/save2.png" alt="Save The Date"/>
           <div class="gp-card-overlay">
@@ -297,7 +298,7 @@ function loadLivePlayer(){
       </div>
 
       <!-- 2. Dimensões Paralelas -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/bVCoXg16NWnpK21k')">
+      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/bVCoXg16NWnpK21k','Dimensões Paralelas','Direção: Raul Grecco')">
         <div class="gp-card-thumb">
           <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/Dimensoes.png" alt="Dimensões Paralelas"/>
           <div class="gp-card-overlay">
@@ -308,7 +309,7 @@ function loadLivePlayer(){
       </div>
 
       <!-- 3. Clipe Bruno Galvão -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/ZrhJgEyEmuo7L4TL')">
+      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/ZrhJgEyEmuo7L4TL','Clipe Bruno Galvão','Direção: Raul Grecco · Ass. Dir.: Flávia Monteiro')">
         <div class="gp-card-thumb">
           <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/Brunogalvao.png" alt="Clipe Bruno Galvão"/>
           <div class="gp-card-overlay">
@@ -319,7 +320,7 @@ function loadLivePlayer(){
       </div>
 
       <!-- 4. Ana Carolina -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/VvIZd7byQEPgA9k4')">
+      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/VvIZd7byQEPgA9k4','Ana Carolina','Direção: Raul Grecco')">
         <div class="gp-card-thumb">
           <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/Felipe%20.png" alt="Ana Carolina"/>
           <div class="gp-card-overlay">
@@ -330,7 +331,7 @@ function loadLivePlayer(){
       </div>
 
       <!-- 5. Amor de Seu Mário -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/CoAFoMM29flaq1lP')">
+      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/CoAFoMM29flaq1lP','Amor de Seu Mário','Direção: Raul Grecco')">
         <div class="gp-card-thumb">
           <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/Seumario.png" alt="Amor de Seu Mário"/>
           <div class="gp-card-overlay">
@@ -341,7 +342,7 @@ function loadLivePlayer(){
       </div>
 
       <!-- 6. Mombaça — Chega -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/aKbR7urroevn6jJa')">
+      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/aKbR7urroevn6jJa','Mombaça — Chega','Direção: Raul Grecco')">
         <div class="gp-card-thumb">
           <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/mombaca.png" alt="Mombaça — Chega"/>
           <div class="gp-card-overlay">
@@ -352,7 +353,7 @@ function loadLivePlayer(){
       </div>
 
       <!-- 7. Rosemary — Ave Maria -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/HM2Ix2AfMTDlFX0d')">
+      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/HM2Ix2AfMTDlFX0d','Rosemary — Ave Maria','Produção Executiva: Rosemary')">
         <div class="gp-card-thumb">
           <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/Rosemaryavemaria.png" alt="Rosemary — Ave Maria"/>
           <div class="gp-card-overlay">
@@ -363,7 +364,7 @@ function loadLivePlayer(){
       </div>
 
       <!-- 8. Rosemary — Alvorada -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/ZfKb602s8CMYg5YI')">
+      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/ZfKb602s8CMYg5YI','Rosemary — Alvorada','Produção Executiva: Rosemary')">
         <div class="gp-card-thumb">
           <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/Rosemaryalvorada.png" alt="Rosemary — Alvorada"/>
           <div class="gp-card-overlay">
@@ -375,7 +376,7 @@ function loadLivePlayer(){
       </div>
 
       <!-- 9. Making Of Rosemary -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/X3XxT2UR9YEwtPEF')">
+      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/X3XxT2UR9YEwtPEF','Making Of Rosemary','Produção Executiva: Rosemary')">
         <div class="gp-card-thumb">
           <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/Mkrosemary.png" alt="Making Of Rosemary"/>
           <div class="gp-card-overlay">
@@ -387,7 +388,7 @@ function loadLivePlayer(){
       </div>
 
       <!-- 10. O Rappa — Último Show -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/HQu9ucJUtXQi50lv')">
+      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/HQu9ucJUtXQi50lv','O Rappa — Último Show · Turnê RJ','Direção: Raul Grecco')">
         <div class="gp-card-thumb">
           <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/ORappa.png" alt="O Rappa — Último Show · Turnê RJ"/>
           <div class="gp-card-overlay">
@@ -399,7 +400,7 @@ function loadLivePlayer(){
       </div>
 
       <!-- 11. Martinália — Raoni & Fernanda -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/A3ZQNqrV7Y9DjejE')">
+      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/A3ZQNqrV7Y9DjejE','Martinália — Raoni &amp; Fernanda','Direção: Raul Grecco')">
         <div class="gp-card-thumb">
           <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/martnalia.png" alt="Martinália — Raoni e Fernanda"/>
           <div class="gp-card-overlay">
@@ -411,7 +412,7 @@ function loadLivePlayer(){
       </div>
 
       <!-- 12. Casamento Cigano — Marisa & Sérgio -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/Q5Kp2vqm4Kfcy0PW')">
+      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/Q5Kp2vqm4Kfcy0PW','Casamento Cigano — Marisa &amp; Sérgio','Direção: Raul Grecco')">
         <div class="gp-card-thumb">
           <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/Marisa.png" alt="Casamento Cigano — Marisa e Sérgio"/>
           <div class="gp-card-overlay">
@@ -427,7 +428,7 @@ function loadLivePlayer(){
 </div>
 
 <script>
-function openVodModal(src){
+function openVodModal(src, titulo, credito){
   // Remove o iframe ao vivo do DOM completamente — única forma de parar o áudio
   var live=document.getElementById('castr-player');
   if(live){live._wasLive=true;live.parentNode.removeChild(live);}
@@ -444,6 +445,19 @@ function openVodModal(src){
   iframe.allowFullscreen=true;
   iframe.style.cssText='width:100%;height:100%;border:0;border-radius:8px;';
   wrap.appendChild(iframe);
+
+  var infoEl=document.getElementById('vod-modal-info');
+  if(infoEl){
+    if(titulo||credito){
+      infoEl.innerHTML='<div style="padding:8px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">'
+        +(titulo?'<span style="font-size:13px;font-weight:800;color:#fff;">'+titulo+'</span>':'')
+        +(credito?'<span style="font-size:11px;color:rgba(255,111,0,.9);font-weight:700;letter-spacing:.5px;">'+credito+'</span>':'')
+        +'</div>';
+    } else {
+      infoEl.innerHTML='';
+    }
+  }
+
   document.getElementById('vod-modal').style.display='flex';
   document.body.style.overflow='hidden';
 }
