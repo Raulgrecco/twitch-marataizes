@@ -3923,23 +3923,35 @@ setTimeout(function() { startFirestoreListener(); }, 400);
     }).catch(function(){});
   }
 
-  // ── Listener em tempo real: atualiza card da home ───────────────
-  jrCol().orderBy('data','desc').limit(1).onSnapshot(function(snap) {
-    if (snap.empty) return;
-    var doc = snap.docs[0].data();
-    var dataEl = document.getElementById('jr-home-data');
-    if (dataEl) dataEl.textContent = '📅 ' + jrDataBR(doc.data);
-    window._jrAtualUrl  = doc.url;
-    window._jrAtualData = doc.data;
-  }, function(){});
-
   // ESC fecha modal
   document.addEventListener('keydown', function(e){
     if (e.key === 'Escape') { jrFecharModal(); jrFecharAdmin(); }
   });
 
-  // ── Init ────────────────────────────────────────────────────────
-  jrCarregarAtual();
+  // ── Init: aguarda DOM e Firebase prontos ────────────────────────
+  function jrInit() {
+    try {
+      jrCarregarAtual();
+      // Listener em tempo real
+      jrCol().orderBy('data','desc').limit(1).onSnapshot(function(snap) {
+        if (snap.empty) return;
+        var doc = snap.docs[0].data();
+        var dataEl = document.getElementById('jr-home-data');
+        if (dataEl) dataEl.textContent = '📅 ' + jrDataBR(doc.data);
+        window._jrAtualUrl  = doc.url;
+        window._jrAtualData = doc.data;
+      }, function(){});
+    } catch(e) { console.warn('jrInit:', e); }
+  }
+
+  // Firebase compat já foi inicializado antes deste script (firebase.initializeApp
+  // e const db estão no bloco anterior). DOMContentLoaded é suficiente porque
+  // este script está no </body> — o DOM já está pronto e o Firebase também.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', jrInit);
+  } else {
+    jrInit();
+  }
 
 })();
 </script>
