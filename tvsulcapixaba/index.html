@@ -573,6 +573,42 @@ gtag('config', 'G-KTRG77RWXP');
       </div>
     </div>
     <!-- ═══ FIM JORNAL DA REDE ═══ -->
+    <script>
+    (function(){
+      var JORNAL_URL    = 'https://tvmarataizes.digital/tvsulcapixaba/jornal-da-rede/';
+      var JORNAL_TITULO = 'Jornal da Rede — Sul Capixaba';
+      var JORNAL_TEXT   = encodeURIComponent('📻 Jornal da Rede — Sul Capixaba\nAs principais notícias do Sul do Espírito Santo. Ouça agora: ' + JORNAL_URL);
+
+      function jornalCheckTitle() {
+        var titulo = document.getElementById('video-modal-title');
+        var bar    = document.getElementById('jornal-share-bar');
+        if (!titulo || !bar) return;
+        if (titulo.textContent === JORNAL_TITULO) {
+          document.getElementById('jornal-share-wa').href = 'https://wa.me/?text=' + JORNAL_TEXT;
+          document.getElementById('jornal-share-fb').href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(JORNAL_URL);
+          document.getElementById('jornal-share-x').href  = 'https://twitter.com/intent/tweet?text=' + JORNAL_TEXT;
+          bar.style.display = 'flex';
+        } else {
+          bar.style.display = 'none';
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var titulo = document.getElementById('video-modal-title');
+        if (!titulo) return;
+        var observer = new MutationObserver(jornalCheckTitle);
+        observer.observe(titulo, { childList: true, characterData: true, subtree: true });
+      });
+
+      window.jornalCopyLink = function() {
+        navigator.clipboard.writeText(JORNAL_URL).then(function(){
+          var btn = document.getElementById('jornal-copy-btn');
+          btn.textContent = '✅ Copiado!';
+          setTimeout(function(){ btn.textContent = '🔗 Copiar link'; }, 2000);
+        });
+      };
+    })();
+    </script>
 
         <!-- CARD MOBILE: Encontre sua Cidade (some em desktop, aparece em mobile) -->
     <div class="mobile-cidades-card" onclick="document.getElementById('turismo-sul-capixaba').scrollIntoView({behavior:'smooth'})">
@@ -1393,8 +1429,14 @@ function cv2Salvar() {
 <!-- MODAL VÍDEO -->
 <div id="video-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:2000;align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)closeVideo()">
   <div style="width:100%;max-width:860px;background:#000;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.6)">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#111">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#111;flex-wrap:wrap;gap:8px;">
       <span id="video-modal-title" style="color:#fff;font-size:14px;font-weight:600;font-family:'Source Sans 3',sans-serif"></span>
+      <div id="jornal-share-bar" style="display:none;align-items:center;gap:6px;flex-wrap:wrap;">
+        <a id="jornal-share-wa" href="#" target="_blank" rel="noopener" style="background:#25D366;color:#fff;text-decoration:none;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;white-space:nowrap;">🟢 WhatsApp</a>
+        <a id="jornal-share-fb" href="#" target="_blank" rel="noopener" style="background:#1877F2;color:#fff;text-decoration:none;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;white-space:nowrap;">🔵 Facebook</a>
+        <a id="jornal-share-x"  href="#" target="_blank" rel="noopener" style="background:#000;color:#fff;text-decoration:none;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;border:1px solid #444;white-space:nowrap;">⚫ X</a>
+        <button onclick="jornalCopyLink()" style="background:#444;color:#fff;border:none;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;cursor:pointer;white-space:nowrap;" id="jornal-copy-btn">🔗 Copiar link</button>
+      </div>
       <button onclick="closeVideo()" style="color:#aaa;font-size:22px;line-height:1;cursor:pointer;background:none;border:none;font-family:inherit">✕</button>
     </div>
     <div style="position:relative;padding-bottom:56.25%;height:0">
