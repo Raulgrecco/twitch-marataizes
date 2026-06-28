@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jornal da Rede — TV Sul Capixaba</title>
+<meta name="description" content="As principais notícias do Sul do Espírito Santo em áudio. Ouça o Jornal da Rede da TV Sul Capixaba.">
+<meta property="og:title" content="Jornal da Rede — TV Sul Capixaba">
+<meta property="og:description" content="As principais notícias do Sul do Espírito Santo em áudio. Ouça quando quiser.">
+<meta property="og:image" content="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/radio.png">
+<meta property="og:url" content="https://tvmarataizes.digital/tvsulcapixaba/jornal-da-rede/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand: #E8370D;
+    --brand-dark: #C02D0A;
+    --brand-gold: #F5A623;
+    --ink: #1A1A1A;
+    --ink-2: #3D3D3D;
+    --ink-3: #6B6B6B;
+    --paper: #F7F5F0;
+    --border: #E8E4DC;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Source Sans 3', sans-serif; background: var(--paper); color: var(--ink); line-height: 1.5; }
+
+  /* TOPBAR */
+  .topbar { background: var(--ink); color: #aaa; font-size: 11px; padding: 5px 0; }
+  .topbar-inner { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: flex; justify-content: space-between; align-items: center; }
+  .topbar a { color: #aaa; text-decoration: none; margin-left: 12px; }
+  .topbar a:hover { color: #fff; }
+
+  /* HEADER */
+  .header { background: #fff; border-bottom: 3px solid var(--brand); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+  .header-main { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; gap: 16px; height: 68px; }
+  .logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; text-decoration: none; }
+  .logo-icon { width: 46px; height: 46px; background: transparent; padding: 0; overflow: hidden; border-radius: 10px; }
+  .logo-icon img { width: 46px; height: 46px; object-fit: contain; display: block; }
+  .logo-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 900; color: var(--ink); letter-spacing: -.3px; }
+  .logo-sub { font-size: 9px; text-transform: uppercase; letter-spacing: 2px; color: var(--brand); font-weight: 700; }
+  .header-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+  .btn-live { display: flex; align-items: center; gap: 6px; background: var(--brand); color: #fff; padding: 7px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; text-decoration: none; }
+  .btn-live:hover { background: var(--brand-dark); }
+  .btn-wpp { display: flex; align-items: center; gap: 6px; background: #25D366; color: #fff; padding: 7px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; text-decoration: none; }
+
+  /* HERO */
+  .jornal-hero { background: var(--ink); color: #fff; padding: 48px 16px; }
+  .jornal-hero-inner { max-width: 860px; margin: 0 auto; display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap; }
+  .jornal-thumb { flex: 0 0 220px; }
+  .jornal-thumb img { width: 100%; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,.5); display: block; }
+  .jornal-info { flex: 1; min-width: 220px; }
+  .jornal-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--brand); margin-bottom: 12px; }
+  .jornal-title { font-family: 'Playfair Display', serif; font-size: clamp(24px, 4vw, 38px); font-weight: 900; line-height: 1.2; margin-bottom: 16px; }
+  .jornal-desc { font-size: 15px; color: rgba(255,255,255,.75); line-height: 1.7; margin-bottom: 28px; }
+  .btn-play { display: inline-flex; align-items: center; gap: 10px; background: var(--brand); color: #fff; border: none; border-radius: 50px; padding: 14px 28px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; transition: background .2s, transform .15s; }
+  .btn-play:hover { background: var(--brand-dark); transform: scale(1.03); }
+  .btn-play svg { flex-shrink: 0; }
+
+  /* SHARE */
+  .share-section { background: #fff; border-bottom: 1px solid var(--border); padding: 20px 16px; }
+  .share-inner { max-width: 860px; margin: 0 auto; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .share-label { font-size: 13px; font-weight: 700; color: var(--ink-2); margin-right: 4px; }
+  .share-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 700; text-decoration: none; border: none; cursor: pointer; font-family: inherit; transition: opacity .2s; }
+  .share-btn:hover { opacity: .85; }
+  .share-wa  { background: #25D366; color: #fff; }
+  .share-fb  { background: #1877F2; color: #fff; }
+  .share-x   { background: #000; color: #fff; border: 1px solid #333; }
+  .share-cp  { background: var(--paper); color: var(--ink); border: 1px solid var(--border); }
+
+  /* SOBRE */
+  .sobre-section { max-width: 860px; margin: 40px auto; padding: 0 16px 40px; }
+  .sobre-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 900; color: var(--ink); margin-bottom: 16px; }
+  .sobre-body { font-size: 15px; color: var(--ink-2); line-height: 1.75; }
+  .sobre-body p { margin-bottom: 14px; }
+
+  /* VOLTAR */
+  .voltar-bar { background: #fff; border-top: 1px solid var(--border); padding: 16px; text-align: center; }
+  .btn-voltar { display: inline-flex; align-items: center; gap: 8px; background: var(--paper); border: 1px solid var(--border); color: var(--ink-2); padding: 10px 22px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; font-family: inherit; cursor: pointer; transition: background .2s; }
+  .btn-voltar:hover { background: var(--border); }
+
+  /* MODAL */
+  #video-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.88); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
+  #video-modal.open { display: flex; }
+  .modal-box { width: 100%; max-width: 860px; background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.6); }
+  .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #111; flex-wrap: wrap; gap: 8px; }
+  .modal-title { color: #fff; font-size: 14px; font-weight: 600; }
+  .modal-close { color: #aaa; font-size: 22px; line-height: 1; cursor: pointer; background: none; border: none; font-family: inherit; }
+  .modal-player { position: relative; padding-bottom: 56.25%; height: 0; }
+  .modal-player iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+  @media(max-width: 600px) {
+    .jornal-hero-inner { flex-direction: column; gap: 24px; }
+    .jornal-thumb { flex: none; width: 100%; max-width: 280px; margin: 0 auto; }
+    .btn-live span, .btn-wpp span { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <span>📻 Jornal da Rede — TV Sul Capixaba</span>
+    <div>
+      <a href="../">Início</a>
+      <a href="https://wa.me/5528999036141">Contato</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-main">
+    <a class="logo" href="../" title="TV Sul Capixaba — Início">
+      <div class="logo-icon"><img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logo_sulcapixaba.png" alt="TV Sul Capixaba"></div>
+      <div class="logo-text">
+        <div class="logo-name">TV Sul Capixaba</div>
+        <div class="logo-sub">Portal de Notícias</div>
+      </div>
+    </a>
+    <div class="header-actions">
+      <a href="../" class="btn-live">📺 <span>Assistir ao Vivo</span></a>
+      <a href="https://wa.me/5528999036141" class="btn-wpp">💬 <span>WhatsApp</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="jornal-hero">
+  <div class="jornal-hero-inner">
+    <div class="jornal-thumb">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/radio.png" alt="Jornal da Rede">
+    </div>
+    <div class="jornal-info">
+      <div class="jornal-eyebrow">🎙️ Jornal da Rede</div>
+      <h1 class="jornal-title">As principais notícias do Sul do Espírito Santo</h1>
+      <p class="jornal-desc" id="jornal-data" style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:8px;"></p>
+      <p class="jornal-desc">Todos os dias, uma nova edição em áudio reúne os acontecimentos mais importantes da região para você ouvir quando quiser. Com a identidade da nossa terra.</p>
+      <button class="btn-play" onclick="openPlayer()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
+        Dar o play
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- COMPARTILHAR -->
+<div class="share-section">
+  <div class="share-inner">
+    <span class="share-label">Compartilhar:</span>
+    <a class="share-btn share-wa" href="https://wa.me/?text=📻%20Estou%20ouvindo%20o%20Jornal%20da%20Rede%20da%20TV%20Sul%20Capixaba.%0AAs%20principais%20notícias%20do%20Sul%20do%20Espírito%20Santo.%0Ahttps%3A%2F%2Ftvmarataizes.digital%2Ftvsulcapixaba%2Fjornal-da-rede%2F" target="_blank" rel="noopener">🟢 WhatsApp</a>
+    <a class="share-btn share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftvmarataizes.digital%2Ftvsulcapixaba%2Fjornal-da-rede%2F" target="_blank" rel="noopener">🔵 Facebook</a>
+    <a class="share-btn share-x" href="https://twitter.com/intent/tweet?text=📻%20Estou%20ouvindo%20o%20Jornal%20da%20Rede%20da%20TV%20Sul%20Capixaba.%20As%20principais%20notícias%20do%20Sul%20do%20ES.%20https%3A%2F%2Ftvmarataizes.digital%2Ftvsulcapixaba%2Fjornal-da-rede%2F" target="_blank" rel="noopener">⚫ X</a>
+    <button class="share-btn share-cp" id="copy-btn" onclick="copyLink()">🔗 Copiar link</button>
+  </div>
+</div>
+
+<!-- SOBRE -->
+<div class="sobre-section">
+  <h2 class="sobre-title">Sobre o Jornal da Rede</h2>
+  <div class="sobre-body">
+    <p>O <strong>Jornal da Rede</strong> é o informativo em áudio da <strong>Rede TV Sul Capixaba</strong>, produzido diariamente pela equipe da TV Marataízes e TV Piúma.</p>
+    <p>Em poucos minutos, você acompanha os fatos mais importantes da região — jornalismo direto, com a identidade do Sul do Espírito Santo.</p>
+    <p>Dê o play, ouça quando quiser e compartilhe com quem você conhece.</p>
+  </div>
+</div>
+
+<!-- VOLTAR -->
+<div class="voltar-bar">
+  <a href="../" class="btn-voltar">← Voltar para a TV Sul Capixaba</a>
+</div>
+
+<!-- MODAL PLAYER -->
+<div id="video-modal" onclick="if(event.target===this)closePlayer()">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title">🎙️ Jornal da Rede — Sul Capixaba</span>
+      <button class="modal-close" onclick="closePlayer()">✕</button>
+    </div>
+    <div class="modal-player">
+      <iframe id="jornal-iframe" src="" allow="autoplay;fullscreen" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+  var JORNAL_VOD = 'https://player.castr.com/vod/lbx67Ql5RBpcEsOR';
+
+  // Data automática
+  (function(){
+    var meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+    var hoje = new Date();
+    var texto = '📅 Edição de hoje: ' + hoje.getDate() + ' de ' + meses[hoje.getMonth()] + ' de ' + hoje.getFullYear();
+    document.getElementById('jornal-data').textContent = texto;
+  })();
+
+  function openPlayer() {
+    document.getElementById('jornal-iframe').src = JORNAL_VOD + '?autoplay=1';
+    var m = document.getElementById('video-modal');
+    m.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePlayer() {
+    document.getElementById('jornal-iframe').src = '';
+    document.getElementById('video-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function copyLink() {
+    navigator.clipboard.writeText('https://tvmarataizes.digital/tvsulcapixaba/jornal-da-rede/').then(function(){
+      var btn = document.getElementById('copy-btn');
+      btn.textContent = '✅ Copiado!';
+      setTimeout(function(){ btn.textContent = '🔗 Copiar link'; }, 2000);
+    });
+  }
+
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closePlayer(); });
+</script>
+</body>
+</html>
