@@ -395,6 +395,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
   .topbar-inner>div:first-child{display:none}
   .logo-text{display:none}
   .btn-wpp span{display:none}
+  .btn-jornal-label{display:none}
   .news-grid{grid-template-columns:1fr}
   .admin-slide-fields{grid-template-columns:1fr!important}
   .admin-field.full{grid-column:1!important}
@@ -450,6 +451,7 @@ gtag('config', 'G-KTRG77RWXP');
     </div>
     <div class="header-actions">
       <a href="#" class="btn-live"><span class="live-dot"></span>📺 Ao Vivo</a>
+      <button onclick="openVideo('https://player.castr.com/vod/ARjPjMJxf7Up3fpu','Jornal da Rede — Sul Capixaba')" style="display:flex;align-items:center;gap:6px;background:#1a1a1a;color:#fff;padding:7px 14px;border-radius:6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;border:1.5px solid #333;font-family:inherit;cursor:pointer;transition:background .2s;" onmouseover="this.style.background='#2d2d2d'" onmouseout="this.style.background='#1a1a1a'"><span style="width:7px;height:7px;background:var(--brand);border-radius:50%;animation:blink 1.1s step-end infinite;flex-shrink:0;"></span>🎧 <span class="btn-jornal-label">Jornal da Rede</span></button>
       <a href="https://wa.me/5528999036141" class="btn-wpp">💬 <span>WhatsApp</span></a>
     </div>
   </div>
@@ -537,15 +539,14 @@ gtag('config', 'G-KTRG77RWXP');
     </script>
     <!-- ═══ FIM PLAYER ═══ -->
 
-    <!-- ═══ JORNAL DA REDE — CARD HOME ═══ -->
-    <div id="jr-home-card" style="background:#fff;border-radius:12px;border:1px solid var(--border);overflow:hidden;margin-bottom:20px;">
+    <!-- ═══ JORNAL DA REDE ═══ -->
+    <div style="background:#fff;border-radius:12px;border:1px solid var(--border);overflow:hidden;margin-bottom:20px;">
       <div style="background:var(--brand);color:#fff;padding:10px 14px;display:flex;align-items:center;gap:8px;">
         <span style="font-size:13px;">🎙️</span>
         <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Jornal da Rede</span>
-        <span id="jr-home-data" style="font-size:10px;opacity:.8;margin-left:auto;"></span>
       </div>
       <div style="display:flex;gap:14px;padding:14px;align-items:flex-start;">
-        <div style="flex:0 0 140px;cursor:pointer;" onclick="jrPlay()">
+        <div style="flex:0 0 140px;cursor:pointer;" onclick="openVideo('https://player.castr.com/vod/ARjPjMJxf7Up3fpu','Jornal da Rede — Sul Capixaba')">
           <div style="position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1/1;background:#111;">
             <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/radio.png" alt="Jornal da Rede" style="width:100%;height:100%;object-fit:cover;display:block;">
             <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);">
@@ -558,11 +559,11 @@ gtag('config', 'G-KTRG77RWXP');
         <div style="flex:1;min-width:0;">
           <div style="font-size:14px;font-weight:800;color:var(--ink);margin-bottom:6px;line-height:1.3;">As principais notícias do Sul do Espírito Santo</div>
           <div style="font-size:12px;color:var(--ink-3);line-height:1.6;margin-bottom:10px;">Todos os dias, uma nova edição em áudio reúne os acontecimentos mais importantes da região para você ouvir quando quiser.</div>
-          <button onclick="jrPlay()" style="background:var(--brand);color:#fff;border:none;border-radius:20px;padding:7px 16px;font-size:11px;font-weight:700;cursor:pointer;letter-spacing:.5px;">▶ Dar o play</button>
+          <button onclick="openVideo('https://player.castr.com/vod/ARjPjMJxf7Up3fpu','Jornal da Rede — Sul Capixaba')" style="background:var(--brand);color:#fff;border:none;border-radius:20px;padding:7px 16px;font-size:11px;font-weight:700;cursor:pointer;letter-spacing:.5px;">▶ Dar o play</button>
         </div>
       </div>
     </div>
-    <!-- ═══ FIM JORNAL DA REDE CARD ═══ -->
+    <!-- ═══ FIM JORNAL DA REDE ═══ -->
 
     <!-- HERO CAROUSEL -->
     <div class="hero">
@@ -574,8 +575,44 @@ gtag('config', 'G-KTRG77RWXP');
       </div>
       <div class="carousel-thumbs" id="carousel-thumbs"></div>
     </div>
+    <script>
+    (function(){
+      var JORNAL_URL    = 'https://tvmarataizes.digital/tvsulcapixaba/jornal-da-rede/';
+      var JORNAL_TITULO = 'Jornal da Rede — Sul Capixaba';
+      var JORNAL_TEXT   = encodeURIComponent('📻 Jornal da Rede — Sul Capixaba\nAs principais notícias do Sul do Espírito Santo. Ouça agora: ' + JORNAL_URL);
 
-    <!-- CARD MOBILE: Encontre sua Cidade (some em desktop, aparece em mobile) -->
+      function jornalCheckTitle() {
+        var titulo = document.getElementById('video-modal-title');
+        var bar    = document.getElementById('jornal-share-bar');
+        if (!titulo || !bar) return;
+        if (titulo.textContent === JORNAL_TITULO) {
+          document.getElementById('jornal-share-wa').href = 'https://wa.me/?text=' + JORNAL_TEXT;
+          document.getElementById('jornal-share-fb').href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(JORNAL_URL);
+          document.getElementById('jornal-share-x').href  = 'https://twitter.com/intent/tweet?text=' + JORNAL_TEXT;
+          bar.style.display = 'flex';
+        } else {
+          bar.style.display = 'none';
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var titulo = document.getElementById('video-modal-title');
+        if (!titulo) return;
+        var observer = new MutationObserver(jornalCheckTitle);
+        observer.observe(titulo, { childList: true, characterData: true, subtree: true });
+      });
+
+      window.jornalCopyLink = function() {
+        navigator.clipboard.writeText(JORNAL_URL).then(function(){
+          var btn = document.getElementById('jornal-copy-btn');
+          btn.textContent = '✅ Copiado!';
+          setTimeout(function(){ btn.textContent = '🔗 Copiar link'; }, 2000);
+        });
+      };
+    })();
+    </script>
+
+        <!-- CARD MOBILE: Encontre sua Cidade (some em desktop, aparece em mobile) -->
     <div class="mobile-cidades-card" onclick="document.getElementById('turismo-sul-capixaba').scrollIntoView({behavior:'smooth'})">
       <div class="mobile-cidades-card-inner">
         <div class="mobile-cidades-card-eyebrow">📍 Sul do Espírito Santo</div>
@@ -866,7 +903,6 @@ gtag('config', 'G-KTRG77RWXP');
   <!-- Botão Admin Cidades — visível só após login -->
   <div style="text-align:center;margin-top:32px;">
     <button onclick="cv2AbrirAdmin()" style="background:transparent;border:1px solid var(--border);color:var(--ink-3);padding:6px 14px;border-radius:6px;font-size:11px;cursor:pointer;font-family:inherit;">⚙ Gerenciar cidades</button>
-    <button onclick="jrAbrirAdmin()" style="background:transparent;border:1px solid var(--border);color:var(--ink-3);padding:6px 14px;border-radius:6px;font-size:11px;cursor:pointer;font-family:inherit;margin-left:8px;">🎙 Gerenciar Jornal da Rede</button>
   </div>
 </section>
 
@@ -1395,8 +1431,14 @@ function cv2Salvar() {
 <!-- MODAL VÍDEO -->
 <div id="video-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:2000;align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)closeVideo()">
   <div style="width:100%;max-width:860px;background:#000;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.6)">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#111">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#111;flex-wrap:wrap;gap:8px;">
       <span id="video-modal-title" style="color:#fff;font-size:14px;font-weight:600;font-family:'Source Sans 3',sans-serif"></span>
+      <div id="jornal-share-bar" style="display:none;align-items:center;gap:6px;flex-wrap:wrap;">
+        <a id="jornal-share-wa" href="#" target="_blank" rel="noopener" style="background:#25D366;color:#fff;text-decoration:none;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;white-space:nowrap;">🟢 WhatsApp</a>
+        <a id="jornal-share-fb" href="#" target="_blank" rel="noopener" style="background:#1877F2;color:#fff;text-decoration:none;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;white-space:nowrap;">🔵 Facebook</a>
+        <a id="jornal-share-x"  href="#" target="_blank" rel="noopener" style="background:#000;color:#fff;text-decoration:none;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;border:1px solid #444;white-space:nowrap;">⚫ X</a>
+        <button onclick="jornalCopyLink()" style="background:#444;color:#fff;border:none;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;cursor:pointer;white-space:nowrap;" id="jornal-copy-btn">🔗 Copiar link</button>
+      </div>
       <button onclick="closeVideo()" style="color:#aaa;font-size:22px;line-height:1;cursor:pointer;background:none;border:none;font-family:inherit">✕</button>
     </div>
     <div style="position:relative;padding-bottom:56.25%;height:0">
@@ -3676,282 +3718,5 @@ function startFirestoreListener() {
 
 setTimeout(function() { startFirestoreListener(); }, 400);
 </script>
-
-<!-- ═══ JORNAL DA REDE — PAINEL ADMIN ═══ -->
-<div id="jr-admin-overlay" class="admin-overlay" style="z-index:3000;" onclick="if(event.target===this)jrFecharAdmin()">
-  <div style="background:#fff;border-radius:14px;width:100%;max-width:560px;margin:auto;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.35);">
-    <div style="background:#1a1a1a;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
-      <span style="color:#fff;font-size:15px;font-weight:700;font-family:'Playfair Display',serif;">🎙️ Gerenciar Jornal da Rede</span>
-      <button onclick="jrFecharAdmin()" style="color:#aaa;font-size:20px;background:none;border:none;cursor:pointer;line-height:1;">✕</button>
-    </div>
-    <div style="padding:24px;">
-
-      <!-- LOGIN -->
-      <div id="jr-admin-login">
-        <p style="font-size:13px;color:#666;margin-bottom:16px;">Digite a senha para acessar o gerenciador.</p>
-        <input type="password" id="jr-admin-pass" placeholder="••••••••" style="width:100%;padding:10px 14px;border:1.5px solid #e0ddd6;border-radius:8px;font-size:14px;font-family:inherit;margin-bottom:10px;" onkeydown="if(event.key==='Enter')jrLogin()">
-        <p id="jr-login-erro" style="display:none;color:#dc2626;font-size:12px;margin-bottom:10px;">Senha incorreta.</p>
-        <button onclick="jrLogin()" style="width:100%;background:#E8370D;color:#fff;border:none;border-radius:8px;padding:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">Entrar</button>
-      </div>
-
-      <!-- PAINEL -->
-      <div id="jr-admin-painel" style="display:none;">
-
-        <!-- Nova edição -->
-        <div style="margin-bottom:24px;">
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#666;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #eee;">📤 Publicar nova edição</div>
-          <div style="margin-bottom:12px;">
-            <label style="font-size:11px;font-weight:600;color:#3D3D3D;display:block;margin-bottom:4px;">Data da edição</label>
-            <input type="date" id="jr-campo-data" style="width:100%;padding:8px 12px;border:1.5px solid #e0ddd6;border-radius:7px;font-size:13px;font-family:inherit;">
-          </div>
-          <div style="margin-bottom:16px;">
-            <label style="font-size:11px;font-weight:600;color:#3D3D3D;display:block;margin-bottom:4px;">URL do player (Castr VOD)</label>
-            <input type="text" id="jr-campo-url" placeholder="https://player.castr.com/vod/..." style="width:100%;padding:8px 12px;border:1.5px solid #e0ddd6;border-radius:7px;font-size:13px;font-family:inherit;">
-            <div style="font-size:10px;color:#999;margin-top:4px;">Cole a URL do player da edição de hoje.</div>
-          </div>
-          <button onclick="jrPublicar()" style="width:100%;background:#E8370D;color:#fff;border:none;border-radius:8px;padding:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">📡 Publicar edição</button>
-          <div id="jr-status" style="font-size:12px;color:#059669;margin-top:10px;min-height:16px;font-weight:600;"></div>
-        </div>
-
-        <!-- Edições anteriores -->
-        <div>
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#666;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #eee;">📋 Edições publicadas</div>
-          <div id="jr-lista-edicoes" style="max-height:260px;overflow-y:auto;"></div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL PLAYER JORNAL DA REDE -->
-<div id="jr-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:2500;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)jrFecharModal()">
-  <div style="width:100%;max-width:860px;background:#000;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.6);">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#111;flex-wrap:wrap;gap:8px;">
-      <span id="jr-modal-titulo" style="color:#fff;font-size:14px;font-weight:600;">🎙️ Jornal da Rede — Sul Capixaba</span>
-      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;" id="jr-modal-share">
-        <a id="jr-share-wa" href="#" target="_blank" rel="noopener" style="background:#25D366;color:#fff;text-decoration:none;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;">🟢 WhatsApp</a>
-        <a id="jr-share-fb" href="#" target="_blank" rel="noopener" style="background:#1877F2;color:#fff;text-decoration:none;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;">🔵 Facebook</a>
-        <button onclick="jrCopyLink()" id="jr-copy-btn" style="background:#444;color:#fff;border:none;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;cursor:pointer;">🔗 Copiar link</button>
-      </div>
-      <button onclick="jrFecharModal()" style="color:#aaa;font-size:22px;line-height:1;cursor:pointer;background:none;border:none;">✕</button>
-    </div>
-    <div style="position:relative;padding-bottom:56.25%;height:0;">
-      <iframe id="jr-iframe" src="" allow="autoplay;fullscreen" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ JORNAL DA REDE — JAVASCRIPT ═══ -->
-<script>
-(function(){
-  var JR_PASS   = 'TV2026';
-  var JR_SHARE  = 'https://tvmarataizes.digital/tvsulcapixaba/jornal-da-rede/';
-  var JR_TEXT   = encodeURIComponent('📻 Jornal da Rede — Sul Capixaba\nAs principais notícias do Sul do Espírito Santo. Ouça agora: ' + JR_SHARE);
-  var jrLogged  = false;
-
-  // ── Referência Firestore exclusiva ──────────────────────────────
-  function jrCol() { return firebase.firestore().collection('jornalRede'); }
-
-  // ── Helpers de data ────────────────────────────────────────────
-  function jrDataBR(iso) {
-    var p = iso.split('-');
-    return p[2] + '/' + p[1] + '/' + p[0];
-  }
-  function jrDataISO(br) {
-    var p = br.split('/');
-    return p[2] + '-' + p[1] + '-' + p[0];
-  }
-  function jrHoje() {
-    var d = new Date();
-    return d.getFullYear() + '-' +
-      String(d.getMonth()+1).padStart(2,'0') + '-' +
-      String(d.getDate()).padStart(2,'0');
-  }
-
-  // ── Carregar edição mais recente e atualizar card da home ───────
-  function jrCarregarAtual() {
-    jrCol().orderBy('data','desc').limit(1).get().then(function(snap) {
-      if (snap.empty) return;
-      var doc = snap.docs[0].data();
-      // Atualiza data no card
-      var dataEl = document.getElementById('jr-home-data');
-      if (dataEl) dataEl.textContent = '📅 ' + jrDataBR(doc.data);
-      // Salva URL atual para uso no play
-      window._jrAtualUrl  = doc.url;
-      window._jrAtualData = doc.data;
-    }).catch(function(){});
-  }
-
-  // ── Play da edição atual ────────────────────────────────────────
-  window.jrPlay = function(url, dataISO) {
-    var u = url || window._jrAtualUrl || 'https://player.castr.com/vod/lbx67Ql5RBpcEsOR';
-    var d = dataISO || window._jrAtualData || jrHoje();
-    document.getElementById('jr-modal-titulo').textContent = '🎙️ Jornal da Rede — ' + jrDataBR(d);
-    document.getElementById('jr-share-wa').href = 'https://wa.me/?text=' + JR_TEXT;
-    document.getElementById('jr-share-fb').href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(JR_SHARE);
-    document.getElementById('jr-iframe').src = u + '?autoplay=1';
-    var modal = document.getElementById('jr-modal');
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-  };
-
-  window.jrFecharModal = function() {
-    document.getElementById('jr-iframe').src = '';
-    document.getElementById('jr-modal').style.display = 'none';
-    document.body.style.overflow = '';
-  };
-
-  window.jrCopyLink = function() {
-    navigator.clipboard.writeText(JR_SHARE).then(function(){
-      var btn = document.getElementById('jr-copy-btn');
-      btn.textContent = '✅ Copiado!';
-      setTimeout(function(){ btn.textContent = '🔗 Copiar link'; }, 2000);
-    });
-  };
-
-  // ── Admin ───────────────────────────────────────────────────────
-  window.jrAbrirAdmin = function() {
-    document.getElementById('jr-admin-overlay').classList.add('open');
-    document.getElementById('jr-admin-login').style.display = jrLogged ? 'none' : '';
-    document.getElementById('jr-admin-painel').style.display = jrLogged ? '' : 'none';
-    document.getElementById('jr-admin-pass').value = '';
-    document.getElementById('jr-login-erro').style.display = 'none';
-    if (jrLogged) { jrPreencherData(); jrCarregarLista(); }
-  };
-
-  window.jrFecharAdmin = function() {
-    document.getElementById('jr-admin-overlay').classList.remove('open');
-  };
-
-  window.jrLogin = function() {
-    if (document.getElementById('jr-admin-pass').value === JR_PASS) {
-      jrLogged = true;
-      document.getElementById('jr-admin-login').style.display = 'none';
-      document.getElementById('jr-admin-painel').style.display = '';
-      document.getElementById('jr-login-erro').style.display = 'none';
-      jrPreencherData();
-      jrCarregarLista();
-    } else {
-      document.getElementById('jr-login-erro').style.display = 'block';
-    }
-  };
-
-  function jrPreencherData() {
-    document.getElementById('jr-campo-data').value = jrHoje();
-    document.getElementById('jr-campo-url').value  = '';
-    document.getElementById('jr-status').textContent = '';
-  }
-
-  // ── Publicar ────────────────────────────────────────────────────
-  window.jrPublicar = function() {
-    var data = document.getElementById('jr-campo-data').value;
-    var url  = document.getElementById('jr-campo-url').value.trim();
-    var status = document.getElementById('jr-status');
-    if (!data) { status.style.color='#dc2626'; status.textContent='Selecione a data.'; return; }
-    if (!url)  { status.style.color='#dc2626'; status.textContent='Cole a URL do player.'; return; }
-    status.style.color='#888'; status.textContent='⏳ Publicando...';
-
-    var docId = data; // AAAA-MM-DD como ID garante unicidade por dia
-    jrCol().doc(docId).set({
-      data: data,
-      url:  url,
-      ts:   firebase.firestore.FieldValue.serverTimestamp()
-    }).then(function() {
-      status.style.color='#059669';
-      status.textContent='✅ Publicado! Card da home atualizado.';
-      jrCarregarAtual();
-      jrCarregarLista();
-      // Limpar edições com mais de 30 dias
-      jrLimparAntigos();
-    }).catch(function(e) {
-      status.style.color='#dc2626';
-      status.textContent='❌ Erro: ' + e.message;
-    });
-  };
-
-  // ── Listar edições no painel ────────────────────────────────────
-  function jrCarregarLista() {
-    var lista = document.getElementById('jr-lista-edicoes');
-    lista.innerHTML = '<div style="font-size:12px;color:#aaa;padding:8px;">Carregando...</div>';
-    jrCol().orderBy('data','desc').limit(30).get().then(function(snap) {
-      if (snap.empty) {
-        lista.innerHTML = '<div style="font-size:12px;color:#aaa;padding:8px;">Nenhuma edição publicada ainda.</div>';
-        return;
-      }
-      lista.innerHTML = snap.docs.map(function(d) {
-        var doc = d.data();
-        return '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #eee;">' +
-          '<div>' +
-            '<div style="font-size:13px;font-weight:600;color:#1a1a1a;">🎙️ Edição de ' + jrDataBR(doc.data) + '</div>' +
-            '<div style="font-size:10px;color:#aaa;margin-top:2px;">' + (doc.url||'').substring(0,50) + '...</div>' +
-          '</div>' +
-          '<div style="display:flex;gap:6px;">' +
-            '<button onclick="jrPlay('' + (doc.url||'').replace(/'/g,"\'") + '','' + doc.data + '')" style="background:#E8370D;color:#fff;border:none;border-radius:4px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:inherit;">▶ Ouvir</button>' +
-            '<button onclick="jrRemover('' + d.id + '')" style="background:#dc2626;color:#fff;border:none;border-radius:4px;padding:4px 8px;font-size:11px;cursor:pointer;font-family:inherit;">✕</button>' +
-          '</div>' +
-        '</div>';
-      }).join('');
-    }).catch(function(e) {
-      lista.innerHTML = '<div style="font-size:12px;color:#dc2626;padding:8px;">Erro ao carregar: ' + e.message + '</div>';
-    });
-  }
-
-  // ── Remover edição ──────────────────────────────────────────────
-  window.jrRemover = function(id) {
-    if (!confirm('Remover esta edição?')) return;
-    jrCol().doc(id).delete().then(function() {
-      jrCarregarLista();
-      jrCarregarAtual();
-      showToast('Edição removida.');
-    }).catch(function(e){ showToast('Erro: ' + e.message); });
-  };
-
-  // ── Limpar edições com mais de 30 dias ─────────────────────────
-  function jrLimparAntigos() {
-    var limite = new Date();
-    limite.setDate(limite.getDate() - 30);
-    var limiteStr = limite.getFullYear() + '-' +
-      String(limite.getMonth()+1).padStart(2,'0') + '-' +
-      String(limite.getDate()).padStart(2,'0');
-    jrCol().where('data','<',limiteStr).get().then(function(snap) {
-      snap.forEach(function(d){ d.ref.delete(); });
-    }).catch(function(){});
-  }
-
-  // ESC fecha modal
-  document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape') { jrFecharModal(); jrFecharAdmin(); }
-  });
-
-  // ── Init: aguarda DOM e Firebase prontos ────────────────────────
-  function jrInit() {
-    try {
-      jrCarregarAtual();
-      // Listener em tempo real
-      jrCol().orderBy('data','desc').limit(1).onSnapshot(function(snap) {
-        if (snap.empty) return;
-        var doc = snap.docs[0].data();
-        var dataEl = document.getElementById('jr-home-data');
-        if (dataEl) dataEl.textContent = '📅 ' + jrDataBR(doc.data);
-        window._jrAtualUrl  = doc.url;
-        window._jrAtualData = doc.data;
-      }, function(){});
-    } catch(e) { console.warn('jrInit:', e); }
-  }
-
-  // Firebase compat já foi inicializado antes deste script (firebase.initializeApp
-  // e const db estão no bloco anterior). DOMContentLoaded é suficiente porque
-  // este script está no </body> — o DOM já está pronto e o Firebase também.
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', jrInit);
-  } else {
-    jrInit();
-  }
-
-})();
-</script>
-<!-- ═══ FIM JORNAL DA REDE ═══ -->
-
 </body>
 </html>
