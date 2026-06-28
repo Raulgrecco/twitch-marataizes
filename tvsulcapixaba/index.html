@@ -3678,7 +3678,7 @@ setTimeout(function() { startFirestoreListener(); }, 400);
 </script>
 
 <!-- ═══ JORNAL DA REDE — PAINEL ADMIN ═══ -->
-<div id="jr-admin-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:3000;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;" onclick="if(event.target===this)jrFecharAdmin()">
+<div id="jr-admin-overlay" class="admin-overlay" style="z-index:3000;" onclick="if(event.target===this)jrFecharAdmin()">
   <div style="background:#fff;border-radius:14px;width:100%;max-width:560px;margin:auto;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.35);">
     <div style="background:#1a1a1a;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
       <span style="color:#fff;font-size:15px;font-weight:700;font-family:'Playfair Display',serif;">🎙️ Gerenciar Jornal da Rede</span>
@@ -3812,20 +3812,16 @@ setTimeout(function() { startFirestoreListener(); }, 400);
 
   // ── Admin ───────────────────────────────────────────────────────
   window.jrAbrirAdmin = function() {
-    var ov = document.getElementById('jr-admin-overlay');
-    ov.style.display = 'flex';
+    document.getElementById('jr-admin-overlay').classList.add('open');
     document.getElementById('jr-admin-login').style.display = jrLogged ? 'none' : '';
     document.getElementById('jr-admin-painel').style.display = jrLogged ? '' : 'none';
     document.getElementById('jr-admin-pass').value = '';
     document.getElementById('jr-login-erro').style.display = 'none';
-    if (jrLogged) {
-      jrPreencherData();
-      jrCarregarLista();
-    }
+    if (jrLogged) { jrPreencherData(); jrCarregarLista(); }
   };
 
   window.jrFecharAdmin = function() {
-    document.getElementById('jr-admin-overlay').style.display = 'none';
+    document.getElementById('jr-admin-overlay').classList.remove('open');
   };
 
   window.jrLogin = function() {
