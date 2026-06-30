@@ -438,7 +438,7 @@ function loadLivePlayer(){
     <span style="font-size:10px;opacity:.8;margin-left:auto;">TV Sul Capixaba</span>
   </div>
   <div style="display:flex;gap:0;align-items:stretch;">
-    <a href="https://tvmarataizes.digital/tvsulcapixaba/jornal-da-rede/" style="flex:0 0 42%;max-width:42%;display:block;position:relative;background:#111;text-decoration:none;">
+    <a onclick="openJornal()" style="flex:0 0 42%;max-width:42%;display:block;position:relative;background:#111;text-decoration:none;cursor:pointer;">
       <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/radio.png" alt="Jornal da Rede" style="width:100%;height:100%;object-fit:cover;display:block;">
       <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);">
         <div style="width:36px;height:36px;background:#E8370D;border-radius:50%;display:flex;align-items:center;justify-content:center;">
@@ -451,8 +451,8 @@ function loadLivePlayer(){
       <!-- DATA DA EDIÇÃO — atualizar diariamente -->
       <div style="font-size:11px;color:#6B6B6B;">📅 Jornal da Rede — 29 de junho de 2026</div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
-        <a href="https://tvmarataizes.digital/tvsulcapixaba/jornal-da-rede/" style="display:inline-flex;align-items:center;gap:6px;background:#E8370D;color:#fff;border-radius:20px;padding:8px 18px;font-size:12px;font-weight:700;text-decoration:none;letter-spacing:.4px;">▶ Assistir edição de hoje</a>
-        <a href="https://tvmarataizes.digital/tvsulcapixaba/jornal-da-rede/" style="font-size:11px;color:#6B6B6B;text-decoration:none;">Edições anteriores →</a>
+        <button onclick="openJornal()" style="display:inline-flex;align-items:center;gap:6px;background:#E8370D;color:#fff;border:none;border-radius:20px;padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.4px;font-family:inherit;">▶ Assistir edição de hoje</button>
+        <a href="https://tvsulcapixaba.com.br/jornal-da-rede/" target="_blank" rel="noopener" style="font-size:11px;color:#6B6B6B;text-decoration:none;">Edições anteriores →</a>
       </div>
     </div>
   </div>
@@ -462,6 +462,25 @@ function loadLivePlayer(){
 ════════════════════════════════════════════════════ -->
 
 <script>
+function openJornal(){
+  var JORNAL_URL = 'https://player.castr.com/vod/NSfzkzLI4856K2ey';
+  var SHARE_URL  = 'https://tvsulcapixaba.com.br/jornal-da-rede/';
+  var SHARE_TEXT = encodeURIComponent('📻 Jornal da Rede — TV Sul Capixaba\nAs principais notícias do Sul do ES. Ouça agora: ' + SHARE_URL);
+  var m = document.getElementById('vod-modal');
+  var w = document.getElementById('vod-player-wrap');
+  w.innerHTML = '<iframe src="' + JORNAL_URL + '?autoplay=1" allow="autoplay;fullscreen" allowfullscreen style="width:100%;height:100%;border:0;border-radius:8px;"></iframe>';
+  var infoEl = document.getElementById('vod-modal-info');
+  if(infoEl) infoEl.innerHTML =
+    '<div style="padding:8px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">' +
+    '<span style="font-size:13px;font-weight:800;color:#fff;">🎙️ Jornal da Rede — Sul Capixaba</span>' +
+    '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
+    '<a href="https://wa.me/?text=' + SHARE_TEXT + '" target="_blank" rel="noopener" style="background:#25D366;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;text-decoration:none;">🟢 WhatsApp</a>' +
+    '<a href="https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(SHARE_URL) + '" target="_blank" rel="noopener" style="background:#1877F2;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;text-decoration:none;">🔵 Facebook</a>' +
+    '<button onclick="navigator.clipboard.writeText(\'' + SHARE_URL + '\').then(function(){var b=document.getElementById(\'jr-copy\');b.textContent=\'✅ Copiado!\';setTimeout(function(){b.textContent=\'🔗 Copiar link\';},2000);})" id="jr-copy" style="background:#444;color:#fff;border:none;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;cursor:pointer;">🔗 Copiar link</button>' +
+    '<a href="' + SHARE_URL + '" target="_blank" rel="noopener" style="background:#1a1a1a;color:#aaa;border:1px solid #333;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;text-decoration:none;">📋 Edições anteriores</a>' +
+    '</div></div>';
+  m.style.display = 'flex';
+}
 function openVodModal(src, titulo, credito){
   // Remove o iframe ao vivo do DOM completamente — única forma de parar o áudio
   var live=document.getElementById('castr-player');
