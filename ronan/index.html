@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Programa Oficial Ronan Motors · TV Marataízes</title>
+<meta name="description" content="Proposta exclusiva de parceria entre TV Marataízes e Ronan Motors — programa semanal, Instagram integrado e exclusividade no segmento."/>
+<meta property="og:title" content="Programa Oficial Ronan Motors · TV Marataízes"/>
+<meta property="og:description" content="Uma presença contínua em televisão, redes sociais e mídia digital integrada para fortalecer a marca Ronan Motors no Sul do ES."/>
+<meta property="og:image" content="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logoronan.png"/>
+<meta property="og:type" content="website"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#0a0a0a;color:#fff;font-family:'Inter',system-ui,sans-serif;line-height:1.5}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+
+.hero{background:#0a0a0a;padding:64px 40px 56px;border-bottom:1px solid #1a1a1a;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#E8370D;}
+
+.logo-row{display:flex;align-items:center;gap:16px;margin-bottom:48px;}
+.logo-tv{height:44px;width:auto;border-radius:8px;}
+.logo-x{color:#333;font-size:20px;font-weight:300;}
+.logo-ronan{height:36px;width:auto;filter:brightness(0) invert(1);}
+
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8370D;margin-bottom:20px;}
+.headline{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,7vw,72px);line-height:1;letter-spacing:1px;color:#fff;margin-bottom:20px;}
+.headline span{color:#E8370D;}
+.subheadline{font-size:16px;color:#888;line-height:1.6;max-width:600px;margin-bottom:40px;}
+
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:#1a1a1a;border:1px solid #1a1a1a;border-radius:12px;overflow:hidden;max-width:720px;}
+.stat{background:#111;padding:20px 24px;}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;line-height:1;margin-bottom:4px;}
+.stat-num span{color:#E8370D;}
+.stat-label{font-size:11px;color:#555;text-transform:uppercase;letter-spacing:1px;}
+
+.section{padding:56px 40px;border-bottom:1px solid #111;}
+.section-label{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#333;margin-bottom:8px;}
+.section-title{font-size:28px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.2;}
+.section-sub{font-size:14px;color:#555;margin-bottom:36px;max-width:560px;line-height:1.6;}
+
+.argument{background:#111;border:1px solid #1d1d1d;border-radius:12px;padding:28px 32px;margin-bottom:12px;display:flex;gap:24px;align-items:flex-start;}
+.arg-num{font-family:'Bebas Neue',sans-serif;font-size:48px;color:#1d1d1d;line-height:1;flex-shrink:0;width:48px;text-align:center;}
+.arg-title{font-size:17px;font-weight:600;color:#fff;margin-bottom:8px;}
+.arg-text{font-size:14px;color:#666;line-height:1.6;}
+.arg-text strong{color:#ccc;font-weight:500;}
+
+.deliverables{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
+.del{background:#111;border:1px solid #1d1d1d;border-radius:12px;padding:20px 22px;}
+.del-icon{width:36px;height:36px;background:#1a0800;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;color:#E8370D;font-size:18px;}
+.del-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px;}
+.del-sub{font-size:12px;color:#555;line-height:1.5;}
+
+.excl{background:#0d0500;border:1px solid #2a0f00;border-radius:12px;padding:32px;display:flex;gap:24px;align-items:flex-start;}
+.excl-badge{background:#E8370D;color:#fff;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 12px;border-radius:4px;flex-shrink:0;margin-top:3px;}
+.excl-title{font-size:18px;font-weight:700;color:#fff;margin-bottom:8px;}
+.excl-text{font-size:13px;color:#666;line-height:1.7;}
+.excl-text strong{color:#E8370D;font-weight:500;}
+
+.pricing{background:#0d0d0d;border:1px solid #1d1d1d;border-radius:16px;overflow:hidden;}
+.pricing-header{background:#111;padding:28px 32px;border-bottom:1px solid #1a1a1a;}
+.pricing-title{font-size:13px;color:#555;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;}
+.price-main{font-family:'Bebas Neue',sans-serif;font-size:56px;color:#fff;line-height:1;}
+.price-main span{font-size:24px;color:#555;}
+.price-sub{font-size:13px;color:#444;margin-top:6px;}
+.pricing-rows{padding:24px 32px;}
+.price-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #151515;}
+.price-row:last-child{border-bottom:none;}
+.price-row-label{font-size:13px;color:#555;}
+.price-row-val{font-size:14px;font-weight:500;color:#ccc;}
+.price-row-val.accent{color:#E8370D;}
+.price-total{background:#E8370D;padding:20px 32px;display:flex;justify-content:space-between;align-items:center;}
+.price-total-label{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7);}
+.price-total-val{font-family:'Bebas Neue',sans-serif;font-size:32px;color:#fff;}
+
+.urgency{background:#080808;padding:64px 40px;text-align:center;}
+.urgency-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,5vw,48px);color:#fff;margin-bottom:12px;line-height:1.1;}
+.urgency-title span{color:#E8370D;}
+.urgency-text{font-size:14px;color:#555;max-width:480px;margin:0 auto 32px;line-height:1.6;}
+.cta{display:inline-flex;align-items:center;gap:10px;background:#E8370D;color:#fff;font-size:14px;font-weight:600;padding:14px 28px;border-radius:8px;cursor:pointer;letter-spacing:.5px;transition:opacity .2s;}
+.cta:hover{opacity:.88;}
+.cta i{font-size:18px;}
+
+footer{padding:24px 40px;border-top:1px solid #111;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.footer-text{font-size:11px;color:#333;}
+.footer-brand{font-size:11px;color:#E8370D;font-weight:500;}
+
+@media(max-width:600px){
+  .hero,.section,.urgency{padding:40px 20px;}
+  footer{padding:20px;}
+  .argument{flex-direction:column;gap:12px;}
+  .excl{flex-direction:column;gap:12px;}
+  .arg-num{font-size:32px;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="logo-row">
+    <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logoTVMarataizes.png" alt="TV Marataízes" class="logo-tv" onerror="this.style.display='none'"/>
+    <span class="logo-x">×</span>
+    <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/logoronan.png" alt="Ronan Motors" class="logo-ronan" onerror="this.outerHTML='<span style=\'font-size:18px;font-weight:700;color:#fff;\'>RONAN MOTORS</span>'"/>
+  </div>
+  <div class="eyebrow">Proposta exclusiva · Confidencial</div>
+  <div class="headline">Programa Oficial<br><span>Ronan Motors</span><br>na TV Marataízes</div>
+  <div class="subheadline">Uma presença contínua em televisão, redes sociais e mídia digital integrada para transformar a Ronan Motors na referência de motocicletas em toda a região Sul do Espírito Santo.</div>
+  <div class="stats-row">
+    <div class="stat"><div class="stat-num"><span>52</span></div><div class="stat-label">Programas por ano</div></div>
+    <div class="stat"><div class="stat-num"><span>3</span></div><div class="stat-label">Canais de distribuição</div></div>
+    <div class="stat"><div class="stat-num"><span>6</span></div><div class="stat-label">Meses de exclusividade</div></div>
+    <div class="stat"><div class="stat-num">R$<span>2.250</span></div><div class="stat-label">Desembolso mensal real</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Por que isso funciona</div>
+  <div class="section-title">O que as maiores marcas do mundo já sabem</div>
+  <div class="section-sub">TVs regionais dominam o mercado local nos EUA e na Europa. No Brasil, quem chegar primeiro constrói a autoridade que os concorrentes nunca conseguem tirar.</div>
+
+  <div class="argument">
+    <div class="arg-num">01</div>
+    <div>
+      <div class="arg-title">Presença contínua cria autoridade. Um único anúncio não.</div>
+      <div class="arg-text">Seth Godin, Donald Miller e Byron Sharp convergem no mesmo ponto: <strong>marcas que aparecem toda semana são lembradas quando a compra acontece.</strong> A Ronan Motors vai aparecer todos os sábados — quando o cliente ainda nem sabe que vai comprar uma moto, ela já estará na cabeça dele.</div>
+    </div>
+  </div>
+
+  <div class="argument">
+    <div class="arg-num">02</div>
+    <div>
+      <div class="arg-title">TV regional + Instagram integrado = alcance que nenhum impulsionamento isolado entrega.</div>
+      <div class="arg-text">No exterior, TVs locais que integram produção de conteúdo com redes sociais via pipeline direto multiplicam o alcance orgânico em até 4x. <strong>O que vai ao ar na TV sábado abastece o Instagram durante toda a semana.</strong> Não é duplicação — é amplificação.</div>
+    </div>
+  </div>
+
+  <div class="argument">
+    <div class="arg-num">03</div>
+    <div>
+      <div class="arg-title">O setor automotivo é o maior anunciante de TV no mundo. Por alguma razão.</div>
+      <div class="arg-text">Em 2024, o segmento automotivo respondeu por <strong>22,6% de todo o investimento global em publicidade televisiva</strong> — o maior de qualquer setor. Fabricantes e revendedores usam TV porque ela constrói confiança de uma forma que post patrocinado não constrói. A Ronan Motors pode ter esse mesmo ativo, no Sul Capixaba, por R$ 2.250 por mês.</div>
+    </div>
+  </div>
+
+  <div class="argument">
+    <div class="arg-num">04</div>
+    <div>
+      <div class="arg-title">Pipeline integrado via API: velocidade e consistência que concorrentes não têm.</div>
+      <div class="arg-text">O conteúdo gravado na Ronan Motors entra diretamente no sistema da TV Marataízes e é distribuído automaticamente para TV, Instagram e portal — <strong>sem etapa manual, sem perda de tempo, sem inconsistência de mensagem.</strong> Toda quarta a equipe grava. Todo sábado o programa vai ao ar. A marca aparece 7 dias por semana.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">O que está incluído</div>
+  <div class="section-title">Cada semana. Sem parar.</div>
+  <div class="section-sub">Um ecossistema completo de comunicação, não um comercial avulso.</div>
+  <div class="deliverables">
+    <div class="del">
+      <div class="del-icon"><i class="ti ti-device-tv"></i></div>
+      <div class="del-title">Programa semanal · 30 min</div>
+      <div class="del-sub">Todo sábado na TV Marataízes, TV Sul Capixaba e Soul TV Canal 300</div>
+    </div>
+    <div class="del">
+      <div class="del-icon"><i class="ti ti-video"></i></div>
+      <div class="del-title">Gravação toda quarta</div>
+      <div class="del-sub">Equipe na loja. Motos, ofertas, lançamentos e campanhas da semana</div>
+    </div>
+    <div class="del">
+      <div class="del-icon"><i class="ti ti-brand-instagram"></i></div>
+      <div class="del-title">1 Reel impulsionado/semana</div>
+      <div class="del-sub">Trecho do programa transformado em vídeo e distribuído regionalmente</div>
+    </div>
+    <div class="del">
+      <div class="del-icon"><i class="ti ti-chart-bar"></i></div>
+      <div class="del-title">4 Stories por mês</div>
+      <div class="del-sub">No perfil oficial da TV Marataízes para o público do Sul Capixaba</div>
+    </div>
+    <div class="del">
+      <div class="del-icon"><i class="ti ti-world"></i></div>
+      <div class="del-title">VOD permanente</div>
+      <div class="del-sub">Programa disponível no portal e plataformas digitais após a exibição</div>
+    </div>
+    <div class="del">
+      <div class="del-icon"><i class="ti ti-shield-check"></i></div>
+      <div class="del-title">Exclusividade no segmento</div>
+      <div class="del-sub">Nenhum concorrente de motos em Marataízes terá esse formato durante o contrato</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Exclusividade</div>
+  <div class="excl">
+    <div class="excl-badge">Exclusivo</div>
+    <div>
+      <div class="excl-title">Durante 6 meses, a Ronan Motors é a única loja de motos nesse formato em Marataízes.</div>
+      <div class="excl-text">Durante a vigência do contrato, a TV Marataízes não realizará um programa semelhante para nenhum outro concorrente do segmento na cidade. <strong>Após o encerramento sem renovação, essa exclusividade deixa de existir</strong> — e qualquer concorrente pode ocupar o espaço que a Ronan Motors construiu. A janela para garantir esse posicionamento existe agora. Depois que outro ocupar, o trabalho de construção de marca recomeça do zero para quem ficou de fora.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Investimento</div>
+  <div class="section-title">Composição do valor</div>
+  <div class="section-sub">Uma estrutura pensada para tornar o projeto viável desde o primeiro mês.</div>
+  <div class="pricing">
+    <div class="pricing-header">
+      <div class="pricing-title">Valor do programa</div>
+      <div class="price-main">R$ 3.500 <span>/ mês</span></div>
+      <div class="price-sub">Contrato de 6 meses · Exclusividade garantida</div>
+    </div>
+    <div class="pricing-rows">
+      <div class="price-row">
+        <div class="price-row-label">Valor integral do programa mensal</div>
+        <div class="price-row-val">R$ 3.500</div>
+      </div>
+      <div class="price-row">
+        <div class="price-row-label">Permuta — bicicleta elétrica (R$ 7.500 ÷ 6)</div>
+        <div class="price-row-val accent">− R$ 1.250</div>
+      </div>
+    </div>
+    <div class="price-total">
+      <div class="price-total-label">Desembolso mensal em dinheiro</div>
+      <div class="price-total-val">R$ 2.250</div>
+    </div>
+  </div>
+</div>
+
+<div class="urgency">
+  <div class="urgency-title">A janela existe <span>agora.</span><br>Não depois.</div>
+  <div class="urgency-text">Marcas que constroem presença contínua antes dos concorrentes criam uma vantagem que o tempo consolida — não apaga. Após 6 meses sem renovação, a exclusividade é liberada. A pergunta não é se alguém vai ocupar esse espaço. É se vai ser a Ronan Motors ou outra loja.</div>
+  <a href="https://wa.me/5528999036141?text=Quero+saber+mais+sobre+o+Programa+Oficial+Ronan+Motors+na+TV+Marataízes" class="cta" target="_blank" rel="noopener">
+    <i class="ti ti-brand-whatsapp"></i>
+    Falar com a TV Marataízes
+  </a>
+</div>
+
+<footer>
+  <div class="footer-text">TV Marataízes · Macuca Produções · Canal 300 Soul TV · Sul do Espírito Santo</div>
+  <div class="footer-brand">Proposta exclusiva para Ronan Motors</div>
+</footer>
+
+</body>
+</html>
