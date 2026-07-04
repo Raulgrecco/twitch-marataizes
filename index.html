@@ -428,59 +428,97 @@ function loadLivePlayer(){
 </div>
 
 <!-- ════════════════════════════════════════════════════
-     INÍCIO JORNAL DA REDE
-     Atualizar diariamente: URL do Castr e data abaixo.
+     INÍCIO ENTENDA SUA CIDADE
+     Biblioteca permanente — escalável.
+     Para adicionar um novo episódio no futuro:
+       1) Crie a página do episódio em /entenda-sua-cidade/novo-slug/index.html
+          (copie um dos templates já publicados nessa pasta como base)
+       2) Adicione um novo objeto ao array ESC_EPISODIOS abaixo
+       3) Nada mais precisa ser alterado — o card é gerado automaticamente
+          e o layout se ajusta sozinho.
 ════════════════════════════════════════════════════ -->
-<div style="background:#fff;border-radius:12px;border:1px solid #e0ddd6;overflow:hidden;margin:18px 0 24px;">
-  <div style="background:#E8370D;color:#fff;padding:10px 14px;display:flex;align-items:center;gap:8px;">
-    <span style="font-size:15px;">🎙️</span>
-    <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;">Jornal da Rede</span>
-    <span style="font-size:10px;opacity:.8;margin-left:auto;">TV Sul Capixaba</span>
+<style>
+.esc-wrap{background:#0a0a0a;border-radius:14px;border:1px solid #3a2f12;overflow:hidden;margin:18px 0 24px;padding:26px 18px 22px;position:relative;}
+.esc-wrap::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at top, rgba(212,175,55,.08) 0%, rgba(0,0,0,0) 60%);}
+.esc-head{text-align:center;margin-bottom:20px;position:relative;}
+.esc-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#D4AF37;}
+.esc-eyebrow::before,.esc-eyebrow::after{content:'';width:22px;height:1px;background:#D4AF37;opacity:.6;}
+.esc-title{font-family:Georgia,'Times New Roman',serif;font-size:24px;font-weight:700;color:#EFE0B0;letter-spacing:.5px;margin:10px 0 6px;}
+.esc-subtitle{font-size:12px;color:#9a9a9a;letter-spacing:.3px;}
+.esc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;position:relative;}
+.esc-card{background:#111;border:1px solid rgba(212,175,55,.22);border-radius:12px;overflow:hidden;text-decoration:none;display:block;transition:transform .2s,border-color .2s;}
+.esc-card:hover{transform:translateY(-3px);border-color:rgba(212,175,55,.55);}
+.esc-thumb{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden;}
+.esc-thumb img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.9);}
+.esc-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,0) 45%, rgba(0,0,0,.88) 100%);}
+.esc-badge{position:absolute;top:9px;left:9px;z-index:2;background:rgba(0,0,0,.75);border:1px solid #D4AF37;color:#D4AF37;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:20px;}
+.esc-play{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;}
+.esc-play span{width:38px;height:38px;border-radius:50%;background:rgba(212,175,55,.9);display:flex;align-items:center;justify-content:center;}
+.esc-body{padding:14px 15px 16px;}
+.esc-card-title{font-size:13.5px;font-weight:800;color:#fff;line-height:1.35;margin-bottom:7px;}
+.esc-card-desc{font-size:11px;color:#9c9c9c;line-height:1.55;margin-bottom:13px;}
+.esc-btn{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#E9CB6B,#B8860B);color:#000;font-size:11px;font-weight:800;letter-spacing:.3px;padding:7px 15px;border-radius:20px;}
+@media(max-width:600px){.esc-title{font-size:20px;}}
+</style>
+<div class="esc-wrap">
+  <div class="esc-head">
+    <span class="esc-eyebrow">Biblioteca de Cidadania</span>
+    <div class="esc-title">📚 Entenda Sua Cidade</div>
+    <div class="esc-subtitle">Série permanente de educação para a cidadania.</div>
   </div>
-  <div style="display:flex;gap:0;align-items:stretch;">
-    <a onclick="openJornal()" style="flex:0 0 42%;max-width:42%;display:block;position:relative;background:#111;text-decoration:none;cursor:pointer;">
-      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/radio.png" alt="Jornal da Rede" style="width:100%;height:100%;object-fit:cover;display:block;">
-      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);">
-        <div style="width:36px;height:36px;background:#E8370D;border-radius:50%;display:flex;align-items:center;justify-content:center;">
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="#fff" style="margin-left:3px;"><polygon points="5,3 19,12 5,21"/></svg>
-        </div>
-      </div>
-    </a>
-    <div style="flex:1;padding:16px 18px;display:flex;flex-direction:column;justify-content:center;gap:10px;">
-      <div style="font-size:15px;font-weight:800;color:#1A1A1A;line-height:1.3;">As notícias mais importantes da região, todos os dias, em poucos minutos.</div>
-      <!-- DATA DA EDIÇÃO — atualizar diariamente -->
-      <div style="font-size:11px;color:#6B6B6B;">📅 Jornal da Rede — 29 de junho de 2026</div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
-        <button onclick="openJornal()" style="display:inline-flex;align-items:center;gap:6px;background:#E8370D;color:#fff;border:none;border-radius:20px;padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.4px;font-family:inherit;">▶ Assistir edição de hoje</button>
-        <a href="https://tvsulcapixaba.com.br/jornal-da-rede/" target="_blank" rel="noopener" style="font-size:11px;color:#6B6B6B;text-decoration:none;">Edições anteriores →</a>
-      </div>
-    </div>
-  </div>
+  <div class="esc-grid" id="esc-grid"></div>
 </div>
+<script>
+// Adicione novos episódios aqui — o layout se ajusta sozinho, sem precisar mexer no HTML/CSS acima.
+var ESC_EPISODIOS = [
+  {
+    badge: 'Especial 1',
+    titulo: 'Como Funciona a Administração Pública',
+    desc: 'Entenda, de forma simples, o papel do vereador, presidente da Câmara, prefeito, secretários, emendas, licitações, Portal da Transparência, Lei de Acesso à Informação, royalties, IPTU, de onde vem o dinheiro público e quem decide onde ele será aplicado.',
+    thumb: 'https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/entenda.png',
+    url: '/entenda-sua-cidade/especial-1/'
+  },
+  {
+    badge: 'Especial 2',
+    titulo: 'Fiscalização e Como a Máquina Pública Funciona',
+    desc: 'Aprenda como funcionam o Ministério Público, Tribunal de Contas, Controladoria, convênios, concursos públicos, pregão eletrônico, dispensa, inexigibilidade, obras públicas, hospitais, contratação de shows, medicamentos e outros temas da administração pública.',
+    thumb: 'https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/entenda.png',
+    url: '/entenda-sua-cidade/especial-2/'
+  },
+  {
+    badge: 'Especial Saúde',
+    titulo: 'REMUME × RENAME',
+    desc: 'Você sabe a diferença entre oferecer mais medicamentos e realmente tê-los disponíveis para a população? Entenda como funciona a lista municipal de medicamentos e o compromisso assumido quando um medicamento entra na REMUME.',
+    thumb: 'https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/entenda2.png',
+    url: '/entenda-sua-cidade/remume-rename/'
+  }
+];
+
+(function renderEscCards(){
+  var grid = document.getElementById('esc-grid');
+  var html = '';
+  ESC_EPISODIOS.forEach(function(ep){
+    html += '<a class="esc-card" href="'+ep.url+'">'
+          +   '<div class="esc-thumb">'
+          +     '<span class="esc-badge">'+ep.badge+'</span>'
+          +     '<img src="'+ep.thumb+'" alt="'+ep.titulo+'">'
+          +     '<div class="esc-play"><span><svg viewBox="0 0 24 24" width="14" height="14" fill="#000" style="margin-left:2px;"><polygon points="5,3 19,12 5,21"/></svg></span></div>'
+          +   '</div>'
+          +   '<div class="esc-body">'
+          +     '<div class="esc-card-title">'+ep.titulo+'</div>'
+          +     '<div class="esc-card-desc">'+ep.desc+'</div>'
+          +     '<span class="esc-btn">▶ Assistir</span>'
+          +   '</div>'
+          + '</a>';
+  });
+  grid.innerHTML = html;
+})();
+</script>
 <!-- ════════════════════════════════════════════════════
-     FIM JORNAL DA REDE
+     FIM ENTENDA SUA CIDADE
 ════════════════════════════════════════════════════ -->
 
 <script>
-function openJornal(){
-  var JORNAL_URL = 'https://player.castr.com/vod/NSfzkzLI4856K2ey';
-  var SHARE_URL  = 'https://tvsulcapixaba.com.br/jornal-da-rede/';
-  var SHARE_TEXT = encodeURIComponent('📻 Jornal da Rede — TV Sul Capixaba\nAs principais notícias do Sul do ES. Ouça agora: ' + SHARE_URL);
-  var m = document.getElementById('vod-modal');
-  var w = document.getElementById('vod-player-wrap');
-  w.innerHTML = '<iframe src="' + JORNAL_URL + '?autoplay=1" allow="autoplay;fullscreen" allowfullscreen style="width:100%;height:100%;border:0;border-radius:8px;"></iframe>';
-  var infoEl = document.getElementById('vod-modal-info');
-  if(infoEl) infoEl.innerHTML =
-    '<div style="padding:8px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">' +
-    '<span style="font-size:13px;font-weight:800;color:#fff;">🎙️ Jornal da Rede — Sul Capixaba</span>' +
-    '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
-    '<a href="https://wa.me/?text=' + SHARE_TEXT + '" target="_blank" rel="noopener" style="background:#25D366;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;text-decoration:none;">🟢 WhatsApp</a>' +
-    '<a href="https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(SHARE_URL) + '" target="_blank" rel="noopener" style="background:#1877F2;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;text-decoration:none;">🔵 Facebook</a>' +
-    '<button onclick="navigator.clipboard.writeText(\'' + SHARE_URL + '\').then(function(){var b=document.getElementById(\'jr-copy\');b.textContent=\'✅ Copiado!\';setTimeout(function(){b.textContent=\'🔗 Copiar link\';},2000);})" id="jr-copy" style="background:#444;color:#fff;border:none;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;cursor:pointer;">🔗 Copiar link</button>' +
-    '<a href="' + SHARE_URL + '" target="_blank" rel="noopener" style="background:#1a1a1a;color:#aaa;border:1px solid #333;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;text-decoration:none;">📋 Edições anteriores</a>' +
-    '</div></div>';
-  m.style.display = 'flex';
-}
 function openVodModal(src, titulo, credito){
   // Remove o iframe ao vivo do DOM completamente — única forma de parar o áudio
   var live=document.getElementById('castr-player');
