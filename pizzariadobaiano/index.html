@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O Renascimento da Esquina — Proposta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,400;1,6..72,500&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     PARA EDITAR O INVESTIMENTO: mude apenas a linha abaixo.
+     ============================================================ */
+  :root{ --preco: "2.900"; }
+
+  :root{
+    --paper:#F7F3EC;
+    --paper-2:#EFE9DD;
+    --ink:#1B1812;
+    --ink-soft:#5A5346;
+    --ember:#A63A26;
+    --line: rgba(27,24,18,0.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:'Work Sans', sans-serif; font-weight:300;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--ember); color:var(--paper);}
+
+  h1,h2,h3,.serif{font-family:'Newsreader', serif; font-weight:400; letter-spacing:-0.01em;}
+
+  .label{
+    font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink-soft);
+    font-weight:500;
+  }
+
+  .wrap{max-width:1100px; margin:0 auto; padding:0 40px;}
+  section{padding:150px 0;}
+
+  /* ---------- NAV ---------- */
+  .topnav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:26px 40px; font-size:12px; letter-spacing:0.1em; color:var(--ink-soft);
+    mix-blend-mode:difference;
+  }
+  .topnav span{color:#fff;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    height:100svh; position:relative; display:flex; flex-direction:column;
+    justify-content:center; align-items:center; text-align:center; padding:0 40px;
+    overflow:hidden;
+  }
+  .hero-bg{position:absolute; inset:0; z-index:0;}
+  .hero-bg img{width:100%; height:100%; object-fit:cover; filter:grayscale(15%) brightness(0.9);}
+  .hero-bg::after{content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(247,243,236,0.15) 0%, rgba(247,243,236,0.55) 75%, var(--paper) 100%);}
+  .img-missing .hero-bg img{display:none;}
+  .img-missing .hero-bg{background:var(--paper-2);}
+  .hero-inner{position:relative; z-index:1; max-width:780px;}
+  .hero .label{margin-bottom:26px;}
+  .hero h1{
+    font-size:clamp(38px, 6vw, 74px); line-height:1.06; color:var(--ink);
+  }
+  .hero h1 em{font-style:italic; color:var(--ember);}
+  .hero-sub{
+    margin-top:28px; font-size:18px; line-height:1.6; color:var(--ink-soft); max-width:480px;
+    margin-left:auto; margin-right:auto; font-weight:300;
+  }
+  .scrolldown{
+    position:absolute; bottom:36px; left:50%; transform:translateX(-50%); z-index:1;
+    font-size:11px; letter-spacing:0.15em; color:var(--ink-soft);
+  }
+
+  /* ---------- ANTES / DEPOIS / EM BREVE ---------- */
+  .sequence{padding:0;}
+  .seq-item{
+    position:relative; height:88vh; display:flex; align-items:flex-end;
+    border-bottom:1px solid var(--line);
+  }
+  .seq-item .seq-media{position:absolute; inset:0; z-index:0;}
+  .seq-item .seq-media img{width:100%; height:100%; object-fit:cover; filter:grayscale(20%);}
+  .seq-item.img-missing .seq-media img{display:none;}
+  .seq-item.img-missing .seq-media{background:var(--paper-2);}
+  .seq-item .seq-media::after{content:''; position:absolute; inset:0; background:linear-gradient(0deg, rgba(27,24,18,0.55) 0%, rgba(27,24,18,0) 45%);}
+  .seq-caption{position:relative; z-index:1; padding:44px 48px; color:#fff;}
+  .seq-caption .label{color:rgba(255,255,255,0.75);}
+  .seq-caption h3{font-size:clamp(24px,3vw,36px); margin-top:10px; color:#fff;}
+  .placeholder-txt{
+    position:absolute; inset:0; display:none; align-items:center; justify-content:center;
+    font-size:12px; letter-spacing:0.08em; color:var(--ink-soft); text-align:center; padding:20px;
+  }
+  .seq-item.img-missing .placeholder-txt{display:flex;}
+
+  .seq-future{
+    background:var(--ink); display:flex; align-items:center; justify-content:center; text-align:center;
+  }
+  .seq-future-inner{max-width:640px; padding:60px 40px;}
+  .seq-future .label{color:rgba(247,243,236,0.55); margin-bottom:26px;}
+  .seq-future h3{font-size:clamp(24px,3.4vw,38px); line-height:1.3; color:var(--paper);}
+  .seq-future h3 em{font-style:italic; color:var(--ember);}
+  .seq-future p{margin-top:26px; font-size:15px; line-height:1.7; color:rgba(247,243,236,0.65); font-weight:300;}
+
+  /* ---------- ÚNICO ---------- */
+  .center-block{text-align:center; max-width:720px; margin:0 auto;}
+  .center-block .label{margin-bottom:28px;}
+  .center-block h2{font-size:clamp(28px,4vw,46px); line-height:1.25;}
+  .center-block h2 em{font-style:italic; color:var(--ember);}
+  .fade-list{
+    margin-top:56px; display:flex; flex-direction:column; gap:0;
+    border-top:1px solid var(--line);
+  }
+  .fade-list div{
+    padding:20px 0; border-bottom:1px solid var(--line); font-size:16px; color:var(--ink-soft);
+    display:flex; justify-content:space-between; align-items:baseline;
+  }
+  .fade-list div b{color:var(--ink); font-weight:500;}
+  .fade-note{margin-top:40px; font-size:15px; color:var(--ink-soft); font-style:italic; font-family:'Newsreader',serif;}
+
+  /* ---------- O QUE VAMOS FAZER ---------- */
+  .phases-min{display:grid; grid-template-columns:repeat(3,1fr); gap:60px; margin-top:70px;}
+  .phase-min .label{margin-bottom:18px;}
+  .phase-min h3{font-size:24px; margin-bottom:22px;}
+  .phase-min ul{list-style:none;}
+  .phase-min li{
+    font-size:15px; color:var(--ink-soft); padding:12px 0; border-top:1px solid var(--line);
+  }
+  .phase-min li:first-of-type{border-top:none;}
+
+  /* ---------- INCLUSO ---------- */
+  .cards{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);
+    border:1px solid var(--line); margin-top:70px;
+  }
+  .card{background:var(--paper); padding:36px 28px; min-height:150px; display:flex; flex-direction:column; justify-content:space-between;}
+  .card .num{font-size:11px; color:var(--ink-soft); letter-spacing:0.1em;}
+  .card h4{font-family:'Newsreader',serif; font-size:19px; margin-top:16px; font-weight:400;}
+  .card.highlight{background:var(--ink); color:var(--paper);}
+  .card.highlight .num{color:rgba(247,243,236,0.6);}
+
+  /* ---------- INVESTIMENTO ---------- */
+  .invest{background:var(--ink); color:var(--paper);}
+  .invest .label{color:rgba(247,243,236,0.55);}
+  .invest-close{
+    max-width:680px; margin:0 auto 90px; text-align:center;
+    font-family:'Newsreader', serif; font-style:italic; font-size:clamp(20px,2.6vw,28px);
+    line-height:1.55; color:rgba(247,243,236,0.92);
+  }
+  .invest-box{text-align:center;}
+  .invest-box .label{margin-bottom:18px;}
+  .invest-name{font-size:15px; letter-spacing:0.05em; color:rgba(247,243,236,0.7); margin-bottom:34px;}
+  .invest-price{
+    font-family:'Newsreader',serif; font-size:clamp(56px,9vw,110px); line-height:1; color:var(--paper);
+  }
+  .invest-price sup{font-size:0.35em; vertical-align:top; top:0.3em; position:relative; margin-right:6px;}
+  .invest-price::before{content:'R$'; font-size:0.35em; vertical-align:top; position:relative; top:0.15em; margin-right:10px; color:rgba(247,243,236,0.6);}
+  .invest-terms{margin-top:14px; font-size:14px; color:rgba(247,243,236,0.6);}
+  .invest-note{
+    max-width:480px; margin:38px auto 0; font-size:13.5px; color:rgba(247,243,236,0.55);
+    line-height:1.6;
+  }
+
+  /* ---------- CLOSING ---------- */
+  .closing{
+    min-height:80vh; display:flex; align-items:center; justify-content:center; text-align:center;
+    padding:100px 40px;
+  }
+  .closing-inner{max-width:640px;}
+  .closing h2{font-size:clamp(28px,4vw,44px); line-height:1.3;}
+  .closing h2 em{font-style:italic; color:var(--ember);}
+  .cta-btn{
+    display:inline-block; margin-top:48px; padding:18px 38px;
+    background:var(--ink); color:var(--paper); text-decoration:none;
+    font-size:13px; letter-spacing:0.12em; text-transform:uppercase; font-weight:500;
+    transition:background .3s ease;
+  }
+  .cta-btn:hover{background:var(--ember);}
+
+  footer{
+    padding:36px 40px; text-align:center; font-size:11px; letter-spacing:0.1em;
+    color:var(--ink-soft); border-top:1px solid var(--line);
+  }
+
+  @media (max-width:860px){
+    section{padding:90px 0;}
+    .phases-min{grid-template-columns:1fr; gap:36px;}
+    .cards{grid-template-columns:repeat(2,1fr);}
+    .wrap{padding:0 24px;}
+    .seq-item{height:70vh;}
+  }
+
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <span>MACUCA PRODUÇÕES</span>
+  <span>PROPOSTA — PIZZARIA DO BAIANO</span>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="hero-bg">
+    <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/6-%20conves%2010%20anos%20atras%20cheio.png" alt=""
+         onerror="this.closest('.hero').classList.add('img-missing'); this.style.display='none';">
+  </div>
+  <div class="hero-inner">
+    <div class="label">Uma proposta</div>
+    <h1>O renascimento<br><em>da esquina</em></h1>
+    <p class="hero-sub">Você não está apenas mudando de endereço.<br>Está escrevendo um novo capítulo da história daquela esquina.</p>
+  </div>
+  <div class="scrolldown">role para ver</div>
+</header>
+
+<!-- ============ SEQUÊNCIA ANTES/DEPOIS/EM BREVE ============ -->
+<section class="sequence">
+  <div class="seq-item">
+    <div class="seq-media">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/6-%20conves%2010%20anos%20atras%20cheio.png" alt="Antes"
+           onerror="this.closest('.seq-item').classList.add('img-missing'); this.style.display='none';">
+    </div>
+    <div class="placeholder-txt">6- conves 10 anos atras cheio.png</div>
+    <div class="seq-caption">
+      <div class="label">Antes</div>
+      <h3>Uma das pizzarias mais lembradas da cidade.</h3>
+    </div>
+  </div>
+
+  <div class="seq-item">
+    <div class="seq-media">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/07-fechadocombaixinhofechado.png" alt="Depois"
+           onerror="this.closest('.seq-item').classList.add('img-missing'); this.style.display='none';">
+    </div>
+    <div class="placeholder-txt">07-fechadocombaixinhofechado.png</div>
+    <div class="seq-caption">
+      <div class="label">Depois</div>
+      <h3>Anos fechada. A fama de um lugar que "não vai pra frente".</h3>
+    </div>
+  </div>
+
+  <div class="seq-item">
+    <div class="seq-media">
+      <img src="https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/clima/faixadapizzariadobaianohojepreinauguracaodia.png" alt="Em breve"
+           onerror="this.closest('.seq-item').classList.add('img-missing'); this.style.display='none';">
+    </div>
+    <div class="placeholder-txt">faixadapizzariadobaianohojepreinauguracaodia.png</div>
+    <div class="seq-caption">
+      <div class="label">Em breve</div>
+      <h3>A nova Pizzaria do Baiano. Pronta para voltar a viver.</h3>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POR QUE AGORA ============ -->
+<section>
+  <div class="wrap">
+    <div class="center-block reveal">
+      <div class="label">Por que esse momento é único</div>
+      <h2>Depois da inauguração, isso <em>nunca mais</em> vai existir.</h2>
+      <div class="fade-list">
+        <div>A mudança <b>só acontece uma vez</b></div>
+        <div>A chegada dos equipamentos <b>só acontece uma vez</b></div>
+        <div>A montagem do novo salão <b>só acontece uma vez</b></div>
+        <div>A primeira fila <b>só acontece uma vez</b></div>
+        <div>O primeiro cliente da casa nova <b>só acontece uma vez</b></div>
+      </div>
+      <p class="fade-note">Esse conteúdo só existe agora. Depois, desaparece para sempre.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ O QUE VAMOS FAZER ============ -->
+<section style="background:var(--paper-2);">
+  <div class="wrap">
+    <div class="reveal" style="max-width:560px;">
+      <div class="label">O que vamos fazer</div>
+      <h2 style="font-size:clamp(26px,3.4vw,38px); margin-top:14px;">90 dias, três momentos.</h2>
+    </div>
+    <div class="phases-min reveal">
+      <div class="phase-min">
+        <div class="label">Antes</div>
+        <h3>Expectativa</h3>
+        <ul>
+          <li>Mudança</li>
+          <li>Bastidores</li>
+          <li>Montagem</li>
+          <li>Contagem regressiva</li>
+        </ul>
+      </div>
+      <div class="phase-min">
+        <div class="label">Durante</div>
+        <h3>Inauguração</h3>
+        <ul>
+          <li>Cobertura completa</li>
+          <li>Reels e stories</li>
+          <li>TV Marataízes no local</li>
+          <li>Instagram da TV</li>
+        </ul>
+      </div>
+      <div class="phase-min">
+        <div class="label">Depois</div>
+        <h3>Consolidação</h3>
+        <ul>
+          <li>Movimento e clientes</li>
+          <li>Famílias e ocasiões</li>
+          <li>Construção de marca</li>
+          <li>Posicionamento regional</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ O QUE ESTÁ INCLUSO ============ -->
+<section>
+  <div class="wrap">
+    <div class="reveal" style="max-width:560px;">
+      <div class="label">O que está incluso</div>
+      <h2 style="font-size:clamp(26px,3.4vw,38px); margin-top:14px;">Tudo trabalhando junto — a pizzaria e a TV, na mesma direção.</h2>
+    </div>
+    <div class="cards reveal">
+      <div class="card highlight"><div class="num">01</div><h4>Instagram da Pizzaria</h4></div>
+      <div class="card highlight"><div class="num">02</div><h4>Instagram da TV Marataízes</h4></div>
+      <div class="card"><div class="num">03</div><h4>TV Marataízes</h4></div>
+      <div class="card"><div class="num">04</div><h4>Portal TV Marataízes</h4></div>
+      <div class="card"><div class="num">05</div><h4>Vídeo institucional</h4></div>
+      <div class="card"><div class="num">06</div><h4>Stories</h4></div>
+      <div class="card"><div class="num">07</div><h4>Reels</h4></div>
+      <div class="card"><div class="num">08</div><h4>Cobertura da inauguração</h4></div>
+    </div>
+    <p style="margin-top:28px; font-size:14px; color:var(--ink-soft); max-width:520px;">Os dois primeiros são o que ninguém mais consegue oferecer: a audiência da TV emprestada para a pizzaria, e a pizzaria virando conteúdo da TV — ao mesmo tempo.</p>
+  </div>
+</section>
+
+<!-- ============ INVESTIMENTO ============ -->
+<section class="invest">
+  <div class="wrap">
+    <p class="invest-close reveal">"Daqui a noventa dias sua pizzaria estará funcionando normalmente. A diferença é que a cidade terá acompanhado cada passo dessa transformação. As pessoas não vão sentir que apareceu uma pizzaria nova — vão sentir que acompanharam o crescimento dela."</p>
+
+    <div class="invest-box reveal">
+      <div class="label">Investimento</div>
+      <div class="invest-name">Projeto Especial de Lançamento — 90 dias</div>
+      <div class="invest-price" id="preco">2.900</div>
+      <div class="invest-terms">por mês, durante 3 meses</div>
+      <p class="invest-note">Condição exclusiva para este projeto, que será utilizado como case oficial da Macuca Produções e da TV Marataízes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ENCERRAMENTO ============ -->
+<section class="closing">
+  <div class="closing-inner reveal">
+    <h2>Daqui a alguns meses, você terá uma pizzaria funcionando.<br><em>Hoje, você tem uma oportunidade que nunca mais vai existir.</em></h2>
+    <a href="#" class="cta-btn">Vamos começar</a>
+  </div>
+</section>
+
+<footer>MACUCA PRODUÇÕES × TV MARATAÍZES</footer>
+
+<script>
+  document.getElementById('preco').textContent = getComputedStyle(document.documentElement).getPropertyValue('--preco').replace(/"/g,'').trim();
+
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12});
+  els.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
