@@ -43,8 +43,8 @@
   .topnav{
     position:fixed; top:0; left:0; right:0; z-index:50;
     display:flex; justify-content:space-between; align-items:center;
-    padding:26px 40px; font-size:12px; letter-spacing:0.1em; color:#fff;
-    background:linear-gradient(180deg, rgba(8,6,4,0.55) 0%, rgba(8,6,4,0) 100%);
+    padding:26px 40px; font-size:12px; letter-spacing:0.1em; color:rgba(255,255,255,0.85);
+    text-shadow:0 1px 8px rgba(0,0,0,0.4);
   }
 
   /* ---------- HERO ---------- */
@@ -54,25 +54,25 @@
     overflow:hidden;
   }
   .hero-bg{position:absolute; inset:0; z-index:0;}
-  .hero-bg img{width:100%; height:100%; object-fit:cover; filter:grayscale(15%) brightness(0.45) contrast(1.05);}
-  .hero-bg::after{content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(8,6,4,0.62) 0%, rgba(8,6,4,0.62) 82%, var(--paper) 100%);}
+  .hero-bg img{width:100%; height:100%; object-fit:cover; filter:grayscale(10%) contrast(1.05);}
+  .hero-bg::after{content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,8,6,0.5) 0%, rgba(10,8,6,0.5) 88%, var(--paper) 100%);}
   .img-missing .hero-bg img{display:none;}
   .img-missing .hero-bg{background:var(--ink);}
   .hero-inner{position:relative; z-index:1; max-width:780px;}
-  .hero .label{margin-bottom:26px; color:rgba(247,243,236,0.75);}
+  .hero .label{margin-bottom:26px; color:rgba(247,243,236,0.8);}
   .hero h1{
     font-size:clamp(38px, 6vw, 74px); line-height:1.06; color:#fff;
-    text-shadow:0 2px 24px rgba(0,0,0,0.6), 0 1px 3px rgba(0,0,0,0.8);
+    text-shadow:0 2px 14px rgba(0,0,0,0.4);
   }
-  .hero h1 em{font-style:italic; color:#F0855C;}
+  .hero h1 em{font-style:italic; color:#E8783A;}
   .hero-sub{
     margin-top:28px; font-size:18px; line-height:1.6; color:rgba(255,255,255,0.92); max-width:480px;
-    margin-left:auto; margin-right:auto; font-weight:300;
-    text-shadow:0 1px 12px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.7);
+    margin-left:auto; margin-right:auto; font-weight:400;
+    text-shadow:0 1px 10px rgba(0,0,0,0.35);
   }
   .scrolldown{
     position:absolute; bottom:36px; left:50%; transform:translateX(-50%); z-index:1;
-    font-size:11px; letter-spacing:0.15em; color:rgba(247,243,236,0.75);
+    font-size:11px; letter-spacing:0.15em; color:rgba(247,243,236,0.8);
   }
 
   /* ---------- ANTES / DEPOIS / EM BREVE ---------- */
@@ -119,27 +119,31 @@
   }
   .fade-list div b{color:var(--ink); font-weight:500;}
   .fade-note{margin-top:40px; font-size:15px; color:var(--ink-soft); font-style:italic; font-family:'Newsreader',serif;}
-
-  /* ---------- O QUE VAMOS FAZER ---------- */
-  .phases-min{display:grid; grid-template-columns:repeat(3,1fr); gap:60px; margin-top:70px;}
-  .phase-min .label{margin-bottom:18px;}
-  .phase-min h3{font-size:24px; margin-bottom:22px;}
-  .phase-min ul{list-style:none;}
-  .phase-min li{
-    font-size:15px; color:var(--ink-soft); padding:12px 0; border-top:1px solid var(--line);
+  .fade-strong{
+    margin-top:34px; padding-top:34px; border-top:1px solid var(--line);
+    font-family:'Newsreader',serif; font-size:clamp(19px,2.2vw,24px); line-height:1.55; color:var(--ink);
   }
-  .phase-min li:first-of-type{border-top:none;}
 
-  /* ---------- INCLUSO ---------- */
-  .cards{
-    display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);
-    border:1px solid var(--line); margin-top:70px;
+  /* ---------- COMO VAMOS FAZER (RESULTADO) ---------- */
+  .result-list{margin-top:60px; display:flex; flex-direction:column;}
+  .result-item{
+    display:flex; gap:28px; align-items:baseline; padding:24px 0; border-top:1px solid var(--line);
   }
-  .card{background:var(--paper); padding:36px 28px; min-height:150px; display:flex; flex-direction:column; justify-content:space-between;}
-  .card .num{font-size:11px; color:var(--ink-soft); letter-spacing:0.1em;}
-  .card h4{font-family:'Newsreader',serif; font-size:19px; margin-top:16px; font-weight:400;}
-  .card.highlight{background:var(--ink); color:var(--paper);}
-  .card.highlight .num{color:rgba(247,243,236,0.6);}
+  .result-item:last-child{border-bottom:1px solid var(--line);}
+  .result-mark{font-family:'Newsreader',serif; font-style:italic; font-size:16px; color:var(--ember); flex-shrink:0; width:28px;}
+  .result-item p{font-size:18px; line-height:1.5; color:var(--ink); font-weight:400; font-family:'Newsreader',serif;}
+
+  /* ---------- DIFERENCIAL TV ---------- */
+  .diff-tv{background:var(--ink); color:var(--paper);}
+  .diff-tv-box{max-width:680px; margin:0 auto; text-align:center;}
+  .diff-tv-box .label{color:rgba(247,243,236,0.55); margin-bottom:24px;}
+  .diff-tv-box h2{font-size:clamp(26px,3.6vw,40px); color:var(--paper); line-height:1.3;}
+  .diff-tv-box p{margin-top:26px; font-size:16px; line-height:1.7; color:rgba(247,243,236,0.75); font-weight:300;}
+  .diff-tv-line{
+    margin-top:34px; font-family:'Newsreader',serif; font-size:clamp(20px,2.6vw,28px); line-height:1.4;
+    color:var(--paper) !important;
+  }
+  .diff-tv-line em{font-style:italic; color:#E8783A;}
 
   /* ---------- INVESTIMENTO ---------- */
   .invest{background:var(--ink); color:var(--paper);}
@@ -151,16 +155,15 @@
   }
   .invest-box{text-align:center;}
   .invest-box .label{margin-bottom:18px;}
-  .invest-name{font-size:15px; letter-spacing:0.05em; color:rgba(247,243,236,0.7); margin-bottom:34px;}
+  .invest-name{font-size:15px; letter-spacing:0.05em; color:rgba(247,243,236,0.7); margin-bottom:28px;}
   .invest-price{
-    font-family:'Newsreader',serif; font-size:clamp(56px,9vw,110px); line-height:1; color:var(--paper);
+    font-family:'Newsreader',serif; font-size:clamp(34px,4.2vw,46px); line-height:1; color:var(--paper); font-weight:400;
   }
-  .invest-price sup{font-size:0.35em; vertical-align:top; top:0.3em; position:relative; margin-right:6px;}
-  .invest-price::before{content:'R$'; font-size:0.35em; vertical-align:top; position:relative; top:0.15em; margin-right:10px; color:rgba(247,243,236,0.6);}
-  .invest-terms{margin-top:14px; font-size:14px; color:rgba(247,243,236,0.6);}
+  .invest-price::before{content:'R$'; font-size:0.5em; vertical-align:top; position:relative; top:0.1em; margin-right:8px; color:rgba(247,243,236,0.6);}
+  .invest-terms{margin-top:10px; font-size:14px; color:rgba(247,243,236,0.55);}
   .invest-note{
-    max-width:480px; margin:38px auto 0; font-size:13.5px; color:rgba(247,243,236,0.55);
-    line-height:1.6;
+    max-width:460px; margin:30px auto 0; font-size:14px; color:rgba(247,243,236,0.6);
+    line-height:1.65;
   }
 
   /* ---------- CLOSING ---------- */
@@ -270,70 +273,37 @@
         <div>O primeiro cliente da casa nova <b>só acontece uma vez</b></div>
       </div>
       <p class="fade-note">Esse conteúdo só existe agora. Depois, desaparece para sempre.</p>
+      <p class="fade-strong">Daqui a seis meses, você terá uma pizzaria funcionando. Isso, qualquer pizzaria vai ter. O que nenhuma outra vai ter é o registro profissional do momento exato em que ela nasceu. Isso só existe agora. Acabou.</p>
     </div>
   </div>
 </section>
 
-<!-- ============ O QUE VAMOS FAZER ============ -->
+<!-- ============ COMO VAMOS FAZER ISSO ============ -->
 <section style="background:var(--paper-2);">
   <div class="wrap">
-    <div class="reveal" style="max-width:560px;">
-      <div class="label">O que vamos fazer</div>
-      <h2 style="font-size:clamp(26px,3.4vw,38px); margin-top:14px;">90 dias, três momentos.</h2>
+    <div class="reveal" style="max-width:620px;">
+      <div class="label">Como vamos fazer isso</div>
+      <h2 style="font-size:clamp(26px,3.4vw,38px); margin-top:14px;">Fazer a cidade falar da nova casa do Baiano.</h2>
     </div>
-    <div class="phases-min reveal">
-      <div class="phase-min">
-        <div class="label">Antes</div>
-        <h3>Expectativa</h3>
-        <ul>
-          <li>Mudança</li>
-          <li>Bastidores</li>
-          <li>Montagem</li>
-          <li>Contagem regressiva</li>
-        </ul>
-      </div>
-      <div class="phase-min">
-        <div class="label">Durante</div>
-        <h3>Inauguração</h3>
-        <ul>
-          <li>Cobertura completa</li>
-          <li>Reels e stories</li>
-          <li>TV Marataízes no local</li>
-          <li>Instagram da TV</li>
-        </ul>
-      </div>
-      <div class="phase-min">
-        <div class="label">Depois</div>
-        <h3>Consolidação</h3>
-        <ul>
-          <li>Movimento e clientes</li>
-          <li>Famílias e ocasiões</li>
-          <li>Construção de marca</li>
-          <li>Posicionamento regional</li>
-        </ul>
-      </div>
+    <div class="result-list reveal">
+      <div class="result-item"><span class="result-mark">01</span><p>A mudança será registrada desde o primeiro caminhão.</p></div>
+      <div class="result-item"><span class="result-mark">02</span><p>A inauguração será acompanhada pela TV Marataízes.</p></div>
+      <div class="result-item"><span class="result-mark">03</span><p>Os melhores momentos viram Reels.</p></div>
+      <div class="result-item"><span class="result-mark">04</span><p>A audiência da TV é direcionada para o Instagram da pizzaria.</p></div>
+      <div class="result-item"><span class="result-mark">05</span><p>Durante 90 dias, a cidade acompanha a transformação acontecendo.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ============ O QUE ESTÁ INCLUSO ============ -->
-<section>
+<!-- ============ POR QUE SÓ A MACUCA ============ -->
+<section class="diff-tv">
   <div class="wrap">
-    <div class="reveal" style="max-width:560px;">
-      <div class="label">O que está incluso</div>
-      <h2 style="font-size:clamp(26px,3.4vw,38px); margin-top:14px;">Tudo trabalhando junto — a pizzaria e a TV, na mesma direção.</h2>
+    <div class="diff-tv-box reveal">
+      <div class="label">Por que só a Macuca consegue fazer isso</div>
+      <h2>Um diferencial que nenhuma agência da região possui.</h2>
+      <p>Enquanto produzimos o conteúdo da pizzaria, a própria TV Marataízes passa a contar essa história para a cidade.</p>
+      <p class="diff-tv-line">Você não estará apenas anunciando.<br><em>Você estará virando notícia.</em></p>
     </div>
-    <div class="cards reveal">
-      <div class="card highlight"><div class="num">01</div><h4>Instagram da Pizzaria</h4></div>
-      <div class="card highlight"><div class="num">02</div><h4>Instagram da TV Marataízes</h4></div>
-      <div class="card"><div class="num">03</div><h4>TV Marataízes</h4></div>
-      <div class="card"><div class="num">04</div><h4>Portal TV Marataízes</h4></div>
-      <div class="card"><div class="num">05</div><h4>Vídeo institucional</h4></div>
-      <div class="card"><div class="num">06</div><h4>Stories</h4></div>
-      <div class="card"><div class="num">07</div><h4>Reels</h4></div>
-      <div class="card"><div class="num">08</div><h4>Cobertura da inauguração</h4></div>
-    </div>
-    <p style="margin-top:28px; font-size:14px; color:var(--ink-soft); max-width:520px;">Os dois primeiros são o que ninguém mais consegue oferecer: a audiência da TV emprestada para a pizzaria, e a pizzaria virando conteúdo da TV — ao mesmo tempo.</p>
   </div>
 </section>
 
@@ -344,10 +314,10 @@
 
     <div class="invest-box reveal">
       <div class="label">Investimento</div>
-      <div class="invest-name">Projeto Especial de Lançamento — 90 dias</div>
+      <div class="invest-name">Projeto de lançamento — 90 dias</div>
       <div class="invest-price" id="preco">2.900</div>
-      <div class="invest-terms">por mês, durante 3 meses</div>
-      <p class="invest-note">Condição exclusiva para este projeto, que será utilizado como case oficial da Macuca Produções e da TV Marataízes.</p>
+      <div class="invest-terms">por mês</div>
+      <p class="invest-note">Inclui toda a produção, acompanhamento e distribuição do conteúdo durante o período de inauguração e consolidação.</p>
     </div>
   </div>
 </section>
