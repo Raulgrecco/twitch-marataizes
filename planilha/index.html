@@ -202,26 +202,48 @@ function mesNome(date){return MESES[date.getMonth()];}
 function uuid(){return Date.now().toString(36)+Math.random().toString(36).slice(2);}
 
 function getVencimento(c){
-  if(!c.entrada)return null;
+  ensureVenc(c);
+  if(!c.venc)return null;
+  return new Date(c.venc+'T00:00:00');
+}
+
+/* ── NOVA REGRA FINANCEIRA ──
+   O vencimento passa a ser um campo armazenado (c.venc), nunca mais recalculado
+   a partir da data de hoje. Ele só avança quando o pagamento é confirmado,
+   somando exatamente 1 mês ao vencimento anterior (mesmo dia do mês). */
+
+function addOneMonth(date){
+  const d=new Date(date);
+  const dia=d.getDate();
+  const alvo=new Date(d.getFullYear(),d.getMonth()+1,1);
+  const diasNoMesAlvo=new Date(alvo.getFullYear(),alvo.getMonth()+1,0).getDate();
+  alvo.setDate(Math.min(dia,diasNoMesAlvo));
+  return alvo;
+}
+
+function toISO(date){
+  return date.getFullYear()+'-'+String(date.getMonth()+1).padStart(2,'0')+'-'+String(date.getDate()).padStart(2,'0');
+}
+
+function ensureVenc(c){
+  if(c.venc)return;
+  if(!c.entrada){c.venc=null;return;}
   const entrada=new Date(c.entrada+'T00:00:00');
   const h=hoje();
-  const hd=new Date(h.getFullYear(),h.getMonth(),h.getDate());
-  // Vencimento deste mês
   let venc=new Date(h.getFullYear(),h.getMonth(),entrada.getDate());
-  // Se já foi pago este mês, retorna o próximo vencimento
+  // migração de clientes antigos: se já constava pago no mês corrente, o
+  // vencimento ativo é o do mês seguinte (mesmo critério usado antigamente)
   if(isPagoMesAtual(c)){
-    return new Date(h.getFullYear(),h.getMonth()+1,entrada.getDate());
+    venc=addOneMonth(venc);
   }
-  // Se o vencimento deste mês ainda não chegou ou é hoje → retorna ele
-  // Se já passou → retorna ele mesmo (atrasado)
-  return venc;
+  c.venc=toISO(venc);
+  saveClientes(clientes);
 }
 
 function getProximoVencimento(c){
-  if(!c.entrada)return null;
-  const entrada=new Date(c.entrada+'T00:00:00');
-  const h=hoje();
-  return new Date(h.getFullYear(),h.getMonth()+1,entrada.getDate());
+  const venc=getVencimento(c);
+  if(!venc)return null;
+  return addOneMonth(venc);
 }
 
 function getDiffDays(date){
@@ -353,10 +375,16 @@ function renderCards(){
     const proxVenc=getProximoVencimento(c);
     const vencStr=venc?venc.toLocaleDateString('pt-BR'):'—';
     const dotColor={pago:'var(--blue)',avisar:'var(--yellow)',cobrar:'var(--red)',atrasado:'var(--red)',ok:'var(--text3)'}[status];
-    const mesAtual=mesNome(hoje());
+    const pagoMes=isPagoMesAtual(c);
+    let mesAtual=mesNome(hoje());
+    if(c.historico&&c.historico.length){
+      const ultimo=c.historico[c.historico.length-1];
+      if(String(ultimo.pagoEm).slice(0,7)===mesAtualKey()){
+        mesAtual=mesNome(new Date(ultimo.referente+'T00:00:00'));
+      }
+    }
     const proxMes=proxVenc?mesNome(proxVenc):'—';
     const proxDia=proxVenc?proxVenc.getDate():'?';
-    const pagoMes=isPagoMesAtual(c);
 
     let pagoHtml='';
     if(pagoMes){
@@ -454,21 +482,48 @@ function renderFinanceiro(){
 function marcarPago(id){
   const idx=clientes.findIndex(c=>c.id===id);
   if(idx<0)return;
-  if(!clientes[idx].pagamentos)clientes[idx].pagamentos=[];
+  const c=clientes[idx];
+  ensureVenc(c);
+
+  const vencAnterior=c.venc; // vencimento que está sendo pago (ex: 2026-06-24)
+  const novoVenc=toISO(addOneMonth(new Date(vencAnterior+'T00:00:00')));
+
+  // histórico simples de pagamentos
+  if(!c.historico)c.historico=[];
+  c.historico.push({
+    pagoEm:toISO(hoje()),           // data em que o pagamento foi registrado
+    referente:vencAnterior,         // vencimento que estava sendo quitado
+    novoVencimento:novoVenc,        // vencimento seguinte, já calculado
+    valor:planValue(c.plano)
+  });
+
+  // mantém o selo visual "PAGO" no mês em que o clique foi feito
+  if(!c.pagamentos)c.pagamentos=[];
   const key=mesAtualKey();
-  clientes[idx].pagamentos=clientes[idx].pagamentos.filter(p=>String(p).slice(0,7)!==key);
-  clientes[idx].pagamentos.push(key);
-  clientes[idx].naoPago=false;
+  c.pagamentos=c.pagamentos.filter(p=>String(p).slice(0,7)!==key);
+  c.pagamentos.push(key);
+
+  c.venc=novoVenc;
+  c.naoPago=false;
   saveClientes(clientes);render();
-  showToast('🔵 '+mesNome(hoje())+' marcado como PAGO!');
+  showToast('🔵 Pago! Novo vencimento: '+new Date(novoVenc+'T00:00:00').toLocaleDateString('pt-BR'));
 }
 
 function desmarcarPago(id){
   const idx=clientes.findIndex(c=>c.id===id);
   if(idx<0)return;
   if(!confirm('Marcar como NÃO PAGO?'))return;
-  clientes[idx].pagamentos=[];
-  clientes[idx].naoPago=true;
+  const c=clientes[idx];
+  // desfaz o último pagamento registrado, voltando o vencimento anterior
+  if(c.historico&&c.historico.length){
+    const ultimo=c.historico[c.historico.length-1];
+    if(ultimo.novoVencimento===c.venc){
+      c.venc=ultimo.referente;
+      c.historico.pop();
+    }
+  }
+  c.pagamentos=[];
+  c.naoPago=true;
   saveClientes(clientes);render();
   showToast('🔴 Marcado como NÃO PAGO');
 }
