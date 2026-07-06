@@ -55,6 +55,7 @@ header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 1.5
 .badge-red{background:rgba(255,59,59,.12);color:var(--red);border:1px solid rgba(255,59,59,.25)}
 .badge-blue{background:rgba(59,130,246,.15);color:var(--blue2);border:1px solid rgba(59,130,246,.3)}
 .badge-gray{background:rgba(85,85,85,.2);color:var(--gray);border:1px solid rgba(85,85,85,.3)}
+.badge-green{background:rgba(34,197,94,.15);color:var(--green);border:1px solid rgba(34,197,94,.3)}
 .badge-orange{background:rgba(255,140,0,.12);color:var(--orange);border:1px solid rgba(255,140,0,.25)}
 .card-body{display:none;border-top:1px solid var(--border);padding:1rem 1.25rem}
 .card-body.open{display:block}
@@ -261,6 +262,7 @@ function isPagoMesAtual(c){
 }
 
 function getStatus(c){
+  if(c.emDiaManual)return'emdia';
   if(isPagoMesAtual(c))return'pago';
   if(c.naoPago)return'atrasado';
   const venc=getVencimento(c);
@@ -272,7 +274,7 @@ function getStatus(c){
 }
 
 function statusBadge(status){
-  const map={pago:['🔵 Pago','badge-blue'],avisar:['🟡 Avisar','badge-yellow'],cobrar:['🔴 Cobrar hoje','badge-red'],atrasado:['🔴 NÃO PAGO','badge-red'],ok:['✓ Em dia','badge-gray']};
+  const map={pago:['🔵 Pago','badge-blue'],avisar:['🟡 Avisar','badge-yellow'],cobrar:['🔴 Cobrar hoje','badge-red'],atrasado:['🔴 NÃO PAGO','badge-red'],ok:['✓ Em dia','badge-gray'],emdia:['🟢 EM DIA','badge-green']};
   return map[status]||['—','badge-gray'];
 }
 
@@ -374,7 +376,7 @@ function renderCards(){
     const venc=getVencimento(c);
     const proxVenc=getProximoVencimento(c);
     const vencStr=venc?venc.toLocaleDateString('pt-BR'):'—';
-    const dotColor={pago:'var(--blue)',avisar:'var(--yellow)',cobrar:'var(--red)',atrasado:'var(--red)',ok:'var(--text3)'}[status];
+    const dotColor={pago:'var(--blue)',avisar:'var(--yellow)',cobrar:'var(--red)',atrasado:'var(--red)',ok:'var(--text3)',emdia:'var(--green)'}[status];
     const pagoMes=isPagoMesAtual(c);
     let mesAtual=mesNome(hoje());
     if(c.historico&&c.historico.length){
@@ -425,6 +427,7 @@ function renderCards(){
           (c.whatsapp?'<a href="'+waLink(c.whatsapp,venc?msgCobrar(c.nome,venc):'')+'" target="_blank" class="btn btn-red btn-sm">💰 Cobrar+PIX</a>':'')+
           (c.whatsapp?'<a href="'+waLink(c.whatsapp,msgStory(c.nome))+'" target="_blank" class="btn btn-wa btn-sm">📸 Story no ar</a>':'')+
           '<button class="btn btn-blue btn-sm" onclick="marcarPago(\''+c.id+'\')">🔵 Marcar Pago</button>'+
+          '<button class="btn btn-ghost btn-sm" onclick="marcarEmDia(\''+c.id+'\')">🟢 Em Dia</button>'+
           '<button class="btn btn-ghost btn-sm" onclick="desmarcarPago(\''+c.id+'\')">↩ Não Pago</button>'+
           '<button class="btn btn-ghost btn-sm" onclick="copyText(\''+encodeURIComponent(resumo)+'\')">📋 Copiar</button>'+
           '<button class="btn btn-ghost btn-sm" onclick="editCliente(\''+c.id+'\')">✏️ Editar</button>'+
@@ -479,6 +482,16 @@ function renderFinanceiro(){
 }
 
 // ── ACTIONS ──
+function marcarEmDia(id){
+  // Ajuste manual de status: NÃO mexe em vencimento, histórico ou pagamentos.
+  // Serve para migração de clientes antigos ou correção pontual de status.
+  const idx=clientes.findIndex(c=>c.id===id);
+  if(idx<0)return;
+  clientes[idx].emDiaManual=true;
+  saveClientes(clientes);render();
+  showToast('🟢 Marcado como EM DIA (ajuste manual)');
+}
+
 function marcarPago(id){
   const idx=clientes.findIndex(c=>c.id===id);
   if(idx<0)return;
@@ -505,6 +518,7 @@ function marcarPago(id){
 
   c.venc=novoVenc;
   c.naoPago=false;
+  c.emDiaManual=false; // pagamento real substitui qualquer ajuste manual anterior
   saveClientes(clientes);render();
   showToast('🔵 Pago! Novo vencimento: '+new Date(novoVenc+'T00:00:00').toLocaleDateString('pt-BR'));
 }
@@ -524,6 +538,7 @@ function desmarcarPago(id){
   }
   c.pagamentos=[];
   c.naoPago=true;
+  c.emDiaManual=false; // "não pago" contradiz o ajuste manual de em dia
   saveClientes(clientes);render();
   showToast('🔴 Marcado como NÃO PAGO');
 }
