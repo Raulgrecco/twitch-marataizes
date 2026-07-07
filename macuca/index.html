@@ -449,6 +449,10 @@
       <button type="submit" class="btn btn-primary">Agendar Diagnóstico Estratégico</button>
       <p class="form-feedback" id="formFeedback">Recebido. Vamos falar com você em breve pelo WhatsApp.</p>
     </form>
+
+    <p style="margin-top:1.3rem; font-family:'Space Grotesk',sans-serif; font-size:0.88rem; color:var(--ink-muted); text-align:center;">
+      Prefere falar direto? <a href="https://wa.me/5528999036141?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20Diagn%C3%B3stico%20Estrat%C3%A9gico%20para%20a%20minha%20empresa." style="color:var(--teal); font-weight:600; text-decoration:underline;">Agendar Diagnóstico pelo WhatsApp</a>
+    </p>
   </div>
 </section>
 
@@ -486,7 +490,7 @@
   reveals.forEach(function(el){ observer.observe(el); });
 
   // Formulário de agendamento — placeholder até integração real (WhatsApp Business / Calendly)
-  var WHATS_NUMBER = "55XXXXXXXXXXX"; // TODO: Raul, troque pelo número real com DDI+DDD, ex: 5528999999999
+  var WHATS_NUMBER = "5528999036141";
   document.getElementById('diagForm').addEventListener('submit', function(e){
     e.preventDefault();
     var nome = document.getElementById('f-nome').value;
