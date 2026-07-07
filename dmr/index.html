@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>DMR™ · Diagnóstico de Maturidade e Relevância · Macuca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,500&family=Source+Serif+4:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink-deep:#12161A;
+    --paper:#F1ECDD;
+    --paper-2:#E9E2CD;
+    --ink:#211E17;
+    --ink-muted:#5B5646;
+    --brass:#9C7A3C;
+    --brass-bright:#C79A4B;
+    --teal:#1F4B4A;
+    --teal-bright:#3E7A78;
+    --rule:#D8CFB4;
+    --focus:#C79A4B;
+    --danger:#9C4B3C;
+  }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ margin:0; height:100%; }
+  body{
+    background:var(--ink-deep); color:var(--ink);
+    font-family:'Source Serif 4', Georgia, serif;
+    display:flex; flex-direction:column; min-height:100vh;
+  }
+  @media (prefers-reduced-motion: reduce){ *{ transition-duration:0.01ms !important; animation-duration:0.01ms !important; } }
+  button{ font-family:inherit; }
+  a{ color:var(--teal); }
+  button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible{
+    outline:3px solid var(--focus); outline-offset:2px;
+  }
+
+  .topbar{ background:var(--ink-deep); color:#E7E3D5; padding:0.9rem 1rem 0.7rem; position:sticky; top:0; z-index:20; }
+  .topbar-row{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:0.6rem; }
+  .topbar .brand{ font-family:'Fraunces', serif; font-weight:600; font-size:1.05rem; }
+  .topbar .step-label{ font-family:'Space Grotesk', sans-serif; font-size:0.72rem; letter-spacing:0.05em; color:#B9C9C7; text-transform:uppercase; }
+  .progress-track{ height:5px; background:#26302F; border-radius:3px; overflow:hidden; }
+  .progress-fill{ height:100%; background:linear-gradient(90deg, var(--brass), var(--brass-bright)); border-radius:3px; transition:width 0.35s ease; }
+  .step-dots{ display:flex; gap:4px; margin-top:0.55rem; overflow-x:auto; padding-bottom:2px; }
+  .step-dot{
+    flex:0 0 auto; min-width:26px; height:26px; padding:0 5px; border-radius:13px;
+    border:1.5px solid #384039; color:#8B958E;
+    font-family:'Space Grotesk', sans-serif; font-size:0.66rem; font-weight:600;
+    display:flex; align-items:center; justify-content:center; background:none; cursor:pointer;
+  }
+  .step-dot.is-current{ border-color:var(--brass-bright); color:var(--brass-bright); }
+  .step-dot.is-internal{ border-style:dashed; }
+
+  main{ flex:1; display:flex; justify-content:center; padding:1.25rem 0 6.5rem; }
+  .sheet{
+    background:var(--paper); width:100%; max-width:620px; margin:0 1rem;
+    border-radius:10px; padding:1.5rem 1.25rem 2rem; box-shadow:0 30px 60px -25px rgba(0,0,0,0.5);
+  }
+  .step-title{ font-family:'Fraunces', serif; font-weight:600; font-size:1.55rem; margin:0 0 0.5rem; color:var(--ink); }
+  .step-intro{
+    font-family:'Source Serif 4', Georgia, serif; font-style:italic; font-size:1.02rem;
+    color:var(--teal); margin:0 0 1.5rem; line-height:1.55; border-left:3px solid var(--teal); padding-left:0.9rem;
+  }
+  .internal-flag{
+    display:inline-flex; align-items:center; gap:0.4rem; background:#26302F; color:#B9C9C7;
+    font-family:'Space Grotesk', sans-serif; font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase;
+    padding:0.3rem 0.7rem; border-radius:20px; margin-bottom:1.1rem;
+  }
+
+  .qlist{ list-style:none; margin:0 0 1.5rem; padding:0; }
+  .qrow{ border-bottom:1px solid var(--rule); padding:0.85rem 0; }
+  .qrow:last-child{ border-bottom:none; }
+  .qrow-main{ display:flex; align-items:flex-start; gap:0.75rem; cursor:pointer; }
+  .qcheck{
+    flex:0 0 auto; width:26px; height:26px; border-radius:6px; border:2px solid var(--brass); background:var(--paper);
+    display:flex; align-items:center; justify-content:center; margin-top:0.1rem;
+  }
+  .qcheck svg{ width:16px; height:16px; opacity:0; }
+  .qrow.checked .qcheck{ background:var(--teal); border-color:var(--teal); }
+  .qrow.checked .qcheck svg{ opacity:1; }
+  .qtext{ flex:1; font-size:1.02rem; line-height:1.5; padding-top:0.05rem; }
+  .qrow.checked .qtext{ color:var(--ink-muted); text-decoration:line-through; text-decoration-color:var(--rule); }
+
+  .qtools{ display:flex; align-items:center; gap:0.9rem; margin:0.5rem 0 0 2.5rem; flex-wrap:wrap; }
+  .qnote-toggle{ background:none; border:none; font-family:'Space Grotesk', sans-serif; font-size:0.72rem; color:var(--teal); padding:0.2rem 0; cursor:pointer; }
+  .qnote{ display:none; margin:0.5rem 0 0 2.5rem; }
+  .qnote.is-open{ display:block; }
+  .qnote textarea{ width:100%; }
+
+  .mic-btn{
+    display:inline-flex; align-items:center; gap:0.35rem; border:1.5px solid var(--teal); background:none; color:var(--teal);
+    font-family:'Space Grotesk', sans-serif; font-size:0.72rem; font-weight:600; padding:0.28rem 0.65rem; border-radius:20px; cursor:pointer;
+  }
+  .mic-btn svg{ width:13px; height:13px; }
+  .mic-btn.is-recording{ background:var(--danger); border-color:var(--danger); color:#fff; animation:pulse 1.1s ease-in-out infinite; }
+  .mic-btn.is-disabled{ opacity:0.35; pointer-events:none; }
+  @keyframes pulse{ 0%,100%{ box-shadow:0 0 0 0 rgba(156,75,60,0.5);} 50%{ box-shadow:0 0 0 6px rgba(156,75,60,0);} }
+  .mic-time{ font-variant-numeric:tabular-nums; }
+  .mic-nohint{ font-size:0.62rem; opacity:0.75; text-transform:uppercase; letter-spacing:0.04em; }
+
+  .audio-slot{ margin:0.6rem 0 0 2.5rem; }
+  .audio-slot:empty{ margin:0; }
+  .audio-player{ display:flex; align-items:center; gap:0.6rem; }
+  .audio-player audio{ height:32px; max-width:220px; }
+  .audio-del{ background:none; border:1px solid var(--rule); color:var(--danger); font-family:'Space Grotesk', sans-serif; font-size:0.68rem; padding:0.25rem 0.5rem; border-radius:6px; cursor:pointer; }
+  .audio-loading{ font-family:'Space Grotesk', sans-serif; font-size:0.75rem; color:var(--ink-muted); }
+
+  textarea, input[type="text"], input[type="date"]{
+    width:100%; font-family:'Source Serif 4', Georgia, serif; font-size:0.95rem;
+    padding:0.6rem 0.7rem; border:1px solid var(--rule); border-radius:6px; background:#FBF9F3; color:var(--ink); resize:vertical;
+  }
+  textarea{ min-height:64px; }
+  label.field-label{ display:block; font-family:'Space Grotesk', sans-serif; font-size:0.78rem; letter-spacing:0.03em; color:var(--ink-muted); margin:0 0 0.4rem; }
+  .field-block{ margin-bottom:1.3rem; }
+  .field-block .qtools{ margin-left:0; margin-top:0.5rem; }
+  .field-block .audio-slot{ margin-left:0; }
+
+  .eval-block{ background:var(--paper-2); border:1px solid var(--rule); border-radius:8px; padding:1.1rem 1.1rem 0.3rem; margin-bottom:1rem; }
+  .eval-q{ font-family:'Space Grotesk', sans-serif; font-size:0.88rem; color:var(--ink); margin:0 0 0.6rem; }
+  .opt-row{ display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:1rem; }
+  .opt-pill{
+    font-family:'Space Grotesk', sans-serif; font-size:0.78rem; border:1.5px solid var(--rule);
+    background:#FBF9F3; color:var(--ink-muted); padding:0.4rem 0.8rem; border-radius:20px; cursor:pointer;
+  }
+  .opt-pill.is-selected{ background:var(--teal); border-color:var(--teal); color:#F1ECDD; }
+  .scale-row{ display:flex; gap:0.4rem; margin-bottom:1rem; flex-wrap:wrap; }
+  .scale-dot{
+    flex:1; min-width:56px; text-align:center; font-family:'Space Grotesk', sans-serif; font-size:0.74rem;
+    border:1.5px solid var(--rule); background:#FBF9F3; color:var(--ink-muted); padding:0.5rem 0.2rem; border-radius:6px; cursor:pointer;
+  }
+  .scale-dot.is-selected{ background:var(--brass); border-color:var(--brass); color:#211E17; font-weight:600; }
+
+  .checkbox-grid{ display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem; }
+  .chip-toggle{
+    font-family:'Space Grotesk', sans-serif; font-size:0.82rem; border:1.5px solid var(--rule);
+    background:#FBF9F3; color:var(--ink-muted); padding:0.45rem 0.85rem; border-radius:20px; cursor:pointer;
+  }
+  .chip-toggle.is-selected{ background:var(--brass); border-color:var(--brass); color:#211E17; font-weight:600; }
+  .chip-toggle.is-alert.is-selected{ background:var(--danger); border-color:var(--danger); color:#fff; }
+
+  select{
+    width:100%; font-family:'Source Serif 4', Georgia, serif; font-size:0.95rem;
+    padding:0.6rem 0.7rem; border:1px solid var(--rule); border-radius:6px; background:#FBF9F3; color:var(--ink);
+  }
+
+  .silencio-box{ background:var(--paper-2); border-left:4px solid var(--teal); padding:1.1rem 1.2rem; border-radius:0 8px 8px 0; margin-bottom:1.2rem; font-size:0.95rem; }
+  .silencio-box em{ display:block; margin-top:0.5rem; color:var(--ink); }
+
+  .capa-grid{ display:grid; grid-template-columns:1fr; gap:1.1rem; }
+  @media (min-width:480px){ .capa-grid{ grid-template-columns:1fr 1fr; } }
+
+  .dossie h2{ font-family:'Fraunces', serif; font-size:1.15rem; margin:1.6rem 0 0.5rem; color:var(--teal); border-bottom:1px solid var(--rule); padding-bottom:0.4rem; }
+  .dossie h2:first-child{ margin-top:0; }
+  .dossie p, .dossie li{ font-size:0.96rem; margin:0.25rem 0; }
+  .dossie .empty{ color:var(--ink-muted); font-style:italic; }
+  .dossie ul{ margin:0.3rem 0; padding-left:1.2rem; }
+  .audio-tag{ font-family:'Space Grotesk', sans-serif; font-size:0.7rem; color:var(--teal); }
+  .dossie-cover{
+    background:var(--paper-2); border:1px solid var(--rule); border-radius:8px;
+    padding:1rem 1.2rem; margin-bottom:1.5rem; display:grid; grid-template-columns:1fr 1fr; gap:0.5rem 1.2rem;
+    font-family:'Space Grotesk', sans-serif; font-size:0.82rem;
+  }
+  .dossie-cover dt{ color:var(--ink-muted); text-transform:uppercase; font-size:0.68rem; letter-spacing:0.04em; }
+  .dossie-cover dd{ margin:0.15rem 0 0; color:var(--ink); font-family:'Source Serif 4', Georgia, serif; font-size:0.92rem; }
+  .alert-list li{ color:var(--danger); }
+
+  .bottombar{
+    position:fixed; bottom:0; left:0; right:0; background:var(--ink-deep);
+    padding:0.8rem 1rem calc(0.8rem + env(safe-area-inset-bottom)); display:flex; gap:0.7rem; z-index:20; border-top:1px solid #26302F;
+  }
+  .btn{ flex:1; font-family:'Space Grotesk', sans-serif; font-size:0.92rem; font-weight:600; padding:0.85rem 1rem; border-radius:8px; border:none; cursor:pointer; text-align:center; }
+  .btn-secondary{ background:#26302F; color:#E7E3D5; flex:0 0 auto; padding:0.85rem 1.1rem; }
+  .btn-primary{ background:var(--brass-bright); color:#211E17; }
+  .btn-ghost{ background:none; border:1.5px solid var(--rule); color:var(--ink); }
+  .dossie-actions{ display:flex; gap:0.6rem; margin-top:1.5rem; flex-wrap:wrap; }
+
+  .toast{
+    position:fixed; bottom:5.2rem; left:50%; transform:translateX(-50%); background:var(--teal); color:#F1ECDD;
+    font-family:'Space Grotesk', sans-serif; font-size:0.82rem; padding:0.55rem 1.1rem; border-radius:20px;
+    opacity:0; pointer-events:none; transition:opacity 0.25s ease; z-index:30;
+  }
+  .toast.show{ opacity:1; }
+
+  @media print{
+    .topbar, .bottombar, .toast{ display:none !important; }
+    body{ background:#fff; }
+    .sheet{ box-shadow:none; max-width:100%; margin:0; }
+    main{ padding:0; }
+  }
+  @media (min-width:700px){ .sheet{ padding:2.5rem 3rem 3rem; } }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-row">
+    <span class="brand">DMR™ · Macuca</span>
+    <span class="step-label" id="stepLabel"></span>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <div class="step-dots" id="stepDots"></div>
+</div>
+
+<main><div class="sheet" id="sheet"></div></main>
+
+<div class="bottombar">
+  <button class="btn btn-secondary" id="btnBack">Voltar</button>
+  <button class="btn btn-primary" id="btnNext">Próxima</button>
+</div>
+
+<div class="toast" id="toast">Salvo</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var STORAGE_KEY = "macuca_dmr_v2";
+  var MIC_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>';
+
+  var PROGRAMAS = ["Programa de Diagnóstico","Programa de Posicionamento","Programa de Construção","Programa de Autoridade","Programa de Liderança","Programa de Expansão","Programa de Legado"];
+  var ATIVOS = ["TV","Portal","Instagram","Google","Guia","Eventos","Jornalismo","IA","Outros"];
+  var PIRAMIDE = ["Invisibilidade","Visibilidade","Reconhecimento","Autoridade","Preferência","Liderança"];
+  var RADAR_EIXOS = ["Presença","Identidade","Autoridade","Comunidade","Consistência","Evolução"];
+  var RADAR_LABELS = ["Muito fraco","Fraco","Regular","Bom","Muito bom"];
+  var OPORTUNIDADES = ["Turismo","Google","Autoridade","Relacionamento","Eventos","Conteúdo","Institucional"];
+  var ALERTAS = ["Empresa depende demais do fundador","Comunicação inconsistente","Marca sem território","Baixa participação comunitária","Preço virou diferencial","Identidade indefinida"];
+  var PERFIL_FUNDADOR = ["Visionário","Executor","Comercial","Técnico","Conservador","Inovador"];
+  var PERFIL_EMPRESA = ["Tradicional","Expansão","Reposicionamento","Liderança","Recuperação"];
+  var MOMENTO_MARCA = ["Início","Crescimento","Maturidade","Estagnação","Reposicionamento"];
+  var RISCO = ["Baixo","Médio","Alto"];
+
+  var STEPS = [
+    { key:"capa", short:"•", title:"Antes de Começar", type:"capa" },
+
+    { key:"fundador", short:"Fu", title:"Conhecendo Você",
+      intro:"Antes de falarmos sobre a empresa, quero conhecer quem construiu tudo isso.",
+      questions:["Quem é você?","O que te move?","Por que você faz isso?","O que nunca faria por dinheiro?","Qual decisão mais difícil você já tomou?","O que você quer deixar quando não estiver mais aqui?"],
+      eval:[], obs:true },
+
+    { key:"empresa", short:"Em", title:"Sua Empresa",
+      intro:"Toda empresa nasce para resolver um problema.",
+      questions:["Como nasceu a empresa?","Por que ela foi criada?","Qual problema resolveu?","Do que você mais se orgulha?","Qual foi o momento mais importante da empresa?","Qual maior dificuldade enfrentou?","Qual principal objetivo hoje?","Qual maior desafio?","O que impede o crescimento?","Onde deseja chegar?"],
+      eval:[
+        {key:"paixao", q:"O fundador demonstra paixão pela empresa?", type:"pills", options:["Muito baixa","Baixa","Média","Alta","Muito alta"]},
+        {key:"clareza_historia", q:"Existe clareza sobre a história?", type:"pills", options:["Sim","Parcial","Não"]},
+        {key:"clareza_estrategica", q:"O empresário demonstra clareza estratégica?", type:"pills", options:["Sim","Parcial","Não"]},
+        {key:"posicionamento_negocio", q:"Posicionamento do negócio", type:"scale"},
+        {key:"maturidade", q:"Maturidade", type:"scale"}
+      ], obs:true },
+
+    { key:"mercado", short:"Mc", title:"Seu Mercado", intro:"",
+      questions:["Quem é seu maior concorrente?","O que ele faz melhor?","O que você faz melhor?","Existe espaço ainda não ocupado?","Como divulga hoje?","O que funciona?","O que não funciona?","Onde investe?","Como mede resultados?"],
+      eval:[
+        {key:"territorio_competitivo", q:"Território competitivo", type:"scale"},
+        {key:"espacos_livres", q:"Espaços livres", type:"scale"},
+        {key:"riscos", q:"Riscos", type:"scale"},
+        {key:"comunicacao_coerente", q:"Comunicação coerente?", type:"pills", options:["Sim","Parcial","Não"]},
+        {key:"consistencia", q:"Existe consistência?", type:"pills", options:["Sim","Parcial","Não"]},
+        {key:"planejamento_com", q:"Existe planejamento?", type:"pills", options:["Sim","Parcial","Não"]}
+      ], obs:true },
+
+    { key:"clientes", short:"Cl", title:"Seus Clientes", intro:"",
+      questions:["Quem é seu cliente ideal?","Quem não é?","Por que escolhem sua empresa?","Por que deixam de escolher?"],
+      eval:[
+        {key:"conhece_publico", q:"Conhece seu público?", type:"pills", options:["Sim","Parcial","Não"]},
+        {key:"diferenciacao", q:"Existe diferenciação?", type:"pills", options:["Sim","Parcial","Não"]},
+        {key:"proposta_valor", q:"Existe proposta de valor?", type:"pills", options:["Sim","Parcial","Não"]}
+      ], obs:true },
+
+    { key:"marca", short:"Mk", title:"Sua Marca", intro:"",
+      questions:["Como gostaria de ser conhecido?","Qual legado deseja construir?","Se sua empresa desaparecesse amanhã, alguém sentiria falta?","Como gostaria que ela fosse lembrada daqui cinco anos?"],
+      eval:[
+        {key:"identidade", q:"Existe identidade?", type:"pills", options:["Sim","Parcial","Não"]},
+        {key:"proposito", q:"Existe propósito?", type:"pills", options:["Sim","Parcial","Não"]},
+        {key:"territorio_def", q:"Existe território?", type:"pills", options:["Sim","Parcial","Não"]},
+        {key:"posicionamento", q:"Existe posicionamento?", type:"pills", options:["Sim","Parcial","Não"]}
+      ], obs:true },
+
+    { key:"cidade", short:"Ci", title:"Sua Cidade", intro:"",
+      questions:["A empresa participa da cidade?","Patrocina?","Apoia projetos?","Possui relacionamento institucional?"],
+      eval:[
+        {key:"participacao_comunitaria", q:"Participação comunitária", type:"scale"},
+        {key:"presenca_regional", q:"Presença regional", type:"scale"},
+        {key:"relacionamento", q:"Relacionamento", type:"scale"}
+      ], obs:true },
+
+    { key:"futuro", short:"Ft", title:"Seu Futuro",
+      intro:"Agora vamos imaginar onde essa empresa pode chegar.",
+      questions:['Imagine que estamos conversando daqui cinco anos. O que aconteceu para você dizer: "Valeu a pena todo esse trabalho"?',"Onde deseja estar em cinco anos?","Qual maior sonho?","Como gostaria de ser lembrado?","O que seria sucesso para você?"],
+      eval:[
+        {key:"visao", q:"Visão", type:"scale"},
+        {key:"ambicao", q:"Ambição", type:"scale"},
+        {key:"planejamento_fut", q:"Planejamento", type:"scale"}
+      ], obs:true },
+
+    { key:"silencio", short:"Si", title:"Silêncio Estratégico", type:"silencio" },
+    { key:"analise", short:"An", title:"Nossa Análise", type:"consultor", internal:true },
+    { key:"dossie", short:"Do", title:"Plano Inicial", type:"dossie" }
+  ];
+
+  var NARRATIVE_KEYS = ["fundador","empresa","mercado","clientes","marca","cidade","futuro"];
+
+  var state = { current:0, answers:{} };
+
+  function load(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if(raw){ var parsed = JSON.parse(raw); if(parsed && parsed.answers) state = parsed; }
+    }catch(e){}
+  }
+  function save(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); showToast("Salvo"); }
+    catch(e){}
+  }
+  var toastTimer;
+  function showToast(msg){
+    var t = document.getElementById("toast");
+    t.textContent = msg; t.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ t.classList.remove("show"); }, 1100);
+  }
+  function ans(stepKey){ if(!state.answers[stepKey]) state.answers[stepKey] = {}; return state.answers[stepKey]; }
+  function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+  function todayISO(){ var d = new Date(); var m = ("0"+(d.getMonth()+1)).slice(-2); var day = ("0"+d.getDate()).slice(-2); return d.getFullYear()+"-"+m+"-"+day; }
+  function fmtDateBR(iso){ if(!iso) return ""; var p = iso.split("-"); return p.length===3 ? p[2]+"/"+p[1]+"/"+p[0] : iso; }
+
+  /* ---------- INDEXEDDB (áudios) ---------- */
+  var DB_NAME = "macuca_dmr_audio", DB_STORE = "clips";
+  function openAudioDB(){
+    return new Promise(function(resolve, reject){
+      if(!window.indexedDB){ reject(new Error("IndexedDB indisponível")); return; }
+      var req = indexedDB.open(DB_NAME, 1);
+      req.onupgradeneeded = function(){ req.result.createObjectStore(DB_STORE); };
+      req.onsuccess = function(){ resolve(req.result); };
+      req.onerror = function(){ reject(req.error); };
+    });
+  }
+  function saveClip(id, blob){
+    return openAudioDB().then(function(db){
+      return new Promise(function(resolve, reject){
+        var tx = db.transaction(DB_STORE, "readwrite");
+        tx.objectStore(DB_STORE).put(blob, id);
+        tx.oncomplete = function(){ resolve(); };
+        tx.onerror = function(){ reject(tx.error); };
+      });
+    });
+  }
+  function getClip(id){
+    return openAudioDB().then(function(db){
+      return new Promise(function(resolve, reject){
+        var tx = db.transaction(DB_STORE, "readonly");
+        var req = tx.objectStore(DB_STORE).get(id);
+        req.onsuccess = function(){ resolve(req.result); };
+        req.onerror = function(){ reject(req.error); };
+      });
+    });
+  }
+  function deleteClip(id){
+    return openAudioDB().then(function(db){
+      return new Promise(function(resolve, reject){
+        var tx = db.transaction(DB_STORE, "readwrite");
+        tx.objectStore(DB_STORE).delete(id);
+        tx.oncomplete = function(){ resolve(); };
+        tx.onerror = function(){ reject(tx.error); };
+      });
+    }).catch(function(){});
+  }
+  function clearAllAudio(){
+    return openAudioDB().then(function(db){
+      return new Promise(function(resolve){
+        var tx = db.transaction(DB_STORE, "readwrite");
+        tx.objectStore(DB_STORE).clear();
+        tx.oncomplete = function(){ resolve(); };
+        tx.onerror = function(){ resolve(); };
+      });
+    }).catch(function(){});
+  }
+
+  /* ---------- GRAVAÇÃO + TRANSCRIÇÃO AO VIVO ---------- */
+  var activeRecorder = null, activeStream = null, activeChunks = [], activeMicBtn = null, recordStartTime = null, recordTimerInterval = null;
+  var activeRecognition = null;
+  var SpeechRecognitionCtor = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+  var HAS_SPEECH = !!SpeechRecognitionCtor;
+
+  function allMicButtons(){ return Array.prototype.slice.call(document.querySelectorAll(".mic-btn")); }
+  function setOtherMicsDisabled(exceptBtn, disabled){
+    allMicButtons().forEach(function(b){ if(b !== exceptBtn) b.classList.toggle("is-disabled", disabled); });
+  }
+
+  function startRecording(micBtn, onStop, transcriptTarget){
+    if(activeRecorder) return;
+    if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || typeof MediaRecorder === "undefined"){
+      alert("Este navegador não permite gravar áudio aqui. Tente pelo Chrome, em uma página https://.");
+      return;
+    }
+    navigator.mediaDevices.getUserMedia({ audio:true }).then(function(stream){
+      activeStream = stream;
+      activeChunks = [];
+      var mimeType = (window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported("audio/webm")) ? "audio/webm" : "";
+      activeRecorder = mimeType ? new MediaRecorder(stream, { mimeType:mimeType }) : new MediaRecorder(stream);
+      activeRecorder.ondataavailable = function(e){ if(e.data && e.data.size > 0) activeChunks.push(e.data); };
+      activeRecorder.onstop = function(){
+        var blob = new Blob(activeChunks, { type: activeRecorder.mimeType || "audio/webm" });
+        stream.getTracks().forEach(function(t){ t.stop(); });
+        activeRecorder = null; activeStream = null;
+        clearInterval(recordTimerInterval);
+        setOtherMicsDisabled(null, false);
+        onStop(blob);
+      };
+      activeRecorder.start();
+      recordStartTime = Date.now();
+      micBtn.classList.add("is-recording");
+      activeMicBtn = micBtn;
+      setOtherMicsDisabled(micBtn, true);
+      updateMicTimer(micBtn);
+      recordTimerInterval = setInterval(function(){ updateMicTimer(micBtn); }, 500);
+
+      if(HAS_SPEECH && transcriptTarget){
+        try{
+          var baseText = transcriptTarget.ta.value ? transcriptTarget.ta.value.replace(/\s+$/, "") + " " : "";
+          var finalText = baseText;
+          var recog = new SpeechRecognitionCtor();
+          recog.lang = "pt-BR";
+          recog.continuous = true;
+          recog.interimResults = true;
+          recog.onresult = function(event){
+            var interim = "";
+            for(var i = event.resultIndex; i < event.results.length; i++){
+              var chunk = event.results[i][0].transcript;
+              if(event.results[i].isFinal) finalText += chunk + " ";
+              else interim += chunk;
+            }
+            transcriptTarget.ta.value = (finalText + interim).replace(/\s+/g, " ");
+            transcriptTarget.sync();
+          };
+          recog.onerror = function(){};
+          recog.start();
+          activeRecognition = recog;
+        }catch(e){ activeRecognition = null; }
+      }
+    }).catch(function(){
+      alert("Não foi possível acessar o microfone. Verifique a permissão do navegador para este site.");
+    });
+  }
+  function updateMicTimer(micBtn){
+    var el = micBtn.querySelector(".mic-time");
+    if(!el) return;
+    var secs = Math.floor((Date.now() - recordStartTime) / 1000);
+    var m = Math.floor(secs/60), s = secs%60;
+    el.textContent = m + ":" + (s<10 ? "0"+s : s);
+  }
+  function stopRecording(){
+    if(activeRecognition){ try{ activeRecognition.stop(); }catch(e){} activeRecognition = null; }
+    if(activeRecorder && activeRecorder.state !== "inactive") activeRecorder.stop();
+    if(activeMicBtn){ activeMicBtn.classList.remove("is-recording"); activeMicBtn = null; }
+  }
+
+  function wireAudioControl(rootEl, audioId, onIdChange, transcriptTarget){
+    var micBtn = rootEl.querySelector(".mic-btn");
+    var slot = rootEl.querySelector(".audio-slot");
+    var timeEl = micBtn.querySelector(".mic-time");
+    micBtn.title = HAS_SPEECH ? "Gravar áudio e transcrever automaticamente" : "Gravar áudio (transcrição automática indisponível neste navegador)";
+
+    function renderPlayer(id){
+      slot.innerHTML = '<span class="audio-loading">Carregando áudio...</span>';
+      getClip(id).then(function(blob){
+        if(!blob){ slot.innerHTML = ""; return; }
+        var url = URL.createObjectURL(blob);
+        slot.innerHTML = "";
+        var wrap = document.createElement("div");
+        wrap.className = "audio-player";
+        var audioEl = document.createElement("audio");
+        audioEl.controls = true;
+        audioEl.src = url;
+        var delBtn = document.createElement("button");
+        delBtn.type = "button";
+        delBtn.className = "audio-del";
+        delBtn.textContent = "Excluir";
+        delBtn.addEventListener("click", function(){
+          deleteClip(id).then(function(){ slot.innerHTML = ""; onIdChange(null); save(); });
+        });
+        wrap.appendChild(audioEl);
+        wrap.appendChild(delBtn);
+        slot.appendChild(wrap);
+      }).catch(function(){ slot.innerHTML = ""; });
+    }
+
+    if(audioId) renderPlayer(audioId);
+
+    micBtn.addEventListener("click", function(){
+      if(micBtn.classList.contains("is-recording")){ stopRecording(); save(); return; }
+      startRecording(micBtn, function(blob){
+        var newId = "clip_" + Date.now() + "_" + Math.random().toString(36).slice(2,8);
+        saveClip(newId, blob).then(function(){
+          onIdChange(newId); save(); renderPlayer(newId);
+          if(timeEl) timeEl.textContent = "";
+        });
+      }, transcriptTarget);
+    });
+  }
+
+  function micButtonHtml(){
+    var hint = HAS_SPEECH ? "" : '<span class="mic-nohint">áudio</span>';
+    return '<button type="button" class="mic-btn"><span class="mic-icon">' + MIC_ICON + '</span><span class="mic-time"></span>' + hint + '</button>';
+  }
+
+  /* ---------- RENDER ---------- */
+  function render(){
+    var step = STEPS[state.current];
+    renderTopbar(step);
+    var sheet = document.getElementById("sheet");
+    sheet.innerHTML = "";
+
+    if(step.type === "capa") sheet.appendChild(renderCapa(step));
+    else if(step.type === "silencio") sheet.appendChild(renderSilencio(step));
+    else if(step.type === "consultor") sheet.appendChild(renderConsultor(step));
+    else if(step.type === "dossie") sheet.appendChild(renderDossie());
+    else sheet.appendChild(renderNarrativa(step));
+
+    document.getElementById("btnBack").style.visibility = state.current === 0 ? "hidden" : "visible";
+
+    var nextBtn = document.getElementById("btnNext");
+    if(step.type === "dossie"){
+      nextBtn.textContent = "Reiniciar diagnóstico";
+      nextBtn.classList.remove("btn-primary"); nextBtn.classList.add("btn-ghost");
+    } else if(state.current === STEPS.length - 2){
+      nextBtn.textContent = "Ver Plano Inicial";
+      nextBtn.classList.add("btn-primary"); nextBtn.classList.remove("btn-ghost");
+    } else {
+      nextBtn.textContent = "Próxima";
+      nextBtn.classList.add("btn-primary"); nextBtn.classList.remove("btn-ghost");
+    }
+    window.scrollTo(0,0);
+  }
+
+  function renderTopbar(step){
+    document.getElementById("stepLabel").textContent = step.title;
+    document.getElementById("progressFill").style.width = Math.round(((state.current+1)/STEPS.length)*100) + "%";
+    var dots = document.getElementById("stepDots");
+    dots.innerHTML = "";
+    STEPS.forEach(function(s, i){
+      var b = document.createElement("button");
+      b.className = "step-dot" + (i === state.current ? " is-current" : "") + (s.internal ? " is-internal" : "");
+      b.textContent = s.short;
+      b.title = s.title;
+      b.addEventListener("click", function(){ state.current = i; render(); });
+      dots.appendChild(b);
+    });
+  }
+
+  /* ---------- CAPA DO DIAGNÓSTICO ---------- */
+  function renderCapa(step){
+    var wrap = document.createElement("div");
+    var a = ans(step.key);
+    var defaults = { empresa:"", responsavel:"", cidade:"", data:todayISO(), tempo:"", consultor:"", numero:"" };
+    Object.keys(defaults).forEach(function(k){ if(a[k]===undefined) a[k] = defaults[k]; });
+    if(!a.numero){ a.numero = "DMR-" + Date.now().toString(36).toUpperCase(); }
+
+    var html = '<h1 class="step-title">Antes de Começar</h1>';
+    html += '<p class="step-intro">Alguns dados do encontro, para o registro do diagnóstico.</p>';
+    html += '<div class="capa-grid">';
+    html += field("empresa","Empresa","text",a.empresa);
+    html += field("responsavel","Responsável na empresa","text",a.responsavel);
+    html += field("cidade","Cidade","text",a.cidade);
+    html += field("data","Data","date",a.data);
+    html += field("tempo","Tempo da reunião","text",a.tempo,"Ex.: 45 minutos");
+    html += field("consultor","Consultor Macuca","text",a.consultor);
+    html += field("numero","Número do diagnóstico","text",a.numero);
+    html += '</div>';
+
+    wrap.innerHTML = html;
+
+    function field(id, label, type, val, placeholder){
+      return '<div class="field-block"><label class="field-label">'+esc(label)+'</label>'+
+        '<input type="'+type+'" id="capa_'+id+'" value="'+esc(val)+'"'+(placeholder?' placeholder="'+esc(placeholder)+'"':'')+'></div>';
+    }
+
+    Object.keys(defaults).forEach(function(k){
+      var el = wrap.querySelector("#capa_"+k);
+      el.addEventListener("input", function(){ a[k] = el.value; });
+      el.addEventListener("blur", save);
+    });
+
+    return wrap;
+  }
+
+  /* ---------- SEÇÕES NARRATIVAS ---------- */
+  function renderNarrativa(step){
+    var wrap = document.createElement("div");
+    var a = ans(step.key);
+    if(!a.checked) a.checked = {};
+    if(!a.notes) a.notes = {};
+    if(!a.audio) a.audio = {};
+    if(a.obs === undefined) a.obs = "";
+    if(a.obsAudio === undefined) a.obsAudio = null;
+
+    var html = '<h1 class="step-title">' + esc(step.title) + '</h1>';
+    if(step.intro) html += '<p class="step-intro">' + esc(step.intro) + '</p>';
+
+    html += '<ul class="qlist">';
+    step.questions.forEach(function(q, qi){
+      var checked = !!a.checked[qi];
+      var note = a.notes[qi] || "";
+      html += '<li class="qrow' + (checked ? " checked" : "") + '" data-qi="' + qi + '">';
+      html += '  <div class="qrow-main" data-action="toggle">';
+      html += '    <span class="qcheck"><svg viewBox="0 0 24 24" fill="none" stroke="#F1ECDD" stroke-width="3"><path d="M4 12l6 6L20 6"/></svg></span>';
+      html += '    <span class="qtext">' + esc(q) + '</span>';
+      html += '  </div>';
+      html += '  <div class="qtools">';
+      html += '    <button type="button" class="qnote-toggle" data-action="note">' + (note ? "Editar anotação" : "+ anotação") + '</button>';
+      html += micButtonHtml();
+      html += '  </div>';
+      html += '  <div class="qnote' + (note ? " is-open" : "") + '"><textarea placeholder="O que o empresário disse...">' + esc(note) + '</textarea></div>';
+      html += '  <div class="audio-slot"></div>';
+      html += '</li>';
+    });
+    html += '</ul>';
+
+    if(step.eval && step.eval.length){
+      html += '<div class="internal-flag">Uso interno do consultor</div>';
+      step.eval.forEach(function(ev){ html += renderEvalBlock(ev, a); });
+    }
+
+    if(step.obs){
+      html += '<div class="field-block" data-obsblock="1">';
+      html += '  <label class="field-label">Observações do consultor</label>';
+      html += '  <textarea data-field="obs" placeholder="Impressões, hipóteses, oportunidades percebidas...">' + esc(a.obs) + '</textarea>';
+      html += '  <div class="qtools">' + micButtonHtml() + '</div>';
+      html += '  <div class="audio-slot"></div>';
+      html += '</div>';
+    }
+
+    wrap.innerHTML = html;
+    wireNarrativaEvents(wrap, step, a);
+    return wrap;
+  }
+
+  function renderEvalBlock(ev, a){
+    if(!a.eval) a.eval = {};
+    var val = a.eval[ev.key];
+    var html = '<div class="eval-block" data-evalkey="' + ev.key + '">';
+    html += '  <p class="eval-q">' + esc(ev.q) + '</p>';
+    if(ev.type === "pills"){
+      html += '  <div class="opt-row" data-kind="pills">';
+      ev.options.forEach(function(opt){ html += '<button type="button" class="opt-pill' + (val===opt?" is-selected":"") + '" data-val="' + esc(opt) + '">' + esc(opt) + '</button>'; });
+      html += '  </div>';
+    } else if(ev.type === "scale"){
+      html += '  <div class="scale-row" data-kind="scale">';
+      for(var i=1;i<=5;i++) html += '<button type="button" class="scale-dot' + (val===i?" is-selected":"") + '" data-val="' + i + '">' + esc(RADAR_LABELS[i-1]) + '</button>';
+      html += '  </div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function wireEvalEvents(root, a){
+    root.querySelectorAll(".eval-block").forEach(function(block){
+      var key = block.getAttribute("data-evalkey");
+      block.querySelectorAll(".opt-pill, .scale-dot").forEach(function(btn){
+        btn.addEventListener("click", function(){
+          if(!a.eval) a.eval = {};
+          var v = btn.getAttribute("data-val");
+          var kind = btn.classList.contains("scale-dot") ? "scale" : "pills";
+          a.eval[key] = kind === "scale" ? parseInt(v,10) : v;
+          block.querySelectorAll(".opt-pill, .scale-dot").forEach(function(b2){ b2.classList.remove("is-selected"); });
+          btn.classList.add("is-selected");
+          save();
+        });
+      });
+    });
+  }
+
+  function wireNarrativaEvents(wrap, step, a){
+    wrap.querySelectorAll(".qrow").forEach(function(row){
+      var qi = row.getAttribute("data-qi");
+      row.querySelector('[data-action="toggle"]').addEventListener("click", function(){
+        a.checked[qi] = !a.checked[qi];
+        row.classList.toggle("checked", !!a.checked[qi]);
+        save();
+      });
+      var noteBtn = row.querySelector('[data-action="note"]');
+      var noteBox = row.querySelector(".qnote");
+      noteBtn.addEventListener("click", function(){ noteBox.classList.toggle("is-open"); });
+      var ta = noteBox.querySelector("textarea");
+      function syncNote(){ a.notes[qi] = ta.value; noteBtn.textContent = ta.value ? "Editar anotação" : "+ anotação"; }
+      ta.addEventListener("input", syncNote);
+      ta.addEventListener("blur", save);
+
+      wireAudioControl(row, a.audio[qi], function(newId){ a.audio[qi] = newId; }, {
+        ta: ta, sync: function(){ syncNote(); noteBox.classList.add("is-open"); }
+      });
+    });
+
+    wireEvalEvents(wrap, a);
+
+    var obsField = wrap.querySelector('[data-field="obs"]');
+    if(obsField){
+      function syncObs(){ a.obs = obsField.value; }
+      obsField.addEventListener("input", syncObs);
+      obsField.addEventListener("blur", save);
+      var obsBlock = wrap.querySelector('[data-obsblock="1"]');
+      wireAudioControl(obsBlock, a.obsAudio, function(newId){ a.obsAudio = newId; }, { ta: obsField, sync: syncObs });
+    }
+  }
+
+  /* ---------- SILÊNCIO ESTRATÉGICO ---------- */
+  function renderSilencio(step){
+    var wrap = document.createElement("div");
+    var a = ans(step.key);
+    if(a.resposta === undefined) a.resposta = "";
+    if(a.audio === undefined) a.audio = null;
+    var html = '<h1 class="step-title">Silêncio Estratégico</h1>';
+    html += '<div class="silencio-box">Antes de encerrar a reunião, faça a pergunta e depois apenas escute.<em>"Depois de tudo o que conversamos hoje, existe alguma coisa importante sobre sua empresa que eu não perguntei e que você acha que eu deveria saber?"</em></div>';
+    html += '<div class="field-block" data-obsblock="1">';
+    html += '  <label class="field-label">O que o empresário trouxe</label>';
+    html += '  <textarea data-field="resposta" placeholder="Registre aqui, mesmo que em tópicos soltos...">' + esc(a.resposta) + '</textarea>';
+    html += '  <div class="qtools">' + micButtonHtml() + '</div>';
+    html += '  <div class="audio-slot"></div>';
+    html += '</div>';
+    wrap.innerHTML = html;
+    var field = wrap.querySelector('[data-field="resposta"]');
+    function syncResposta(){ a.resposta = field.value; }
+    field.addEventListener("input", syncResposta);
+    field.addEventListener("blur", save);
+    var block = wrap.querySelector('[data-obsblock="1"]');
+    wireAudioControl(block, a.audio, function(newId){ a.audio = newId; }, { ta: field, sync: syncResposta });
+    return wrap;
+  }
+
+  /* ---------- NOSSA ANÁLISE (interno) ---------- */
+  function renderConsultor(step){
+    var wrap = document.createElement("div");
+    var a = ans(step.key);
+    if(!a.radar) a.radar = {};
+    ["territorio_atual","territorio_desejado","gargalo","oportunidade","prioridade_atacar","prioridade_esperar","prioridade_depois"].forEach(function(k){ if(a[k]===undefined) a[k]=""; });
+    if(!a.ativos) a.ativos = [];
+    if(!a.oportunidades) a.oportunidades = [];
+    if(!a.alertas) a.alertas = [];
+    if(a.programa === undefined) a.programa = "";
+    if(a.piramide === undefined) a.piramide = "";
+    if(a.risco === undefined) a.risco = "";
+    if(a.perfil_fundador === undefined) a.perfil_fundador = "";
+    if(a.perfil_empresa === undefined) a.perfil_empresa = "";
+    if(a.momento_marca === undefined) a.momento_marca = "";
+
+    var html = '<h1 class="step-title">Nossa Análise</h1>';
+    html += '<div class="internal-flag">Não é mostrado ao empresário · preenchido depois da reunião</div>';
+
+    html += selectBlock("selPiramide","Pirâmide da Relevância — estágio atual", PIRAMIDE, a.piramide);
+
+    html += '<div class="field-block"><label class="field-label">Radar de Relevância</label>';
+    RADAR_EIXOS.forEach(function(eixo){
+      html += '<div class="eval-block" data-radar="'+esc(eixo)+'"><p class="eval-q">'+esc(eixo)+'</p><div class="scale-row">';
+      RADAR_LABELS.forEach(function(lbl, i){
+        html += '<button type="button" class="scale-dot'+(a.radar[eixo]===(i+1)?" is-selected":"")+'" data-val="'+(i+1)+'">'+esc(lbl)+'</button>';
+      });
+      html += '</div></div>';
+    });
+    html += '</div>';
+
+    html += textBlock("txtTerrAtual","Território Atual", a.territorio_atual);
+    html += textBlock("txtTerrDesejado","Território Desejado", a.territorio_desejado);
+    html += textBlock("txtGargalo","Principal Gargalo", a.gargalo);
+    html += textBlock("txtOportunidade","Principal Oportunidade", a.oportunidade);
+
+    html += '<div class="field-block"><label class="field-label">Oportunidades</label><div class="checkbox-grid" id="opGrid">';
+    OPORTUNIDADES.forEach(function(o){ html += '<button type="button" class="chip-toggle'+(a.oportunidades.indexOf(o)>-1?" is-selected":"")+'" data-op="'+esc(o)+'">'+esc(o)+'</button>'; });
+    html += '</div></div>';
+
+    html += '<div class="field-block"><label class="field-label">Alertas</label><div class="checkbox-grid" id="alertGrid">';
+    ALERTAS.forEach(function(al){ html += '<button type="button" class="chip-toggle is-alert'+(a.alertas.indexOf(al)>-1?" is-selected":"")+'" data-alert="'+esc(al)+'">'+esc(al)+'</button>'; });
+    html += '</div></div>';
+
+    html += selectBlock("selRisco","Risco", RISCO, a.risco);
+
+    html += '<div class="field-block"><label class="field-label">Prioridade</label>';
+    html += textBlock("txtAtacar","O que atacar primeiro", a.prioridade_atacar);
+    html += textBlock("txtEsperar","O que pode esperar", a.prioridade_esperar);
+    html += textBlock("txtDepois","O que deixar para depois", a.prioridade_depois);
+    html += '</div>';
+
+    html += selectBlock("selPerfilFundador","Perfil do Fundador", PERFIL_FUNDADOR, a.perfil_fundador);
+    html += selectBlock("selPerfilEmpresa","Perfil da Empresa", PERFIL_EMPRESA, a.perfil_empresa);
+    html += selectBlock("selMomento","Momento da Marca", MOMENTO_MARCA, a.momento_marca);
+    html += selectBlock("selPrograma","Programa sugerido", PROGRAMAS, a.programa);
+
+    html += '<div class="field-block"><label class="field-label">Ativos sugeridos</label><div class="checkbox-grid" id="ativosGrid">';
+    ATIVOS.forEach(function(at){ html += '<button type="button" class="chip-toggle'+(a.ativos.indexOf(at)>-1?" is-selected":"")+'" data-ativo="'+esc(at)+'">'+esc(at)+'</button>'; });
+    html += '</div></div>';
+
+    wrap.innerHTML = html;
+
+    function selectBlock(id, label, options, current){
+      var h = '<div class="field-block"><label class="field-label">'+esc(label)+'</label><select id="'+id+'"><option value="">Selecionar...</option>';
+      options.forEach(function(o){ h += '<option value="'+esc(o)+'"'+(current===o?" selected":"")+'>'+esc(o)+'</option>'; });
+      h += '</select></div>';
+      return h;
+    }
+    function textBlock(id, label, val){
+      return '<div class="field-block"><label class="field-label">'+esc(label)+'</label><textarea id="'+id+'" placeholder="Texto livre...">'+esc(val)+'</textarea></div>';
+    }
+
+    wrap.querySelector("#selPiramide").addEventListener("change", function(e){ a.piramide = e.target.value; save(); });
+    wrap.querySelector("#selRisco").addEventListener("change", function(e){ a.risco = e.target.value; save(); });
+    wrap.querySelector("#selPerfilFundador").addEventListener("change", function(e){ a.perfil_fundador = e.target.value; save(); });
+    wrap.querySelector("#selPerfilEmpresa").addEventListener("change", function(e){ a.perfil_empresa = e.target.value; save(); });
+    wrap.querySelector("#selMomento").addEventListener("change", function(e){ a.momento_marca = e.target.value; save(); });
+    wrap.querySelector("#selPrograma").addEventListener("change", function(e){ a.programa = e.target.value; save(); });
+
+    wrap.querySelectorAll("[data-radar]").forEach(function(block){
+      var eixo = block.getAttribute("data-radar");
+      block.querySelectorAll(".scale-dot").forEach(function(btn){
+        btn.addEventListener("click", function(){
+          a.radar[eixo] = parseInt(btn.getAttribute("data-val"),10);
+          block.querySelectorAll(".scale-dot").forEach(function(b){ b.classList.remove("is-selected"); });
+          btn.classList.add("is-selected");
+          save();
+        });
+      });
+    });
+
+    [["txtTerrAtual","territorio_atual"],["txtTerrDesejado","territorio_desejado"],["txtGargalo","gargalo"],["txtOportunidade","oportunidade"],
+     ["txtAtacar","prioridade_atacar"],["txtEsperar","prioridade_esperar"],["txtDepois","prioridade_depois"]].forEach(function(pair){
+      var el = wrap.querySelector("#"+pair[0]);
+      el.addEventListener("input", function(){ a[pair[1]] = el.value; });
+      el.addEventListener("blur", save);
+    });
+
+    wrap.querySelector("#opGrid").querySelectorAll(".chip-toggle").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var o = btn.getAttribute("data-op");
+        var idx = a.oportunidades.indexOf(o);
+        if(idx>-1){ a.oportunidades.splice(idx,1); btn.classList.remove("is-selected"); }
+        else { a.oportunidades.push(o); btn.classList.add("is-selected"); }
+        save();
+      });
+    });
+
+    wrap.querySelector("#alertGrid").querySelectorAll(".chip-toggle").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var al = btn.getAttribute("data-alert");
+        var idx = a.alertas.indexOf(al);
+        if(idx>-1){ a.alertas.splice(idx,1); btn.classList.remove("is-selected"); }
+        else { a.alertas.push(al); btn.classList.add("is-selected"); }
+        save();
+      });
+    });
+
+    wrap.querySelector("#ativosGrid").querySelectorAll(".chip-toggle").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var at = btn.getAttribute("data-ativo");
+        var idx = a.ativos.indexOf(at);
+        if(idx>-1){ a.ativos.splice(idx,1); btn.classList.remove("is-selected"); }
+        else { a.ativos.push(at); btn.classList.add("is-selected"); }
+        save();
+      });
+    });
+
+    return wrap;
+  }
+
+  /* ---------- PLANO INICIAL (Dossiê) ---------- */
+  function renderDossie(){
+    var wrap = document.createElement("div");
+    wrap.className = "dossie";
+    var capa = ans("capa"), empresaA = ans("empresa"), consultor = ans("analise"), silencio = ans("silencio");
+
+    function notesList(stepKey){
+      var a = ans(stepKey);
+      var step = STEPS.filter(function(s){ return s.key===stepKey; })[0];
+      var items = [];
+      if(step && step.questions){
+        step.questions.forEach(function(q, qi){
+          var note = (a.notes||{})[qi];
+          var hasAudio = a.audio && a.audio[qi];
+          if(note || hasAudio) items.push("<li><strong>"+esc(q)+"</strong>" + (note?" — "+esc(note):"") + (hasAudio?' <span class="audio-tag">🎙 áudio anexado</span>':"") + "</li>");
+        });
+      }
+      return items;
+    }
+
+    var html = '<h1 class="step-title">Plano Inicial — Dossiê Estratégico da Marca</h1>';
+    html += '<p style="font-family:\'Space Grotesk\',sans-serif;font-size:0.85rem;color:var(--ink-muted);margin:0 0 1.2rem;">Gerado a partir do DMR™. Não contém preços, planos ou proposta comercial — isso vem depois, com base neste diagnóstico.</p>';
+
+    html += '<dl class="dossie-cover">';
+    html += '<div><dt>Empresa</dt><dd>'+(capa.empresa?esc(capa.empresa):'<span class="empty">—</span>')+'</dd></div>';
+    html += '<div><dt>Responsável</dt><dd>'+(capa.responsavel?esc(capa.responsavel):'<span class="empty">—</span>')+'</dd></div>';
+    html += '<div><dt>Cidade</dt><dd>'+(capa.cidade?esc(capa.cidade):'<span class="empty">—</span>')+'</dd></div>';
+    html += '<div><dt>Data</dt><dd>'+(capa.data?esc(fmtDateBR(capa.data)):'<span class="empty">—</span>')+'</dd></div>';
+    html += '<div><dt>Tempo da reunião</dt><dd>'+(capa.tempo?esc(capa.tempo):'<span class="empty">—</span>')+'</dd></div>';
+    html += '<div><dt>Consultor</dt><dd>'+(capa.consultor?esc(capa.consultor):'<span class="empty">—</span>')+'</dd></div>';
+    html += '<div><dt>Nº do diagnóstico</dt><dd>'+(capa.numero?esc(capa.numero):'<span class="empty">—</span>')+'</dd></div>';
+    html += '</dl>';
+
+    html += '<h2>Resumo Executivo</h2>';
+    html += empresaA.obs ? "<p>"+esc(empresaA.obs)+"</p>" : '<p class="empty">Sem observações registradas em "Sua Empresa". (Um resumo gerado por IA a partir de tudo o que foi coletado pode ser adicionado depois, integrando este diagnóstico a um serviço de geração de texto.)</p>';
+
+    html += '<h2>Conhecendo Você (Fundador)</h2>';
+    var fundadorNotes = notesList("fundador");
+    html += fundadorNotes.length ? "<ul>"+fundadorNotes.join("")+"</ul>" : '<p class="empty">Nenhuma anotação registrada.</p>';
+
+    html += '<h2>História e Contexto da Empresa</h2>';
+    var histNotes = notesList("empresa");
+    html += histNotes.length ? "<ul>"+histNotes.join("")+"</ul>" : '<p class="empty">Nenhuma anotação registrada.</p>';
+
+    html += '<h2>Análise do Consultor</h2>';
+    var obsAll = [];
+    NARRATIVE_KEYS.forEach(function(k){
+      var a = ans(k);
+      if(a.obs) obsAll.push("<li>"+esc(a.obs)+(a.obsAudio?' <span class="audio-tag">🎙 áudio anexado</span>':"")+"</li>");
+    });
+    html += obsAll.length ? "<ul>"+obsAll.join("")+"</ul>" : '<p class="empty">Nenhuma observação registrada ainda.</p>';
+
+    html += '<h2>Radar de Relevância</h2>';
+    if(consultor.radar && Object.keys(consultor.radar).length){
+      html += "<ul>";
+      RADAR_EIXOS.forEach(function(eixo){ if(consultor.radar[eixo]) html += "<li>"+esc(eixo)+": "+esc(RADAR_LABELS[consultor.radar[eixo]-1])+"</li>"; });
+      html += "</ul>";
+    } else html += '<p class="empty">Ainda não preenchido — vá até "Nossa Análise".</p>';
+
+    html += '<h2>Pirâmide da Relevância</h2>';
+    html += consultor.piramide ? "<p>"+esc(consultor.piramide)+"</p>" : '<p class="empty">Ainda não selecionado.</p>';
+
+    html += '<h2>Perfis e Momento</h2>';
+    html += "<p><strong>Perfil do Fundador:</strong> "+(consultor.perfil_fundador?esc(consultor.perfil_fundador):'<span class="empty">não preenchido</span>')+"</p>";
+    html += "<p><strong>Perfil da Empresa:</strong> "+(consultor.perfil_empresa?esc(consultor.perfil_empresa):'<span class="empty">não preenchido</span>')+"</p>";
+    html += "<p><strong>Momento da Marca:</strong> "+(consultor.momento_marca?esc(consultor.momento_marca):'<span class="empty">não preenchido</span>')+"</p>";
+
+    html += '<h2>Mapa do Território</h2>';
+    html += "<p><strong>Atual:</strong> "+(consultor.territorio_atual ? esc(consultor.territorio_atual) : '<span class="empty">não preenchido</span>')+"</p>";
+    html += "<p><strong>Desejado:</strong> "+(consultor.territorio_desejado ? esc(consultor.territorio_desejado) : '<span class="empty">não preenchido</span>')+"</p>";
+
+    html += '<h2>Principais Gargalos</h2>';
+    html += consultor.gargalo ? "<p>"+esc(consultor.gargalo)+"</p>" : '<p class="empty">Não preenchido.</p>';
+
+    html += '<h2>Oportunidades</h2>';
+    html += consultor.oportunidade ? "<p>"+esc(consultor.oportunidade)+"</p>" : "";
+    html += (consultor.oportunidades && consultor.oportunidades.length) ? "<p>"+consultor.oportunidades.map(esc).join(" · ")+"</p>" : (consultor.oportunidade ? "" : '<p class="empty">Nenhuma selecionada.</p>');
+
+    html += '<h2>Alertas</h2>';
+    html += (consultor.alertas && consultor.alertas.length) ? "<ul class=\"alert-list\">"+consultor.alertas.map(function(al){return "<li>"+esc(al)+"</li>";}).join("")+"</ul>" : '<p class="empty">Nenhum alerta identificado.</p>';
+
+    html += '<h2>Risco</h2>';
+    html += consultor.risco ? "<p>"+esc(consultor.risco)+"</p>" : '<p class="empty">Não avaliado.</p>';
+
+    html += '<h2>Prioridade</h2>';
+    html += "<p><strong>Atacar primeiro:</strong> "+(consultor.prioridade_atacar?esc(consultor.prioridade_atacar):'<span class="empty">não preenchido</span>')+"</p>";
+    html += "<p><strong>Pode esperar:</strong> "+(consultor.prioridade_esperar?esc(consultor.prioridade_esperar):'<span class="empty">não preenchido</span>')+"</p>";
+    html += "<p><strong>Deixar para depois:</strong> "+(consultor.prioridade_depois?esc(consultor.prioridade_depois):'<span class="empty">não preenchido</span>')+"</p>";
+
+    html += '<h2>O Que Não Foi Perguntado (Silêncio Estratégico)</h2>';
+    html += silencio.resposta ? "<p>"+esc(silencio.resposta)+(silencio.audio?' <span class="audio-tag">🎙 áudio anexado</span>':"")+"</p>" : '<p class="empty">Nada registrado.</p>';
+
+    html += '<h2>Programa Recomendado</h2>';
+    html += consultor.programa ? "<p>"+esc(consultor.programa)+"</p>" : '<p class="empty">Não selecionado.</p>';
+
+    html += '<h2>Ativos Sugeridos</h2>';
+    html += (consultor.ativos && consultor.ativos.length) ? "<p>"+consultor.ativos.map(esc).join(" · ")+"</p>" : '<p class="empty">Nenhum ativo selecionado.</p>';
+
+    html += '<h2>Observações Finais e Próximos Passos</h2>';
+    html += '<p class="empty">Campo livre — complete manualmente antes de enviar ao cliente.</p>';
+
+    html += '<div class="dossie-actions">';
+    html += '<button type="button" class="btn btn-ghost" id="btnCopiar" style="flex:0 0 auto;">Copiar texto</button>';
+    html += '<button type="button" class="btn btn-ghost" id="btnImprimir" style="flex:0 0 auto;">Imprimir / salvar PDF</button>';
+    html += '</div>';
+
+    wrap.innerHTML = html;
+    wrap.querySelector("#btnImprimir").addEventListener("click", function(){ window.print(); });
+    wrap.querySelector("#btnCopiar").addEventListener("click", function(){
+      var text = wrap.innerText;
+      if(navigator.clipboard){ navigator.clipboard.writeText(text).then(function(){ showToast("Copiado"); }); }
+    });
+    return wrap;
+  }
+
+  /* ---------- NAV ---------- */
+  document.getElementById("btnNext").addEventListener("click", function(){
+    var step = STEPS[state.current];
+    if(step.type === "dossie"){
+      if(confirm("Isso vai apagar todas as respostas e áudios deste diagnóstico. Deseja reiniciar?")){
+        clearAllAudio().then(function(){ state = { current:0, answers:{} }; save(); render(); });
+      }
+      return;
+    }
+    if(state.current < STEPS.length - 1){ state.current++; save(); render(); }
+  });
+  document.getElementById("btnBack").addEventListener("click", function(){
+    if(state.current > 0){ state.current--; render(); }
+  });
+
+  load();
+  render();
+})();
+</script>
+</body>
+</html>
