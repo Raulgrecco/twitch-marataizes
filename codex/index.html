@@ -1,0 +1,2403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codex Macuca — Documento Fundador</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink-deep:#12161A;
+    --ink-deep-2:#1B2126;
+    --paper:#F1ECDD;
+    --paper-2:#E9E2CD;
+    --ink-on-paper:#211E17;
+    --ink-muted:#5B5646;
+    --brass:#9C7A3C;
+    --brass-bright:#C79A4B;
+    --teal:#1F4B4A;
+    --teal-bright:#3E7A78;
+    --off-white:#E7E3D5;
+    --rule:#D8CFB4;
+    --tag-bg:#26302F;
+    --tag-text:#B9C9C7;
+    --focus:#C79A4B;
+  }
+
+  *{box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--ink-deep);
+    color:var(--ink-on-paper);
+    font-family:'Source Serif 4', Georgia, serif;
+    line-height:1.7;
+  }
+
+  .skip-link{
+    position:absolute;
+    left:-9999px;
+    top:0;
+    background:var(--brass-bright);
+    color:var(--ink-deep);
+    padding:0.75rem 1.25rem;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    z-index:1000;
+  }
+  .skip-link:focus{ left:1rem; top:1rem; }
+
+  a{ color:var(--teal); }
+  a:focus-visible, button:focus-visible, .volume-toggle:focus-visible{
+    outline:3px solid var(--focus);
+    outline-offset:2px;
+    border-radius:2px;
+  }
+
+  .app{
+    display:flex;
+    min-height:100vh;
+  }
+
+  /* ---------- SIDEBAR ---------- */
+  .sidebar{
+    width:320px;
+    flex-shrink:0;
+    background:var(--ink-deep);
+    color:var(--off-white);
+    border-right:1px solid #2A322F;
+    display:flex;
+    flex-direction:column;
+    position:sticky;
+    top:0;
+    height:100vh;
+  }
+
+  .sidebar-header{
+    padding:1.75rem 1.5rem 1.25rem;
+    border-bottom:1px solid #2A322F;
+  }
+
+  .seal{
+    width:44px;height:44px;
+    border:1.5px solid var(--brass);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:0.7rem;
+    font-weight:600;
+    letter-spacing:0.05em;
+    color:var(--brass-bright);
+    margin-bottom:0.9rem;
+  }
+
+  .brand{
+    font-family:'Fraunces', serif;
+    font-size:1.15rem;
+    font-weight:600;
+    letter-spacing:0.02em;
+    margin:0 0 0.2rem;
+    color:var(--off-white);
+  }
+  .edition{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--tag-text);
+    margin:0;
+  }
+
+  .sidebar-scroll{
+    flex:1;
+    overflow-y:auto;
+    padding:1rem 0;
+  }
+
+  .volumes{ list-style:none; margin:0; padding:0; }
+
+  .volume{ border-bottom:1px solid #232B29; }
+
+  .volume-toggle{
+    width:100%;
+    text-align:left;
+    background:none;
+    border:none;
+    color:var(--off-white);
+    font-family:'Space Grotesk', sans-serif;
+    font-size:0.84rem;
+    font-weight:500;
+    padding:0.85rem 1.5rem;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:0.5rem;
+  }
+  .volume.active .volume-toggle{ color:var(--brass-bright); }
+
+  .chapters{
+    list-style:none;
+    margin:0;
+    padding:0 1.5rem 0.75rem;
+  }
+  .chapters li{ margin:0; }
+  .chapters a{
+    display:block;
+    padding:0.4rem 0 0.4rem 0.9rem;
+    border-left:2px solid #2A322F;
+    color:var(--off-white);
+    text-decoration:none;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:0.82rem;
+    line-height:1.4;
+    transition:border-color .15s, color .15s;
+  }
+  .chapters a:hover, .chapters a.is-active{
+    border-left-color:var(--brass-bright);
+    color:var(--brass-bright);
+  }
+
+  .volume.pending{
+    padding:0.85rem 1.5rem;
+  }
+  .volume.pending .pending-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:0.84rem;
+    color:#6E756F;
+    margin:0 0 0.4rem;
+  }
+  .tag{
+    display:inline-block;
+    background:var(--tag-bg);
+    color:var(--tag-text);
+    font-family:'Space Grotesk', sans-serif;
+    font-size:0.65rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:0.15rem 0.5rem;
+    border-radius:3px;
+  }
+
+  .sidebar-footer{
+    padding:1rem 1.5rem 1.5rem;
+    border-top:1px solid #2A322F;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:0.72rem;
+    color:var(--tag-text);
+  }
+
+  .mobile-bar{ display:none; }
+
+  /* ---------- MAIN / PAGE ---------- */
+  main.page{
+    flex:1;
+    background:var(--ink-deep);
+    padding:3.5rem clamp(1.25rem, 5vw, 5rem) 6rem;
+    display:flex;
+    justify-content:center;
+  }
+
+  .page-surface{
+    background:var(--paper);
+    max-width:760px;
+    width:100%;
+    padding:clamp(2rem, 5vw, 4.5rem);
+    border-radius:2px;
+    box-shadow:0 40px 80px -30px rgba(0,0,0,0.55);
+  }
+
+  .title-block{
+    text-align:center;
+    padding-bottom:2.5rem;
+    margin-bottom:2.5rem;
+    border-bottom:1px solid var(--rule);
+  }
+  .seal-large{
+    width:64px;height:64px;
+    margin:0 auto 1.25rem;
+    border:2px solid var(--brass);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:0.85rem;
+    font-weight:600;
+    color:var(--brass);
+  }
+  .eyebrow{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:0.78rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--ink-muted);
+    margin:0 0 0.6rem;
+  }
+  .title-block h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-size:clamp(2.1rem, 4vw, 3rem);
+    font-weight:600;
+    margin:0 0 0.75rem;
+    color:var(--ink-on-paper);
+  }
+  .title-block .meta{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:0.8rem;
+    color:var(--ink-muted);
+    margin:0;
+  }
+
+  .chapter{
+    margin-bottom:3rem;
+    scroll-margin-top:2rem;
+  }
+  .chapter-number{
+    font-family:'Fraunces', serif;
+    font-size:1rem;
+    font-weight:600;
+    color:var(--brass);
+    letter-spacing:0.08em;
+    margin:0 0 0.35rem;
+  }
+  .chapter h2{
+    font-family:'Fraunces', serif;
+    font-size:clamp(1.35rem, 2.4vw, 1.7rem);
+    font-weight:600;
+    margin:0 0 1.25rem;
+    color:var(--ink-on-paper);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:0.85rem;
+  }
+  .chapter p{
+    margin:0 0 1.05rem;
+    font-size:1.05rem;
+    color:var(--ink-on-paper);
+  }
+  .chapter p:last-child{ margin-bottom:0; }
+
+  .founder-note{
+    background:var(--paper-2);
+    border-left:4px solid var(--teal);
+    padding:1.5rem 1.75rem;
+    margin:3rem 0;
+    border-radius:0 3px 3px 0;
+  }
+  .founder-note-label{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:0.72rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--teal);
+    font-weight:600;
+    margin:0 0 0.75rem;
+  }
+  .founder-note p{
+    font-size:0.98rem;
+    color:var(--ink-on-paper);
+    margin:0 0 0.85rem;
+  }
+  .founder-note p:last-child{ margin-bottom:0; }
+  .founder-note strong{ color:var(--ink-on-paper); }
+
+  .version-footer{
+    margin-top:3.5rem;
+    padding-top:2rem;
+    border-top:1px solid var(--rule);
+  }
+  .version-footer h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:0.78rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink-muted);
+    margin:0 0 0.9rem;
+  }
+  .version-footer ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:0.85rem;
+    color:var(--ink-muted);
+  }
+  .version-footer li{
+    padding:0.4rem 0;
+    border-bottom:1px dashed var(--rule);
+  }
+  .version-footer li:last-child{ border-bottom:none; }
+  .version-footer .v-tag{
+    color:var(--brass);
+    font-weight:600;
+    margin-right:0.6rem;
+  }
+
+  .chapter table{
+    width:100%;
+    border-collapse:collapse;
+    margin:1.25rem 0 1.5rem;
+    font-size:0.98rem;
+  }
+  .chapter th, .chapter td{
+    text-align:left;
+    padding:0.6rem 0.9rem;
+    border-bottom:1px solid var(--rule);
+  }
+  .chapter th{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:0.75rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--ink-muted);
+    border-bottom:2px solid var(--brass);
+  }
+
+  .chapter .options{
+    list-style:none;
+    margin:0.75rem 0 1.25rem;
+    padding:0;
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.5rem;
+  }
+  .chapter .options li{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:0.85rem;
+    border:1px solid var(--rule);
+    border-radius:3px;
+    padding:0.3rem 0.75rem;
+    color:var(--ink-muted);
+  }
+  .chapter .q-num{
+    font-family:'Space Grotesk', sans-serif;
+    color:var(--brass);
+    font-weight:600;
+    margin-right:0.4rem;
+  }
+  .diagnostic-form{
+    background:var(--paper-2);
+    border:1px solid var(--rule);
+    border-radius:3px;
+    padding:1.5rem;
+    margin:1.25rem 0;
+  }
+  .diagnostic-form dt{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:0.75rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--teal);
+    margin-top:1rem;
+  }
+  .diagnostic-form dt:first-child{ margin-top:0; }
+  .diagnostic-form dd{
+    margin:0.25rem 0 0;
+    color:var(--ink-on-paper);
+  }
+
+  .pendente-marker{
+    display:inline-block;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:0.7rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    background:#E4D9B8;
+    color:#6B4E1E;
+    border:1px solid var(--brass);
+    padding:0.2rem 0.55rem;
+    border-radius:3px;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 880px){
+    .app{ flex-direction:column; }
+    .sidebar{
+      width:100%;
+      height:auto;
+      position:relative;
+      display:none;
+    }
+    .sidebar.is-open{ display:flex; }
+    .mobile-bar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      background:var(--ink-deep);
+      color:var(--off-white);
+      padding:1rem 1.25rem;
+      position:sticky;
+      top:0;
+      z-index:50;
+      border-bottom:1px solid #2A322F;
+    }
+    .mobile-bar button{
+      background:none;
+      border:1px solid var(--brass);
+      color:var(--brass-bright);
+      font-family:'Space Grotesk', sans-serif;
+      font-size:0.78rem;
+      padding:0.45rem 0.85rem;
+      border-radius:3px;
+      cursor:pointer;
+    }
+    main.page{ padding:2rem 1rem 4rem; }
+    .page-surface{ padding:1.75rem; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+<div class="mobile-bar">
+  <strong style="font-family:'Fraunces',serif;">CODEX MACUCA</strong>
+  <button id="navToggle" aria-expanded="false" aria-controls="sidebar">Índice</button>
+</div>
+
+<div class="app">
+  <nav class="sidebar" id="sidebar" aria-label="Navegação do Codex Macuca">
+    <div class="sidebar-header">
+      <div class="seal" aria-hidden="true">CM</div>
+      <p class="brand">CODEX MACUCA</p>
+      <p class="edition">Documento Fundador · Edição 1</p>
+    </div>
+
+    <div class="sidebar-scroll">
+      <ol class="volumes">
+        <li class="volume active">
+          <button class="volume-toggle" aria-expanded="true">Volume I — A Fundação</button>
+          <ol class="chapters">
+            <li><a href="#cap1">01 · Por que a Macuca existe?</a></li>
+            <li><a href="#cap2">02 · O problema que ninguém resolve</a></li>
+            <li><a href="#cap3">03 · Nossa crença</a></li>
+            <li><a href="#cap4">04 · O que a Macuca não é</a></li>
+            <li><a href="#cap5">05 · O que a Macuca é</a></li>
+            <li><a href="#cap6">06 · Nosso propósito</a></li>
+            <li><a href="#cap7">07 · Nossa missão</a></li>
+            <li><a href="#cap8">08 · Nossa visão</a></li>
+            <li><a href="#cap9">09 · Nossos valores</a></li>
+            <li><a href="#nota-fundador">Nota do Fundador</a></li>
+          </ol>
+        </li>
+
+        <li class="volume active">
+          <button class="volume-toggle" aria-expanded="true">Volume II — A Ciência da Relevância</button>
+          <ol class="chapters">
+            <li><a href="#v2-cap1">01 · O que é relevância?</a></li>
+            <li><a href="#v2-cap2">02 · A pirâmide da relevância</a></li>
+            <li><a href="#v2-cap3">03 · A fórmula da relevância</a></li>
+            <li><a href="#v2-cap4">04 · Visibilidade vs. relevância</a></li>
+            <li><a href="#v2-cap5">05 · Memória coletiva</a></li>
+            <li><a href="#v2-cap6">06 · A economia da confiança</a></li>
+            <li><a href="#v2-cap7">07 · O território mental</a></li>
+            <li><a href="#v2-cap8">08 · A repetição como ativo</a></li>
+            <li><a href="#v2-cap9">09 · Comunidade</a></li>
+            <li><a href="#v2-cap10">10 · O princípio fundador</a></li>
+            <li><a href="#v2-nota">Observação Estratégica</a></li>
+          </ol>
+        </li>
+        <li class="volume active">
+          <button class="volume-toggle" aria-expanded="true">Volume III — O Sistema Macuca</button>
+          <ol class="chapters">
+            <li><a href="#v3-cap1">01 · O princípio do sistema</a></li>
+            <li><a href="#v3-cap2">02 · O Sistema Macuca (6 etapas)</a></li>
+            <li><a href="#v3-cap3">03 · O ecossistema</a></li>
+            <li><a href="#v3-cap4">04 · O consultor Macuca</a></li>
+            <li><a href="#v3-cap5">05 · O contrato</a></li>
+            <li><a href="#v3-cap6">06 · O resultado</a></li>
+            <li><a href="#v3-cap7">07 · O sistema é maior que as ferramentas</a></li>
+            <li><a href="#v3-nota">Observação Estratégica</a></li>
+          </ol>
+        </li>
+        <li class="volume active">
+          <button class="volume-toggle" aria-expanded="true">Volume IV — A Vantagem Competitiva</button>
+          <ol class="chapters">
+            <li><a href="#v4-cap1">01 · A grande mudança</a></li>
+            <li><a href="#v4-cap2">02 · A moeda da Macuca</a></li>
+            <li><a href="#v4-cap3">03 · O ecossistema</a></li>
+            <li><a href="#v4-nota1">Observação Estratégica</a></li>
+            <li><a href="#v4-cap4">04 · Exclusividade</a></li>
+            <li><a href="#v4-cap5">05 · O protocolo de entrada</a></li>
+            <li><a href="#v4-cap6">06 · O protocolo de permanência</a></li>
+            <li><a href="#v4-cap7">07 · A Universidade Macuca</a></li>
+            <li><a href="#v4-nota2">Observação Estratégica II</a></li>
+          </ol>
+        </li>
+        <li class="volume active">
+          <button class="volume-toggle" aria-expanded="true">Volume V — O Modelo de Negócio</button>
+          <ol class="chapters">
+            <li><a href="#v5-cap1">01 · A grande mudança</a></li>
+            <li><a href="#v5-cap2">02 · A unidade de negócio</a></li>
+            <li><a href="#v5-cap3">03 · A jornada da marca</a></li>
+            <li><a href="#v5-cap4">04 · A escada de valor</a></li>
+            <li><a href="#v5-cap5">05 · O conselho da marca</a></li>
+            <li><a href="#v5-cap6">06 · O consultor de relevância</a></li>
+            <li><a href="#v5-cap7">07 · O portfólio</a></li>
+            <li><a href="#v5-nota1">Observação Estratégica</a></li>
+            <li><a href="#v5-nota2">Observação Estratégica II</a></li>
+          </ol>
+        </li>
+        <li class="volume active">
+          <button class="volume-toggle" aria-expanded="true">Volume VI — A Filosofia Operacional</button>
+          <ol class="chapters">
+            <li><a href="#v6-cap1">01 · A primeira lei</a></li>
+            <li><a href="#v6-cap2">02 · A segunda lei</a></li>
+            <li><a href="#v6-cap3">03 · A terceira lei</a></li>
+            <li><a href="#v6-cap4">04 · A quarta lei</a></li>
+            <li><a href="#v6-cap5">05 · A quinta lei</a></li>
+            <li><a href="#v6-cap6">06 · A sexta lei</a></li>
+            <li><a href="#v6-cap7">07 · A sétima lei</a></li>
+            <li><a href="#v6-cap8">08 · A oitava lei</a></li>
+            <li><a href="#v6-cap9">09 · A nona lei</a></li>
+            <li><a href="#v6-cap10">10 · A décima lei</a></li>
+            <li><a href="#v6-nota">Observação Estratégica</a></li>
+          </ol>
+        </li>
+        <li class="volume active">
+          <button class="volume-toggle" aria-expanded="true">Volume VII — A Jornada da Marca</button>
+          <ol class="chapters">
+            <li><a href="#v7-cap1">01 · A empresa não compra um serviço</a></li>
+            <li><a href="#v7-cap2">02 · O primeiro encontro</a></li>
+            <li><a href="#v7-cap3">03 · O mapa da marca</a></li>
+            <li><a href="#v7-cap4">04 · O território</a></li>
+            <li><a href="#v7-cap5">05 · O plano de evolução</a></li>
+            <li><a href="#v7-cap6">06 · O conselho da marca</a></li>
+            <li><a href="#v7-cap7">07 · O ciclo de presença</a></li>
+            <li><a href="#v7-cap8">08 · A revisão semestral</a></li>
+            <li><a href="#v7-cap9">09 · A certificação</a></li>
+            <li><a href="#v7-cap10">10 · O legado</a></li>
+            <li><a href="#v7-nota">Observação Estratégica</a></li>
+          </ol>
+        </li>
+        <li class="volume active">
+          <button class="volume-toggle" aria-expanded="true">Volume VIII — Os Protocolos Macuca</button>
+          <ol class="chapters">
+            <li><a href="#v8-cap1">01 · O princípio dos protocolos</a></li>
+            <li><a href="#v8-cap2">02 · Protocolo Zero</a></li>
+            <li><a href="#v8-cap3">03 · Protocolo do Diagnóstico</a></li>
+            <li><a href="#v8-cap4">04 · Protocolo do Território</a></li>
+            <li><a href="#v8-cap5">05 · Protocolo da Presença</a></li>
+            <li><a href="#v8-cap6">06 · Protocolo da Qualidade</a></li>
+            <li><a href="#v8-cap7">07 · Protocolo da Comunidade</a></li>
+            <li><a href="#v8-cap8">08 · Protocolo da Verdade</a></li>
+            <li><a href="#v8-cap9">09 · Protocolo da Evolução</a></li>
+            <li><a href="#v8-cap10">10 · Protocolo da Exclusividade</a></li>
+            <li><a href="#v8-nota">Observação Estratégica</a></li>
+          </ol>
+        </li>
+        <li class="volume active">
+          <button class="volume-toggle" aria-expanded="true">Volume IX — O Radar de Relevância™</button>
+          <ol class="chapters">
+            <li><a href="#v9-cap1">01 · O problema das métricas</a></li>
+            <li><a href="#v9-cap2">02 · O princípio</a></li>
+            <li><a href="#v9-cap3">03 · Os seis eixos da relevância</a></li>
+            <li><a href="#v9-cap4">04 · O Índice de Relevância Regional (IRR)</a></li>
+            <li><a href="#v9-cap5">05 · A reunião de evolução</a></li>
+            <li><a href="#v9-cap6">06 · O Mapa de Território™</a></li>
+            <li><a href="#v9-cap7">07 · A Matriz dos Ativos™</a></li>
+            <li><a href="#v9-cap8">08 · O Ciclo Macuca™</a></li>
+            <li><a href="#v9-cap9">09 · A governança da marca</a></li>
+            <li><a href="#v9-cap10">10 · O verdadeiro produto</a></li>
+            <li><a href="#v9-nota">Observação Estratégica</a></li>
+          </ol>
+        </li>
+        <li class="volume active">
+          <button class="volume-toggle" aria-expanded="true">Volume X — A Doutrina Macuca</button>
+          <ol class="chapters">
+            <li><a href="#v10-cap1">01 · A mudança definitiva</a></li>
+            <li><a href="#v10-cap2">02 · O que nunca mais diremos</a></li>
+            <li><a href="#v10-cap3">03 · A primeira conversa</a></li>
+            <li><a href="#v10-cap4">04 · A escada da confiança</a></li>
+            <li><a href="#v10-cap5">05 · A escada da marca</a></li>
+            <li><a href="#v10-cap6">06 · O mapa territorial</a></li>
+            <li><a href="#v10-cap7">07 · O movimento</a></li>
+            <li><a href="#v10-cap8">08 · O que vendemos</a></li>
+            <li><a href="#v10-cap9">09 · A postura</a></li>
+            <li><a href="#v10-cap10">10 · O compromisso</a></li>
+            <li><a href="#v10-epilogo">Epílogo</a></li>
+            <li><a href="#v10-nota">Nota do Fundador · Fim do Livro I</a></li>
+          </ol>
+        </li>
+        <li class="volume active">
+          <button class="volume-toggle" aria-expanded="true">Anexo I — Protocolo de Diagnóstico (DMR™)</button>
+          <ol class="chapters">
+            <li><a href="#dmr-intro">Introdução</a></li>
+            <li><a href="#dmr-b1">Bloco 1 · A empresa</a></li>
+            <li><a href="#dmr-b2">Bloco 2 · O negócio</a></li>
+            <li><a href="#dmr-b3">Bloco 3 · O cliente</a></li>
+            <li><a href="#dmr-b4">Bloco 4 · A percepção</a></li>
+            <li><a href="#dmr-b5">Bloco 5 · O território</a></li>
+            <li><a href="#dmr-b6">Bloco 6 · A concorrência</a></li>
+            <li><a href="#dmr-b7">Bloco 7 · A comunicação</a></li>
+            <li><a href="#dmr-b8">Bloco 8 · A comunidade</a></li>
+            <li><a href="#dmr-b9">Bloco 9 · O futuro</a></li>
+            <li><a href="#dmr-b10">Bloco 10 · O diagnóstico</a></li>
+            <li><a href="#dmr-nota1">Observação · As sete etapas</a></li>
+            <li><a href="#dmr-nota2">Observação · Nasce o DMR™</a></li>
+          </ol>
+        </li>
+        <li class="volume active">
+          <button class="volume-toggle" aria-expanded="true">Anexo I-B — Protocolo DMR™ (Versão Completa)</button>
+          <ol class="chapters">
+            <li><a href="#dmrv2-intro">Objetivo e Abertura</a></li>
+            <li><a href="#dmrv2-b1">Bloco 1 · A história</a></li>
+            <li><a href="#dmrv2-b2">Bloco 2 · O negócio</a></li>
+            <li><a href="#dmrv2-b3">Bloco 3 · O cliente</a></li>
+            <li><a href="#dmrv2-b4">Bloco 4 · A percepção</a></li>
+            <li><a href="#dmrv2-b5">Bloco 5 · O território</a></li>
+            <li><a href="#dmrv2-b6">Bloco 6 · A concorrência</a></li>
+            <li><a href="#dmrv2-b7">Bloco 7 · A comunicação</a></li>
+            <li><a href="#dmrv2-b8">Bloco 8 · A comunidade</a></li>
+            <li><a href="#dmrv2-b9">Bloco 9 · O futuro</a></li>
+            <li><a href="#dmrv2-b10">Bloco 10 · O fundador</a></li>
+            <li><a href="#dmrv2-b11">Bloco 11 · O Diagnóstico Macuca</a></li>
+            <li><a href="#dmrv2-nota">Observação · O fechamento</a></li>
+          </ol>
+        </li>
+      </ol>
+    </div>
+
+    <div class="sidebar-footer">
+      Versão atual: Codex 1.0 + Anexo I + Anexo I-B<br>
+      Livro I completo · Volumes I–X
+    </div>
+  </nav>
+
+  <main class="page" id="conteudo">
+    <div class="page-surface">
+
+      <header class="title-block">
+        <div class="seal-large" aria-hidden="true">CM · I</div>
+        <p class="eyebrow">Codex Macuca · Documento Fundador · Edição 1</p>
+        <h1>Volume I — A Fundação</h1>
+        <p class="meta">Registro fundacional da Macuca Produções</p>
+      </header>
+
+      <article class="chapter" id="cap1">
+        <p class="chapter-number">Capítulo 1</p>
+        <h2>Por que a Macuca existe?</h2>
+        <p>Toda empresa nasce para resolver um problema.</p>
+        <p>A Macuca também.</p>
+        <p>Durante muitos anos acreditamos que o problema das empresas locais era a falta de divulgação.</p>
+        <p>Descobrimos que não.</p>
+        <p>Empresas anunciam.</p>
+        <p>Empresas impulsionam.</p>
+        <p>Empresas fazem promoções.</p>
+        <p>Empresas produzem vídeos.</p>
+        <p>Mesmo assim, muitas continuam sendo esquecidas.</p>
+        <p>O verdadeiro problema nunca foi a falta de publicidade.</p>
+        <p>O verdadeiro problema sempre foi a falta de relevância.</p>
+        <p>Existe uma enorme diferença entre aparecer e ser lembrado.</p>
+        <p>Existe uma enorme diferença entre vender e tornar-se referência.</p>
+        <p>Existe uma enorme diferença entre fazer propaganda e ocupar um espaço permanente na mente das pessoas.</p>
+        <p>Foi observando essa realidade que nasceu a Macuca.</p>
+        <p>Não para vender publicidade.</p>
+        <p>Não para vender mídia.</p>
+        <p>Não para vender campanhas.</p>
+        <p>Mas para desenvolver empresas que desejam construir uma posição duradoura dentro de sua comunidade.</p>
+        <p>A Macuca existe porque acreditamos que empresas locais merecem competir por reputação, confiança e relevância, e não apenas por preço ou promoção.</p>
+        <p>Nosso trabalho não é vender atenção.</p>
+        <p>Nosso trabalho é transformar atenção em confiança, confiança em autoridade e autoridade em relevância.</p>
+        <p>Acreditamos que relevância não acontece por acaso.</p>
+        <p>Ela é construída.</p>
+        <p>Todos os dias.</p>
+        <p>Em cada contato.</p>
+        <p>Em cada história.</p>
+        <p>Em cada experiência.</p>
+        <p>Em cada lembrança.</p>
+        <p>É por isso que existimos.</p>
+      </article>
+
+      <article class="chapter" id="cap2">
+        <p class="chapter-number">Capítulo 2</p>
+        <h2>O problema que ninguém resolve</h2>
+        <p>O mercado de comunicação local fragmentou o crescimento das empresas.</p>
+        <p>Cada fornecedor vende apenas uma parte do problema.</p>
+        <p>Uma agência vende campanhas.</p>
+        <p>Uma produtora vende vídeos.</p>
+        <p>Um gestor de tráfego vende anúncios.</p>
+        <p>Uma rádio vende inserções.</p>
+        <p>Uma TV vende espaço.</p>
+        <p>Um influenciador vende alcance.</p>
+        <p>Cada um entrega uma ferramenta.</p>
+        <p>Quase ninguém assume a responsabilidade pela construção da marca.</p>
+        <p>O empresário compra serviços.</p>
+        <p>Mas continua sozinho.</p>
+        <p>Continua tomando decisões isoladas.</p>
+        <p>Continua comunicando sem direção.</p>
+        <p>Continua aparecendo sem construir memória.</p>
+        <p>Continua investindo sem desenvolver patrimônio de marca.</p>
+        <p>A Macuca nasceu para ocupar exatamente esse espaço.</p>
+        <p>Não somos fornecedores de mídia.</p>
+        <p>Somos responsáveis por desenvolver relevância.</p>
+      </article>
+
+      <article class="chapter" id="cap3">
+        <p class="chapter-number">Capítulo 3</p>
+        <h2>Nossa crença</h2>
+        <p>Nós acreditamos que:</p>
+        <p>A melhor empresa nem sempre é a mais lembrada.</p>
+        <p>Mas a empresa mais lembrada possui maior probabilidade de ser escolhida.</p>
+        <p>Acreditamos que pessoas compram confiança antes de comprar produtos.</p>
+        <p>Acreditamos que confiança nasce da repetição consistente.</p>
+        <p>Acreditamos que autoridade nasce da contribuição.</p>
+        <p>Acreditamos que presença contínua vale mais do que aparições esporádicas.</p>
+        <p>Acreditamos que marcas fortes não são construídas por campanhas.</p>
+        <p>São construídas por sistemas.</p>
+        <p>É isso que fazemos.</p>
+      </article>
+
+      <article class="chapter" id="cap4">
+        <p class="chapter-number">Capítulo 4</p>
+        <h2>O que a Macuca não é</h2>
+        <p>A Macuca não é uma agência.</p>
+        <p>A Macuca não é uma emissora.</p>
+        <p>A Macuca não é uma produtora audiovisual.</p>
+        <p>A Macuca não é um portal.</p>
+        <p>A Macuca não é um perfil de Instagram.</p>
+        <p>Todos esses elementos fazem parte da nossa infraestrutura.</p>
+        <p>Nenhum deles define quem somos.</p>
+        <p>Nossa identidade não está nas ferramentas.</p>
+        <p>Nossa identidade está na transformação que entregamos.</p>
+      </article>
+
+      <article class="chapter" id="cap5">
+        <p class="chapter-number">Capítulo 5</p>
+        <h2>O que a Macuca é</h2>
+        <p>A Macuca é uma empresa especializada em desenvolver relevância regional para marcas. <span class="pendente-marker">Nome de categoria provisório</span></p>
+        <p>Utilizamos um ecossistema próprio de comunicação para construir presença, confiança, autoridade e lembrança.</p>
+        <p>Nossa missão não é anunciar empresas.</p>
+        <p>Nossa missão é desenvolver marcas capazes de ocupar um lugar permanente na memória das pessoas.</p>
+        <p>Toda ferramenta que utilizamos existe apenas para cumprir essa missão.</p>
+      </article>
+
+      <article class="chapter" id="cap6">
+        <p class="chapter-number">Capítulo 6</p>
+        <h2>Nosso propósito</h2>
+        <p>Toda cidade possui empresas extraordinárias.</p>
+        <p>Poucas se tornam extraordinariamente lembradas.</p>
+        <p>Nosso propósito é diminuir essa distância.</p>
+        <p>Queremos que boas empresas deixem de competir apenas por preço.</p>
+        <p>Queremos que sejam reconhecidas pelo valor que entregam.</p>
+        <p>Queremos fortalecer a economia local através do fortalecimento das marcas locais.</p>
+        <p>Porque quando uma marca cresce de forma consistente, cresce também a comunidade onde ela está inserida.</p>
+      </article>
+
+      <article class="chapter" id="cap7">
+        <p class="chapter-number">Capítulo 7</p>
+        <h2>Nossa missão</h2>
+        <p>Desenvolver marcas regionalmente relevantes através de um método proprietário que integra comunicação, presença contínua, construção de autoridade e relacionamento com a comunidade.</p>
+      </article>
+
+      <article class="chapter" id="cap8">
+        <p class="chapter-number">Capítulo 8</p>
+        <h2>Nossa visão</h2>
+        <p>Ser a empresa que redefiniu a forma como marcas locais se tornam referência no Brasil, criando um modelo de desenvolvimento de relevância regional replicável em qualquer cidade.</p>
+      </article>
+
+      <article class="chapter" id="cap9">
+        <p class="chapter-number">Capítulo 9</p>
+        <h2>Nossos valores</h2>
+        <p><strong>Verdade antes de marketing.</strong><br>Nunca prometemos aquilo que não podemos controlar.</p>
+        <p><strong>Relevância antes de alcance.</strong><br>Mais importante do que aparecer é ser lembrado.</p>
+        <p><strong>Consistência antes de intensidade.</strong><br>Uma presença contínua vale mais do que um grande pico de exposição.</p>
+        <p><strong>Comunidade antes de audiência.</strong><br>Marcas fortes participam da vida das pessoas.</p>
+        <p><strong>Construção antes de campanha.</strong><br>Campanhas terminam. Marcas permanecem.</p>
+        <p><strong>Parceria antes de prestação de serviço.</strong><br>Não trabalhamos para empresas. Trabalhamos com empresas.</p>
+      </article>
+
+      <aside class="founder-note" id="nota-fundador">
+        <p class="founder-note-label">Nota do Fundador</p>
+        <p>Este é o primeiro tijolo da fundação. Antes de continuar, fica registrada uma observação crítica — como sócio, não como redator.</p>
+        <p>Há um ponto que ainda não está cravado: <strong>"Empresa especializada em desenvolver relevância regional para marcas."</strong></p>
+        <p>Esse conceito é forte, mas ainda não há certeza de que ele é o melhor nome para a categoria. Ao longo dos próximos volumes, uma definição ainda mais poderosa pode surgir. Esse termo deve ser tratado como <span class="pendente-marker">Pendente</span>, mantendo a filosofia intacta.</p>
+        <p>A filosofia está sólida. O nome da categoria ainda merece ser lapidado.</p>
+      </aside>
+
+      <header class="title-block" style="margin-top:4rem;">
+        <div class="seal-large" aria-hidden="true">CM · II</div>
+        <p class="eyebrow">Codex Macuca · Documento Fundador · Edição 1</p>
+        <h1>Volume II — A Ciência da Relevância</h1>
+        <p class="meta">Não marketing. Ciência. Psicologia. Território. Memória. Confiança.</p>
+      </header>
+
+      <article class="chapter" id="v2-cap1">
+        <p class="chapter-number">Capítulo 1</p>
+        <h2>O que é relevância?</h2>
+        <p>A maioria das empresas acredita que relevância significa aparecer.</p>
+        <p>Nós discordamos.</p>
+        <p>Aparecer é visibilidade.</p>
+        <p>Ser lembrado é relevância.</p>
+        <p>Uma empresa pode investir milhares de reais em campanhas e ainda assim desaparecer da memória das pessoas poucos dias depois.</p>
+        <p>Outra empresa pode aparecer menos, mas ocupar um espaço permanente na mente da comunidade.</p>
+        <p>A diferença entre essas duas empresas não é a quantidade de mídia.</p>
+        <p>É a qualidade da presença construída ao longo do tempo.</p>
+        <p>Para a Macuca, relevância é a capacidade de uma marca ser lembrada naturalmente quando alguém pensa em determinada necessidade, categoria ou segmento.</p>
+        <p>Não é fama.</p>
+        <p>Não é popularidade.</p>
+        <p>Não é viralização.</p>
+        <p>É lembrança consistente.</p>
+      </article>
+
+      <article class="chapter" id="v2-cap2">
+        <p class="chapter-number">Capítulo 2</p>
+        <h2>A pirâmide da relevância</h2>
+        <p>Nenhuma marca nasce líder.</p>
+        <p>Toda marca evolui.</p>
+        <p>Essa evolução acontece em estágios.</p>
+        <p><strong>Nível 1 — Invisibilidade</strong><br>A empresa existe. Mas quase ninguém sabe. Ela depende exclusivamente de indicação. O mercado praticamente ignora sua existência.</p>
+        <p><strong>Nível 2 — Visibilidade</strong><br>As pessoas começam a reconhecer o nome. Sabem que a empresa existe. Mas ainda não existe confiança suficiente. A lembrança é superficial.</p>
+        <p><strong>Nível 3 — Reconhecimento</strong><br>A comunidade identifica a empresa. Ela começa a possuir características próprias. Já existe diferenciação. O nome passa a ter significado.</p>
+        <p><strong>Nível 4 — Autoridade</strong><br>A empresa deixa de ser apenas conhecida. Ela passa a ser respeitada. As pessoas acreditam no que ela diz. Confiam em suas decisões. Aceitam sua opinião.</p>
+        <p><strong>Nível 5 — Preferência</strong><br>Quando existem várias opções, ela começa a ser escolhida com frequência. Não necessariamente pelo menor preço. Mas pela confiança construída.</p>
+        <p><strong>Nível 6 — Liderança Regional</strong><br>A empresa torna-se referência natural dentro do segmento. Quando alguém pensa naquela categoria... Seu nome surge espontaneamente. Ela passa a influenciar o mercado.</p>
+      </article>
+
+      <article class="chapter" id="v2-cap3">
+        <p class="chapter-number">Capítulo 3</p>
+        <h2>A fórmula da relevância</h2>
+        <p>A Macuca acredita que a relevância é consequência da interação entre cinco elementos.</p>
+        <p style="font-family:'Fraunces',serif; font-size:1.2rem; text-align:center; color:var(--teal);">Presença × Consistência × Autoridade × Comunidade × Tempo = Relevância</p>
+        <p>Nenhum desses fatores, isoladamente, produz liderança.</p>
+        <p>Uma campanha pode gerar presença.</p>
+        <p>Mas sem consistência, desaparece.</p>
+        <p>Uma empresa pode ser competente.</p>
+        <p>Mas sem comunidade, permanece invisível.</p>
+        <p>Uma marca pode investir muito.</p>
+        <p>Mas sem tempo, dificilmente consolidará autoridade.</p>
+        <p>Relevância é sempre uma construção.</p>
+        <p>Nunca um acontecimento isolado.</p>
+      </article>
+
+      <article class="chapter" id="v2-cap4">
+        <p class="chapter-number">Capítulo 4</p>
+        <h2>A diferença entre visibilidade e relevância</h2>
+        <p>Uma campanha pode gerar milhares de visualizações.</p>
+        <p>Isso é visibilidade.</p>
+        <p>Uma marca que continua sendo lembrada meses depois construiu relevância.</p>
+        <p>A Macuca mede sucesso pela permanência da lembrança, e não apenas pelo alcance imediato.</p>
+        <p>Nosso objetivo nunca será criar picos de atenção.</p>
+        <p>Nosso objetivo será construir uma presença constante que fortaleça a memória coletiva da comunidade.</p>
+      </article>
+
+      <article class="chapter" id="v2-cap5">
+        <p class="chapter-number">Capítulo 5</p>
+        <h2>Memória coletiva</h2>
+        <p>Toda cidade possui uma memória invisível.</p>
+        <p>Ela é formada por histórias.</p>
+        <p>Pessoas.</p>
+        <p>Lugares.</p>
+        <p>Empresas.</p>
+        <p>Eventos.</p>
+        <p>Tradições.</p>
+        <p>As marcas mais fortes são aquelas que conseguem participar dessa memória.</p>
+        <p>Quando uma empresa deixa de ser apenas um comércio e passa a fazer parte das conversas da comunidade, ela inicia sua transformação em referência.</p>
+        <p>Por isso a Macuca não cria apenas conteúdo.</p>
+        <p>Criamos participação.</p>
+      </article>
+
+      <article class="chapter" id="v2-cap6">
+        <p class="chapter-number">Capítulo 6</p>
+        <h2>A economia da confiança</h2>
+        <p>Toda compra envolve risco.</p>
+        <p>Quando uma pessoa escolhe uma empresa, ela está tomando uma decisão baseada na confiança disponível naquele momento.</p>
+        <p>Quanto maior a confiança, menor a percepção de risco.</p>
+        <p>Quanto menor o risco percebido, maior a probabilidade de escolha.</p>
+        <p>Nosso trabalho consiste em reduzir essa distância entre desconhecimento e confiança.</p>
+      </article>
+
+      <article class="chapter" id="v2-cap7">
+        <p class="chapter-number">Capítulo 7</p>
+        <h2>O território mental</h2>
+        <p>As empresas competem por espaço físico.</p>
+        <p>As marcas competem por espaço mental.</p>
+        <p>Uma pizzaria disputa clientes.</p>
+        <p>Uma marca disputa lembrança.</p>
+        <p>A Macuca trabalha no segundo território.</p>
+        <p>Nosso objetivo é ajudar empresas a ocupar um lugar específico na mente das pessoas.</p>
+        <p>Esse território não é conquistado por volume de anúncios.</p>
+        <p>É conquistado por significado.</p>
+      </article>
+
+      <article class="chapter" id="v2-cap8">
+        <p class="chapter-number">Capítulo 8</p>
+        <h2>A repetição como ativo</h2>
+        <p>O mercado costuma valorizar impacto.</p>
+        <p>Nós valorizamos repetição.</p>
+        <p>Uma única grande campanha pode impressionar.</p>
+        <p>A presença consistente constrói familiaridade.</p>
+        <p>A familiaridade reduz desconfiança.</p>
+        <p>A confiança aumenta preferência.</p>
+        <p>Por isso a Macuca prefere cem pequenos contatos relevantes ao longo de um ano do que uma única ação espetacular seguida de silêncio.</p>
+      </article>
+
+      <article class="chapter" id="v2-cap9">
+        <p class="chapter-number">Capítulo 9</p>
+        <h2>Comunidade</h2>
+        <p>Toda marca vive dentro de uma comunidade.</p>
+        <p>Quem ignora a comunidade torna-se apenas fornecedor.</p>
+        <p>Quem participa da comunidade transforma-se em referência.</p>
+        <p>A comunicação não deve interromper a vida das pessoas.</p>
+        <p>Deve fazer parte dela.</p>
+      </article>
+
+      <article class="chapter" id="v2-cap10">
+        <p class="chapter-number">Capítulo 10</p>
+        <h2>O princípio fundador</h2>
+        <p>A relevância nunca é consequência da quantidade de mídia.</p>
+        <p>Ela é consequência da qualidade da presença construída ao longo do tempo.</p>
+        <p>Toda ferramenta utilizada pela Macuca existe apenas para fortalecer essa presença.</p>
+        <p>Nenhuma ferramenta é o produto.</p>
+        <p>O produto é a evolução da marca.</p>
+      </article>
+
+      <aside class="founder-note" id="v2-nota">
+        <p class="founder-note-label">Observação Estratégica</p>
+        <p>Aqui foi encontrado o primeiro conceito que pode se tornar propriedade intelectual da Macuca: <strong>a Pirâmide da Relevância.</strong></p>
+        <p>Não se trata de dizer que a ideia de estágios de marca seja inédita. Ela não é. Mas a forma como a Macuca define e usa esses estágios pode ser proprietária.</p>
+        <p>Uma alteração importante cogitada para os próximos volumes: em vez de vender "planos", a Macuca pode passar a vender a evolução da empresa dentro da Pirâmide da Relevância.</p>
+        <p>Por exemplo: uma empresa entra no Nível 2 (Visibilidade). Evolui para o Nível 3 (Reconhecimento). Depois para Autoridade. Depois para Preferência. Depois para Liderança Regional.</p>
+        <p>Isso muda a lógica da venda. O cliente deixa de comprar "mídia do mês" e passa a comprar uma jornada de evolução da marca.</p>
+        <p>Esse é o primeiro conceito do Codex que merece ser desenhado como um framework visual próprio da Macuca. <span class="pendente-marker">Pendente — framework visual</span></p>
+      </aside>
+
+      <header class="title-block" style="margin-top:4rem;">
+        <div class="seal-large" aria-hidden="true">CM · III</div>
+        <p class="eyebrow">Codex Macuca · Documento Fundador · Edição 1</p>
+        <h1>Volume III — O Sistema Macuca</h1>
+        <p class="meta">Como transformamos empresas em marcas regionalmente relevantes</p>
+      </header>
+
+      <article class="chapter" id="v3-cap1">
+        <p class="chapter-number">Capítulo 1</p>
+        <h2>O princípio do sistema</h2>
+        <p>A Macuca não executa campanhas.</p>
+        <p>A Macuca conduz processos.</p>
+        <p>Toda empresa que entra na Macuca inicia uma jornada de evolução.</p>
+        <p>Essa jornada possui diagnóstico, direção, execução, acompanhamento, revisão e evolução contínua.</p>
+        <p>Nosso objetivo não é entregar materiais.</p>
+        <p>Nosso objetivo é desenvolver ativos de marca.</p>
+        <p>Por isso, toda ferramenta utilizada pela Macuca existe para fortalecer um único processo: a construção de relevância.</p>
+      </article>
+
+      <article class="chapter" id="v3-cap2">
+        <p class="chapter-number">Capítulo 2</p>
+        <h2>O Sistema Macuca</h2>
+        <p>Todo desenvolvimento de marca acontece em seis movimentos.</p>
+        <p>Nenhuma etapa pode ser ignorada.</p>
+        <p>Cada etapa prepara a seguinte.</p>
+        <p><strong>Etapa 1 — Diagnóstico</strong><br>Antes de comunicar, é necessário compreender. Quem é a empresa? Como ela é percebida? Quem são seus concorrentes? Qual posição ocupa hoje? Em qual nível da Pirâmide da Relevância ela está? Quais ativos possui? Quais oportunidades ainda não utiliza? A Macuca nunca começa produzindo conteúdo. Começa compreendendo.</p>
+        <p><strong>Etapa 2 — Posicionamento</strong><br>Toda marca precisa ocupar um espaço específico. Não basta vender. É preciso representar algo. Toda empresa deve responder: Por que existimos? Qual transformação entregamos? Como queremos ser lembrados? Qual território queremos ocupar? Se essa resposta não estiver clara, nenhuma comunicação produzirá relevância consistente.</p>
+        <p><strong>Etapa 3 — Presença</strong><br>Posicionamento sem presença é invisível. Nesta etapa, a marca passa a ocupar espaços estratégicos. Cada ativo da Macuca possui uma função específica. TV gera autoridade. Portal gera credibilidade. Instagram gera recorrência. Guia gera encontrabilidade. Eventos geram relacionamento. Conteúdo gera memória. Nenhuma ferramenta trabalha isoladamente. Todas trabalham para fortalecer a mesma identidade.</p>
+        <p><strong>Etapa 4 — Autoridade</strong><br>Estar presente não basta. É preciso conquistar confiança. A autoridade é construída quando a marca deixa de apenas falar sobre si mesma e passa a contribuir para sua comunidade. Ela educa. Ela informa. Ela participa. Ela compartilha. Ela inspira. Quanto maior a contribuição, maior a autoridade.</p>
+        <p><strong>Etapa 5 — Consolidação</strong><br>Toda presença precisa se tornar hábito. A comunicação deixa de depender de campanhas. Ela passa a fazer parte da rotina da comunidade. A empresa deixa de ser percebida como anunciante. Passa a ser percebida como participante da cidade. É aqui que a lembrança começa a se consolidar.</p>
+        <p><strong>Etapa 6 — Liderança</strong><br>A liderança não é declarada. Ela é reconhecida. Ela acontece quando a comunidade passa a associar espontaneamente uma categoria àquela marca. A Macuca não promete liderança. A Macuca desenvolve as condições para que ela aconteça. A liderança sempre será consequência da consistência. Nunca da propaganda.</p>
+      </article>
+
+      <article class="chapter" id="v3-cap3">
+        <p class="chapter-number">Capítulo 3</p>
+        <h2>O ecossistema</h2>
+        <p>O Sistema Macuca opera por meio de um ecossistema.</p>
+        <p>Cada ativo possui uma missão.</p>
+        <p>Nenhum ativo possui protagonismo.</p>
+        <p>O protagonista sempre será a marca.</p>
+        <p>A TV não existe para divulgar a TV.</p>
+        <p>Existe para fortalecer marcas.</p>
+        <p>O Portal não existe para gerar acessos.</p>
+        <p>Existe para fortalecer marcas.</p>
+        <p>O Guia não existe para listar empresas.</p>
+        <p>Existe para fortalecer marcas.</p>
+        <p>O Instagram não existe para ganhar seguidores.</p>
+        <p>Existe para fortalecer marcas.</p>
+        <p>Toda ferramenta serve ao mesmo propósito.</p>
+        <p>Construir relevância.</p>
+      </article>
+
+      <article class="chapter" id="v3-cap4">
+        <p class="chapter-number">Capítulo 4</p>
+        <h2>O consultor Macuca</h2>
+        <p>O profissional da Macuca não vende mídia.</p>
+        <p>Ele diagnostica.</p>
+        <p>Planeja.</p>
+        <p>Orienta.</p>
+        <p>Constrói.</p>
+        <p>Acompanha.</p>
+        <p>Corrige.</p>
+        <p>Evolui.</p>
+        <p>Seu papel é semelhante ao de um arquiteto.</p>
+        <p>Ele não entrega tijolos.</p>
+        <p>Entrega projetos.</p>
+      </article>
+
+      <article class="chapter" id="v3-cap5">
+        <p class="chapter-number">Capítulo 5</p>
+        <h2>O contrato</h2>
+        <p>O contrato da Macuca não compra mídia.</p>
+        <p>Compra desenvolvimento.</p>
+        <p>A empresa não contrata postagens.</p>
+        <p>Contrata evolução.</p>
+        <p>Não contrata campanhas.</p>
+        <p>Contrata um processo contínuo.</p>
+        <p>O contrato representa um compromisso entre duas partes:</p>
+        <p>A Macuca compromete-se a aplicar integralmente seu Sistema.</p>
+        <p>A Marca compromete-se a participar da construção da própria relevância.</p>
+        <p>Sem comprometimento mútuo, não existe transformação.</p>
+      </article>
+
+      <article class="chapter" id="v3-cap6">
+        <p class="chapter-number">Capítulo 6</p>
+        <h2>O resultado</h2>
+        <p>A Macuca não mede apenas alcance.</p>
+        <p>Nem curtidas.</p>
+        <p>Nem seguidores.</p>
+        <p>Nosso principal indicador é a evolução da posição da marca dentro da Pirâmide da Relevância.</p>
+        <p>Perguntamos constantemente:</p>
+        <p>A marca tornou-se mais conhecida?</p>
+        <p>Mais reconhecida?</p>
+        <p>Mais respeitada?</p>
+        <p>Mais escolhida?</p>
+        <p>Mais lembrada?</p>
+        <p>Mais relevante?</p>
+        <p>Essas perguntas orientam toda nossa operação.</p>
+      </article>
+
+      <article class="chapter" id="v3-cap7">
+        <p class="chapter-number">Capítulo 7</p>
+        <h2>O sistema é maior que as ferramentas</h2>
+        <p>Ferramentas mudam.</p>
+        <p>Plataformas desaparecem.</p>
+        <p>Tecnologias evoluem.</p>
+        <p>O Sistema permanece.</p>
+        <p>Foi desenvolvido para sobreviver às mudanças do mercado.</p>
+        <p>A Macuca não depende de uma rede social.</p>
+        <p>Nem de uma emissora.</p>
+        <p>Nem de um portal.</p>
+        <p>Ela depende da capacidade de desenvolver relevância.</p>
+        <p>Esse é seu verdadeiro patrimônio.</p>
+      </article>
+
+      <aside class="founder-note" id="v3-nota">
+        <p class="founder-note-label">Observação Estratégica</p>
+        <p>Pausa como estrategista: aqui nasceu o primeiro erro que precisa ser corrigido antes de continuar.</p>
+        <p>Até aqui está sendo descrito um sistema de entrega. Mas ainda não uma vantagem competitiva impossível de copiar.</p>
+        <p>Qualquer agência pode ler isso e dizer: "Eu também faço diagnóstico. Também posiciono. Também acompanho." Ou seja — ainda está copiável.</p>
+        <p>Isso é normal. Ainda é apenas o Volume III.</p>
+        <p>Fica registrado que, a partir do próximo volume, a missão muda: não será mais explicar o sistema, será construir mecanismos de diferenciação que ninguém consiga replicar facilmente. <span class="pendente-marker">Pendente — próximos volumes</span></p>
+        <p>É aí que entram: exclusividade por categoria; ecossistema proprietário; indicadores próprios; certificações; universidade; protocolos; rituais; linguagem exclusiva; governança da marca; ferramentas que só a Macuca possui.</p>
+        <p>É nesse ponto que a empresa deixa de ser apenas boa e passa a ser realmente difícil de copiar. Essa etapa exige rigor — será o verdadeiro valor da Macuca.</p>
+      </aside>
+
+      <header class="title-block" style="margin-top:4rem;">
+        <div class="seal-large" aria-hidden="true">CM · IV</div>
+        <p class="eyebrow">Codex Macuca · Documento Fundador · Edição 1</p>
+        <h1>Volume IV — A Vantagem Competitiva</h1>
+        <p class="meta">Por que a Macuca é diferente?</p>
+      </header>
+
+      <article class="chapter" id="v4-cap1">
+        <p class="chapter-number">Capítulo 1</p>
+        <h2>A grande mudança</h2>
+        <p>A maioria das empresas de comunicação vende execução.</p>
+        <p>A Macuca vende evolução.</p>
+        <p>Essa diferença parece pequena.</p>
+        <p>Não é.</p>
+        <p>Uma agência entrega campanhas.</p>
+        <p>A Macuca acompanha a evolução de uma marca durante anos.</p>
+        <p>Uma produtora entrega vídeos.</p>
+        <p>A Macuca constrói patrimônio de marca.</p>
+        <p>Uma emissora vende espaço.</p>
+        <p>A Macuca vende desenvolvimento estratégico.</p>
+        <p>Nossa unidade de valor deixa de ser a peça entregue.</p>
+        <p>Passa a ser a evolução percebida da marca.</p>
+      </article>
+
+      <article class="chapter" id="v4-cap2">
+        <p class="chapter-number">Capítulo 2</p>
+        <h2>A moeda da Macuca</h2>
+        <p>Toda empresa possui uma moeda.</p>
+        <p>A de um banco é dinheiro.</p>
+        <p>A de uma consultoria é conhecimento.</p>
+        <p>A de uma universidade é aprendizado.</p>
+        <p>A da Macuca é diferente.</p>
+        <p>Nossa moeda chama-se:</p>
+        <p style="font-family:'Fraunces',serif; font-size:1.3rem; text-align:center; color:var(--teal);">Relevância.</p>
+        <p>Toda decisão da empresa deverá aumentar a relevância das marcas atendidas.</p>
+        <p>Nunca apenas sua exposição.</p>
+        <p>Se determinada ação gerar visibilidade mas reduzir confiança, ela será rejeitada.</p>
+        <p>Se gerar alcance mas enfraquecer posicionamento, ela será rejeitada.</p>
+        <p>Relevância sempre estará acima de audiência.</p>
+      </article>
+
+      <article class="chapter" id="v4-cap3">
+        <p class="chapter-number">Capítulo 3</p>
+        <h2>O ecossistema</h2>
+        <p>O mercado possui fornecedores.</p>
+        <p>A Macuca possui infraestrutura.</p>
+        <p>Cada ativo existe para fortalecer outro.</p>
+        <p>TV fortalece Portal.</p>
+        <p>Portal fortalece Google.</p>
+        <p>Google fortalece Guia.</p>
+        <p>Guia fortalece Descoberta.</p>
+        <p>Instagram fortalece Recorrência.</p>
+        <p>Programas fortalecem Autoridade.</p>
+        <p>Eventos fortalecem Comunidade.</p>
+        <p>Jornalismo fortalece Credibilidade.</p>
+        <p>Nada funciona isoladamente.</p>
+        <p>Quanto maior o ecossistema...</p>
+        <p>Maior a barreira de entrada.</p>
+      </article>
+
+      <aside class="founder-note" id="v4-nota1">
+        <p class="founder-note-label">Observação Estratégica</p>
+        <p>Aqui aconteceu o primeiro estalo realmente importante.</p>
+        <p>A Macuca não compete com agências. Ela compete com a fragmentação.</p>
+        <p>Hoje um empresário contrata: agência; videomaker; fotógrafo; gestor de tráfego; designer; influenciador; jornal; rádio.</p>
+        <p>A Macuca entrega coordenação.</p>
+        <p>Essa talvez seja a maior vantagem encontrada até agora.</p>
+      </aside>
+
+      <article class="chapter" id="v4-cap4">
+        <p class="chapter-number">Capítulo 4</p>
+        <h2>Exclusividade</h2>
+        <p>A Macuca não vende espaço.</p>
+        <p>Ela concede posição.</p>
+        <p>Cada segmento estratégico possui um número limitado de vagas.</p>
+        <p>Não como artifício de marketing.</p>
+        <p>Como princípio operacional.</p>
+        <p>Uma empresa que deseja tornar-se referência precisa receber dedicação.</p>
+        <p>Não faz sentido construir simultaneamente duas marcas concorrentes para ocupar exatamente o mesmo território mental.</p>
+        <p>Por isso a Macuca poderá estabelecer programas de exclusividade por categoria, região ou objetivo estratégico.</p>
+        <p>A exclusividade não é um privilégio.</p>
+        <p>É uma consequência do compromisso assumido entre a marca e o sistema.</p>
+      </article>
+
+      <article class="chapter" id="v4-cap5">
+        <p class="chapter-number">Capítulo 5</p>
+        <h2>O protocolo de entrada</h2>
+        <p>Nem toda empresa pode entrar.</p>
+        <p>A Macuca também escolhe seus clientes.</p>
+        <p>Antes da contratação, toda empresa passa por um diagnóstico.</p>
+        <p>São avaliados: capacidade de execução; qualidade do atendimento; reputação; coerência entre discurso e prática; potencial de crescimento; disposição para construir marca no longo prazo.</p>
+        <p>A Macuca não aceitará empresas que desejem apenas comprar visibilidade.</p>
+        <p>Nosso compromisso é com quem deseja construir relevância.</p>
+      </article>
+
+      <article class="chapter" id="v4-cap6">
+        <p class="chapter-number">Capítulo 6</p>
+        <h2>O protocolo de permanência</h2>
+        <p>Entrar é apenas o início.</p>
+        <p>Permanecer exige compromisso.</p>
+        <p>Toda marca participante deverá: respeitar os princípios do programa; manter padrões mínimos de atendimento; cumprir os acordos estabelecidos; participar dos processos de construção de marca; preservar sua reputação.</p>
+        <p>A Macuca reserva-se o direito de encerrar relações que prejudiquem a integridade do ecossistema.</p>
+      </article>
+
+      <article class="chapter" id="v4-cap7">
+        <p class="chapter-number">Capítulo 7</p>
+        <h2>A Universidade Macuca</h2>
+        <p>Toda empresa participante ingressa em um processo de formação.</p>
+        <p>Antes de comunicar.</p>
+        <p>Aprende.</p>
+        <p>O empresário compreenderá: o que é relevância; o que é posicionamento; o que é autoridade; o que é memória; o que é território mental; o que é comunidade; o que é construção de marca.</p>
+        <p>Porque empresas que entendem o método colaboram melhor com o processo.</p>
+      </article>
+
+      <aside class="founder-note" id="v4-nota2">
+        <p class="founder-note-label">Observação Estratégica II</p>
+        <p>Um insight considerado maior do que todos os anteriores.</p>
+        <p>O que vinha sendo chamado de Programa de Liderança Regional talvez não seja o produto. O produto é outro. O Programa de Liderança Regional é apenas um dos programas da Macuca.</p>
+        <p>Arquitetura observada:</p>
+        <p style="font-family:'Space Grotesk',sans-serif; font-size:0.95rem; line-height:2;">
+          MACUCA<br>
+          ↓ Sistema Macuca<br>
+          ↓ Universidade Macuca<br>
+          ↓ Instituto Macuca (pesquisa e indicadores regionais)<br>
+          ↓ Programa de Liderança Regional<br>
+          ↓ Programa de Autoridade Regional<br>
+          ↓ Programa de Lançamento Regional<br>
+          ↓ Programa de Expansão Regional<br>
+          ↓ Programa de Legado Regional
+        </p>
+        <p>Isso desloca a empresa de "ter um serviço" para "ter uma plataforma de desenvolvimento de marcas".</p>
+        <p>A Macuca talvez não seja uma empresa de comunicação. Ela pode ser uma empresa de desenvolvimento de marcas territoriais. Isso muda completamente a escala.</p>
+        <p>Uma empresa de comunicação vende mídia. Uma empresa de desenvolvimento de marcas pode, no futuro: certificar empresas; criar índices regionais; produzir pesquisas; formar consultores; licenciar metodologia; criar softwares; vender diagnósticos; desenvolver programas para associações comerciais, prefeituras e entidades. <span class="pendente-marker">Pendente — escopo futuro</span></p>
+        <p>Um ponto de cautela registrado aqui: essa visão é poderosa, mas amplia bastante o escopo. O cuidado é manter um princípio — cada nova iniciativa precisa fortalecer o núcleo da Macuca, e não desviar dele.</p>
+        <p>Antes de pensar em universidade, instituto ou software, é preciso consolidar uma coisa: o Sistema Macuca precisa funcionar de forma consistente para um grupo de clientes. Se isso acontecer, o restante deixa de ser uma ideia e passa a ser uma expansão natural do modelo.</p>
+        <p>Esse é o primeiro ponto em que se começa a desenhar não apenas uma empresa de comunicação melhor, mas uma organização que pode crescer em várias direções sem perder a identidade. Esse é o verdadeiro teste de um bom sistema.</p>
+      </aside>
+
+      <header class="title-block" style="margin-top:4rem;">
+        <div class="seal-large" aria-hidden="true">CM · V</div>
+        <p class="eyebrow">Codex Macuca · Documento Fundador · Edição 1</p>
+        <h1>Volume V — O Modelo de Negócio</h1>
+        <p class="meta">Como a Macuca gera valor</p>
+      </header>
+
+      <article class="chapter" id="v5-cap1">
+        <p class="chapter-number">Capítulo 1</p>
+        <h2>A grande mudança</h2>
+        <p>Durante anos, empresas de comunicação venderam tempo.</p>
+        <p>Tempo na TV.</p>
+        <p>Tempo no rádio.</p>
+        <p>Tempo na internet.</p>
+        <p>Tempo em campanhas.</p>
+        <p>A Macuca abandona essa lógica.</p>
+        <p>Nós não vendemos tempo.</p>
+        <p>Nós vendemos evolução.</p>
+      </article>
+
+      <article class="chapter" id="v5-cap2">
+        <p class="chapter-number">Capítulo 2</p>
+        <h2>A unidade de negócio</h2>
+        <p>A menor unidade comercial da Macuca não é um vídeo.</p>
+        <p>Não é uma postagem.</p>
+        <p>Não é um anúncio.</p>
+        <p>É uma transformação.</p>
+        <p>Toda venda precisa responder:</p>
+        <p>Em qual estágio da jornada essa marca está hoje?</p>
+        <p>Para qual estágio vamos levá-la?</p>
+        <p>Essa passa a ser a unidade de valor.</p>
+      </article>
+
+      <article class="chapter" id="v5-cap3">
+        <p class="chapter-number">Capítulo 3</p>
+        <h2>A jornada da marca</h2>
+        <p>Toda empresa entra em uma jornada.</p>
+        <p>Ela nunca compra um pacote.</p>
+        <p>Ela entra em um processo.</p>
+        <p>Essa jornada possui cinco grandes fases.</p>
+        <p><strong>Fase 1 — Descoberta.</strong><br>A empresa entende quem realmente é.</p>
+        <p><strong>Fase 2 — Posicionamento.</strong><br>Define o território que deseja ocupar.</p>
+        <p><strong>Fase 3 — Construção.</strong><br>Começa a ocupar esse território.</p>
+        <p><strong>Fase 4 — Consolidação.</strong><br>A comunidade passa a reconhecê-la.</p>
+        <p><strong>Fase 5 — Liderança.</strong><br>A marca torna-se referência.</p>
+      </article>
+
+      <article class="chapter" id="v5-cap4">
+        <p class="chapter-number">Capítulo 4</p>
+        <h2>A escada de valor</h2>
+        <p>Este é, na avaliação registrada, o primeiro conceito que muda o caixa da Macuca.</p>
+        <p>Hoje a venda é: Plano de R$ 400. Plano de R$ 900. Plano de R$ 1.200.</p>
+        <p>A proposta é acabar com essa lógica.</p>
+        <p>A Macuca passa a vender uma escada de evolução.</p>
+        <p>Exemplo:</p>
+        <p><strong>Diagnóstico Estratégico</strong> — Entrada. Baixo investimento. Objetivo: entender.</p>
+        <p><strong>Programa de Posicionamento</strong> — Segundo passo.</p>
+        <p><strong>Programa de Construção de Relevância</strong> — Terceiro.</p>
+        <p><strong>Programa de Autoridade</strong> — Quarto.</p>
+        <p><strong>Programa de Liderança Regional</strong> — Quinto.</p>
+        <p>Deixa-se de vender um contrato.</p>
+        <p>Vende-se uma evolução.</p>
+      </article>
+
+      <article class="chapter" id="v5-cap5">
+        <p class="chapter-number">Capítulo 5</p>
+        <h2>O conselho da marca</h2>
+        <p>Este foi um insight novo.</p>
+        <p>A Macuca não deve apenas produzir.</p>
+        <p>Ela deve reunir-se periodicamente com a empresa.</p>
+        <p>Criar um Conselho da Marca.</p>
+        <p>Uma reunião estratégica recorrente.</p>
+        <p>Ali se discutem: evolução; reputação; comunicação; oportunidades; ajustes.</p>
+        <p>Deixa-se de ser fornecedor.</p>
+        <p>Passa-se a ser conselheiro.</p>
+      </article>
+
+      <article class="chapter" id="v5-cap6">
+        <p class="chapter-number">Capítulo 6</p>
+        <h2>O consultor de relevância</h2>
+        <p>Aqui muda-se até o cargo.</p>
+        <p>Não se contratam vendedores.</p>
+        <p>Formam-se Consultores de Relevância.</p>
+        <p>Eles não apresentam tabelas.</p>
+        <p>Eles fazem diagnósticos.</p>
+        <p>Eles não vendem vídeos.</p>
+        <p>Eles orientam decisões.</p>
+      </article>
+
+      <article class="chapter" id="v5-cap7">
+        <p class="chapter-number">Capítulo 7</p>
+        <h2>O portfólio</h2>
+        <p>Um insight importante: não haverá dezenas de produtos.</p>
+        <p>Haverá poucos programas.</p>
+        <p>Muito claros.</p>
+        <p>Exemplo: Programa de Diagnóstico. Programa de Posicionamento. Programa de Construção. Programa de Autoridade. Programa de Liderança. Programa de Expansão. Programa de Legado.</p>
+        <p>Só.</p>
+        <p>Todo o resto são ferramentas.</p>
+      </article>
+
+      <aside class="founder-note" id="v5-nota1">
+        <p class="founder-note-label">Observação Estratégica</p>
+        <p>Aqui foi identificado o primeiro erro estratégico da tese, a ser corrigido antes de continuar.</p>
+        <p>O erro: tudo estava sendo chamado de "Programa". Mas empresas muito fortes diferenciam: Método (como trabalham); Programa (o percurso do cliente); Serviços (as ferramentas utilizadas); Resultados esperados (a evolução da marca).</p>
+        <p>Se essas quatro coisas forem misturadas, a comunicação volta a ficar confusa.</p>
+        <p>Arquitetura proposta:</p>
+        <p style="font-family:'Space Grotesk',sans-serif; font-size:0.95rem; line-height:2;">
+          MACUCA<br>
+          ↓ Método Macuca (a filosofia e o sistema de trabalho)<br>
+          ↓ Jornada da Marca (os estágios de evolução)<br>
+          ↓ Programas (os percursos que o cliente contrata conforme o estágio em que está)<br>
+          ↓ Ativos (TV, Guia, Portal, Instagram, Jornalismo, Eventos, IA...)<br>
+          ↓ Entregas (vídeos, reportagens, campanhas, cobertura, entrevistas, conteúdos, etc.)
+        </p>
+      </aside>
+
+      <aside class="founder-note" id="v5-nota2">
+        <p class="founder-note-label">Observação Estratégica II</p>
+        <p>Registro de uma resposta a uma pergunta feita anteriormente: "Como eu paro de vender TV?"</p>
+        <p>A resposta encontrada: nunca mais começar a venda falando de TV. Começar assim: <strong>"Antes de falar do que a Macuca faz, eu preciso entender em que estágio de evolução a sua marca está hoje."</strong></p>
+        <p>Nesse momento, deixa-se de ser um vendedor de mídia. Vira-se um consultor. Isso muda completamente a relação com o cliente.</p>
+        <p>Uma proposta diferente da anterior: o Codex precisa deixar de ser apenas um livro. Ele precisa virar três documentos separados: <span class="pendente-marker">Pendente — decisão de formato</span></p>
+        <p>Livro da Filosofia (o porquê). Livro do Sistema (o como). Livro da Operação (o como executar).</p>
+        <p>Porque são públicos diferentes. O empresário talvez nunca leia o Livro da Operação. Mas um consultor da Macuca precisará dominá-lo.</p>
+        <p>Essa divisão deixaria o sistema muito mais escalável e muito mais fácil de treinar pessoas no futuro — exatamente o que uma empresa que pretende durar precisa construir.</p>
+      </aside>
+
+      <header class="title-block" style="margin-top:4rem;">
+        <div class="seal-large" aria-hidden="true">CM · VI</div>
+        <p class="eyebrow">Codex Macuca · Documento Fundador · Edição 1</p>
+        <h1>Volume VI — A Filosofia Operacional</h1>
+        <p class="meta">Como a Macuca pensa</p>
+      </header>
+
+      <article class="chapter" id="v6-cap1">
+        <p class="chapter-number">Capítulo 1</p>
+        <h2>A primeira lei</h2>
+        <p>Toda decisão deve aumentar a relevância.</p>
+        <p>Essa é a lei máxima da empresa.</p>
+        <p>Se uma decisão aumentar audiência mas diminuir confiança...</p>
+        <p>Ela será rejeitada.</p>
+        <p>Se aumentar seguidores mas enfraquecer a marca...</p>
+        <p>Ela será rejeitada.</p>
+        <p>Se gerar dinheiro rápido mas prejudicar reputação...</p>
+        <p>Ela será rejeitada.</p>
+        <p>Toda decisão deve responder:</p>
+        <p>Esta decisão aumenta ou reduz a relevância da marca?</p>
+      </article>
+
+      <article class="chapter" id="v6-cap2">
+        <p class="chapter-number">Capítulo 2</p>
+        <h2>A segunda lei</h2>
+        <p>Ferramentas nunca são protagonistas.</p>
+        <p>TV.</p>
+        <p>Instagram.</p>
+        <p>Portal.</p>
+        <p>Google.</p>
+        <p>Guia.</p>
+        <p>Eventos.</p>
+        <p>Jornal.</p>
+        <p>IA.</p>
+        <p>Nada disso é protagonista.</p>
+        <p>Tudo isso existe para fortalecer a marca.</p>
+        <p>Quando uma ferramenta passa a ser mais importante do que a marca...</p>
+        <p>O sistema falhou.</p>
+      </article>
+
+      <article class="chapter" id="v6-cap3">
+        <p class="chapter-number">Capítulo 3</p>
+        <h2>A terceira lei</h2>
+        <p>Nunca venderemos aquilo que não controlamos.</p>
+        <p>Não prometemos vendas.</p>
+        <p>Não prometemos faturamento.</p>
+        <p>Não prometemos viralização.</p>
+        <p>Não prometemos crescimento imediato.</p>
+        <p>Prometemos aplicar integralmente o Sistema Macuca.</p>
+        <p>Prometemos construir relevância.</p>
+        <p>Prometemos consistência.</p>
+        <p>Prometemos método.</p>
+        <p>O resultado final dependerá também da qualidade do negócio, do atendimento, do produto, da concorrência e de fatores externos.</p>
+        <p>Essa honestidade fortalece a confiança.</p>
+      </article>
+
+      <article class="chapter" id="v6-cap4">
+        <p class="chapter-number">Capítulo 4</p>
+        <h2>A quarta lei</h2>
+        <p>Comunicação nunca substitui gestão.</p>
+        <p>Nenhuma estratégia de comunicação salva uma empresa mal administrada.</p>
+        <p>Nenhum vídeo resolve um atendimento ruim.</p>
+        <p>Nenhuma campanha corrige um produto ruim.</p>
+        <p>A comunicação potencializa.</p>
+        <p>Ela não substitui.</p>
+        <p>Quando identificarmos problemas estruturais na empresa, nosso dever será alertar o empresário.</p>
+      </article>
+
+      <article class="chapter" id="v6-cap5">
+        <p class="chapter-number">Capítulo 5</p>
+        <h2>A quinta lei</h2>
+        <p>Toda marca precisa ocupar um território.</p>
+        <p>Uma marca sem território compete por preço.</p>
+        <p>Uma marca com território compete por significado.</p>
+        <p>Território não é cidade.</p>
+        <p>Território é percepção.</p>
+        <p>Exemplos: a pizzaria da tradição. A clínica da confiança. O supermercado da economia inteligente. A construtora da segurança. A academia da transformação.</p>
+        <p>A marca precisa possuir uma identidade clara.</p>
+      </article>
+
+      <article class="chapter" id="v6-cap6">
+        <p class="chapter-number">Capítulo 6</p>
+        <h2>A sexta lei</h2>
+        <p>A comunidade vem antes da comunicação.</p>
+        <p>A comunidade não existe para consumir conteúdo.</p>
+        <p>O conteúdo existe para fortalecer a comunidade.</p>
+        <p>Toda ação da Macuca deverá aproximar empresas e pessoas.</p>
+        <p>Quanto maior essa aproximação...</p>
+        <p>Maior a relevância.</p>
+      </article>
+
+      <article class="chapter" id="v6-cap7">
+        <p class="chapter-number">Capítulo 7</p>
+        <h2>A sétima lei</h2>
+        <p>Repetição inteligente supera impacto isolado.</p>
+        <p>O mercado busca viralizar.</p>
+        <p>Nós buscamos permanecer.</p>
+        <p>Uma ação extraordinária seguida de silêncio produz menos valor do que uma presença consistente ao longo do tempo.</p>
+      </article>
+
+      <article class="chapter" id="v6-cap8">
+        <p class="chapter-number">Capítulo 8</p>
+        <h2>A oitava lei</h2>
+        <p>O empresário é parte do Sistema.</p>
+        <p>A Macuca não trabalha sozinha.</p>
+        <p>O empresário participa.</p>
+        <p>Contribui.</p>
+        <p>Aprende.</p>
+        <p>Compartilha.</p>
+        <p>A evolução da marca depende da parceria entre empresa e sistema.</p>
+      </article>
+
+      <article class="chapter" id="v6-cap9">
+        <p class="chapter-number">Capítulo 9</p>
+        <h2>A nona lei</h2>
+        <p>O conhecimento pertence ao Sistema.</p>
+        <p>Cada aprendizado obtido em um projeto fortalece todos os projetos.</p>
+        <p>Cada caso de sucesso gera novos protocolos.</p>
+        <p>Cada erro gera novos processos.</p>
+        <p>A empresa aprende continuamente.</p>
+      </article>
+
+      <article class="chapter" id="v6-cap10">
+        <p class="chapter-number">Capítulo 10</p>
+        <h2>A décima lei</h2>
+        <p>O Sistema é maior que qualquer pessoa.</p>
+        <p>Nem o fundador.</p>
+        <p>Nem um consultor.</p>
+        <p>Nem um jornalista.</p>
+        <p>Nem um gestor.</p>
+        <p>O Sistema deve sobreviver às pessoas.</p>
+        <p>Esse é o objetivo.</p>
+      </article>
+
+      <aside class="founder-note" id="v6-nota">
+        <p class="founder-note-label">Observação Estratégica</p>
+        <p>O maior insight desde a última rodada: até aqui foi construído o lado de dentro da Macuca. Ainda não foi desenhado o lado de fora. É aí que mora a oportunidade — porque o empresário não compra filosofia, ele compra clareza.</p>
+        <p>Por isso o próximo volume não pode ser sobre a Macuca. Tem que ser sobre o cliente. Precisa responder: como uma empresa entra na Macuca? <span class="pendente-marker">Pendente — próximo volume</span></p>
+        <p>Não um processo comercial tradicional — algo semelhante ao que uma consultoria estratégica faria. Jornada imaginada:</p>
+        <p style="font-family:'Space Grotesk',sans-serif; font-size:0.95rem; line-height:2;">
+          Diagnóstico de Relevância.<br>
+          Mapa da Marca.<br>
+          Território Competitivo.<br>
+          Plano de Evolução.<br>
+          Entrada no Programa.<br>
+          Conselho da Marca.<br>
+          Revisões periódicas.<br>
+          Evolução na Pirâmide da Relevância.
+        </p>
+        <p>O cliente deixa de "comprar mídia". Ele entra em um processo. Isso muda a relação desde o primeiro contato.</p>
+        <p>Uma crítica construtiva ao que foi escrito até aqui: o conceito de "relevância" ainda está genérico. Já foi explicado o que ela significa, mas ainda não foi definido como ela será observada e acompanhada na prática.</p>
+        <p>Se o sistema for realmente proprietário, em algum momento será preciso criar indicadores próprios — não para prometer resultados, mas para acompanhar a evolução da marca de forma consistente. <span class="pendente-marker">Pendente — indicadores próprios</span></p>
+        <p>Esse pode vir a ser um dos ativos intelectuais mais valiosos da Macuca, por ser muito mais difícil de copiar do que reproduzir um discurso ou um conjunto de serviços.</p>
+      </aside>
+
+      <header class="title-block" style="margin-top:4rem;">
+        <div class="seal-large" aria-hidden="true">CM · VII</div>
+        <p class="eyebrow">Codex Macuca · Documento Fundador · Edição 1</p>
+        <h1>Volume VII — A Jornada da Marca</h1>
+        <p class="meta">Como uma empresa vive a experiência Macuca</p>
+      </header>
+
+      <article class="chapter" id="v7-cap1">
+        <p class="chapter-number">Capítulo 1</p>
+        <h2>A empresa não compra um serviço</h2>
+        <p>Ela inicia uma jornada.</p>
+        <p>Esse é um princípio inegociável.</p>
+        <p>A partir do momento em que entra na Macuca, ela deixa de ser um anunciante.</p>
+        <p>Ela torna-se uma Marca em Desenvolvimento.</p>
+        <p>Essa mudança de linguagem altera completamente a relação.</p>
+        <p>Não existe cliente passivo.</p>
+        <p>Existe participação.</p>
+        <p>Existe construção.</p>
+        <p>Existe evolução.</p>
+      </article>
+
+      <article class="chapter" id="v7-cap2">
+        <p class="chapter-number">Capítulo 2</p>
+        <h2>O primeiro encontro — Diagnóstico de Relevância</h2>
+        <p>A primeira reunião nunca é comercial.</p>
+        <p>Ela é estratégica.</p>
+        <p>O objetivo não é vender.</p>
+        <p>O objetivo é compreender.</p>
+        <p>Perguntas fundamentais: Quem é sua empresa? Como você acredita que ela é vista hoje? Quem é seu maior concorrente? Por que um cliente escolhe você? Por que deixa de escolher? Qual espaço você deseja ocupar na mente das pessoas? Se sua empresa desaparecesse amanhã, alguém sentiria falta?</p>
+        <p>Essa reunião termina com uma conclusão.</p>
+        <p>Nunca com uma proposta.</p>
+      </article>
+
+      <article class="chapter" id="v7-cap3">
+        <p class="chapter-number">Capítulo 3</p>
+        <h2>O Mapa da Marca</h2>
+        <p>Após o diagnóstico, a Macuca constrói o primeiro ativo intelectual.</p>
+        <p>O Mapa da Marca.</p>
+        <p>Ele responde: Onde estamos? Onde queremos chegar? Quais ativos já possuímos? Quais ainda precisam ser construídos? Qual território será ocupado? Quais riscos existem? Quais oportunidades existem?</p>
+        <p>Esse documento passa a orientar todo o trabalho.</p>
+      </article>
+
+      <article class="chapter" id="v7-cap4">
+        <p class="chapter-number">Capítulo 4</p>
+        <h2>O território</h2>
+        <p>Toda marca precisa conquistar um território.</p>
+        <p>Mas território não significa cidade.</p>
+        <p>Território significa percepção.</p>
+        <p>Exemplo. Uma clínica pode escolher ocupar: a clínica da família. A clínica da confiança. A clínica da tecnologia. A clínica do acolhimento.</p>
+        <p>Todos atendem saúde.</p>
+        <p>Cada um ocupa um território diferente.</p>
+        <p>A função da Macuca é ajudar a empresa a escolher um território sustentável.</p>
+      </article>
+
+      <article class="chapter" id="v7-cap5">
+        <p class="chapter-number">Capítulo 5</p>
+        <h2>O Plano de Evolução</h2>
+        <p>Depois do território definido...</p>
+        <p>A empresa recebe seu Plano de Evolução.</p>
+        <p>Não é calendário de posts.</p>
+        <p>Não é cronograma de vídeos.</p>
+        <p>É um plano estratégico.</p>
+        <p>Objetivos. Prioridades. Indicadores. Ativos. Responsabilidades. Pontos de revisão.</p>
+      </article>
+
+      <article class="chapter" id="v7-cap6">
+        <p class="chapter-number">Capítulo 6</p>
+        <h2>O Conselho da Marca</h2>
+        <p>Este talvez seja um dos maiores diferenciais da Macuca.</p>
+        <p>Mensalmente (ou conforme o programa contratado), ocorre o Conselho da Marca.</p>
+        <p>Participam: Empresa. Consultor. Equipe Macuca.</p>
+        <p>São discutidos: Evolução. Percepção. Comunidade. Oportunidades. Riscos. Ajustes.</p>
+        <p>O Conselho existe para impedir que a comunicação vire produção automática.</p>
+        <p>Toda decisão importante passa por esse momento.</p>
+      </article>
+
+      <article class="chapter" id="v7-cap7">
+        <p class="chapter-number">Capítulo 7</p>
+        <h2>O Ciclo de Presença</h2>
+        <p>A comunicação deixa de ser uma sequência de entregas.</p>
+        <p>Ela torna-se um ciclo contínuo.</p>
+        <p>Observar. Planejar. Produzir. Distribuir. Medir. Aprender. Replanejar.</p>
+        <p>O ciclo nunca termina.</p>
+        <p>Porque marcas vivas nunca param de evoluir.</p>
+      </article>
+
+      <article class="chapter" id="v7-cap8">
+        <p class="chapter-number">Capítulo 8</p>
+        <h2>A Revisão Semestral</h2>
+        <p>A cada ciclo relevante, a Macuca revisa a jornada.</p>
+        <p>O território continua correto? A marca evoluiu? A concorrência mudou? A comunidade mudou? Novos ativos precisam ser criados? O Plano de Evolução continua válido?</p>
+        <p>Nada permanece igual para sempre.</p>
+      </article>
+
+      <article class="chapter" id="v7-cap9">
+        <p class="chapter-number">Capítulo 9</p>
+        <h2>A Certificação</h2>
+        <p>Aqui nasceu outro insight.</p>
+        <p>A Macuca pode criar níveis internos.</p>
+        <p>Exemplo: Marca Participante. Marca Estruturada. Marca Relevante. Marca de Referência. Marca Líder.</p>
+        <p>Esses títulos não são marketing.</p>
+        <p>São reconhecimento interno da evolução dentro do Sistema.</p>
+        <p>Ressalva registrada no próprio capítulo: isso só deve existir se houver critérios objetivos e verificáveis. Caso contrário, vira apenas um selo bonito. <span class="pendente-marker">Pendente — critérios objetivos</span></p>
+      </article>
+
+      <article class="chapter" id="v7-cap10">
+        <p class="chapter-number">Capítulo 10</p>
+        <h2>O Legado</h2>
+        <p>A missão da Macuca não termina quando uma empresa cresce.</p>
+        <p>Ela termina quando a marca consegue sustentar sua relevância de forma consistente.</p>
+        <p>O maior sucesso da Macuca será quando uma empresa deixar de depender de campanhas isoladas para continuar sendo lembrada pela comunidade.</p>
+        <p>Nesse momento, o Sistema cumpriu sua missão.</p>
+      </article>
+
+      <aside class="founder-note" id="v7-nota">
+        <p class="founder-note-label">Observação Estratégica</p>
+        <p>Um insight considerado ainda maior: o que vem sendo chamado de "Jornada da Marca" talvez mereça um nome proprietário. Empresas fortes nomeiam seus processos.</p>
+        <p>Possibilidades registradas, sem escolha ainda: Trilha de Relevância. Ciclo Macuca. Mapa de Evolução. Rota da Marca. Eixo de Relevância.</p>
+        <p>Nenhum nome foi escolhido — registrado como <span class="pendente-marker">Pendente</span>, porque esse processo será citado em praticamente todo o sistema.</p>
+        <p>Chegou-se a um ponto que pode transformar a Macuca em uma empresa difícil de copiar. Até aqui foi construído: Filosofia. Ciência. Sistema. Vantagem Competitiva. Modelo de Negócio. Filosofia Operacional. Jornada da Marca.</p>
+        <p>Falta uma única coisa: a parte que ninguém vê. Os protocolos internos. Como a Disney tem seus padrões. Como a Toyota tem seus processos. Como a Ritz-Carlton tem seus rituais.</p>
+        <p>O próximo volume deve desenhar os Protocolos Macuca: o manual invisível que garante que dois consultores diferentes entreguem a mesma experiência, preservando a identidade da empresa. <span class="pendente-marker">Pendente — próximo volume</span></p>
+        <p>Esse pode vir a ser um dos ativos mais importantes do projeto, porque transforma uma boa ideia em um sistema realmente replicável.</p>
+      </aside>
+
+      <header class="title-block" style="margin-top:4rem;">
+        <div class="seal-large" aria-hidden="true">CM · VIII</div>
+        <p class="eyebrow">Codex Macuca · Documento Fundador · Edição 1</p>
+        <h1>Volume VIII — Os Protocolos Macuca</h1>
+        <p class="meta">Como garantir que a experiência seja sempre a mesma</p>
+      </header>
+
+      <article class="chapter" id="v8-cap1">
+        <p class="chapter-number">Capítulo 1</p>
+        <h2>O princípio dos protocolos</h2>
+        <p>Uma empresa não cresce quando contrata pessoas talentosas.</p>
+        <p>Ela cresce quando cria processos que permitam que pessoas comuns entreguem resultados extraordinários.</p>
+        <p>A Macuca não dependerá do talento individual.</p>
+        <p>Ela dependerá da força do Sistema.</p>
+        <p>Os Protocolos Macuca existem para garantir que toda empresa atendida receba a mesma qualidade de pensamento, independentemente de quem esteja conduzindo o projeto.</p>
+        <p>Os protocolos não limitam a criatividade.</p>
+        <p>Eles protegem a essência.</p>
+      </article>
+
+      <article class="chapter" id="v8-cap2">
+        <p class="chapter-number">Capítulo 2</p>
+        <h2>Protocolo Zero — Antes de qualquer proposta</h2>
+        <p>Nenhum consultor da Macuca poderá apresentar preços antes de compreender a empresa.</p>
+        <p>Toda venda começa com um diagnóstico.</p>
+        <p>É proibido iniciar uma conversa comercial falando de planos, valores ou quantidade de entregas.</p>
+        <p>A primeira responsabilidade do consultor é entender.</p>
+        <p>Nunca vender.</p>
+      </article>
+
+      <article class="chapter" id="v8-cap3">
+        <p class="chapter-number">Capítulo 3</p>
+        <h2>Protocolo do Diagnóstico</h2>
+        <p>Toda empresa responderá, no mínimo, às seguintes questões: Quem somos? Como somos percebidos? Por que existimos? Quem é nosso público? Quem são nossos concorrentes? O que fazemos melhor? Onde queremos chegar? O que impede nosso crescimento? Em qual estágio da Pirâmide da Relevância estamos?</p>
+        <p>Esse documento torna-se permanente.</p>
+        <p>Nenhuma ação é iniciada sem ele.</p>
+      </article>
+
+      <article class="chapter" id="v8-cap4">
+        <p class="chapter-number">Capítulo 4</p>
+        <h2>Protocolo do Território</h2>
+        <p>Nenhuma marca poderá ocupar um território sem defini-lo claramente.</p>
+        <p>Toda empresa deverá possuir: uma promessa central. Uma personalidade. Uma posição. Uma linguagem. Uma causa. Um diferencial.</p>
+        <p>Enquanto isso não estiver claro, nenhuma campanha será produzida.</p>
+      </article>
+
+      <article class="chapter" id="v8-cap5">
+        <p class="chapter-number">Capítulo 5</p>
+        <h2>Protocolo da Presença</h2>
+        <p>Toda presença precisa responder cinco perguntas.</p>
+        <p>Por que este conteúdo existe? Qual percepção queremos fortalecer? Qual território estamos ocupando? Como isso fortalece a marca? Como isso fortalece a comunidade?</p>
+        <p>Se uma publicação não responder a essas perguntas, ela não deve ser produzida.</p>
+      </article>
+
+      <article class="chapter" id="v8-cap6">
+        <p class="chapter-number">Capítulo 6</p>
+        <h2>Protocolo da Qualidade</h2>
+        <p>A Macuca nunca publica conteúdo apenas para manter frequência.</p>
+        <p>Toda publicação precisa fortalecer pelo menos um dos seguintes ativos: Confiança. Autoridade. Memória. Relacionamento. Comunidade. Reputação.</p>
+        <p>Se não fortalecer nenhum deles, não é conteúdo estratégico.</p>
+      </article>
+
+      <article class="chapter" id="v8-cap7">
+        <p class="chapter-number">Capítulo 7</p>
+        <h2>Protocolo da Comunidade</h2>
+        <p>Toda ação deve beneficiar três partes.</p>
+        <p>A marca. A comunidade. A reputação da Macuca.</p>
+        <p>Se uma decisão beneficiar apenas a empresa contratante, ela deverá ser revista.</p>
+        <p>A Macuca existe para fortalecer o ecossistema local.</p>
+      </article>
+
+      <article class="chapter" id="v8-cap8">
+        <p class="chapter-number">Capítulo 8</p>
+        <h2>Protocolo da Verdade</h2>
+        <p>A confiança é o maior patrimônio da Macuca.</p>
+        <p>Nunca serão utilizadas promessas impossíveis.</p>
+        <p>Nunca serão apresentados números sem contexto.</p>
+        <p>Nunca serão manipuladas métricas para impressionar clientes.</p>
+        <p>Toda comunicação deverá representar fielmente a realidade.</p>
+      </article>
+
+      <article class="chapter" id="v8-cap9">
+        <p class="chapter-number">Capítulo 9</p>
+        <h2>Protocolo da Evolução</h2>
+        <p>Nenhuma empresa entra para permanecer igual.</p>
+        <p>Todo semestre deverá existir uma revisão estratégica.</p>
+        <p>O território continua correto? A comunicação evoluiu? A percepção mudou? Novas oportunidades surgiram? A marca continua avançando?</p>
+        <p>O Sistema nunca permanece parado.</p>
+      </article>
+
+      <article class="chapter" id="v8-cap10">
+        <p class="chapter-number">Capítulo 10</p>
+        <h2>Protocolo da Exclusividade</h2>
+        <p>Uma mudança importante em relação ao que havia sido imaginado anteriormente.</p>
+        <p>Inicialmente pensou-se apenas em exclusividade por segmento.</p>
+        <p>Hoje isso é considerado pequeno.</p>
+        <p>A exclusividade precisa funcionar em quatro níveis.</p>
+        <p><strong>Exclusividade de Categoria</strong> — Uma marca por segmento estratégico.</p>
+        <p><strong>Exclusividade de Território</strong> — Quando necessário, limitar atuação por cidade ou região.</p>
+        <p><strong>Exclusividade de Projeto</strong> — Projetos especiais podem ser exclusivos.</p>
+        <p><strong>Exclusividade de Desenvolvimento</strong> — Enquanto uma empresa estiver desenvolvendo determinado território, a Macuca não desenvolverá outra marca para ocupar exatamente o mesmo espaço estratégico naquela mesma região.</p>
+        <p>Não se protege apenas a pizzaria.</p>
+        <p>Protege-se o território mental.</p>
+        <p>Isso é muito mais sofisticado.</p>
+      </article>
+
+      <aside class="founder-note" id="v8-nota">
+        <p class="founder-note-label">Observação Estratégica</p>
+        <p>O maior insight desde o início do Codex, com potencial de mudar completamente a empresa.</p>
+        <p>Até aqui tudo isso vinha sendo chamado de "Sistema". Isso ainda é pensar pequeno. Empresas como McKinsey não vendem apenas consultoria — vendem frameworks proprietários. A HubSpot não vende apenas CRM — criou uma metodologia reconhecida. A Disney não vende parques — vende uma filosofia operacional.</p>
+        <p>A Macuca precisa ter seus próprios frameworks. Não um. Vários. Exemplo:</p>
+        <p style="font-family:'Space Grotesk',sans-serif; font-size:0.95rem; line-height:2;">
+          Pirâmide da Relevância (evolução da marca)<br>
+          Mapa de Território (posicionamento competitivo)<br>
+          Matriz dos Ativos (função de cada canal)<br>
+          Radar de Relevância (diagnóstico periódico)<br>
+          Conselho da Marca (governança)<br>
+          Ciclo de Presença (execução contínua)<br>
+          Índice de Relevância Regional (métrica proprietária)
+        </p>
+        <p>Deixou-se de escrever capítulos. Começou-se a criar propriedade intelectual.</p>
+        <p>A maior crítica ao projeto até este momento: descreveu-se muito bem o que a Macuca faz, mas ainda não se respondeu a uma pergunta decisiva — como provar, de forma ética e objetiva, que uma marca está evoluindo em relevância? Sem essa resposta, a dependência continua sendo a percepção subjetiva do cliente.</p>
+        <p>O próximo volume não deve falar de vendas nem de marketing. Deve criar o Radar de Relevância Macuca e o Índice de Relevância Regional (IRR) — não para prometer resultados comerciais, mas para acompanhar, com critérios claros, a evolução da marca em aspectos realmente influenciáveis: presença, consistência, autoridade percebida, participação na comunidade, qualidade dos ativos de comunicação e coerência de posicionamento. <span class="pendente-marker">Pendente — próximo volume</span></p>
+        <p>Se esse sistema de avaliação for criado com rigor, a Macuca deixa de ser apenas um discurso bonito e passa a ter um método mensurável — um patrimônio intelectual próprio.</p>
+      </aside>
+
+      <header class="title-block" style="margin-top:4rem;">
+        <div class="seal-large" aria-hidden="true">CM · IX</div>
+        <p class="eyebrow">Codex Macuca · Documento Fundador · Edição 1</p>
+        <h1>Volume IX — O Radar de Relevância™</h1>
+        <p class="meta">O primeiro sistema de inteligência de marcas regionais</p>
+      </header>
+
+      <article class="chapter" id="v9-cap1">
+        <p class="chapter-number">Capítulo 1</p>
+        <h2>O problema das métricas</h2>
+        <p>O mercado mede aquilo que é fácil.</p>
+        <p>Curtidas. Seguidores. Alcance. Impressões. Cliques. Visualizações.</p>
+        <p>Esses indicadores possuem valor operacional.</p>
+        <p>Mas não medem relevância.</p>
+        <p>Uma marca pode possuir milhões de visualizações.</p>
+        <p>E continuar sendo esquecida.</p>
+        <p>Outra pode possuir poucos seguidores.</p>
+        <p>E dominar completamente seu mercado.</p>
+        <p>A Macuca não mede apenas comunicação.</p>
+        <p>Mede evolução de marca.</p>
+      </article>
+
+      <article class="chapter" id="v9-cap2">
+        <p class="chapter-number">Capítulo 2</p>
+        <h2>O princípio</h2>
+        <p>Uma marca só pode evoluir aquilo que consegue observar.</p>
+        <p>Por isso toda empresa participante do Sistema Macuca possuirá um Radar de Relevância.</p>
+        <p>Não é um relatório.</p>
+        <p>É um painel permanente.</p>
+        <p>Ele mostra a evolução da marca ao longo do tempo.</p>
+        <p>Não para comparar empresas.</p>
+        <p>Mas para comparar a empresa consigo mesma.</p>
+      </article>
+
+      <article class="chapter" id="v9-cap3">
+        <p class="chapter-number">Capítulo 3</p>
+        <h2>Os seis eixos da relevância</h2>
+        <p>A relevância não é uma nota.</p>
+        <p>É um conjunto de capacidades.</p>
+        <p>O Radar observa seis dimensões.</p>
+        <p><strong>1. Presença</strong><br>A marca aparece de forma consistente? Ela está presente nos pontos de contato planejados? Existe continuidade? Ou apenas campanhas isoladas?</p>
+        <p><strong>2. Identidade</strong><br>A comunicação possui unidade? A marca é reconhecível? Possui personalidade? Existe coerência? Ou cada publicação parece pertencer a uma empresa diferente?</p>
+        <p><strong>3. Autoridade</strong><br>A empresa participa das conversas relevantes? Produz conhecimento? É fonte? É lembrada como especialista? Ou apenas anuncia produtos?</p>
+        <p><strong>4. Comunidade</strong><br>A marca participa da vida da cidade? Apoia iniciativas? Relaciona-se com pessoas? Está presente onde realmente importa? Ou comunica apenas quando deseja vender?</p>
+        <p><strong>5. Consistência</strong><br>O discurso coincide com a experiência? O atendimento confirma a promessa? Existe coerência entre comunicação e realidade?</p>
+        <p><strong>6. Evolução</strong><br>Comparando os últimos meses. A marca avançou? Estagnou? Regrediu? Por quê?</p>
+      </article>
+
+      <article class="chapter" id="v9-cap4">
+        <p class="chapter-number">Capítulo 4</p>
+        <h2>O Índice de Relevância Regional (IRR)</h2>
+        <p>Uma mudança importante em relação ao que havia sido pensado anteriormente.</p>
+        <p>Antes isso havia sido chamado de índice.</p>
+        <p>Agora entende-se que ele precisa ser um framework, não um número.</p>
+        <p>Por quê? Porque um número isolado dá falsa precisão.</p>
+        <p>Uma empresa pode ter nota 83. Mas o que significa 83? Pouco.</p>
+        <p>Proposta: o IRR ser um painel de maturidade, com níveis claros em cada eixo, em vez de uma pontuação absoluta.</p>
+        <p>Isso é mais honesto, mais útil para orientar decisões e muito mais alinhado com a filosofia da Macuca.</p>
+      </article>
+
+      <article class="chapter" id="v9-cap5">
+        <p class="chapter-number">Capítulo 5</p>
+        <h2>A reunião de evolução</h2>
+        <p>O Conselho da Marca deixa de analisar apenas conteúdos.</p>
+        <p>Ele passa a analisar o Radar.</p>
+        <p>Perguntas: Nossa identidade ficou mais clara? Nossa autoridade cresceu? Nossa participação comunitária evoluiu? Estamos ocupando o território desejado? O que devemos fortalecer?</p>
+        <p>A comunicação deixa de ser intuitiva.</p>
+        <p>Passa a ser orientada por evidências.</p>
+      </article>
+
+      <article class="chapter" id="v9-cap6">
+        <p class="chapter-number">Capítulo 6</p>
+        <h2>O Mapa de Território™</h2>
+        <p>Outro framework proprietário.</p>
+        <p>Nenhuma marca pode liderar tudo.</p>
+        <p>Toda marca precisa escolher.</p>
+        <p>O Mapa de Território identifica: qual território a marca deseja ocupar. Quem já ocupa esse território. Onde existem espaços livres. Onde há conflito. Onde existe oportunidade.</p>
+        <p>Isso orienta todo o posicionamento.</p>
+      </article>
+
+      <article class="chapter" id="v9-cap7">
+        <p class="chapter-number">Capítulo 7</p>
+        <h2>A Matriz dos Ativos™</h2>
+        <p>Agora cada ativo da Macuca ganha uma função.</p>
+        <p>Não existe mais "vamos postar no Instagram".</p>
+        <p>Existe estratégia.</p>
+        <table>
+          <thead>
+            <tr><th>Ativo</th><th>Função principal</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>TV</td><td>Construção de autoridade</td></tr>
+            <tr><td>Portal</td><td>Credibilidade e profundidade</td></tr>
+            <tr><td>Guia</td><td>Encontrabilidade e decisão</td></tr>
+            <tr><td>Instagram</td><td>Recorrência e proximidade</td></tr>
+            <tr><td>Eventos</td><td>Relacionamento</td></tr>
+            <tr><td>Jornalismo</td><td>Confiança</td></tr>
+            <tr><td>IA</td><td>Inteligência e continuidade</td></tr>
+          </tbody>
+        </table>
+        <p>A pergunta deixa de ser: Onde publicar?</p>
+        <p>E passa a ser: Qual ativo fortalece melhor este objetivo?</p>
+      </article>
+
+      <article class="chapter" id="v9-cap8">
+        <p class="chapter-number">Capítulo 8</p>
+        <h2>O Ciclo Macuca™</h2>
+        <p>Agora nasce o coração operacional.</p>
+        <p style="font-family:'Space Grotesk',sans-serif; font-size:0.95rem; line-height:2;">
+          Diagnosticar.<br>↓<br>Posicionar.<br>↓<br>Construir.<br>↓<br>Distribuir.<br>↓<br>Medir.<br>↓<br>Aprender.<br>↓<br>Replanejar.<br>↓<br>Recomeçar.
+        </p>
+        <p>Nunca existe "fim da campanha".</p>
+        <p>Existe evolução contínua.</p>
+      </article>
+
+      <article class="chapter" id="v9-cap9">
+        <p class="chapter-number">Capítulo 9</p>
+        <h2>A governança da marca</h2>
+        <p>A Macuca não gerencia apenas comunicação.</p>
+        <p>Ela ajuda a governar a marca.</p>
+        <p>Cada decisão importante passa por perguntas como: Fortalece nossa identidade? Enfraquece nosso território? Gera confiança? Está coerente com nossos princípios? Vale a pena dizer "não"?</p>
+      </article>
+
+      <article class="chapter" id="v9-cap10">
+        <p class="chapter-number">Capítulo 10</p>
+        <h2>O verdadeiro produto</h2>
+        <p>Aqui está, na avaliação registrada, a frase mais importante do Codex.</p>
+        <p>A Macuca não vende comunicação.</p>
+        <p>A Macuca desenvolve ativos de marca.</p>
+        <p>Essa frase muda absolutamente tudo.</p>
+        <p>Porque ativos permanecem.</p>
+        <p>Campanhas acabam.</p>
+      </article>
+
+      <aside class="founder-note" id="v9-nota">
+        <p class="founder-note-label">Observação Estratégica</p>
+        <p>A crítica mais importante desde o início do projeto: existe um risco enorme de estar sendo criada uma empresa sofisticada demais para vender.</p>
+        <p>Na McKinsey, quem compra já entende consultoria. O pequeno empresário de Marataízes, Itapemirim ou Piúma, muitas vezes não quer ouvir sobre "frameworks". Ele quer saber: "Como isso vai ajudar meu negócio?"</p>
+        <p>Conclusão: a Macuca precisa ter duas linguagens.</p>
+        <p><strong>Linguagem interna (Codex)</strong> — Profunda. Completa. Metodológica. Com todos esses conceitos.</p>
+        <p><strong>Linguagem externa (Comercial)</strong> — Simples. Direta. Prática. Sem jargões.</p>
+        <p>Exemplo: em vez de dizer ao empresário "Vamos aplicar o Radar de Relevância", diz-se: <em>"Primeiro vamos entender como sua marca é vista hoje e definir um plano claro para fortalecer sua presença e sua reputação na região."</em></p>
+        <p>Por trás disso, toda a máquina do Codex está funcionando.</p>
+        <p>O maior insight do projeto inteiro: <strong>o Codex não é para o cliente. O Codex é para a Macuca.</strong> O cliente compra uma experiência simples. Quem conhece toda a complexidade é a equipe. Foi exatamente isso que empresas como Apple e Disney fizeram — o cliente não vê o manual, ele sente o resultado.</p>
+        <p>Essa é registrada como a maior mudança de mentalidade desde o início do projeto.</p>
+      </aside>
+
+      <header class="title-block" style="margin-top:4rem;">
+        <div class="seal-large" aria-hidden="true">CM · X</div>
+        <p class="eyebrow">Codex Macuca · Documento Fundador · Edição 1</p>
+        <h1>Volume X — A Doutrina Macuca</h1>
+        <p class="meta">O Posicionamento — Como a Macuca ocupa seu território <span class="pendente-marker">Pendente — título definitivo do volume</span></p>
+      </header>
+
+      <article class="chapter" id="v10-cap1">
+        <p class="chapter-number">Capítulo 1</p>
+        <h2>A mudança definitiva</h2>
+        <p>A partir deste momento, a Macuca deixa de se apresentar como uma empresa de comunicação.</p>
+        <p>Também deixa de se apresentar como uma TV.</p>
+        <p>Ou como uma agência.</p>
+        <p>Ou como uma produtora.</p>
+        <p>Essas são apenas capacidades.</p>
+        <p>Nunca mais serão nossa identidade.</p>
+        <p>Nossa identidade passa a ser:</p>
+        <p><strong>A Macuca é uma empresa especializada no desenvolvimento de marcas regionalmente relevantes por meio de um sistema proprietário de construção de presença, autoridade e liderança.</strong></p>
+        <p>Todo colaborador deverá ser capaz de explicar essa frase.</p>
+        <p>Toda apresentação deverá partir dessa frase.</p>
+        <p>Toda decisão deverá respeitar essa frase.</p>
+      </article>
+
+      <article class="chapter" id="v10-cap2">
+        <p class="chapter-number">Capítulo 2</p>
+        <h2>O que nunca mais diremos</h2>
+        <p>Nunca começaremos uma reunião dizendo: "Somos uma TV." "Temos um portal." "Temos Instagram." "Fazemos vídeos." "Temos jornal." "Temos tráfego."</p>
+        <p>Essas informações são importantes.</p>
+        <p>Mas aparecem apenas quando o empresário perguntar: "Como vocês fazem isso?"</p>
+        <p>Nunca antes.</p>
+      </article>
+
+      <article class="chapter" id="v10-cap3">
+        <p class="chapter-number">Capítulo 3</p>
+        <h2>A primeira conversa</h2>
+        <p>Toda reunião começa da mesma maneira.</p>
+        <p>Não apresentamos serviços.</p>
+        <p>Não mostramos portfólio.</p>
+        <p>Não mostramos preços.</p>
+        <p>Não mostramos audiência.</p>
+        <p>Primeiro entendemos a empresa.</p>
+        <p>Depois entendemos o território.</p>
+        <p>Depois entendemos o objetivo.</p>
+        <p>Somente então apresentamos o Sistema.</p>
+        <p>O empresário nunca compra ferramentas.</p>
+        <p>Ele compra direção.</p>
+      </article>
+
+      <article class="chapter" id="v10-cap4">
+        <p class="chapter-number">Capítulo 4</p>
+        <h2>A escada da confiança</h2>
+        <p>A venda nunca acontece no primeiro minuto.</p>
+        <p>Ela acontece em etapas.</p>
+        <p>Compreensão. Diagnóstico. Clareza. Confiança. Compromisso. Desenvolvimento.</p>
+        <p>A Macuca não acelera etapas.</p>
+      </article>
+
+      <article class="chapter" id="v10-cap5">
+        <p class="chapter-number">Capítulo 5</p>
+        <h2>A escada da marca</h2>
+        <p>Toda empresa percorre uma evolução.</p>
+        <p style="font-family:'Space Grotesk',sans-serif; font-size:0.95rem; line-height:2;">
+          Invisibilidade.<br>↓<br>Visibilidade.<br>↓<br>Reconhecimento.<br>↓<br>Autoridade.<br>↓<br>Preferência.<br>↓<br>Referência.<br>↓<br>Liderança Regional.
+        </p>
+        <p>Cada programa da Macuca existe para ajudar a marca a subir um degrau.</p>
+        <p>Nunca prometemos o último degrau imediatamente.</p>
+        <p>Prometemos conduzir a jornada com método, consistência e responsabilidade.</p>
+      </article>
+
+      <article class="chapter" id="v10-cap6">
+        <p class="chapter-number">Capítulo 6</p>
+        <h2>O mapa territorial</h2>
+        <p>A Macuca não vende espaço.</p>
+        <p>Ela administra territórios.</p>
+        <p>Existem dois tipos de território.</p>
+        <p><strong>Território Econômico</strong> — O segmento de atuação. Exemplo: Gastronomia. Saúde. Construção. Turismo. Educação. Automóveis.</p>
+        <p><strong>Território Mental</strong> — O espaço que a marca deseja ocupar. Exemplos: A pizzaria da família. A clínica da confiança. A construtora da segurança. O restaurante da experiência. O supermercado da economia inteligente. O hotel da hospitalidade. A academia da transformação.</p>
+        <p>Nenhuma marca lidera um segmento.</p>
+        <p>Ela lidera um território mental.</p>
+      </article>
+
+      <article class="chapter" id="v10-cap7">
+        <p class="chapter-number">Capítulo 7</p>
+        <h2>O movimento</h2>
+        <p>A Macuca não existe apenas para atender empresas.</p>
+        <p>Existe para fortalecer a economia regional através do fortalecimento das marcas locais.</p>
+        <p>Acreditamos que cidades fortes dependem de empresas fortes.</p>
+        <p>Empresas fortes dependem de marcas fortes.</p>
+        <p>Marcas fortes dependem de relevância.</p>
+        <p>Essa é nossa causa.</p>
+        <p>Cada nova empresa que entra no Sistema fortalece não apenas sua própria marca, mas também o ecossistema econômico da região.</p>
+      </article>
+
+      <article class="chapter" id="v10-cap8">
+        <p class="chapter-number">Capítulo 8</p>
+        <h2>O que vendemos</h2>
+        <p>Nunca vendemos: Publicidade. Posts. Vídeos. Campanhas. Impulsionamento. TV. Instagram.</p>
+        <p>Vendemos: Diagnóstico. Direção. Posicionamento. Construção. Presença. Autoridade. Relevância. Desenvolvimento. Liderança.</p>
+      </article>
+
+      <article class="chapter" id="v10-cap9">
+        <p class="chapter-number">Capítulo 9</p>
+        <h2>A postura</h2>
+        <p>O consultor Macuca nunca implora por contratos.</p>
+        <p>Nunca disputa preço.</p>
+        <p>Nunca promete milagres.</p>
+        <p>Nunca desvaloriza concorrentes.</p>
+        <p>Nunca vende urgência artificial.</p>
+        <p>Ele faz perguntas.</p>
+        <p>Ele escuta.</p>
+        <p>Ele diagnostica.</p>
+        <p>Ele orienta.</p>
+        <p>Ele recomenda.</p>
+        <p>Se a empresa estiver pronta, ela entra.</p>
+        <p>Se não estiver, ela recebe orientação e pode voltar no futuro.</p>
+        <p>A confiança vale mais do que um contrato.</p>
+      </article>
+
+      <article class="chapter" id="v10-cap10">
+        <p class="chapter-number">Capítulo 10</p>
+        <h2>O compromisso</h2>
+        <p>A Macuca não deseja ser a maior empresa de comunicação do Sul Capixaba.</p>
+        <p>Deseja ser a empresa que mudou a forma como marcas locais são construídas.</p>
+        <p>Se, para crescer, precisarmos abandonar nossos princípios, preferimos crescer mais devagar.</p>
+        <p>Se, para fechar um contrato, precisarmos prometer o que não controlamos, preferimos perder o contrato.</p>
+        <p>Se, para vender mais, precisarmos voltar a vender apenas mídia, teremos abandonado nossa própria razão de existir.</p>
+        <p>Nossa reputação será sempre nosso maior ativo.</p>
+      </article>
+
+      <article class="chapter" id="v10-epilogo">
+        <p class="chapter-number">Epílogo</p>
+        <h2>A filosofia que guiará a Macuca</h2>
+        <p>Este documento não foi escrito para convencer clientes.</p>
+        <p>Foi escrito para proteger a identidade da empresa.</p>
+        <p>Produtos mudarão.</p>
+        <p>Ferramentas mudarão.</p>
+        <p>Plataformas desaparecerão.</p>
+        <p>Tecnologias evoluirão.</p>
+        <p>A Macuca também evoluirá.</p>
+        <p>Mas sua missão permanecerá a mesma:</p>
+        <p><strong>Desenvolver marcas regionalmente relevantes através de um sistema próprio, ético, consistente e orientado pela construção de confiança, autoridade e presença.</strong></p>
+        <p>O sucesso da Macuca não será medido pela quantidade de anúncios vendidos.</p>
+        <p>Será medido pela quantidade de marcas que ajudamos a se tornar referência em suas comunidades.</p>
+      </article>
+
+      <aside class="founder-note" id="v10-nota">
+        <p class="founder-note-label">Nota do Fundador · Fim do Livro I</p>
+        <p>Registro de fechamento: este foi o fim do Livro I.</p>
+        <p>No começo desta construção havia uma TV tentando vender publicidade. Ao final deste volume, a TV virou apenas um ativo dentro de um sistema maior. Isso muda a postura antes mesmo de mudar a apresentação comercial.</p>
+        <p>Fica registrada uma decisão estratégica para o resto do projeto: toda nova ideia que surgir deverá responder apenas uma pergunta — <strong>"Isso fortalece ou enfraquece a filosofia da Macuca?"</strong></p>
+        <p>Se fortalecer, entra no sistema.</p>
+        <p>Se enfraquecer — mesmo que pareça lucrativo no curto prazo — fica de fora.</p>
+        <p>Esse é registrado como o filtro que deve impedir a Macuca de voltar, no futuro, a ser percebida apenas como "uma TV que faz posts". Este capítulo é o compromisso que protege toda a construção feita até aqui.</p>
+      </aside>
+
+      <header class="title-block" style="margin-top:4rem;">
+        <div class="seal-large" aria-hidden="true">CM · A1</div>
+        <p class="eyebrow">Codex Macuca · Documento Fundador · Edição 1 · Anexo</p>
+        <h1>Anexo I — Protocolo de Diagnóstico Macuca™</h1>
+        <p class="meta">DMR™ — Diagnóstico de Maturidade e Relevância <span class="pendente-marker">Nome provisório</span></p>
+      </header>
+
+      <article class="chapter" id="dmr-intro">
+        <p class="chapter-number">Introdução</p>
+        <h2>Antes de abrir o caderno</h2>
+        <p>Esse protocolo é considerado o maior ativo comercial da empresa.</p>
+        <p>Porque qualquer vendedor pode decorar um discurso.</p>
+        <p>Mas poucos sabem conduzir um diagnóstico.</p>
+        <p>Quando o consultor senta na frente do empresário...</p>
+        <p>Não abre notebook.</p>
+        <p>Nem proposta.</p>
+        <p>Nem tabela.</p>
+        <p>A fala inicial:</p>
+        <p><em>"Antes de eu explicar quem é a Macuca, eu gostaria de entender melhor sua empresa. Posso fazer algumas perguntas? Elas vão me ajudar a saber se realmente conseguimos contribuir."</em></p>
+        <p>A mudança: pediu-se permissão. Tirou-se a pressão. Assumiu-se uma postura consultiva.</p>
+      </article>
+
+      <article class="chapter" id="dmr-b1">
+        <p class="chapter-number">Bloco 1</p>
+        <h2>A empresa</h2>
+        <p>Conte-me a história da empresa.</p>
+        <p>Por que ela nasceu?</p>
+        <p>Qual problema ela resolve?</p>
+        <p>O que mais orgulha você nela?</p>
+        <p>Se eu perguntasse aos seus clientes por que eles escolhem sua empresa, o que eles responderiam?</p>
+      </article>
+
+      <article class="chapter" id="dmr-b2">
+        <p class="chapter-number">Bloco 2</p>
+        <h2>O negócio</h2>
+        <p>Hoje, qual é seu principal objetivo?</p>
+        <p>Crescer? Fortalecer a marca? Atrair novos clientes? Expandir? Lançar uma nova unidade? Aumentar ticket médio? Melhorar percepção? Outra coisa?</p>
+      </article>
+
+      <article class="chapter" id="dmr-b3">
+        <p class="chapter-number">Bloco 3</p>
+        <h2>O cliente</h2>
+        <p>Quem é seu cliente ideal?</p>
+        <p>Quem você gostaria de atender mais?</p>
+        <p>Existe algum público que você não deseja mais atender?</p>
+      </article>
+
+      <article class="chapter" id="dmr-b4">
+        <p class="chapter-number">Bloco 4</p>
+        <h2>A percepção</h2>
+        <p>Uma pergunta considerada fantástica:</p>
+        <p>Quando alguém fala no seu segmento...</p>
+        <p>Seu nome aparece naturalmente?</p>
+        <p>Ou aparece outro?</p>
+        <p>Quem?</p>
+        <p>Por quê?</p>
+        <p>Essa pergunta é registrada como valendo ouro.</p>
+      </article>
+
+      <article class="chapter" id="dmr-b5">
+        <p class="chapter-number">Bloco 5</p>
+        <h2>O território</h2>
+        <p>Como você gostaria de ser lembrado?</p>
+        <p>Não o que você vende.</p>
+        <p>Mas quem você quer ser.</p>
+        <p>Exemplo: "A clínica da confiança." "A pizzaria da família." "A loja mais elegante." "A empresa mais rápida."</p>
+      </article>
+
+      <article class="chapter" id="dmr-b6">
+        <p class="chapter-number">Bloco 6</p>
+        <h2>A concorrência</h2>
+        <p>Quem hoje ocupa esse espaço?</p>
+        <p>Você acredita que existe espaço para construir algo diferente?</p>
+      </article>
+
+      <article class="chapter" id="dmr-b7">
+        <p class="chapter-number">Bloco 7</p>
+        <h2>A comunicação</h2>
+        <p>Hoje o que você faz?</p>
+        <p>Instagram? Google? Outdoor? TV? Rádio? Tráfego?</p>
+        <p>Como você avalia esses resultados?</p>
+      </article>
+
+      <article class="chapter" id="dmr-b8">
+        <p class="chapter-number">Bloco 8</p>
+        <h2>A comunidade</h2>
+        <p>Sua empresa participa da cidade?</p>
+        <p>Eventos? Projetos? Instituições? Associações?</p>
+        <p>Ou apenas vende?</p>
+      </article>
+
+      <article class="chapter" id="dmr-b9">
+        <p class="chapter-number">Bloco 9</p>
+        <h2>O futuro</h2>
+        <p>Daqui cinco anos.</p>
+        <p>Como você gostaria que sua empresa fosse conhecida?</p>
+      </article>
+
+      <article class="chapter" id="dmr-b10">
+        <p class="chapter-number">Bloco 10</p>
+        <h2>O diagnóstico</h2>
+        <p>A maior sacada do protocolo.</p>
+        <p>O consultor NÃO VENDE.</p>
+        <p>Ele fecha o caderno.</p>
+        <p>E fala:</p>
+        <p><em>"Obrigado. Agora eu preciso organizar tudo que ouvi. Se eu perceber que a Macuca realmente consegue ajudar sua empresa, eu volto com um Plano de Desenvolvimento de Marca. Se eu entender que não somos a solução certa, também vou dizer com toda sinceridade."</em></p>
+        <p>Nesse momento, o consultor deixou de ser vendedor.</p>
+        <p>Virou consultor.</p>
+      </article>
+
+      <aside class="founder-note" id="dmr-nota1">
+        <p class="founder-note-label">Observação · As sete etapas</p>
+        <p>O maior insight da rodada: as perguntas não devem ser feitas na ordem dos blocos. Devem ser feitas em fases.</p>
+        <p style="font-family:'Space Grotesk',sans-serif; font-size:0.95rem; line-height:2;">
+          Etapa 1 — Conhecer.<br>
+          Etapa 2 — Descobrir dores.<br>
+          Etapa 3 — Descobrir sonhos.<br>
+          Etapa 4 — Descobrir percepção.<br>
+          Etapa 5 — Descobrir território.<br>
+          Etapa 6 — Diagnosticar.<br>
+          Etapa 7 — Só depois, apresentar a Macuca.
+        </p>
+        <p>Outra ficha que caiu na sequência: a Macuca nunca deveria começar falando da Macuca. Ela começa falando da empresa. Depois do empresário. Depois da marca. Depois do território. Depois do futuro.</p>
+        <p>Só então ela explica: <em>"Existe um motivo para eu ter feito todas essas perguntas. A Macuca não começa pela mídia. Nós começamos entendendo onde sua marca está hoje e para onde ela quer ir. Só depois definimos quais ferramentas fazem sentido. É por isso que nossa primeira entrega não é uma proposta. É um diagnóstico."</em></p>
+        <p>Isso inverte completamente a lógica da reunião.</p>
+      </aside>
+
+      <aside class="founder-note" id="dmr-nota2">
+        <p class="founder-note-label">Observação · Nasce o DMR™</p>
+        <p>Uma proposta considerada um divisor de águas: essas perguntas não devem ser um roteiro. Devem virar uma ferramenta proprietária.</p>
+        <p>Nome provisório: <strong>DMR™ — Diagnóstico de Maturidade e Relevância.</strong> <span class="pendente-marker">Pendente — nome provisório</span></p>
+        <p>Não é um questionário.</p>
+        <p>É um protocolo. Com critérios. Com interpretação. Com resultado. Com um relatório que só a Macuca sabe produzir.</p>
+        <p>Esse relatório é a ponte entre a conversa e o Plano de Evolução da Marca.</p>
+        <p>Uma pequena mudança em relação ao fechamento anterior: em vez de terminar a reunião com uma proposta comercial, ela termina com um compromisso:</p>
+        <p><em>"Vou analisar o que conversamos e montar um diagnóstico estratégico da sua marca. Se eu concluir que podemos gerar valor real para o seu negócio, volto com um plano de evolução. Se eu concluir que ainda não é o momento, vou dizer isso com a mesma transparência."</em></p>
+        <p>Isso protege a filosofia da Macuca e, ao mesmo tempo, diferencia o consultor de quem chega com uma tabela de preços na primeira visita.</p>
+        <p>Este é registrado como o nascimento do comercial da Macuca. Não um comercial baseado em persuasão, mas em diagnóstico — alinhado com tudo o que foi construído até aqui.</p>
+        <p style="margin-top:1.5rem; padding-top:1rem; border-top:1px dashed var(--rule);"><span class="pendente-marker">Referência cruzada</span> — Este protocolo foi posteriormente expandido em perguntas numeradas e ganhou um bloco de fechamento interno. Ver <a href="#dmrv2-intro">Anexo I-B — Protocolo DMR™ (Versão Completa)</a>.</p>
+      </aside>
+
+      <header class="title-block" style="margin-top:4rem;">
+        <div class="seal-large" aria-hidden="true">CM · A1B</div>
+        <p class="eyebrow">Codex Macuca · Documento Fundador · Edição 1 · Anexo</p>
+        <h1>Anexo I-B — Protocolo DMR™</h1>
+        <p class="meta">Diagnóstico de Maturidade e Relevância™ — Versão Completa, com perguntas numeradas e ficha de diagnóstico interno</p>
+      </header>
+
+      <article class="chapter" id="dmrv2-intro">
+        <p class="chapter-number">Objetivo</p>
+        <h2>Objetivo e Abertura</h2>
+        <p>Compreender profundamente a empresa antes de propor qualquer estratégia.</p>
+        <p>Nenhuma proposta poderá ser apresentada sem que o DMR seja concluído.</p>
+        <p><strong>Abertura</strong></p>
+        <p><em>"Antes de eu explicar quem é a Macuca, gostaria de entender um pouco da sua empresa. Posso fazer algumas perguntas? Elas me ajudam a saber se realmente conseguimos contribuir para o crescimento da sua marca. Se, ao final, eu entender que não somos a solução ideal, vou dizer isso com toda transparência."</em></p>
+        <p>Essa frase muda completamente a energia da reunião.</p>
+      </article>
+
+      <article class="chapter" id="dmrv2-b1">
+        <p class="chapter-number">Bloco 1</p>
+        <h2>A história</h2>
+        <p><span class="q-num">1.</span>Como nasceu a empresa?</p>
+        <p><span class="q-num">2.</span>Por que você decidiu abrir esse negócio?</p>
+        <p><span class="q-num">3.</span>Qual problema vocês resolveram quando começaram?</p>
+        <p><span class="q-num">4.</span>Do que você mais se orgulha hoje?</p>
+        <p><span class="q-num">5.</span>O que faz sua empresa continuar existindo depois de todos esses anos?</p>
+      </article>
+
+      <article class="chapter" id="dmrv2-b2">
+        <p class="chapter-number">Bloco 2</p>
+        <h2>O negócio</h2>
+        <p><span class="q-num">6.</span>Qual é hoje o principal objetivo da empresa?</p>
+        <ul class="options">
+          <li>Crescer</li><li>Expandir</li><li>Ser mais conhecida</li><li>Atrair novos clientes</li><li>Fortalecer a marca</li><li>Outro</li>
+        </ul>
+        <p><span class="q-num">7.</span>O que mais impede esse crescimento?</p>
+        <p><span class="q-num">8.</span>Hoje, qual é o maior desafio da empresa?</p>
+      </article>
+
+      <article class="chapter" id="dmrv2-b3">
+        <p class="chapter-number">Bloco 3</p>
+        <h2>O cliente</h2>
+        <p><span class="q-num">9.</span>Quem é seu cliente ideal?</p>
+        <p><span class="q-num">10.</span>Existe algum cliente que você gostaria de atender mais?</p>
+        <p><span class="q-num">11.</span>Existe algum perfil de cliente que você prefere evitar?</p>
+        <p><span class="q-num">12.</span>Por que seus melhores clientes escolhem vocês?</p>
+      </article>
+
+      <article class="chapter" id="dmrv2-b4">
+        <p class="chapter-number">Bloco 4</p>
+        <h2>A percepção</h2>
+        <p>Uma das perguntas mais fortes do protocolo.</p>
+        <p><span class="q-num">13.</span>Quando alguém fala do seu segmento... seu nome costuma ser lembrado? Ou outro aparece primeiro? Qual?</p>
+        <p><span class="q-num">14.</span>Se eu perguntasse para dez clientes: "Por que você escolheu essa empresa?" O que eles responderiam?</p>
+        <p><span class="q-num">15.</span>Se eu perguntasse para quem nunca comprou aqui: "O que você sabe dessa empresa?" O que acha que responderiam?</p>
+      </article>
+
+      <article class="chapter" id="dmrv2-b5">
+        <p class="chapter-number">Bloco 5</p>
+        <h2>O território</h2>
+        <p><span class="q-num">16.</span>Como você gostaria que sua empresa fosse conhecida? Não pelo que vende. Mas pelo que representa.</p>
+        <p><span class="q-num">17.</span>Complete esta frase: "Nós queremos ser reconhecidos como..."</p>
+        <p><span class="q-num">18.</span>Existe alguma empresa que você admira? Por quê?</p>
+      </article>
+
+      <article class="chapter" id="dmrv2-b6">
+        <p class="chapter-number">Bloco 6</p>
+        <h2>A concorrência</h2>
+        <p><span class="q-num">19.</span>Quem é seu maior concorrente hoje?</p>
+        <p><span class="q-num">20.</span>O que ele faz melhor?</p>
+        <p><span class="q-num">21.</span>O que você faz melhor que ele?</p>
+        <p><span class="q-num">22.</span>Existe algum espaço que ninguém ocupa hoje?</p>
+      </article>
+
+      <article class="chapter" id="dmrv2-b7">
+        <p class="chapter-number">Bloco 7</p>
+        <h2>A comunicação</h2>
+        <p><span class="q-num">23.</span>Hoje como vocês divulgam a empresa?</p>
+        <ul class="options">
+          <li>Instagram</li><li>Google</li><li>TV</li><li>Rádio</li><li>Outdoor</li><li>Indicação</li><li>Outros</li>
+        </ul>
+        <p><span class="q-num">24.</span>O que você acredita que funciona melhor?</p>
+        <p><span class="q-num">25.</span>O que você acha que está desperdiçando dinheiro?</p>
+        <p><span class="q-num">26.</span>O que você nunca fez mas gostaria de fazer?</p>
+      </article>
+
+      <article class="chapter" id="dmrv2-b8">
+        <p class="chapter-number">Bloco 8</p>
+        <h2>A comunidade</h2>
+        <p><span class="q-num">27.</span>Sua empresa participa da vida da cidade?</p>
+        <p><span class="q-num">28.</span>Apoia algum projeto?</p>
+        <p><span class="q-num">29.</span>Patrocina algo?</p>
+        <p><span class="q-num">30.</span>Existe alguma causa que combine com sua empresa?</p>
+      </article>
+
+      <article class="chapter" id="dmrv2-b9">
+        <p class="chapter-number">Bloco 9</p>
+        <h2>O futuro</h2>
+        <p><span class="q-num">31.</span>Imagine sua empresa daqui cinco anos. Como você gostaria que ela fosse conhecida?</p>
+        <p><span class="q-num">32.</span>Qual sonho você ainda quer realizar com ela?</p>
+        <p><span class="q-num">33.</span>O que faria você olhar para trás e dizer: "Valeu a pena."</p>
+      </article>
+
+      <article class="chapter" id="dmrv2-b10">
+        <p class="chapter-number">Bloco 10</p>
+        <h2>O fundador</h2>
+        <p>Uma parte descrita como nunca vista em nenhuma agência.</p>
+        <p><span class="q-num">34.</span>Por que essa empresa é importante para você?</p>
+        <p><span class="q-num">35.</span>Se um dia você parar... qual legado gostaria de deixar?</p>
+        <p><span class="q-num">36.</span>O que você nunca abriria mão?</p>
+      </article>
+
+      <article class="chapter" id="dmrv2-b11">
+        <p class="chapter-number">Bloco 11</p>
+        <h2>O Diagnóstico Macuca</h2>
+        <p>Não é preenchido durante a reunião.</p>
+        <p>É preenchido depois.</p>
+        <dl class="diagnostic-form">
+          <dt>Estágio da Pirâmide</dt>
+          <dd>Invisibilidade · Visibilidade · Reconhecimento · Autoridade · Preferência · Liderança</dd>
+          <dt>Território Atual</dt>
+          <dd><span class="pendente-marker">Campo aberto</span></dd>
+          <dt>Território Desejado</dt>
+          <dd><span class="pendente-marker">Campo aberto</span></dd>
+          <dt>Principal Oportunidade</dt>
+          <dd><span class="pendente-marker">Campo aberto</span></dd>
+          <dt>Principal Gargalo</dt>
+          <dd><span class="pendente-marker">Campo aberto</span></dd>
+          <dt>Ativos Necessários</dt>
+          <dd>TV · Portal · Instagram · Google · Eventos · Jornalismo · Guia · Outros</dd>
+          <dt>Programa mais Indicado</dt>
+          <dd><span class="pendente-marker">Campo aberto</span></dd>
+          <dt>Observações</dt>
+          <dd><span class="pendente-marker">Campo aberto</span></dd>
+        </dl>
+      </article>
+
+      <aside class="founder-note" id="dmrv2-nota">
+        <p class="founder-note-label">Observação · O fechamento</p>
+        <p>Uma mudança considerada gigantesca: essa ficha NÃO deve terminar com uma proposta.</p>
+        <p>Ela termina assim:</p>
+        <p><em>"Obrigado por compartilhar a história da sua empresa. Hoje eu não vou apresentar nenhuma proposta. Meu compromisso agora é analisar tudo o que conversamos, entender em que estágio sua marca está e avaliar se a Macuca realmente pode contribuir para os objetivos que você me apresentou. Se a resposta for sim, volto com um Plano de Evolução da Marca, explicando quais caminhos fazem sentido e por quê. Se eu concluir que ainda não é o momento ou que outra solução seria mais adequada, também vou dizer isso com total transparência."</em></p>
+      </aside>
+
+      <footer class="version-footer">
+        <h3>Histórico de Versões</h3>
+        <ul>
+          <li><span class="v-tag">Codex 0.1</span> Fundação — Volume I completo (Capítulos 1–9)</li>
+          <li><span class="v-tag">Codex 0.2</span> Ciência da Relevância — Volume II completo (Capítulos 1–10)</li>
+          <li><span class="v-tag">Codex 0.3</span> O Sistema Macuca — Volume III completo (Capítulos 1–7)</li>
+          <li><span class="v-tag">Codex 0.4</span> A Vantagem Competitiva — Volume IV completo (Capítulos 1–7)</li>
+          <li><span class="v-tag">Codex 0.5</span> O Modelo de Negócio — Volume V completo (Capítulos 1–7)</li>
+          <li><span class="v-tag">Codex 0.6</span> A Filosofia Operacional — Volume VI completo (Capítulos 1–10)</li>
+          <li><span class="v-tag">Codex 0.7</span> A Jornada da Marca — Volume VII completo (Capítulos 1–10)</li>
+          <li><span class="v-tag">Codex 0.8</span> Os Protocolos Macuca — Volume VIII completo (Capítulos 1–10)</li>
+          <li><span class="v-tag">Codex 0.9</span> O Radar de Relevância™ — Volume IX completo (Capítulos 1–10)</li>
+          <li><span class="v-tag">Codex 1.0</span> A Doutrina Macuca — Volume X completo (Capítulos 1–10 + Epílogo) · Fim do Livro I</li>
+          <li><span class="v-tag">Codex 1.1</span> Anexo I — Protocolo de Diagnóstico Macuca™ (DMR™)</li>
+          <li><span class="v-tag">Codex 1.2</span> Anexo I-B — Protocolo DMR™, versão completa com 36 perguntas numeradas e ficha de diagnóstico interno (Bloco 11)</li>
+        </ul>
+      </footer>
+
+    </div>
+  </main>
+</div>
+
+<script>
+  // Mobile sidebar toggle
+  const navToggle = document.getElementById('navToggle');
+  const sidebar = document.getElementById('sidebar');
+  navToggle.addEventListener('click', () => {
+    const isOpen = sidebar.classList.toggle('is-open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  // Active chapter highlight on scroll
+  const chapters = document.querySelectorAll('.chapter, aside.founder-note');
+  const links = document.querySelectorAll('.chapters a');
+  const linkMap = new Map();
+  links.forEach(l => linkMap.set(l.getAttribute('href').slice(1), l));
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const link = linkMap.get(entry.target.id);
+      if (!link) return;
+      if (entry.isIntersecting) {
+        links.forEach(l => l.classList.remove('is-active'));
+        link.classList.add('is-active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  chapters.forEach(ch => observer.observe(ch));
+</script>
+</body>
+</html>
