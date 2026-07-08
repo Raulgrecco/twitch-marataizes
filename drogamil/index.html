@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CODEX™ — Dossiê Estratégico da Marca · Drogamil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  --bg:#FAFAF8;
+  --bg-2:#F2F0EA;
+  --ink:#1C1B19;
+  --muted:#6B675F;
+  --line:#E3E0D8;
+  --wine:#6E2432;
+  --wine-deep:#521A24;
+  --wine-soft:#F4E9E9;
+  --gold:#C9A24B;
+  --black:#0A0A0B;
+  --black-2:#141415;
+}
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
+}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:'Source Serif 4', Georgia, serif;
+  line-height:1.75; -webkit-font-smoothing:antialiased;
+}
+a{ color:var(--wine); }
+::selection{ background:var(--wine); color:#fff; }
+button:focus-visible, a:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+
+.serif-display{ font-family:'Fraunces', serif; }
+.sans{ font-family:'Space Grotesk', sans-serif; }
+
+.wrap{ max-width:760px; margin:0 auto; padding:0 1.5rem; }
+.wrap-wide{ max-width:980px; margin:0 auto; padding:0 1.5rem; }
+
+.chapter{ padding:8rem 0; position:relative; }
+.chapter-tight{ padding:5rem 0; }
+.eyebrow{
+  font-family:'Space Grotesk', sans-serif; font-size:0.72rem; letter-spacing:0.16em; text-transform:uppercase;
+  color:var(--wine); margin:0 0 1.2rem; font-weight:600;
+}
+h1.display{
+  font-family:'Fraunces', serif; font-weight:500; font-size:clamp(2rem, 5vw, 3.4rem);
+  line-height:1.15; margin:0 0 1.5rem; color:var(--ink);
+}
+h2.display{
+  font-family:'Fraunces', serif; font-weight:500; font-size:clamp(1.5rem, 3.4vw, 2.1rem);
+  line-height:1.25; margin:0 0 1.2rem; color:var(--ink);
+}
+h3.sub{
+  font-family:'Space Grotesk', sans-serif; font-size:1rem; font-weight:600; color:var(--ink); margin:0 0 0.6rem;
+}
+p{ margin:0 0 1.15rem; font-size:1.08rem; color:var(--ink); }
+p.lede{ font-size:1.28rem; font-style:italic; color:var(--wine-deep); font-family:'Fraunces', serif; font-weight:400; line-height:1.5; }
+p.muted{ color:var(--muted); }
+p:last-child{ margin-bottom:0; }
+
+.reveal{ opacity:0; transform:translateY(22px); transition:opacity 0.9s cubic-bezier(.2,.7,.2,1), transform 0.9s cubic-bezier(.2,.7,.2,1); }
+.reveal.visible{ opacity:1; transform:translateY(0); }
+
+/* ============================================================
+   CAPA / COVER SEQUENCE
+   ============================================================ */
+#cover{
+  position:fixed; inset:0; background:var(--black); z-index:100;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  transition:opacity 1.1s ease, visibility 1.1s ease;
+}
+#cover.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+.cover-mark{
+  width:52px; height:52px; border:1.5px solid var(--gold); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Space Grotesk', sans-serif; font-size:0.75rem; color:var(--gold); font-weight:600;
+  opacity:0; animation:coverFade 1.2s ease forwards; animation-delay:0.3s; margin-bottom:2.2rem;
+}
+.cover-codex{
+  font-family:'Fraunces', serif; font-weight:500; font-size:clamp(2.6rem,7vw,4.2rem);
+  color:#F5F2EA; letter-spacing:0.02em; margin:0 0 1rem;
+  opacity:0; animation:coverFade 1.3s ease forwards; animation-delay:1.1s;
+}
+.cover-sub1{
+  font-family:'Space Grotesk', sans-serif; font-size:0.85rem; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--gold); margin:0 0 0.5rem;
+  opacity:0; animation:coverFade 1.3s ease forwards; animation-delay:2.1s;
+}
+.cover-sub2{
+  font-family:'Fraunces', serif; font-style:italic; font-size:1.5rem; color:#C9C6BE; margin:0 0 3rem;
+  opacity:0; animation:coverFade 1.3s ease forwards; animation-delay:3rem/1s; animation-delay:3s;
+}
+.cover-btn{
+  font-family:'Space Grotesk', sans-serif; font-size:0.85rem; letter-spacing:0.06em; font-weight:600;
+  background:none; border:1px solid var(--gold); color:var(--gold);
+  padding:0.9rem 2.2rem; border-radius:2px; cursor:pointer;
+  opacity:0; animation:coverFade 1.3s ease forwards; animation-delay:4.1s;
+  transition:background 0.3s ease, color 0.3s ease;
+}
+.cover-btn:hover{ background:var(--gold); color:var(--black); }
+@keyframes coverFade{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:translateY(0); } }
+
+/* ============================================================
+   DIVIDER (páginas pretas entre capítulos)
+   ============================================================ */
+.divider{
+  background:var(--black); color:var(--gold);
+  min-height:70vh; display:flex; align-items:center; justify-content:center; text-align:center;
+  padding:4rem 1.5rem;
+}
+.divider p{
+  font-family:'Fraunces', serif; font-style:italic; font-weight:400; color:var(--gold);
+  font-size:clamp(1.3rem, 3.2vw, 2rem); max-width:680px; line-height:1.5; margin:0;
+}
+
+/* ============================================================
+   ELEMENTOS DE APOIO
+   ============================================================ */
+.callout{
+  background:var(--wine-soft); border-left:3px solid var(--wine); border-radius:0 4px 4px 0;
+  padding:1.6rem 1.9rem; margin:1.8rem 0;
+}
+.callout p{ font-style:italic; color:var(--wine-deep); font-family:'Fraunces', serif; font-size:1.15rem; margin:0; }
+
+.pillars{ display:grid; grid-template-columns:1fr; gap:0; margin-top:2rem; border-top:1px solid var(--line); }
+@media (min-width:640px){ .pillars{ grid-template-columns:1fr 1fr; } }
+.pillar{ padding:1.6rem 0; border-bottom:1px solid var(--line); }
+@media (min-width:640px){ .pillar:nth-child(odd){ padding-right:2rem; } .pillar:nth-child(even){ padding-left:2rem; border-left:1px solid var(--line); } }
+.pillar-num{ font-family:'Fraunces', serif; font-size:1.6rem; color:var(--wine); margin:0 0 0.5rem; font-weight:500; }
+.pillar h3{ font-family:'Space Grotesk', sans-serif; font-size:0.98rem; font-weight:600; margin:0 0 0.5rem; }
+.pillar p{ font-size:0.95rem; margin:0; }
+
+table.diag{ width:100%; border-collapse:collapse; margin:1.8rem 0; font-size:0.98rem; }
+table.diag th, table.diag td{ text-align:left; padding:0.75rem 0.9rem; border-bottom:1px solid var(--line); }
+table.diag th{ font-family:'Space Grotesk', sans-serif; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); border-bottom:2px solid var(--wine); }
+
+.timeline{ list-style:none; margin:0; padding:0; border-left:2px solid var(--line); }
+.timeline li{ position:relative; padding:0 0 1.8rem 1.6rem; }
+.timeline li:last-child{ padding-bottom:0; }
+.timeline li::before{
+  content:''; position:absolute; left:-6.5px; top:4px; width:11px; height:11px; border-radius:50%;
+  background:var(--bg); border:2px solid var(--wine);
+}
+.timeline li span{ font-family:'Space Grotesk', sans-serif; font-size:0.92rem; color:var(--ink); }
+
+.two-col{ display:grid; grid-template-columns:1fr; gap:2.5rem; margin-top:1.5rem; }
+@media (min-width:700px){ .two-col{ grid-template-columns:1fr 1fr; } }
+.col-label{
+  font-family:'Space Grotesk', sans-serif; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase;
+  font-weight:600; margin:0 0 1.1rem; padding-bottom:0.7rem; border-bottom:1px solid var(--line);
+}
+.col-label.pos{ color:var(--wine); }
+.col-label.dev{ color:var(--muted); }
+.item-list{ list-style:none; margin:0; padding:0; }
+.item-list li{ margin-bottom:1.3rem; }
+.item-list li:last-child{ margin-bottom:0; }
+.item-list h4{ font-family:'Space Grotesk', sans-serif; font-size:0.95rem; font-weight:600; margin:0 0 0.35rem; }
+.item-list p{ font-size:0.93rem; margin:0; }
+
+.evidence-card{ padding:3.5rem 0; border-bottom:1px solid var(--line); }
+.evidence-card:last-child{ border-bottom:none; }
+.evidence-tag{
+  font-family:'Space Grotesk', sans-serif; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--muted); margin:0 0 0.5rem;
+}
+.evidence-card h3{ font-family:'Fraunces', serif; font-size:1.5rem; font-weight:500; margin:0 0 1.2rem; }
+.ev-block{ margin-bottom:1.2rem; }
+.ev-block .label{ font-family:'Space Grotesk', sans-serif; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--wine); margin:0 0 0.5rem; font-weight:600; }
+.ev-checks{ list-style:none; margin:0; padding:0; }
+.ev-checks li{ padding:0.3rem 0 0.3rem 1.5rem; position:relative; font-size:0.97rem; }
+.ev-checks li::before{ content:'✓'; position:absolute; left:0; color:var(--wine); font-weight:600; }
+
+.three-col{ display:grid; grid-template-columns:1fr; gap:1.5rem; margin-top:1.5rem; }
+@media (min-width:760px){ .three-col{ grid-template-columns:1fr 1fr 1fr; } }
+.tc-item{ background:var(--bg-2); border-radius:6px; padding:1.6rem; }
+.tc-label{ font-family:'Space Grotesk', sans-serif; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--wine); margin:0 0 0.8rem; font-weight:600; }
+.tc-item p{ font-size:0.98rem; margin:0; }
+.tc-item.quote p{ font-family:'Fraunces', serif; font-style:italic; font-size:1.1rem; color:var(--wine-deep); }
+
+/* Radar */
+.radar-wrap{ display:flex; flex-direction:column; align-items:center; gap:2rem; margin:2rem 0; }
+.radar-svg{ width:100%; max-width:420px; height:auto; }
+.radar-legend{ width:100%; }
+.radar-row{ display:flex; justify-content:space-between; align-items:baseline; padding:0.6rem 0; border-bottom:1px dashed var(--line); font-size:0.92rem; }
+.radar-row .axis{ font-family:'Space Grotesk', sans-serif; font-weight:600; }
+.radar-row .note{ color:var(--muted); font-size:0.85rem; max-width:60%; text-align:right; }
+
+/* Pirâmide */
+.pyramid-wrap{ display:flex; justify-content:center; margin:2.5rem 0; }
+.pyramid{ display:flex; flex-direction:column; align-items:center; gap:3px; width:100%; max-width:420px; }
+.pyr-level{
+  height:44px; display:flex; align-items:center; justify-content:center;
+  font-family:'Space Grotesk', sans-serif; font-size:0.78rem; letter-spacing:0.03em; color:#fff;
+  background:var(--muted); position:relative;
+}
+.pyr-level.marked{ background:var(--wine); box-shadow:0 0 0 3px var(--wine-soft); }
+.pyr-marker{
+  position:absolute; right:-2.4rem; top:50%; transform:translateY(-50%);
+  font-family:'Space Grotesk', sans-serif; font-size:0.7rem; color:var(--wine); font-weight:600; white-space:nowrap;
+}
+
+/* Território */
+.territorio-box{ text-align:center; padding:2.5rem; background:var(--bg-2); border-radius:8px; margin:1rem 0; }
+.territorio-box .before{ font-family:'Space Grotesk', sans-serif; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-bottom:0.8rem; }
+.territorio-box .phrase{ font-family:'Fraunces', serif; font-size:1.5rem; color:var(--ink); }
+.arrow-down{ text-align:center; font-size:1.4rem; color:var(--wine); margin:0.5rem 0; }
+.territorio-tags{ display:flex; flex-wrap:wrap; gap:0.5rem; justify-content:center; margin-top:1.5rem; }
+.terr-tag{ font-family:'Space Grotesk', sans-serif; font-size:0.8rem; border:1px solid var(--line); border-radius:20px; padding:0.4rem 0.9rem; color:var(--muted); }
+
+/* Vetores de crescimento */
+.vetores-grid{ display:grid; grid-template-columns:1fr; gap:2rem; margin-top:1.5rem; }
+@media (min-width:700px){ .vetores-grid{ grid-template-columns:1fr 1fr 1fr; } }
+.vetor-col h4{ font-family:'Space Grotesk', sans-serif; font-size:0.82rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--wine); margin:0 0 1rem; }
+.vetor-col ul{ list-style:none; margin:0; padding:0; }
+.vetor-col li{ padding:0.5rem 0; border-bottom:1px dashed var(--line); font-size:0.94rem; }
+
+/* Plano 30/90/180 */
+.plano-grid{ display:grid; grid-template-columns:1fr; gap:1.5rem; margin-top:1.5rem; }
+@media (min-width:700px){ .plano-grid{ grid-template-columns:1fr 1fr 1fr; } }
+.plano-card{ border:1px solid var(--line); border-radius:8px; padding:1.8rem; }
+.plano-dias{ font-family:'Fraunces', serif; font-size:1.8rem; color:var(--wine); margin:0 0 0.3rem; }
+.plano-obj{ font-family:'Space Grotesk', sans-serif; font-size:0.85rem; font-weight:600; margin:0 0 1.1rem; color:var(--ink); }
+.plano-card ul{ list-style:none; margin:0; padding:0; }
+.plano-card li{ font-size:0.9rem; padding:0.35rem 0; color:var(--muted); }
+
+/* Ecossistema radial */
+.eco-wrap{ display:flex; justify-content:center; padding:2.5rem 0; }
+.eco-radial{ position:relative; width:340px; height:340px; }
+.eco-center{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:120px; height:120px; border-radius:50%; background:var(--wine); color:#fff;
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  font-family:'Fraunces', serif; font-size:1.05rem; z-index:2; box-shadow:0 10px 30px rgba(110,36,50,0.35);
+}
+.eco-node{
+  position:absolute; width:88px; height:88px; border-radius:50%; background:var(--bg);
+  border:1.5px solid var(--line); display:flex; align-items:center; justify-content:center; text-align:center;
+  font-family:'Space Grotesk', sans-serif; font-size:0.78rem; font-weight:600; color:var(--ink); z-index:2;
+}
+.eco-caption{ text-align:center; font-family:'Fraunces', serif; font-style:italic; color:var(--wine-deep); font-size:1.15rem; max-width:480px; margin:1rem auto 0; }
+
+/* Chapter table (ecossistema atua) */
+table.eco-table{ width:100%; border-collapse:collapse; margin:1.5rem 0; font-size:0.95rem; }
+table.eco-table th, table.eco-table td{ text-align:left; padding:0.85rem 1rem; border-bottom:1px solid var(--line); vertical-align:top; }
+table.eco-table th{ font-family:'Space Grotesk', sans-serif; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); }
+table.eco-table td:first-child{ font-family:'Space Grotesk', sans-serif; font-weight:600; white-space:nowrap; }
+
+.closing-quote{
+  text-align:center; padding:6rem 1.5rem; background:var(--black);
+}
+.closing-quote p{ font-family:'Fraunces', serif; font-style:italic; color:var(--gold); font-size:clamp(1.4rem,3.5vw,2.3rem); max-width:720px; margin:0 auto; line-height:1.5; }
+.closing-quote .meta{ margin-top:2.5rem; font-family:'Space Grotesk', sans-serif; font-style:normal; color:#8a8578; font-size:0.85rem; letter-spacing:0.04em; }
+
+footer{ text-align:center; padding:3rem 1.5rem 4rem; background:var(--black); color:#6b675f; font-family:'Space Grotesk', sans-serif; font-size:0.78rem; }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     COVER — sequência de abertura
+     ============================================================ -->
+<div id="cover">
+  <div class="cover-mark">CM</div>
+  <p class="cover-codex">CODEX™</p>
+  <p class="cover-sub1">Dossiê Estratégico da Marca</p>
+  <p class="cover-sub2">Drogamil</p>
+  <button class="cover-btn" id="btnIniciar">Iniciar leitura</button>
+</div>
+
+<main id="book">
+
+  <!-- ============================================================
+       O QUE É O CODEX
+       ============================================================ -->
+  <section class="chapter">
+    <div class="wrap">
+      <p class="eyebrow reveal">O método</p>
+      <h1 class="display reveal">Antes de comunicar,<br>é preciso compreender.</h1>
+      <p class="lede reveal">A empresa sabe exatamente quem ela é?</p>
+      <p class="reveal">Grande parte das organizações inicia sua comunicação produzindo anúncios, vídeos ou publicações antes mesmo de compreender sua identidade, seu posicionamento e o espaço que ocupa na mente das pessoas.</p>
+      <p class="reveal">O CODEX™ nasce para inverter essa lógica. Antes de divulgar, é preciso diagnosticar. Antes de crescer, é preciso construir relevância.</p>
+      <p class="reveal">O CODEX™ é o método proprietário desenvolvido pela Macuca Media Hub para analisar o estágio de maturidade de uma marca, compreender seus objetivos e orientar decisões estratégicas de comunicação. O objetivo não é produzir campanhas. É construir marcas que permaneçam relevantes ao longo do tempo.</p>
+
+      <div class="pillars">
+        <div class="pillar reveal">
+          <p class="pillar-num">01</p>
+          <h3>Escuta Estratégica</h3>
+          <p>Uma entrevista estruturada identifica valores, visão de futuro, objetivos, dificuldades e percepções do fundador.</p>
+        </div>
+        <div class="pillar reveal">
+          <p class="pillar-num">02</p>
+          <h3>Diagnóstico</h3>
+          <p>As respostas são analisadas em conjunto para identificar padrões, oportunidades, riscos e territórios de posicionamento.</p>
+        </div>
+        <div class="pillar reveal">
+          <p class="pillar-num">03</p>
+          <h3>Inteligência de Marca</h3>
+          <p>Os dados são organizados em ferramentas proprietárias — Radar de Relevância™ e Pirâmide da Relevância™.</p>
+        </div>
+        <div class="pillar reveal">
+          <p class="pillar-num">04</p>
+          <h3>Plano de Desenvolvimento</h3>
+          <p>A partir do diagnóstico, definem-se prioridades e recomendações para orientar o crescimento da marca.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       O QUE APRENDEMOS OUVINDO VOCÊ
+       ============================================================ -->
+  <section class="chapter chapter-tight" style="background:var(--bg-2);">
+    <div class="wrap">
+      <p class="eyebrow reveal">Escuta estratégica</p>
+      <h2 class="display reveal">O que aprendemos<br>ouvindo você.</h2>
+      <p class="reveal">Toda empresa possui uma história. Mas poucas conseguem explicá-la com clareza.</p>
+      <p class="reveal">A Drogamil não nasceu apenas da oportunidade de abrir mais uma farmácia. Ela representa a continuidade de uma trajetória construída ao longo de décadas de trabalho, iniciada ainda no comércio tradicional e consolidada no setor farmacêutico.</p>
+
+      <div class="callout reveal">
+        <p>"Construir uma empresa capaz de permanecer." — quando perguntado sobre motivação, propósito e sucesso, o fundador retornou repetidamente ao mesmo ponto: legado.</p>
+      </div>
+
+      <p class="reveal">O valor percebido da Drogamil não está apenas no medicamento que entrega. Está na tranquilidade que proporciona às pessoas quando elas precisam de uma solução.</p>
+      <p class="reveal">A chegada a Marataízes representa mais do que uma expansão geográfica. Representa a construção de uma nova reputação — e, neste estágio, a prioridade não é acelerar investimentos em publicidade. É construir reconhecimento, fortalecer identidade e ocupar um espaço relevante na comunidade.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PANORAMA
+       ============================================================ -->
+  <section class="chapter">
+    <div class="wrap-wide">
+      <p class="eyebrow reveal">Panorama geral</p>
+      <h2 class="display reveal">Uma fotografia estratégica<br>da empresa hoje.</h2>
+
+      <div class="two-col" style="margin-top:2.5rem;">
+        <div class="reveal">
+          <p><strong>Momento da empresa:</strong> Expansão e Consolidação. A aquisição da antiga Drogasol marca o início de uma nova fase, na qual a empresa precisa conquistar reconhecimento em um mercado onde ainda está formando percepção.</p>
+          <p><strong>Tempo em Marataízes:</strong> aproximadamente 15 dias — a empresa ainda está em fase de adaptação, organização operacional e aproximação com a comunidade local.</p>
+          <p><strong>Experiência do fundador:</strong> mais de três décadas no comércio, em diferentes modelos de varejo, desenvolvendo conhecimento sobre atendimento, relacionamento e gestão.</p>
+          <p><strong>Estágio atual da marca:</strong> Construção de Identidade — a operação já existe, mas a percepção da marca ainda está em formação.</p>
+        </div>
+        <div class="reveal">
+          <p class="col-label" style="border:none; padding:0; margin-bottom:1rem;">Trajetória</p>
+          <ul class="timeline">
+            <li><span>Mais de 30 anos no comércio</span></li>
+            <li><span>Farmácia em Piúma</span></li>
+            <li><span>Aquisição da Drogasol</span></li>
+            <li><span>Nascimento da Drogamil em Marataízes</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="sub reveal" style="margin-top:3rem;">Diagnóstico Sintético</h3>
+      <table class="diag reveal">
+        <thead><tr><th>Área</th><th>Situação atual</th></tr></thead>
+        <tbody>
+          <tr><td>Operação</td><td>Estruturada</td></tr>
+          <tr><td>Estoque</td><td>Em evolução</td></tr>
+          <tr><td>Marca</td><td>Em construção</td></tr>
+          <tr><td>Comunicação</td><td>Inicial</td></tr>
+          <tr><td>Relacionamento</td><td>Forte potencial</td></tr>
+          <tr><td>Posicionamento</td><td>Ainda indefinido</td></tr>
+          <tr><td>Relevância regional</td><td>Em desenvolvimento</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       A IDENTIDADE ENCONTRADA
+       ============================================================ -->
+  <section class="chapter" style="background:var(--bg-2);">
+    <div class="wrap">
+      <p class="eyebrow reveal">Leitura de marca</p>
+      <h2 class="display reveal">A identidade encontrada.</h2>
+      <p class="reveal">Toda empresa transmite uma identidade, mesmo quando ainda não a comunica de forma estruturada.</p>
+      <p class="reveal">Durante a Auditoria Estratégica de Relevância observamos que a Drogamil já possui valores muito bem definidos internamente. Esses valores aparecem de forma espontânea nas respostas do fundador e ajudam a compreender como a empresa pretende ser percebida pela comunidade.</p>
+      <p class="reveal">Hoje a Drogamil funciona como uma empresa eficiente. Nos próximos anos, o desafio será transformar essa eficiência em percepção — porque uma empresa pode prestar um excelente serviço e, ainda assim, não ser lembrada.</p>
+      <p class="lede reveal">Hoje a Drogamil já sabe quem ela é. Agora precisa fazer a cidade descobrir isso.</p>
+
+      <h3 class="sub reveal" style="margin-top:2.5rem;">Quatro pilares encontrados</h3>
+      <div class="pillars">
+        <div class="pillar reveal"><h3>Confiança</h3><p>Atender corretamente. Resolver o problema. Cumprir a promessa.</p></div>
+        <div class="pillar reveal"><h3>Conveniência</h3><p>Facilidade, entrega, disponibilidade e mix de produtos.</p></div>
+        <div class="pillar reveal"><h3>Continuidade</h3><p>Pensamento de longo prazo, sucessão familiar, crescimento sustentável.</p></div>
+        <div class="pillar reveal"><h3>Comunidade</h3><p>Participação local, patrocínio, relacionamento próximo.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <section class="divider">
+    <p class="reveal">Marcas duradouras normalmente<br>começam pela clareza de quem as construiu.</p>
+  </section>
+
+  <!-- ============================================================
+       PERFIL DO FUNDADOR
+       ============================================================ -->
+  <section class="chapter">
+    <div class="wrap">
+      <p class="eyebrow reveal">Quem é o fundador</p>
+      <h2 class="display reveal">Perfil do Fundador.</h2>
+      <p class="reveal">O fundador falou sobre sua trajetória iniciada há mais de três décadas no comércio, passando pelo varejo tradicional, pela atuação no segmento farmacêutico e, mais recentemente, pela expansão da Drogamil para Marataízes.</p>
+      <p class="reveal">Ao ser questionado sobre motivação, propósito, futuro e sucesso, as respostas convergiram repetidamente para a mesma direção: família, continuidade e legado.</p>
+
+      <div class="ev-block reveal">
+        <p class="label">Evidências observadas</p>
+        <ul class="ev-checks">
+          <li>O principal motivador citado foram os filhos.</li>
+          <li>Declarou que deseja preparar o filho para assumir a empresa.</li>
+          <li>Definiu sucesso como construir patrimônio suficiente para entregar um negócio sólido à próxima geração.</li>
+          <li>Manifestou o desejo de reduzir seu ritmo de trabalho após consolidar essa transição.</li>
+        </ul>
+      </div>
+
+      <div class="ev-block reveal">
+        <p class="label">Leitura estratégica</p>
+        <p>O crescimento da Drogamil não está orientado apenas por metas financeiras. O objetivo central é construir uma empresa que sobreviva ao próprio fundador — o que tende a privilegiar estabilidade, confiança e crescimento consistente.</p>
+      </div>
+
+      <div class="ev-block reveal">
+        <p class="label">Oportunidade estratégica</p>
+        <p>A comunicação da Drogamil pode explorar valores ligados à confiança, continuidade e relacionamento de longo prazo, fortalecendo a percepção de uma empresa construída para permanecer.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- A LEITURA DA MACUCA — exemplo ilustrativo em 3 colunas -->
+  <section class="chapter chapter-tight" style="background:var(--bg-2);">
+    <div class="wrap-wide">
+      <p class="eyebrow reveal">A leitura da Macuca</p>
+      <h2 class="display reveal">Como transformamos<br>uma fala em estratégia.</h2>
+      <div class="three-col">
+        <div class="tc-item quote reveal">
+          <p class="tc-label">O que foi dito</p>
+          <p>"Quero passar a empresa para meu filho."</p>
+        </div>
+        <div class="tc-item reveal">
+          <p class="tc-label">O que isso significa</p>
+          <p>A sucessão é prioridade.</p>
+        </div>
+        <div class="tc-item reveal">
+          <p class="tc-label">Impacto na marca</p>
+          <p>A comunicação precisa construir confiança de longo prazo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       AUDITORIA DE EVIDÊNCIAS — 6 páginas
+       ============================================================ -->
+  <section class="chapter">
+    <div class="wrap">
+      <p class="eyebrow reveal">Fase 3</p>
+      <h2 class="display reveal">Auditoria de Evidências.</h2>
+      <p class="reveal muted">Cada conclusão a seguir nasce diretamente das respostas da entrevista — evidência, leitura estratégica e oportunidade.</p>
+    </div>
+
+    <div class="wrap" id="evidenceContainer"></div>
+  </section>
+
+  <!-- ============================================================
+       RADAR DE RELEVÂNCIA
+       ============================================================ -->
+  <section class="chapter" style="background:var(--bg-2);">
+    <div class="wrap">
+      <p class="eyebrow reveal">Fase 4 — Inteligência de marca</p>
+      <h2 class="display reveal">Radar de Relevância™.</h2>
+      <p class="reveal">Ferramenta proprietária do CODEX que avalia os principais fatores que determinam a força de uma marca em seu mercado.</p>
+
+      <div class="radar-wrap reveal">
+        <svg class="radar-svg" id="radarSvg" viewBox="0 0 400 400"></svg>
+        <div class="radar-legend" id="radarLegend"></div>
+      </div>
+
+      <p class="reveal">O Radar mostra que a Drogamil possui uma base empresarial sólida. O maior desafio não está na qualidade da operação — está em transformar qualidades internas em atributos percebidos pelo mercado.</p>
+      <p class="lede reveal">Hoje a empresa faz mais do que as pessoas conhecem.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PIRÂMIDE DA RELEVÂNCIA
+       ============================================================ -->
+  <section class="chapter">
+    <div class="wrap">
+      <p class="eyebrow reveal">Fase 4 — Inteligência de marca</p>
+      <h2 class="display reveal">Pirâmide da Relevância™.</h2>
+      <div class="pyramid-wrap reveal">
+        <div class="pyramid" id="pyramidBox"></div>
+      </div>
+      <p class="reveal">A auditoria posiciona a Drogamil entre os níveis de <strong>Visibilidade</strong> e <strong>Reconhecimento</strong>. A empresa já deixou de ser desconhecida, mas ainda não ocupa uma posição clara na memória coletiva da cidade.</p>
+      <p class="reveal">Esse estágio é comum em empresas recém-expandidas e representa uma oportunidade importante: a percepção ainda está sendo formada. As decisões tomadas agora terão impacto direto sobre a reputação construída nos próximos anos.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MERCADO
+       ============================================================ -->
+  <section class="chapter" style="background:var(--bg-2);">
+    <div class="wrap evidence-card" style="border:none; padding-top:2rem;">
+      <p class="evidence-tag reveal">Auditoria de evidências</p>
+      <h3 class="reveal">Mercado</h3>
+      <div class="ev-block reveal">
+        <p class="label">O que ouvimos</p>
+        <p>Quando perguntado sobre concorrência, o fundador citou inicialmente fatores externos, como carga tributária e burocracia. Posteriormente identificou a Medtem como seu principal concorrente direto.</p>
+      </div>
+      <div class="ev-block reveal">
+        <p class="label">Leitura estratégica</p>
+        <p>Reconhece a qualidade operacional do concorrente e identifica estoque como principal diferencial competitivo — sem demonstrar preocupação em copiar estratégias, buscando construir diferenciação por atendimento. Essa postura demonstra maturidade.</p>
+      </div>
+      <div class="ev-block reveal">
+        <p class="label">Oportunidade estratégica</p>
+        <p>Competir por percepção de marca, relacionamento e confiança, reduzindo dependência de guerra de preços.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TERRITÓRIO
+       ============================================================ -->
+  <section class="chapter">
+    <div class="wrap">
+      <p class="eyebrow reveal">Território estratégico</p>
+      <h2 class="display reveal">O espaço que a marca<br>pode ocupar.</h2>
+
+      <div class="territorio-box reveal">
+        <p class="before">Território atual</p>
+        <p class="phrase">"Uma nova farmácia na cidade."</p>
+      </div>
+      <div class="arrow-down reveal">↓</div>
+      <div class="territorio-box reveal" style="background:var(--wine-soft);">
+        <p class="before">Território recomendado</p>
+        <p class="phrase" style="color:var(--wine-deep);">A farmácia da confiança.</p>
+        <p class="phrase" style="color:var(--wine-deep); font-size:1.1rem; margin-top:0.4rem;">A farmácia que acompanha gerações.</p>
+        <div class="territorio-tags">
+          <span class="terr-tag">Atendimento</span>
+          <span class="terr-tag">Relacionamento</span>
+          <span class="terr-tag">Sucessão familiar</span>
+          <span class="terr-tag">Permanência</span>
+          <span class="terr-tag">Comunidade</span>
+          <span class="terr-tag">Continuidade</span>
+        </div>
+      </div>
+
+      <p class="reveal" style="margin-top:2rem;">Esse território nasce da identidade da empresa. Não é um slogan criado artificialmente — é a tradução daquilo que o fundador demonstrou valorizar ao longo de toda a entrevista.</p>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <section class="divider">
+    <p class="reveal">A percepção ainda está sendo formada.<br>É por isso que o momento certo é agora.</p>
+  </section>
+
+  <!-- ============================================================
+       O QUE ENCONTRAMOS — Ativos Estratégicos / Aspectos em Desenvolvimento
+       ============================================================ -->
+  <section class="chapter">
+    <div class="wrap-wide">
+      <p class="eyebrow reveal">O que encontramos</p>
+      <h2 class="display reveal">Ativos e aspectos<br>em desenvolvimento.</h2>
+
+      <div class="two-col">
+        <div>
+          <p class="col-label pos reveal">Ativos Estratégicos</p>
+          <ul class="item-list">
+            <li class="reveal"><h4>Experiência do Fundador</h4><p>Mais de trinta anos de atuação no varejo proporcionam conhecimento prático sobre gestão, atendimento e relacionamento.</p></li>
+            <li class="reveal"><h4>Visão de Longo Prazo</h4><p>As decisões demonstram preocupação com sustentabilidade do negócio, não apenas resultados imediatos.</p></li>
+            <li class="reveal"><h4>Cultura Familiar</h4><p>Clareza sobre a importância da sucessão e da continuidade — fortalece a construção de confiança.</p></li>
+            <li class="reveal"><h4>Atendimento</h4><p>O relacionamento e a boa experiência do cliente fazem parte da cultura da empresa.</p></li>
+            <li class="reveal"><h4>Capacidade de Evolução</h4><p>Disposição para ajustar processos, ampliar estoque e adaptar a operação.</p></li>
+          </ul>
+        </div>
+        <div>
+          <p class="col-label dev reveal">Aspectos em Desenvolvimento</p>
+          <ul class="item-list">
+            <li class="reveal"><h4>Identidade da Marca</h4><p>Ainda não existe um posicionamento claramente percebido pela população.</p></li>
+            <li class="reveal"><h4>Diferenciação</h4><p>Os diferenciais existem internamente, mas ainda não são comunicados de forma estruturada.</p></li>
+            <li class="reveal"><h4>Comunicação</h4><p>Concentrada na divulgação da inauguração. Precisa evoluir para comunicação institucional contínua.</p></li>
+            <li class="reveal"><h4>Dependência do Fundador</h4><p>Parte da percepção da empresa ainda está concentrada na figura do proprietário.</p></li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="sub reveal" style="margin-top:3rem;">Tensões estratégicas a observar</h3>
+      <div class="two-col" style="margin-top:1rem;">
+        <ul class="item-list">
+          <li class="reveal"><h4>Competir apenas por preço</h4><p>Reduz diferenciação e dificulta a construção de valor de marca.</p></li>
+          <li class="reveal"><h4>Comunicação apenas promocional</h4><p>Uma marca lembrada só por ofertas perde espaço quando um concorrente reduz preços.</p></li>
+        </ul>
+        <ul class="item-list">
+          <li class="reveal"><h4>Dependência do fundador</h4><p>Fortalecer a marca permitirá transferir essa confiança gradualmente para a Drogamil.</p></li>
+          <li class="reveal"><h4>Crescimento sem posicionamento</h4><p>Expandir comunicação antes de consolidar identidade gera baixo retorno em lembrança de marca.</p></li>
+        </ul>
+      </div>
+
+      <p class="reveal" style="margin-top:2.5rem;">A auditoria indica que a Drogamil possui fundamentos sólidos para crescer. O principal desafio não está na operação. Está na construção da percepção pública.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       VETORES DE CRESCIMENTO
+       ============================================================ -->
+  <section class="chapter" style="background:var(--bg-2);">
+    <div class="wrap-wide">
+      <p class="eyebrow reveal">Oportunidades</p>
+      <h2 class="display reveal">Vetores de Crescimento.</h2>
+      <div class="vetores-grid">
+        <div class="vetor-col reveal">
+          <h4>Curto prazo</h4>
+          <ul>
+            <li>Consolidar a chegada em Marataízes</li>
+            <li>Aumentar reconhecimento espontâneo</li>
+            <li>Organizar identidade institucional</li>
+            <li>Comunicar diferenciais além do preço</li>
+          </ul>
+        </div>
+        <div class="vetor-col reveal">
+          <h4>Médio prazo</h4>
+          <ul>
+            <li>Tornar-se referência em atendimento</li>
+            <li>Fortalecer relacionamento comunitário</li>
+            <li>Ampliar presença digital</li>
+            <li>Produzir conteúdo de utilidade pública</li>
+          </ul>
+        </div>
+        <div class="vetor-col reveal">
+          <h4>Longo prazo</h4>
+          <ul>
+            <li>Ser lembrada entre as principais farmácias da região</li>
+            <li>Consolidar o processo de sucessão familiar</li>
+            <li>Transformar clientes em defensores espontâneos</li>
+            <li>Construir patrimônio de marca para as próximas gerações</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PLANO ESTRATÉGICO
+       ============================================================ -->
+  <section class="chapter">
+    <div class="wrap-wide">
+      <p class="eyebrow reveal">Fase 5 — Plano de desenvolvimento</p>
+      <h2 class="display reveal">Plano Estratégico.</h2>
+      <div class="plano-grid">
+        <div class="plano-card reveal">
+          <p class="plano-dias">30 dias</p>
+          <p class="plano-obj">Organizar a identidade</p>
+          <ul>
+            <li>Definição do posicionamento</li>
+            <li>Padronização da comunicação</li>
+            <li>Estruturação da presença digital</li>
+            <li>Conteúdos institucionais iniciais</li>
+          </ul>
+        </div>
+        <div class="plano-card reveal">
+          <p class="plano-dias">90 dias</p>
+          <p class="plano-obj">Ganhar reconhecimento</p>
+          <ul>
+            <li>Histórias de clientes</li>
+            <li>Bastidores da empresa</li>
+            <li>Conteúdo educativo</li>
+            <li>Presença recorrente na comunidade</li>
+          </ul>
+        </div>
+        <div class="plano-card reveal">
+          <p class="plano-dias">180 dias</p>
+          <p class="plano-obj">Construir autoridade</p>
+          <ul>
+            <li>Campanhas institucionais</li>
+            <li>Projetos comunitários</li>
+            <li>Consolidação da marca</li>
+            <li>Reavaliação do Radar de Relevância</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ECOSSISTEMA MACUCA
+       ============================================================ -->
+  <section class="chapter" style="background:var(--bg-2);">
+    <div class="wrap-wide">
+      <p class="eyebrow reveal">Estratégia integrada</p>
+      <h2 class="display reveal">Ecossistema Macuca.</h2>
+      <p class="reveal">O diagnóstico demonstrou que a Drogamil precisa fortalecer sua percepção pública antes de ampliar investimentos isolados em publicidade. A recomendação é utilizar diferentes ativos de comunicação de forma coordenada.</p>
+
+      <div class="eco-wrap reveal">
+        <div class="eco-radial" id="ecoRadial">
+          <div class="eco-center">DROGAMIL</div>
+        </div>
+      </div>
+      <p class="eco-caption reveal">Nenhum ativo trabalha sozinho. Todos convergem para a construção da marca.</p>
+
+      <table class="eco-table reveal" style="margin-top:2.5rem;">
+        <thead><tr><th>Ativo</th><th>Papel estratégico</th></tr></thead>
+        <tbody>
+          <tr><td>TV Marataízes</td><td>Construir reconhecimento regional e reforçar credibilidade.</td></tr>
+          <tr><td>Portal</td><td>Produzir conteúdo permanente, melhorar presença em buscas e fortalecer autoridade institucional.</td></tr>
+          <tr><td>Instagram</td><td>Criar relacionamento frequente e aproximar a marca da comunidade.</td></tr>
+          <tr><td>Guia Digital</td><td>Facilitar que novos clientes encontrem a Drogamil em pesquisas locais.</td></tr>
+          <tr><td>Produção Audiovisual</td><td>Humanizar a marca, apresentar equipe, história e diferenciais.</td></tr>
+          <tr><td>CODEX</td><td>Acompanhar a evolução estratégica e revisar periodicamente o posicionamento.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PRÓXIMOS PASSOS
+       ============================================================ -->
+  <section class="chapter">
+    <div class="wrap">
+      <p class="eyebrow reveal">Encerramento do diagnóstico</p>
+      <h2 class="display reveal">Próximos Passos.</h2>
+      <p class="reveal">A conclusão desta Auditoria Estratégica encerra a etapa de diagnóstico. A partir deste momento, as decisões de comunicação deixam de ser baseadas em percepção e passam a ser orientadas por evidências.</p>
+      <p class="reveal">O próximo documento, apresentado separadamente, detalhará a proposta de implementação construída pela Macuca a partir das conclusões deste relatório.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ENCERRAMENTO
+       ============================================================ -->
+  <section class="chapter" style="background:var(--bg-2);">
+    <div class="wrap">
+      <p class="eyebrow reveal">Conclusão da auditoria</p>
+      <h2 class="display reveal">Encerramento.</h2>
+      <p class="reveal">Empresas não se tornam referências apenas pelo tempo de existência. Tornam-se referências quando conseguem transformar seus valores em uma marca reconhecida pela comunidade.</p>
+      <p class="reveal">Ao longo desta auditoria, identificamos que a Drogamil possui fundamentos consistentes para construir essa trajetória. O desafio dos próximos anos será fazer com que a percepção pública acompanhe a qualidade da empresa já existente.</p>
+      <p class="reveal">Verificamos consistência entre os valores declarados pelo fundador e a forma como a empresa pretende atuar. Essa coerência é um dos principais ativos identificados por esta auditoria.</p>
+      <p class="lede reveal">É justamente essa construção que este plano pretende iniciar.</p>
+    </div>
+  </section>
+
+  <!-- Closing quote -->
+  <section class="closing-quote">
+    <p class="reveal">Este documento marca o início da construção da próxima fase da Drogamil.<br>A primeira decisão já foi tomada: compreender antes de comunicar.</p>
+    <p class="meta reveal">CODEX™ · Macuca Media Hub</p>
+  </section>
+
+  <footer>
+    Documento confidencial — elaborado exclusivamente para a Drogamil. Reprodução parcial ou integral depende de autorização da Macuca Media Hub.
+  </footer>
+
+  <!-- ============================================================
+       CAPÍTULO NOVO — DA ESTRATÉGIA À IMPLEMENTAÇÃO
+       (capítulo acrescentado; nenhuma página anterior foi alterada)
+       ============================================================ -->
+
+  <!-- Abertura do capítulo -->
+  <section class="chapter" style="background:var(--bg-2);">
+    <div class="wrap">
+      <p class="eyebrow reveal">Da estratégia à implementação</p>
+      <h2 class="display reveal">Diagnosticar foi<br>apenas o primeiro passo.</h2>
+      <p class="reveal">Ao longo desta Auditoria Estratégica de Relevância identificamos onde a Drogamil está hoje, quais são seus principais ativos, quais desafios precisam ser enfrentados e qual caminho recomendamos para consolidar sua marca em Marataízes.</p>
+      <p class="reveal">O próximo passo não consiste em produzir publicidade.</p>
+      <p class="reveal">Consiste em executar um plano contínuo de construção de marca baseado nas evidências apresentadas neste relatório.</p>
+      <p class="reveal">Para isso, a Macuca estruturou um programa de acompanhamento estratégico específico para a realidade da Drogamil.</p>
+    </div>
+  </section>
+
+  <!-- Programa de Construção de Relevância Regional -->
+  <section class="chapter">
+    <div class="wrap">
+      <p class="eyebrow reveal">O programa</p>
+      <h2 class="display reveal">Programa de Construção<br>de Relevância Regional.</h2>
+      <p class="reveal">Duração recomendada: 12 meses.</p>
+      <p class="reveal">Este programa transforma as recomendações da Auditoria Estratégica de Relevância em ações permanentes de fortalecimento da marca. Cada etapa possui um objetivo específico.</p>
+
+      <div class="evidence-card reveal" style="padding-top:2.5rem;">
+        <p class="evidence-tag">Mês 1</p>
+        <h3>Fundação da Marca</h3>
+        <div class="ev-block">
+          <p class="label">Objetivo</p>
+          <p>Construir toda a base estratégica da Drogamil.</p>
+        </div>
+        <div class="ev-block">
+          <p class="label">Entregas</p>
+          <ul class="ev-checks">
+            <li>Definição do posicionamento estratégico.</li>
+            <li>Construção da identidade verbal.</li>
+            <li>Organização da comunicação institucional.</li>
+            <li>Estruturação da página premium da Drogamil no Guia Digital.</li>
+            <li>Otimização da presença no Google (SEO Local).</li>
+            <li>Produção do vídeo institucional.</li>
+            <li>Produção do banco inicial de imagens profissionais.</li>
+            <li>Planejamento editorial.</li>
+            <li>Implantação das primeiras campanhas patrocinadas.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="evidence-card reveal">
+        <p class="evidence-tag">Meses 2 a 4</p>
+        <h3>Consolidação da Presença</h3>
+        <div class="ev-block">
+          <p class="label">Objetivo</p>
+          <p>Transformar a Drogamil em uma marca conhecida pela comunidade.</p>
+        </div>
+        <div class="ev-block">
+          <p class="label">Ações</p>
+          <ul class="ev-checks">
+            <li>Conteúdo institucional contínuo.</li>
+            <li>Inserções estratégicas na TV Marataízes.</li>
+            <li>Conteúdo para Instagram.</li>
+            <li>Stories de relacionamento.</li>
+            <li>Publicações no Portal.</li>
+            <li>Atualizações da página no Guia Digital.</li>
+            <li>Gestão das campanhas patrocinadas.</li>
+            <li>Monitoramento dos indicadores.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="evidence-card reveal">
+        <p class="evidence-tag">Meses 5 a 8</p>
+        <h3>Construção de Autoridade</h3>
+        <div class="ev-block">
+          <p class="label">Objetivo</p>
+          <p>Transformar reconhecimento em confiança.</p>
+        </div>
+        <div class="ev-block">
+          <p class="label">Ações</p>
+          <ul class="ev-checks">
+            <li>Conteúdos educativos.</li>
+            <li>Histórias de clientes.</li>
+            <li>Bastidores da Drogamil.</li>
+            <li>Humanização da equipe.</li>
+            <li>Participação em ações comunitárias.</li>
+            <li>Fortalecimento institucional.</li>
+            <li>Consolidação da autoridade regional.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="evidence-card reveal" style="border-bottom:none;">
+        <p class="evidence-tag">Meses 9 a 12</p>
+        <h3>Consolidação</h3>
+        <div class="ev-block">
+          <p class="label">Objetivo</p>
+          <p>Transformar a Drogamil em uma marca consolidada.</p>
+        </div>
+        <div class="ev-block">
+          <p class="label">Ações</p>
+          <ul class="ev-checks">
+            <li>Campanhas institucionais.</li>
+            <li>Atualização completa do CODEX.</li>
+            <li>Novo Radar de Relevância.</li>
+            <li>Comparativo entre diagnóstico inicial e evolução da marca.</li>
+            <li>Planejamento do segundo ciclo estratégico.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ecossistema Macuca (implementação) -->
+  <section class="chapter" style="background:var(--bg-2);">
+    <div class="wrap-wide">
+      <p class="eyebrow reveal">Estratégia integrada</p>
+      <h2 class="display reveal">Ecossistema Macuca.</h2>
+
+      <div class="eco-wrap reveal">
+        <div class="eco-radial" id="ecoRadial2">
+          <div class="eco-center">DROGAMIL</div>
+        </div>
+      </div>
+      <p class="eco-caption reveal">Todos convergindo para a construção da marca.</p>
+      <p class="reveal" style="text-align:center; max-width:560px; margin:1.5rem auto 0;">Nenhum ativo trabalha isoladamente. Todo o ecossistema atua para fortalecer a marca de forma integrada.</p>
+    </div>
+  </section>
+
+  <!-- Investimento -->
+  <section class="chapter">
+    <div class="wrap">
+      <p class="eyebrow reveal">Investimento</p>
+
+      <div class="reveal" style="margin-bottom:3.5rem;">
+        <h3 class="sub" style="font-size:1.1rem;">Honorários da Macuca</h3>
+        <p class="serif-display" style="font-size:2.4rem; color:var(--wine-deep); margin:0.4rem 0 0.2rem;">R$ 2.500,00</p>
+        <p class="muted" style="margin-bottom:1.4rem;">por mês</p>
+        <p class="muted" style="margin-bottom:0.6rem;">Inclui:</p>
+        <ul class="ev-checks">
+          <li>Direção Estratégica da Marca.</li>
+          <li>Execução do plano definido pelo CODEX.</li>
+          <li>Produção e coordenação da comunicação institucional.</li>
+          <li>Gestão do ecossistema Macuca.</li>
+          <li>Revisões estratégicas periódicas.</li>
+          <li>Atualização anual do CODEX.</li>
+        </ul>
+      </div>
+
+      <div class="reveal" style="padding-top:2.5rem; border-top:1px solid var(--line);">
+        <h3 class="sub" style="font-size:1.1rem;">Investimento recomendado em mídia</h3>
+        <p class="serif-display" style="font-size:2.4rem; color:var(--ink); margin:0.4rem 0 0.2rem;">R$ 500,00</p>
+        <p class="muted" style="margin-bottom:1.4rem;">por mês</p>
+        <p>Este valor será investido diretamente nas plataformas de anúncios (Meta/Google), sendo utilizado exclusivamente para ampliar o alcance da comunicação. A gestão dessa verba faz parte do acompanhamento realizado pela Macuca.</p>
+        <p class="muted">Este valor não compõe a remuneração da Macuca.</p>
+      </div>
+
+      <p class="muted reveal" style="margin-top:2.5rem; font-family:'Space Grotesk',sans-serif; font-size:0.9rem;">Prazo recomendado: 12 meses, com revisões estratégicas trimestrais.</p>
+    </div>
+  </section>
+
+  <!-- Página final escura -->
+  <section class="closing-quote">
+    <p class="reveal">Toda marca deixa uma história.<br>Poucas decidem escrevê-la de forma estratégica.</p>
+    <p class="reveal" style="font-family:'Fraunces', serif; font-style:italic; color:#C9C6BE; font-size:1.15rem; margin-top:2rem;">Bem-vindo ao primeiro ciclo do CODEX.</p>
+    <p class="meta reveal" style="margin-top:2.5rem;">CODEX™<br>Macuca Media Hub</p>
+    <p class="meta reveal" style="margin-top:2rem; font-size:0.72rem; opacity:0.6;">Versão 1.0</p>
+  </section>
+
+</main>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- COVER ---------- */
+  var cover = document.getElementById('cover');
+  document.getElementById('btnIniciar').addEventListener('click', function(){
+    cover.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+  });
+
+  /* ---------- SCROLL REVEAL ---------- */
+  var reveals = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold:0.12, rootMargin:'0px 0px -40px 0px' });
+  reveals.forEach(function(el){ observer.observe(el); });
+
+  /* ---------- EVIDÊNCIAS (gerado por dados, componente reutilizável) ---------- */
+  var EVIDENCIAS = [
+    {
+      tag: "Auditoria de evidências", titulo: "Diagnóstico da Empresa",
+      ouvimos: "A Drogamil chega a Marataízes após uma trajetória consolidada em Piúma. A preocupação atual não está apenas em vender, mas em estruturar estoque, conhecer a cidade e conquistar confiança.",
+      evidencias: ["Empresa em processo recente de expansão.","Estoque ainda em fase de organização.","Reconhecimento de que o concorrente possui maior disponibilidade de produtos.","Preocupação constante com atendimento.","Interesse em crescer de forma sustentável."],
+      leitura: "Encontramos uma empresa em processo de consolidação. A operação demonstra consciência sobre suas limitações atuais, o que reduz riscos de decisões precipitadas.",
+      oportunidade: "Transformar uma boa operação em uma marca reconhecida."
+    },
+    {
+      tag: "Auditoria de evidências", titulo: "Clientes",
+      ouvimos: "O fundador descreveu seu cliente ideal como alguém que valoriza conveniência, bom atendimento e relacionamento. Deixou claro que não pretende competir apenas por preço.",
+      evidencias: ["Atendimento apareceu diversas vezes durante a entrevista.","Conveniência foi apresentada como diferencial.","A entrega foi tratada como parte importante da experiência.","A empresa oferece um mix de produtos além dos medicamentos.","Rejeita uma estratégia baseada exclusivamente em descontos."],
+      leitura: "Existe uma proposta de valor implícita. Embora ainda não esteja formalizada, ela já orienta decisões da empresa.",
+      oportunidade: "Transformar essa proposta de valor em posicionamento institucional."
+    },
+    {
+      tag: "Auditoria de evidências", titulo: "Marca",
+      ouvimos: "Ao falar sobre legado, o fundador imaginou clientes atuais sendo substituídos por seus filhos e, posteriormente, por seus netos.",
+      evidencias: ["Desejo de construir relações duradouras.","Interesse em permanecer por gerações.","Busca reconhecimento como a melhor farmácia da cidade."],
+      leitura: "Poucas empresas mencionam espontaneamente continuidade geracional. Esse elemento representa um ativo estratégico relevante — um diferencial de comunicação difícil de copiar.",
+      oportunidade: "Construir um território baseado em confiança entre gerações."
+    },
+    {
+      tag: "Auditoria de evidências", titulo: "Cidade",
+      ouvimos: "A empresa demonstra interesse em participar da comunidade. Patrocina iniciativas locais e busca construir relacionamento.",
+      evidencias: ["Patrocínio de ações comunitárias.","Interesse em participar da cidade.","Aproximação inicial com Marataízes."],
+      leitura: "A presença comunitária ainda não é percebida como parte da marca. Hoje ela acontece — o próximo passo é comunicar essa participação.",
+      oportunidade: "Fortalecer reputação institucional por meio de ações locais permanentes."
+    },
+    {
+      tag: "Auditoria de evidências", titulo: "Futuro",
+      ouvimos: "O fundador descreve sucesso como a consolidação da empresa, a preparação do filho para assumir o negócio e a possibilidade de reduzir seu ritmo de trabalho.",
+      evidencias: ["Planejamento de sucessão.","Crescimento sustentável.","Consolidação regional.","Continuidade da empresa."],
+      leitura: "A visão apresentada demonstra planejamento de longo prazo, o que favorece investimentos em marca, reputação e relacionamento — ativos que produzem resultado ao longo do tempo.",
+      oportunidade: "Sustentar decisões de comunicação orientadas por permanência, não por urgência."
+    }
+  ];
+
+  var evContainer = document.getElementById('evidenceContainer');
+  EVIDENCIAS.forEach(function(ev){
+    var card = document.createElement('div');
+    card.className = 'evidence-card reveal';
+    card.innerHTML =
+      '<p class="evidence-tag">' + ev.tag + '</p>' +
+      '<h3>' + ev.titulo + '</h3>' +
+      '<div class="ev-block"><p class="label">O que ouvimos</p><p>' + ev.ouvimos + '</p></div>' +
+      '<div class="ev-block"><p class="label">Evidências</p><ul class="ev-checks">' + ev.evidencias.map(function(e){ return '<li>'+e+'</li>'; }).join('') + '</ul></div>' +
+      '<div class="ev-block"><p class="label">Leitura estratégica</p><p>' + ev.leitura + '</p></div>' +
+      '<div class="ev-block"><p class="label">Oportunidade estratégica</p><p>' + ev.oportunidade + '</p></div>';
+    evContainer.appendChild(card);
+    observer.observe(card);
+  });
+
+  /* ---------- RADAR DE RELEVÂNCIA (SVG gerado por JS) ---------- */
+  var RADAR = [
+    {axis:"Presença", value:5, note:"Operação recente em Marataízes."},
+    {axis:"Identidade", value:4, note:"Valores claros, ainda não comunicados."},
+    {axis:"Autoridade", value:5, note:"Credibilidade do fundador, marca ainda não é referência."},
+    {axis:"Comunidade", value:7, note:"Participação em ações locais."},
+    {axis:"Consistência", value:6, note:"Coerência entre discurso e prática."},
+    {axis:"Evolução", value:8, note:"Capacidade de adaptação e visão de longo prazo."}
+  ];
+
+  (function drawRadar(){
+    var svg = document.getElementById('radarSvg');
+    var cx = 200, cy = 200, maxR = 150, n = RADAR.length;
+    var ns = "http://www.w3.org/2000/svg";
+
+    function pointAt(index, valueFraction){
+      var angle = (Math.PI * 2 * index / n) - Math.PI/2;
+      return [ cx + Math.cos(angle) * maxR * valueFraction, cy + Math.sin(angle) * maxR * valueFraction ];
+    }
+
+    // grid rings
+    [0.25,0.5,0.75,1].forEach(function(frac){
+      var pts = [];
+      for(var i=0;i<n;i++){ pts.push(pointAt(i, frac).join(',')); }
+      var poly = document.createElementNS(ns,'polygon');
+      poly.setAttribute('points', pts.join(' '));
+      poly.setAttribute('fill','none');
+      poly.setAttribute('stroke','#DDD8CC');
+      poly.setAttribute('stroke-width','1');
+      svg.appendChild(poly);
+    });
+
+    // axis lines + labels
+    RADAR.forEach(function(item, i){
+      var p = pointAt(i, 1);
+      var line = document.createElementNS(ns,'line');
+      line.setAttribute('x1', cx); line.setAttribute('y1', cy);
+      line.setAttribute('x2', p[0]); line.setAttribute('y2', p[1]);
+      line.setAttribute('stroke','#DDD8CC'); line.setAttribute('stroke-width','1');
+      svg.appendChild(line);
+
+      var lp = pointAt(i, 1.18);
+      var text = document.createElementNS(ns,'text');
+      text.setAttribute('x', lp[0]); text.setAttribute('y', lp[1]);
+      text.setAttribute('text-anchor','middle'); text.setAttribute('dominant-baseline','middle');
+      text.setAttribute('font-family','Space Grotesk, sans-serif');
+      text.setAttribute('font-size','12'); text.setAttribute('fill','#6B675F');
+      text.textContent = item.axis;
+      svg.appendChild(text);
+    });
+
+    // data polygon
+    var dataPts = RADAR.map(function(item, i){ return pointAt(i, item.value/10); });
+    var dataPoly = document.createElementNS(ns,'polygon');
+    dataPoly.setAttribute('points', dataPts.map(function(p){ return p.join(','); }).join(' '));
+    dataPoly.setAttribute('fill','rgba(110,36,50,0.18)');
+    dataPoly.setAttribute('stroke','#6E2432');
+    dataPoly.setAttribute('stroke-width','2.5');
+    svg.appendChild(dataPoly);
+
+    dataPts.forEach(function(p){
+      var dot = document.createElementNS(ns,'circle');
+      dot.setAttribute('cx', p[0]); dot.setAttribute('cy', p[1]); dot.setAttribute('r','4');
+      dot.setAttribute('fill','#6E2432');
+      svg.appendChild(dot);
+    });
+
+    // legend
+    var legend = document.getElementById('radarLegend');
+    RADAR.forEach(function(item){
+      var row = document.createElement('div');
+      row.className = 'radar-row';
+      row.innerHTML = '<span class="axis">' + item.axis + ' — ' + item.value + '/10</span><span class="note">' + item.note + '</span>';
+      legend.appendChild(row);
+    });
+  })();
+
+  /* ---------- PIRÂMIDE ---------- */
+  (function drawPyramid(){
+    var levels = ["Liderança","Preferência","Autoridade","Reconhecimento","Visibilidade","Invisibilidade"];
+    var box = document.getElementById('pyramidBox');
+    levels.forEach(function(name, i){
+      var widthPct = 30 + (i * 14); // cresce de cima pra baixo
+      var div = document.createElement('div');
+      div.className = 'pyr-level';
+      div.style.width = widthPct + '%';
+      div.textContent = name;
+      if(name === 'Reconhecimento' || name === 'Visibilidade'){
+        div.classList.add('marked');
+      }
+      box.appendChild(div);
+    });
+    var marker = document.createElement('div');
+    marker.style.cssText = 'text-align:center; margin-top:0.6rem; font-family:"Space Grotesk",sans-serif; font-size:0.78rem; color:#6E2432; font-weight:600;';
+    marker.textContent = '↑ Drogamil está aqui — entre Visibilidade e Reconhecimento';
+    box.parentNode.appendChild(marker);
+  })();
+
+  /* ---------- ECOSSISTEMA RADIAL (reutilizável para ambas as ocorrências) ---------- */
+  function drawEco(containerId){
+    var nodes = ["TV","Portal","Instagram","Guia","Audiovisual","CODEX"];
+    var radial = document.getElementById(containerId);
+    if(!radial) return;
+    var R = 140, cx = 170, cy = 170;
+    nodes.forEach(function(label, i){
+      var angle = (Math.PI * 2 * i / nodes.length) - Math.PI/2;
+      var x = cx + Math.cos(angle) * R - 44;
+      var y = cy + Math.sin(angle) * R - 44;
+      var node = document.createElement('div');
+      node.className = 'eco-node';
+      node.style.left = x + 'px';
+      node.style.top = y + 'px';
+      node.textContent = label;
+      radial.appendChild(node);
+    });
+  }
+  drawEco('ecoRadial');
+  drawEco('ecoRadial2');
+
+})();
+</script>
+</body>
+</html>
