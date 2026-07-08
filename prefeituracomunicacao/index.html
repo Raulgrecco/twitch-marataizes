@@ -133,6 +133,23 @@ p:last-child{ margin-bottom:0; }
 .gov-arrow{ display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:1.2rem; padding:0.4rem; }
 @media (min-width:760px){ .gov-arrow{ padding:0 0.3rem; } }
 
+/* ---------- ECOSSISTEMA RADIAL ---------- */
+.eco-wrap{ display:flex; justify-content:center; padding:1.5rem 0 0; }
+.eco-radial{ position:relative; width:340px; height:340px; max-width:100%; }
+.eco-center{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:120px; height:120px; border-radius:50%; background:var(--blue); color:#fff;
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  font-weight:700; font-size:1rem; z-index:2; box-shadow:0 12px 30px rgba(29,78,137,0.3);
+}
+.eco-node{
+  position:absolute; width:96px; height:96px; border-radius:50%; background:var(--bg);
+  border:1.5px solid var(--line); display:flex; align-items:center; justify-content:center; text-align:center;
+  font-size:0.76rem; font-weight:600; color:var(--ink); z-index:2; padding:0.4rem;
+}
+.eco-down{ text-align:center; font-size:1.4rem; color:var(--blue); margin-top:0.5rem; }
+.eco-pop{ text-align:center; font-family:'IBM Plex Mono',monospace; font-size:0.85rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--blue-deep); font-weight:600; margin:0; }
+
 /* ---------- TABELAS ---------- */
 table.elegant{ width:100%; border-collapse:collapse; margin:1.8rem 0; font-size:0.94rem; }
 table.elegant th, table.elegant td{ text-align:left; padding:0.9rem 1rem; border-bottom:1px solid var(--line); vertical-align:top; }
@@ -188,8 +205,35 @@ footer{ text-align:center; padding:2.5rem 1.5rem; background:var(--bg-2); color:
     </div>
   </section>
 
+  <!-- RESUMO EXECUTIVO -->
+  <section class="section" style="padding-top:5rem;">
+    <div class="wrap">
+      <p class="kicker reveal">Resumo executivo</p>
+      <h2 class="display reveal">Em uma página.</h2>
+
+      <div class="pillars">
+        <div class="pillar-card reveal">
+          <h3>Desafio identificado</h3>
+          <p>Construir uma comunicação pública contínua, integrada e territorial.</p>
+        </div>
+        <div class="pillar-card reveal">
+          <h3>Nossa leitura</h3>
+          <p>A TV Marataízes já é reconhecida pela população como canal espontâneo de escuta. Falta estruturar esse fluxo de forma organizada e integrada à gestão pública.</p>
+        </div>
+        <div class="pillar-card reveal">
+          <h3>Solução proposta</h3>
+          <p>Implantação do Programa de Presença e Comunicação Territorial.</p>
+        </div>
+        <div class="pillar-card reveal">
+          <h3>Resultados esperados</h3>
+          <p>Comunicação institucional fortalecida; equipes integradas; capacidade de resposta ampliada; fluxo organizado entre território e gestão.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- NOSSA PREMISSA -->
-  <section class="section">
+  <section class="section section-alt">
     <div class="wrap">
       <p class="kicker reveal">Nossa premissa</p>
       <h2 class="display reveal">Uma cidade é percebida<br>pela forma como se comunica.</h2>
@@ -200,7 +244,7 @@ footer{ text-align:center; padding:2.5rem 1.5rem; background:var(--bg-2); color:
   </section>
 
   <!-- CONTEXTO -->
-  <section class="section section-alt">
+  <section class="section">
     <div class="wrap-wide">
       <p class="kicker reveal">Contexto</p>
       <h2 class="display reveal">Um canal de escuta<br>que já existe.</h2>
@@ -242,7 +286,7 @@ footer{ text-align:center; padding:2.5rem 1.5rem; background:var(--bg-2); color:
   <!-- CASO REAL -->
   <section class="section">
     <div class="wrap">
-      <p class="kicker reveal">Caso real</p>
+      <span class="capa-badge reveal" style="margin-bottom:1.5rem;">Caso real</span>
       <h2 class="display reveal">O que muda quando<br>o fluxo funciona.</h2>
 
       <div class="case-flow">
@@ -296,10 +340,17 @@ footer{ text-align:center; padding:2.5rem 1.5rem; background:var(--bg-2); color:
     <div class="wrap-wide">
       <p class="kicker reveal">Ativos</p>
       <h2 class="display reveal">Ecossistema Regional.</h2>
-      <table class="elegant reveal">
+
+      <div class="eco-wrap reveal">
+        <div class="eco-radial" id="ecoRadial"><div class="eco-center">MACUCA</div></div>
+      </div>
+      <div class="eco-down reveal">↓</div>
+      <p class="eco-pop reveal">POPULAÇÃO</p>
+
+      <table class="elegant reveal" style="margin-top:3rem;">
         <thead><tr><th>Ativo</th><th>Função estratégica</th></tr></thead>
         <tbody>
-          <tr><td>TV Marataízes</td><td>Construir reconhecimento regional e credibilidade institucional.</td></tr>
+          <tr><td>TV Marataízes</td><td>Emissora independente, integrante da plataforma Soul TV (Canal 300), utilizada como um dos ativos de distribuição do ecossistema Macuca.</td></tr>
           <tr><td>TV Piúma</td><td>Ampliar cobertura territorial e presença junto à comunidade local.</td></tr>
           <tr><td>TV Sul Capixaba</td><td>Consolidar alcance regional em todo o Sul do Espírito Santo.</td></tr>
           <tr><td>Portal Regional</td><td>Registro permanente da informação, indexado e pesquisável.</td></tr>
@@ -388,10 +439,28 @@ footer{ text-align:center; padding:2.5rem 1.5rem; background:var(--bg-2); color:
 
   <!-- ENCERRAMENTO -->
   <section class="closing">
-    <h2 class="reveal">Mais do que comunicar.</h2>
-    <p class="reveal">Comunicar uma cidade não significa apenas divulgar ações. Significa construir confiança. Criar presença. Fortalecer o diálogo entre gestão e população.</p>
-    <p class="reveal" style="margin-top:0.8rem;">É exatamente esse o propósito deste programa.</p>
+    <p class="reveal" style="font-size:1.35rem; font-weight:500; color:#fff; max-width:680px; margin:0 auto 1.2rem; line-height:1.5;">Uma comunicação pública eficiente não se mede pela quantidade de conteúdo produzido, mas pela capacidade de aproximar gestão, território e população.</p>
+    <p class="reveal" style="font-weight:500;">Esse é o compromisso da Macuca.</p>
     <p class="brand reveal">MACUCA MEDIA HUB — INTELIGÊNCIA TERRITORIAL PARA COMUNICAÇÃO PÚBLICA</p>
+  </section>
+
+  <!-- VAMOS CONVERSAR -->
+  <section class="section">
+    <div class="wrap" style="text-align:center;">
+      <h2 class="display reveal">Vamos conversar?</h2>
+      <p class="reveal" style="max-width:600px; margin:0 auto 2.5rem;">Caso esta proposta esteja alinhada aos objetivos da Prefeitura, teremos satisfação em apresentar o programa pessoalmente, esclarecer dúvidas e discutir os próximos passos para sua implementação.</p>
+
+      <div class="invest-box reveal" style="text-align:left; max-width:420px; margin:0 auto;">
+        <p class="kicker" style="margin-bottom:1rem;">Contato</p>
+        <p style="font-weight:600; font-size:1.1rem; margin-bottom:0.2rem;">Raul Grecco</p>
+        <p class="muted" style="margin-bottom:1.3rem;">Macuca Media Hub</p>
+        <p style="margin-bottom:0.5rem;">📱 WhatsApp: (21) 97923-4333</p>
+        <p style="margin-bottom:0.3rem;">🌐 <a href="https://www.macucaproducoes.com.br">macucaproducoes.com.br</a></p>
+        <p style="margin-bottom:0.3rem;">🌐 <a href="https://tvmarataizes.digital">tvmarataizes.digital</a></p>
+        <p style="margin-bottom:0.3rem;">🌐 <a href="https://www.tvsulcapixaba.com.br">tvsulcapixaba.com.br</a></p>
+        <p style="margin-bottom:0;">🌐 <a href="https://www.tvpiuma.com.br">tvpiuma.com.br</a></p>
+      </div>
+    </div>
   </section>
 
   <footer>
@@ -465,6 +534,25 @@ footer{ text-align:center; padding:2.5rem 1.5rem; background:var(--bg-2); color:
       govFlow.appendChild(arrow);
     }
   });
+
+  /* ---------- ECOSSISTEMA RADIAL ---------- */
+  (function drawEco(){
+    var nodes = ["TV Marataízes","TV Sul Capixaba","TV Piúma","Portal Regional","Redes Sociais","Inteligência Territorial","Produção Audiovisual"];
+    var radial = document.getElementById('ecoRadial');
+    if(!radial) return;
+    var R = 140, cx = 170, cy = 170;
+    nodes.forEach(function(label, i){
+      var angle = (Math.PI * 2 * i / nodes.length) - Math.PI/2;
+      var x = cx + Math.cos(angle) * R - 48;
+      var y = cy + Math.sin(angle) * R - 48;
+      var node = document.createElement('div');
+      node.className = 'eco-node';
+      node.style.left = x + 'px';
+      node.style.top = y + 'px';
+      node.textContent = label;
+      radial.appendChild(node);
+    });
+  })();
 
   /* ---------- BENEFÍCIOS ---------- */
   var BENEFICIOS = ["Comunicação regional permanente","Coordenação estratégica","Integração entre equipes","Monitoramento territorial","Reuniões semanais","Distribuição multiplataforma","Maior capacidade de resposta","Fortalecimento da comunicação pública"];
