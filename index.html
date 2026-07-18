@@ -116,22 +116,139 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 @keyframes blinklive{0%,100%{opacity:1;}50%{opacity:.2;}}
 </style>
 <script>
+/* ════════════════════════════════════════════════════
+   CONFIGURAÇÃO DA PROGRAMAÇÃO POR HORÁRIO
+   Pra trocar horários ou fontes no futuro, edite só este bloco.
+   ════════════════════════════════════════════════════ */
+var PLAYOUT_CONFIG = {
+  // Cada faixa usa "HH:MM" (24h). A faixa pode cruzar a meia-noite
+  // (ex: 18:00 até 01:00) — o código trata isso automaticamente.
+  schedule: [
+    { source: 'youtube', start: '01:00', end: '18:00' },
+    { source: 'castr',   start: '18:00', end: '01:00' }
+  ],
+  sources: {
+    youtube: {
+      type: 'youtube',
+      videoId: 'p9qkwUUFmk0'
+    },
+    castr: {
+      type: 'castr',
+      liveUrl: 'https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7'
+    }
+    // Exemplo de como plugar o VPS no futuro (precisa de player HLS, não é
+    // só troca de URL de iframe — avisar o Claude quando for a hora de fato):
+    // vps: { type: 'hls', url: 'https://SEU_IP:8888/live/playout/index.m3u8' }
+  }
+};
+
+function timeToMinutes(hhmm){
+  var parts=hhmm.split(':');
+  return parseInt(parts[0],10)*60+parseInt(parts[1],10);
+}
+
+function isWithinWindow(nowMin,startMin,endMin){
+  if(startMin<=endMin){
+    return nowMin>=startMin && nowMin<endMin;
+  }
+  // janela cruza a meia-noite (ex: 18:00 até 01:00)
+  return nowMin>=startMin || nowMin<endMin;
+}
+
+// Retorna a chave da fonte ativa agora, baseado SEMPRE no horário de
+// Brasília (America/Sao_Paulo) — não no relógio/fuso do dispositivo do
+// visitante. Isso evita trocar no horário errado se alguém acessar de
+// fora do Brasil ou com o relógio do aparelho mal configurado.
+function getBrasiliaMinutesNow(){
+  var parts=new Intl.DateTimeFormat('en-US',{
+    timeZone:'America/Sao_Paulo',
+    hour:'2-digit',
+    minute:'2-digit',
+    hour12:false
+  }).formatToParts(new Date());
+  var h=0,m=0;
+  parts.forEach(function(p){
+    if(p.type==='hour')h=parseInt(p.value,10);
+    if(p.type==='minute')m=parseInt(p.value,10);
+  });
+  return h*60+m;
+}
+
+function getActiveSourceKey(){
+  var nowMin=getBrasiliaMinutesNow();
+  for(var i=0;i<PLAYOUT_CONFIG.schedule.length;i++){
+    var rule=PLAYOUT_CONFIG.schedule[i];
+    if(isWithinWindow(nowMin,timeToMinutes(rule.start),timeToMinutes(rule.end))){
+      return rule.source;
+    }
+  }
+  // fallback de segurança, caso a configuração tenha buraco de horário
+  return PLAYOUT_CONFIG.schedule[0].source;
+}
+
+// Monta a URL de embed pra fonte, de acordo com o tipo.
+// options.muted controla se entra mutado (usado no primeiro clique).
+function buildEmbedUrl(sourceKey,options){
+  options=options||{};
+  var src=PLAYOUT_CONFIG.sources[sourceKey];
+  if(!src){return '';}
+  if(src.type==='youtube'){
+    var params='autoplay=1&playsinline=1&rel=0&modestbranding=1';
+    if(options.muted)params+='&mute=1';
+    return 'https://www.youtube.com/embed/'+src.videoId+'?'+params;
+  }
+  if(src.type==='castr'){
+    var autoplayParam=options.muted?'autoplay=on&muted=on':'autoplay=1';
+    return src.liveUrl+'?'+autoplayParam;
+  }
+  // type 'hls' (VPS futuro) precisaria de <video>+hls.js em vez de <iframe> —
+  // deixado de fora de propósito até esse dia chegar.
+  return '';
+}
+
+// Cria (ou substitui) o iframe do player ao vivo com a fonte ativa agora.
+function renderLivePlayer(wrapper,options){
+  var old=document.getElementById('live-player');
+  if(old)old.parentNode.removeChild(old);
+  var activeKey=getActiveSourceKey();
+  var iframe=document.createElement('iframe');
+  iframe.id='live-player';
+  iframe.src=buildEmbedUrl(activeKey,options);
+  iframe.allow='autoplay; fullscreen';
+  iframe.allowFullscreen=true;
+  iframe.style.cssText='width:100%;height:100%;border:0;';
+  wrapper.appendChild(iframe);
+  window.__currentLiveSourceKey=activeKey;
+  return iframe;
+}
+
 function loadLivePlayer(){
   var wrapper=document.getElementById('player-wrapper');
   var overlay=document.getElementById('player-overlay');
   if(!overlay||overlay.style.display==='none')return;
   // Cria o iframe só agora — nada no DOM antes do clique
-  var iframe=document.createElement('iframe');
-  iframe.id='castr-player';
-  iframe.src='https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7?autoplay=on&muted=on';
-  iframe.allow='autoplay; fullscreen';
-  iframe.allowFullscreen=true;
-  iframe.style.cssText='width:100%;height:100%;border:0;';
-  wrapper.appendChild(iframe);
+  renderLivePlayer(wrapper,{muted:true});
   overlay.style.display='none';
   wrapper.style.cursor='default';
   wrapper.onclick=null;
 }
+
+// Verifica periodicamente se a faixa de horário mudou (ex: virou 18h)
+// e, se o visitante já estiver assistindo ao vivo, troca a fonte sozinho —
+// sem precisar recarregar a página nem exigir novo clique.
+(function watchScheduleBoundary(){
+  setInterval(function(){
+    var vodOpen=document.getElementById('vod-modal');
+    if(vodOpen && vodOpen.style.display==='flex')return; // não interfere com VOD aberto
+    var current=document.getElementById('live-player');
+    if(!current)return; // visitante ainda não deu play — nada a trocar
+    var activeKey=getActiveSourceKey();
+    if(activeKey!==window.__currentLiveSourceKey){
+      var wrapper=document.getElementById('player-wrapper');
+      if(wrapper)renderLivePlayer(wrapper,{muted:false});
+    }
+  },30000); // checa a cada 30s
+})();
 </script>
 
 <div id="vod-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;">
@@ -514,7 +631,7 @@ var ESC_EPISODIOS = [
 <script>
 function openVodModal(src, titulo, credito){
   // Remove o iframe ao vivo do DOM completamente — única forma de parar o áudio
-  var live=document.getElementById('castr-player');
+  var live=document.getElementById('live-player');
   if(live){live._wasLive=true;live.parentNode.removeChild(live);}
   // Se nunca deu play, esconde o wrapper
   var wrapper=document.getElementById('player-wrapper');
@@ -557,38 +674,48 @@ function closeVodModal(){
   if(wrapper){
     wrapper.style.visibility='visible';
     // Só recria se o usuário tinha dado play (iframe foi removido)
-    if(!document.getElementById('castr-player')){
+    if(!document.getElementById('live-player')){
       var overlay=document.getElementById('player-overlay');
       if(overlay && overlay.style.display==='none'){
-        // Já tinha dado play — recria o iframe
-        var iframe=document.createElement('iframe');
-        iframe.id='castr-player';
-        iframe.src='https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7?autoplay=1';
-        iframe.allow='autoplay; fullscreen';
-        iframe.allowFullscreen=true;
-        iframe.style.cssText='width:100%;height:100%;border:0;';
-        wrapper.appendChild(iframe);
+        // Já tinha dado play — recria o iframe com a fonte ativa AGORA
+        // (pode ter mudado de YouTube pra Castr ou vice-versa enquanto o VOD estava aberto)
+        renderLivePlayer(wrapper,{muted:false});
       } else {
         // Nunca tinha dado play — mostra overlay novamente
         if(overlay) overlay.style.display='flex';
       }
     }
   }
+  }
 }
 document.getElementById('vod-modal').addEventListener('click',function(e){if(e.target===this)closeVodModal();});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVodModal();});
 (function(){'use strict';
-  var BASE_SRC='https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7?autoplay=1';
   var HIDDEN_THRESHOLD=8*1000, RELOAD_BLANK_MS=400, hiddenAt=null;
 
-  function getIframe(){return document.getElementById('castr-player');}
+  function getIframe(){return document.getElementById('live-player');}
   function isLive(){var el=getIframe();return el&&el.src&&el.src!==''&&el.src!=='about:blank';}
-  function freshSrc(){return BASE_SRC+'&_t='+Date.now();}
+  // Esse "watchdog" de reload por travamento só faz sentido pra fonte tipo
+  // stream ao vivo de verdade (Castr) — recarregar um vídeo do YouTube
+  // voltaria ele pro início (0:00), o que seria PIOR pro visitante do que
+  // simplesmente deixar quieto. Por isso, ele só age quando a fonte ativa
+  // agora é do tipo 'castr'.
+  function activeSourceIsReloadable(){
+    var key=window.__currentLiveSourceKey||getActiveSourceKey();
+    var src=PLAYOUT_CONFIG.sources[key];
+    return src&&src.type==='castr';
+  }
+  function freshSrc(){
+    var key=window.__currentLiveSourceKey||getActiveSourceKey();
+    var src=PLAYOUT_CONFIG.sources[key];
+    return src.liveUrl+'?autoplay=1&_t='+Date.now();
+  }
 
   function reloadPlayer(){
     var modal=document.getElementById('vod-modal');
     if(modal&&modal.style.display==='flex')return;
     if(!isLive())return;
+    if(!activeSourceIsReloadable())return;
     var el=getIframe();if(!el)return;
     el.src='about:blank';
     setTimeout(function(){el.src=freshSrc();},RELOAD_BLANK_MS);
