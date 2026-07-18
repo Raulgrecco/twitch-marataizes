@@ -186,17 +186,54 @@ function getActiveSourceKey(){
   return PLAYOUT_CONFIG.schedule[0].source;
 }
 
-// Monta a URL de embed pra fonte, de acordo com o tipo.
-// options.muted controla se entra mutado (usado no primeiro clique).
+// ---------- API do YouTube (carregada uma única vez) ----------
+var __ytApiReady=false, __ytApiLoading=false, __ytApiCallbacks=[];
+function ensureYouTubeApi(callback){
+  if(__ytApiReady){callback();return;}
+  __ytApiCallbacks.push(callback);
+  if(__ytApiLoading)return;
+  __ytApiLoading=true;
+  window.onYouTubeIframeAPIReady=function(){
+    __ytApiReady=true;
+    __ytApiCallbacks.forEach(function(cb){cb();});
+    __ytApiCallbacks=[];
+  };
+  var tag=document.createElement('script');
+  tag.src='https://www.youtube.com/iframe_api';
+  document.head.appendChild(tag);
+}
+
+var __ytPlayerInstance=null;
+
+// Mostra/esconde o botão de som próprio (não dependemos dos controles
+// nativos do YouTube porque eles ficam escondidos via controls=0).
+function showUnmuteButton(wrapper){
+  hideUnmuteButton();
+  var btn=document.createElement('button');
+  btn.id='unmute-btn';
+  btn.setAttribute('aria-label','Ativar som');
+  btn.style.cssText='position:absolute;bottom:14px;left:14px;z-index:20;background:rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:24px;padding:9px 16px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;cursor:pointer;font-family:system-ui,Arial,sans-serif;';
+  btn.innerHTML='🔇 Ativar som';
+  btn.onclick=function(e){
+    e.stopPropagation();
+    if(__ytPlayerInstance){
+      __ytPlayerInstance.unMute();
+      __ytPlayerInstance.setVolume(100);
+    }
+    hideUnmuteButton();
+  };
+  wrapper.appendChild(btn);
+}
+function hideUnmuteButton(){
+  var old=document.getElementById('unmute-btn');
+  if(old)old.parentNode.removeChild(old);
+}
+
+// Monta a URL de embed pra fontes baseadas em iframe simples (Castr).
 function buildEmbedUrl(sourceKey,options){
   options=options||{};
   var src=PLAYOUT_CONFIG.sources[sourceKey];
   if(!src){return '';}
-  if(src.type==='youtube'){
-    var params='autoplay=1&playsinline=1&rel=0&modestbranding=1';
-    if(options.muted)params+='&mute=1';
-    return 'https://www.youtube.com/embed/'+src.videoId+'?'+params;
-  }
   if(src.type==='castr'){
     var autoplayParam=options.muted?'autoplay=on&muted=on':'autoplay=1';
     return src.liveUrl+'?'+autoplayParam;
@@ -206,11 +243,54 @@ function buildEmbedUrl(sourceKey,options){
   return '';
 }
 
-// Cria (ou substitui) o iframe do player ao vivo com a fonte ativa agora.
-function renderLivePlayer(wrapper,options){
+// Destrói o player ativo, seja ele YouTube (via API) ou iframe simples (Castr).
+function destroyCurrentPlayer(){
+  hideUnmuteButton();
+  if(__ytPlayerInstance){
+    try{__ytPlayerInstance.destroy();}catch(e){}
+    __ytPlayerInstance=null;
+  }
   var old=document.getElementById('live-player');
   if(old)old.parentNode.removeChild(old);
+}
+
+// Cria (ou substitui) o player ao vivo com a fonte ativa agora.
+function renderLivePlayer(wrapper,options){
+  options=options||{};
+  destroyCurrentPlayer();
   var activeKey=getActiveSourceKey();
+  window.__currentLiveSourceKey=activeKey;
+  var src=PLAYOUT_CONFIG.sources[activeKey];
+
+  if(src.type==='youtube'){
+    var holder=document.createElement('div');
+    holder.id='live-player';
+    holder.style.cssText='width:100%;height:100%;';
+    wrapper.appendChild(holder);
+    ensureYouTubeApi(function(){
+      // a fonte pode ter mudado enquanto a API carregava — confere de novo
+      if(window.__currentLiveSourceKey!==activeKey)return;
+      __ytPlayerInstance=new YT.Player('live-player',{
+        videoId:src.videoId,
+        playerVars:{
+          autoplay:1,
+          mute:1, // sempre entra mutado — necessário pro autoplay funcionar de forma confiável
+          controls:0,
+          modestbranding:1,
+          rel:0,
+          fs:0,
+          playsinline:1,
+          iv_load_policy:3
+        },
+        events:{
+          onReady:function(){ showUnmuteButton(wrapper); }
+        }
+      });
+    });
+    return;
+  }
+
+  // Castr (e outros tipos simples de iframe) seguem como antes
   var iframe=document.createElement('iframe');
   iframe.id='live-player';
   iframe.src=buildEmbedUrl(activeKey,options);
@@ -218,15 +298,13 @@ function renderLivePlayer(wrapper,options){
   iframe.allowFullscreen=true;
   iframe.style.cssText='width:100%;height:100%;border:0;';
   wrapper.appendChild(iframe);
-  window.__currentLiveSourceKey=activeKey;
-  return iframe;
 }
 
 function loadLivePlayer(){
   var wrapper=document.getElementById('player-wrapper');
   var overlay=document.getElementById('player-overlay');
   if(!overlay||overlay.style.display==='none')return;
-  // Cria o iframe só agora — nada no DOM antes do clique
+  // Cria o player só agora — nada no DOM antes do clique
   renderLivePlayer(wrapper,{muted:true});
   overlay.style.display='none';
   wrapper.style.cursor='default';
@@ -630,12 +708,15 @@ var ESC_EPISODIOS = [
 
 <script>
 function openVodModal(src, titulo, credito){
-  // Remove o iframe ao vivo do DOM completamente — única forma de parar o áudio
-  var live=document.getElementById('live-player');
-  if(live){live._wasLive=true;live.parentNode.removeChild(live);}
+  // Para o player ao vivo por completo — única forma de parar o áudio.
+  // Se for YouTube (via API), precisa destruir a instância, não só remover
+  // o elemento do DOM, senão fica um player "fantasma" na memória.
+  var wasLive=!!document.getElementById('live-player');
+  destroyCurrentPlayer();
   // Se nunca deu play, esconde o wrapper
   var wrapper=document.getElementById('player-wrapper');
   if(wrapper) wrapper.style.visibility='hidden';
+  if(wrapper) wrapper._wasLive=wasLive;
 
   var wrap=document.getElementById('vod-player-wrap');
   wrap.innerHTML='';
@@ -685,7 +766,6 @@ function closeVodModal(){
         if(overlay) overlay.style.display='flex';
       }
     }
-  }
   }
 }
 document.getElementById('vod-modal').addEventListener('click',function(e){if(e.target===this)closeVodModal();});
