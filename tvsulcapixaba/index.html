@@ -1262,7 +1262,7 @@ html{scroll-behavior:smooth;}
         <div class="warn-pill"><span class="dot" aria-hidden="true"></span> anúncios limitados por cidade — disponibilidade confirmada no checkout</div>
         <div class="hero-actions">
           <a href="#planos" class="btn btn-primary">quero anunciar agora</a>
-          <a href="#" class="btn btn-secondary">já sou anunciante</a>
+          <a href="https://wa.me/5528999036141?text=Já%20sou%20anunciante%20e%20quero%20saber%20sobre%20meu%20pedido" class="btn btn-secondary" target="_blank" rel="noopener">já sou anunciante</a>
         </div>
       </div>
     </div>
@@ -1815,7 +1815,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       castr: {
         type: 'castr',
-        liveUrl: 'https://player.castr.com/live_c5788f40839e11f1813a196cc11f122b'
+        liveUrl: 'https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7'
       }
     }
   };
@@ -2142,6 +2142,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.body.style.overflow = "hidden";
     };
     const closeCheckout = () => {
+      if (statusPollInterval) clearInterval(statusPollInterval);
       coOverlay.classList.remove("open");
       document.body.style.overflow = "";
     };
@@ -2270,6 +2271,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    let statusPollInterval = null;
+
     async function mountStatusScreen(paymentId) {
       if (paymentBrickController) { paymentBrickController.unmount(); paymentBrickController = null; }
       document.getElementById("paymentBrick_container").style.display = "none";
@@ -2290,11 +2293,35 @@ document.addEventListener("DOMContentLoaded", () => {
         `Olá! Fechei o pacote ${coState.plan.name} na TV Sul Capixaba. Aqui está meu vídeo:`
       );
       document.getElementById("co-whats-link").href = `https://wa.me/${CO_CONFIG.whatsapp}?text=${waText}`;
-      // segue pro passo 3 (envio do vídeo) depois que o PIX aparece, sem esperar clique
-      setTimeout(() => coGoStep(3), 1200);
+
+      // Só avança pro passo 3 quando o backend confirmar o pagamento de
+      // verdade (via webhook do Mercado Pago) — nunca por tempo, senão
+      // qualquer um "conclui" sem pagar. Verifica a cada 4s por até 10min.
+      if (statusPollInterval) clearInterval(statusPollInterval);
+      const startedAt = Date.now();
+      statusPollInterval = setInterval(async () => {
+        if (Date.now() - startedAt > 10 * 60 * 1000) {
+          clearInterval(statusPollInterval);
+          return;
+        }
+        try {
+          const res = await fetch(`${CO_CONFIG.apiBase}/api/mercadopago/payment-status/${paymentId}`);
+          if (!res.ok) return;
+          const body = await res.json();
+          if (body.status === "Pago") {
+            clearInterval(statusPollInterval);
+            coGoStep(3);
+          }
+        } catch (err) {
+          // falha de rede pontual — tenta de novo no próximo ciclo
+        }
+      }, 4000);
     }
 
-    document.getElementById("co-finish").addEventListener("click", closeCheckout);
+    document.getElementById("co-finish").addEventListener("click", () => {
+      if (statusPollInterval) clearInterval(statusPollInterval);
+      closeCheckout();
+    });
   }
 
   // ---- realce do item ativo no menu conforme o scroll ----
