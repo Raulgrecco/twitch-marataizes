@@ -2097,9 +2097,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ---- checkout (anuncie conosco / venda mais) ----
   const CO_CONFIG = {
-    // TODO: troque pela URL real do backend depois do deploy no Render
-    // (o mesmo backend que já roda a Agência CLAP — só reaproveitando a API).
-    apiBase: "https://SEU-BACKEND-CLAP.onrender.com",
+    // Backend real (Agência CLAP no Render) — API compartilhada de pagamento.
+    apiBase: "https://agenciaclap-site.onrender.com",
     mercadopago: {
       publicKeyEndpoint: "/api/mercadopago/public-key",
       createPaymentEndpoint: "/api/mercadopago/create-payment"
