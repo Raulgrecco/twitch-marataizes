@@ -329,6 +329,11 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:10px 0 4px;}
 }
 .field input:focus, .field select:focus, .field textarea:focus{outline:none; border-color:var(--accent);}
 .field textarea{resize:vertical; min-height:100px;}
+.category-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+.category-btn{background:var(--surface-2); border:1px solid var(--border); border-radius:8px; padding:12px 10px; font-size:12.5px; color:var(--text-secondary); cursor:pointer; text-align:left; font-family:var(--font-body); transition:border-color .15s, color .15s;}
+.category-btn:hover{border-color:var(--border-strong);}
+.category-btn.selected{border-color:var(--accent); color:var(--text); background:var(--accent-soft);}
+@media (max-width:600px){ .category-grid{grid-template-columns:1fr 1fr;} }
 .field-full{grid-column:1 / -1;}
 .checkbox-row{display:flex; align-items:flex-start; gap:8px; font-size:12.5px; color:var(--text-secondary);}
 @media (max-width:700px){ .form-grid{grid-template-columns:1fr;} }
@@ -722,6 +727,7 @@ html{scroll-behavior:smooth;}
     <div class="region-select"><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></g></svg> sua região</div>
     <nav class="main-nav" id="main-nav">
       <a class="nav-link nav-link-brand" data-anchor="canal" href="#canal"><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><circle cx="12" cy="12" r="2"/><path d="M8.5 8.5a5 5 0 0 1 7 0M5.5 5.5a9 9 0 0 1 13 0"/></g></svg> canal</a>
+      <a class="nav-link" data-anchor="sua-voz" href="#sua-voz">sua voz</a>
       <div class="nav-item">
         <a class="nav-link" data-anchor="negocios" href="#negocios">TV Sul Negócios <svg class="ico nav-caret" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polyline points="6 9 12 15 18 9"/></g></svg></a>
         <div class="dropdown-panel">
@@ -918,6 +924,79 @@ html{scroll-behavior:smooth;}
     </div>
   </section>
 </div>
+<div class="section-divider"></div>
+
+<div id="sua-voz" class="anchor-section">
+  <section class="hero section-tight">
+    <div class="container hero-page">
+      <div class="warn-pill" style="display:inline-flex; width:fit-content;"><span class="dot"></span> manifestações</div>
+      <h1>você viu. a gente amplifica.</h1>
+      <p class="lead">envie com segurança — a gente apura, cobra e publica. porque toda situação que merece atenção merece alcance.</p>
+      <ul class="checklist-row">
+        <li><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polyline points="20 6 9 17 4 12"/></g></svg> amplificamos em toda a região</li>
+        <li><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polyline points="20 6 9 17 4 12"/></g></svg> resposta cobrada</li>
+        <li><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polyline points="20 6 9 17 4 12"/></g></svg> publicado no ar</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container split-layout">
+      <div>
+        <h2>como registrar uma boa manifestação</h2>
+        <p>um vídeo bem feito aumenta as chances da sua manifestação ser amplificada. assista ao nosso guia rápido antes de enviar.</p>
+        <ul class="checklist-row" style="flex-direction:column; align-items:flex-start; gap:12px; margin-top:18px;">
+          <li><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polyline points="20 6 9 17 4 12"/></g></svg> descreva a situação com detalhes</li>
+          <li><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polyline points="20 6 9 17 4 12"/></g></svg> informe o endereço ou região</li>
+          <li><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polyline points="20 6 9 17 4 12"/></g></svg> seu rosto não precisa aparecer</li>
+          <li><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polyline points="20 6 9 17 4 12"/></g></svg> envie fotos ou vídeos como prova</li>
+        </ul>
+      </div>
+      <div class="video-embed lazy-video" data-video-src="https://player.castr.com/vod/yteZNW8M1HrmybTS">
+        <button class="player-play" aria-label="assistir guia"><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><g><polygon points="6 3 20 12 6 21"/></g></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="form-card">
+        <div class="section-head center">
+          <h2>envie o que você viu</h2>
+          <p>preencha os campos abaixo. sua identidade é protegida — você só aparece se quiser.</p>
+        </div>
+        <div class="field">
+          <label style="display:block; font-size:12px; color:var(--text-secondary); margin-bottom:6px;">cidade / região</label>
+          <select id="voz-city"></select>
+        </div>
+        <div class="field" style="margin-top:16px;">
+          <label style="display:block; font-size:12px; color:var(--text-secondary); margin-bottom:10px;">categoria</label>
+          <div class="category-grid">
+            <button type="button" class="category-btn">obras e infraestrutura</button>
+            <button type="button" class="category-btn">saúde pública</button>
+            <button type="button" class="category-btn">educação</button>
+            <button type="button" class="category-btn">segurança</button>
+            <button type="button" class="category-btn">meio ambiente</button>
+            <button type="button" class="category-btn">transporte</button>
+            <button type="button" class="category-btn">saneamento básico</button>
+            <button type="button" class="category-btn">corrupção</button>
+            <button type="button" class="category-btn">outros</button>
+          </div>
+        </div>
+        <div class="field" style="margin-top:16px;">
+          <textarea id="voz-desc" rows="4" placeholder="descreva o que você viu, com endereço ou ponto de referência..."></textarea>
+        </div>
+        <div class="field" style="margin-top:16px;">
+          <input type="tel" id="voz-contato" placeholder="whatsapp (opcional — só se quiser retorno)">
+        </div>
+        <div class="form-error" id="voz-error" style="display:none; color:var(--accent); font-size:12px; margin:10px 0;">selecione a cidade, a categoria e descreva o que você viu.</div>
+        <button class="btn btn-primary btn-block" id="voz-send" style="margin-top:8px;">enviar pra TV Sul Capixaba</button>
+        <p style="font-size:11px; color:var(--text-muted); margin-top:10px;">ao enviar, você será direcionado ao WhatsApp da redação — é lá que você anexa fotos ou vídeos como prova.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
 <div class="section-divider"></div>
 <div id="negocios" class="anchor-section">
   <section class="hero section-tight">
@@ -1687,8 +1766,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // categorias clicaveis (se houver)
   document.querySelectorAll(".category-btn").forEach((btn) => {
-    btn.addEventListener("click", () => btn.classList.toggle("selected"));
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".category-btn.selected").forEach((b) => {
+        if (b.closest(".category-grid") === btn.closest(".category-grid")) b.classList.remove("selected");
+      });
+      btn.classList.toggle("selected");
+    });
   });
+
+  // ---- sua voz — envio de manifestações ----
+  const vozCitySelect = document.getElementById("voz-city");
+  if (vozCitySelect) {
+    const VOZ_CITIES = [
+      "Marataízes", "Itapemirim", "Piúma", "Anchieta", "Presidente Kennedy", "Iconha",
+      "Rio Novo do Sul", "Alfredo Chaves", "Cachoeiro de Itapemirim", "Castelo", "Vargem Alta",
+      "Muqui", "Mimoso do Sul", "Atílio Vivácqua", "Jerônimo Monteiro", "Alegre", "Guaçuí",
+      "Ibatiba", "Iúna", "Muniz Freire", "Ibitirama", "Dores do Rio Preto", "Irupi",
+      "Divino de São Lourenço", "Apiacá", "Bom Jesus do Norte", "São José do Calçado"
+    ];
+    vozCitySelect.innerHTML = `<option value="" disabled selected>selecione a cidade</option>` +
+      VOZ_CITIES.map((c) => `<option value="${c}">${c}</option>`).join("");
+
+    document.getElementById("voz-send").addEventListener("click", () => {
+      const city = vozCitySelect.value;
+      const catBtn = document.querySelector("#sua-voz .category-btn.selected");
+      const desc = document.getElementById("voz-desc").value.trim();
+      const contato = document.getElementById("voz-contato").value.trim();
+      const errBox = document.getElementById("voz-error");
+      if (!city || !catBtn || !desc) {
+        errBox.style.display = "block";
+        return;
+      }
+      errBox.style.display = "none";
+      const msg = encodeURIComponent(
+        `Quero registrar uma manifestação na TV Sul Capixaba.\nCidade: ${city}\nCategoria: ${catBtn.textContent}\nO que eu vi: ${desc}` +
+        (contato ? `\nMeu contato: ${contato}` : "\n(prefiro não me identificar)")
+      );
+      window.open(`https://wa.me/5528999036141?text=${msg}`, "_blank");
+    });
+  }
 
   function fmt(n){ return "R$ " + Math.round(n).toLocaleString("pt-BR"); }
 
