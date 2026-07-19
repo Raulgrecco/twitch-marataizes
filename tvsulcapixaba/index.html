@@ -2096,6 +2096,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ---- checkout (anuncie conosco / venda mais) ----
+  // O valor do plano exibido nos cards é sempre MENSAL. O contrato fechado
+  // no checkout é de 10 meses — o Mercado Pago recebe o total (mensal × 10),
+  // nunca a parcela isolada.
+  const CONTRACT_MONTHS = 10;
   const CO_CONFIG = {
     // Backend real (Agência CLAP no Render) — API compartilhada de pagamento.
     apiBase: "https://agenciaclap-site.onrender.com",
@@ -2170,9 +2174,10 @@ document.addEventListener("DOMContentLoaded", () => {
         codigoAmplificador: document.getElementById("co-amplificador").value.trim()
       };
       coState.externalReference = `tvsc-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-      document.getElementById("co-sum-plan").textContent = "pacote " + coState.plan.name;
-      document.getElementById("co-sum-price").textContent = fmt(coState.plan.price);
-      document.getElementById("co-sum-total").textContent = fmt(coState.plan.price);
+      coState.plan.totalPrice = coState.plan.price * CONTRACT_MONTHS;
+      document.getElementById("co-sum-plan").textContent = `pacote ${coState.plan.name} — ${fmt(coState.plan.price)}/mês × ${CONTRACT_MONTHS}`;
+      document.getElementById("co-sum-price").textContent = fmt(coState.plan.totalPrice);
+      document.getElementById("co-sum-total").textContent = fmt(coState.plan.totalPrice);
       coGoStep(2);
       mountPaymentBrick();
     });
@@ -2218,7 +2223,7 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         paymentBrickController = await mpInstance.bricks().create("payment", "paymentBrick_container", {
           initialization: {
-            amount: coState.plan.price,
+            amount: coState.plan.totalPrice,
             payer: { email: coState.customer.email }
           },
           customization: {
