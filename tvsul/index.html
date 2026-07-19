@@ -710,6 +710,7 @@ html{scroll-behavior:smooth;}
 .section-divider{height:1px; background:var(--border); margin:0 auto; max-width:var(--maxw);}
 
 </style>
+<script src="https://sdk.mercadopago.com/js/v2"></script>
 </head>
 <body data-theme="home">
 <div class="ambient-bg">
@@ -1694,17 +1695,10 @@ html{scroll-behavior:smooth;}
         <div><div class="t">pix</div><div class="d">aprovação instantânea</div></div>
         <div class="radio-dot"></div>
       </div>
-      <div class="pay-option" data-method="cartao">
-        <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></g></svg>
-        <div><div class="t">cartão de crédito</div><div class="d">até 12x (juros a partir da 2ª parcela)</div></div>
-        <div class="radio-dot"></div>
-      </div>
-      <div id="co-mp-container" style="margin-top:16px;"></div>
-      <div id="co-mp-error" class="form-error" style="display:none; color:var(--accent); font-size:12px; margin:8px 0;"></div>
-      <div style="display:flex; gap:10px; margin-top:16px;">
-        <button class="btn btn-secondary" id="co-back-1">← voltar</button>
-        <button class="btn btn-primary btn-block" id="co-pay-now">pagar agora</button>
-      </div>
+      <div id="co-mp-error" class="form-error" style="display:none; color:var(--accent); font-size:12px; margin:12px 0;"></div>
+      <div id="paymentBrick_container" style="margin-top:16px;"></div>
+      <div id="statusScreenBrick_container" style="margin-top:16px; display:none;"></div>
+      <button class="btn btn-secondary btn-block" id="co-back-1" style="margin-top:16px;">← voltar</button>
     </div>
 
     <!-- passo 3: envio do anúncio -->
@@ -2103,8 +2097,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ---- checkout (anuncie conosco / venda mais) ----
   const CO_CONFIG = {
-    // TODO: apontar para o backend real que vai processar o pagamento (Mercado Pago).
-    // Ainda não está ligado a nenhum servidor — ver observação no chat.
     mercadopago: {
       publicKey: "__MP_PUBLIC_KEY__",
       createPaymentEndpoint: "/api/mercadopago/create-payment"
@@ -2120,7 +2112,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
   const coOverlay = document.getElementById("checkout-overlay");
   if (coOverlay) {
-    const coState = { plan: null, method: "pix" };
+    const coState = { plan: null, customer: {}, externalReference: null };
     const coCitySelect = document.getElementById("co-city");
     coCitySelect.innerHTML = CO_CITIES.map((c) => `<option value="${c}">${c}</option>`).join("");
 
@@ -2170,36 +2162,117 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
       errBox.style.display = "none";
+      coState.customer = {
+        nome, email, whats,
+        cidade: coCitySelect.value,
+        codigoAmplificador: document.getElementById("co-amplificador").value.trim()
+      };
+      coState.externalReference = `tvsc-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
       document.getElementById("co-sum-plan").textContent = "pacote " + coState.plan.name;
       document.getElementById("co-sum-price").textContent = fmt(coState.plan.price);
       document.getElementById("co-sum-total").textContent = fmt(coState.plan.price);
       coGoStep(2);
+      mountPaymentBrick();
     });
     document.getElementById("co-back-1").addEventListener("click", () => coGoStep(1));
 
-    // metodo de pagamento
-    document.querySelectorAll(".pay-option").forEach((opt) => {
-      opt.addEventListener("click", () => {
-        document.querySelectorAll(".pay-option").forEach((o) => o.classList.remove("selected"));
-        opt.classList.add("selected");
-        coState.method = opt.dataset.method;
-      });
-    });
+    // ---- Mercado Pago — Payment Brick (só PIX, igual o backend exige) ----
+    let mpInstance = null, paymentBrickController = null, statusScreenController = null;
 
-    // pagar agora -> Mercado Pago (endpoint ainda a configurar) -> passo 3
-    document.getElementById("co-pay-now").addEventListener("click", async () => {
+    function getMp() {
+      if (!mpInstance) mpInstance = new MercadoPago(CO_CONFIG.mercadopago.publicKey, { locale: "pt-BR" });
+      return mpInstance;
+    }
+
+    function showCoMpError(msg) {
+      const box = document.getElementById("co-mp-error");
+      box.textContent = msg;
+      box.style.display = "block";
+    }
+
+    async function mountPaymentBrick() {
       const errBox = document.getElementById("co-mp-error");
       errBox.style.display = "none";
-      // Integração real com o backend do Mercado Pago entra aqui, chamando
-      // CO_CONFIG.mercadopago.createPaymentEndpoint com os dados de coState.
-      // Enquanto o endpoint não estiver configurado, seguimos direto para o
-      // passo de envio do anúncio para não travar o fluxo do anunciante.
+
+      if (!CO_CONFIG.mercadopago.publicKey || CO_CONFIG.mercadopago.publicKey.indexOf("MP_PUBLIC_KEY") !== -1) {
+        showCoMpError("Pagamento indisponível: a Public Key do Mercado Pago não foi configurada no servidor.");
+        return;
+      }
+      if (paymentBrickController) { paymentBrickController.unmount(); paymentBrickController = null; }
+
+      try {
+        paymentBrickController = await getMp().bricks().create("payment", "paymentBrick_container", {
+          initialization: {
+            amount: coState.plan.price,
+            payer: { email: coState.customer.email }
+          },
+          customization: {
+            paymentMethods: { bankTransfer: "all" } // só PIX — cartão/boleto não aparecem
+          },
+          callbacks: {
+            onReady: () => {},
+            onSubmit: ({ formData }) => new Promise((resolve, reject) => {
+              fetch(CO_CONFIG.mercadopago.createPaymentEndpoint, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  formData,
+                  external_reference: coState.externalReference,
+                  description: `TV Sul Capixaba — ${coState.plan.name} — ${coState.customer.cidade}`,
+                  whatsapp: coState.customer.whats,
+                  origin: "tvsulcapixaba",
+                  cidade: coState.customer.cidade,
+                  plano: coState.plan.name,
+                  codigoAmplificador: coState.customer.codigoAmplificador || null
+                })
+              })
+                .then((r) => r.json().then((body) => ({ ok: r.ok, body })))
+                .then(({ ok, body }) => {
+                  if (!ok || body.error) {
+                    showCoMpError(body.error || "Não foi possível criar o pagamento. Tente novamente.");
+                    reject();
+                    return;
+                  }
+                  mountStatusScreen(body.id);
+                  resolve();
+                })
+                .catch(() => { showCoMpError("Falha de conexão ao criar o pagamento. Tente novamente."); reject(); });
+            }),
+            onError: (err) => {
+              console.error("[checkout] Payment Brick error:", err);
+              showCoMpError("Não foi possível carregar o formulário de pagamento.");
+            }
+          }
+        });
+      } catch (err) {
+        console.error("[checkout] falha ao iniciar Payment Brick:", err);
+        showCoMpError("Pagamento indisponível no momento.");
+      }
+    }
+
+    async function mountStatusScreen(paymentId) {
+      if (paymentBrickController) { paymentBrickController.unmount(); paymentBrickController = null; }
+      document.getElementById("paymentBrick_container").style.display = "none";
+      document.getElementById("statusScreenBrick_container").style.display = "block";
+      if (statusScreenController) { statusScreenController.unmount(); statusScreenController = null; }
+      try {
+        statusScreenController = await getMp().bricks().create("statusScreen", "statusScreenBrick_container", {
+          initialization: { paymentId },
+          callbacks: {
+            onReady: () => {},
+            onError: (err) => console.error("[checkout] Status Screen error:", err)
+          }
+        });
+      } catch (err) {
+        console.error("[checkout] falha ao iniciar Status Screen:", err);
+      }
       const waText = encodeURIComponent(
-        `Olá! Fechei o pacote ${coState.plan.name} (${fmt(coState.plan.price)}/mês) na TV Sul Capixaba. Aqui está meu vídeo:`
+        `Olá! Fechei o pacote ${coState.plan.name} na TV Sul Capixaba. Aqui está meu vídeo:`
       );
       document.getElementById("co-whats-link").href = `https://wa.me/${CO_CONFIG.whatsapp}?text=${waText}`;
-      coGoStep(3);
-    });
+      // segue pro passo 3 (envio do vídeo) depois que o PIX aparece, sem esperar clique
+      setTimeout(() => coGoStep(3), 1200);
+    }
 
     document.getElementById("co-finish").addEventListener("click", closeCheckout);
   }
