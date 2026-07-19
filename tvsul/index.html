@@ -193,20 +193,24 @@ section{padding:var(--gap-xl) 0;}
   background:repeating-linear-gradient(135deg, #0F1319 0 12px, #0C0F14 12px 24px);
   opacity:.6;
 }
+.player-overlay{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; z-index:1;}
 .player-play{
-  position:relative; width:60px; height:60px; border-radius:50%;
-  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2);
-  display:flex; align-items:center; justify-content:center; color:#fff; font-size:22px;
+  position:relative; width:66px; height:66px; border-radius:50%;
+  background:var(--accent); border:none;
+  display:flex; align-items:center; justify-content:center; color:var(--accent-on); font-size:22px;
   z-index:2; cursor:pointer; padding:0;
+  animation:playRing 2s infinite;
 }
-.player-play:hover{background:rgba(255,255,255,.15);}
+@keyframes playRing{0%,100%{box-shadow:0 0 0 0 rgba(232,84,62,.55);}60%{box-shadow:0 0 0 22px rgba(232,84,62,0);}}
+@media (prefers-reduced-motion: reduce){ .player-play{animation:none;} }
+.player-play:hover{background:var(--accent-hover);}
 .player iframe{position:absolute; inset:0; width:100%; height:100%; border:none; z-index:3;}
 .player-badge{
   position:absolute; top:14px; left:14px; display:flex; align-items:center; gap:6px;
   background:var(--accent); color:var(--accent-on); font-size:11px; font-weight:700;
   padding:5px 10px; border-radius:6px; z-index:2;
 }
-.player-badge .dot{width:6px; height:6px; border-radius:50%; background:var(--accent-on);}
+.player-badge .dot{width:6px; height:6px; border-radius:50%; background:var(--accent-on); animation:pulse 1.2s infinite;}
 .player-note{
   position:absolute; bottom:14px; left:14px; right:14px; z-index:2;
   font-size:11px; color:rgba(255,255,255,.5); font-family:var(--font-body);
@@ -759,10 +763,12 @@ html{scroll-behavior:smooth;}
         <div class="tag-pill" style="margin-top:20px;">📺 disponível também na Soul TV — Canal 300</div>
       </div>
       <div class="hero-media">
-        <div class="player" id="live-player">
-          <div class="player-badge"><span class="dot" aria-hidden="true"></span> ao vivo</div>
-          <button class="player-play" id="player-play-inner" aria-label="assistir ao vivo"><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><g><polygon points="6 3 20 12 6 21"/></g></svg></button>
-          <div class="player-note">agora na TV Sul Capixaba</div>
+        <div class="player" id="player-wrapper">
+          <div class="player-overlay" id="player-overlay">
+            <div class="player-badge"><span class="dot" aria-hidden="true"></span> ao vivo</div>
+            <button class="player-play" id="player-play-inner" aria-label="assistir ao vivo"><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><g><polygon points="6 3 20 12 6 21"/></g></svg></button>
+            <div class="player-note">agora na TV Sul Capixaba</div>
+          </div>
         </div>
       </div>
       </div>
@@ -1718,22 +1724,169 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function fmt(n){ return "R$ " + Math.round(n).toLocaleString("pt-BR"); }
 
-  // ---- player ao vivo (home) ----
-  const liveWrapper = document.getElementById("live-player");
-  const playBtn = document.getElementById("player-play-inner");
-  if (liveWrapper && playBtn) {
-    const LIVE_SRC = "https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7";
-    const startLive = () => {
-      if (liveWrapper.querySelector("iframe")) return;
-      const iframe = document.createElement("iframe");
-      iframe.src = LIVE_SRC;
-      iframe.allow = "autoplay; fullscreen";
-      iframe.allowFullscreen = true;
-      liveWrapper.appendChild(iframe);
+  // ---- player ao vivo (home) — troca automática YouTube (dia) / Castr (noite), igual TV Piúma ----
+  var PLAYOUT_CONFIG = {
+    schedule: [
+      { source: 'youtube', start: '01:00', end: '18:00' },
+      { source: 'castr',   start: '18:00', end: '01:00' }
+    ],
+    sources: {
+      youtube: {
+        type: 'youtube',
+        videoId: 'p9qkwUUFmk0'
+      },
+      castr: {
+        type: 'castr',
+        liveUrl: 'https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7'
+      }
+    }
+  };
+
+  function timeToMinutes(hhmm) {
+    var parts = hhmm.split(":");
+    return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+  }
+  function isWithinWindow(nowMin, startMin, endMin) {
+    if (startMin <= endMin) return nowMin >= startMin && nowMin < endMin;
+    return nowMin >= startMin || nowMin < endMin; // cruza meia-noite
+  }
+  // Horário sempre de Brasília, independente do fuso do visitante.
+  function getBrasiliaMinutesNow() {
+    var parts = new Intl.DateTimeFormat("en-US", {
+      timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit", hour12: false
+    }).formatToParts(new Date());
+    var h = 0, m = 0;
+    parts.forEach(function (p) {
+      if (p.type === "hour") h = parseInt(p.value, 10);
+      if (p.type === "minute") m = parseInt(p.value, 10);
+    });
+    return h * 60 + m;
+  }
+  function getActiveSourceKey() {
+    var nowMin = getBrasiliaMinutesNow();
+    for (var i = 0; i < PLAYOUT_CONFIG.schedule.length; i++) {
+      var rule = PLAYOUT_CONFIG.schedule[i];
+      if (isWithinWindow(nowMin, timeToMinutes(rule.start), timeToMinutes(rule.end))) return rule.source;
+    }
+    return PLAYOUT_CONFIG.schedule[0].source;
+  }
+
+  // ---------- API do YouTube (carregada uma única vez) ----------
+  var __ytApiReady = false, __ytApiLoading = false, __ytApiCallbacks = [];
+  function ensureYouTubeApi(callback) {
+    if (__ytApiReady) { callback(); return; }
+    __ytApiCallbacks.push(callback);
+    if (__ytApiLoading) return;
+    __ytApiLoading = true;
+    window.onYouTubeIframeAPIReady = function () {
+      __ytApiReady = true;
+      __ytApiCallbacks.forEach(function (cb) { cb(); });
+      __ytApiCallbacks = [];
     };
-    playBtn.addEventListener("click", startLive);
-    const liveBtn = document.querySelector(".btn-live");
-    if (liveBtn) liveBtn.addEventListener("click", () => setTimeout(startLive, 400));
+    var tag = document.createElement("script");
+    tag.src = "https://www.youtube.com/iframe_api";
+    document.head.appendChild(tag);
+  }
+
+  var __ytPlayerInstance = null;
+
+  function showUnmuteButton(wrapper) {
+    hideUnmuteButton();
+    var btn = document.createElement("button");
+    btn.id = "unmute-btn";
+    btn.setAttribute("aria-label", "Ativar som");
+    btn.style.cssText = "position:absolute;bottom:14px;left:14px;z-index:20;background:rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:24px;padding:9px 16px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;cursor:pointer;font-family:var(--font-body);";
+    btn.innerHTML = "🔇 Ativar som";
+    btn.onclick = function (e) {
+      e.stopPropagation();
+      if (__ytPlayerInstance) { __ytPlayerInstance.unMute(); __ytPlayerInstance.setVolume(100); }
+      hideUnmuteButton();
+    };
+    wrapper.appendChild(btn);
+  }
+  function hideUnmuteButton() {
+    var old = document.getElementById("unmute-btn");
+    if (old) old.parentNode.removeChild(old);
+  }
+
+  function buildEmbedUrl(sourceKey, options) {
+    options = options || {};
+    var src = PLAYOUT_CONFIG.sources[sourceKey];
+    if (!src) return "";
+    if (src.type === "castr") {
+      var autoplayParam = options.muted ? "autoplay=on&muted=on" : "autoplay=1";
+      return src.liveUrl + "?" + autoplayParam;
+    }
+    return "";
+  }
+
+  function destroyCurrentPlayer() {
+    hideUnmuteButton();
+    if (__ytPlayerInstance) {
+      try { __ytPlayerInstance.destroy(); } catch (e) {}
+      __ytPlayerInstance = null;
+    }
+    var old = document.getElementById("live-player");
+    if (old) old.parentNode.removeChild(old);
+  }
+
+  function renderLivePlayer(wrapper, options) {
+    options = options || {};
+    destroyCurrentPlayer();
+    var activeKey = getActiveSourceKey();
+    window.__currentLiveSourceKey = activeKey;
+    var src = PLAYOUT_CONFIG.sources[activeKey];
+
+    if (src.type === "youtube") {
+      var holder = document.createElement("div");
+      holder.id = "live-player";
+      holder.style.cssText = "width:100%;height:100%;position:absolute;inset:0;";
+      wrapper.appendChild(holder);
+      ensureYouTubeApi(function () {
+        if (window.__currentLiveSourceKey !== activeKey) return;
+        __ytPlayerInstance = new YT.Player("live-player", {
+          videoId: src.videoId,
+          playerVars: { autoplay: 1, mute: 1, controls: 0, modestbranding: 1, rel: 0, fs: 0, playsinline: 1, iv_load_policy: 3 },
+          events: { onReady: function () { showUnmuteButton(wrapper); } }
+        });
+      });
+      return;
+    }
+
+    var iframe = document.createElement("iframe");
+    iframe.id = "live-player";
+    iframe.src = buildEmbedUrl(activeKey, options);
+    iframe.allow = "autoplay; fullscreen";
+    iframe.allowFullscreen = true;
+    iframe.style.cssText = "width:100%;height:100%;border:0;position:absolute;inset:0;border-radius:16px; z-index:3;";
+    wrapper.appendChild(iframe);
+  }
+
+  function loadLivePlayer() {
+    var w = document.getElementById("player-wrapper"), o = document.getElementById("player-overlay");
+    if (!w || !o || o.style.display === "none") return;
+    renderLivePlayer(w, { muted: true });
+    o.style.display = "none";
+    w.style.cursor = "default";
+  }
+
+  var playerWrapper = document.getElementById("player-wrapper");
+  var playBtn = document.getElementById("player-play-inner");
+  if (playerWrapper && playBtn) {
+    playBtn.addEventListener("click", loadLivePlayer);
+    playerWrapper.addEventListener("click", loadLivePlayer);
+    var liveBtn = document.querySelector(".btn-live");
+    if (liveBtn) liveBtn.addEventListener("click", () => setTimeout(loadLivePlayer, 400));
+
+    // Troca de fonte sozinho quando o horário virar (18h / 1h), se já estiver no ar.
+    setInterval(function () {
+      var current = document.getElementById("live-player");
+      if (!current) return;
+      var activeKey = getActiveSourceKey();
+      if (activeKey !== window.__currentLiveSourceKey) {
+        renderLivePlayer(playerWrapper, { muted: false });
+      }
+    }, 30000);
   }
 
   // ---- vídeos VOD (clique pra tocar, sem autoplay) ----
