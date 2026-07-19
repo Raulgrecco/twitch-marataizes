@@ -571,7 +571,21 @@ body{margin:0; background:var(--bg); color:var(--text); font-family:var(--font-b
 /* hero com mascote */
 .hero{padding:56px 0 var(--gap-xl);}
 .hero-mascot-layout{display:grid; grid-template-columns:220px 1fr; gap:var(--gap-lg); align-items:center;}
+#ganhe-dinheiro .hero{position:relative; overflow:hidden;}
+#ganhe-dinheiro .hero::before{
+  content:""; position:absolute; top:-140px; right:-120px; width:460px; height:460px; border-radius:50%;
+  background:radial-gradient(circle, var(--accent) 0%, transparent 70%); opacity:.14; pointer-events:none; z-index:0;
+}
+#ganhe-dinheiro .hero::after{
+  content:""; position:absolute; bottom:-160px; left:-100px; width:380px; height:380px; border-radius:50%;
+  background:radial-gradient(circle, #B8862E 0%, transparent 70%); opacity:.12; pointer-events:none; z-index:0;
+}
+#ganhe-dinheiro .hero .container{position:relative; z-index:1;}
 .mascot-hero{width:220px; height:280px;}
+.mascot-steps-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap-md); max-width:820px; margin:0 auto;}
+.mascot-step-card{border-radius:var(--radius-lg); overflow:hidden; border:1px solid var(--border); background:var(--surface);}
+.mascot-step-card img{display:block; width:100%; height:auto;}
+@media (max-width:760px){ .mascot-steps-grid{grid-template-columns:1fr; max-width:320px;} }
 .hero h1{font-size:clamp(30px,4.6vw,46px); line-height:1.15; font-weight:700;}
 .hero p.lead{font-size:16px; max-width:520px;}
 .stat-box{display:inline-flex; align-items:center; gap:14px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 24px; margin:20px 0 26px;}
@@ -705,7 +719,7 @@ html{scroll-behavior:smooth;}
         <div class="dropdown-panel">
           <a class="dropdown-item" href="#ganhe-dinheiro">
             <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 9v.01M6 15v.01M18 9v.01M18 15v.01"/></g></svg>
-            <div><div class="t">parceiro comercial</div><div class="d">venda anúncios e ganhe comissão</div></div>
+            <div><div class="t">Amplificador</div><div class="d">indique clientes e ganhe comissão</div></div>
           </a>
           <a class="dropdown-item" href="#venda-mais">
             <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><rect x="2" y="7" width="20" height="13" rx="2"/><polyline points="17 2 12 7 7 2"/></g></svg>
@@ -713,7 +727,7 @@ html{scroll-behavior:smooth;}
           </a>
         </div>
       </div>
-      <a class="nav-link" data-anchor="ganhe-dinheiro" href="#ganhe-dinheiro">Ganhe Dinheiro</a>
+      <a class="nav-link" data-anchor="ganhe-dinheiro" href="#ganhe-dinheiro">Ganhe Mais</a>
       <a class="nav-link" data-anchor="venda-mais" href="#venda-mais">Venda Mais</a>
       <a class="nav-link" data-anchor="dados" href="#dados">Dados</a>
       <a class="nav-link" data-anchor="sobre" href="#sobre">Sobre</a>
@@ -753,12 +767,15 @@ html{scroll-behavior:smooth;}
           <h2>um canal que dá voz<br>a você! <span class="hl">e dinheiro</span><br>também!</h2>
           <div class="dual-boxes">
             <div class="dual-box">
-              <h3>seja um parceiro comercial e amplifique a sua renda</h3>
+              <h3>seja um Amplificador e amplifique a sua renda</h3>
               <ul>
                 <li>faça o seu cadastro</li>
                 <li>indique clientes e ganhe comissão</li>
               </ul>
-              <a href="/ganhe-dinheiro/" class="dual-link">veja como <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><path d="M5 12h14M12 5l7 7-7 7"/></g></svg></a>
+              <div class="video-embed" style="margin-top:14px; aspect-ratio:16/9;">
+                <iframe src="https://player.castr.com/vod/5WdGDx7Pu5IbCuuV" allow="autoplay; fullscreen" allowfullscreen></iframe>
+              </div>
+              <a href="#ganhe-dinheiro" class="dual-link" style="margin-top:12px;">seja um Amplificador <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><path d="M5 12h14M12 5l7 7-7 7"/></g></svg></a>
             </div>
             <div class="dual-box">
               <h3>grave o seu próprio anúncio e amplifique seu negócio nas redes sociais</h3>
@@ -766,7 +783,10 @@ html{scroll-behavior:smooth;}
                 <li>faça o vídeo com seu celular e envie pra TV</li>
                 <li>a sua propaganda chega pra sua região</li>
               </ul>
-              <a href="/venda-mais/" class="dual-link">veja como <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><path d="M5 12h14M12 5l7 7-7 7"/></g></svg></a>
+              <div class="video-embed" style="margin-top:14px; aspect-ratio:16/9;">
+                <iframe src="https://player.castr.com/vod/1cDIVGnfUCM9qaIo" allow="autoplay; fullscreen" allowfullscreen></iframe>
+              </div>
+              <a href="#venda-mais" class="dual-link" style="margin-top:12px;">quero anunciar <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><path d="M5 12h14M12 5l7 7-7 7"/></g></svg></a>
             </div>
           </div>
           <p style="font-size:12px; margin-top:22px;">TV Sul Capixaba — a rede totalnova do Sul do Espírito Santo.</p>
@@ -801,7 +821,7 @@ html{scroll-behavior:smooth;}
         <div class="info-card">
           <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><path d="M3 10v4a1 1 0 0 0 1 1h2l4 4V5L6 9H4a1 1 0 0 0-1 1z"/><path d="M17 7.5a5 5 0 0 1 0 9"/></g></svg>
           <h3>TV Sul Negócios</h3>
-          <p>amplifique sua marca pra milhares de pessoas na sua região — anuncie ou vire parceiro.</p>
+          <p>amplifique sua marca pra milhares de pessoas na sua região, ou ganhe mais como Amplificador.</p>
           <a href="#negocios" class="dual-link">conhecer TV Sul Negócios <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><path d="M5 12h14M12 5l7 7-7 7"/></g></svg></a>
         </div>
         <div class="info-card">
@@ -923,7 +943,7 @@ html{scroll-behavior:smooth;}
       <div class="compare-grid">
         <div class="compare-card">
           <div class="ic"><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 9v.01M6 15v.01M18 9v.01M18 15v.01"/></g></svg></div>
-          <h3>parceiro comercial</h3>
+          <h3>Amplificador</h3>
           <p style="font-size:13px; margin-top:6px;">pra quem quer ganhar indicando — sem precisar ser o dono do negócio anunciado.</p>
           <ul>
             <li><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polyline points="20 6 9 17 4 12"/></g></svg> indica comerciantes da sua cidade</li>
@@ -931,7 +951,7 @@ html{scroll-behavior:smooth;}
             <li><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polyline points="20 6 9 17 4 12"/></g></svg> sem teto de ganhos, sem taxa de adesão</li>
             <li><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polyline points="20 6 9 17 4 12"/></g></svg> não precisa produzir nenhum vídeo</li>
           </ul>
-          <a href="#ganhe-dinheiro" class="btn btn-primary btn-block">quero ser parceiro</a>
+          <a href="#ganhe-dinheiro" class="btn btn-primary btn-block">quero ser Amplificador</a>
         </div>
         <div class="compare-card featured">
           <div class="ic"><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></g></svg></div>
@@ -982,9 +1002,9 @@ html{scroll-behavior:smooth;}
         <h2>faq — TV Sul Negócios</h2>
       </div>
       <div style="max-width:680px; margin:0 auto;">
-        <div class="faq-item"><div class="faq-q">posso ser parceiro e anunciante ao mesmo tempo? <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polyline points="6 9 12 15 18 9"/></g></svg></div><div class="faq-a">sim — muita gente indica outros negócios e também anuncia o próprio, ao mesmo tempo.</div></div>
-        <div class="faq-item"><div class="faq-q">preciso ter CNPJ pra qualquer um dos dois? <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polyline points="6 9 12 15 18 9"/></g></svg></div><div class="faq-a">não é obrigatório em nenhum dos dois — parceiro recebe como pessoa física, e anunciante pode ser CNPJ ou CPF, dependendo do plano.</div></div>
-        <div class="faq-item"><div class="faq-q">qual dos dois rende mais? <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polyline points="6 9 12 15 18 9"/></g></svg></div><div class="faq-a">depende do seu perfil: parceiro comercial rende sobre vendas de terceiros; anunciar rende em vendas e visibilidade pro seu próprio negócio.</div></div>
+        <div class="faq-item"><div class="faq-q">posso ser Amplificador e anunciante ao mesmo tempo? <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polyline points="6 9 12 15 18 9"/></g></svg></div><div class="faq-a">sim — muita gente indica outros negócios e também anuncia o próprio, ao mesmo tempo.</div></div>
+        <div class="faq-item"><div class="faq-q">preciso ter CNPJ pra qualquer um dos dois? <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polyline points="6 9 12 15 18 9"/></g></svg></div><div class="faq-a">não é obrigatório em nenhum dos dois — Amplificador recebe como pessoa física, e anunciante pode ser CNPJ ou CPF, dependendo do plano.</div></div>
+        <div class="faq-item"><div class="faq-q">qual dos dois rende mais? <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polyline points="6 9 12 15 18 9"/></g></svg></div><div class="faq-a">depende do seu perfil: Amplificador rende sobre vendas de terceiros; anunciar rende em vendas e visibilidade pro seu próprio negócio.</div></div>
       </div>
     </div>
   </section>
@@ -1010,16 +1030,16 @@ html{scroll-behavior:smooth;}
 </svg>
       </div>
       <div>
-        <span class="tag-pill">TV Sul Capixaba parceiros → seja um parceiro</span>
-        <h1>seja um<br><span class="hl">parceiro</span> TV Sul Capixaba.<br>você indica.<br>a gente atende.<br>você ganha.</h1>
+        <span class="tag-pill">TV Sul Capixaba amplificadores → seja um Amplificador</span>
+        <h1>seja um<br><span class="hl">Amplificador</span> TV Sul Capixaba.<br>você indica.<br>a gente atende.<br>você ganha.</h1>
         <p class="lead">você conhece o comerciante. a gente tem o guia digital e a TV. você indica, a gente fecha — e você ganha em cada cliente que continuar pagando, todo mês.</p>
         <div class="stat-box">
           <span class="n">30% + 10%</span>
           <span class="d">30% do 1º mês no fechamento, 10% recorrente todo mês enquanto o cliente ficar. sem teto.</span>
         </div>
         <div class="hero-actions">
-          <a href="https://wa.me/5528999036141?text=Quero+ser+parceiro+da+TV+Sul+Capixaba" target="_blank" rel="noopener" class="btn btn-primary"><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><path d="M20.5 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><path d="M8.5 9.3c.2-.5.9-.5 1.2 0l.6 1c.2.4.1.8-.2 1.1l-.4.4c-.2.2-.2.5 0 .8.6 1 1.5 1.9 2.6 2.4.3.1.6.1.8-.1l.4-.4c.3-.3.7-.4 1.1-.2l1 .6c.5.3.5 1 0 1.2-1.4.9-3.2.6-4.6-.4-1.6-1.1-2.9-2.6-3.5-4.4-.4-1.1-.3-2.2.6-2.6"/></g></svg> quero ser parceiro</a>
-          <a href="#cadastro-parceiro" class="btn btn-secondary">já sou parceiro</a>
+          <a href="https://wa.me/5528999036141?text=Quero+ser+Amplificador+da+TV+Sul+Capixaba" target="_blank" rel="noopener" class="btn btn-primary"><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><path d="M20.5 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><path d="M8.5 9.3c.2-.5.9-.5 1.2 0l.6 1c.2.4.1.8-.2 1.1l-.4.4c-.2.2-.2.5 0 .8.6 1 1.5 1.9 2.6 2.4.3.1.6.1.8-.1l.4-.4c.3-.3.7-.4 1.1-.2l1 .6c.5.3.5 1 0 1.2-1.4.9-3.2.6-4.6-.4-1.6-1.1-2.9-2.6-3.5-4.4-.4-1.1-.3-2.2.6-2.6"/></g></svg> quero ser Amplificador</a>
+          <a href="#cadastro-amplificador" class="btn btn-secondary">já sou Amplificador</a>
         </div>
       </div>
     </div>
@@ -1029,10 +1049,10 @@ html{scroll-behavior:smooth;}
     <div class="container">
       <div class="section-head center">
         <span class="eyebrow">conheça o programa</span>
-        <h2>ouça de quem já é parceiro</h2>
+        <h2>ouça de quem já é Amplificador</h2>
       </div>
       <div class="video-embed" style="max-width:640px; margin:0 auto;">
-        <iframe src="https://player.castr.com/vod/os94D8GqeClodvDL" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        <iframe src="https://player.castr.com/vod/5WdGDx7Pu5IbCuuV" allow="autoplay; fullscreen" allowfullscreen></iframe>
       </div>
     </div>
   </section>
@@ -1083,7 +1103,7 @@ html{scroll-behavior:smooth;}
     <div class="container">
       <div class="section-head center">
         <span class="eyebrow">benefícios do programa</span>
-        <h2>por que ser um parceiro TV Sul Capixaba?</h2>
+        <h2>por que ser um Amplificador TV Sul Capixaba?</h2>
       </div>
       <div class="card-grid-3">
         <div class="card">
@@ -1105,12 +1125,12 @@ html{scroll-behavior:smooth;}
     </div>
   </section>
 
-  <section class="section-tight" id="cadastro-parceiro">
+  <section class="section-tight" id="cadastro-amplificador">
     <div class="container">
       <div class="form-card">
         <div class="section-head center" style="margin-bottom:26px;">
-          <span class="eyebrow">cadastro de parceiro</span>
-          <h2 style="font-size:22px;">quero ser um parceiro TV Sul Capixaba</h2>
+          <span class="eyebrow">cadastro de amplificador</span>
+          <h2 style="font-size:22px;">quero ser um Amplificador TV Sul Capixaba</h2>
           <p style="margin:0;">preencha os dados abaixo. nossa equipe entra em contato pelo WhatsApp em até 3 dias úteis.</p>
         </div>
 
@@ -1142,7 +1162,7 @@ html{scroll-behavior:smooth;}
         </div>
         <div class="checkbox-row">
           <input type="checkbox" id="terms">
-          <label for="terms">li e concordo com os <a href="#">termos de uso — parceiro TV Sul Capixaba</a> *</label>
+          <label for="terms">li e concordo com os <a href="#">termos de uso — Amplificador TV Sul Capixaba</a> *</label>
         </div>
         <button type="button" class="btn btn-primary btn-block">enviar cadastro e aguardar contato</button>
         <p class="form-note">programa 100% gratuito · sem taxa de adesão · resposta em até 3 dias úteis</p>
@@ -1154,7 +1174,7 @@ html{scroll-behavior:smooth;}
     <div class="container">
       <div class="section-head center">
         <span class="eyebrow">dúvidas frequentes</span>
-        <h2>faq — parceiros</h2>
+        <h2>faq — amplificadores</h2>
       </div>
       <div style="max-width:680px; margin:0 auto;">
         <div class="faq-item"><div class="faq-q">quando recebo minha comissão? <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polyline points="6 9 12 15 18 9"/></g></svg></div><div class="faq-a">30% do primeiro mês via PIX até o dia 10, após a confirmação do pagamento do cliente. o 10% recorrente segue todo mês enquanto o cliente ficar ativo.</div></div>
@@ -1171,21 +1191,8 @@ html{scroll-behavior:smooth;}
 <div id="venda-mais" class="anchor-section">
   <section class="hero">
     <div class="container hero-mascot-layout">
-      <div class="mascot-figure mascot-hero">
-        <svg viewBox="0 0 200 240" width="100%" height="100%" role="img" aria-label="mascote da TV Sul Capixaba" style="display:block;">
-          <ellipse cx="100" cy="226" rx="60" ry="10" fill="#000" opacity=".22"/>
-          <rect x="55" y="120" width="90" height="96" rx="30" fill="var(--surface-3)" stroke="var(--border-strong)" stroke-width="2"/>
-          <rect x="76" y="128" width="48" height="22" rx="7" fill="var(--accent)" opacity=".9"/>
-          <circle cx="100" cy="62" r="46" fill="var(--surface-3)" stroke="var(--border-strong)" stroke-width="2"/>
-          <rect x="70" y="56" width="26" height="16" rx="6" fill="none" stroke="var(--text-secondary)" stroke-width="3"/>
-          <rect x="104" y="56" width="26" height="16" rx="6" fill="none" stroke="var(--text-secondary)" stroke-width="3"/>
-          <line x1="96" y1="64" x2="104" y2="64" stroke="var(--text-secondary)" stroke-width="3"/>
-          <path d="M78 84 Q100 98 122 84" stroke="var(--text-secondary)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-          <path d="M46 62a10 10 0 0 1 10-10" stroke="var(--accent)" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/>
-          <path d="M154 62a10 10 0 0 0-10-10" stroke="var(--accent)" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/>
-          <rect x="30" y="150" width="18" height="50" rx="9" fill="var(--surface-3)" stroke="var(--border-strong)" stroke-width="2"/>
-          <rect x="152" y="150" width="18" height="50" rx="9" fill="var(--surface-3)" stroke="var(--border-strong)" stroke-width="2"/>
-        </svg>
+      <div class="mascot-figure mascot-hero" style="border-radius:var(--radius-lg); overflow:hidden;">
+        <img src="assets/mascote-grave-anuncio.jpg" alt="mascote TV Sul Capixaba — grave o seu próprio anúncio" width="100%" height="100%" style="display:block; width:100%; height:100%; object-fit:cover;">
       </div>
       <div>
         <span class="tag-pill">TV Sul Negócios — publicidade regional</span>
@@ -1203,11 +1210,31 @@ html{scroll-behavior:smooth;}
   <section class="section-tight">
     <div class="container">
       <div class="section-head center">
+        <span class="eyebrow">é simples assim</span>
+        <h2>grave, ganhe e amplifique</h2>
+      </div>
+      <div class="mascot-steps-grid">
+        <div class="mascot-step-card">
+          <img src="assets/mascote-grave-anuncio.jpg" alt="1. grave o seu próprio anúncio e amplifique seu negócio nas redes sociais">
+        </div>
+        <div class="mascot-step-card">
+          <img src="assets/mascote-ganhe-dinheiro.jpg" alt="2. ganhe dinheiro com sua propaganda e veja o retorno do seu investimento">
+        </div>
+        <div class="mascot-step-card">
+          <img src="assets/mascote-envie-pra-tv.jpg" alt="3. faça o seu vídeo e envie pra TV, a sua propaganda chega pra sua região">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="section-head center">
         <span class="eyebrow">conheça o programa</span>
         <h2>ouça de quem já anuncia com a gente</h2>
       </div>
       <div class="video-embed" style="max-width:640px; margin:0 auto;">
-        <iframe src="https://player.castr.com/vod/os94D8GqeClodvDL" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        <iframe src="https://player.castr.com/vod/1cDIVGnfUCM9qaIo" allow="autoplay; fullscreen" allowfullscreen></iframe>
       </div>
     </div>
   </section>
@@ -1607,7 +1634,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="field">
         <input type="text" id="co-amplificador" placeholder="ex: A3F9C2B1">
-        <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">se você foi indicado por um parceiro TV Sul Capixaba, insira o código aqui (opcional).</div>
+        <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">se você foi indicado por um Amplificador TV Sul Capixaba, insira o código aqui (opcional).</div>
       </div>
       <div class="checkbox-row">
         <input type="checkbox" id="co-terms" style="margin-top:2px;">
@@ -1788,12 +1815,12 @@ document.addEventListener("DOMContentLoaded", () => {
       { name: "destaque", price: 149, items: ["3 stories (45\")", "1 reel (45\")", "link de redirecionamento", "chancela \"TV Marataízes indica\""], focus: "autoridade e direção + selo de confiança imediata" },
       { name: "diamante", price: 219, items: ["3 stories (60\")", "1 reel (60\")", "link de redirecionamento", "chancela \"TV Marataízes indica\"", "participação no programa"], focus: "branding de impacto, máxima exposição de marca" },
     ];
-    let currentCity = "Marataízes";
+    let currentCity = null;
 
     const populateCitySelect = () => {
-      citySelect.innerHTML = REGIONS.map(region => `
+      citySelect.innerHTML = `<option value="" disabled selected>escolha sua cidade</option>` + REGIONS.map(region => `
         <optgroup label="${region.label}">
-          ${region.cities.map(c => `<option value="${c.name}" ${c.name === currentCity ? "selected" : ""}>${c.name}${c.active ? "" : " (em breve)"}</option>`).join("")}
+          ${region.cities.map(c => `<option value="${c.name}">${c.name}${c.active ? "" : " (em breve)"}</option>`).join("")}
         </optgroup>`).join("");
     };
     const renderPlans = () => {
@@ -1803,23 +1830,31 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="plan-card ${p.featured ? "featured" : ""}">
           ${p.featured ? '<div class="plan-badge">mais popular</div>' : ""}
           <div class="plan-name">${p.name}</div>
-          <div class="plan-price">${fmt(p.price)}<span class="unit">/mês</span></div>
+          <div class="plan-price">${currentCity ? fmt(p.price) + '<span class="unit">/mês</span>' : '<span style="font-size:13px; color:var(--text-secondary); font-weight:400;">selecione a região para ver o valor</span>'}</div>
           <ul class="plan-list">
             ${p.items.map(i => `<li><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polyline points="20 6 9 17 4 12"/></g></svg> ${i}</li>`).join("")}
           </ul>
           <div style="font-size:12px; color:var(--text-secondary); margin-bottom:14px;"><b style="color:var(--text); display:block; font-size:11px; text-transform:uppercase;">foco estratégico</b>${p.focus}</div>
-          <button class="btn ${p.featured ? "btn-primary" : "btn-secondary"} btn-block choose-plan-btn" data-plan-name="${p.name}" data-plan-price="${p.price}" data-plan-items="${p.items.join(" + ")}">escolher este plano</button>
+          <button class="btn ${p.featured ? "btn-primary" : "btn-secondary"} btn-block choose-plan-btn" data-plan-name="${p.name}" data-plan-price="${p.price}" data-plan-items="${p.items.join(" + ")}">${currentCity ? "escolher este plano" : "escolha sua cidade acima"}</button>
         </div>`).join("");
-      document.getElementById("plan-note").textContent = currentCity === "Marataízes"
+      document.getElementById("plan-note").textContent = !currentCity
+        ? "escolha sua cidade acima pra ver os valores do seu plano."
+        : currentCity === "Marataízes"
         ? "valores promocionais de lançamento para Marataízes — sujeitos a alteração sem aviso prévio."
         : "valores promocionais de lançamento, iguais para as 26 cidades do Sul do ES sem tabela própria ainda. valores definitivos por município em breve.";
       document.querySelectorAll(".choose-plan-btn").forEach((btn) => {
-        btn.addEventListener("click", () => openCheckout({
-          name: btn.dataset.planName,
-          price: parseFloat(btn.dataset.planPrice),
-          items: btn.dataset.planItems,
-          city: currentCity
-        }));
+        btn.addEventListener("click", () => {
+          if (!currentCity) {
+            citySelect.focus();
+            return;
+          }
+          openCheckout({
+            name: btn.dataset.planName,
+            price: parseFloat(btn.dataset.planPrice),
+            items: btn.dataset.planItems,
+            city: currentCity
+          });
+        });
       });
     };
     populateCitySelect();
