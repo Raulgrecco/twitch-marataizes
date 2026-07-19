@@ -520,6 +520,122 @@ gtag('config', 'G-KTRG77RWXP');
       }
     </style>
     <script>
+    /* ════════════════════════════════════════════════════
+       CONFIGURAÇÃO DA PROGRAMAÇÃO POR HORÁRIO
+       Pra trocar horários ou fontes no futuro, edite só este bloco.
+       (Mesma lógica usada em tvmarataizes.digital e TV Piúma)
+       ════════════════════════════════════════════════════ */
+    var PLAYOUT_CONFIG = {
+      schedule: [
+        { source: 'youtube', start: '01:00', end: '18:00' },
+        { source: 'castr',   start: '18:00', end: '01:00' }
+      ],
+      sources: {
+        youtube: { type: 'youtube', videoId: 'p9qkwUUFmk0' },
+        castr: { type: 'castr', liveUrl: 'https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7' }
+        // Exemplo de como plugar o VPS no futuro (precisa de player HLS, não é
+        // só troca de URL de iframe — avisar o Claude quando for a hora de fato):
+        // vps: { type: 'hls', url: 'https://SEU_IP:8888/live/playout/index.m3u8' }
+      }
+    };
+    function timeToMinutes(hhmm){var p=hhmm.split(':');return parseInt(p[0],10)*60+parseInt(p[1],10);}
+    function isWithinWindow(n,s,e){if(s<=e)return n>=s&&n<e;return n>=s||n<e;}
+    // Horário SEMPRE de Brasília, independente do fuso/relógio do visitante.
+    function getBrasiliaMinutesNow(){
+      var parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/Sao_Paulo',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());
+      var h=0,m=0;
+      parts.forEach(function(p){if(p.type==='hour')h=parseInt(p.value,10);if(p.type==='minute')m=parseInt(p.value,10);});
+      return h*60+m;
+    }
+    function getActiveSourceKey(){
+      var nowMin=getBrasiliaMinutesNow();
+      for(var i=0;i<PLAYOUT_CONFIG.schedule.length;i++){
+        var rule=PLAYOUT_CONFIG.schedule[i];
+        if(isWithinWindow(nowMin,timeToMinutes(rule.start),timeToMinutes(rule.end)))return rule.source;
+      }
+      return PLAYOUT_CONFIG.schedule[0].source;
+    }
+
+    // ---------- API do YouTube (carregada uma única vez) ----------
+    var __ytApiReady=false, __ytApiLoading=false, __ytApiCallbacks=[];
+    function ensureYouTubeApi(callback){
+      if(__ytApiReady){callback();return;}
+      __ytApiCallbacks.push(callback);
+      if(__ytApiLoading)return;
+      __ytApiLoading=true;
+      window.onYouTubeIframeAPIReady=function(){
+        __ytApiReady=true;
+        __ytApiCallbacks.forEach(function(cb){cb();});
+        __ytApiCallbacks=[];
+      };
+      var tag=document.createElement('script');
+      tag.src='https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
+    }
+
+    var __ytPlayerInstance=null;
+
+    function scShowUnmuteButton(inner){
+      scHideUnmuteButton();
+      var btn=document.createElement('button');
+      btn.id='sc-unmute-btn';
+      btn.setAttribute('aria-label','Ativar som');
+      btn.style.cssText='position:absolute;bottom:14px;left:14px;z-index:20;background:rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:24px;padding:9px 16px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;cursor:pointer;font-family:system-ui,Arial,sans-serif;';
+      btn.innerHTML='🔇 Ativar som';
+      btn.onclick=function(e){
+        e.stopPropagation();
+        if(__ytPlayerInstance){__ytPlayerInstance.unMute();__ytPlayerInstance.setVolume(100);}
+        scHideUnmuteButton();
+      };
+      inner.appendChild(btn);
+    }
+    function scHideUnmuteButton(){
+      var old=document.getElementById('sc-unmute-btn');
+      if(old)old.parentNode.removeChild(old);
+    }
+
+    function scDestroyCurrentPlayer(){
+      scHideUnmuteButton();
+      if(__ytPlayerInstance){
+        try{__ytPlayerInstance.destroy();}catch(e){}
+        __ytPlayerInstance=null;
+      }
+      var old=document.getElementById('sc-live-player');
+      if(old)old.parentNode.removeChild(old);
+    }
+
+    function scRenderLivePlayer(inner,options){
+      options=options||{};
+      scDestroyCurrentPlayer();
+      var activeKey=getActiveSourceKey();
+      window.__currentLiveSourceKey=activeKey;
+      var src=PLAYOUT_CONFIG.sources[activeKey];
+
+      if(src.type==='youtube'){
+        var holder=document.createElement('div');
+        holder.id='sc-live-player';
+        holder.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;';
+        inner.appendChild(holder);
+        ensureYouTubeApi(function(){
+          if(window.__currentLiveSourceKey!==activeKey)return;
+          __ytPlayerInstance=new YT.Player('sc-live-player',{
+            videoId:src.videoId,
+            playerVars:{autoplay:1,mute:1,controls:0,modestbranding:1,rel:0,fs:0,playsinline:1,iv_load_policy:3},
+            events:{onReady:function(){ scShowUnmuteButton(inner); }}
+          });
+        });
+        return;
+      }
+
+      var autoplayParam=options.muted?'autoplay=1&muted=1':'autoplay=1';
+      var f=document.createElement('iframe');
+      f.id='sc-live-player';
+      f.src=src.liveUrl+'?'+autoplayParam;
+      f.allow='autoplay;fullscreen';f.allowFullscreen=true;
+      f.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border:0;';
+      inner.appendChild(f);
+    }
+
     function scStartPlayer(){
       var inner=document.getElementById('sc-player-inner');
       var overlay=document.getElementById('sc-play-overlay');
@@ -527,15 +643,24 @@ gtag('config', 'G-KTRG77RWXP');
       overlay.style.display='none';
       inner.style.cursor='default';
       inner.onclick=null;
-      var f=document.createElement('iframe');
-      f.src='https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7?autoplay=1&muted=1';
-      f.allow='autoplay;fullscreen';f.allowFullscreen=true;
-      f.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border:0;';
-      inner.appendChild(f);
+      scRenderLivePlayer(inner,{muted:true});
     }
     // Compatibilidade com chamadas antigas
     function scStartMobile(){ scStartPlayer(); }
     function scStartDesktop(){ scStartPlayer(); }
+
+    // Troca de fonte sozinho quando o horário virar (18h / 1h), se já estiver no ar.
+    (function scWatchScheduleBoundary(){
+      setInterval(function(){
+        var current=document.getElementById('sc-live-player');
+        if(!current)return;
+        var activeKey=getActiveSourceKey();
+        if(activeKey!==window.__currentLiveSourceKey){
+          var inner=document.getElementById('sc-player-inner');
+          if(inner)scRenderLivePlayer(inner,{muted:false});
+        }
+      },30000);
+    })();
     </script>
     <!-- ═══ FIM PLAYER ═══ -->
 
@@ -2408,6 +2533,9 @@ function renderVideos() {
 // Modal de vídeo
 function openVideo(url, title) {
   if (!url) return;
+  // Pausa o player ao vivo por completo (áudio incluso) enquanto o VOD abre
+  window.__scLiveWasPlaying = !!document.getElementById('sc-live-player');
+  scDestroyCurrentPlayer();
   const modal = document.getElementById('video-modal');
   document.getElementById('video-modal-title').textContent = title;
   document.getElementById('video-modal-iframe').src = url;
@@ -2416,6 +2544,11 @@ function openVideo(url, title) {
 function closeVideo() {
   document.getElementById('video-modal').style.display = 'none';
   document.getElementById('video-modal-iframe').src = '';
+  // Retoma o player ao vivo com a fonte certa pro horário atual
+  if (window.__scLiveWasPlaying) {
+    var inner = document.getElementById('sc-player-inner');
+    if (inner) scRenderLivePlayer(inner, {muted:false});
+  }
 }
 
 function renderSidebar() {
