@@ -1690,13 +1690,8 @@ html{scroll-behavior:smooth;}
       <div class="summary-row"><span id="co-sum-plan">pacote —</span><span id="co-sum-price">R$ 0</span></div>
       <div class="summary-row total"><span>total</span><span id="co-sum-total">R$ 0</span></div>
       <div style="font-weight:600; margin:16px 0 10px;">forma de pagamento</div>
-      <div class="pay-option selected" data-method="pix">
-        <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h2v2H9zM13 9h2v2h-2zM9 13h2v2H9zM13 13h2v2h-2z"/></g></svg>
-        <div><div class="t">pix</div><div class="d">aprovação instantânea</div></div>
-        <div class="radio-dot"></div>
-      </div>
       <div id="co-mp-error" class="form-error" style="display:none; color:var(--accent); font-size:12px; margin:12px 0;"></div>
-      <div id="paymentBrick_container" style="margin-top:16px;"></div>
+      <div id="paymentBrick_container" style="margin-top:6px;"></div>
       <div id="statusScreenBrick_container" style="margin-top:16px; display:none;"></div>
       <button class="btn btn-secondary btn-block" id="co-back-1" style="margin-top:16px;">← voltar</button>
     </div>
@@ -2228,7 +2223,7 @@ document.addEventListener("DOMContentLoaded", () => {
             payer: { email: coState.customer.email }
           },
           customization: {
-            paymentMethods: { bankTransfer: "all" } // só PIX — cartão/boleto não aparecem
+            paymentMethods: { bankTransfer: "all", creditCard: "all" } // PIX + cartão — boleto continua fora
           },
           callbacks: {
             onReady: () => {},
