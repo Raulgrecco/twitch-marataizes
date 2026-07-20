@@ -1,0 +1,580 @@
+/**
+ * index.js — Painel de Transmissão TV Sul Capixaba (arquivo único)
+ * ---------------------------------------------------------------------------
+ * Zero dependências externas — só o que já vem instalado com o Node.
+ * Não precisa de "npm install", não precisa de package.json.
+ * Roda com: node index.js
+ *
+ * Variáveis de ambiente:
+ *   PAINEL_PASSWORD  (obrigatória) — senha de acesso ao painel
+ *   PORT             (opcional, padrão 3000)
+ * ---------------------------------------------------------------------------
+ */
+
+const http = require("http");
+const fs = require("fs");
+const path = require("path");
+const { spawn, exec } = require("child_process");
+
+const PORT = process.env.PORT || 3000;
+const PAINEL_PASSWORD = process.env.PAINEL_PASSWORD || "";
+
+const FILES_DIR = path.join(__dirname, "files");
+const CONFIG_FILE = path.join(__dirname, "config.json");
+const PLAYLIST_FILE = path.join(__dirname, "playlist.txt");
+
+if (!fs.existsSync(FILES_DIR)) fs.mkdirSync(FILES_DIR);
+
+function readConfig() {
+  try {
+    return JSON.parse(fs.readFileSync(CONFIG_FILE, "utf8"));
+  } catch {
+    return { youtubeStreamKey: "", srtUrl: "", playlist: [] };
+  }
+}
+function writeConfig(cfg) {
+  fs.writeFileSync(CONFIG_FILE, JSON.stringify(cfg, null, 2));
+}
+
+// ---------------------------------------------------------------------------
+// utilidades pra responder JSON / ler corpo pequeno (JSON) da requisição
+// ---------------------------------------------------------------------------
+function sendJson(res, status, obj) {
+  const body = JSON.stringify(obj);
+  res.writeHead(status, { "Content-Type": "application/json; charset=utf-8" });
+  res.end(body);
+}
+function readJsonBody(req) {
+  return new Promise((resolve, reject) => {
+    let chunks = [];
+    req.on("data", (c) => chunks.push(c));
+    req.on("end", () => {
+      try {
+        const text = Buffer.concat(chunks).toString("utf8") || "{}";
+        resolve(JSON.parse(text));
+      } catch (err) {
+        reject(err);
+      }
+    });
+    req.on("error", reject);
+  });
+}
+function isSafeName(name) {
+  return typeof name === "string" && name.length > 0 && !name.includes("/") && !name.includes("\\") && !name.includes("..");
+}
+
+// ---------------------------------------------------------------------------
+// arquivos
+// ---------------------------------------------------------------------------
+function listFiles() {
+  return fs.readdirSync(FILES_DIR).map((name) => {
+    const stat = fs.statSync(path.join(FILES_DIR, name));
+    return { name, sizeMB: Math.round(stat.size / 1024 / 1024) };
+  });
+}
+
+// upload: o vídeo vem como corpo bruto da requisição (não multipart), com o
+// nome do arquivo no parâmetro ?filename= — assim não precisamos de nenhuma
+// biblioteca externa pra interpretar multipart/form-data.
+function handleUpload(req, res, filename) {
+  if (!isSafeName(filename)) return sendJson(res, 400, { error: "nome de arquivo inválido" });
+  const dest = path.join(FILES_DIR, filename);
+  const writeStream = fs.createWriteStream(dest);
+  req.pipe(writeStream);
+  writeStream.on("finish", () => sendJson(res, 200, { ok: true, filename }));
+  writeStream.on("error", (err) => sendJson(res, 500, { error: err.message }));
+  req.on("error", () => writeStream.destroy());
+}
+
+// ---------------------------------------------------------------------------
+// playlist
+// ---------------------------------------------------------------------------
+function writePlaylistFile(playlist) {
+  const lines = playlist.map((name) => {
+    const fullPath = path.join(FILES_DIR, name).replace(/'/g, "'\\''");
+    return `file '${fullPath}'`;
+  });
+  fs.writeFileSync(PLAYLIST_FILE, lines.join("\n") + "\n");
+}
+
+// ---------------------------------------------------------------------------
+// controle do processo do FFmpeg
+// ---------------------------------------------------------------------------
+let ffmpegProcess = null;
+let startedAt = null;
+let lastBitrateKbps = null;
+const logBuffer = [];
+function pushLog(line) {
+  logBuffer.push(`[${new Date().toLocaleTimeString("pt-BR")}] ${line}`);
+  if (logBuffer.length > 200) logBuffer.shift();
+}
+function isRunning() {
+  return ffmpegProcess !== null;
+}
+
+function buildFfmpegArgs(cfg) {
+  const outputs = [];
+  if (cfg.youtubeStreamKey) outputs.push(`[f=flv]rtmp://a.rtmp.youtube.com/live2/${cfg.youtubeStreamKey}`);
+  if (cfg.srtUrl) outputs.push(`[f=mpegts]${cfg.srtUrl}`);
+  if (outputs.length === 0) throw new Error("nenhum destino configurado (falta a chave do YouTube ou a URL SRT)");
+
+  return [
+    "-re", "-stream_loop", "-1", "-f", "concat", "-safe", "0", "-i", PLAYLIST_FILE,
+    "-c:v", "libx264", "-preset", "veryfast", "-b:v", "3000k", "-maxrate", "3000k", "-bufsize", "6000k",
+    "-c:a", "aac", "-b:a", "128k", "-ar", "44100",
+    "-map", "0:v:0", "-map", "0:a:0",
+    "-f", "tee", outputs.join("|")
+  ];
+}
+
+function startStream() {
+  if (isRunning()) throw new Error("já está transmitindo");
+  const cfg = readConfig();
+  if (!cfg.playlist || cfg.playlist.length === 0) throw new Error("a playlist está vazia — adicione pelo menos um vídeo");
+  writePlaylistFile(cfg.playlist);
+  const args = buildFfmpegArgs(cfg);
+
+  lastBitrateKbps = null;
+  pushLog("iniciando FFmpeg...");
+  ffmpegProcess = spawn("ffmpeg", args);
+  startedAt = new Date().toISOString();
+
+  cfg.wasRunning = true;
+  writeConfig(cfg);
+
+  ffmpegProcess.stderr.on("data", (data) => {
+    const text = data.toString();
+    const match = text.match(/bitrate=\s*([\d.]+)kbits\/s/);
+    if (match) lastBitrateKbps = parseFloat(match[1]);
+    text.split("\n").map((l) => l.trim()).filter(Boolean).forEach((l) => pushLog(l));
+  });
+  ffmpegProcess.on("exit", (code) => {
+    pushLog(`FFmpeg encerrado (código ${code})`);
+    ffmpegProcess = null;
+    startedAt = null;
+    lastBitrateKbps = null;
+    // Encerrou sozinho (não foi por causa de um /api/stop) — tenta religar
+    // depois de um tempinho, pra não deixar a TV fora do ar sem ninguém notar.
+    const cfgNow = readConfig();
+    if (cfgNow.wasRunning) {
+      pushLog("reconectando em 10s...");
+      setTimeout(() => {
+        try { startStream(); } catch (err) { pushLog("falha ao reconectar: " + err.message); }
+      }, 10000);
+    }
+  });
+}
+function stopStream() {
+  if (!isRunning()) throw new Error("não está transmitindo");
+  pushLog("parando FFmpeg...");
+  const cfg = readConfig();
+  cfg.wasRunning = false;
+  writeConfig(cfg);
+  ffmpegProcess.kill("SIGINT");
+  ffmpegProcess = null;
+  startedAt = null;
+  lastBitrateKbps = null;
+}
+
+// ---------------------------------------------------------------------------
+// autenticação básica (sem dependências)
+// ---------------------------------------------------------------------------
+function isAuthorized(req) {
+  if (!PAINEL_PASSWORD) return true;
+  const auth = req.headers.authorization;
+  if (!auth) return false;
+  const [, encoded] = auth.split(" ");
+  const decoded = Buffer.from(encoded || "", "base64").toString();
+  const [, pass] = decoded.split(":");
+  return pass === PAINEL_PASSWORD;
+}
+
+// ---------------------------------------------------------------------------
+// roteador
+// ---------------------------------------------------------------------------
+const server = http.createServer(async (req, res) => {
+  if (!isAuthorized(req)) {
+    res.writeHead(401, { "WWW-Authenticate": 'Basic realm="Painel TV Sul Capixaba"' });
+    return res.end("Acesso restrito.");
+  }
+
+  const url = new URL(req.url, `http://${req.headers.host}`);
+  const pathname = url.pathname;
+
+  try {
+    // -------- página principal --------
+    if (req.method === "GET" && pathname === "/") {
+      res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      return res.end(PAGE_HTML);
+    }
+
+    // -------- arquivos --------
+    if (req.method === "GET" && pathname === "/api/files") {
+      return sendJson(res, 200, { files: listFiles() });
+    }
+    if (req.method === "POST" && pathname === "/api/upload") {
+      const filename = url.searchParams.get("filename");
+      return handleUpload(req, res, filename);
+    }
+    if (req.method === "DELETE" && pathname.startsWith("/api/files/")) {
+      const name = decodeURIComponent(pathname.replace("/api/files/", ""));
+      if (!isSafeName(name)) return sendJson(res, 400, { error: "nome inválido" });
+      const filePath = path.join(FILES_DIR, name);
+      if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+      const cfg = readConfig();
+      cfg.playlist = (cfg.playlist || []).filter((n) => n !== name);
+      writeConfig(cfg);
+      return sendJson(res, 200, { ok: true });
+    }
+
+    // -------- playlist --------
+    if (req.method === "GET" && pathname === "/api/playlist") {
+      return sendJson(res, 200, { playlist: readConfig().playlist || [] });
+    }
+    if (req.method === "POST" && pathname === "/api/playlist") {
+      const body = await readJsonBody(req);
+      const cfg = readConfig();
+      const existing = new Set(fs.readdirSync(FILES_DIR));
+      cfg.playlist = (Array.isArray(body.playlist) ? body.playlist : []).filter((n) => existing.has(n));
+      writeConfig(cfg);
+      return sendJson(res, 200, { ok: true, playlist: cfg.playlist });
+    }
+
+    // -------- configuração --------
+    if (req.method === "GET" && pathname === "/api/config") {
+      const cfg = readConfig();
+      return sendJson(res, 200, { youtubeConfigured: Boolean(cfg.youtubeStreamKey), srtConfigured: Boolean(cfg.srtUrl) });
+    }
+    if (req.method === "POST" && pathname === "/api/config") {
+      const body = await readJsonBody(req);
+      const cfg = readConfig();
+      if (typeof body.youtubeStreamKey === "string" && body.youtubeStreamKey.trim()) cfg.youtubeStreamKey = body.youtubeStreamKey.trim();
+      if (typeof body.srtUrl === "string" && body.srtUrl.trim()) cfg.srtUrl = body.srtUrl.trim();
+      writeConfig(cfg);
+      return sendJson(res, 200, { ok: true });
+    }
+
+    // -------- controle --------
+    if (req.method === "POST" && pathname === "/api/start") {
+      startStream();
+      return sendJson(res, 200, { ok: true });
+    }
+    if (req.method === "POST" && pathname === "/api/stop") {
+      stopStream();
+      return sendJson(res, 200, { ok: true });
+    }
+    if (req.method === "POST" && pathname === "/api/restart") {
+      if (isRunning()) stopStream();
+      startStream();
+      return sendJson(res, 200, { ok: true });
+    }
+
+    // -------- status --------
+    if (req.method === "GET" && pathname === "/api/status") {
+      const cfg = readConfig();
+      const base = {
+        running: isRunning(),
+        startedAt,
+        uploadMbps: lastBitrateKbps ? Math.round((lastBitrateKbps / 1000) * 10) / 10 : null,
+        playlistCount: (cfg.playlist || []).length
+      };
+      if (!isRunning() || !ffmpegProcess) return sendJson(res, 200, { ...base, cpu: null, mem: null });
+      return exec(`ps -p ${ffmpegProcess.pid} -o %cpu,%mem --no-headers`, (err, stdout) => {
+        if (err || !stdout.trim()) return sendJson(res, 200, { ...base, cpu: null, mem: null });
+        const [cpu, mem] = stdout.trim().split(/\s+/).map(Number);
+        return sendJson(res, 200, { ...base, cpu, mem });
+      });
+    }
+
+    // -------- logs --------
+    if (req.method === "GET" && pathname === "/api/logs") {
+      return sendJson(res, 200, { logs: logBuffer.slice(-50) });
+    }
+
+    sendJson(res, 404, { error: "não encontrado" });
+  } catch (err) {
+    sendJson(res, 400, { error: err.message });
+  }
+});
+
+// ---------------------------------------------------------------------------
+// a página (single-page app, sem build, sem dependências)
+// ---------------------------------------------------------------------------
+const PAGE_HTML = `<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TV Sul Capixaba — Painel de Transmissão</title>
+<style>
+  :root{--bg:#0B0E13;--surface:#12161D;--surface2:#171C25;--border:#242A34;--text:#F2F1EC;--muted:#9C9A93;--accent:#E8543E;--accent-on:#1A0705;--green:#5FD068;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,"Segoe UI",sans-serif;display:flex;min-height:100vh;}
+  aside{width:210px;background:var(--surface);border-right:1px solid var(--border);padding:20px 0;flex-shrink:0;}
+  aside h1{font-size:15px;padding:0 20px 18px;margin:0;border-bottom:1px solid var(--border);margin-bottom:10px;}
+  aside .navitem{display:block;padding:11px 20px;color:var(--muted);cursor:pointer;font-size:14px;border-left:3px solid transparent;}
+  aside .navitem.active{color:var(--text);background:var(--surface2);border-left-color:var(--accent);}
+  main{flex:1;padding:28px 32px;max-width:760px;}
+  .page{display:none;} .page.active{display:block;}
+  h2{font-size:18px;margin:0 0 18px;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:18px;}
+  .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  .stat{background:var(--surface2);border-radius:10px;padding:14px;text-align:center;}
+  .stat .v{font-size:20px;font-weight:700;} .stat .l{font-size:11px;color:var(--muted);margin-top:4px;}
+  .status-row{display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:14px;}
+  .dot{width:10px;height:10px;border-radius:50%;background:#555;}
+  .dot.on{background:var(--green);box-shadow:0 0 8px var(--green);} .dot.off{background:#666;}
+  button{background:var(--accent);color:var(--accent-on);border:none;border-radius:8px;padding:11px 16px;font-weight:700;font-size:13px;cursor:pointer;}
+  button.secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border);}
+  button:disabled{opacity:.45;cursor:not-allowed;}
+  button.small{padding:6px 10px;font-size:12px;}
+  .btnrow{display:flex;gap:10px;margin-top:14px;}
+  input[type=text],input[type=file]{width:100%;background:#1a1f28;border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-size:14px;margin-bottom:12px;}
+  label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;}
+  ul.filelist{list-style:none;padding:0;margin:0;}
+  ul.filelist li{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;}
+  ul.filelist li:last-child{border-bottom:none;}
+  .fname{flex:1;}
+  .fsize{color:var(--muted);font-size:12px;margin-right:10px;}
+  .msg{font-size:13px;margin-top:10px;padding:9px 12px;border-radius:8px;display:none;}
+  .msg.ok{background:#16321f;color:#8ee6a4;display:block;} .msg.err{background:#321616;color:#f19a9a;display:block;}
+  #logBox{background:#000;border-radius:8px;padding:12px;font-family:monospace;font-size:12px;color:#8ee6a4;height:280px;overflow-y:auto;white-space:pre-wrap;}
+  progress{width:100%;margin-top:6px;}
+</style>
+</head>
+<body>
+
+<aside>
+  <h1>📡 TV Sul Capixaba</h1>
+  <div class="navitem active" data-page="dashboard">Dashboard</div>
+  <div class="navitem" data-page="arquivos">Arquivos</div>
+  <div class="navitem" data-page="programacao">Programação</div>
+  <div class="navitem" data-page="config">Configurações</div>
+  <div class="navitem" data-page="logs">Logs</div>
+</aside>
+
+<main>
+
+  <div class="page active" id="page-dashboard">
+    <h2>Dashboard</h2>
+    <div class="card">
+      <div class="status-row"><div class="dot off" id="statusDot"></div><span id="statusText">verificando...</span></div>
+      <div class="stat-grid">
+        <div class="stat"><div class="v" id="statCpu">—</div><div class="l">CPU</div></div>
+        <div class="stat"><div class="v" id="statMem">—</div><div class="l">RAM</div></div>
+        <div class="stat"><div class="v" id="statBitrate">—</div><div class="l">SAÍDA</div></div>
+        <div class="stat"><div class="v" id="statUptime">—</div><div class="l">NO AR HÁ</div></div>
+      </div>
+      <div class="btnrow">
+        <button id="btnStart">▶ Iniciar</button>
+        <button id="btnStop" class="secondary">■ Parar</button>
+        <button id="btnRestart" class="secondary">⟳ Reiniciar</button>
+      </div>
+      <div class="msg" id="controlMsg"></div>
+    </div>
+  </div>
+
+  <div class="page" id="page-arquivos">
+    <h2>Arquivos</h2>
+    <div class="card">
+      <input type="file" id="videoFile" accept="video/*">
+      <button id="btnUpload">Enviar vídeo</button>
+      <progress id="uploadProgress" value="0" max="100" style="display:none;"></progress>
+      <div class="msg" id="uploadMsg"></div>
+    </div>
+    <div class="card">
+      <ul class="filelist" id="fileList"></ul>
+    </div>
+  </div>
+
+  <div class="page" id="page-programacao">
+    <h2>Programação (playlist — fica em loop 24h nessa ordem)</h2>
+    <div class="card">
+      <ul class="filelist" id="playlistList"></ul>
+      <div class="btnrow"><button id="btnSavePlaylist">Salvar ordem</button></div>
+      <div class="msg" id="playlistMsg"></div>
+    </div>
+  </div>
+
+  <div class="page" id="page-config">
+    <h2>Configurações</h2>
+    <div class="card">
+      <label>Stream Key do YouTube</label>
+      <input type="text" id="youtubeKey" placeholder="cole a chave do YouTube Studio aqui">
+      <label>URL SRT da Soul TV (opcional)</label>
+      <input type="text" id="srtUrl" placeholder="srt://...">
+      <button id="btnSaveConfig">Salvar destinos</button>
+      <div class="msg" id="configMsg"></div>
+    </div>
+  </div>
+
+  <div class="page" id="page-logs">
+    <h2>Logs</h2>
+    <div class="card"><div id="logBox">sem atividade ainda...</div></div>
+  </div>
+
+</main>
+
+<script>
+document.querySelectorAll('.navitem').forEach((item) => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.navitem').forEach((i) => i.classList.remove('active'));
+    document.querySelectorAll('.page').forEach((p) => p.classList.remove('active'));
+    item.classList.add('active');
+    document.getElementById('page-' + item.dataset.page).classList.add('active');
+    if (item.dataset.page === 'arquivos') loadFiles();
+    if (item.dataset.page === 'programacao') loadPlaylist();
+  });
+});
+
+function showMsg(id, text, ok) {
+  const el = document.getElementById(id);
+  el.textContent = text;
+  el.className = 'msg ' + (ok ? 'ok' : 'err');
+}
+function fmtUptime(startedAt) {
+  if (!startedAt) return '—';
+  const secs = Math.floor((Date.now() - new Date(startedAt).getTime()) / 1000);
+  const h = String(Math.floor(secs / 3600)).padStart(2, '0');
+  const m = String(Math.floor((secs % 3600) / 60)).padStart(2, '0');
+  const s = String(secs % 60).padStart(2, '0');
+  return h + ':' + m + ':' + s;
+}
+
+async function refreshStatus() {
+  const res = await fetch('/api/status');
+  const data = await res.json();
+  document.getElementById('statusDot').className = 'dot ' + (data.running ? 'on' : 'off');
+  document.getElementById('statusText').textContent = data.running ? 'transmitindo agora' : 'parado';
+  document.getElementById('btnStart').disabled = data.running;
+  document.getElementById('btnStop').disabled = !data.running;
+  document.getElementById('statCpu').textContent = data.cpu != null ? data.cpu + '%' : '—';
+  document.getElementById('statMem').textContent = data.mem != null ? data.mem + '%' : '—';
+  document.getElementById('statBitrate').textContent = data.uploadMbps != null ? data.uploadMbps + ' Mbps' : '—';
+  document.getElementById('statUptime').textContent = fmtUptime(data.startedAt);
+}
+
+async function loadFiles() {
+  const res = await fetch('/api/files');
+  const data = await res.json();
+  const ul = document.getElementById('fileList');
+  ul.innerHTML = data.files.length ? '' : '<li>nenhum arquivo enviado ainda</li>';
+  data.files.forEach((f) => {
+    const li = document.createElement('li');
+    li.innerHTML = '<span class="fname">' + f.name + '</span><span class="fsize">' + f.sizeMB + ' MB</span>';
+    const btn = document.createElement('button');
+    btn.className = 'small secondary';
+    btn.textContent = 'excluir';
+    btn.onclick = async () => { await fetch('/api/files/' + encodeURIComponent(f.name), { method: 'DELETE' }); loadFiles(); };
+    li.appendChild(btn);
+    ul.appendChild(li);
+  });
+}
+
+let currentPlaylist = [];
+async function loadPlaylist() {
+  const filesRes = await fetch('/api/files');
+  const { files } = await filesRes.json();
+  const plRes = await fetch('/api/playlist');
+  const { playlist } = await plRes.json();
+  const known = new Set(playlist);
+  currentPlaylist = playlist.concat(files.map(f => f.name).filter(n => !known.has(n)));
+  renderPlaylist();
+}
+function renderPlaylist() {
+  const ul = document.getElementById('playlistList');
+  ul.innerHTML = currentPlaylist.length ? '' : '<li>nenhum arquivo disponível — envie vídeos em "Arquivos" primeiro</li>';
+  currentPlaylist.forEach((name, idx) => {
+    const li = document.createElement('li');
+    li.innerHTML = '<span class="fname">' + (idx + 1) + '. ' + name + '</span>';
+    const up = document.createElement('button');
+    up.className = 'small secondary'; up.textContent = '↑';
+    up.onclick = () => { if (idx > 0) { [currentPlaylist[idx-1], currentPlaylist[idx]] = [currentPlaylist[idx], currentPlaylist[idx-1]]; renderPlaylist(); } };
+    const down = document.createElement('button');
+    down.className = 'small secondary'; down.textContent = '↓';
+    down.onclick = () => { if (idx < currentPlaylist.length - 1) { [currentPlaylist[idx+1], currentPlaylist[idx]] = [currentPlaylist[idx], currentPlaylist[idx+1]]; renderPlaylist(); } };
+    li.appendChild(up); li.appendChild(down);
+    ul.appendChild(li);
+  });
+}
+document.getElementById('btnSavePlaylist').addEventListener('click', async () => {
+  const res = await fetch('/api/playlist', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ playlist: currentPlaylist })
+  });
+  showMsg('playlistMsg', res.ok ? 'ordem salva!' : 'falha ao salvar', res.ok);
+});
+
+document.getElementById('btnUpload').addEventListener('click', async () => {
+  const fileInput = document.getElementById('videoFile');
+  if (!fileInput.files[0]) { showMsg('uploadMsg', 'escolha um arquivo primeiro', false); return; }
+  const file = fileInput.files[0];
+  const progress = document.getElementById('uploadProgress');
+  progress.style.display = 'block';
+  const xhr = new XMLHttpRequest();
+  xhr.upload.addEventListener('progress', (e) => { progress.value = Math.round((e.loaded / e.total) * 100); });
+  xhr.onload = () => {
+    progress.style.display = 'none';
+    if (xhr.status === 200) { showMsg('uploadMsg', 'vídeo enviado com sucesso!', true); loadFiles(); }
+    else showMsg('uploadMsg', 'falha ao enviar o vídeo', false);
+  };
+  xhr.open('POST', '/api/upload?filename=' + encodeURIComponent(file.name));
+  xhr.send(file);
+});
+
+document.getElementById('btnSaveConfig').addEventListener('click', async () => {
+  const youtubeStreamKey = document.getElementById('youtubeKey').value;
+  const srtUrl = document.getElementById('srtUrl').value;
+  const res = await fetch('/api/config', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ youtubeStreamKey, srtUrl })
+  });
+  showMsg('configMsg', res.ok ? 'destinos salvos!' : 'falha ao salvar', res.ok);
+  document.getElementById('youtubeKey').value = '';
+  document.getElementById('srtUrl').value = '';
+});
+
+document.getElementById('btnStart').addEventListener('click', async () => {
+  const res = await fetch('/api/start', { method: 'POST' });
+  const data = await res.json();
+  showMsg('controlMsg', res.ok ? 'transmissão iniciada!' : data.error, res.ok);
+  refreshStatus();
+});
+document.getElementById('btnStop').addEventListener('click', async () => {
+  const res = await fetch('/api/stop', { method: 'POST' });
+  const data = await res.json();
+  showMsg('controlMsg', res.ok ? 'transmissão parada.' : data.error, res.ok);
+  refreshStatus();
+});
+document.getElementById('btnRestart').addEventListener('click', async () => {
+  const res = await fetch('/api/restart', { method: 'POST' });
+  const data = await res.json();
+  showMsg('controlMsg', res.ok ? 'transmissão reiniciada!' : data.error, res.ok);
+  refreshStatus();
+});
+
+async function refreshLogs() {
+  const res = await fetch('/api/logs');
+  const data = await res.json();
+  const box = document.getElementById('logBox');
+  const wasAtBottom = box.scrollTop + box.clientHeight >= box.scrollHeight - 10;
+  box.textContent = data.logs.join('\\n') || 'sem atividade ainda...';
+  if (wasAtBottom) box.scrollTop = box.scrollHeight;
+}
+
+refreshStatus();
+loadFiles();
+setInterval(refreshStatus, 3000);
+setInterval(refreshLogs, 3000);
+</script>
+</body>
+</html>`;
+
+server.listen(PORT, () => {
+  console.log("Painel rodando na porta " + PORT + " (sem dependências externas)");
+  const cfg = readConfig();
+  if (cfg.wasRunning) {
+    pushLog("painel reiniciado — retomando a transmissão automaticamente...");
+    try { startStream(); } catch (err) { pushLog("não foi possível retomar: " + err.message); }
+  }
+});
