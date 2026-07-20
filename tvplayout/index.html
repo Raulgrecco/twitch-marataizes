@@ -5,19 +5,30 @@
  * Não precisa de "npm install", não precisa de package.json.
  * Roda com: node index.js
  *
- * Variáveis de ambiente:
- *   PAINEL_PASSWORD  (obrigatória) — senha de acesso ao painel
- *   PORT             (opcional, padrão 3000)
+ * A senha do painel NÃO precisa vir de variável de ambiente — no primeiro
+ * acesso pelo navegador, o próprio painel pede pra você criar uma senha,
+ * e guarda o hash dela em config.json. Isso permite instalar isso uma vez,
+ * tirar um snapshot da VPS, e qualquer instância nova criada a partir desse
+ * snapshot pede a senha de novo pelo navegador — sem precisar de SSH.
+ *
+ * Variáveis de ambiente (ambas opcionais):
+ *   PAINEL_PASSWORD  — se quiser fixar a senha por env var em vez de criar
+ *                       pelo navegador (compatibilidade com instalações antigas)
+ *   PORT             — porta do servidor (padrão 3000)
  * ---------------------------------------------------------------------------
  */
 
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 const { spawn, exec } = require("child_process");
 
 const PORT = process.env.PORT || 3000;
-const PAINEL_PASSWORD = process.env.PAINEL_PASSWORD || "";
+
+function hashPassword(pass) {
+  return crypto.createHash("sha256").update(pass).digest("hex");
+}
 
 const FILES_DIR = path.join(__dirname, "files");
 const CONFIG_FILE = path.join(__dirname, "config.json");
@@ -177,29 +188,61 @@ function stopStream() {
 }
 
 // ---------------------------------------------------------------------------
-// autenticação básica (sem dependências)
+// autenticação — a senha fica guardada (com hash) no config.json, definida
+// pela própria página no primeiro acesso. PAINEL_PASSWORD (env) ainda
+// funciona, se alguém preferir configurar assim (compatibilidade).
 // ---------------------------------------------------------------------------
+function hasPasswordConfigured() {
+  const cfg = readConfig();
+  return Boolean(cfg.passwordHash) || Boolean(process.env.PAINEL_PASSWORD);
+}
 function isAuthorized(req) {
-  if (!PAINEL_PASSWORD) return true;
+  if (!hasPasswordConfigured()) return true; // ainda no modo "primeiro acesso"
+  const cfg = readConfig();
   const auth = req.headers.authorization;
   if (!auth) return false;
   const [, encoded] = auth.split(" ");
   const decoded = Buffer.from(encoded || "", "base64").toString();
   const [, pass] = decoded.split(":");
-  return pass === PAINEL_PASSWORD;
+  if (process.env.PAINEL_PASSWORD && pass === process.env.PAINEL_PASSWORD) return true;
+  if (cfg.passwordHash && hashPassword(pass || "") === cfg.passwordHash) return true;
+  return false;
 }
 
 // ---------------------------------------------------------------------------
 // roteador
 // ---------------------------------------------------------------------------
 const server = http.createServer(async (req, res) => {
+  const url = new URL(req.url, `http://${req.headers.host}`);
+  const pathname = url.pathname;
+
+  // -------- primeiro acesso: definir a senha (sem exigir autenticação) --------
+  if (!hasPasswordConfigured()) {
+    if (req.method === "GET" && pathname === "/") {
+      res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      return res.end(SETUP_HTML);
+    }
+    if (req.method === "POST" && pathname === "/api/setup") {
+      const body = await readJsonBody(req);
+      if (!body.password || body.password.length < 6) {
+        return sendJson(res, 400, { error: "a senha precisa ter pelo menos 6 caracteres" });
+      }
+      const cfg = readConfig();
+      cfg.passwordHash = hashPassword(body.password);
+      writeConfig(cfg);
+      return sendJson(res, 200, { ok: true });
+    }
+    // qualquer outra rota, enquanto não tiver senha, também cai na tela de setup
+    if (req.method === "GET") {
+      res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      return res.end(SETUP_HTML);
+    }
+  }
+
   if (!isAuthorized(req)) {
     res.writeHead(401, { "WWW-Authenticate": 'Basic realm="Painel TV Sul Capixaba"' });
     return res.end("Acesso restrito.");
   }
-
-  const url = new URL(req.url, `http://${req.headers.host}`);
-  const pathname = url.pathname;
 
   try {
     // -------- página principal --------
@@ -300,6 +343,55 @@ const server = http.createServer(async (req, res) => {
 // ---------------------------------------------------------------------------
 // a página (single-page app, sem build, sem dependências)
 // ---------------------------------------------------------------------------
+const SETUP_HTML = `<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TV Sul Capixaba — Primeiro acesso</title>
+<style>
+  :root{--bg:#0B0E13;--surface:#12161D;--border:#242A34;--text:#F2F1EC;--muted:#9C9A93;--accent:#E8543E;--accent-on:#1A0705;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,"Segoe UI",sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
+  .card{max-width:380px;width:100%;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px;}
+  h1{font-size:17px;margin:0 0 6px;}
+  p{color:var(--muted);font-size:13px;margin:0 0 20px;}
+  input{width:100%;background:#1a1f28;border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--text);font-size:14px;margin-bottom:14px;}
+  button{background:var(--accent);color:var(--accent-on);border:none;border-radius:8px;padding:12px 18px;font-weight:700;font-size:14px;cursor:pointer;width:100%;}
+  .msg{font-size:13px;margin-top:12px;padding:10px;border-radius:8px;display:none;}
+  .msg.err{background:#321616;color:#f19a9a;display:block;}
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>📡 TV Sul Capixaba</h1>
+    <p>Primeiro acesso — crie uma senha pra proteger o painel. Só você vai poder ver isso a partir de agora.</p>
+    <input type="password" id="pw1" placeholder="crie uma senha (mín. 6 caracteres)">
+    <input type="password" id="pw2" placeholder="confirme a senha">
+    <button id="btnSetup">Criar senha e entrar</button>
+    <div class="msg" id="setupMsg"></div>
+  </div>
+<script>
+document.getElementById('btnSetup').addEventListener('click', async () => {
+  const pw1 = document.getElementById('pw1').value;
+  const pw2 = document.getElementById('pw2').value;
+  const msg = document.getElementById('setupMsg');
+  if (pw1 !== pw2) { msg.textContent = 'as senhas não são iguais'; msg.className = 'msg err'; return; }
+  const res = await fetch('/api/setup', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password: pw1 })
+  });
+  const data = await res.json();
+  if (res.ok) {
+    location.reload();
+  } else {
+    msg.textContent = data.error; msg.className = 'msg err';
+  }
+});
+</script>
+</body>
+</html>`;
+
 const PAGE_HTML = `<!doctype html>
 <html lang="pt-BR">
 <head>
