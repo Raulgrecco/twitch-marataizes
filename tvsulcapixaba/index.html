@@ -1195,12 +1195,12 @@ html{scroll-behavior:smooth;}
           <p style="margin:0;">preencha os dados abaixo. nossa equipe entra em contato pelo WhatsApp em até 3 dias úteis.</p>
         </div>
 
-        <div class="field"><label>nome completo / razão social</label><input type="text" placeholder="seu nome completo"></div>
-        <div class="field"><label>cpf / cnpj</label><input type="text" placeholder="000.000.000-00 ou 00.000.000/0000-00"></div>
-        <div class="field"><label>whatsapp de contato *</label><input type="text" placeholder="(28) 99999-9999"></div>
+        <div class="field"><label>nome completo / razão social</label><input type="text" id="amp-nome" placeholder="seu nome completo"></div>
+        <div class="field"><label>cpf / cnpj</label><input type="text" id="amp-cpf" placeholder="000.000.000-00 ou 00.000.000/0000-00"></div>
+        <div class="field"><label>whatsapp de contato *</label><input type="text" id="amp-whats" placeholder="(28) 99999-9999"></div>
         <div class="field">
           <label>cidade / região</label>
-          <select>
+          <select id="amp-cidade">
             <option>selecione sua cidade</option>
             <optgroup label="litoral sul">
               <option>Marataízes</option><option>Piúma</option><option>Itapemirim</option>
@@ -1222,10 +1222,12 @@ html{scroll-behavior:smooth;}
           </select>
         </div>
         <div class="checkbox-row">
-          <input type="checkbox" id="terms">
-          <label for="terms">li e concordo com os <a href="#">termos de uso — Amplificador TV Sul Capixaba</a> *</label>
+          <input type="checkbox" id="amp-terms">
+          <label for="amp-terms">li e concordo com os <a href="#">termos de uso — Amplificador TV Sul Capixaba</a> *</label>
         </div>
-        <button type="button" class="btn btn-primary btn-block">enviar cadastro e aguardar contato</button>
+        <div id="amp-error" class="form-error" style="display:none; color:var(--accent); font-size:12px; margin:10px 0;">preencha o whatsapp e aceite os termos pra enviar.</div>
+        <div id="amp-success" style="display:none; color:#7BC67E; font-size:13px; margin:10px 0; font-weight:600;">cadastro enviado! nossa equipe entra em contato pelo WhatsApp em até 3 dias úteis.</div>
+        <button type="button" class="btn btn-primary btn-block" id="amp-send">enviar cadastro e aguardar contato</button>
         <p class="form-note">programa 100% gratuito · sem taxa de adesão · resposta em até 3 dias úteis</p>
       </div>
     </div>
@@ -1797,6 +1799,57 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function fmt(n){ return "R$ " + Math.round(n).toLocaleString("pt-BR"); }
 
+  // ---- cadastro de amplificador — envia por e-mail via backend ----
+  const ampSendBtn = document.getElementById("amp-send");
+  if (ampSendBtn) {
+    const AMP_API_BASE = "https://agenciaclap-site.onrender.com";
+    ampSendBtn.addEventListener("click", async () => {
+      const nome = document.getElementById("amp-nome").value.trim();
+      const cpf = document.getElementById("amp-cpf").value.trim();
+      const whats = document.getElementById("amp-whats").value.trim();
+      const cidadeSel = document.getElementById("amp-cidade").value;
+      const cidade = cidadeSel === "selecione sua cidade" ? "" : cidadeSel;
+      const terms = document.getElementById("amp-terms").checked;
+      const errBox = document.getElementById("amp-error");
+      const okBox = document.getElementById("amp-success");
+      errBox.style.display = "none";
+      okBox.style.display = "none";
+
+      if (!whats || !terms) {
+        errBox.style.display = "block";
+        return;
+      }
+
+      ampSendBtn.disabled = true;
+      ampSendBtn.textContent = "enviando...";
+      try {
+        const res = await fetch(`${AMP_API_BASE}/api/amplificador/cadastro`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nome, cpf, whatsapp: whats, cidade })
+        });
+        const body = await res.json().catch(() => ({}));
+        if (!res.ok || body.error) {
+          errBox.textContent = body.error || "não foi possível enviar agora. tenta de novo em alguns minutos.";
+          errBox.style.display = "block";
+          return;
+        }
+        okBox.style.display = "block";
+        document.getElementById("amp-nome").value = "";
+        document.getElementById("amp-cpf").value = "";
+        document.getElementById("amp-whats").value = "";
+        document.getElementById("amp-cidade").selectedIndex = 0;
+        document.getElementById("amp-terms").checked = false;
+      } catch (err) {
+        errBox.textContent = "falha de conexão. tenta de novo em alguns minutos.";
+        errBox.style.display = "block";
+      } finally {
+        ampSendBtn.disabled = false;
+        ampSendBtn.textContent = "enviar cadastro e aguardar contato";
+      }
+    });
+  }
+
   // ---- player ao vivo (home) — troca automática YouTube (dia) / Castr (noite), igual TV Piúma ----
   var PLAYOUT_CONFIG = {
     schedule: [
@@ -1810,7 +1863,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       castr: {
         type: 'castr',
-        liveUrl: 'https://player.castr.com/live_c67f6fc057df11f182b1a9753cb65ff7'
+        liveUrl: 'https://player.castr.com/live_c5788f40839e11f1813a196cc11f122b'
       }
     }
   };
