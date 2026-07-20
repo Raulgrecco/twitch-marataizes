@@ -366,7 +366,9 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:10px 0 4px;}
 .checkout-step.active{background:var(--accent); border-color:var(--accent); color:var(--accent-on); font-weight:700;}
 .checkout-line{flex:1; height:1px; background:var(--border);}
 .checkout-labels{display:flex; justify-content:space-between; font-size:10.5px; color:var(--text-muted); margin:-14px 0 20px; padding:0 2px;}
-.summary-row{display:flex; justify-content:space-between; padding:12px 14px; background:var(--surface-2); border-radius:8px; font-size:13.5px; margin-bottom:8px;}
+.summary-row{display:flex; justify-content:space-between; align-items:baseline; gap:10px; padding:12px 14px; background:var(--surface-2); border-radius:8px; font-size:13.5px; margin-bottom:8px;}
+.summary-row span:first-child{flex:1; min-width:0;}
+.summary-row span:last-child{flex-shrink:0; white-space:nowrap;}
 .summary-row.total{font-weight:700; border:1px solid var(--border-strong);}
 .pay-option{
   display:flex; align-items:center; gap:12px; border:1px solid var(--border); border-radius:10px;
@@ -804,7 +806,7 @@ html{scroll-behavior:smooth;}
               <div class="video-embed lazy-video" style="margin-top:14px; aspect-ratio:16/9;" data-video-src="https://player.castr.com/vod/1cDIVGnfUCM9qaIo">
                 <button class="player-play" aria-label="assistir vídeo"><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="none"><g><polygon points="6 3 20 12 6 21"/></g></svg></button>
               </div>
-              <a href="#venda-mais" class="dual-link" style="margin-top:12px;">quero anunciar <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><path d="M5 12h14M12 5l7 7-7 7"/></g></svg></a>
+              <a href="#venda-mais" class="dual-link" style="margin-top:12px;">quero vender mais <svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><path d="M5 12h14M12 5l7 7-7 7"/></g></svg></a>
             </div>
           </div>
         </div>
@@ -1037,7 +1039,7 @@ html{scroll-behavior:smooth;}
             <li><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polyline points="20 6 9 17 4 12"/></g></svg> planos a partir de R$40/mês</li>
             <li><svg class="ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g><polyline points="20 6 9 17 4 12"/></g></svg> chancela de confiança regional</li>
           </ul>
-          <a href="#venda-mais" class="btn btn-primary btn-block">quero anunciar</a>
+          <a href="#venda-mais" class="btn btn-primary btn-block">quero vender mais</a>
         </div>
       </div>
     </div>
@@ -1263,8 +1265,8 @@ html{scroll-behavior:smooth;}
         <p class="lead">faça o seu próprio anúncio e envie pra nós. a TV Sul Capixaba mostra pra quem já assiste na sua região. simples assim.</p>
         <div class="warn-pill"><span class="dot" aria-hidden="true"></span> anúncios limitados por cidade — disponibilidade confirmada no checkout</div>
         <div class="hero-actions">
-          <a href="#planos" class="btn btn-primary">quero anunciar agora</a>
-          <a href="https://wa.me/5528999036141?text=Já%20sou%20anunciante%20e%20quero%20saber%20sobre%20meu%20pedido" class="btn btn-secondary" target="_blank" rel="noopener">já sou anunciante</a>
+          <a href="#planos" class="btn btn-primary">quero vender mais agora</a>
+          <a href="https://wa.me/5528999036141?text=J%C3%A1%20sou%20cliente%20Venda%20Mais%20e%20quero%20saber%20sobre%20meu%20pedido" class="btn btn-secondary" target="_blank" rel="noopener">já sou cliente Venda Mais</a>
         </div>
       </div>
     </div>
