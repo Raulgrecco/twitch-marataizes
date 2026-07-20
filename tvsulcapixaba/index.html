@@ -2241,7 +2241,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function getMpPublicKey() {
       if (mpPublicKeyCache) return mpPublicKeyCache;
       const res = await fetch(CO_CONFIG.apiBase + CO_CONFIG.mercadopago.publicKeyEndpoint);
-      if (!res.ok) throw new Error("não foi possível obter a chave pública do Mercado Pago");
+      if (!res.ok) throw new Error("HTTP " + res.status + " ao buscar a chave pública");
       const body = await res.json();
       mpPublicKeyCache = body.publicKey;
       return mpPublicKeyCache;
@@ -2261,7 +2261,8 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         publicKey = await getMpPublicKey();
       } catch (err) {
-        showCoMpError("Pagamento indisponível: não foi possível conectar ao servidor de pagamentos.");
+        console.error("[checkout] falha ao buscar public key:", err);
+        showCoMpError("Pagamento indisponível: não foi possível conectar ao servidor de pagamentos. (" + (err && err.message ? err.message : "erro desconhecido") + ")");
         return;
       }
       if (!publicKey) {
