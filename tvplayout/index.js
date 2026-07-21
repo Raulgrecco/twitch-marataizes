@@ -173,6 +173,22 @@ function ensureNormalizedVideo(video, targetW, targetH, bitrate) {
 // isso causa o erro "mais de uma transmissão usando a mesma URL" no
 // destino, porque dois processos ficam publicando ao mesmo tempo).
 function killOrphanFFmpegProcesses() {
+
+  try {
+
+    execFileSync('pkill', ['-9', '-x', 'ffmpeg']);
+
+    addLog('info', 'Todos os processos FFmpeg anteriores foram encerrados.');
+
+  }
+
+  catch (err) {
+
+    // nenhum processo encontrado
+
+  }
+
+}
   try {
     execFileSync('pkill', ['-9', '-x', 'ffmpeg']);
     addLog('info', 'Processo(s) órfão(s) do FFmpeg encontrado(s) e encerrado(s).');
