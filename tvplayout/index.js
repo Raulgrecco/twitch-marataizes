@@ -370,7 +370,28 @@ const engine = {
       this.wasPlaylistMode = false;
     }
 
-    const encodeArgs = ['-c:v', 'libx264', '-preset', 'veryfast', '-b:v', bitrate, '-c:a', 'aac', '-ar', '44100', '-b:a', '128k'];
+    const encodeArgs = [
+  '-c:v', 'libx264',
+
+  '-preset', 'veryfast',
+  '-tune', 'zerolatency',
+
+  '-pix_fmt', 'yuv420p',
+  '-profile:v', 'high',
+
+  '-g', '60',
+  '-keyint_min', '60',
+  '-sc_threshold', '0',
+
+  '-b:v', bitrate,
+  '-maxrate', bitrate,
+  '-bufsize', '4000k',
+
+  '-c:a', 'aac',
+  '-ar', '44100',
+  '-ac', '2',
+  '-b:a', '128k'
+];
     if (!hasVideoFile) encodeArgs.push('-shortest');
 
     let outputArgs;
