@@ -30,10 +30,11 @@ const { URL } = require('url');
 const PORT = process.env.PORT || 3000;
 const DATA_DIR = path.join(__dirname, 'data');
 const UPLOADS_DIR = path.join(__dirname, 'uploads');
+const NORMALIZED_DIR = path.join(__dirname, 'data', 'normalized');
 const DB_FILE = path.join(DATA_DIR, 'db.json');
 const MAX_UPLOAD_BYTES = 2 * 1024 * 1024 * 1024; // 2GB — limite de segurança do MVP
 
-[DATA_DIR, UPLOADS_DIR].forEach(function (dir) {
+[DATA_DIR, UPLOADS_DIR, NORMALIZED_DIR].forEach(function (dir) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
 
@@ -145,6 +146,27 @@ function formatUptime(totalSeconds) {
   return pad(h) + ':' + pad(m) + ':' + pad(s);
 }
 
+// Garante uma cópia do vídeo já normalizada (mesma resolução/taxa de
+// quadros/formato de áudio) para uso em playlists com mais de um vídeo.
+// A normalização só acontece na primeira vez para cada vídeo+resolução —
+// depois fica em cache em disco e é só reaproveitada (rápido).
+function ensureNormalizedVideo(video, targetW, targetH, bitrate) {
+  const normalizedPath = path.join(NORMALIZED_DIR, video.id + '_' + targetW + 'x' + targetH + '.mp4');
+  if (fs.existsSync(normalizedPath)) return normalizedPath;
+  const originalPath = path.join(UPLOADS_DIR, video.storedName);
+  const args = [
+    '-y', '-i', originalPath,
+    '-vf', 'scale=' + targetW + ':' + targetH + ':force_original_aspect_ratio=decrease,' +
+      'pad=' + targetW + ':' + targetH + ':(ow-iw)/2:(oh-ih)/2:color=black,setsar=1,fps=30',
+    '-c:v', 'libx264', '-preset', 'veryfast', '-b:v', bitrate,
+    '-c:a', 'aac', '-ar', '44100', '-ac', '2', '-b:a', '128k',
+    normalizedPath
+  ];
+  addLog('info', 'Preparando vídeo para a playlist (só na primeira vez): ' + video.originalName);
+  execFileSync(envInfo.ffmpegPath, args, { stdio: 'ignore' });
+  return normalizedPath;
+}
+
 // ---------------------------------------------------------------------
 // Detecção de ambiente / FFmpeg (Etapa 9)
 // Roda uma vez na inicialização do processo. Nada aqui usa caminho fixo:
@@ -238,6 +260,7 @@ const engine = {
 
   ffmpegProcess: null,
   playlistCount: 0,
+  wasPlaylistMode: false,
 
   start: function () {
     // Qualquer chamada explícita a start() invalida um reinício pendente,
@@ -271,19 +294,49 @@ const engine = {
 
     let inputArgs;
     let mapArgs = [];
-    if (hasVideoFile) {
+    if (playlistVideos.length === 1) {
+      // Um único vídeo: toca direto, sem necessidade de normalizar nada.
+      inputArgs = ['-re', '-stream_loop', '-1', '-i', path.join(UPLOADS_DIR, playlistVideos[0].storedName)];
+      mapArgs = ['-map', '0:v', '-map', '0:a?'];
+      this.currentVideoId = playlistVideos[0].id;
+      this.playlistCount = 1;
+      this.wasPlaylistMode = true;
+    } else if (playlistVideos.length > 1) {
+      // Vários vídeos podem ter resolução, taxa de quadros ou formato de
+      // áudio diferentes. "Colar" os arquivos originais direto (concat
+      // demuxer) faz o FFmpeg reinicializar o decodificador a cada troca,
+      // travando a imagem por um instante (era o problema relatado).
+      // Por isso cada vídeo é normalizado (mesma resolução/taxa/áudio) UMA
+      // ÚNICA VEZ e a cópia fica em cache — depois disso, a concatenação é
+      // sequencial e contínua, sem reinicializar nada entre um e outro.
+      const dims = resolution.split('x');
+      const targetW = dims[0] || '1280';
+      const targetH = dims[1] || '720';
+
+      let normalizedPaths;
+      try {
+        normalizedPaths = playlistVideos.map(function (v) {
+          return ensureNormalizedVideo(v, targetW, targetH, bitrate);
+        });
+      } catch (err) {
+        addLog('error', 'Falha ao preparar vídeos da playlist: ' + err.message);
+        return;
+      }
+
       const playlistPath = path.join(DATA_DIR, 'playlist.txt');
-      const playlistContent = playlistVideos.map(function (v) {
-        return "file '" + path.join(UPLOADS_DIR, v.storedName).replace(/'/g, "'\\''") + "'";
+      const playlistContent = normalizedPaths.map(function (p) {
+        return "file '" + p.replace(/'/g, "'\\''") + "'";
       }).join('\n');
       fs.writeFileSync(playlistPath, playlistContent);
+
       inputArgs = ['-re', '-stream_loop', '-1', '-f', 'concat', '-safe', '0', '-i', playlistPath];
       mapArgs = ['-map', '0:v', '-map', '0:a?'];
-      // Com um único vídeo dá pra mostrar o nome dele; com vários, mostramos
-      // a contagem (não dá pra saber com certeza qual está tocando dentro
-      // do processo do FFmpeg sem inspecionar o vídeo, então não inventamos).
-      this.currentVideoId = playlistVideos.length === 1 ? playlistVideos[0].id : null;
+      // Com vários vídeos não dá pra saber com certeza qual está tocando
+      // dentro do processo do FFmpeg sem inspecionar o vídeo, então
+      // mostramos a contagem em vez de inventar um nome.
+      this.currentVideoId = null;
       this.playlistCount = playlistVideos.length;
+      this.wasPlaylistMode = true;
     } else {
       // testsrc não tem áudio — soma uma fonte de áudio mudo para os
       // destinos que exigem uma trilha de áudio (a maioria dos players).
@@ -294,6 +347,7 @@ const engine = {
       mapArgs = ['-map', '0:v', '-map', '1:a'];
       this.currentVideoId = null;
       this.playlistCount = 0;
+      this.wasPlaylistMode = false;
     }
 
     const encodeArgs = ['-c:v', 'libx264', '-preset', 'veryfast', '-b:v', bitrate, '-c:a', 'aac', '-ar', '44100', '-b:a', '128k'];
@@ -351,12 +405,25 @@ const engine = {
     child.on('exit', function (code, signal) {
       const wasStoppedManually = !self.running;
       self.ffmpegProcess = null;
-      if (!wasStoppedManually) {
+      if (wasStoppedManually) return;
+
+      // A playlist terminou de tocar sozinha (chegou ao fim da lista) e o
+      // usuário não mandou parar — reinicia do começo automaticamente para
+      // manter o loop contínuo, em vez de tratar isso como uma falha.
+      if (code === 0 && self.wasPlaylistMode) {
+        addLog('info', 'Playlist chegou ao fim — reiniciando do início automaticamente.');
+        const tokenAntes = self.restartToken;
         self.running = false;
-        self.startedAt = null;
-        self.outputLabel = '—';
-        addLog('error', 'Processo do FFmpeg encerrou inesperadamente (código ' + code + (signal ? ', sinal ' + signal : '') + ')');
+        setTimeout(function () {
+          if (self.restartToken === tokenAntes) self.start();
+        }, 300);
+        return;
       }
+
+      self.running = false;
+      self.startedAt = null;
+      self.outputLabel = '—';
+      addLog('error', 'Processo do FFmpeg encerrou inesperadamente (código ' + code + (signal ? ', sinal ' + signal : '') + ')');
     });
 
     if (child.stderr) {
