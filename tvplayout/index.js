@@ -237,6 +237,7 @@ const engine = {
   restartToken: 0,
 
   ffmpegProcess: null,
+  playlistCount: 0,
 
   start: function () {
     // Qualquer chamada explícita a start() invalida um reinício pendente,
@@ -258,20 +259,31 @@ const engine = {
       return d.enabled && d.url && d.url.trim();
     });
 
-    // Transmite o vídeo mais recentemente enviado (em loop). Se não houver
-    // nenhum vídeo ainda, cai para o sinal de teste local (testsrc + áudio mudo).
-    const latestVideo = db.videos.slice().sort(function (a, b) {
-      return new Date(b.uploadedAt) - new Date(a.uploadedAt);
-    })[0];
-    const videoPath = latestVideo ? path.join(UPLOADS_DIR, latestVideo.storedName) : null;
-    const hasVideoFile = videoPath && fs.existsSync(videoPath);
+    // Transmite todos os vídeos enviados em sequência, do mais antigo ao
+    // mais novo, repetindo a lista inteira quando chegar ao fim. Se não
+    // houver nenhum vídeo ainda, cai para o sinal de teste local.
+    const playlistVideos = db.videos.slice().sort(function (a, b) {
+      return new Date(a.uploadedAt) - new Date(b.uploadedAt);
+    }).filter(function (v) {
+      return fs.existsSync(path.join(UPLOADS_DIR, v.storedName));
+    });
+    const hasVideoFile = playlistVideos.length > 0;
 
     let inputArgs;
     let mapArgs = [];
     if (hasVideoFile) {
-      inputArgs = ['-re', '-stream_loop', '-1', '-i', videoPath];
+      const playlistPath = path.join(DATA_DIR, 'playlist.txt');
+      const playlistContent = playlistVideos.map(function (v) {
+        return "file '" + path.join(UPLOADS_DIR, v.storedName).replace(/'/g, "'\\''") + "'";
+      }).join('\n');
+      fs.writeFileSync(playlistPath, playlistContent);
+      inputArgs = ['-re', '-stream_loop', '-1', '-f', 'concat', '-safe', '0', '-i', playlistPath];
       mapArgs = ['-map', '0:v', '-map', '0:a?'];
-      this.currentVideoId = latestVideo.id;
+      // Com um único vídeo dá pra mostrar o nome dele; com vários, mostramos
+      // a contagem (não dá pra saber com certeza qual está tocando dentro
+      // do processo do FFmpeg sem inspecionar o vídeo, então não inventamos).
+      this.currentVideoId = playlistVideos.length === 1 ? playlistVideos[0].id : null;
+      this.playlistCount = playlistVideos.length;
     } else {
       // testsrc não tem áudio — soma uma fonte de áudio mudo para os
       // destinos que exigem uma trilha de áudio (a maioria dos players).
@@ -281,6 +293,7 @@ const engine = {
       ];
       mapArgs = ['-map', '0:v', '-map', '1:a'];
       this.currentVideoId = null;
+      this.playlistCount = 0;
     }
 
     const encodeArgs = ['-c:v', 'libx264', '-preset', 'veryfast', '-b:v', bitrate, '-c:a', 'aac', '-ar', '44100', '-b:a', '128k'];
@@ -320,7 +333,9 @@ const engine = {
     this.outputLabel = resolution + ' @ ' + bitrate
       + (activeDestinations.length ? ' → ' + activeDestinations.length + ' destino(s)' : ' (teste local)');
     addLog('info', 'Transmissão iniciada — processo FFmpeg criado (PID ' + child.pid + ')'
-      + (hasVideoFile ? ' — fonte: ' + latestVideo.originalName : ' — fonte: sinal de teste')
+      + (hasVideoFile
+          ? ' — fonte: ' + (playlistVideos.length === 1 ? playlistVideos[0].originalName : 'playlist com ' + playlistVideos.length + ' vídeos')
+          : ' — fonte: sinal de teste')
       + (activeDestinations.length
           ? ' — destinos: ' + activeDestinations.map(function (d) { return d.name; }).join(', ')
           : ' — destino: teste local (nenhum destino ativo configurado)'));
@@ -452,11 +467,16 @@ const engine = {
 
   getStatus: function () {
     const video = this.currentVideoId ? db.videos.find(function (v) { return v.id === engine.currentVideoId; }) : null;
+    let nowPlayingLabel = '—';
+    if (this.running) {
+      if (video) nowPlayingLabel = video.originalName;
+      else if (this.playlistCount > 1) nowPlayingLabel = 'Playlist (' + this.playlistCount + ' vídeos)';
+    }
     let upSeconds = 0;
     if (this.running && this.startedAt) upSeconds = Math.floor((Date.now() - this.startedAt) / 1000);
     return {
       running: this.running,
-      nowPlaying: video ? video.originalName : '—',
+      nowPlaying: nowPlayingLabel,
       cpu: this.running ? Math.round(this.cpu) + '%' : '—',
       ram: this.running ? Math.round(this.ram) + '%' : '—',
       output: this.running ? this.outputLabel : '—',
