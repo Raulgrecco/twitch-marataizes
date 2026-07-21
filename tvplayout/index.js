@@ -19,12 +19,15 @@
  */
 
 const http = require("http");
+const https = require("https");
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
 const { spawn, exec } = require("child_process");
 
 const PORT = process.env.PORT || 3000;
+const APP_VERSION = "2026-07-21.1"; // sobe esse número a cada mudança real, é o que o botão "Atualizar" compara
+const UPDATE_URL_DEFAULT = "https://raw.githubusercontent.com/Raulgrecco/twitch-marataizes/main/tvplayout/index.js";
 
 function hashPassword(pass) {
   return crypto.createHash("sha256").update(pass).digest("hex");
@@ -291,6 +294,52 @@ function endEventNow() {
 }
 
 // ---------------------------------------------------------------------------
+// auto-atualização — baixa do GitHub, valida com "node --check" antes de
+// substituir (pra nunca trocar por um arquivo quebrado), e se reinicia
+// sozinho (o systemd, com Restart=always, sobe a versão nova automaticamente).
+// ---------------------------------------------------------------------------
+function fetchUrl(urlStr) {
+  return new Promise((resolve, reject) => {
+    https.get(urlStr, (res) => {
+      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+        return fetchUrl(res.headers.location).then(resolve, reject);
+      }
+      if (res.statusCode !== 200) return reject(new Error(`HTTP ${res.statusCode} ao baixar atualização`));
+      let chunks = [];
+      res.on("data", (c) => chunks.push(c));
+      res.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
+    }).on("error", reject);
+  });
+}
+function extractVersion(source) {
+  const match = source.match(/APP_VERSION\s*=\s*"([^"]+)"/);
+  return match ? match[1] : null;
+}
+async function checkForUpdate() {
+  const cfg = readConfig();
+  const updateUrl = cfg.updateUrl || UPDATE_URL_DEFAULT;
+  const remoteSource = await fetchUrl(updateUrl);
+  const remoteVersion = extractVersion(remoteSource);
+  return { remoteSource, remoteVersion, updateAvailable: remoteVersion && remoteVersion !== APP_VERSION };
+}
+function applyUpdateAndRestart(remoteSource) {
+  return new Promise((resolve, reject) => {
+    const tmpPath = path.join(__dirname, "index.update-check.js");
+    fs.writeFileSync(tmpPath, remoteSource);
+    exec(`node --check "${tmpPath}"`, (err) => {
+      if (err) {
+        fs.unlinkSync(tmpPath);
+        return reject(new Error("o arquivo baixado tem erro de sintaxe — atualização cancelada, nada foi trocado"));
+      }
+      fs.renameSync(tmpPath, path.join(__dirname, "index.js"));
+      pushLog("atualização aplicada — reiniciando em 2s...");
+      resolve();
+      setTimeout(() => process.exit(0), 2000); // o systemd (Restart=always) sobe a versão nova sozinho
+    });
+  });
+}
+
+// ---------------------------------------------------------------------------
 // autenticação — a senha fica guardada (com hash) no config.json, definida
 // pela própria página no primeiro acesso. PAINEL_PASSWORD (env) ainda
 // funciona, se alguém preferir configurar assim (compatibilidade).
@@ -531,6 +580,29 @@ const server = http.createServer(async (req, res) => {
       return sendJson(res, 200, { logs: logBuffer.slice(-50) });
     }
 
+    // -------- auto-atualização --------
+    if (req.method === "GET" && pathname === "/api/version") {
+      return sendJson(res, 200, { version: APP_VERSION });
+    }
+    if (req.method === "GET" && pathname === "/api/check-update") {
+      try {
+        const { remoteVersion, updateAvailable } = await checkForUpdate();
+        return sendJson(res, 200, { currentVersion: APP_VERSION, remoteVersion, updateAvailable: Boolean(updateAvailable) });
+      } catch (err) {
+        return sendJson(res, 502, { error: err.message });
+      }
+    }
+    if (req.method === "POST" && pathname === "/api/self-update") {
+      try {
+        const { remoteSource, remoteVersion } = await checkForUpdate();
+        if (!remoteVersion) return sendJson(res, 502, { error: "não achei a versão no arquivo remoto — atualização cancelada" });
+        await applyUpdateAndRestart(remoteSource);
+        return sendJson(res, 200, { ok: true, newVersion: remoteVersion });
+      } catch (err) {
+        return sendJson(res, 502, { error: err.message });
+      }
+    }
+
     sendJson(res, 404, { error: "não encontrado" });
   } catch (err) {
     sendJson(res, 400, { error: err.message });
@@ -739,6 +811,14 @@ const PAGE_HTML = `<!doctype html>
       <button id="btnSaveConfig">Salvar destinos</button>
       <div class="msg" id="configMsg"></div>
     </div>
+    <div class="card">
+      <div style="font-size:13px;color:var(--muted);margin-bottom:12px;">versão instalada: <b id="currentVersionLabel" style="color:var(--text);">—</b></div>
+      <div class="btnrow" style="margin-top:0;">
+        <button id="btnCheckUpdate" class="secondary">Verificar atualização</button>
+        <button id="btnApplyUpdate" style="display:none;">⬆ Atualizar agora</button>
+      </div>
+      <div class="msg" id="updateMsg"></div>
+    </div>
   </div>
 
   <div class="page" id="page-logs">
@@ -760,6 +840,7 @@ document.querySelectorAll('.navitem').forEach((item) => {
     if (item.dataset.page === 'biblioteca') loadLibrary();
     if (item.dataset.page === 'programacao') loadSchedule();
     if (item.dataset.page === 'eventos') loadEvents();
+    if (item.dataset.page === 'config') loadVersion();
   });
 });
 
@@ -971,6 +1052,51 @@ document.getElementById('btnSaveConfig').addEventListener('click', async () => {
   showMsg('configMsg', res.ok ? 'destinos salvos!' : 'falha ao salvar', res.ok);
   document.getElementById('youtubeKey').value = '';
   document.getElementById('srtUrl').value = '';
+});
+
+// -------- auto-atualização --------
+async function loadVersion() {
+  const res = await fetch('/api/version');
+  const { version } = await res.json();
+  document.getElementById('currentVersionLabel').textContent = version;
+  document.getElementById('btnApplyUpdate').style.display = 'none';
+  document.getElementById('updateMsg').style.display = 'none';
+}
+document.getElementById('btnCheckUpdate').addEventListener('click', async () => {
+  showMsg('updateMsg', 'verificando...', true);
+  const res = await fetch('/api/check-update');
+  const data = await res.json();
+  if (!res.ok) { showMsg('updateMsg', data.error, false); return; }
+  if (data.updateAvailable) {
+    showMsg('updateMsg', 'tem atualização disponível: ' + data.remoteVersion, true);
+    document.getElementById('btnApplyUpdate').style.display = 'inline-block';
+  } else {
+    showMsg('updateMsg', 'já está na versão mais recente.', true);
+  }
+});
+document.getElementById('btnApplyUpdate').addEventListener('click', async () => {
+  showMsg('updateMsg', 'atualizando e reiniciando — aguarde uns 10 segundos...', true);
+  const btn = document.getElementById('btnApplyUpdate');
+  btn.disabled = true;
+  try {
+    const res = await fetch('/api/self-update', { method: 'POST' });
+    const data = await res.json();
+    if (!res.ok) { showMsg('updateMsg', data.error, false); btn.disabled = false; return; }
+  } catch (err) {
+    // o processo pode já ter caído pra reiniciar antes da resposta chegar — normal
+  }
+  setTimeout(async () => {
+    try {
+      const check = await fetch('/api/version');
+      const { version } = await check.json();
+      showMsg('updateMsg', 'atualizado! versão agora: ' + version, true);
+      document.getElementById('currentVersionLabel').textContent = version;
+      btn.style.display = 'none';
+      btn.disabled = false;
+    } catch (err) {
+      showMsg('updateMsg', 'ainda reiniciando, recarregue a página em alguns segundos...', false);
+    }
+  }, 6000);
 });
 
 document.getElementById('btnStart').addEventListener('click', async () => {
