@@ -259,6 +259,58 @@ function detectFFmpegPath() {
 }
 
 function getFFmpegInfo(ffmpegPath) {
+
+  const info = {
+
+    version: null,
+
+    hasH264: false,
+
+    hasAac: false
+
+  };
+
+  try {
+
+    const version = execFileSync(
+
+      ffmpegPath,
+
+      ['-version'],
+
+      { encoding: 'utf8' }
+
+    );
+
+    info.version = version.split('\n')[0];
+
+  }
+
+  catch {}
+
+  try {
+
+    const encoders = execFileSync(
+
+      ffmpegPath,
+
+      ['-hide_banner', '-encoders'],
+
+      { encoding: 'utf8' }
+
+    );
+
+    info.hasH264 = encoders.includes('libx264');
+
+    info.hasAac = /\baac\b/.test(encoders);
+
+  }
+
+  catch {}
+
+  return info;
+
+}
   const info = { version: null, hasH264: false, hasAac: false };
   try {
     const versionOut = execFileSync(ffmpegPath, ['-version'], { encoding: 'utf8' });
