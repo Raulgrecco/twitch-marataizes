@@ -167,6 +167,22 @@ function ensureNormalizedVideo(video, targetW, targetH, bitrate) {
   return normalizedPath;
 }
 
+// Mata qualquer processo do FFmpeg que ainda esteja rodando no sistema,
+// mesmo que o painel não tenha nenhuma referência a ele (por exemplo, um
+// processo órfão de uma sessão anterior que não encerrou corretamente —
+// isso causa o erro "mais de uma transmissão usando a mesma URL" no
+// destino, porque dois processos ficam publicando ao mesmo tempo).
+function killOrphanFFmpegProcesses() {
+  try {
+    execFileSync('pkill', ['-9', '-x', 'ffmpeg']);
+    addLog('info', 'Processo(s) órfão(s) do FFmpeg encontrado(s) e encerrado(s).');
+  } catch (e) {
+    // pkill retorna código de saída diferente de zero quando não encontra
+    // nenhum processo correspondente — esse é o caso normal (nada a
+    // limpar), não uma falha real.
+  }
+}
+
 // ---------------------------------------------------------------------
 // Detecção de ambiente / FFmpeg (Etapa 9)
 // Roda uma vez na inicialização do processo. Nada aqui usa caminho fixo:
@@ -273,6 +289,10 @@ const engine = {
       addLog('error', 'Não foi possível iniciar: FFmpeg não foi encontrado no sistema (ver detecção de ambiente nos Logs).');
       return;
     }
+
+    // Garante que nenhum FFmpeg de uma sessão anterior ficou publicando
+    // por trás, antes de iniciar uma transmissão nova.
+    killOrphanFFmpegProcesses();
 
     const self = this;
     const resolution = (db.config.output.resolution || '1280x720').replace(/\s+/g, '');
@@ -439,25 +459,15 @@ const engine = {
   stop: function () {
     // Idem: invalida qualquer restart() pendente.
     this.restartToken++;
-    if (!this.running) return;
+    // Garante de verdade que nada fica publicando depois do Parar —
+    // independente do que o painel achava que era o estado (por exemplo,
+    // um processo órfão de uma sessão anterior que o painel nem sabia
+    // que existia).
+    killOrphanFFmpegProcesses();
     this.running = false;
     this.startedAt = null;
     this.outputLabel = '—';
-    const processoParaEncerrar = this.ffmpegProcess;
-    if (processoParaEncerrar) {
-      try { processoParaEncerrar.kill('SIGTERM'); } catch (e) { /* processo já pode ter encerrado */ }
-      // Se o FFmpeg estiver preso tentando conectar a um destino lento/
-      // inalcançável, SIGTERM pode não ser suficiente. Força o encerramento
-      // depois de um prazo curto para o "Parar" sempre funcionar de verdade.
-      setTimeout(function () {
-        try {
-          const aindaVivo = processoParaEncerrar.exitCode === null && processoParaEncerrar.signalCode === null;
-          if (aindaVivo) {
-            processoParaEncerrar.kill('SIGKILL');
-          }
-        } catch (e) { /* processo já pode ter encerrado */ }
-      }, 3000);
-    }
+    this.ffmpegProcess = null;
     addLog('info', 'Transmissão parada');
   },
 
@@ -1007,6 +1017,7 @@ const server = http.createServer(function (req, res) {
 });
 
 runEnvironmentDetection();
+killOrphanFFmpegProcesses();
 
 server.listen(PORT, function () {
   console.log('Painel TV Sul Capixaba (MVP) rodando em http://localhost:' + PORT);
