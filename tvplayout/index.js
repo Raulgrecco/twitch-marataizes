@@ -173,22 +173,6 @@ function ensureNormalizedVideo(video, targetW, targetH, bitrate) {
 // isso causa o erro "mais de uma transmissão usando a mesma URL" no
 // destino, porque dois processos ficam publicando ao mesmo tempo).
 function killOrphanFFmpegProcesses() {
-
-  try {
-
-    execFileSync('pkill', ['-9', '-x', 'ffmpeg']);
-
-    addLog('info', 'Todos os processos FFmpeg anteriores foram encerrados.');
-
-  }
-
-  catch (err) {
-
-    // nenhum processo encontrado
-
-  }
-
-}
   try {
     execFileSync('pkill', ['-9', '-x', 'ffmpeg']);
     addLog('info', 'Processo(s) órfão(s) do FFmpeg encontrado(s) e encerrado(s).');
@@ -206,20 +190,9 @@ function killOrphanFFmpegProcesses() {
 // ---------------------------------------------------------------------
 const envInfo = {
   ffmpegPath: null,
-
   ffmpegVersion: null,
-
   ffmpegHasH264: false,
-  ffmpegHasAac: false,
-
-  startedAt: null,
-
-  lastCommand: '',
-
-  lastExitCode: null,
-  lastExitSignal: null,
-
-  ffmpegRunning: false
+  ffmpegHasAac: false
 };
 
 function formatBytesServer(n) {
@@ -232,24 +205,6 @@ function formatBytesServer(n) {
 }
 
 function detectFFmpegPath() {
-
-  try {
-
-    return execFileSync(
-      'which',
-      ['ffmpeg'],
-      { encoding: 'utf8' }
-    ).trim();
-
-  }
-
-  catch {
-
-    return null;
-
-  }
-
-}
   try {
     const out = execFileSync('which', ['ffmpeg'], { encoding: 'utf8' }).trim();
     return out || null;
@@ -259,58 +214,6 @@ function detectFFmpegPath() {
 }
 
 function getFFmpegInfo(ffmpegPath) {
-
-  const info = {
-
-    version: null,
-
-    hasH264: false,
-
-    hasAac: false
-
-  };
-
-  try {
-
-    const version = execFileSync(
-
-      ffmpegPath,
-
-      ['-version'],
-
-      { encoding: 'utf8' }
-
-    );
-
-    info.version = version.split('\n')[0];
-
-  }
-
-  catch {}
-
-  try {
-
-    const encoders = execFileSync(
-
-      ffmpegPath,
-
-      ['-hide_banner', '-encoders'],
-
-      { encoding: 'utf8' }
-
-    );
-
-    info.hasH264 = encoders.includes('libx264');
-
-    info.hasAac = /\baac\b/.test(encoders);
-
-  }
-
-  catch {}
-
-  return info;
-
-}
   const info = { version: null, hasH264: false, hasAac: false };
   try {
     const versionOut = execFileSync(ffmpegPath, ['-version'], { encoding: 'utf8' });
@@ -467,28 +370,7 @@ const engine = {
       this.wasPlaylistMode = false;
     }
 
-    const encodeArgs = [
-  '-c:v', 'libx264',
-
-  '-preset', 'veryfast',
-  '-tune', 'zerolatency',
-
-  '-pix_fmt', 'yuv420p',
-  '-profile:v', 'high',
-
-  '-g', '60',
-  '-keyint_min', '60',
-  '-sc_threshold', '0',
-
-  '-b:v', bitrate,
-  '-maxrate', bitrate,
-  '-bufsize', '4000k',
-
-  '-c:a', 'aac',
-  '-ar', '44100',
-  '-ac', '2',
-  '-b:a', '128k'
-];
+    const encodeArgs = ['-c:v', 'libx264', '-preset', 'veryfast', '-b:v', bitrate, '-c:a', 'aac', '-ar', '44100', '-b:a', '128k'];
     if (!hasVideoFile) encodeArgs.push('-shortest');
 
     let outputArgs;
