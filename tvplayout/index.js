@@ -190,9 +190,20 @@ function killOrphanFFmpegProcesses() {
 // ---------------------------------------------------------------------
 const envInfo = {
   ffmpegPath: null,
+
   ffmpegVersion: null,
+
   ffmpegHasH264: false,
-  ffmpegHasAac: false
+  ffmpegHasAac: false,
+
+  startedAt: null,
+
+  lastCommand: '',
+
+  lastExitCode: null,
+  lastExitSignal: null,
+
+  ffmpegRunning: false
 };
 
 function formatBytesServer(n) {
