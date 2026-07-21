@@ -923,7 +923,7 @@ async function loadLibrary() {
         '<button class="small secondary" data-copy="' + watchUrl + '">copiar link</button>' +
       '</div>' +
       '<div style="display:flex;gap:8px;width:100%;">' +
-        '<input type="text" readonly value=\'' + embedCode + '\' style="flex:1;margin:0;font-size:12px;">' +
+        '<input type="text" readonly value="' + embedCode.replace(/"/g, '&quot;') + '" style="flex:1;margin:0;font-size:12px;">' +
         '<button class="small secondary" data-copy="' + embedCode.replace(/"/g, '&quot;') + '">copiar embed</button>' +
       '</div>';
     ul.appendChild(li);
