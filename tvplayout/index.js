@@ -61,7 +61,8 @@ const DEFAULT_DB = {
     },
     rtmp: {
       url: ''
-    }
+    },
+    destinations: []
   }
 };
 
@@ -76,6 +77,14 @@ function loadDB() {
 }
 
 let db = loadDB();
+
+// Migração: quem já tinha configurado um único destino RTMP (versão anterior)
+// ganha esse destino automaticamente na nova lista de destinos, uma única vez.
+if (!db.config.destinations || !db.config.destinations.length) {
+  db.config.destinations = (db.config.rtmp && db.config.rtmp.url)
+    ? [{ id: 'migrado', name: 'YouTube', url: db.config.rtmp.url, enabled: true }]
+    : [];
+}
 
 let saveTimer = null;
 function saveDB() {
@@ -244,39 +253,58 @@ const engine = {
     const self = this;
     const resolution = (db.config.output.resolution || '1280x720').replace(/\s+/g, '');
     const bitrate = db.config.output.bitrate || '2000k';
-    const rtmpUrl = (db.config.rtmp && db.config.rtmp.url) ? db.config.rtmp.url.trim() : '';
+
+    const activeDestinations = (db.config.destinations || []).filter(function (d) {
+      return d.enabled && d.url && d.url.trim();
+    });
 
     // Transmite o vídeo mais recentemente enviado (em loop). Se não houver
-    // nenhum vídeo ainda, cai para o sinal de teste local (testsrc).
+    // nenhum vídeo ainda, cai para o sinal de teste local (testsrc + áudio mudo).
     const latestVideo = db.videos.slice().sort(function (a, b) {
       return new Date(b.uploadedAt) - new Date(a.uploadedAt);
     })[0];
     const videoPath = latestVideo ? path.join(UPLOADS_DIR, latestVideo.storedName) : null;
     const hasVideoFile = videoPath && fs.existsSync(videoPath);
 
-    let args;
+    let inputArgs;
+    let mapArgs = [];
     if (hasVideoFile) {
-      args = [
-        '-hide_banner', '-loglevel', 'warning',
-        '-re', '-stream_loop', '-1', '-i', videoPath,
-        '-c:v', 'libx264', '-preset', 'veryfast', '-b:v', bitrate,
-        '-c:a', 'aac', '-ar', '44100', '-b:a', '128k'
-      ];
+      inputArgs = ['-re', '-stream_loop', '-1', '-i', videoPath];
+      mapArgs = ['-map', '0:v', '-map', '0:a?'];
       this.currentVideoId = latestVideo.id;
     } else {
-      args = [
-        '-hide_banner', '-loglevel', 'warning',
+      // testsrc não tem áudio — soma uma fonte de áudio mudo para os
+      // destinos que exigem uma trilha de áudio (a maioria dos players).
+      inputArgs = [
         '-f', 'lavfi', '-i', 'testsrc=size=' + resolution + ':rate=30',
-        '-c:v', 'libx264', '-preset', 'veryfast', '-b:v', bitrate
+        '-f', 'lavfi', '-i', 'anullsrc=r=44100:cl=stereo'
       ];
+      mapArgs = ['-map', '0:v', '-map', '1:a'];
       this.currentVideoId = null;
     }
 
-    if (rtmpUrl) {
-      args.push('-f', 'flv', rtmpUrl);
+    const encodeArgs = ['-c:v', 'libx264', '-preset', 'veryfast', '-b:v', bitrate, '-c:a', 'aac', '-ar', '44100', '-b:a', '128k'];
+    if (!hasVideoFile) encodeArgs.push('-shortest');
+
+    let outputArgs;
+    if (activeDestinations.length > 0) {
+      // Detecta o protocolo pela URL (rtmp:// ou srt://) e usa o muxer do
+      // FFmpeg "tee" para mandar o mesmo encode para todos os destinos ativos
+      // ao mesmo tempo. "onfail=ignore" evita que um destino com problema
+      // derrube a transmissão para os demais.
+      const teeOutputs = activeDestinations.map(function (d) {
+        const url = d.url.trim();
+        const isSrt = /^srt:\/\//i.test(url);
+        const muxer = isSrt ? 'mpegts' : 'flv';
+        return '[f=' + muxer + ':onfail=ignore]' + url;
+      }).join('|');
+      outputArgs = ['-f', 'tee', teeOutputs];
     } else {
-      args.push('-f', 'null', '-');
+      outputArgs = ['-f', 'null', '-'];
     }
+
+    const args = ['-hide_banner', '-loglevel', 'warning']
+      .concat(inputArgs, mapArgs, encodeArgs, outputArgs);
 
     let child;
     try {
@@ -289,10 +317,13 @@ const engine = {
     this.ffmpegProcess = child;
     this.running = true;
     this.startedAt = Date.now();
-    this.outputLabel = resolution + ' @ ' + bitrate + (rtmpUrl ? ' → RTMP' : ' (teste local)');
+    this.outputLabel = resolution + ' @ ' + bitrate
+      + (activeDestinations.length ? ' → ' + activeDestinations.length + ' destino(s)' : ' (teste local)');
     addLog('info', 'Transmissão iniciada — processo FFmpeg criado (PID ' + child.pid + ')'
       + (hasVideoFile ? ' — fonte: ' + latestVideo.originalName : ' — fonte: sinal de teste')
-      + (rtmpUrl ? ' — destino: RTMP configurado' : ' — destino: teste local (sem RTMP configurado)'));
+      + (activeDestinations.length
+          ? ' — destinos: ' + activeDestinations.map(function (d) { return d.name; }).join(', ')
+          : ' — destino: teste local (nenhum destino ativo configurado)'));
 
     child.on('error', function (err) {
       addLog('error', 'Erro no processo do FFmpeg: ' + err.message);
@@ -330,8 +361,20 @@ const engine = {
     this.running = false;
     this.startedAt = null;
     this.outputLabel = '—';
-    if (this.ffmpegProcess) {
-      try { this.ffmpegProcess.kill('SIGTERM'); } catch (e) { /* processo já pode ter encerrado */ }
+    const processoParaEncerrar = this.ffmpegProcess;
+    if (processoParaEncerrar) {
+      try { processoParaEncerrar.kill('SIGTERM'); } catch (e) { /* processo já pode ter encerrado */ }
+      // Se o FFmpeg estiver preso tentando conectar a um destino lento/
+      // inalcançável, SIGTERM pode não ser suficiente. Força o encerramento
+      // depois de um prazo curto para o "Parar" sempre funcionar de verdade.
+      setTimeout(function () {
+        try {
+          const aindaVivo = processoParaEncerrar.exitCode === null && processoParaEncerrar.signalCode === null;
+          if (aindaVivo) {
+            processoParaEncerrar.kill('SIGKILL');
+          }
+        } catch (e) { /* processo já pode ter encerrado */ }
+      }, 3000);
     }
     addLog('info', 'Transmissão parada');
   },
@@ -781,6 +824,7 @@ function handleConfigUpdate(req, res) {
     if (body.output) db.config.output = Object.assign({}, db.config.output, body.output);
     if (body.general) db.config.general = Object.assign({}, db.config.general, body.general);
     if (body.rtmp) db.config.rtmp = Object.assign({}, db.config.rtmp, body.rtmp);
+    if (body.destinations !== undefined) db.config.destinations = body.destinations;
     addLog('info', 'Configurações atualizadas');
     saveDB();
     sendJSON(res, 200, db.config);
@@ -819,7 +863,7 @@ function serveIndex(res) {
   res.end(PAGE_HTML);
 }
 
-const PAGE_HTML = "<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>TV Sul Capixaba — Transmissão</title>\n<style>\n  * { box-sizing: border-box; margin: 0; padding: 0; }\n  body {\n    font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif;\n    background: #05060a; color: #f2f3f5;\n    display: flex; justify-content: center;\n    padding: 40px 20px;\n  }\n  .box { width: 100%; max-width: 560px; }\n  h1 { font-size: 20px; font-weight: 700; margin-bottom: 24px; }\n\n  .card {\n    background: #0d0f16; border: 1px solid #1c1f2a; border-radius: 12px;\n    padding: 20px; margin-bottom: 16px;\n  }\n  .card h2 { font-size: 13px; font-weight: 700; color: #9a9fad; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 14px; }\n\n  .status-row { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 700; margin-bottom: 16px; }\n  .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #6b7280; flex-shrink: 0; }\n  .status-dot.on { background: #3ecf6a; }\n\n  .controls { display: flex; gap: 10px; }\n  button {\n    all: unset; cursor: pointer; text-align: center;\n    font-size: 14px; font-weight: 700; padding: 12px 18px; border-radius: 8px;\n  }\n  .btn-play { background: #3ecf6a; color: #04340c; flex: 1; }\n  .btn-stop { background: #e2543a; color: #fff; flex: 1; }\n  button:disabled { opacity: .5; cursor: default; }\n\n  input[type=text] {\n    width: 100%; background: #171a24; border: 1px solid #1c1f2a; color: #f2f3f5;\n    padding: 10px 12px; border-radius: 8px; font-size: 14px; margin-bottom: 10px;\n  }\n  .btn-save { background: #171a24; color: #f2f3f5; border: 1px solid #1c1f2a; width: 100%; }\n\n  .upload-row { display: flex; gap: 10px; margin-bottom: 6px; }\n  input[type=file] { flex: 1; color: #9a9fad; font-size: 13px; }\n  .btn-upload { background: #e2543a; color: #fff; }\n\n  .progress { height: 6px; border-radius: 999px; background: #171a24; overflow: hidden; margin-top: 10px; display: none; }\n  .progress-fill { height: 100%; background: #3b6fe0; width: 0%; }\n\n  ul.video-list { list-style: none; }\n  ul.video-list li {\n    display: flex; align-items: center; justify-content: space-between; gap: 10px;\n    padding: 10px 0; border-bottom: 1px solid #1c1f2a; font-size: 14px;\n  }\n  ul.video-list li:last-child { border-bottom: none; }\n  ul.video-list .name { word-break: break-word; }\n  ul.video-list .meta { color: #9a9fad; font-size: 12px; }\n  .empty { color: #5b606e; font-size: 13px; padding: 6px 0; }\n  .del-btn { all: unset; cursor: pointer; color: #5b606e; font-size: 13px; flex-shrink: 0; }\n  .del-btn:hover { color: #e2543a; }\n</style>\n</head>\n<body>\n<div class=\"box\">\n  <h1>TV Sul Capixaba — Transmissão</h1>\n\n  <div class=\"card\">\n    <div class=\"status-row\"><span class=\"status-dot\" id=\"statusDot\"></span><span id=\"statusText\">Parado</span></div>\n    <div class=\"controls\">\n      <button class=\"btn-play\" id=\"btnPlay\">▶ Play</button>\n      <button class=\"btn-stop\" id=\"btnStop\">⏹ Stop</button>\n    </div>\n  </div>\n\n  <div class=\"card\">\n    <h2>Destino RTMP</h2>\n    <input type=\"text\" id=\"rtmpUrl\" placeholder=\"rtmp://a.rtmp.youtube.com/live2/SUA-CHAVE\" />\n    <button class=\"btn-save\" id=\"btnSaveRtmp\">Salvar destino</button>\n  </div>\n\n  <div class=\"card\">\n    <h2>Enviar vídeo</h2>\n    <div class=\"upload-row\">\n      <input type=\"file\" id=\"fileInput\" accept=\"video/*\" />\n      <button class=\"btn-upload\" id=\"btnUpload\">Enviar</button>\n    </div>\n    <div class=\"progress\" id=\"uploadProgress\"><div class=\"progress-fill\" id=\"uploadProgressFill\"></div></div>\n  </div>\n\n  <div class=\"card\">\n    <h2>Vídeos enviados</h2>\n    <ul class=\"video-list\" id=\"videoList\"></ul>\n  </div>\n</div>\n\n<script>\n  function apiGet(url) { return fetch(url).then(function (r) { return r.json(); }); }\n  function apiSend(url, method, body) {\n    return fetch(url, { method: method, headers: { 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined })\n      .then(function (r) { return r.json().then(function (data) { if (!r.ok) throw new Error(data.error || 'Erro'); return data; }); });\n  }\n  function escapeHtml(s) {\n    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;');\n  }\n  function formatBytes(n) {\n    if (!n) return '0 B';\n    var units = ['B', 'KB', 'MB', 'GB']; var i = 0; var v = n;\n    while (v >= 1024 && i < units.length - 1) { v /= 1024; i++; }\n    return v.toFixed(1) + ' ' + units[i];\n  }\n\n  function loadConfig() {\n    apiGet('/api/config').then(function (c) {\n      document.getElementById('rtmpUrl').value = (c.rtmp && c.rtmp.url) || '';\n    });\n  }\n  document.getElementById('btnSaveRtmp').addEventListener('click', function () {\n    var url = document.getElementById('rtmpUrl').value.trim();\n    apiSend('/api/config', 'PUT', { rtmp: { url: url } })\n      .then(function () { alert('Destino salvo.'); })\n      .catch(function (err) { alert(err.message); });\n  });\n\n  function loadVideos() {\n    apiGet('/api/videos?sort=date').then(function (list) {\n      var ul = document.getElementById('videoList');\n      if (!list.length) { ul.innerHTML = '<li class=\"empty\">Nenhum vídeo enviado ainda.</li>'; return; }\n      var html = '';\n      list.forEach(function (v) {\n        html += '<li><div><div class=\"name\">' + escapeHtml(v.originalName) + '</div>'\n          + '<div class=\"meta\">' + formatBytes(v.size) + '</div></div>'\n          + '<button class=\"del-btn\" data-id=\"' + v.id + '\">Excluir</button></li>';\n      });\n      ul.innerHTML = html;\n    });\n  }\n  document.getElementById('videoList').addEventListener('click', function (e) {\n    var btn = e.target.closest('.del-btn');\n    if (!btn) return;\n    if (!confirm('Excluir este vídeo?')) return;\n    apiSend('/api/videos/' + btn.getAttribute('data-id'), 'DELETE').then(loadVideos).catch(function (err) { alert(err.message); });\n  });\n\n  document.getElementById('btnUpload').addEventListener('click', function () {\n    var input = document.getElementById('fileInput');\n    if (!input.files.length) { alert('Escolha um arquivo de vídeo primeiro.'); return; }\n    var fd = new FormData();\n    fd.append('video', input.files[0]);\n    var bar = document.getElementById('uploadProgress');\n    var fill = document.getElementById('uploadProgressFill');\n    bar.style.display = 'block'; fill.style.width = '0%';\n    var xhr = new XMLHttpRequest();\n    xhr.open('POST', '/api/videos/upload');\n    xhr.upload.onprogress = function (evt) {\n      if (evt.lengthComputable) fill.style.width = Math.round(evt.loaded / evt.total * 100) + '%';\n    };\n    xhr.onload = function () {\n      bar.style.display = 'none'; input.value = '';\n      if (xhr.status >= 200 && xhr.status < 300) loadVideos();\n      else alert('Falha no envio.');\n    };\n    xhr.onerror = function () { bar.style.display = 'none'; alert('Erro de rede no envio.'); };\n    xhr.send(fd);\n  });\n\n  function refreshStatus() {\n    apiGet('/api/status').then(function (s) {\n      document.getElementById('statusDot').classList.toggle('on', !!s.running);\n      document.getElementById('statusText').textContent = s.running ? 'Transmitindo' : 'Parado';\n      document.getElementById('btnPlay').disabled = !!s.running;\n      document.getElementById('btnStop').disabled = !s.running;\n    }).catch(function () {});\n  }\n  document.getElementById('btnPlay').addEventListener('click', function () {\n    apiSend('/api/control', 'POST', { action: 'iniciar' }).then(refreshStatus).catch(function (err) { alert(err.message); });\n  });\n  document.getElementById('btnStop').addEventListener('click', function () {\n    apiSend('/api/control', 'POST', { action: 'parar' }).then(refreshStatus).catch(function (err) { alert(err.message); });\n  });\n\n  loadConfig();\n  loadVideos();\n  refreshStatus();\n  setInterval(refreshStatus, 2000);\n</script>\n</body>\n</html>\n";
+const PAGE_HTML = "<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>TV Sul Capixaba — Transmissão</title>\n<style>\n  * { box-sizing: border-box; margin: 0; padding: 0; }\n  body {\n    font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif;\n    background: #05060a; color: #f2f3f5;\n    display: flex; justify-content: center;\n    padding: 40px 20px;\n  }\n  .box { width: 100%; max-width: 560px; }\n  h1 { font-size: 20px; font-weight: 700; margin-bottom: 24px; }\n\n  .card {\n    background: #0d0f16; border: 1px solid #1c1f2a; border-radius: 12px;\n    padding: 20px; margin-bottom: 16px;\n  }\n  .card h2 { font-size: 13px; font-weight: 700; color: #9a9fad; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 14px; }\n\n  .status-row { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 700; margin-bottom: 16px; }\n  .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #6b7280; flex-shrink: 0; }\n  .status-dot.on { background: #3ecf6a; }\n\n  .controls { display: flex; gap: 10px; }\n  button {\n    all: unset; cursor: pointer; text-align: center;\n    font-size: 14px; font-weight: 700; padding: 12px 18px; border-radius: 8px;\n  }\n  .btn-play { background: #3ecf6a; color: #04340c; flex: 1; }\n  .btn-stop { background: #e2543a; color: #fff; flex: 1; }\n  button:disabled { opacity: .5; cursor: default; }\n\n  input[type=text] {\n    width: 100%; background: #171a24; border: 1px solid #1c1f2a; color: #f2f3f5;\n    padding: 10px 12px; border-radius: 8px; font-size: 14px; margin-bottom: 10px;\n  }\n  .btn-save { background: #171a24; color: #f2f3f5; border: 1px solid #1c1f2a; width: 100%; }\n\n  .upload-row { display: flex; gap: 10px; margin-bottom: 6px; }\n  input[type=file] { flex: 1; color: #9a9fad; font-size: 13px; }\n  .btn-upload { background: #e2543a; color: #fff; }\n\n  .progress { height: 6px; border-radius: 999px; background: #171a24; overflow: hidden; margin-top: 10px; display: none; }\n  .progress-fill { height: 100%; background: #3b6fe0; width: 0%; }\n\n  ul.video-list { list-style: none; }\n  ul.video-list li {\n    display: flex; align-items: center; justify-content: space-between; gap: 10px;\n    padding: 10px 0; border-bottom: 1px solid #1c1f2a; font-size: 14px;\n  }\n  ul.video-list li:last-child { border-bottom: none; }\n  ul.video-list .name { word-break: break-word; }\n  ul.video-list .meta { color: #9a9fad; font-size: 12px; }\n  .empty { color: #5b606e; font-size: 13px; padding: 6px 0; }\n  .del-btn { all: unset; cursor: pointer; color: #5b606e; font-size: 13px; flex-shrink: 0; }\n  .del-btn:hover { color: #e2543a; }\n\n  .dest-row {\n    display: flex; align-items: center; justify-content: space-between; gap: 10px;\n    padding: 10px 0; border-bottom: 1px solid #1c1f2a; font-size: 14px;\n  }\n  .dest-row:last-child { border-bottom: none; }\n  .dest-row label { display: flex; align-items: center; gap: 8px; }\n  .dest-row .meta { color: #9a9fad; font-size: 12px; }\n  .dest-actions { display: flex; gap: 12px; flex-shrink: 0; }\n  .link-btn { all: unset; cursor: pointer; color: #9a9fad; font-size: 13px; }\n  .link-btn:hover { color: #f2f3f5; }\n  .dest-form { margin-top: 10px; }\n</style>\n</head>\n<body>\n<div class=\"box\">\n  <h1>TV Sul Capixaba — Transmissão</h1>\n\n  <div class=\"card\">\n    <div class=\"status-row\"><span class=\"status-dot\" id=\"statusDot\"></span><span id=\"statusText\">Parado</span></div>\n    <div class=\"controls\">\n      <button class=\"btn-play\" id=\"btnPlay\">▶ Play</button>\n      <button class=\"btn-stop\" id=\"btnStop\">⏹ Stop</button>\n    </div>\n  </div>\n\n  <div class=\"card\">\n    <h2>Destinos de transmissão</h2>\n    <div id=\"destList\"></div>\n    <div class=\"dest-form\">\n      <input type=\"text\" id=\"destName\" placeholder=\"Nome (ex: YouTube)\" />\n      <input type=\"text\" id=\"destUrl\" placeholder=\"rtmp://... ou srt://...\" />\n      <button class=\"btn-save\" id=\"btnAddDest\">+ Adicionar destino</button>\n    </div>\n  </div>\n\n  <div class=\"card\">\n    <h2>Enviar vídeo</h2>\n    <div class=\"upload-row\">\n      <input type=\"file\" id=\"fileInput\" accept=\"video/*\" />\n      <button class=\"btn-upload\" id=\"btnUpload\">Enviar</button>\n    </div>\n    <div class=\"progress\" id=\"uploadProgress\"><div class=\"progress-fill\" id=\"uploadProgressFill\"></div></div>\n  </div>\n\n  <div class=\"card\">\n    <h2>Vídeos enviados</h2>\n    <ul class=\"video-list\" id=\"videoList\"></ul>\n  </div>\n</div>\n\n<script>\n  function apiGet(url) { return fetch(url).then(function (r) { return r.json(); }); }\n  function apiSend(url, method, body) {\n    return fetch(url, { method: method, headers: { 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined })\n      .then(function (r) { return r.json().then(function (data) { if (!r.ok) throw new Error(data.error || 'Erro'); return data; }); });\n  }\n  function escapeHtml(s) {\n    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;');\n  }\n  function formatBytes(n) {\n    if (!n) return '0 B';\n    var units = ['B', 'KB', 'MB', 'GB']; var i = 0; var v = n;\n    while (v >= 1024 && i < units.length - 1) { v /= 1024; i++; }\n    return v.toFixed(1) + ' ' + units[i];\n  }\n\n  var destinations = [];\n  function detectProtocolLabel(url) {\n    if (/^rtmps?:\\/\\//i.test(url)) return 'RTMP';\n    if (/^srt:\\/\\//i.test(url)) return 'SRT';\n    return '?';\n  }\n  function loadDestinations() {\n    return apiGet('/api/config').then(function (c) {\n      destinations = c.destinations || [];\n      renderDestinations();\n    });\n  }\n  function renderDestinations() {\n    var el = document.getElementById('destList');\n    if (!destinations.length) { el.innerHTML = '<div class=\"empty\">Nenhum destino cadastrado ainda.</div>'; return; }\n    var html = '';\n    destinations.forEach(function (d) {\n      html += '<div class=\"dest-row\">'\n        + '<label><input type=\"checkbox\" class=\"dest-toggle\" data-id=\"' + d.id + '\" ' + (d.enabled ? 'checked' : '') + ' /> '\n        + escapeHtml(d.name) + ' <span class=\"meta\">(' + detectProtocolLabel(d.url) + ')</span></label>'\n        + '<span class=\"dest-actions\">'\n        + '<button class=\"link-btn\" data-act=\"edit\" data-id=\"' + d.id + '\">Editar</button>'\n        + '<button class=\"del-btn\" data-act=\"del\" data-id=\"' + d.id + '\">Excluir</button>'\n        + '</span></div>';\n    });\n    el.innerHTML = html;\n  }\n  function saveDestinations() {\n    return apiSend('/api/config', 'PUT', { destinations: destinations });\n  }\n  document.getElementById('btnAddDest').addEventListener('click', function () {\n    var name = document.getElementById('destName').value.trim();\n    var url = document.getElementById('destUrl').value.trim();\n    if (!name || !url) { alert('Preencha nome e URL.'); return; }\n    destinations.push({ id: Date.now().toString(36), name: name, url: url, enabled: true });\n    document.getElementById('destName').value = '';\n    document.getElementById('destUrl').value = '';\n    saveDestinations().then(renderDestinations).catch(function (err) { alert(err.message); });\n  });\n  document.getElementById('destList').addEventListener('change', function (e) {\n    if (!e.target.classList.contains('dest-toggle')) return;\n    var dest = destinations.find(function (d) { return d.id === e.target.getAttribute('data-id'); });\n    if (dest) dest.enabled = e.target.checked;\n    saveDestinations().catch(function (err) { alert(err.message); });\n  });\n  document.getElementById('destList').addEventListener('click', function (e) {\n    var btn = e.target.closest('button[data-act]');\n    if (!btn) return;\n    var idx = destinations.findIndex(function (d) { return d.id === btn.getAttribute('data-id'); });\n    if (idx === -1) return;\n    if (btn.getAttribute('data-act') === 'del') {\n      if (!confirm('Excluir este destino?')) return;\n      destinations.splice(idx, 1);\n      saveDestinations().then(renderDestinations).catch(function (err) { alert(err.message); });\n    } else {\n      var d = destinations[idx];\n      var newName = prompt('Nome:', d.name);\n      if (newName === null) return;\n      var newUrl = prompt('URL (rtmp:// ou srt://):', d.url);\n      if (newUrl === null) return;\n      d.name = newName.trim() || d.name;\n      d.url = newUrl.trim() || d.url;\n      saveDestinations().then(renderDestinations).catch(function (err) { alert(err.message); });\n    }\n  });\n\n  function loadVideos() {\n    apiGet('/api/videos?sort=date').then(function (list) {\n      var ul = document.getElementById('videoList');\n      if (!list.length) { ul.innerHTML = '<li class=\"empty\">Nenhum vídeo enviado ainda.</li>'; return; }\n      var html = '';\n      list.forEach(function (v) {\n        html += '<li><div><div class=\"name\">' + escapeHtml(v.originalName) + '</div>'\n          + '<div class=\"meta\">' + formatBytes(v.size) + '</div></div>'\n          + '<button class=\"del-btn\" data-id=\"' + v.id + '\">Excluir</button></li>';\n      });\n      ul.innerHTML = html;\n    });\n  }\n  document.getElementById('videoList').addEventListener('click', function (e) {\n    var btn = e.target.closest('.del-btn');\n    if (!btn) return;\n    if (!confirm('Excluir este vídeo?')) return;\n    apiSend('/api/videos/' + btn.getAttribute('data-id'), 'DELETE').then(loadVideos).catch(function (err) { alert(err.message); });\n  });\n\n  document.getElementById('btnUpload').addEventListener('click', function () {\n    var input = document.getElementById('fileInput');\n    if (!input.files.length) { alert('Escolha um arquivo de vídeo primeiro.'); return; }\n    var fd = new FormData();\n    fd.append('video', input.files[0]);\n    var bar = document.getElementById('uploadProgress');\n    var fill = document.getElementById('uploadProgressFill');\n    bar.style.display = 'block'; fill.style.width = '0%';\n    var xhr = new XMLHttpRequest();\n    xhr.open('POST', '/api/videos/upload');\n    xhr.upload.onprogress = function (evt) {\n      if (evt.lengthComputable) fill.style.width = Math.round(evt.loaded / evt.total * 100) + '%';\n    };\n    xhr.onload = function () {\n      bar.style.display = 'none'; input.value = '';\n      if (xhr.status >= 200 && xhr.status < 300) loadVideos();\n      else alert('Falha no envio.');\n    };\n    xhr.onerror = function () { bar.style.display = 'none'; alert('Erro de rede no envio.'); };\n    xhr.send(fd);\n  });\n\n  function refreshStatus() {\n    apiGet('/api/status').then(function (s) {\n      document.getElementById('statusDot').classList.toggle('on', !!s.running);\n      document.getElementById('statusText').textContent = s.running ? 'Transmitindo' : 'Parado';\n      document.getElementById('btnPlay').disabled = !!s.running;\n      document.getElementById('btnStop').disabled = !s.running;\n    }).catch(function () {});\n  }\n  document.getElementById('btnPlay').addEventListener('click', function () {\n    apiSend('/api/control', 'POST', { action: 'iniciar' }).then(refreshStatus).catch(function (err) { alert(err.message); });\n  });\n  document.getElementById('btnStop').addEventListener('click', function () {\n    apiSend('/api/control', 'POST', { action: 'parar' }).then(refreshStatus).catch(function (err) { alert(err.message); });\n  });\n\n  loadDestinations();\n  loadVideos();\n  refreshStatus();\n  setInterval(refreshStatus, 2000);\n</script>\n</body>\n</html>\n";
 
 
 
