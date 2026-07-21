@@ -32,7 +32,6 @@ function hashPassword(pass) {
 
 const FILES_DIR = path.join(__dirname, "files");
 const CONFIG_FILE = path.join(__dirname, "config.json");
-const PLAYLIST_FILE = path.join(__dirname, "playlist.txt");
 
 if (!fs.existsSync(FILES_DIR)) fs.mkdirSync(FILES_DIR);
 
@@ -40,7 +39,7 @@ function readConfig() {
   try {
     return JSON.parse(fs.readFileSync(CONFIG_FILE, "utf8"));
   } catch {
-    return { youtubeStreamKey: "", srtUrl: "", playlist: [] };
+    return { youtubeStreamKey: "", srtUrl: "", schedule: [], pendingEvents: [], activeEvent: null };
   }
 }
 function writeConfig(cfg) {
@@ -98,74 +97,148 @@ function handleUpload(req, res, filename) {
 }
 
 // ---------------------------------------------------------------------------
-// playlist
+// motor de playout — duas peças:
+//   outerProcess: conecta no YouTube/SRT UMA vez e nunca reinicia enquanto a
+//                 live estiver no ar. Lê de stdin.
+//   feederProcess: lê UM arquivo de vídeo por vez (em loop) e escreve no
+//                  stdin do outerProcess. Esse sim é trocado/matado à vontade
+//                  — a troca de fonte não derruba a conexão com o YouTube.
 // ---------------------------------------------------------------------------
-function writePlaylistFile(playlist) {
-  const lines = playlist.map((name) => {
-    const fullPath = path.join(FILES_DIR, name).replace(/'/g, "'\\''");
-    return `file '${fullPath}'`;
-  });
-  fs.writeFileSync(PLAYLIST_FILE, lines.join("\n") + "\n");
-}
-
-// ---------------------------------------------------------------------------
-// controle do processo do FFmpeg
-// ---------------------------------------------------------------------------
-let ffmpegProcess = null;
+let outerProcess = null;
+let feederProcess = null;
+let currentFeederFile = null;   // nome do arquivo tocando agora no feeder
 let startedAt = null;
 let lastBitrateKbps = null;
+let schedulerTimer = null;
 const logBuffer = [];
 function pushLog(line) {
   logBuffer.push(`[${new Date().toLocaleTimeString("pt-BR")}] ${line}`);
   if (logBuffer.length > 200) logBuffer.shift();
 }
 function isRunning() {
-  return ffmpegProcess !== null;
+  return outerProcess !== null;
 }
 
-function buildFfmpegArgs(cfg) {
+function buildOuterArgs(cfg) {
   const outputs = [];
   if (cfg.youtubeStreamKey) outputs.push(`[f=flv]rtmp://a.rtmp.youtube.com/live2/${cfg.youtubeStreamKey}`);
   if (cfg.srtUrl) outputs.push(`[f=mpegts]${cfg.srtUrl}`);
   if (outputs.length === 0) throw new Error("nenhum destino configurado (falta a chave do YouTube ou a URL SRT)");
-
   return [
-    "-re", "-stream_loop", "-1", "-f", "concat", "-safe", "0", "-i", PLAYLIST_FILE,
-    "-c:v", "libx264", "-preset", "veryfast", "-b:v", "3000k", "-maxrate", "3000k", "-bufsize", "6000k",
-    "-c:a", "aac", "-b:a", "128k", "-ar", "44100",
+    "-re", "-f", "mpegts", "-i", "pipe:0",
+    "-c", "copy",
     "-map", "0:v:0", "-map", "0:a:0",
     "-f", "tee", outputs.join("|")
   ];
 }
 
+// troca o que está tocando, SEM tocar no outerProcess (é essa a peça-chave)
+function switchFeederTo(filename) {
+  const filePath = path.join(FILES_DIR, filename);
+  if (!fs.existsSync(filePath)) throw new Error(`arquivo não encontrado: ${filename}`);
+  if (currentFeederFile === filename && feederProcess) return; // já é isso, não troca de novo
+
+  if (feederProcess) {
+    feederProcess.stdout.unpipe();
+    feederProcess.kill("SIGKILL");
+    feederProcess = null;
+  }
+
+  pushLog(`trocando fonte para: ${filename}`);
+  feederProcess = spawn("ffmpeg", [
+    "-re", "-stream_loop", "-1", "-i", filePath,
+    "-c:v", "libx264", "-preset", "veryfast", "-b:v", "3000k", "-maxrate", "3000k", "-bufsize", "6000k",
+    "-s", "1280x720", "-r", "30",
+    "-c:a", "aac", "-b:a", "128k", "-ar", "44100",
+    "-map", "0:v:0", "-map", "0:a:0",
+    "-f", "mpegts", "pipe:1"
+  ]);
+  currentFeederFile = filename;
+
+  feederProcess.stderr.on("data", (data) => {
+    const text = data.toString();
+    const match = text.match(/bitrate=\s*([\d.]+)kbits\/s/);
+    if (match) lastBitrateKbps = parseFloat(match[1]);
+  });
+  feederProcess.on("error", (err) => pushLog(`erro no feeder: ${err.message}`));
+
+  if (outerProcess && outerProcess.stdin.writable) {
+    feederProcess.stdout.pipe(outerProcess.stdin, { end: false }); // end:false é o que mantém a live viva na troca
+  }
+}
+
+// ---------------------------------------------------------------------------
+// agendador — decide, a cada 15s, o que deveria estar tocando agora
+// ---------------------------------------------------------------------------
+function nowHHMM() {
+  const d = new Date();
+  return String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
+}
+function pickBaseBlockFile(schedule, hhmm) {
+  if (!schedule || schedule.length === 0) return null;
+  const sorted = [...schedule].sort((a, b) => a.time.localeCompare(b.time));
+  let chosen = sorted[sorted.length - 1]; // se hhmm for antes de todos, cai no último (vira da meia-noite)
+  for (const block of sorted) {
+    if (block.time <= hhmm) chosen = block;
+  }
+  return chosen ? chosen.file : null;
+}
+function schedulerTick() {
+  if (!isRunning()) return;
+  const cfg = readConfig();
+  const hhmm = nowHHMM();
+
+  // 1) evento ativo (manual ou agendado) já expirou?
+  if (cfg.activeEvent && cfg.activeEvent.expiresAt && Date.now() >= cfg.activeEvent.expiresAt) {
+    pushLog(`evento "${cfg.activeEvent.file}" terminou — voltando pra programação normal`);
+    cfg.activeEvent = null;
+    writeConfig(cfg);
+  }
+
+  // 2) tem evento agendado (ainda não disparado) cuja hora chegou?
+  if (!cfg.activeEvent && cfg.pendingEvents && cfg.pendingEvents.length > 0) {
+    const idx = cfg.pendingEvents.findIndex((e) => e.time <= hhmm);
+    if (idx !== -1) {
+      const ev = cfg.pendingEvents[idx];
+      cfg.pendingEvents.splice(idx, 1);
+      cfg.activeEvent = { file: ev.file, expiresAt: Date.now() + ev.durationMin * 60000 };
+      pushLog(`evento agendado disparado: ${ev.file} por ${ev.durationMin}min`);
+      writeConfig(cfg);
+    }
+  }
+
+  // 3) o que deveria estar tocando agora?
+  const targetFile = cfg.activeEvent ? cfg.activeEvent.file : pickBaseBlockFile(cfg.schedule, hhmm);
+  if (targetFile && targetFile !== currentFeederFile) {
+    try { switchFeederTo(targetFile); } catch (err) { pushLog(`falha ao trocar fonte: ${err.message}`); }
+  }
+}
+
 function startStream() {
   if (isRunning()) throw new Error("já está transmitindo");
   const cfg = readConfig();
-  if (!cfg.playlist || cfg.playlist.length === 0) throw new Error("a playlist está vazia — adicione pelo menos um vídeo");
-  writePlaylistFile(cfg.playlist);
-  const args = buildFfmpegArgs(cfg);
+  const hasBase = cfg.schedule && cfg.schedule.length > 0;
+  if (!hasBase) throw new Error("a programação base está vazia — adicione pelo menos um bloco");
 
   lastBitrateKbps = null;
-  pushLog("iniciando FFmpeg...");
-  ffmpegProcess = spawn("ffmpeg", args);
+  pushLog("iniciando transmissão (outer)...");
+  outerProcess = spawn("ffmpeg", buildOuterArgs(cfg));
   startedAt = new Date().toISOString();
 
   cfg.wasRunning = true;
   writeConfig(cfg);
 
-  ffmpegProcess.stderr.on("data", (data) => {
-    const text = data.toString();
-    const match = text.match(/bitrate=\s*([\d.]+)kbits\/s/);
-    if (match) lastBitrateKbps = parseFloat(match[1]);
-    text.split("\n").map((l) => l.trim()).filter(Boolean).forEach((l) => pushLog(l));
+  outerProcess.stderr.on("data", (data) => {
+    data.toString().split("\n").map((l) => l.trim()).filter(Boolean).forEach((l) => pushLog(l));
   });
-  ffmpegProcess.on("exit", (code) => {
-    pushLog(`FFmpeg encerrado (código ${code})`);
-    ffmpegProcess = null;
+  outerProcess.on("exit", (code) => {
+    pushLog(`transmissão encerrada (código ${code})`);
+    outerProcess = null;
     startedAt = null;
     lastBitrateKbps = null;
-    // Encerrou sozinho (não foi por causa de um /api/stop) — tenta religar
-    // depois de um tempinho, pra não deixar a TV fora do ar sem ninguém notar.
+    if (feederProcess) { feederProcess.kill("SIGKILL"); feederProcess = null; }
+    currentFeederFile = null;
+    if (schedulerTimer) { clearInterval(schedulerTimer); schedulerTimer = null; }
     const cfgNow = readConfig();
     if (cfgNow.wasRunning) {
       pushLog("reconectando em 10s...");
@@ -174,17 +247,47 @@ function startStream() {
       }, 10000);
     }
   });
+
+  // dispara logo de cara (não espera 15s pra decidir o que tocar) e depois
+  // segue verificando periodicamente pra agenda/eventos.
+  schedulerTick();
+  schedulerTimer = setInterval(schedulerTick, 15000);
 }
+
 function stopStream() {
   if (!isRunning()) throw new Error("não está transmitindo");
-  pushLog("parando FFmpeg...");
+  pushLog("parando transmissão...");
   const cfg = readConfig();
   cfg.wasRunning = false;
   writeConfig(cfg);
-  ffmpegProcess.kill("SIGINT");
-  ffmpegProcess = null;
+  if (schedulerTimer) { clearInterval(schedulerTimer); schedulerTimer = null; }
+  if (feederProcess) { feederProcess.kill("SIGKILL"); feederProcess = null; }
+  currentFeederFile = null;
+  outerProcess.kill("SIGINT");
+  outerProcess = null;
   startedAt = null;
   lastBitrateKbps = null;
+}
+
+// -------- controle manual de evento (botões "Entrar Evento" / "Voltar") --------
+function startEventNow(filename, durationMin) {
+  if (!isRunning()) throw new Error("a transmissão precisa estar no ar pra entrar em evento");
+  const filePath = path.join(FILES_DIR, filename);
+  if (!fs.existsSync(filePath)) throw new Error("arquivo não encontrado");
+  const cfg = readConfig();
+  cfg.activeEvent = { file: filename, expiresAt: durationMin ? Date.now() + durationMin * 60000 : null };
+  writeConfig(cfg);
+  pushLog(`evento manual iniciado: ${filename}`);
+  switchFeederTo(filename);
+}
+function endEventNow() {
+  const cfg = readConfig();
+  if (!cfg.activeEvent) throw new Error("não tem evento ativo agora");
+  cfg.activeEvent = null;
+  writeConfig(cfg);
+  pushLog("evento encerrado manualmente — voltando pra programação normal");
+  const targetFile = pickBaseBlockFile(cfg.schedule, nowHHMM());
+  if (targetFile) switchFeederTo(targetFile);
 }
 
 // ---------------------------------------------------------------------------
@@ -212,9 +315,62 @@ function isAuthorized(req) {
 // ---------------------------------------------------------------------------
 // roteador
 // ---------------------------------------------------------------------------
+function mimeForFile(name) {
+  const ext = path.extname(name).toLowerCase();
+  return { ".mp4": "video/mp4", ".mov": "video/quicktime", ".webm": "video/webm", ".mkv": "video/x-matroska" }[ext] || "application/octet-stream";
+}
+
+// serve o arquivo com suporte a Range (essencial pra dar play/adiantar o
+// vídeo sem precisar baixar tudo primeiro) — rota pública, sem senha,
+// porque é feita pra ser embutida no site.
+function serveMedia(req, res, filename) {
+  if (!isSafeName(filename)) { res.writeHead(400); return res.end("nome inválido"); }
+  const filePath = path.join(FILES_DIR, filename);
+  if (!fs.existsSync(filePath)) { res.writeHead(404); return res.end("não encontrado"); }
+  const stat = fs.statSync(filePath);
+  const mime = mimeForFile(filename);
+  const range = req.headers.range;
+  if (range) {
+    const match = range.match(/bytes=(\d*)-(\d*)/);
+    const start = match[1] ? parseInt(match[1], 10) : 0;
+    const end = match[2] ? parseInt(match[2], 10) : stat.size - 1;
+    res.writeHead(206, {
+      "Content-Range": `bytes ${start}-${end}/${stat.size}`,
+      "Accept-Ranges": "bytes",
+      "Content-Length": end - start + 1,
+      "Content-Type": mime
+    });
+    fs.createReadStream(filePath, { start, end }).pipe(res);
+  } else {
+    res.writeHead(200, { "Content-Length": stat.size, "Content-Type": mime, "Accept-Ranges": "bytes" });
+    fs.createReadStream(filePath).pipe(res);
+  }
+}
+
+function watchPageHtml(filename) {
+  const safeTitle = filename.replace(/</g, "");
+  return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${safeTitle} — TV Sul Capixaba</title>
+<style>html,body{margin:0;background:#000;height:100%;} video{width:100%;height:100%;display:block;}</style>
+</head><body>
+<video src="/media/${encodeURIComponent(filename)}" controls playsinline></video>
+</body></html>`;
+}
+
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   const pathname = url.pathname;
+
+  // -------- biblioteca de VOD — público, sem senha, pra poder embutir no site --------
+  if (req.method === "GET" && pathname.startsWith("/media/")) {
+    return serveMedia(req, res, decodeURIComponent(pathname.replace("/media/", "")));
+  }
+  if (req.method === "GET" && pathname.startsWith("/watch/")) {
+    const filename = decodeURIComponent(pathname.replace("/watch/", ""));
+    if (!fs.existsSync(path.join(FILES_DIR, filename))) { res.writeHead(404); return res.end("não encontrado"); }
+    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+    return res.end(watchPageHtml(filename));
+  }
 
   // -------- primeiro acesso: definir a senha (sem exigir autenticação) --------
   if (!hasPasswordConfigured()) {
@@ -265,22 +421,61 @@ const server = http.createServer(async (req, res) => {
       const filePath = path.join(FILES_DIR, name);
       if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
       const cfg = readConfig();
-      cfg.playlist = (cfg.playlist || []).filter((n) => n !== name);
+      cfg.schedule = (cfg.schedule || []).filter((b) => b.file !== name);
+      cfg.pendingEvents = (cfg.pendingEvents || []).filter((e) => e.file !== name);
       writeConfig(cfg);
       return sendJson(res, 200, { ok: true });
     }
 
-    // -------- playlist --------
-    if (req.method === "GET" && pathname === "/api/playlist") {
-      return sendJson(res, 200, { playlist: readConfig().playlist || [] });
+    // -------- programação base (blocos por horário, repete todo dia) --------
+    if (req.method === "GET" && pathname === "/api/schedule") {
+      return sendJson(res, 200, { schedule: readConfig().schedule || [] });
     }
-    if (req.method === "POST" && pathname === "/api/playlist") {
+    if (req.method === "POST" && pathname === "/api/schedule") {
       const body = await readJsonBody(req);
       const cfg = readConfig();
       const existing = new Set(fs.readdirSync(FILES_DIR));
-      cfg.playlist = (Array.isArray(body.playlist) ? body.playlist : []).filter((n) => existing.has(n));
+      const blocks = Array.isArray(body.schedule) ? body.schedule : [];
+      cfg.schedule = blocks.filter((b) => b && isSafeName(b.file) && existing.has(b.file) && /^\d{2}:\d{2}$/.test(b.time));
       writeConfig(cfg);
-      return sendJson(res, 200, { ok: true, playlist: cfg.playlist });
+      return sendJson(res, 200, { ok: true, schedule: cfg.schedule });
+    }
+
+    // -------- eventos agendados (disparo único, por horário) --------
+    if (req.method === "GET" && pathname === "/api/events") {
+      const cfg = readConfig();
+      return sendJson(res, 200, { pendingEvents: cfg.pendingEvents || [], activeEvent: cfg.activeEvent || null });
+    }
+    if (req.method === "POST" && pathname === "/api/events") {
+      const body = await readJsonBody(req);
+      if (!isSafeName(body.file) || !fs.existsSync(path.join(FILES_DIR, body.file))) {
+        return sendJson(res, 400, { error: "arquivo inválido" });
+      }
+      if (!/^\d{2}:\d{2}$/.test(body.time)) return sendJson(res, 400, { error: "horário inválido (use HH:MM)" });
+      const durationMin = Number(body.durationMin) || 30;
+      const cfg = readConfig();
+      cfg.pendingEvents = cfg.pendingEvents || [];
+      cfg.pendingEvents.push({ file: body.file, time: body.time, durationMin });
+      writeConfig(cfg);
+      return sendJson(res, 200, { ok: true, pendingEvents: cfg.pendingEvents });
+    }
+    if (req.method === "DELETE" && pathname.startsWith("/api/events/")) {
+      const idx = Number(pathname.replace("/api/events/", ""));
+      const cfg = readConfig();
+      cfg.pendingEvents = cfg.pendingEvents || [];
+      if (idx >= 0 && idx < cfg.pendingEvents.length) cfg.pendingEvents.splice(idx, 1);
+      writeConfig(cfg);
+      return sendJson(res, 200, { ok: true });
+    }
+    if (req.method === "POST" && pathname === "/api/event/start") {
+      const body = await readJsonBody(req);
+      const durationMin = body.durationMin ? Number(body.durationMin) : null;
+      startEventNow(body.file, durationMin);
+      return sendJson(res, 200, { ok: true });
+    }
+    if (req.method === "POST" && pathname === "/api/event/end") {
+      endEventNow();
+      return sendJson(res, 200, { ok: true });
     }
 
     // -------- configuração --------
@@ -319,10 +514,12 @@ const server = http.createServer(async (req, res) => {
         running: isRunning(),
         startedAt,
         uploadMbps: lastBitrateKbps ? Math.round((lastBitrateKbps / 1000) * 10) / 10 : null,
-        playlistCount: (cfg.playlist || []).length
+        scheduleCount: (cfg.schedule || []).length,
+        nowPlaying: currentFeederFile,
+        activeEvent: cfg.activeEvent || null
       };
-      if (!isRunning() || !ffmpegProcess) return sendJson(res, 200, { ...base, cpu: null, mem: null });
-      return exec(`ps -p ${ffmpegProcess.pid} -o %cpu,%mem --no-headers`, (err, stdout) => {
+      if (!isRunning() || !outerProcess) return sendJson(res, 200, { ...base, cpu: null, mem: null });
+      return exec(`ps -p ${outerProcess.pid} -o %cpu,%mem --no-headers`, (err, stdout) => {
         if (err || !stdout.trim()) return sendJson(res, 200, { ...base, cpu: null, mem: null });
         const [cpu, mem] = stdout.trim().split(/\s+/).map(Number);
         return sendJson(res, 200, { ...base, cpu, mem });
@@ -440,7 +637,9 @@ const PAGE_HTML = `<!doctype html>
   <h1>📡 TV Sul Capixaba</h1>
   <div class="navitem active" data-page="dashboard">Dashboard</div>
   <div class="navitem" data-page="arquivos">Arquivos</div>
+  <div class="navitem" data-page="biblioteca">Biblioteca</div>
   <div class="navitem" data-page="programacao">Programação</div>
+  <div class="navitem" data-page="eventos">Eventos</div>
   <div class="navitem" data-page="config">Configurações</div>
   <div class="navitem" data-page="logs">Logs</div>
 </aside>
@@ -451,6 +650,10 @@ const PAGE_HTML = `<!doctype html>
     <h2>Dashboard</h2>
     <div class="card">
       <div class="status-row"><div class="dot off" id="statusDot"></div><span id="statusText">verificando...</span></div>
+      <div class="status-row" style="font-size:13px;color:var(--muted);"><span>tocando agora: <b id="nowPlaying" style="color:var(--text);">—</b></span></div>
+      <div class="status-row" id="eventBanner" style="display:none;background:#2a1a0f;border:1px solid var(--accent);border-radius:8px;padding:10px 12px;">
+        <span>🔴 evento no ar: <b id="eventFileLabel"></b></span>
+      </div>
       <div class="stat-grid">
         <div class="stat"><div class="v" id="statCpu">—</div><div class="l">CPU</div></div>
         <div class="stat"><div class="v" id="statMem">—</div><div class="l">RAM</div></div>
@@ -479,12 +682,50 @@ const PAGE_HTML = `<!doctype html>
     </div>
   </div>
 
-  <div class="page" id="page-programacao">
-    <h2>Programação (playlist — fica em loop 24h nessa ordem)</h2>
+  <div class="page" id="page-biblioteca">
+    <h2>Biblioteca (links públicos, pra embutir no site)</h2>
+    <p style="color:var(--muted);font-size:13px;margin:-8px 0 16px;">Cada vídeo enviado já tem um link próprio de reprodução — dá pra compartilhar direto ou colocar num &lt;iframe&gt; no portal.</p>
     <div class="card">
-      <ul class="filelist" id="playlistList"></ul>
-      <div class="btnrow"><button id="btnSavePlaylist">Salvar ordem</button></div>
-      <div class="msg" id="playlistMsg"></div>
+      <ul class="filelist" id="libraryList"></ul>
+    </div>
+  </div>
+
+  <div class="page" id="page-programacao">
+    <h2>Programação base (repete todo dia)</h2>
+    <p style="color:var(--muted);font-size:13px;margin:-8px 0 16px;">Cada bloco toca em loop até chegar a hora do próximo. Ex: 00:00 → Grandão A, 08:00 → Grandão B.</p>
+    <div class="card">
+      <ul class="filelist" id="scheduleList"></ul>
+      <div class="btnrow" style="margin-top:16px;">
+        <input type="text" id="schedTime" placeholder="HH:MM" style="max-width:100px;margin-bottom:0;">
+        <select id="schedFile" style="flex:1;background:#1a1f28;border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px;"></select>
+        <button id="btnAddBlock">+ adicionar bloco</button>
+      </div>
+      <div class="msg" id="scheduleMsg"></div>
+    </div>
+  </div>
+
+  <div class="page" id="page-eventos">
+    <h2>Eventos</h2>
+    <div class="card">
+      <h2 style="font-size:14px;">Entrar em evento agora</h2>
+      <select id="eventFileNow" style="width:100%;background:#1a1f28;border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px;margin-bottom:12px;"></select>
+      <label>Duração em minutos (deixe vazio pra ficar até você clicar em "voltar")</label>
+      <input type="text" id="eventDurationNow" placeholder="ex: 30">
+      <div class="btnrow">
+        <button id="btnEventStart">🔴 Entrar Evento</button>
+        <button id="btnEventEnd" class="secondary">⏮ Voltar à Programação</button>
+      </div>
+      <div class="msg" id="eventNowMsg"></div>
+    </div>
+    <div class="card">
+      <h2 style="font-size:14px;">Agendar evento futuro (dispara sozinho no horário)</h2>
+      <input type="text" id="schedEvTime" placeholder="HH:MM" style="max-width:100px;">
+      <select id="schedEvFile" style="width:100%;background:#1a1f28;border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px;margin:10px 0;"></select>
+      <label>Duração em minutos</label>
+      <input type="text" id="schedEvDuration" placeholder="ex: 30">
+      <button id="btnScheduleEvent">Agendar evento</button>
+      <div class="msg" id="eventSchedMsg"></div>
+      <ul class="filelist" id="pendingEventsList" style="margin-top:16px;"></ul>
     </div>
   </div>
 
@@ -508,6 +749,7 @@ const PAGE_HTML = `<!doctype html>
 </main>
 
 <script>
+
 document.querySelectorAll('.navitem').forEach((item) => {
   item.addEventListener('click', () => {
     document.querySelectorAll('.navitem').forEach((i) => i.classList.remove('active'));
@@ -515,7 +757,9 @@ document.querySelectorAll('.navitem').forEach((item) => {
     item.classList.add('active');
     document.getElementById('page-' + item.dataset.page).classList.add('active');
     if (item.dataset.page === 'arquivos') loadFiles();
-    if (item.dataset.page === 'programacao') loadPlaylist();
+    if (item.dataset.page === 'biblioteca') loadLibrary();
+    if (item.dataset.page === 'programacao') loadSchedule();
+    if (item.dataset.page === 'eventos') loadEvents();
   });
 });
 
@@ -544,6 +788,14 @@ async function refreshStatus() {
   document.getElementById('statMem').textContent = data.mem != null ? data.mem + '%' : '—';
   document.getElementById('statBitrate').textContent = data.uploadMbps != null ? data.uploadMbps + ' Mbps' : '—';
   document.getElementById('statUptime').textContent = fmtUptime(data.startedAt);
+  document.getElementById('nowPlaying').textContent = data.nowPlaying || '—';
+  const banner = document.getElementById('eventBanner');
+  if (data.activeEvent) {
+    banner.style.display = 'flex';
+    document.getElementById('eventFileLabel').textContent = data.activeEvent.file;
+  } else {
+    banner.style.display = 'none';
+  }
 }
 
 async function loadFiles() {
@@ -563,38 +815,133 @@ async function loadFiles() {
   });
 }
 
-let currentPlaylist = [];
-async function loadPlaylist() {
-  const filesRes = await fetch('/api/files');
-  const { files } = await filesRes.json();
-  const plRes = await fetch('/api/playlist');
-  const { playlist } = await plRes.json();
-  const known = new Set(playlist);
-  currentPlaylist = playlist.concat(files.map(f => f.name).filter(n => !known.has(n)));
-  renderPlaylist();
+async function populateFileSelect(selectEl) {
+  const res = await fetch('/api/files');
+  const { files } = await res.json();
+  selectEl.innerHTML = files.length
+    ? files.map(f => '<option value="' + f.name + '">' + f.name + '</option>').join('')
+    : '<option value="">nenhum arquivo enviado ainda</option>';
 }
-function renderPlaylist() {
-  const ul = document.getElementById('playlistList');
-  ul.innerHTML = currentPlaylist.length ? '' : '<li>nenhum arquivo disponível — envie vídeos em "Arquivos" primeiro</li>';
-  currentPlaylist.forEach((name, idx) => {
+
+async function loadLibrary() {
+  const res = await fetch('/api/files');
+  const { files } = await res.json();
+  const ul = document.getElementById('libraryList');
+  ul.innerHTML = files.length ? '' : '<li>nenhum arquivo enviado ainda</li>';
+  files.forEach((f) => {
+    const watchUrl = location.origin + '/watch/' + encodeURIComponent(f.name);
+    const embedCode = '<iframe src="' + watchUrl + '" width="640" height="360" frameborder="0" allowfullscreen></iframe>';
     const li = document.createElement('li');
-    li.innerHTML = '<span class="fname">' + (idx + 1) + '. ' + name + '</span>';
-    const up = document.createElement('button');
-    up.className = 'small secondary'; up.textContent = '↑';
-    up.onclick = () => { if (idx > 0) { [currentPlaylist[idx-1], currentPlaylist[idx]] = [currentPlaylist[idx], currentPlaylist[idx-1]]; renderPlaylist(); } };
-    const down = document.createElement('button');
-    down.className = 'small secondary'; down.textContent = '↓';
-    down.onclick = () => { if (idx < currentPlaylist.length - 1) { [currentPlaylist[idx+1], currentPlaylist[idx]] = [currentPlaylist[idx], currentPlaylist[idx+1]]; renderPlaylist(); } };
-    li.appendChild(up); li.appendChild(down);
+    li.style.flexDirection = 'column';
+    li.style.alignItems = 'flex-start';
+    li.style.gap = '6px';
+    li.innerHTML =
+      '<span class="fname" style="font-weight:600;">' + f.name + '</span>' +
+      '<div style="display:flex;gap:8px;width:100%;">' +
+        '<input type="text" readonly value="' + watchUrl + '" style="flex:1;margin:0;font-size:12px;">' +
+        '<button class="small secondary" data-copy="' + watchUrl + '">copiar link</button>' +
+      '</div>' +
+      '<div style="display:flex;gap:8px;width:100%;">' +
+        '<input type="text" readonly value=\'' + embedCode + '\' style="flex:1;margin:0;font-size:12px;">' +
+        '<button class="small secondary" data-copy="' + embedCode.replace(/"/g, '&quot;') + '">copiar embed</button>' +
+      '</div>';
+    ul.appendChild(li);
+  });
+  ul.querySelectorAll('button[data-copy]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      navigator.clipboard.writeText(btn.getAttribute('data-copy'));
+      btn.textContent = 'copiado!';
+      setTimeout(() => { btn.textContent = btn.getAttribute('data-copy').startsWith('<iframe') ? 'copiar embed' : 'copiar link'; }, 1500);
+    });
+  });
+}
+
+// -------- programação base --------
+async function loadSchedule() {
+  await populateFileSelect(document.getElementById('schedFile'));
+  const res = await fetch('/api/schedule');
+  const { schedule } = await res.json();
+  const ul = document.getElementById('scheduleList');
+  const sorted = [...schedule].sort((a, b) => a.time.localeCompare(b.time));
+  ul.innerHTML = sorted.length ? '' : '<li>nenhum bloco na programação ainda</li>';
+  sorted.forEach((block) => {
+    const li = document.createElement('li');
+    li.innerHTML = '<span class="fname"><b>' + block.time + '</b> — ' + block.file + '</span>';
+    const btn = document.createElement('button');
+    btn.className = 'small secondary';
+    btn.textContent = 'remover';
+    btn.onclick = async () => {
+      const rest = schedule.filter((b) => !(b.time === block.time && b.file === block.file));
+      await fetch('/api/schedule', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ schedule: rest }) });
+      loadSchedule();
+    };
+    li.appendChild(btn);
     ul.appendChild(li);
   });
 }
-document.getElementById('btnSavePlaylist').addEventListener('click', async () => {
-  const res = await fetch('/api/playlist', {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ playlist: currentPlaylist })
+document.getElementById('btnAddBlock').addEventListener('click', async () => {
+  const time = document.getElementById('schedTime').value.trim();
+  const file = document.getElementById('schedFile').value;
+  if (!/^\d{2}:\d{2}$/.test(time) || !file) { showMsg('scheduleMsg', 'preencha horário (HH:MM) e escolha um arquivo', false); return; }
+  const res = await fetch('/api/schedule');
+  const { schedule } = await res.json();
+  schedule.push({ time, file });
+  const saveRes = await fetch('/api/schedule', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ schedule }) });
+  showMsg('scheduleMsg', saveRes.ok ? 'bloco adicionado!' : 'falha ao salvar', saveRes.ok);
+  document.getElementById('schedTime').value = '';
+  loadSchedule();
+});
+
+// -------- eventos --------
+async function loadEvents() {
+  await populateFileSelect(document.getElementById('eventFileNow'));
+  await populateFileSelect(document.getElementById('schedEvFile'));
+  const res = await fetch('/api/events');
+  const { pendingEvents } = await res.json();
+  const ul = document.getElementById('pendingEventsList');
+  ul.innerHTML = pendingEvents.length ? '' : '<li>nenhum evento agendado</li>';
+  pendingEvents.forEach((ev, idx) => {
+    const li = document.createElement('li');
+    li.innerHTML = '<span class="fname"><b>' + ev.time + '</b> — ' + ev.file + ' (' + ev.durationMin + 'min)</span>';
+    const btn = document.createElement('button');
+    btn.className = 'small secondary';
+    btn.textContent = 'cancelar';
+    btn.onclick = async () => { await fetch('/api/events/' + idx, { method: 'DELETE' }); loadEvents(); };
+    li.appendChild(btn);
+    ul.appendChild(li);
   });
-  showMsg('playlistMsg', res.ok ? 'ordem salva!' : 'falha ao salvar', res.ok);
+}
+document.getElementById('btnEventStart').addEventListener('click', async () => {
+  const file = document.getElementById('eventFileNow').value;
+  const durationMin = document.getElementById('eventDurationNow').value.trim();
+  if (!file) { showMsg('eventNowMsg', 'escolha um arquivo', false); return; }
+  const res = await fetch('/api/event/start', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ file, durationMin: durationMin || null })
+  });
+  const data = await res.json();
+  showMsg('eventNowMsg', res.ok ? 'evento no ar!' : data.error, res.ok);
+  refreshStatus();
+});
+document.getElementById('btnEventEnd').addEventListener('click', async () => {
+  const res = await fetch('/api/event/end', { method: 'POST' });
+  const data = await res.json();
+  showMsg('eventNowMsg', res.ok ? 'voltou pra programação normal.' : data.error, res.ok);
+  refreshStatus();
+});
+document.getElementById('btnScheduleEvent').addEventListener('click', async () => {
+  const time = document.getElementById('schedEvTime').value.trim();
+  const file = document.getElementById('schedEvFile').value;
+  const durationMin = Number(document.getElementById('schedEvDuration').value.trim()) || 30;
+  if (!/^\d{2}:\d{2}$/.test(time) || !file) { showMsg('eventSchedMsg', 'preencha horário (HH:MM) e escolha um arquivo', false); return; }
+  const res = await fetch('/api/events', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ time, file, durationMin })
+  });
+  const data = await res.json();
+  showMsg('eventSchedMsg', res.ok ? 'evento agendado!' : data.error, res.ok);
+  document.getElementById('schedEvTime').value = '';
+  loadEvents();
 });
 
 document.getElementById('btnUpload').addEventListener('click', async () => {
@@ -663,6 +1010,12 @@ setInterval(refreshLogs, 3000);
 </html>`;
 
 server.listen(PORT, () => {
+  // NOVO ▸ o Node corta requisições que demoram mais de 5 minutos por
+  // padrão — pra um upload de vídeo grande numa conexão comum, isso é
+  // fácil de bater e a barra trava sem aviso nenhum. Desligado aqui.
+  server.requestTimeout = 0;
+  server.headersTimeout = 0;
+  server.timeout = 0;
   console.log("Painel rodando na porta " + PORT + " (sem dependências externas)");
   const cfg = readConfig();
   if (cfg.wasRunning) {
