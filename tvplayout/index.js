@@ -232,6 +232,24 @@ function formatBytesServer(n) {
 }
 
 function detectFFmpegPath() {
+
+  try {
+
+    return execFileSync(
+      'which',
+      ['ffmpeg'],
+      { encoding: 'utf8' }
+    ).trim();
+
+  }
+
+  catch {
+
+    return null;
+
+  }
+
+}
   try {
     const out = execFileSync('which', ['ffmpeg'], { encoding: 'utf8' }).trim();
     return out || null;
