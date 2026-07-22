@@ -150,22 +150,72 @@ function formatUptime(totalSeconds) {
 // quadros/formato de áudio) para uso em playlists com mais de um vídeo.
 // A normalização só acontece na primeira vez para cada vídeo+resolução —
 // depois fica em cache em disco e é só reaproveitada (rápido).
-function ensureNormalizedVideo(video, targetW, targetH, bitrate) {
-  const normalizedPath = path.join(NORMALIZED_DIR, video.id + '_' + targetW + 'x' + targetH + '.mp4');
-  if (fs.existsSync(normalizedPath)) return normalizedPath;
-  const originalPath = path.join(UPLOADS_DIR, video.storedName);
-  const args = [
-    '-y', '-i', originalPath,
-    '-vf', 'scale=' + targetW + ':' + targetH + ':force_original_aspect_ratio=decrease,' +
-      'pad=' + targetW + ':' + targetH + ':(ow-iw)/2:(oh-ih)/2:color=black,setsar=1,fps=30',
-    '-c:v', 'libx264', '-preset', 'ultrafast', '-b:v', bitrate,
-    '-c:a', 'aac', '-ar', '44100', '-ac', '2', '-b:a', '128k',
-    '-metadata', 'service=' + FFMPEG_MARKER,
-    normalizedPath
-  ];
-  addLog('info', 'Preparando vídeo para a playlist (só na primeira vez): ' + video.originalName);
-  execFileSync(envInfo.ffmpegPath, args, { stdio: 'ignore' });
-  return normalizedPath;
+//
+// IMPORTANTE: isso usa `spawn` (assíncrono) em vez de `execFileSync`.
+// Um vídeo grande pode levar minutos para normalizar — se isso fosse
+// síncrono, o processo Node inteiro ficaria bloqueado esse tempo todo,
+// incapaz de responder a QUALQUER outra requisição (nem /api/status,
+// nem o clique em "Stop"). Com `spawn`, o FFmpeg roda como processo
+// separado e o event loop do Node continua livre para atender a API
+// normalmente enquanto a normalização acontece em segundo plano.
+// A Promise só resolve depois que o FFmpeg terminar com sucesso — quem
+// chama essa função é responsável por só considerar o vídeo "pronto"
+// (e incluí-lo na playlist) depois que a Promise resolver.
+function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
+  return new Promise(function (resolve, reject) {
+    const normalizedPath = path.join(NORMALIZED_DIR, video.id + '_' + targetW + 'x' + targetH + '.mp4');
+    if (fs.existsSync(normalizedPath)) return resolve(normalizedPath);
+
+    const originalPath = path.join(UPLOADS_DIR, video.storedName);
+    if (!fs.existsSync(originalPath)) {
+      return reject(new Error('Arquivo original não encontrado no disco'));
+    }
+
+    const args = [
+      '-y', '-i', originalPath,
+      '-vf', 'scale=' + targetW + ':' + targetH + ':force_original_aspect_ratio=decrease,' +
+        'pad=' + targetW + ':' + targetH + ':(ow-iw)/2:(oh-ih)/2:color=black,setsar=1,fps=30',
+      '-c:v', 'libx264', '-preset', 'ultrafast', '-b:v', bitrate,
+      '-c:a', 'aac', '-ar', '44100', '-ac', '2', '-b:a', '128k',
+      '-metadata', 'service=' + FFMPEG_MARKER,
+      normalizedPath
+    ];
+
+    addLog('info', 'Preparando vídeo em segundo plano para a playlist (só na primeira vez): ' + video.originalName);
+
+    let child;
+    try {
+      child = spawn(envInfo.ffmpegPath, args);
+    } catch (err) {
+      return reject(err);
+    }
+
+    // Guarda só a última linha do stderr, para dar um motivo útil no log
+    // de erro sem inundar os Logs do painel com o progresso do FFmpeg.
+    let stderrTail = '';
+    if (child.stderr) {
+      child.stderr.on('data', function (chunk) {
+        const text = chunk.toString('utf8').trim();
+        if (text) stderrTail = text.split('\n').pop();
+      });
+    }
+
+    child.on('error', function (err) {
+      reject(err);
+    });
+
+    child.on('close', function (code) {
+      if (code === 0 && fs.existsSync(normalizedPath)) {
+        resolve(normalizedPath);
+        return;
+      }
+      // Encerrou com erro (ou não gerou o arquivo esperado) — remove
+      // qualquer arquivo parcial para não deixar um .mp4 corrompido em
+      // cache, o que travaria essa mesma normalização para sempre.
+      try { if (fs.existsSync(normalizedPath)) fs.unlinkSync(normalizedPath); } catch (e) { /* ignore */ }
+      reject(new Error('FFmpeg encerrou com código ' + code + (stderrTail ? ' — ' + stderrTail : '')));
+    });
+  });
 }
 
 // Mata qualquer processo do FFmpeg que ainda esteja rodando no sistema,
@@ -269,6 +319,9 @@ function runEnvironmentDetection() {
 
 const engine = {
   running: false,
+  // true enquanto os vídeos da playlist estão sendo normalizados em
+  // segundo plano (assíncrono) antes do FFmpeg ser de fato iniciado.
+  preparing: false,
   startedAt: null,
   cpu: 0,
   ram: 0,
@@ -286,6 +339,7 @@ const engine = {
     // evitando que um restart() antigo ligue a transmissão de novo depois
     // que o usuário já agiu manualmente (condição de corrida corrigida).
     this.restartToken++;
+    const token = this.restartToken;
     if (this.running) return;
 
     if (!envInfo.ffmpegPath) {
@@ -313,169 +367,250 @@ const engine = {
     }).filter(function (v) {
       return fs.existsSync(path.join(UPLOADS_DIR, v.storedName));
     });
-    const hasVideoFile = playlistVideos.length > 0;
 
-    let inputArgs;
-    let mapArgs = [];
-    if (playlistVideos.length === 1) {
-      // Um único vídeo: toca direto, sem necessidade de normalizar nada.
-      inputArgs = ['-re', '-stream_loop', '-1', '-i', path.join(UPLOADS_DIR, playlistVideos[0].storedName)];
-      mapArgs = ['-map', '0:v', '-map', '0:a?'];
-      this.currentVideoId = playlistVideos[0].id;
-      this.playlistCount = 1;
-      this.wasPlaylistMode = true;
-    } else if (playlistVideos.length > 1) {
-      // Vários vídeos podem ter resolução, taxa de quadros ou formato de
-      // áudio diferentes. "Colar" os arquivos originais direto (concat
-      // demuxer) faz o FFmpeg reinicializar o decodificador a cada troca,
-      // travando a imagem por um instante (era o problema relatado).
-      // Por isso cada vídeo é normalizado (mesma resolução/taxa/áudio) UMA
-      // ÚNICA VEZ e a cópia fica em cache — depois disso, a concatenação é
-      // sequencial e contínua, sem reinicializar nada entre um e outro.
-      const dims = resolution.split('x');
-      const targetW = dims[0] || '1280';
-      const targetH = dims[1] || '720';
+    // A preparação (normalização) dos vídeos é assíncrona e, para um
+    // vídeo grande, pode levar bastante tempo. `preparing` deixa isso
+    // visível em /api/status — e, como nada abaixo usa chamadas
+    // síncronas de FFmpeg, o servidor continua respondendo normalmente a
+    // qualquer rota (incluindo Parar) enquanto isso acontece.
+    this.preparing = true;
 
-      let normalizedPaths;
+    (async function buildAndSpawn() {
+      let inputArgs;
+      let mapArgs = [];
+      // Só os vídeos que efetivamente entrarem na transmissão (ou seja,
+      // que existem no disco e, quando aplicável, foram normalizados com
+      // sucesso). Pode ser um subconjunto de playlistVideos.
+      let effectivePlaylistVideos = [];
+
       try {
-        normalizedPaths = playlistVideos.map(function (v) {
-          return ensureNormalizedVideo(v, targetW, targetH, bitrate);
-        });
+        if (playlistVideos.length === 1) {
+          // Um único vídeo: toca direto, sem necessidade de normalizar nada.
+          inputArgs = ['-re', '-stream_loop', '-1', '-i', path.join(UPLOADS_DIR, playlistVideos[0].storedName)];
+          mapArgs = ['-map', '0:v', '-map', '0:a?'];
+          effectivePlaylistVideos = [playlistVideos[0]];
+          self.currentVideoId = playlistVideos[0].id;
+          self.playlistCount = 1;
+          self.wasPlaylistMode = true;
+        } else if (playlistVideos.length > 1) {
+          // Vários vídeos podem ter resolução, taxa de quadros ou formato de
+          // áudio diferentes. "Colar" os arquivos originais direto (concat
+          // demuxer) faz o FFmpeg reinicializar o decodificador a cada troca,
+          // travando a imagem por um instante (era o problema relatado).
+          // Por isso cada vídeo é normalizado (mesma resolução/taxa/áudio) UMA
+          // ÚNICA VEZ e a cópia fica em cache — depois disso, a concatenação é
+          // sequencial e contínua, sem reinicializar nada entre um e outro.
+          //
+          // A normalização acontece em segundo plano (assíncrona) — um
+          // vídeo só é ADICIONADO À PLAYLIST depois que a normalização
+          // dele terminar com sucesso. Se falhar (arquivo corrompido,
+          // upload incompleto, etc.), esse vídeo é apenas excluído desta
+          // transmissão — não trava nem aborta a transmissão inteira.
+          const dims = resolution.split('x');
+          const targetW = dims[0] || '1280';
+          const targetH = dims[1] || '720';
+
+          const prepared = [];
+          for (let i = 0; i < playlistVideos.length; i++) {
+            const v = playlistVideos[i];
+            try {
+              const normalizedPath = await ensureNormalizedVideoAsync(v, targetW, targetH, bitrate);
+              prepared.push({ video: v, normalizedPath: normalizedPath });
+            } catch (err) {
+              addLog('error', 'Vídeo não pôde ser preparado e foi excluído desta transmissão: '
+                + v.originalName + ' (' + err.message + ')');
+            }
+
+            // Se Parar/Reiniciar foi acionado enquanto este vídeo ainda
+            // estava sendo preparado, aborta o restante — não vale a pena
+            // continuar normalizando vídeos para uma transmissão que já
+            // foi cancelada.
+            if (self.restartToken !== token) {
+              self.preparing = false;
+              addLog('info', 'Início da transmissão cancelado (Parar/Reiniciar foi acionado durante a preparação dos vídeos).');
+              return;
+            }
+          }
+
+          if (prepared.length === 0) {
+            addLog('error', 'Nenhum vídeo da playlist pôde ser preparado — usando sinal de teste.');
+            inputArgs = [
+              '-f', 'lavfi', '-i', 'testsrc=size=' + resolution + ':rate=30',
+              '-f', 'lavfi', '-i', 'anullsrc=r=44100:cl=stereo'
+            ];
+            mapArgs = ['-map', '0:v', '-map', '1:a'];
+            effectivePlaylistVideos = [];
+            self.currentVideoId = null;
+            self.playlistCount = 0;
+            self.wasPlaylistMode = false;
+          } else if (prepared.length === 1) {
+            // Só restou um vídeo utilizável (os outros falharam na
+            // preparação) — toca ele direto, sem precisar de concat.
+            inputArgs = ['-re', '-stream_loop', '-1', '-i', prepared[0].normalizedPath];
+            mapArgs = ['-map', '0:v', '-map', '0:a?'];
+            effectivePlaylistVideos = [prepared[0].video];
+            self.currentVideoId = prepared[0].video.id;
+            self.playlistCount = 1;
+            self.wasPlaylistMode = true;
+          } else {
+            const playlistPath = path.join(DATA_DIR, 'playlist.txt');
+            const playlistContent = prepared.map(function (p) {
+              return "file '" + p.normalizedPath.replace(/'/g, "'\\''") + "'";
+            }).join('\n');
+            fs.writeFileSync(playlistPath, playlistContent);
+
+            inputArgs = ['-re', '-stream_loop', '-1', '-f', 'concat', '-safe', '0', '-i', playlistPath];
+            mapArgs = ['-map', '0:v', '-map', '0:a?'];
+            // Com vários vídeos não dá pra saber com certeza qual está
+            // tocando dentro do processo do FFmpeg sem inspecionar o
+            // vídeo, então mostramos a contagem em vez de inventar um nome.
+            effectivePlaylistVideos = prepared.map(function (p) { return p.video; });
+            self.currentVideoId = null;
+            self.playlistCount = prepared.length;
+            self.wasPlaylistMode = true;
+          }
+        } else {
+          // testsrc não tem áudio — soma uma fonte de áudio mudo para os
+          // destinos que exigem uma trilha de áudio (a maioria dos players).
+          inputArgs = [
+            '-f', 'lavfi', '-i', 'testsrc=size=' + resolution + ':rate=30',
+            '-f', 'lavfi', '-i', 'anullsrc=r=44100:cl=stereo'
+          ];
+          mapArgs = ['-map', '0:v', '-map', '1:a'];
+          effectivePlaylistVideos = [];
+          self.currentVideoId = null;
+          self.playlistCount = 0;
+          self.wasPlaylistMode = false;
+        }
       } catch (err) {
+        self.preparing = false;
         addLog('error', 'Falha ao preparar vídeos da playlist: ' + err.message);
         return;
       }
 
-      const playlistPath = path.join(DATA_DIR, 'playlist.txt');
-      const playlistContent = normalizedPaths.map(function (p) {
-        return "file '" + p.replace(/'/g, "'\\''") + "'";
-      }).join('\n');
-      fs.writeFileSync(playlistPath, playlistContent);
-
-      inputArgs = ['-re', '-stream_loop', '-1', '-f', 'concat', '-safe', '0', '-i', playlistPath];
-      mapArgs = ['-map', '0:v', '-map', '0:a?'];
-      // Com vários vídeos não dá pra saber com certeza qual está tocando
-      // dentro do processo do FFmpeg sem inspecionar o vídeo, então
-      // mostramos a contagem em vez de inventar um nome.
-      this.currentVideoId = null;
-      this.playlistCount = playlistVideos.length;
-      this.wasPlaylistMode = true;
-    } else {
-      // testsrc não tem áudio — soma uma fonte de áudio mudo para os
-      // destinos que exigem uma trilha de áudio (a maioria dos players).
-      inputArgs = [
-        '-f', 'lavfi', '-i', 'testsrc=size=' + resolution + ':rate=30',
-        '-f', 'lavfi', '-i', 'anullsrc=r=44100:cl=stereo'
-      ];
-      mapArgs = ['-map', '0:v', '-map', '1:a'];
-      this.currentVideoId = null;
-      this.playlistCount = 0;
-      this.wasPlaylistMode = false;
-    }
-
-    const bitrateNum = parseInt(bitrate, 10) || 2000;
-    const bufsize = (bitrateNum * 2) + 'k';
-    const encodeArgs = [
-      '-c:v', 'libx264', '-preset', 'ultrafast',
-      '-b:v', bitrate, '-maxrate', bitrate, '-bufsize', bufsize,
-      '-g', '60', '-keyint_min', '60',
-      '-c:a', 'aac', '-ar', '44100', '-b:a', '128k',
-      '-metadata', 'service=' + FFMPEG_MARKER
-    ];
-    if (!hasVideoFile) encodeArgs.push('-shortest');
-
-    let outputArgs;
-    if (activeDestinations.length > 0) {
-      // Detecta o protocolo pela URL (rtmp:// ou srt://) e usa o muxer do
-      // FFmpeg "tee" para mandar o mesmo encode para todos os destinos ativos
-      // ao mesmo tempo. "onfail=ignore" evita que um destino com problema
-      // derrube a transmissão para os demais.
-      const teeOutputs = activeDestinations.map(function (d) {
-        const url = d.url.trim();
-        const isSrt = /^srt:\/\//i.test(url);
-        const muxer = isSrt ? 'mpegts' : 'flv';
-        return '[f=' + muxer + ':onfail=ignore]' + url;
-      }).join('|');
-      outputArgs = ['-f', 'tee', teeOutputs];
-    } else {
-      outputArgs = ['-f', 'null', '-'];
-    }
-
-    const args = ['-hide_banner', '-loglevel', 'warning']
-      .concat(inputArgs, mapArgs, encodeArgs, outputArgs);
-
-    let child;
-    try {
-      child = spawn(envInfo.ffmpegPath, args);
-    } catch (err) {
-      addLog('error', 'Falha ao iniciar o processo do FFmpeg: ' + err.message);
-      return;
-    }
-
-    this.ffmpegProcess = child;
-    this.running = true;
-    this.startedAt = Date.now();
-    this.outputLabel = resolution + ' @ ' + bitrate
-      + (activeDestinations.length ? ' → ' + activeDestinations.length + ' destino(s)' : ' (teste local)');
-    addLog('info', 'Transmissão iniciada — processo FFmpeg criado (PID ' + child.pid + ')'
-      + (hasVideoFile
-          ? ' — fonte: ' + (playlistVideos.length === 1 ? playlistVideos[0].originalName : 'playlist com ' + playlistVideos.length + ' vídeos')
-          : ' — fonte: sinal de teste')
-      + (activeDestinations.length
-          ? ' — destinos: ' + activeDestinations.map(function (d) { return d.name; }).join(', ')
-          : ' — destino: teste local (nenhum destino ativo configurado)'));
-
-    child.on('error', function (err) {
-      addLog('error', 'Erro no processo do FFmpeg: ' + err.message);
-      self.running = false;
-      self.startedAt = null;
-      self.outputLabel = '—';
-      self.ffmpegProcess = null;
-    });
-
-    child.on('exit', function (code, signal) {
-      const wasStoppedManually = !self.running;
-      self.ffmpegProcess = null;
-      if (wasStoppedManually) return;
-
-      // A playlist terminou de tocar sozinha (chegou ao fim da lista) e o
-      // usuário não mandou parar — reinicia do começo automaticamente para
-      // manter o loop contínuo, em vez de tratar isso como uma falha.
-      if (code === 0 && self.wasPlaylistMode) {
-        addLog('info', 'Playlist chegou ao fim — reiniciando do início automaticamente.');
-        const tokenAntes = self.restartToken;
-        self.running = false;
-        setTimeout(function () {
-          if (self.restartToken === tokenAntes) self.start();
-        }, 300);
+      // Se Parar/Reiniciar foi acionado durante a preparação, este
+      // start() está obsoleto — não inicia o FFmpeg.
+      if (self.restartToken !== token) {
+        self.preparing = false;
         return;
       }
 
-      self.running = false;
-      self.startedAt = null;
-      self.outputLabel = '—';
-      addLog('error', 'Processo do FFmpeg encerrou inesperadamente (código ' + code + (signal ? ', sinal ' + signal : '') + ')');
-    });
+      const hasVideoFile = effectivePlaylistVideos.length > 0;
+      const bitrateNum = parseInt(bitrate, 10) || 2000;
+      const bufsize = (bitrateNum * 2) + 'k';
+      const encodeArgs = [
+        '-c:v', 'libx264', '-preset', 'ultrafast',
+        '-b:v', bitrate, '-maxrate', bitrate, '-bufsize', bufsize,
+        '-g', '60', '-keyint_min', '60',
+        '-c:a', 'aac', '-ar', '44100', '-b:a', '128k',
+        '-metadata', 'service=' + FFMPEG_MARKER
+      ];
+      if (!hasVideoFile) encodeArgs.push('-shortest');
 
-    if (child.stderr) {
-      child.stderr.on('data', function (chunk) {
-        // FFmpeg escreve seu log de progresso/erros no stderr; guardamos só
-        // a última linha de cada bloco para não inundar os Logs do painel.
-        const text = chunk.toString('utf8').trim();
-        if (text) addLog('info', '[ffmpeg] ' + text.split('\n').pop());
+      let outputArgs;
+      if (activeDestinations.length > 0) {
+        // Detecta o protocolo pela URL (rtmp:// ou srt://) e usa o muxer do
+        // FFmpeg "tee" para mandar o mesmo encode para todos os destinos ativos
+        // ao mesmo tempo. "onfail=ignore" evita que um destino com problema
+        // derrube a transmissão para os demais.
+        const teeOutputs = activeDestinations.map(function (d) {
+          const url = d.url.trim();
+          const isSrt = /^srt:\/\//i.test(url);
+          const muxer = isSrt ? 'mpegts' : 'flv';
+          return '[f=' + muxer + ':onfail=ignore]' + url;
+        }).join('|');
+        outputArgs = ['-f', 'tee', teeOutputs];
+      } else {
+        outputArgs = ['-f', 'null', '-'];
+      }
+
+      const args = ['-hide_banner', '-loglevel', 'warning']
+        .concat(inputArgs, mapArgs, encodeArgs, outputArgs);
+
+      let child;
+      try {
+        child = spawn(envInfo.ffmpegPath, args);
+      } catch (err) {
+        self.preparing = false;
+        addLog('error', 'Falha ao iniciar o processo do FFmpeg: ' + err.message);
+        return;
+      }
+
+      self.preparing = false;
+      self.ffmpegProcess = child;
+      self.running = true;
+      self.startedAt = Date.now();
+      self.outputLabel = resolution + ' @ ' + bitrate
+        + (activeDestinations.length ? ' → ' + activeDestinations.length + ' destino(s)' : ' (teste local)');
+      addLog('info', 'Transmissão iniciada — processo FFmpeg criado (PID ' + child.pid + ')'
+        + (hasVideoFile
+            ? ' — fonte: ' + (effectivePlaylistVideos.length === 1 ? effectivePlaylistVideos[0].originalName : 'playlist com ' + effectivePlaylistVideos.length + ' vídeos')
+            : ' — fonte: sinal de teste')
+        + (activeDestinations.length
+            ? ' — destinos: ' + activeDestinations.map(function (d) { return d.name; }).join(', ')
+            : ' — destino: teste local (nenhum destino ativo configurado)'));
+
+      child.on('error', function (err) {
+        addLog('error', 'Erro no processo do FFmpeg: ' + err.message);
+        self.running = false;
+        self.startedAt = null;
+        self.outputLabel = '—';
+        self.ffmpegProcess = null;
       });
-    }
+
+      child.on('exit', function (code, signal) {
+        const wasStoppedManually = !self.running;
+        self.ffmpegProcess = null;
+        if (wasStoppedManually) return;
+
+        // A playlist terminou de tocar sozinha (chegou ao fim da lista) e o
+        // usuário não mandou parar — reinicia do começo automaticamente para
+        // manter o loop contínuo, em vez de tratar isso como uma falha.
+        if (code === 0 && self.wasPlaylistMode) {
+          addLog('info', 'Playlist chegou ao fim — reiniciando do início automaticamente.');
+          const tokenAntes = self.restartToken;
+          self.running = false;
+          setTimeout(function () {
+            if (self.restartToken === tokenAntes) self.start();
+          }, 300);
+          return;
+        }
+
+        self.running = false;
+        self.startedAt = null;
+        self.outputLabel = '—';
+        addLog('error', 'Processo do FFmpeg encerrou inesperadamente (código ' + code + (signal ? ', sinal ' + signal : '') + ')');
+      });
+
+      if (child.stderr) {
+        child.stderr.on('data', function (chunk) {
+          // FFmpeg escreve seu log de progresso/erros no stderr; guardamos só
+          // a última linha de cada bloco para não inundar os Logs do painel.
+          const text = chunk.toString('utf8').trim();
+          if (text) addLog('info', '[ffmpeg] ' + text.split('\n').pop());
+        });
+      }
+    })().catch(function (err) {
+      self.preparing = false;
+      addLog('error', 'Erro inesperado ao iniciar a transmissão: ' + err.message);
+    });
   },
 
   stop: function () {
-    // Idem: invalida qualquer restart() pendente.
+    // Idem: invalida qualquer restart() pendente e qualquer start()
+    // assíncrono em andamento (a preparação de vídeos em start() confere
+    // esse token entre uma normalização e outra e aborta se ele mudar).
     this.restartToken++;
     // Garante de verdade que nada fica publicando depois do Parar —
     // independente do que o painel achava que era o estado (por exemplo,
     // um processo órfão de uma sessão anterior que o painel nem sabia
-    // que existia).
+    // que existia). Isso também mata um FFmpeg de normalização que
+    // porventura esteja rodando em segundo plano, já que ele usa a mesma
+    // marca (-metadata service=FFMPEG_MARKER) — então Parar funciona
+    // mesmo com uma normalização grande em andamento.
     killOrphanFFmpegProcesses();
     this.running = false;
+    this.preparing = false;
     this.startedAt = null;
     this.outputLabel = '—';
     this.ffmpegProcess = null;
@@ -559,11 +694,14 @@ const engine = {
     if (this.running) {
       if (video) nowPlayingLabel = video.originalName;
       else if (this.playlistCount > 1) nowPlayingLabel = 'Playlist (' + this.playlistCount + ' vídeos)';
+    } else if (this.preparing) {
+      nowPlayingLabel = 'Preparando vídeo(s)...';
     }
     let upSeconds = 0;
     if (this.running && this.startedAt) upSeconds = Math.floor((Date.now() - this.startedAt) / 1000);
     return {
       running: this.running,
+      preparing: this.preparing,
       nowPlaying: nowPlayingLabel,
       cpu: this.running ? Math.round(this.cpu) + '%' : '—',
       ram: this.running ? Math.round(this.ram) + '%' : '—',
