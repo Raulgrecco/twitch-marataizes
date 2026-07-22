@@ -52,8 +52,8 @@ const DEFAULT_DB = {
   config: {
     videosFolder: './uploads',
     output: {
-      resolution: '1920x1080',
-      bitrate: '4000k',
+      resolution: '1280x720',
+      bitrate: '2000k',
       format: 'A definir (RTMP chega na Etapa 10, SRT na Etapa 11)'
     },
     general: {
@@ -158,8 +158,9 @@ function ensureNormalizedVideo(video, targetW, targetH, bitrate) {
     '-y', '-i', originalPath,
     '-vf', 'scale=' + targetW + ':' + targetH + ':force_original_aspect_ratio=decrease,' +
       'pad=' + targetW + ':' + targetH + ':(ow-iw)/2:(oh-ih)/2:color=black,setsar=1,fps=30',
-    '-c:v', 'libx264', '-preset', 'veryfast', '-b:v', bitrate,
+    '-c:v', 'libx264', '-preset', 'ultrafast', '-b:v', bitrate,
     '-c:a', 'aac', '-ar', '44100', '-ac', '2', '-b:a', '128k',
+    '-metadata', 'service=' + FFMPEG_MARKER,
     normalizedPath
   ];
   addLog('info', 'Preparando vídeo para a playlist (só na primeira vez): ' + video.originalName);
@@ -172,10 +173,12 @@ function ensureNormalizedVideo(video, targetW, targetH, bitrate) {
 // processo órfão de uma sessão anterior que não encerrou corretamente —
 // isso causa o erro "mais de uma transmissão usando a mesma URL" no
 // destino, porque dois processos ficam publicando ao mesmo tempo).
+const FFMPEG_MARKER = 'tv-sul-capixaba-painel';
+
 function killOrphanFFmpegProcesses() {
   try {
-    execFileSync('pkill', ['-9', '-x', 'ffmpeg']);
-    addLog('info', 'Processo(s) órfão(s) do FFmpeg encontrado(s) e encerrado(s).');
+    execFileSync('pkill', ['-9', '-f', FFMPEG_MARKER]);
+    addLog('info', 'Processo(s) órfão(s) do FFmpeg (do painel) encontrado(s) e encerrado(s).');
   } catch (e) {
     // pkill retorna código de saída diferente de zero quando não encontra
     // nenhum processo correspondente — esse é o caso normal (nada a
@@ -370,7 +373,15 @@ const engine = {
       this.wasPlaylistMode = false;
     }
 
-    const encodeArgs = ['-c:v', 'libx264', '-preset', 'veryfast', '-b:v', bitrate, '-c:a', 'aac', '-ar', '44100', '-b:a', '128k'];
+    const bitrateNum = parseInt(bitrate, 10) || 2000;
+    const bufsize = (bitrateNum * 2) + 'k';
+    const encodeArgs = [
+      '-c:v', 'libx264', '-preset', 'ultrafast',
+      '-b:v', bitrate, '-maxrate', bitrate, '-bufsize', bufsize,
+      '-g', '60', '-keyint_min', '60',
+      '-c:a', 'aac', '-ar', '44100', '-b:a', '128k',
+      '-metadata', 'service=' + FFMPEG_MARKER
+    ];
     if (!hasVideoFile) encodeArgs.push('-shortest');
 
     let outputArgs;
