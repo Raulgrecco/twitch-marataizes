@@ -161,6 +161,56 @@ function formatUptime(totalSeconds) {
 // A Promise só resolve depois que o FFmpeg terminar com sucesso — quem
 // chama essa função é responsável por só considerar o vídeo "pronto"
 // (e incluí-lo na playlist) depois que a Promise resolver.
+// Usa o ffprobe (leitura de cabeçalho, quase instantânea — não decodifica
+// o vídeo) para checar se o arquivo já bate EXATAMENTE com o padrão de
+// saída (mesma resolução, H.264, 30fps, áudio AAC 44100 estéreo). Se
+// bater, ensureNormalizedVideoAsync pode só copiar o arquivo em vez de
+// recodificar (minutos -> segundos). Qualquer incerteza aqui (ffprobe
+// ausente, erro ao rodar, JSON inesperado, ou qualquer campo que não
+// bata) resolve para `false` — ou seja, cai no comportamento antigo
+// (recodifica sempre), sem risco de tocar algo fora do padrão sem ajuste.
+function probeMatchesTargetSpec(originalPath, targetW, targetH) {
+  return new Promise(function (resolve) {
+    if (!envInfo.ffprobePath) return resolve(false);
+
+    execFile(envInfo.ffprobePath, [
+      '-v', 'error', '-show_streams', '-of', 'json', originalPath
+    ], { maxBuffer: 1024 * 1024 * 10 }, function (err, stdout) {
+      if (err) return resolve(false);
+      try {
+        const data = JSON.parse(stdout);
+        const streams = data.streams || [];
+        const v = streams.find(function (s) { return s.codec_type === 'video'; });
+        const a = streams.find(function (s) { return s.codec_type === 'audio'; });
+        if (!v) return resolve(false);
+
+        const wMatches = String(v.width) === String(targetW);
+        const hMatches = String(v.height) === String(targetH);
+        const isH264 = v.codec_name === 'h264';
+
+        // r_frame_rate vem como "30/1", "30000/1001" etc. — só aceita
+        // 30fps exato, igual ao que o filtro de normalização usa.
+        let fpsMatches = false;
+        if (typeof v.r_frame_rate === 'string' && v.r_frame_rate.indexOf('/') !== -1) {
+          const parts = v.r_frame_rate.split('/');
+          const fps = Number(parts[0]) / Number(parts[1]);
+          fpsMatches = Math.abs(fps - 30) < 0.01;
+        }
+
+        // Áudio: se não houver trilha de áudio no original, não dá pra
+        // garantir compatibilidade com o resto da playlist — não pula.
+        const audioMatches = !!a && a.codec_name === 'aac'
+          && String(a.sample_rate) === '44100'
+          && Number(a.channels) === 2;
+
+        resolve(wMatches && hMatches && isH264 && fpsMatches && audioMatches);
+      } catch (parseErr) {
+        resolve(false);
+      }
+    });
+  });
+}
+
 function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
   return new Promise(function (resolve, reject) {
     const normalizedPath = path.join(NORMALIZED_DIR, video.id + '_' + targetW + 'x' + targetH + '.mp4');
@@ -171,6 +221,20 @@ function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
       return reject(new Error('Arquivo original não encontrado no disco'));
     }
 
+    // Otimização: se o vídeo já está exatamente no padrão de saída, só
+    // copia o arquivo em vez de recodificar. Qualquer problema aqui
+    // (probe indisponível, erro, ou não bater) cai direto no fluxo de
+    // recodificação normal abaixo, sem interromper nada.
+    probeMatchesTargetSpec(originalPath, targetW, targetH).then(function (matches) {
+      if (!matches) return runEncode();
+      fs.copyFile(originalPath, normalizedPath, function (copyErr) {
+        if (copyErr) return runEncode();
+        addLog('info', 'Vídeo já estava no padrão de saída — copiado sem recodificar (mais rápido): ' + video.originalName);
+        resolve(normalizedPath);
+      });
+    });
+
+    function runEncode() {
     const args = [
       '-y', '-i', originalPath,
       '-vf', 'scale=' + targetW + ':' + targetH + ':force_original_aspect_ratio=decrease,' +
@@ -215,6 +279,7 @@ function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
       try { if (fs.existsSync(normalizedPath)) fs.unlinkSync(normalizedPath); } catch (e) { /* ignore */ }
       reject(new Error('FFmpeg encerrou com código ' + code + (stderrTail ? ' — ' + stderrTail : '')));
     });
+    } // fim de runEncode()
   });
 }
 
@@ -251,7 +316,11 @@ const envInfo = {
   ffmpegPath: null,
   ffmpegVersion: null,
   ffmpegHasH264: false,
-  ffmpegHasAac: false
+  ffmpegHasAac: false,
+  // Caminho do ffprobe, usado apenas para a otimização de "pular
+  // recodificação" abaixo. Se não for encontrado, essa otimização
+  // simplesmente não é usada — não afeta nada mais no painel.
+  ffprobePath: null
 };
 
 function formatBytesServer(n) {
@@ -266,6 +335,20 @@ function formatBytesServer(n) {
 function detectFFmpegPath() {
   try {
     const out = execFileSync('which', ['ffmpeg'], { encoding: 'utf8' }).trim();
+    return out || null;
+  } catch (e) {
+    return null;
+  }
+}
+
+// Mesma lógica do detectFFmpegPath acima, para o ffprobe (normalmente
+// instalado junto com o FFmpeg). Usado só pela otimização de "pular
+// recodificação" em ensureNormalizedVideoAsync — se não for encontrado,
+// essa função retorna null e a otimização é simplesmente ignorada,
+// sem afetar nada mais no painel.
+function detectFFprobePath() {
+  try {
+    const out = execFileSync('which', ['ffprobe'], { encoding: 'utf8' }).trim();
     return out || null;
   } catch (e) {
     return null;
@@ -321,6 +404,17 @@ function runEnvironmentDetection() {
   addLog('info', 'Versão do FFmpeg: ' + (info.version || 'não foi possível determinar'));
   addLog(info.hasH264 ? 'info' : 'warn', 'Codec H.264 (libx264): ' + (info.hasH264 ? 'disponível' : 'NÃO disponível'));
   addLog(info.hasAac ? 'info' : 'warn', 'Codec AAC: ' + (info.hasAac ? 'disponível' : 'NÃO disponível'));
+
+  // ffprobe é opcional: só habilita a otimização de "pular
+  // recodificação" quando o vídeo já está no padrão. Se não for
+  // encontrado, a normalização continua funcionando exatamente como
+  // antes (sempre recodificando) — nenhum outro comportamento muda.
+  envInfo.ffprobePath = detectFFprobePath();
+  if (envInfo.ffprobePath) {
+    addLog('info', 'ffprobe encontrado em ' + envInfo.ffprobePath + ' — vídeos já no padrão de saída vão pular a recodificação.');
+  } else {
+    addLog('warn', 'ffprobe não encontrado — todos os vídeos serão recodificados normalmente (sem a otimização de cópia direta).');
+  }
 }
 
 const engine = {
