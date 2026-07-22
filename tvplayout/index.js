@@ -21,7 +21,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const os = require('os');
-const { spawn, execFileSync } = require('child_process');
+const { spawn, execFile, execFileSync } = require('child_process');
 const { URL } = require('url');
 
 // ---------------------------------------------------------------------
@@ -225,15 +225,21 @@ function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
 // destino, porque dois processos ficam publicando ao mesmo tempo).
 const FFMPEG_MARKER = 'tv-sul-capixaba-painel';
 
+// IMPORTANTE: usa `execFile` (assíncrono) em vez de `execFileSync`. Essa
+// função é chamada em pontos sensíveis a tempo de resposta (start(),
+// stop(), boot) — se fosse síncrona, cada chamada bloquearia o event
+// loop (e portanto TODAS as rotas da API) pelo tempo que o `pkill`
+// levar para rodar. Não precisamos esperar o resultado para seguir o
+// fluxo (é "atire e esqueça"), então nenhum call site precisa de await.
 function killOrphanFFmpegProcesses() {
-  try {
-    execFileSync('pkill', ['-9', '-f', FFMPEG_MARKER]);
-    addLog('info', 'Processo(s) órfão(s) do FFmpeg (do painel) encontrado(s) e encerrado(s).');
-  } catch (e) {
-    // pkill retorna código de saída diferente de zero quando não encontra
-    // nenhum processo correspondente — esse é o caso normal (nada a
-    // limpar), não uma falha real.
-  }
+  execFile('pkill', ['-9', '-f', FFMPEG_MARKER], function (err) {
+    if (!err) {
+      addLog('info', 'Processo(s) órfão(s) do FFmpeg (do painel) encontrado(s) e encerrado(s).');
+    }
+    // Código de saída != 0 = pkill não encontrou nenhum processo
+    // correspondente — esse é o caso normal (nada a limpar), não uma
+    // falha real, por isso não logamos erro aqui.
+  });
 }
 
 // ---------------------------------------------------------------------
@@ -866,24 +872,44 @@ function handleVideoInfo(req, res, id) {
   sendJSON(res, 200, video);
 }
 
-function handleVideoUpload(req, res) {
+// IMPORTANTE: grava cada arquivo com `fs.promises.writeFile` (assíncrono)
+// em vez de `fs.writeFileSync`. Upload permite até MAX_UPLOAD_BYTES
+// (2GB) — gravar um buffer desse tamanho de forma SÍNCRONA bloqueia o
+// event loop pelo tempo inteiro que o disco levar para escrever, e
+// nesse período NENHUMA rota responde (nem /api/status, nem /api/logs,
+// nem o clique em Stop). Era esse `writeFileSync`, e não o FFmpeg, que
+// travava o painel inteiro durante um upload grande.
+async function handleVideoUpload(req, res) {
   const contentType = req.headers['content-type'] || '';
   if (contentType.indexOf('multipart/form-data') !== 0) {
     return sendJSON(res, 400, { error: 'Content-Type deve ser multipart/form-data' });
   }
-  readRawBody(req, MAX_UPLOAD_BYTES).then(function (raw) {
-    let parsed;
-    try { parsed = parseMultipart(contentType, raw); }
-    catch (e) { return sendJSON(res, 400, { error: 'Falha ao interpretar upload: ' + e.message }); }
 
-    if (!parsed.files.length) return sendJSON(res, 400, { error: 'Nenhum arquivo enviado' });
+  let raw;
+  try {
+    raw = await readRawBody(req, MAX_UPLOAD_BYTES);
+  } catch (err) {
+    return sendJSON(res, 413, { error: err.message });
+  }
 
-    const saved = [];
-    parsed.files.forEach(function (file) {
+  let parsed;
+  try {
+    parsed = parseMultipart(contentType, raw);
+  } catch (e) {
+    return sendJSON(res, 400, { error: 'Falha ao interpretar upload: ' + e.message });
+  }
+
+  if (!parsed.files.length) return sendJSON(res, 400, { error: 'Nenhum arquivo enviado' });
+
+  const saved = [];
+  try {
+    for (const file of parsed.files) {
       const id = uid();
       const ext = path.extname(file.filename) || '';
       const storedName = id + ext;
-      fs.writeFileSync(path.join(UPLOADS_DIR, storedName), file.data);
+
+      await fs.promises.writeFile(path.join(UPLOADS_DIR, storedName), file.data);
+
       const meta = {
         id: id,
         originalName: file.filename,
@@ -895,10 +921,13 @@ function handleVideoUpload(req, res) {
       db.videos.push(meta);
       saved.push(meta);
       addLog('info', 'Arquivo enviado: ' + file.filename);
-    });
-    saveDB();
-    sendJSON(res, 201, saved);
-  }).catch(function (err) { sendJSON(res, 413, { error: err.message }); });
+    }
+  } catch (err) {
+    return sendJSON(res, 500, { error: 'Falha ao salvar arquivo: ' + err.message });
+  }
+
+  saveDB();
+  sendJSON(res, 201, saved);
 }
 
 function handleVideoRename(req, res, id) {
@@ -1158,10 +1187,19 @@ function handleRequest(req, res) {
 
 const server = http.createServer(function (req, res) {
   try {
-    handleRequest(req, res);
+    // handleRequest pode retornar uma Promise agora (handleVideoUpload é
+    // async) — precisamos capturar rejeições dela também, e não só
+    // exceções síncronas, ou um erro ali ficaria sem resposta e sem log.
+    const result = handleRequest(req, res);
+    if (result && typeof result.catch === 'function') {
+      result.catch(function (err) {
+        addLog('error', 'Erro interno (assíncrono): ' + err.message);
+        if (!res.headersSent) sendJSON(res, 500, { error: 'Erro interno do servidor' });
+      });
+    }
   } catch (err) {
     addLog('error', 'Erro interno: ' + err.message);
-    sendJSON(res, 500, { error: 'Erro interno do servidor' });
+    if (!res.headersSent) sendJSON(res, 500, { error: 'Erro interno do servidor' });
   }
 });
 
