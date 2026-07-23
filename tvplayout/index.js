@@ -708,6 +708,16 @@ const engine = {
       const bufsize = (bitrateNum * 2) + 'k';
       const encodeArgs = [
         '-c:v', 'libx264', '-preset', 'ultrafast',
+        // Profile/level fixos (em vez de deixar o libx264 escolher
+        // automaticamente): "main" nível "4.0" cobre 1280x720@30fps com
+        // folga e é aceito sem problema por RTMP (YouTube) e SRT. Sem
+        // isso, em certas condições (por exemplo vídeos que passaram
+        // pelo ajuste rápido de áudio, com metadados um pouco diferentes
+        // do original) o libx264 pode calcular uma taxa de macroblocos
+        // que excede o limite do level escolhido automaticamente — o
+        // aviso "MB rate > level limit" nos Logs — e o destino RTMP
+        // rejeita o stream resultante ("Invalid argument").
+        '-profile:v', 'main', '-level:v', '4.0',
         '-b:v', bitrate, '-maxrate', bitrate, '-bufsize', bufsize,
         '-g', '60', '-keyint_min', '60',
         '-c:a', 'aac', '-ar', '44100', '-b:a', '128k',
