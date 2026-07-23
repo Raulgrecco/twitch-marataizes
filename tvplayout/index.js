@@ -182,6 +182,50 @@ function formatUptime(totalSeconds) {
 // A Promise só resolve depois que o FFmpeg terminar com sucesso — quem
 // chama essa função é responsável por só considerar o vídeo "pronto"
 // (e incluí-lo na playlist) depois que a Promise resolver.
+// Alguns exports (comum no Final Cut/QuickTime) incluem uma miniatura
+// embutida como um SEGUNDO stream de vídeo (normalmente MJPEG), às
+// vezes ANTES do vídeo real na ordem dos streams do arquivo. Se o
+// FFmpeg pegar a miniatura por engano (índice fixo "0:v:0" nem sempre
+// é o vídeo real), o resultado é um "vídeo" de 1 frame com timebase
+// absurda — foi isso que causava o "MB rate > level limit" e a
+// rejeição do stream pelo YouTube.
+//
+// Esta função só identifica QUAL ÍNDICE usar — não decide se recodifica
+// ou pula nada, e o vídeo ainda é sempre recodificado do zero depois.
+// Critério: primeiro stream de vídeo cujo codec não é um formato típico
+// de miniatura/capa (mjpeg, png, bmp) e cuja duração não é irrisória
+// (miniaturas costumam ter 1 frame só). Se o ffprobe não estiver
+// disponível, ou não conseguir determinar, ou houver só um stream de
+// vídeo, usa o índice 0 (comportamento simples de sempre).
+function pickRealVideoStreamIndex(filePath) {
+  return new Promise(function (resolve) {
+    if (!envInfo.ffprobePath) return resolve(0);
+
+    execFile(envInfo.ffprobePath, [
+      '-v', 'error', '-select_streams', 'v', '-show_entries', 'stream=codec_name,duration,nb_frames', '-of', 'json', filePath
+    ], { maxBuffer: 1024 * 1024 * 10 }, function (err, stdout) {
+      if (err) return resolve(0);
+      try {
+        const data = JSON.parse(stdout);
+        const streams = data.streams || [];
+        if (streams.length <= 1) return resolve(0);
+
+        const THUMBNAIL_CODECS = ['mjpeg', 'png', 'bmp', 'gif'];
+        for (let i = 0; i < streams.length; i++) {
+          const s = streams[i];
+          const looksLikeThumbnail = THUMBNAIL_CODECS.indexOf(s.codec_name) !== -1
+            || Number(s.nb_frames) === 1;
+          if (!looksLikeThumbnail) return resolve(i);
+        }
+        // Todos pareciam miniatura (improvável) — usa o primeiro mesmo.
+        resolve(0);
+      } catch (parseErr) {
+        resolve(0);
+      }
+    });
+  });
+}
+
 function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
   return new Promise(function (resolve, reject) {
     const normalizedPath = path.join(NORMALIZED_DIR, video.id + '_' + targetW + 'x' + targetH + '.mp4');
@@ -198,12 +242,12 @@ function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
     // (YouTube) quanto por SRT. Sem isso, o libx264 pode calcular uma
     // taxa de macroblocos que excede o limite do level escolhido
     // automaticamente — o destino então rejeita o stream resultante.
+    pickRealVideoStreamIndex(originalPath).then(function (videoStreamIndex) {
     const args = [
       '-y', '-i', originalPath,
-      // "0:v:0" evita que uma miniatura embutida (comum em exports do
-      // Final Cut, geralmente um segundo stream de vídeo em MJPEG) seja
-      // selecionada por engano em vez do vídeo real.
-      '-map', '0:v:0', '-map', '0:a?',
+      // Usa o índice do vídeo REAL (não a miniatura embutida, se houver
+      // uma) — ver pickRealVideoStreamIndex.
+      '-map', '0:v:' + videoStreamIndex, '-map', '0:a?',
       '-vf', 'scale=' + targetW + ':' + targetH + ':force_original_aspect_ratio=decrease,' +
         'pad=' + targetW + ':' + targetH + ':(ow-iw)/2:(oh-ih)/2:color=black,setsar=1,fps=30',
       '-c:v', 'libx264', '-preset', 'ultrafast', '-profile:v', 'main', '-level:v', '4.0', '-b:v', bitrate,
@@ -252,6 +296,7 @@ function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
       try { if (fs.existsSync(normalizedPath)) fs.unlinkSync(normalizedPath); } catch (e) { /* ignore */ }
       reject(new Error('FFmpeg encerrou com código ' + code + (stderrTail ? ' — ' + stderrTail : '')));
     });
+    }); // fim do .then(pickRealVideoStreamIndex)
   });
 }
 
@@ -297,7 +342,12 @@ const envInfo = {
   ffmpegPath: null,
   ffmpegVersion: null,
   ffmpegHasH264: false,
-  ffmpegHasAac: false
+  ffmpegHasAac: false,
+  // Caminho do ffprobe. Usado SÓ para identificar qual stream de vídeo
+  // é o real (não a miniatura embutida) antes de mandar pro FFmpeg —
+  // nunca para decidir se recodifica ou não. A recodificação sempre
+  // acontece, sempre do zero, para todo vídeo.
+  ffprobePath: null
 };
 
 function formatBytesServer(n) {
@@ -312,6 +362,21 @@ function formatBytesServer(n) {
 function detectFFmpegPath() {
   try {
     const out = execFileSync('which', ['ffmpeg'], { encoding: 'utf8' }).trim();
+    return out || null;
+  } catch (e) {
+    return null;
+  }
+}
+
+// Mesma lógica acima, para o ffprobe (normalmente instalado junto com o
+// FFmpeg). Usado só para descobrir qual stream de vídeo de um arquivo é
+// o vídeo real, quando existe uma miniatura embutida como stream extra
+// (ver pickRealVideoStreamIndex). Se não for encontrado, o painel
+// simplesmente assume o índice 0 — pode escolher errado nesse caso
+// específico, mas não trava nem muda o resto do comportamento.
+function detectFFprobePath() {
+  try {
+    const out = execFileSync('which', ['ffprobe'], { encoding: 'utf8' }).trim();
     return out || null;
   } catch (e) {
     return null;
@@ -367,6 +432,16 @@ function runEnvironmentDetection() {
   addLog('info', 'Versão do FFmpeg: ' + (info.version || 'não foi possível determinar'));
   addLog(info.hasH264 ? 'info' : 'warn', 'Codec H.264 (libx264): ' + (info.hasH264 ? 'disponível' : 'NÃO disponível'));
   addLog(info.hasAac ? 'info' : 'warn', 'Codec AAC: ' + (info.hasAac ? 'disponível' : 'NÃO disponível'));
+
+  // ffprobe é usado só para identificar qual stream de vídeo é o real
+  // quando o arquivo tem uma miniatura embutida como stream extra (ver
+  // pickRealVideoStreamIndex) — nunca para decidir se pula recodificação.
+  envInfo.ffprobePath = detectFFprobePath();
+  if (envInfo.ffprobePath) {
+    addLog('info', 'ffprobe encontrado em ' + envInfo.ffprobePath + '.');
+  } else {
+    addLog('warn', 'ffprobe não encontrado — se um vídeo tiver miniatura embutida, o painel pode escolher o stream de vídeo errado.');
+  }
 }
 
 const engine = {
@@ -452,14 +527,15 @@ const engine = {
       try {
         if (playlistVideos.length === 1) {
           // Um único vídeo: toca direto, sem necessidade de normalizar nada.
-          inputArgs = ['-re', '-stream_loop', '-1', '-i', path.join(UPLOADS_DIR, playlistVideos[0].storedName)];
-          // "0:v:0" (não só "0:v"): alguns exports (ex.: Final Cut) trazem
-          // uma miniatura embutida como um SEGUNDO stream de vídeo
-          // (geralmente MJPEG). "0:v" sozinho mapeia TODOS os streams de
-          // vídeo, mandando dois vídeos pro mesmo destino — o contêiner
-          // FLV do YouTube só aceita um, e rejeita com "Invalid argument".
-          // "0:v:0" garante que só o primeiro (o vídeo real) é usado.
-          mapArgs = ['-map', '0:v:0', '-map', '0:a?'];
+          const soloPath = path.join(UPLOADS_DIR, playlistVideos[0].storedName);
+          inputArgs = ['-re', '-stream_loop', '-1', '-i', soloPath];
+          // Descobre qual stream é o vídeo real (não uma miniatura
+          // embutida, se houver uma) — ver pickRealVideoStreamIndex.
+          // Esse é o único caso que lê o arquivo original diretamente
+          // (sem passar pela normalização), por isso é o único ponto
+          // aqui que precisa dessa checagem.
+          const soloVideoIndex = await pickRealVideoStreamIndex(soloPath);
+          mapArgs = ['-map', '0:v:' + soloVideoIndex, '-map', '0:a?'];
           effectivePlaylistVideos = [playlistVideos[0]];
           self.currentVideoId = playlistVideos[0].id;
           self.playlistCount = 1;
