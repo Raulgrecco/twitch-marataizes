@@ -121,12 +121,10 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
    Pra trocar horários ou fontes no futuro, edite só este bloco.
    ════════════════════════════════════════════════════ */
 var PLAYOUT_CONFIG = {
-  // Cada faixa usa "HH:MM" (24h). A faixa pode cruzar a meia-noite
-  // (ex: 18:00 até 01:00) — o código trata isso automaticamente.
   schedule: [
-    { source: 'youtube', start: '01:00', end: '18:00' },
-    { source: 'castr',   start: '18:00', end: '01:00' }
+    { source: 'castr', start: '00:00', end: '23:59' }
   ],
+
   sources: {
     youtube: {
       type: 'youtube',
@@ -136,16 +134,8 @@ var PLAYOUT_CONFIG = {
       type: 'castr',
       liveUrl: 'https://player.castr.com/live_c5788f40839e11f1813a196cc11f122b'
     }
-    // Exemplo de como plugar o VPS no futuro (precisa de player HLS, não é
-    // só troca de URL de iframe — avisar o Claude quando for a hora de fato):
-    // vps: { type: 'hls', url: 'https://SEU_IP:8888/live/playout/index.m3u8' }
   }
 };
-
-function timeToMinutes(hhmm){
-  var parts=hhmm.split(':');
-  return parseInt(parts[0],10)*60+parseInt(parts[1],10);
-}
 
 function isWithinWindow(nowMin,startMin,endMin){
   if(startMin<=endMin){
