@@ -226,6 +226,94 @@ function pickRealVideoStreamIndex(filePath) {
   });
 }
 
+// Checa se o vídeo (no índice de stream JÁ CORRIGIDO por
+// pickRealVideoStreamIndex — nunca um índice fixo, foi exatamente usar
+// um índice fixo que causou o bug anterior de pegar a miniatura por
+// engano) já bate EXATAMENTE com o padrão de saída. Só identifica —
+// nunca decide por conta própria sem essa checagem de índice correta.
+function probeMatchesTargetSpec(originalPath, targetW, targetH, videoStreamIndex) {
+  return new Promise(function (resolve) {
+    const NONE = { videoMatches: false, audioMatches: false };
+    if (!envInfo.ffprobePath) return resolve(NONE);
+
+    execFile(envInfo.ffprobePath, [
+      '-v', 'error', '-show_streams', '-of', 'json', originalPath
+    ], { maxBuffer: 1024 * 1024 * 10 }, function (err, stdout) {
+      if (err) return resolve(NONE);
+      try {
+        const data = JSON.parse(stdout);
+        const streams = data.streams || [];
+        const videoStreams = streams.filter(function (s) { return s.codec_type === 'video'; });
+        const v = videoStreams[videoStreamIndex];
+        const a = streams.find(function (s) { return s.codec_type === 'audio'; });
+        if (!v) return resolve(NONE);
+
+        // Qualquer dúvida aqui = NÃO pula a recodificação. Cada checagem
+        // abaixo é uma condição adicional de segurança, exigida
+        // explicitamente: em caso de incerteza sobre codec, resolução,
+        // fps, áudio, streams extras, rotação, ou proporção de tela, o
+        // resultado tem que ser "não bate" — nunca um meio-termo.
+
+        // 1) Miniatura/capa embutida: mesmo com pickRealVideoStreamIndex
+        // já tendo escolhido este índice como "não parece miniatura",
+        // uma segunda camada de segurança aqui: se o próprio ffprobe
+        // marcar esse stream como imagem anexada (disposition
+        // attached_pic), não confia — força recodificação.
+        if (v.disposition && Number(v.disposition.attached_pic) === 1) return resolve(NONE);
+
+        // 2) Resolução e codec de vídeo exatos.
+        const wMatches = String(v.width) === String(targetW);
+        const hMatches = String(v.height) === String(targetH);
+        const isH264 = v.codec_name === 'h264';
+
+        // 3) FPS exato (30fps, igual ao filtro de normalização usa).
+        let fpsMatches = false;
+        if (typeof v.r_frame_rate === 'string' && v.r_frame_rate.indexOf('/') !== -1) {
+          const parts = v.r_frame_rate.split('/');
+          const denom = Number(parts[1]);
+          fpsMatches = denom > 0 && Math.abs((Number(parts[0]) / denom) - 30) < 0.01;
+        }
+
+        // 4) Formato de pixel: exige o padrão mais comum (yuv420p,
+        // 8-bit, sem HDR/10-bit) — qualquer outro formato pode não ser
+        // compatível com o restante da playlist já normalizada.
+        const pixFmtMatches = v.pix_fmt === 'yuv420p';
+
+        // 5) Proporção de tela (SAR) tem que ser quadrada — um SAR
+        // diferente de 1:1 faria o vídeo aparecer "esticado" se só
+        // copiado, sem passar pelo `setsar=1` do filtro de normalização.
+        const sarMatches = !v.sample_aspect_ratio || v.sample_aspect_ratio === '1:1' || v.sample_aspect_ratio === '0:1';
+
+        // 6) Sem metadado de rotação (comum em vídeos gravados no
+        // celular na vertical, mas salvos com dimensões de paisagem +
+        // uma tag dizendo para girar na exibição). Se existir QUALQUER
+        // indício de rotação, não confia nas dimensões relatadas.
+        let hasRotation = false;
+        if (v.tags && v.tags.rotate && Number(v.tags.rotate) !== 0) hasRotation = true;
+        if (Array.isArray(v.side_data_list)) {
+          for (let i = 0; i < v.side_data_list.length; i++) {
+            const sd = v.side_data_list[i];
+            if (sd && typeof sd.rotation !== 'undefined' && Number(sd.rotation) !== 0) hasRotation = true;
+          }
+        }
+
+        const videoMatches = wMatches && hMatches && isH264 && fpsMatches
+          && pixFmtMatches && sarMatches && !hasRotation;
+
+        // 7) Áudio: precisa existir e bater exatamente. Sem trilha de
+        // áudio identificável, não dá pra garantir nada — não pula.
+        const audioMatches = !!a && a.codec_name === 'aac'
+          && String(a.sample_rate) === '44100'
+          && Number(a.channels) === 2;
+
+        resolve({ videoMatches: videoMatches, audioMatches: audioMatches });
+      } catch (parseErr) {
+        resolve(NONE);
+      }
+    });
+  });
+}
+
 function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
   return new Promise(function (resolve, reject) {
     const normalizedPath = path.join(NORMALIZED_DIR, video.id + '_' + targetW + 'x' + targetH + '.mp4');
@@ -243,6 +331,72 @@ function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
     // taxa de macroblocos que excede o limite do level escolhido
     // automaticamente — o destino então rejeita o stream resultante.
     pickRealVideoStreamIndex(originalPath).then(function (videoStreamIndex) {
+
+    // Três caminhos possíveis, do mais rápido pro mais lento. Em TODOS,
+    // o índice do vídeo real (videoStreamIndex) já foi resolvido acima
+    // por pickRealVideoStreamIndex — nunca um número fixo — então não
+    // tem como repetir o bug de pegar a miniatura em vez do vídeo.
+    // 1. Vídeo E áudio já batem com o padrão -> só copia o arquivo.
+    // 2. Só o VÍDEO bate, o áudio não (ex.: 48000Hz em vez de 44100Hz)
+    //    -> copia o vídeo sem tocar nele (`-c:v copy`, ZERO perda de
+    //    imagem) e recodifica só o áudio, rápido.
+    // 3. Nada bate -> recodificação completa (runEncode).
+    probeMatchesTargetSpec(originalPath, targetW, targetH, videoStreamIndex).then(function (spec) {
+      if (spec.videoMatches && spec.audioMatches) {
+        fs.copyFile(originalPath, normalizedPath, function (copyErr) {
+          if (copyErr) return runEncode();
+          addLog('info', 'Vídeo já estava no padrão de saída — copiado sem recodificar (mais rápido): ' + video.originalName);
+          resolve(normalizedPath);
+        });
+        return;
+      }
+      if (spec.videoMatches && !spec.audioMatches) {
+        return runAudioOnlyRemux();
+      }
+      runEncode();
+    });
+
+    function runAudioOnlyRemux() {
+      const audioArgs = [
+        '-y', '-i', originalPath,
+        '-map', '0:v:' + videoStreamIndex, '-map', '0:a?',
+        '-c:v', 'copy',
+        '-c:a', 'aac', '-ar', '44100', '-ac', '2', '-b:a', '128k',
+        '-metadata', 'service=' + FFMPEG_MARKER,
+        normalizedPath
+      ];
+
+      addLog('info', 'Vídeo já estava na resolução certa — ajustando só o áudio (sem perda de imagem): ' + video.originalName);
+
+      let audioChild;
+      try {
+        audioChild = spawn(envInfo.ffmpegPath, audioArgs);
+      } catch (err) {
+        return runEncode();
+      }
+
+      let audioStderrTail = '';
+      if (audioChild.stderr) {
+        audioChild.stderr.on('data', function (chunk) {
+          const text = chunk.toString('utf8').trim();
+          if (text) audioStderrTail = text.split('\n').pop();
+        });
+      }
+
+      audioChild.on('error', function () { runEncode(); });
+
+      audioChild.on('close', function (code) {
+        if (code === 0 && fs.existsSync(normalizedPath)) {
+          resolve(normalizedPath);
+          return;
+        }
+        try { if (fs.existsSync(normalizedPath)) fs.unlinkSync(normalizedPath); } catch (e) { /* ignore */ }
+        addLog('warn', 'Ajuste rápido de áudio falhou, recodificando normalmente: ' + video.originalName + (audioStderrTail ? ' — ' + audioStderrTail : ''));
+        runEncode();
+      });
+    }
+
+    function runEncode() {
     const args = [
       '-y', '-i', originalPath,
       // Usa o índice do vídeo REAL (não a miniatura embutida, se houver
@@ -296,6 +450,7 @@ function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
       try { if (fs.existsSync(normalizedPath)) fs.unlinkSync(normalizedPath); } catch (e) { /* ignore */ }
       reject(new Error('FFmpeg encerrou com código ' + code + (stderrTail ? ' — ' + stderrTail : '')));
     });
+    } // fim de runEncode()
     }); // fim do .then(pickRealVideoStreamIndex)
   });
 }
