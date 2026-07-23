@@ -454,12 +454,26 @@ const engine = {
   wasPlaylistMode: false,
 
   start: function () {
-    // Qualquer chamada explícita a start() invalida um reinício pendente,
-    // evitando que um restart() antigo ligue a transmissão de novo depois
-    // que o usuário já agiu manualmente (condição de corrida corrigida).
+    // IMPORTANTE: essa checagem tem que vir ANTES de incrementar
+    // restartToken. bloqueia não só quando já está rodando, mas também
+    // durante a fase de preparação (this.preparing) — que é quando a
+    // playlist é montada e os órfãos são limpos, ANTES do FFmpeg
+    // nascer. Sem essa segunda checagem, um clique duplo em Play (ou
+    // qualquer chamada repetida enquanto a primeira ainda está sendo
+    // preparada — mais fácil de acontecer com a CPU disputada da VPS)
+    // dispara duas preparações em paralelo, e a limpeza de órfãos de
+    // uma pode matar o processo que a outra acabou de criar. E, se essa
+    // checagem viesse DEPOIS do incremento do token, a própria chamada
+    // bloqueada já teria invalidado a preparação legítima em andamento
+    // (que compara o token para saber se foi cancelada).
+    if (this.running || this.preparing) return;
+
+    // Qualquer chamada explícita a start() que passe da checagem acima
+    // invalida um reinício pendente, evitando que um restart() antigo
+    // ligue a transmissão de novo depois que o usuário já agiu
+    // manualmente (condição de corrida corrigida).
     this.restartToken++;
     const token = this.restartToken;
-    if (this.running) return;
 
     if (!envInfo.ffmpegPath) {
       addLog('error', 'Não foi possível iniciar: FFmpeg não foi encontrado no sistema (ver detecção de ambiente nos Logs).');
