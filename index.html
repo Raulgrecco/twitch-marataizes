@@ -124,11 +124,10 @@ var PLAYOUT_CONFIG = {
   // Cada faixa usa "HH:MM" (24h). A faixa pode cruzar a meia-noite
   // (ex: 18:00 até 01:00) — o código trata isso automaticamente.
   schedule: [
-    { source: 'youtube', start: '01:00', end: '18:00' },
-    { source: 'castr',   start: '18:00', end: '01:00' }
-  ],
-  sources: {
-    youtube: {
+  schedule: [
+{
+source: 'castr', start: '00:00', end: '23:59' }
+],
       type: 'youtube',
       videoId: 'p9qkwUUFmk0'
     },
