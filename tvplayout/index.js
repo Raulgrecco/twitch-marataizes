@@ -200,6 +200,10 @@ function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
     // automaticamente — o destino então rejeita o stream resultante.
     const args = [
       '-y', '-i', originalPath,
+      // "0:v:0" evita que uma miniatura embutida (comum em exports do
+      // Final Cut, geralmente um segundo stream de vídeo em MJPEG) seja
+      // selecionada por engano em vez do vídeo real.
+      '-map', '0:v:0', '-map', '0:a?',
       '-vf', 'scale=' + targetW + ':' + targetH + ':force_original_aspect_ratio=decrease,' +
         'pad=' + targetW + ':' + targetH + ':(ow-iw)/2:(oh-ih)/2:color=black,setsar=1,fps=30',
       '-c:v', 'libx264', '-preset', 'ultrafast', '-profile:v', 'main', '-level:v', '4.0', '-b:v', bitrate,
@@ -449,7 +453,13 @@ const engine = {
         if (playlistVideos.length === 1) {
           // Um único vídeo: toca direto, sem necessidade de normalizar nada.
           inputArgs = ['-re', '-stream_loop', '-1', '-i', path.join(UPLOADS_DIR, playlistVideos[0].storedName)];
-          mapArgs = ['-map', '0:v', '-map', '0:a?'];
+          // "0:v:0" (não só "0:v"): alguns exports (ex.: Final Cut) trazem
+          // uma miniatura embutida como um SEGUNDO stream de vídeo
+          // (geralmente MJPEG). "0:v" sozinho mapeia TODOS os streams de
+          // vídeo, mandando dois vídeos pro mesmo destino — o contêiner
+          // FLV do YouTube só aceita um, e rejeita com "Invalid argument".
+          // "0:v:0" garante que só o primeiro (o vídeo real) é usado.
+          mapArgs = ['-map', '0:v:0', '-map', '0:a?'];
           effectivePlaylistVideos = [playlistVideos[0]];
           self.currentVideoId = playlistVideos[0].id;
           self.playlistCount = 1;
@@ -509,7 +519,7 @@ const engine = {
             // Só restou um vídeo utilizável (os outros falharam na
             // preparação) — toca ele direto, sem precisar de concat.
             inputArgs = ['-re', '-stream_loop', '-1', '-i', prepared[0].normalizedPath];
-            mapArgs = ['-map', '0:v', '-map', '0:a?'];
+            mapArgs = ['-map', '0:v:0', '-map', '0:a?'];
             effectivePlaylistVideos = [prepared[0].video];
             self.currentVideoId = prepared[0].video.id;
             self.playlistCount = 1;
@@ -522,7 +532,7 @@ const engine = {
             fs.writeFileSync(playlistPath, playlistContent);
 
             inputArgs = ['-re', '-stream_loop', '-1', '-f', 'concat', '-safe', '0', '-i', playlistPath];
-            mapArgs = ['-map', '0:v', '-map', '0:a?'];
+            mapArgs = ['-map', '0:v:0', '-map', '0:a?'];
             // Com vários vídeos não dá pra saber com certeza qual está
             // tocando dentro do processo do FFmpeg sem inspecionar o
             // vídeo, então mostramos a contagem em vez de inventar um nome.
