@@ -34,6 +34,14 @@ const NORMALIZED_DIR = path.join(__dirname, 'data', 'normalized');
 const DB_FILE = path.join(DATA_DIR, 'db.json');
 const MAX_UPLOAD_BYTES = 2 * 1024 * 1024 * 1024; // 2GB — limite de segurança do MVP
 
+// Player próprio do site (saída HLS) — ver engine.start() para onde isso
+// é usado. Pasta onde os segmentos .ts e o índice .m3u8 ficam, servidos
+// como arquivo estático pelas rotas /player, /embed e /hls/*. Bitrate
+// mais baixo que a transmissão principal, de propósito: é só para
+// visualização embutida no site, então pesa menos na CPU.
+const PLAYER_HLS_DIR = path.join(DATA_DIR, 'hls');
+const PLAYER_BITRATE = '1200k';
+
 // DIAGNÓSTICO TEMPORÁRIO — ver comentário em spawnOne() para o que isso
 // faz. Depois de usar pra investigar a conexão com o YouTube, volte para
 // `false` (não deixe ligado permanentemente: gera bem mais log/E-S do
@@ -41,7 +49,7 @@ const MAX_UPLOAD_BYTES = 2 * 1024 * 1024 * 1024; // 2GB — limite de segurança
 const YOUTUBE_DEBUG_LOGGING = true;
 const YOUTUBE_DEBUG_LOG_PATH = path.join(DATA_DIR, 'youtube-debug.log');
 
-[DATA_DIR, UPLOADS_DIR, NORMALIZED_DIR].forEach(function (dir) {
+[DATA_DIR, UPLOADS_DIR, NORMALIZED_DIR, PLAYER_HLS_DIR].forEach(function (dir) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
 
@@ -1046,7 +1054,7 @@ const engine = {
       // self.children/self.retryTimers. destLabel/outputArgs: só o que
       // muda de um destino pro outro — tudo mais (fonte de vídeo,
       // codificação) é IDÊNTICO e computado uma única vez acima.
-      function spawnOne(key, destLabel, outputArgs) {
+      function spawnOne(key, destLabel, outputArgs, customEncodeArgs) {
         // DIAGNÓSTICO TEMPORÁRIO (controlado por YOUTUBE_DEBUG_LOGGING lá
         // no topo do arquivo): quando ligado, só o destino "youtube" roda
         // com -loglevel info (em vez de warning) e grava TODO o stderr
@@ -1057,7 +1065,7 @@ const engine = {
         const isYoutubeDebugTarget = YOUTUBE_DEBUG_LOGGING && /youtube/i.test(destLabel);
         const loglevelArgs = isYoutubeDebugTarget ? ['-hide_banner', '-loglevel', 'info'] : ['-hide_banner', '-loglevel', 'warning'];
         const args = loglevelArgs
-          .concat(inputArgs, mapArgs, encodeArgs, outputArgs);
+          .concat(inputArgs, mapArgs, customEncodeArgs || encodeArgs, outputArgs);
 
         let debugFileStream = null;
         if (isYoutubeDebugTarget) {
@@ -1172,6 +1180,34 @@ const engine = {
       } else {
         spawnOne('teste-local', 'teste local (nenhum destino ativo configurado)', ['-f', 'null', '-']);
       }
+
+      // Player próprio do site (HLS) — SEMPRE liga junto com a
+      // transmissão, independente dos destinos configuráveis (YouTube/
+      // Soul TV) acima. Não aparece na tela "Destinos de transmissão"
+      // porque não é uma opção — é uma saída fixa da própria
+      // arquitetura, igual em espírito ao Soul TV (processo isolado,
+      // reconecta sozinho, nunca derruba nem é derrubado pelos outros).
+      // Usa um bitrate menor (PLAYER_BITRATE) que o das transmissões
+      // principais para pesar menos na CPU, já que é só pra
+      // visualização embutida no site, não para um destino profissional.
+      if (!fs.existsSync(PLAYER_HLS_DIR)) fs.mkdirSync(PLAYER_HLS_DIR, { recursive: true });
+      const playerBitrateNum = parseInt(PLAYER_BITRATE, 10) || 1200;
+      const playerBufsize = (playerBitrateNum * 2) + 'k';
+      const playerEncodeArgs = [
+        '-c:v', 'libx264', '-preset', 'ultrafast', '-profile:v', 'main', '-level:v', '4.0',
+        '-b:v', PLAYER_BITRATE, '-maxrate', PLAYER_BITRATE, '-bufsize', playerBufsize,
+        '-g', '60', '-keyint_min', '60',
+        '-c:a', 'aac', '-ar', '44100', '-b:a', '128k',
+        '-metadata', 'service=' + FFMPEG_MARKER
+      ];
+      if (!hasVideoFile) playerEncodeArgs.push('-shortest');
+      const playerOutputArgs = [
+        '-f', 'hls', '-hls_time', '4', '-hls_list_size', '6',
+        '-hls_flags', 'delete_segments+append_list+omit_endlist',
+        '-hls_segment_filename', path.join(PLAYER_HLS_DIR, 'seg_%05d.ts'),
+        path.join(PLAYER_HLS_DIR, 'stream.m3u8')
+      ];
+      spawnOne('player-hls', 'Player (site)', playerOutputArgs, playerEncodeArgs);
     })().catch(function (err) {
       self.preparing = false;
       addLog('error', 'Erro inesperado ao iniciar a transmissão: ' + err.message);
@@ -1744,7 +1780,90 @@ function serveIndex(res) {
   res.end(PAGE_HTML);
 }
 
+// Serve os arquivos do player (manifesto .m3u8 e segmentos .ts) gerados
+// pela saída HLS do FFmpeg em PLAYER_HLS_DIR. CORS liberado de propósito
+// (Access-Control-Allow-Origin: *) porque esses arquivos precisam ser
+// carregados a partir de outros domínios (os sites dos canais), não só
+// do próprio painel.
+function serveHlsFile(req, res, filename) {
+  // Só letras/números/ponto/hífen/underscore — evita qualquer tentativa
+  // de sair da pasta de HLS (ex.: "../../..").
+  if (!/^[a-zA-Z0-9_.-]+$/.test(filename)) { res.writeHead(400); return res.end('Nome de arquivo inválido'); }
+  const filePath = path.join(PLAYER_HLS_DIR, filename);
+  let stat;
+  try { stat = fs.statSync(filePath); } catch (e) { res.writeHead(404); return res.end('Não encontrado'); }
+
+  const contentType = filename.endsWith('.m3u8')
+    ? 'application/vnd.apple.mpegurl'
+    : filename.endsWith('.ts')
+      ? 'video/mp2t'
+      : 'application/octet-stream';
+
+  res.writeHead(200, {
+    'Content-Type': contentType,
+    'Content-Length': stat.size,
+    'Access-Control-Allow-Origin': '*',
+    'Cache-Control': filename.endsWith('.m3u8') ? 'no-cache' : 'public, max-age=30'
+  });
+  fs.createReadStream(filePath).pipe(res);
+}
+
+function servePlayerPage(res, isEmbed) {
+  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Access-Control-Allow-Origin': '*' });
+  res.end(isEmbed ? EMBED_HTML : PLAYER_HTML);
+}
+
+const PLAYER_HTML = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TV Sul Capixaba — Ao vivo</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; background: #000; }
+  body { display: flex; align-items: center; justify-content: center; }
+  video { width: 100%; height: 100%; background: #000; }
+</style>
+</head>
+<body>
+<video id="video" controls autoplay muted playsinline></video>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js"></script>
+<script>
+  var video = document.getElementById('video');
+  var src = '/hls/stream.m3u8';
+  function start() {
+    if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      // Safari já entende HLS nativamente, sem precisar do hls.js.
+      video.src = src;
+    } else if (window.Hls && Hls.isSupported()) {
+      var hls = new Hls({ liveSyncDuration: 8, liveMaxLatencyDuration: 20, manifestLoadingMaxRetry: 10 });
+      hls.loadSource(src);
+      hls.attachMedia(video);
+      // Reconecta sozinho se der erro fatal (transmissão reiniciando,
+      // rede oscilando, etc.) — sem precisar recarregar a página.
+      hls.on(Hls.Events.ERROR, function (event, data) {
+        if (data && data.fatal) {
+          setTimeout(function () {
+            hls.destroy();
+            start();
+          }, 3000);
+        }
+      });
+    }
+  }
+  start();
+</script>
+</body>
+</html>`;
+
+// Versão para <iframe> — mesmo player, sem nenhuma diferença funcional
+// hoje (mantido como página separada para poder divergir no futuro sem
+// afetar quem já usa /player diretamente).
+const EMBED_HTML = PLAYER_HTML;
+
 const PAGE_HTML = "<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>TV Sul Capixaba — Transmissão</title>\n<style>\n  * { box-sizing: border-box; margin: 0; padding: 0; }\n  body {\n    font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif;\n    background: #05060a; color: #f2f3f5;\n    display: flex; justify-content: center;\n    padding: 40px 20px;\n  }\n  .box { width: 100%; max-width: 560px; }\n  h1 { font-size: 20px; font-weight: 700; margin-bottom: 24px; }\n\n  .card {\n    background: #0d0f16; border: 1px solid #1c1f2a; border-radius: 12px;\n    padding: 20px; margin-bottom: 16px;\n  }\n  .card h2 { font-size: 13px; font-weight: 700; color: #9a9fad; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 14px; }\n\n  .status-row { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 700; margin-bottom: 16px; }\n  .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #6b7280; flex-shrink: 0; }\n  .status-dot.on { background: #3ecf6a; }\n\n  .controls { display: flex; gap: 10px; }\n  button {\n    all: unset; cursor: pointer; text-align: center;\n    font-size: 14px; font-weight: 700; padding: 12px 18px; border-radius: 8px;\n  }\n  .btn-play { background: #3ecf6a; color: #04340c; flex: 1; }\n  .btn-stop { background: #e2543a; color: #fff; flex: 1; }\n  button:disabled { opacity: .5; cursor: default; }\n\n  input[type=text] {\n    width: 100%; background: #171a24; border: 1px solid #1c1f2a; color: #f2f3f5;\n    padding: 10px 12px; border-radius: 8px; font-size: 14px; margin-bottom: 10px;\n  }\n  .btn-save { background: #171a24; color: #f2f3f5; border: 1px solid #1c1f2a; width: 100%; }\n\n  .upload-row { display: flex; gap: 10px; margin-bottom: 6px; }\n  input[type=file] { flex: 1; color: #9a9fad; font-size: 13px; }\n  .btn-upload { background: #e2543a; color: #fff; }\n\n  .progress { height: 6px; border-radius: 999px; background: #171a24; overflow: hidden; margin-top: 10px; display: none; }\n  .progress-fill { height: 100%; background: #3b6fe0; width: 0%; }\n\n  ul.video-list { list-style: none; }\n  ul.video-list li {\n    display: flex; align-items: center; justify-content: space-between; gap: 10px;\n    padding: 10px 0; border-bottom: 1px solid #1c1f2a; font-size: 14px;\n  }\n  ul.video-list li:last-child { border-bottom: none; }\n  ul.video-list .name { word-break: break-word; }\n  ul.video-list .meta { color: #9a9fad; font-size: 12px; }\n  .empty { color: #5b606e; font-size: 13px; padding: 6px 0; }\n  .del-btn { all: unset; cursor: pointer; color: #5b606e; font-size: 13px; flex-shrink: 0; }\n  .del-btn:hover { color: #e2543a; }\n\n  .dest-row {\n    display: flex; align-items: center; justify-content: space-between; gap: 10px;\n    padding: 10px 0; border-bottom: 1px solid #1c1f2a; font-size: 14px;\n  }\n  .dest-row:last-child { border-bottom: none; }\n  .dest-row label { display: flex; align-items: center; gap: 8px; }\n  .dest-row .meta { color: #9a9fad; font-size: 12px; }\n  .dest-actions { display: flex; gap: 12px; flex-shrink: 0; }\n  .link-btn { all: unset; cursor: pointer; color: #9a9fad; font-size: 13px; }\n  .link-btn:hover { color: #f2f3f5; }\n  .dest-form { margin-top: 10px; }\n</style>\n</head>\n<body>\n<div class=\"box\">\n  <h1>TV Sul Capixaba — Transmissão</h1>\n\n  <div class=\"card\">\n    <div class=\"status-row\"><span class=\"status-dot\" id=\"statusDot\"></span><span id=\"statusText\">Parado</span></div>\n    <div class=\"controls\">\n      <button class=\"btn-play\" id=\"btnPlay\">▶ Play</button>\n      <button class=\"btn-stop\" id=\"btnStop\">⏹ Stop</button>\n    </div>\n    <div id=\"pendingRow\" style=\"display:none; margin-top:12px;\">\n      <div class=\"meta\" id=\"pendingText\" style=\"margin-bottom:8px;\"></div>\n      <button class=\"btn-save\" id=\"btnUpdatePlaylist\">↻ Atualizar playlist</button>\n    </div>\n  </div>\n\n  <div class=\"card\">\n    <h2>Destinos de transmissão</h2>\n    <div id=\"destList\"></div>\n    <div class=\"dest-form\">\n      <input type=\"text\" id=\"destName\" placeholder=\"Nome (ex: YouTube)\" />\n      <input type=\"text\" id=\"destUrl\" placeholder=\"rtmp://... ou srt://...\" />\n      <button class=\"btn-save\" id=\"btnAddDest\">+ Adicionar destino</button>\n    </div>\n  </div>\n\n  <div class=\"card\">\n    <h2>Enviar vídeo</h2>\n    <div class=\"upload-row\">\n      <input type=\"file\" id=\"fileInput\" accept=\"video/*\" />\n      <button class=\"btn-upload\" id=\"btnUpload\">Enviar</button>\n    </div>\n    <div class=\"progress\" id=\"uploadProgress\"><div class=\"progress-fill\" id=\"uploadProgressFill\"></div></div>\n  </div>\n\n  <div class=\"card\">\n    <h2>Vídeos enviados</h2>\n    <ul class=\"video-list\" id=\"videoList\"></ul>\n  </div>\n</div>\n\n<script>\n  function apiGet(url) { return fetch(url).then(function (r) { return r.json(); }); }\n  function apiSend(url, method, body) {\n    return fetch(url, { method: method, headers: { 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined })\n      .then(function (r) { return r.json().then(function (data) { if (!r.ok) throw new Error(data.error || 'Erro'); return data; }); });\n  }\n  function escapeHtml(s) {\n    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;');\n  }\n  function formatBytes(n) {\n    if (!n) return '0 B';\n    var units = ['B', 'KB', 'MB', 'GB']; var i = 0; var v = n;\n    while (v >= 1024 && i < units.length - 1) { v /= 1024; i++; }\n    return v.toFixed(1) + ' ' + units[i];\n  }\n\n  var destinations = [];\n  function detectProtocolLabel(url) {\n    if (/^rtmps?:\\/\\//i.test(url)) return 'RTMP';\n    if (/^srt:\\/\\//i.test(url)) return 'SRT';\n    return '?';\n  }\n  function loadDestinations() {\n    return apiGet('/api/config').then(function (c) {\n      destinations = c.destinations || [];\n      renderDestinations();\n    });\n  }\n  function renderDestinations() {\n    var el = document.getElementById('destList');\n    if (!destinations.length) { el.innerHTML = '<div class=\"empty\">Nenhum destino cadastrado ainda.</div>'; return; }\n    var html = '';\n    destinations.forEach(function (d) {\n      html += '<div class=\"dest-row\">'\n        + '<label><input type=\"checkbox\" class=\"dest-toggle\" data-id=\"' + d.id + '\" ' + (d.enabled ? 'checked' : '') + ' /> '\n        + escapeHtml(d.name) + ' <span class=\"meta\">(' + detectProtocolLabel(d.url) + ')</span></label>'\n        + '<span class=\"dest-actions\">'\n        + '<button class=\"link-btn\" data-act=\"edit\" data-id=\"' + d.id + '\">Editar</button>'\n        + '<button class=\"del-btn\" data-act=\"del\" data-id=\"' + d.id + '\">Excluir</button>'\n        + '</span></div>';\n    });\n    el.innerHTML = html;\n  }\n  function saveDestinations() {\n    return apiSend('/api/config', 'PUT', { destinations: destinations });\n  }\n  document.getElementById('btnAddDest').addEventListener('click', function () {\n    var name = document.getElementById('destName').value.trim();\n    var url = document.getElementById('destUrl').value.trim();\n    if (!name || !url) { alert('Preencha nome e URL.'); return; }\n    destinations.push({ id: Date.now().toString(36), name: name, url: url, enabled: true });\n    document.getElementById('destName').value = '';\n    document.getElementById('destUrl').value = '';\n    saveDestinations().then(renderDestinations).catch(function (err) { alert(err.message); });\n  });\n  document.getElementById('destList').addEventListener('change', function (e) {\n    if (!e.target.classList.contains('dest-toggle')) return;\n    var dest = destinations.find(function (d) { return d.id === e.target.getAttribute('data-id'); });\n    if (dest) dest.enabled = e.target.checked;\n    saveDestinations().catch(function (err) { alert(err.message); });\n  });\n  document.getElementById('destList').addEventListener('click', function (e) {\n    var btn = e.target.closest('button[data-act]');\n    if (!btn) return;\n    var idx = destinations.findIndex(function (d) { return d.id === btn.getAttribute('data-id'); });\n    if (idx === -1) return;\n    if (btn.getAttribute('data-act') === 'del') {\n      if (!confirm('Excluir este destino?')) return;\n      destinations.splice(idx, 1);\n      saveDestinations().then(renderDestinations).catch(function (err) { alert(err.message); });\n    } else {\n      var d = destinations[idx];\n      var newName = prompt('Nome:', d.name);\n      if (newName === null) return;\n      var newUrl = prompt('URL (rtmp:// ou srt://):', d.url);\n      if (newUrl === null) return;\n      d.name = newName.trim() || d.name;\n      d.url = newUrl.trim() || d.url;\n      saveDestinations().then(renderDestinations).catch(function (err) { alert(err.message); });\n    }\n  });\n\n  function loadVideos() {\n    apiGet('/api/videos?sort=date').then(function (list) {\n      var ul = document.getElementById('videoList');\n      if (!list.length) { ul.innerHTML = '<li class=\"empty\">Nenhum vídeo enviado ainda.</li>'; return; }\n      var html = '';\n      list.forEach(function (v) {\n        html += '<li><div><div class=\"name\">' + escapeHtml(v.originalName) + '</div>'\n          + '<div class=\"meta\">' + formatBytes(v.size) + '</div></div>'\n          + '<button class=\"del-btn\" data-id=\"' + v.id + '\">Excluir</button></li>';\n      });\n      ul.innerHTML = html;\n    });\n  }\n  document.getElementById('videoList').addEventListener('click', function (e) {\n    var btn = e.target.closest('.del-btn');\n    if (!btn) return;\n    if (!confirm('Excluir este vídeo?')) return;\n    apiSend('/api/videos/' + btn.getAttribute('data-id'), 'DELETE').then(loadVideos).catch(function (err) { alert(err.message); });\n  });\n\n  document.getElementById('btnUpload').addEventListener('click', function () {\n    var input = document.getElementById('fileInput');\n    if (!input.files.length) { alert('Escolha um arquivo de vídeo primeiro.'); return; }\n    var fd = new FormData();\n    fd.append('video', input.files[0]);\n    var bar = document.getElementById('uploadProgress');\n    var fill = document.getElementById('uploadProgressFill');\n    bar.style.display = 'block'; fill.style.width = '0%';\n    var xhr = new XMLHttpRequest();\n    xhr.open('POST', '/api/videos/upload');\n    xhr.upload.onprogress = function (evt) {\n      if (evt.lengthComputable) fill.style.width = Math.round(evt.loaded / evt.total * 100) + '%';\n    };\n    xhr.onload = function () {\n      bar.style.display = 'none'; input.value = '';\n      if (xhr.status >= 200 && xhr.status < 300) loadVideos();\n      else alert('Falha no envio.');\n    };\n    xhr.onerror = function () { bar.style.display = 'none'; alert('Erro de rede no envio.'); };\n    xhr.send(fd);\n  });\n\n  function refreshStatus() {\n    apiGet('/api/status').then(function (s) {\n      document.getElementById('statusDot').classList.toggle('on', !!s.running);\n      document.getElementById('statusText').textContent = s.running ? 'Transmitindo' : 'Parado';\n      document.getElementById('btnPlay').disabled = !!s.running;\n      document.getElementById('btnStop').disabled = !s.running;\n      var pendingRow = document.getElementById('pendingRow');\n      if (s.pendingCount > 0) {\n        pendingRow.style.display = 'block';\n        document.getElementById('pendingText').textContent = s.pendingCount + (s.pendingCount === 1 ? ' vídeo pronto/pendente fora do ar — clique para incluir na programação.' : ' vídeos prontos/pendentes fora do ar — clique para incluir na programação.');\n      } else {\n        pendingRow.style.display = 'none';\n      }\n    }).catch(function () {});\n  }\n  document.getElementById('btnPlay').addEventListener('click', function () {\n    apiSend('/api/control', 'POST', { action: 'iniciar' }).then(refreshStatus).catch(function (err) { alert(err.message); });\n  });\n  document.getElementById('btnStop').addEventListener('click', function () {\n    apiSend('/api/control', 'POST', { action: 'parar' }).then(refreshStatus).catch(function (err) { alert(err.message); });\n  });\n  document.getElementById('btnUpdatePlaylist').addEventListener('click', function () {\n    // Reaproveita a mesma ação de \"reiniciar\" que já existe no motor —\n    // um único corte curto e controlado, só quando você clicar aqui,\n    // pra incluir todos os vídeos que já terminaram de preparar em\n    // segundo plano desde a última vez que a transmissão começou.\n    if (!confirm('Isso vai reiniciar a transmissão uma vez, por poucos segundos, para incluir os vídeos pendentes. Continuar?')) return;\n    apiSend('/api/control', 'POST', { action: 'reiniciar' }).then(refreshStatus).catch(function (err) { alert(err.message); });\n  });\n\n  loadDestinations();\n  loadVideos();\n  refreshStatus();\n  setInterval(refreshStatus, 2000);\n</script>\n</body>\n</html>\n";
+
 
 
 
@@ -1759,6 +1878,13 @@ function handleRequest(req, res) {
 
   if (method === 'GET' && pathname === '/') return serveIndex(res);
   if (method === 'GET' && pathname.indexOf('/media/') === 0) return serveMedia(req, res, pathname.slice(7));
+  if (method === 'GET' && pathname === '/player') return servePlayerPage(res, false);
+  if (method === 'GET' && pathname === '/embed') return servePlayerPage(res, true);
+  if (method === 'GET' && pathname.indexOf('/hls/') === 0) return serveHlsFile(req, res, pathname.slice(5));
+  if (method === 'OPTIONS' && (pathname === '/embed' || pathname.indexOf('/hls/') === 0)) {
+    res.writeHead(204, { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, OPTIONS' });
+    return res.end();
+  }
 
   if (pathname === '/api/status' && method === 'GET') return handleStatus(req, res);
   if (pathname === '/api/control' && method === 'POST') return handleControl(req, res);
