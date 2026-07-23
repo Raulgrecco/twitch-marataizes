@@ -300,20 +300,29 @@ function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
 // destino, porque dois processos ficam publicando ao mesmo tempo).
 const FFMPEG_MARKER = 'tv-sul-capixaba-painel';
 
-// IMPORTANTE: usa `execFile` (assíncrono) em vez de `execFileSync`. Essa
-// função é chamada em pontos sensíveis a tempo de resposta (start(),
-// stop(), boot) — se fosse síncrona, cada chamada bloquearia o event
-// loop (e portanto TODAS as rotas da API) pelo tempo que o `pkill`
-// levar para rodar. Não precisamos esperar o resultado para seguir o
-// fluxo (é "atire e esqueça"), então nenhum call site precisa de await.
+// IMPORTANTE: usa `execFile` (assíncrono) em vez de `execFileSync`, então
+// não bloqueia o event loop enquanto o `pkill` roda. MAS: como o `pkill`
+// busca processos pelo mesmo texto-marcador que o FFmpeg NOVO também
+// carrega no comando dele (`-metadata service=...`), se essa função não
+// for esperada (await) antes de um FFmpeg novo ser criado, existe uma
+// condição de corrida real: o `pkill` pode terminar de rodar DEPOIS que
+// o processo novo já nasceu, e matar ele também (ambos batem com o
+// mesmo `-f FFMPEG_MARKER`). Por isso retorna uma Promise — quem cria um
+// FFmpeg novo depois de chamar isso deve dar `await` nela primeiro. Isso
+// não bloqueia a API (o `pkill` continua rodando fora do event loop),
+// só garante a ORDEM certa entre "limpar órfãos" e "criar o novo".
 function killOrphanFFmpegProcesses() {
-  execFile('pkill', ['-9', '-f', FFMPEG_MARKER], function (err) {
-    if (!err) {
-      addLog('info', 'Processo(s) órfão(s) do FFmpeg (do painel) encontrado(s) e encerrado(s).');
-    }
-    // Código de saída != 0 = pkill não encontrou nenhum processo
-    // correspondente — esse é o caso normal (nada a limpar), não uma
-    // falha real, por isso não logamos erro aqui.
+  return new Promise(function (resolve) {
+    execFile('pkill', ['-9', '-f', FFMPEG_MARKER], function (err) {
+      if (!err) {
+        addLog('info', 'Processo(s) órfão(s) do FFmpeg (do painel) encontrado(s) e encerrado(s).');
+      }
+      // Código de saída != 0 = pkill não encontrou nenhum processo
+      // correspondente — esse é o caso normal (nada a limpar), não uma
+      // falha real, por isso não logamos erro aqui. De qualquer forma,
+      // resolve sempre — quem chama só precisa saber que terminou.
+      resolve();
+    });
   });
 }
 
@@ -456,10 +465,6 @@ const engine = {
       addLog('error', 'Não foi possível iniciar: FFmpeg não foi encontrado no sistema (ver detecção de ambiente nos Logs).');
       return;
     }
-
-    // Garante que nenhum FFmpeg de uma sessão anterior ficou publicando
-    // por trás, antes de iniciar uma transmissão nova.
-    killOrphanFFmpegProcesses();
 
     const self = this;
     const resolution = (db.config.output.resolution || '1280x720').replace(/\s+/g, '');
@@ -650,6 +655,20 @@ const engine = {
 
       const args = ['-hide_banner', '-loglevel', 'warning']
         .concat(inputArgs, mapArgs, encodeArgs, outputArgs);
+
+      // Espera a limpeza de órfãos terminar ANTES de criar o processo
+      // novo. Sem esse `await`, o `pkill` (que busca pelo mesmo
+      // texto-marcador que o FFmpeg novo também carrega) pode terminar
+      // de rodar depois que o processo novo já nasceu — e matar ele
+      // também, por engano, com SIGKILL, quase na hora.
+      await killOrphanFFmpegProcesses();
+
+      // Se Parar/Reiniciar foi acionado durante essa espera (breve, mas
+      // possível), este start() está obsoleto — não cria o processo.
+      if (self.restartToken !== token) {
+        self.preparing = false;
+        return;
+      }
 
       let child;
       try {
