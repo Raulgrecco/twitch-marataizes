@@ -34,6 +34,13 @@ const NORMALIZED_DIR = path.join(__dirname, 'data', 'normalized');
 const DB_FILE = path.join(DATA_DIR, 'db.json');
 const MAX_UPLOAD_BYTES = 2 * 1024 * 1024 * 1024; // 2GB — limite de segurança do MVP
 
+// DIAGNÓSTICO TEMPORÁRIO — ver comentário em spawnOne() para o que isso
+// faz. Depois de usar pra investigar a conexão com o YouTube, volte para
+// `false` (não deixe ligado permanentemente: gera bem mais log/E-S do
+// que o normal).
+const YOUTUBE_DEBUG_LOGGING = true;
+const YOUTUBE_DEBUG_LOG_PATH = path.join(DATA_DIR, 'youtube-debug.log');
+
 [DATA_DIR, UPLOADS_DIR, NORMALIZED_DIR].forEach(function (dir) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
@@ -314,6 +321,81 @@ function probeMatchesTargetSpec(originalPath, targetW, targetH, videoStreamIndex
   });
 }
 
+// Só permite apagar o original depois de validar TUDO isso na cópia
+// normalizada: (1) o arquivo existe, (2) o ffprobe consegue lê-lo sem
+// erro, (3) a duração dele bate com a do original (tolerância de 2
+// segundos, cobre pequenas diferenças de arredondamento). Se qualquer
+// checagem falhar — ou o ffprobe não estiver disponível, caso em que
+// não dá pra validar nada — o original NUNCA é apagado.
+//
+// Retorna sempre um objeto detalhado (não só true/false), pra quem
+// chamar poder registrar no log EXATAMENTE por que passou ou falhou —
+// útil meses depois, se surgir dúvida sobre por que um vídeo foi
+// apagado ou preservado.
+function formatHMS(totalSeconds) {
+  if (totalSeconds === null || totalSeconds === undefined || isNaN(totalSeconds)) return '—';
+  const h = Math.floor(totalSeconds / 3600);
+  const m = Math.floor((totalSeconds % 3600) / 60);
+  const s = Math.floor(totalSeconds % 60);
+  function pad(n) { return String(n).padStart(2, '0'); }
+  return pad(h) + ':' + pad(m) + ':' + pad(s);
+}
+
+function validateNormalizedOutput(originalPath, normalizedPath) {
+  return new Promise(function (resolve) {
+    if (!envInfo.ffprobePath) {
+      return resolve({ ok: false, reason: 'ffprobe não está disponível neste servidor' });
+    }
+    if (!fs.existsSync(normalizedPath)) {
+      return resolve({ ok: false, reason: 'arquivo normalizado não existe em disco' });
+    }
+
+    function getDuration(filePath) {
+      return new Promise(function (res) {
+        execFile(envInfo.ffprobePath, [
+          '-v', 'error', '-show_entries', 'format=duration', '-of', 'default=noprint_wrappers=1:nokey=1', filePath
+        ], { maxBuffer: 1024 * 1024 }, function (err, stdout) {
+          if (err) return res(null);
+          const d = parseFloat(String(stdout).trim());
+          res(isNaN(d) ? null : d);
+        });
+      });
+    }
+
+    Promise.all([getDuration(originalPath), getDuration(normalizedPath)]).then(function (durations) {
+      const origDuration = durations[0];
+      const normDuration = durations[1];
+      if (origDuration === null) {
+        return resolve({ ok: false, reason: 'ffprobe retornou erro ao ler o original', origDuration: null, normDuration: normDuration });
+      }
+      if (normDuration === null) {
+        return resolve({ ok: false, reason: 'ffprobe retornou erro ao ler o arquivo normalizado', origDuration: origDuration, normDuration: null });
+      }
+      const diff = Math.abs(origDuration - normDuration);
+      if (diff > 2) {
+        return resolve({ ok: false, reason: 'duração incompatível (diferença de ' + diff.toFixed(1) + 's, acima da tolerância de 2s)', origDuration: origDuration, normDuration: normDuration });
+      }
+      resolve({ ok: true, reason: null, origDuration: origDuration, normDuration: normDuration });
+    });
+  });
+}
+
+function logValidationResult(video, normalizedPath, result) {
+  if (result.ok) {
+    addLog('info', '✓ Normalização validada\n'
+      + 'Original: uploads/' + video.storedName + '\n'
+      + 'Normalizado: data/normalized/' + path.basename(normalizedPath) + '\n'
+      + 'Duração: ' + formatHMS(result.origDuration) + ' → ' + formatHMS(result.normDuration) + '\n'
+      + 'Original removido com segurança.');
+  } else {
+    addLog('warn', '✗ Validação falhou\n'
+      + 'Original: uploads/' + video.storedName + '\n'
+      + 'Normalizado: data/normalized/' + path.basename(normalizedPath) + '\n'
+      + 'Motivo: ' + result.reason + '\n'
+      + 'Original preservado.');
+  }
+}
+
 function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
   return new Promise(function (resolve, reject) {
     const normalizedPath = path.join(NORMALIZED_DIR, video.id + '_' + targetW + 'x' + targetH + '.mp4');
@@ -346,7 +428,11 @@ function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
         fs.copyFile(originalPath, normalizedPath, function (copyErr) {
           if (copyErr) return runEncode();
           addLog('info', 'Vídeo já estava no padrão de saída — copiado sem recodificar (mais rápido): ' + video.originalName);
-          resolve(normalizedPath);
+          validateNormalizedOutput(originalPath, normalizedPath).then(function (result) {
+            if (result.ok) fs.unlink(originalPath, function () { /* ignore erro */ });
+            logValidationResult(video, normalizedPath, result);
+            resolve(normalizedPath);
+          });
         });
         return;
       }
@@ -362,7 +448,7 @@ function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
         '-map', '0:v:' + videoStreamIndex, '-map', '0:a?',
         '-c:v', 'copy',
         '-c:a', 'aac', '-ar', '44100', '-ac', '2', '-b:a', '128k',
-        '-metadata', 'service=' + FFMPEG_MARKER,
+        '-metadata', 'service=' + NORMALIZATION_MARKER,
         normalizedPath
       ];
 
@@ -387,7 +473,11 @@ function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
 
       audioChild.on('close', function (code) {
         if (code === 0 && fs.existsSync(normalizedPath)) {
-          resolve(normalizedPath);
+          validateNormalizedOutput(originalPath, normalizedPath).then(function (result) {
+            if (result.ok) fs.unlink(originalPath, function () { /* ignore erro */ });
+            logValidationResult(video, normalizedPath, result);
+            resolve(normalizedPath);
+          });
           return;
         }
         try { if (fs.existsSync(normalizedPath)) fs.unlinkSync(normalizedPath); } catch (e) { /* ignore */ }
@@ -406,7 +496,7 @@ function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
         'pad=' + targetW + ':' + targetH + ':(ow-iw)/2:(oh-ih)/2:color=black,setsar=1,fps=30',
       '-c:v', 'libx264', '-preset', 'ultrafast', '-profile:v', 'main', '-level:v', '4.0', '-b:v', bitrate,
       '-c:a', 'aac', '-ar', '44100', '-ac', '2', '-b:a', '128k',
-      '-metadata', 'service=' + FFMPEG_MARKER,
+      '-metadata', 'service=' + NORMALIZATION_MARKER,
       normalizedPath
     ];
 
@@ -435,13 +525,16 @@ function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
 
     child.on('close', function (code) {
       if (code === 0 && fs.existsSync(normalizedPath)) {
-        // O original NÃO é removido automaticamente aqui — fica em
-        // uploads/ até você decidir apagar manualmente, depois de
-        // confirmar que a transmissão está funcionando corretamente
-        // com o arquivo normalizado. Preferimos gastar mais espaço em
-        // disco a arriscar perder o único original de um vídeo por
-        // causa de uma exclusão automática prematura.
-        resolve(normalizedPath);
+        // Só apaga o original depois de validar a cópia normalizada:
+        // arquivo existe, ffprobe lê sem erro, e duração compatível com
+        // o original (tolerância de 2s). Se qualquer checagem falhar,
+        // o original fica intacto — preferimos gastar mais espaço em
+        // disco a arriscar perder o único original de um vídeo.
+        validateNormalizedOutput(originalPath, normalizedPath).then(function (result) {
+          if (result.ok) fs.unlink(originalPath, function () { /* ignore erro */ });
+          logValidationResult(video, normalizedPath, result);
+          resolve(normalizedPath);
+        });
         return;
       }
       // Encerrou com erro (ou não gerou o arquivo esperado) — remove
@@ -461,6 +554,15 @@ function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
 // isso causa o erro "mais de uma transmissão usando a mesma URL" no
 // destino, porque dois processos ficam publicando ao mesmo tempo).
 const FFMPEG_MARKER = 'tv-sul-capixaba-painel';
+
+// Marca SEPARADA, só para os processos de NORMALIZAÇÃO em segundo plano
+// (ensureNormalizedVideoAsync). É de propósito diferente de FFMPEG_MARKER
+// (que é só dos processos de TRANSMISSÃO, um por destino): assim,
+// killOrphanFFmpegProcesses() — chamada por stop() e pelo "Atualizar
+// Playlist" — nunca enxerga nem mata um vídeo que ainda está sendo
+// normalizado. Um reinício da transmissão nunca derruba uma normalização
+// em andamento, e vice-versa.
+const NORMALIZATION_MARKER = 'tv-sul-capixaba-normalizacao';
 
 // IMPORTANTE: usa `execFile` (assíncrono) em vez de `execFileSync`, então
 // não bloqueia o event loop enquanto o `pkill` roda. MAS: como o `pkill`
@@ -599,6 +701,53 @@ function runEnvironmentDetection() {
   }
 }
 
+// Fila de preparação em SEGUNDO PLANO — roda de forma totalmente
+// independente da transmissão ao vivo. Nunca mexe em self.children, nunca
+// chama start()/stop()/restart(), nunca reinicia nada sozinha. Só
+// percorre os vídeos enviados e, um de cada vez (reaproveitando a MESMA
+// ensureNormalizedVideoAsync de sempre — nenhuma lógica duplicada),
+// garante que cada um tenha uma cópia normalizada pronta em disco. Os
+// vídeos que ela processa só entram de fato na programação quando você
+// aciona "Atualizar playlist" manualmente (ou dá Stop/Play).
+let backgroundQueueRunning = false;
+function ensureBackgroundNormalizationRunning() {
+  if (backgroundQueueRunning) return; // já tem uma fila rodando, não duplica
+  backgroundQueueRunning = true;
+
+  (async function loop() {
+    try {
+      for (;;) {
+        const resolution = (db.config.output.resolution || '1280x720').replace(/\s+/g, '');
+        const bitrate = db.config.output.bitrate || '2000k';
+        const dims = resolution.split('x');
+        const targetW = dims[0] || '1280';
+        const targetH = dims[1] || '720';
+
+        const next = db.videos.find(function (v) {
+          return !v._backgroundFailed
+            && fs.existsSync(path.join(UPLOADS_DIR, v.storedName))
+            && !fs.existsSync(path.join(NORMALIZED_DIR, v.id + '_' + targetW + 'x' + targetH + '.mp4'));
+        });
+        if (!next) break; // nada pendente — fila esvaziada, pode parar
+
+        try {
+          await ensureNormalizedVideoAsync(next, targetW, targetH, bitrate);
+          addLog('info', 'Vídeo pronto em segundo plano, aguardando "Atualizar playlist": ' + next.originalName);
+        } catch (err) {
+          addLog('error', 'Vídeo não pôde ser preparado em segundo plano: ' + next.originalName + ' (' + err.message + ')');
+          // Marca como "visto" mesmo com falha, senão o `find` acima
+          // pegaria o mesmo vídeo quebrado pra sempre em loop. Como não
+          // existe cópia normalizada, ele simplesmente não entra na
+          // playlist até alguém corrigir o arquivo e reenviar.
+          next._backgroundFailed = true;
+        }
+      }
+    } finally {
+      backgroundQueueRunning = false;
+    }
+  })();
+}
+
 const engine = {
   running: false,
   // true enquanto os vídeos da playlist estão sendo normalizados em
@@ -621,6 +770,18 @@ const engine = {
   // especial 'teste-local' é usada quando não há nenhum destino ativo.
   children: {},
   retryTimers: {},
+  // Contadores usados só para NÃO INUNDAR os Logs — a reconexão em si
+  // continua sempre em 5 segundos fixos, sem backoff. Depois de 3
+  // tentativas seguidas com o MESMO tipo de erro, para de logar cada
+  // uma; volta a logar assim que o destino reconectar de verdade
+  // (fica de pé por mais de 30s) ou o erro mudar de tipo.
+  retryAttempts: {},
+  retryLastError: {},
+  // Ids dos vídeos que efetivamente entraram na transmissão da ÚLTIMA
+  // vez que start() rodou. Usado só para calcular, em /api/status,
+  // quantos vídeos já enviados ainda estão "de fora" (pendentes de
+  // entrar na programação, esperando "Atualizar playlist").
+  playlistVideoIds: [],
   playlistCount: 0,
   wasPlaylistMode: false,
 
@@ -711,37 +872,50 @@ const engine = {
           // Por isso cada vídeo é normalizado (mesma resolução/taxa/áudio) UMA
           // ÚNICA VEZ e a cópia fica em cache — depois disso, a concatenação é
           // sequencial e contínua, sem reinicializar nada entre um e outro.
-          //
-          // A normalização acontece em segundo plano (assíncrona) — um
-          // vídeo só é ADICIONADO À PLAYLIST depois que a normalização
-          // dele terminar com sucesso. Se falhar (arquivo corrompido,
-          // upload incompleto, etc.), esse vídeo é apenas excluído desta
-          // transmissão — não trava nem aborta a transmissão inteira.
           const dims = resolution.split('x');
           const targetW = dims[0] || '1280';
           const targetH = dims[1] || '720';
 
-          const prepared = [];
-          for (let i = 0; i < playlistVideos.length; i++) {
-            const v = playlistVideos[i];
+          function normalizedPathFor(v) {
+            return path.join(NORMALIZED_DIR, v.id + '_' + targetW + 'x' + targetH + '.mp4');
+          }
+
+          // FASE 1 (rápida): usa só os vídeos que JÁ têm cópia normalizada
+          // em cache agora — zero espera, o Play não fica preso atrás de
+          // vídeos que ainda não foram processados. Os que ainda faltam
+          // ficam de fora da transmissão AGORA (não travam nada) e são
+          // preparados em segundo plano (ver ensureBackgroundNormalizationRunning),
+          // entrando na programação só quando "Atualizar playlist" for
+          // acionado manualmente — nunca sozinho, nunca reiniciando a
+          // transmissão à toa.
+          let readyNow = playlistVideos.filter(function (v) { return fs.existsSync(normalizedPathFor(v)); });
+
+          // Bootstrap: se for a primeiríssima vez (nada em cache ainda),
+          // precisa esperar UM vídeo pra ter algo pra tocar — mas só um,
+          // nunca a fila inteira. Os demais entram na fila de fundo.
+          if (readyNow.length === 0) {
+            const first = playlistVideos[0];
             try {
-              const normalizedPath = await ensureNormalizedVideoAsync(v, targetW, targetH, bitrate);
-              prepared.push({ video: v, normalizedPath: normalizedPath });
+              await ensureNormalizedVideoAsync(first, targetW, targetH, bitrate);
+              readyNow = [first];
             } catch (err) {
               addLog('error', 'Vídeo não pôde ser preparado e foi excluído desta transmissão: '
-                + v.originalName + ' (' + err.message + ')');
+                + first.originalName + ' (' + err.message + ')');
             }
-
-            // Se Parar/Reiniciar foi acionado enquanto este vídeo ainda
-            // estava sendo preparado, aborta o restante — não vale a pena
-            // continuar normalizando vídeos para uma transmissão que já
-            // foi cancelada.
             if (self.restartToken !== token) {
               self.preparing = false;
-              addLog('info', 'Início da transmissão cancelado (Parar/Reiniciar foi acionado durante a preparação dos vídeos).');
+              addLog('info', 'Início da transmissão cancelado (Parar/Reiniciar foi acionado durante a preparação do vídeo).');
               return;
             }
           }
+
+          const prepared = readyNow.map(function (v) { return { video: v, normalizedPath: normalizedPathFor(v) }; });
+
+          // Dispara (sem esperar) a preparação em segundo plano de
+          // qualquer vídeo que ainda não tenha cópia normalizada — isso
+          // NUNCA reinicia a transmissão sozinho, só deixa os vídeos
+          // prontos, esperando por "Atualizar playlist".
+          ensureBackgroundNormalizationRunning();
 
           if (prepared.length === 0) {
             addLog('error', 'Nenhum vídeo da playlist pôde ser preparado — usando sinal de teste.');
@@ -755,8 +929,7 @@ const engine = {
             self.playlistCount = 0;
             self.wasPlaylistMode = false;
           } else if (prepared.length === 1) {
-            // Só restou um vídeo utilizável (os outros falharam na
-            // preparação) — toca ele direto, sem precisar de concat.
+            // Só um vídeo pronto agora — toca ele direto, sem precisar de concat.
             inputArgs = ['-re', '-stream_loop', '-1', '-i', prepared[0].normalizedPath];
             mapArgs = ['-map', '0:v:0', '-map', '0:a?'];
             effectivePlaylistVideos = [prepared[0].video];
@@ -798,6 +971,11 @@ const engine = {
         addLog('error', 'Falha ao preparar vídeos da playlist: ' + err.message);
         return;
       }
+
+      // Guarda quais vídeos entraram nesta transmissão — usado só por
+      // /api/status para calcular quantos vídeos já enviados ainda
+      // estão "de fora" (pendentes, aguardando "Atualizar playlist").
+      self.playlistVideoIds = effectivePlaylistVideos.map(function (v) { return v.id; });
 
       // Se Parar/Reiniciar foi acionado durante a preparação, este
       // start() está obsoleto — não inicia o FFmpeg.
@@ -869,8 +1047,25 @@ const engine = {
       // muda de um destino pro outro — tudo mais (fonte de vídeo,
       // codificação) é IDÊNTICO e computado uma única vez acima.
       function spawnOne(key, destLabel, outputArgs) {
-        const args = ['-hide_banner', '-loglevel', 'warning']
+        // DIAGNÓSTICO TEMPORÁRIO (controlado por YOUTUBE_DEBUG_LOGGING lá
+        // no topo do arquivo): quando ligado, só o destino "youtube" roda
+        // com -loglevel info (em vez de warning) e grava TODO o stderr
+        // bruto do FFmpeg num arquivo — assim dá pra ver a resposta real
+        // do RTMP do YouTube (Connected/Publishing/Invalid stream key/
+        // Broken pipe/etc.), sem mudar nada na transmissão em si. Depois
+        // de usar, volte YOUTUBE_DEBUG_LOGGING para false.
+        const isYoutubeDebugTarget = YOUTUBE_DEBUG_LOGGING && /youtube/i.test(destLabel);
+        const loglevelArgs = isYoutubeDebugTarget ? ['-hide_banner', '-loglevel', 'info'] : ['-hide_banner', '-loglevel', 'warning'];
+        const args = loglevelArgs
           .concat(inputArgs, mapArgs, encodeArgs, outputArgs);
+
+        let debugFileStream = null;
+        if (isYoutubeDebugTarget) {
+          try {
+            debugFileStream = fs.createWriteStream(YOUTUBE_DEBUG_LOG_PATH, { flags: 'a' });
+            debugFileStream.write('\n\n===== Nova tentativa de conexão — ' + new Date().toISOString() + ' =====\n');
+          } catch (e) { /* se não conseguir abrir o arquivo, segue sem gravar nele */ }
+        }
 
         let child;
         try {
@@ -881,13 +1076,36 @@ const engine = {
         }
 
         self.children[key] = child;
+        child._spawnedAt = Date.now();
         recomputeRunning();
         addLog('info', 'Transmissão iniciada para ' + destLabel + ' — processo FFmpeg criado (PID ' + child.pid + ') — fonte: ' + sourceLabel);
 
+        // Depois de 30s de pé sem cair, considera esse destino estável
+        // de novo. Se ele vinha de uma sequência de falhas (retryAttempts
+        // > 0), registra a recuperação UMA vez e zera os contadores —
+        // é esse reset que faz o log voltar a detalhar as próximas
+        // falhas, caso aconteçam de novo mais tarde.
+        clearTimeout(child._stableTimer);
+        child._stableTimer = setTimeout(function () {
+          if (self.children[key] !== child) return;
+          if ((self.retryAttempts[key] || 0) > 0) {
+            addLog('info', 'Destino ' + destLabel + ' reconectou com sucesso e está estável.');
+          }
+          delete self.retryAttempts[key];
+          delete self.retryLastError[key];
+        }, 30000);
+
+        let lastStderrLine = '';
         if (child.stderr) {
           child.stderr.on('data', function (chunk) {
+            if (debugFileStream) {
+              try { debugFileStream.write(chunk); } catch (e) { /* ignore erro de escrita no debug */ }
+            }
             const text = chunk.toString('utf8').trim();
-            if (text) addLog('info', '[ffmpeg:' + destLabel + '] ' + text.split('\n').pop());
+            if (text) {
+              lastStderrLine = text.split('\n').pop();
+              addLog('info', '[ffmpeg:' + destLabel + '] ' + lastStderrLine);
+            }
           });
         }
 
@@ -898,6 +1116,10 @@ const engine = {
         });
 
         child.on('exit', function (code, signal) {
+          clearTimeout(child._stableTimer);
+          if (debugFileStream) {
+            try { debugFileStream.end('===== Processo encerrado (código ' + code + ') — ' + new Date().toISOString() + ' =====\n'); } catch (e) { /* ignore */ }
+          }
           if (self.children[key] === child) delete self.children[key];
           recomputeRunning();
 
@@ -905,14 +1127,32 @@ const engine = {
           // token já mudou, não tenta religar.
           if (self.restartToken !== token) return;
 
+          // Assinatura simples do erro (código + última linha do FFmpeg)
+          // — usada só para decidir se esse é "o mesmo erro de sempre"
+          // (silencia depois de 3x) ou um erro NOVO (volta a detalhar).
+          const errorSignature = code + '|' + (signal || '') + '|' + lastStderrLine;
+          const isNewErrorType = self.retryLastError[key] !== errorSignature;
+          const attempts = isNewErrorType ? 1 : (self.retryAttempts[key] || 0) + 1;
+          self.retryAttempts[key] = attempts;
+          self.retryLastError[key] = errorSignature;
+
           if (code === 0 && self.wasPlaylistMode) {
             // Não deveria acontecer com "-stream_loop -1" (loop
             // infinito), mas por segurança: se esse destino terminou
             // "limpo", religa só ELE, sem afetar os demais destinos.
-            addLog('info', 'Processo de ' + destLabel + ' terminou — reiniciando só esse destino.');
-          } else {
+            if (attempts <= 3 || isNewErrorType) {
+              addLog('info', 'Processo de ' + destLabel + ' terminou — reiniciando só esse destino em 5s.');
+            }
+          } else if (attempts <= 3 || isNewErrorType) {
             addLog('error', 'Processo do FFmpeg para ' + destLabel + ' encerrou inesperadamente (código ' + code + (signal ? ', sinal ' + signal : '') + '). Tentando reconectar em 5s — os outros destinos não são afetados.');
+          } else if (attempts === 4) {
+            // A partir daqui, mesmo erro se repetindo — para de logar
+            // cada tentativa (é isso que vinha enchendo os Logs), mas
+            // AVISA UMA VEZ que vai continuar tentando em silêncio.
+            addLog('warn', 'Destino ' + destLabel + ' continua sem conseguir conectar (mesmo erro repetido). Vai continuar tentando a cada 5s em segundo plano, sem mais registrar cada tentativa, até reconectar ou o erro mudar.');
           }
+          // attempts > 4 com o mesmo erro: não loga nada — continua
+          // tentando a cada 5s normalmente, só em silêncio.
 
           clearTimeout(self.retryTimers[key]);
           self.retryTimers[key] = setTimeout(function () {
@@ -953,6 +1193,8 @@ const engine = {
       clearTimeout(self.retryTimers[key]);
       delete self.retryTimers[key];
     });
+    this.retryAttempts = {};
+    this.retryLastError = {};
     Object.keys(this.children).forEach(function (key) {
       try { self.children[key].kill('SIGKILL'); } catch (e) { /* ignore */ }
       delete self.children[key];
@@ -960,9 +1202,11 @@ const engine = {
 
     // Garante de verdade que nada fica publicando depois do Parar —
     // independente do que o painel achava que era o estado (por exemplo,
-    // um processo órfão de uma sessão anterior que o painel nem sabia
-    // que existia, ou um processo de normalização em segundo plano, já
-    // que ambos usam a mesma marca -metadata service=FFMPEG_MARKER).
+    // um processo órfão de transmissão de uma sessão anterior que o
+    // painel nem sabia que existia). Isso NÃO afeta nenhuma normalização
+    // em segundo plano rodando nesse momento — ela usa uma marca
+    // diferente (NORMALIZATION_MARKER) de propósito, então continua até
+    // o fim mesmo com Parar/Reiniciar acionado na transmissão.
     killOrphanFFmpegProcesses();
     this.running = false;
     this.preparing = false;
@@ -1053,6 +1297,14 @@ const engine = {
     }
     let upSeconds = 0;
     if (this.running && this.startedAt) upSeconds = Math.floor((Date.now() - this.startedAt) / 1000);
+
+    // Quantos vídeos já enviados (existem em disco) ainda estão de fora
+    // da programação ao vivo agora — aguardando "Atualizar playlist".
+    const currentIds = this.playlistVideoIds || [];
+    const pendingCount = db.videos.filter(function (v) {
+      return fs.existsSync(path.join(UPLOADS_DIR, v.storedName)) && currentIds.indexOf(v.id) === -1;
+    }).length;
+
     return {
       running: this.running,
       preparing: this.preparing,
@@ -1061,7 +1313,8 @@ const engine = {
       ram: this.running ? Math.round(this.ram) + '%' : '—',
       output: this.running ? this.outputLabel : '—',
       upSeconds: upSeconds,
-      upFormatted: formatUptime(upSeconds)
+      upFormatted: formatUptime(upSeconds),
+      pendingCount: pendingCount
     };
   }
 };
@@ -1275,6 +1528,11 @@ async function handleVideoUpload(req, res) {
   }
 
   saveDB();
+  // Já dispara a preparação em segundo plano do(s) vídeo(s) recém
+  // enviado(s) — não espera o usuário clicar em Play nem em "Atualizar
+  // playlist" pra começar a normalizar; só ENTRAR na programação ao
+  // vivo que continua exigindo uma dessas duas ações manuais.
+  ensureBackgroundNormalizationRunning();
   sendJSON(res, 201, saved);
 }
 
@@ -1486,7 +1744,7 @@ function serveIndex(res) {
   res.end(PAGE_HTML);
 }
 
-const PAGE_HTML = "<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>TV Sul Capixaba — Transmissão</title>\n<style>\n  * { box-sizing: border-box; margin: 0; padding: 0; }\n  body {\n    font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif;\n    background: #05060a; color: #f2f3f5;\n    display: flex; justify-content: center;\n    padding: 40px 20px;\n  }\n  .box { width: 100%; max-width: 560px; }\n  h1 { font-size: 20px; font-weight: 700; margin-bottom: 24px; }\n\n  .card {\n    background: #0d0f16; border: 1px solid #1c1f2a; border-radius: 12px;\n    padding: 20px; margin-bottom: 16px;\n  }\n  .card h2 { font-size: 13px; font-weight: 700; color: #9a9fad; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 14px; }\n\n  .status-row { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 700; margin-bottom: 16px; }\n  .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #6b7280; flex-shrink: 0; }\n  .status-dot.on { background: #3ecf6a; }\n\n  .controls { display: flex; gap: 10px; }\n  button {\n    all: unset; cursor: pointer; text-align: center;\n    font-size: 14px; font-weight: 700; padding: 12px 18px; border-radius: 8px;\n  }\n  .btn-play { background: #3ecf6a; color: #04340c; flex: 1; }\n  .btn-stop { background: #e2543a; color: #fff; flex: 1; }\n  button:disabled { opacity: .5; cursor: default; }\n\n  input[type=text] {\n    width: 100%; background: #171a24; border: 1px solid #1c1f2a; color: #f2f3f5;\n    padding: 10px 12px; border-radius: 8px; font-size: 14px; margin-bottom: 10px;\n  }\n  .btn-save { background: #171a24; color: #f2f3f5; border: 1px solid #1c1f2a; width: 100%; }\n\n  .upload-row { display: flex; gap: 10px; margin-bottom: 6px; }\n  input[type=file] { flex: 1; color: #9a9fad; font-size: 13px; }\n  .btn-upload { background: #e2543a; color: #fff; }\n\n  .progress { height: 6px; border-radius: 999px; background: #171a24; overflow: hidden; margin-top: 10px; display: none; }\n  .progress-fill { height: 100%; background: #3b6fe0; width: 0%; }\n\n  ul.video-list { list-style: none; }\n  ul.video-list li {\n    display: flex; align-items: center; justify-content: space-between; gap: 10px;\n    padding: 10px 0; border-bottom: 1px solid #1c1f2a; font-size: 14px;\n  }\n  ul.video-list li:last-child { border-bottom: none; }\n  ul.video-list .name { word-break: break-word; }\n  ul.video-list .meta { color: #9a9fad; font-size: 12px; }\n  .empty { color: #5b606e; font-size: 13px; padding: 6px 0; }\n  .del-btn { all: unset; cursor: pointer; color: #5b606e; font-size: 13px; flex-shrink: 0; }\n  .del-btn:hover { color: #e2543a; }\n\n  .dest-row {\n    display: flex; align-items: center; justify-content: space-between; gap: 10px;\n    padding: 10px 0; border-bottom: 1px solid #1c1f2a; font-size: 14px;\n  }\n  .dest-row:last-child { border-bottom: none; }\n  .dest-row label { display: flex; align-items: center; gap: 8px; }\n  .dest-row .meta { color: #9a9fad; font-size: 12px; }\n  .dest-actions { display: flex; gap: 12px; flex-shrink: 0; }\n  .link-btn { all: unset; cursor: pointer; color: #9a9fad; font-size: 13px; }\n  .link-btn:hover { color: #f2f3f5; }\n  .dest-form { margin-top: 10px; }\n</style>\n</head>\n<body>\n<div class=\"box\">\n  <h1>TV Sul Capixaba — Transmissão</h1>\n\n  <div class=\"card\">\n    <div class=\"status-row\"><span class=\"status-dot\" id=\"statusDot\"></span><span id=\"statusText\">Parado</span></div>\n    <div class=\"controls\">\n      <button class=\"btn-play\" id=\"btnPlay\">▶ Play</button>\n      <button class=\"btn-stop\" id=\"btnStop\">⏹ Stop</button>\n    </div>\n  </div>\n\n  <div class=\"card\">\n    <h2>Destinos de transmissão</h2>\n    <div id=\"destList\"></div>\n    <div class=\"dest-form\">\n      <input type=\"text\" id=\"destName\" placeholder=\"Nome (ex: YouTube)\" />\n      <input type=\"text\" id=\"destUrl\" placeholder=\"rtmp://... ou srt://...\" />\n      <button class=\"btn-save\" id=\"btnAddDest\">+ Adicionar destino</button>\n    </div>\n  </div>\n\n  <div class=\"card\">\n    <h2>Enviar vídeo</h2>\n    <div class=\"upload-row\">\n      <input type=\"file\" id=\"fileInput\" accept=\"video/*\" />\n      <button class=\"btn-upload\" id=\"btnUpload\">Enviar</button>\n    </div>\n    <div class=\"progress\" id=\"uploadProgress\"><div class=\"progress-fill\" id=\"uploadProgressFill\"></div></div>\n  </div>\n\n  <div class=\"card\">\n    <h2>Vídeos enviados</h2>\n    <ul class=\"video-list\" id=\"videoList\"></ul>\n  </div>\n</div>\n\n<script>\n  function apiGet(url) { return fetch(url).then(function (r) { return r.json(); }); }\n  function apiSend(url, method, body) {\n    return fetch(url, { method: method, headers: { 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined })\n      .then(function (r) { return r.json().then(function (data) { if (!r.ok) throw new Error(data.error || 'Erro'); return data; }); });\n  }\n  function escapeHtml(s) {\n    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;');\n  }\n  function formatBytes(n) {\n    if (!n) return '0 B';\n    var units = ['B', 'KB', 'MB', 'GB']; var i = 0; var v = n;\n    while (v >= 1024 && i < units.length - 1) { v /= 1024; i++; }\n    return v.toFixed(1) + ' ' + units[i];\n  }\n\n  var destinations = [];\n  function detectProtocolLabel(url) {\n    if (/^rtmps?:\\/\\//i.test(url)) return 'RTMP';\n    if (/^srt:\\/\\//i.test(url)) return 'SRT';\n    return '?';\n  }\n  function loadDestinations() {\n    return apiGet('/api/config').then(function (c) {\n      destinations = c.destinations || [];\n      renderDestinations();\n    });\n  }\n  function renderDestinations() {\n    var el = document.getElementById('destList');\n    if (!destinations.length) { el.innerHTML = '<div class=\"empty\">Nenhum destino cadastrado ainda.</div>'; return; }\n    var html = '';\n    destinations.forEach(function (d) {\n      html += '<div class=\"dest-row\">'\n        + '<label><input type=\"checkbox\" class=\"dest-toggle\" data-id=\"' + d.id + '\" ' + (d.enabled ? 'checked' : '') + ' /> '\n        + escapeHtml(d.name) + ' <span class=\"meta\">(' + detectProtocolLabel(d.url) + ')</span></label>'\n        + '<span class=\"dest-actions\">'\n        + '<button class=\"link-btn\" data-act=\"edit\" data-id=\"' + d.id + '\">Editar</button>'\n        + '<button class=\"del-btn\" data-act=\"del\" data-id=\"' + d.id + '\">Excluir</button>'\n        + '</span></div>';\n    });\n    el.innerHTML = html;\n  }\n  function saveDestinations() {\n    return apiSend('/api/config', 'PUT', { destinations: destinations });\n  }\n  document.getElementById('btnAddDest').addEventListener('click', function () {\n    var name = document.getElementById('destName').value.trim();\n    var url = document.getElementById('destUrl').value.trim();\n    if (!name || !url) { alert('Preencha nome e URL.'); return; }\n    destinations.push({ id: Date.now().toString(36), name: name, url: url, enabled: true });\n    document.getElementById('destName').value = '';\n    document.getElementById('destUrl').value = '';\n    saveDestinations().then(renderDestinations).catch(function (err) { alert(err.message); });\n  });\n  document.getElementById('destList').addEventListener('change', function (e) {\n    if (!e.target.classList.contains('dest-toggle')) return;\n    var dest = destinations.find(function (d) { return d.id === e.target.getAttribute('data-id'); });\n    if (dest) dest.enabled = e.target.checked;\n    saveDestinations().catch(function (err) { alert(err.message); });\n  });\n  document.getElementById('destList').addEventListener('click', function (e) {\n    var btn = e.target.closest('button[data-act]');\n    if (!btn) return;\n    var idx = destinations.findIndex(function (d) { return d.id === btn.getAttribute('data-id'); });\n    if (idx === -1) return;\n    if (btn.getAttribute('data-act') === 'del') {\n      if (!confirm('Excluir este destino?')) return;\n      destinations.splice(idx, 1);\n      saveDestinations().then(renderDestinations).catch(function (err) { alert(err.message); });\n    } else {\n      var d = destinations[idx];\n      var newName = prompt('Nome:', d.name);\n      if (newName === null) return;\n      var newUrl = prompt('URL (rtmp:// ou srt://):', d.url);\n      if (newUrl === null) return;\n      d.name = newName.trim() || d.name;\n      d.url = newUrl.trim() || d.url;\n      saveDestinations().then(renderDestinations).catch(function (err) { alert(err.message); });\n    }\n  });\n\n  function loadVideos() {\n    apiGet('/api/videos?sort=date').then(function (list) {\n      var ul = document.getElementById('videoList');\n      if (!list.length) { ul.innerHTML = '<li class=\"empty\">Nenhum vídeo enviado ainda.</li>'; return; }\n      var html = '';\n      list.forEach(function (v) {\n        html += '<li><div><div class=\"name\">' + escapeHtml(v.originalName) + '</div>'\n          + '<div class=\"meta\">' + formatBytes(v.size) + '</div></div>'\n          + '<button class=\"del-btn\" data-id=\"' + v.id + '\">Excluir</button></li>';\n      });\n      ul.innerHTML = html;\n    });\n  }\n  document.getElementById('videoList').addEventListener('click', function (e) {\n    var btn = e.target.closest('.del-btn');\n    if (!btn) return;\n    if (!confirm('Excluir este vídeo?')) return;\n    apiSend('/api/videos/' + btn.getAttribute('data-id'), 'DELETE').then(loadVideos).catch(function (err) { alert(err.message); });\n  });\n\n  document.getElementById('btnUpload').addEventListener('click', function () {\n    var input = document.getElementById('fileInput');\n    if (!input.files.length) { alert('Escolha um arquivo de vídeo primeiro.'); return; }\n    var fd = new FormData();\n    fd.append('video', input.files[0]);\n    var bar = document.getElementById('uploadProgress');\n    var fill = document.getElementById('uploadProgressFill');\n    bar.style.display = 'block'; fill.style.width = '0%';\n    var xhr = new XMLHttpRequest();\n    xhr.open('POST', '/api/videos/upload');\n    xhr.upload.onprogress = function (evt) {\n      if (evt.lengthComputable) fill.style.width = Math.round(evt.loaded / evt.total * 100) + '%';\n    };\n    xhr.onload = function () {\n      bar.style.display = 'none'; input.value = '';\n      if (xhr.status >= 200 && xhr.status < 300) loadVideos();\n      else alert('Falha no envio.');\n    };\n    xhr.onerror = function () { bar.style.display = 'none'; alert('Erro de rede no envio.'); };\n    xhr.send(fd);\n  });\n\n  function refreshStatus() {\n    apiGet('/api/status').then(function (s) {\n      document.getElementById('statusDot').classList.toggle('on', !!s.running);\n      document.getElementById('statusText').textContent = s.running ? 'Transmitindo' : 'Parado';\n      document.getElementById('btnPlay').disabled = !!s.running;\n      document.getElementById('btnStop').disabled = !s.running;\n    }).catch(function () {});\n  }\n  document.getElementById('btnPlay').addEventListener('click', function () {\n    apiSend('/api/control', 'POST', { action: 'iniciar' }).then(refreshStatus).catch(function (err) { alert(err.message); });\n  });\n  document.getElementById('btnStop').addEventListener('click', function () {\n    apiSend('/api/control', 'POST', { action: 'parar' }).then(refreshStatus).catch(function (err) { alert(err.message); });\n  });\n\n  loadDestinations();\n  loadVideos();\n  refreshStatus();\n  setInterval(refreshStatus, 2000);\n</script>\n</body>\n</html>\n";
+const PAGE_HTML = "<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>TV Sul Capixaba — Transmissão</title>\n<style>\n  * { box-sizing: border-box; margin: 0; padding: 0; }\n  body {\n    font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif;\n    background: #05060a; color: #f2f3f5;\n    display: flex; justify-content: center;\n    padding: 40px 20px;\n  }\n  .box { width: 100%; max-width: 560px; }\n  h1 { font-size: 20px; font-weight: 700; margin-bottom: 24px; }\n\n  .card {\n    background: #0d0f16; border: 1px solid #1c1f2a; border-radius: 12px;\n    padding: 20px; margin-bottom: 16px;\n  }\n  .card h2 { font-size: 13px; font-weight: 700; color: #9a9fad; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 14px; }\n\n  .status-row { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 700; margin-bottom: 16px; }\n  .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #6b7280; flex-shrink: 0; }\n  .status-dot.on { background: #3ecf6a; }\n\n  .controls { display: flex; gap: 10px; }\n  button {\n    all: unset; cursor: pointer; text-align: center;\n    font-size: 14px; font-weight: 700; padding: 12px 18px; border-radius: 8px;\n  }\n  .btn-play { background: #3ecf6a; color: #04340c; flex: 1; }\n  .btn-stop { background: #e2543a; color: #fff; flex: 1; }\n  button:disabled { opacity: .5; cursor: default; }\n\n  input[type=text] {\n    width: 100%; background: #171a24; border: 1px solid #1c1f2a; color: #f2f3f5;\n    padding: 10px 12px; border-radius: 8px; font-size: 14px; margin-bottom: 10px;\n  }\n  .btn-save { background: #171a24; color: #f2f3f5; border: 1px solid #1c1f2a; width: 100%; }\n\n  .upload-row { display: flex; gap: 10px; margin-bottom: 6px; }\n  input[type=file] { flex: 1; color: #9a9fad; font-size: 13px; }\n  .btn-upload { background: #e2543a; color: #fff; }\n\n  .progress { height: 6px; border-radius: 999px; background: #171a24; overflow: hidden; margin-top: 10px; display: none; }\n  .progress-fill { height: 100%; background: #3b6fe0; width: 0%; }\n\n  ul.video-list { list-style: none; }\n  ul.video-list li {\n    display: flex; align-items: center; justify-content: space-between; gap: 10px;\n    padding: 10px 0; border-bottom: 1px solid #1c1f2a; font-size: 14px;\n  }\n  ul.video-list li:last-child { border-bottom: none; }\n  ul.video-list .name { word-break: break-word; }\n  ul.video-list .meta { color: #9a9fad; font-size: 12px; }\n  .empty { color: #5b606e; font-size: 13px; padding: 6px 0; }\n  .del-btn { all: unset; cursor: pointer; color: #5b606e; font-size: 13px; flex-shrink: 0; }\n  .del-btn:hover { color: #e2543a; }\n\n  .dest-row {\n    display: flex; align-items: center; justify-content: space-between; gap: 10px;\n    padding: 10px 0; border-bottom: 1px solid #1c1f2a; font-size: 14px;\n  }\n  .dest-row:last-child { border-bottom: none; }\n  .dest-row label { display: flex; align-items: center; gap: 8px; }\n  .dest-row .meta { color: #9a9fad; font-size: 12px; }\n  .dest-actions { display: flex; gap: 12px; flex-shrink: 0; }\n  .link-btn { all: unset; cursor: pointer; color: #9a9fad; font-size: 13px; }\n  .link-btn:hover { color: #f2f3f5; }\n  .dest-form { margin-top: 10px; }\n</style>\n</head>\n<body>\n<div class=\"box\">\n  <h1>TV Sul Capixaba — Transmissão</h1>\n\n  <div class=\"card\">\n    <div class=\"status-row\"><span class=\"status-dot\" id=\"statusDot\"></span><span id=\"statusText\">Parado</span></div>\n    <div class=\"controls\">\n      <button class=\"btn-play\" id=\"btnPlay\">▶ Play</button>\n      <button class=\"btn-stop\" id=\"btnStop\">⏹ Stop</button>\n    </div>\n    <div id=\"pendingRow\" style=\"display:none; margin-top:12px;\">\n      <div class=\"meta\" id=\"pendingText\" style=\"margin-bottom:8px;\"></div>\n      <button class=\"btn-save\" id=\"btnUpdatePlaylist\">↻ Atualizar playlist</button>\n    </div>\n  </div>\n\n  <div class=\"card\">\n    <h2>Destinos de transmissão</h2>\n    <div id=\"destList\"></div>\n    <div class=\"dest-form\">\n      <input type=\"text\" id=\"destName\" placeholder=\"Nome (ex: YouTube)\" />\n      <input type=\"text\" id=\"destUrl\" placeholder=\"rtmp://... ou srt://...\" />\n      <button class=\"btn-save\" id=\"btnAddDest\">+ Adicionar destino</button>\n    </div>\n  </div>\n\n  <div class=\"card\">\n    <h2>Enviar vídeo</h2>\n    <div class=\"upload-row\">\n      <input type=\"file\" id=\"fileInput\" accept=\"video/*\" />\n      <button class=\"btn-upload\" id=\"btnUpload\">Enviar</button>\n    </div>\n    <div class=\"progress\" id=\"uploadProgress\"><div class=\"progress-fill\" id=\"uploadProgressFill\"></div></div>\n  </div>\n\n  <div class=\"card\">\n    <h2>Vídeos enviados</h2>\n    <ul class=\"video-list\" id=\"videoList\"></ul>\n  </div>\n</div>\n\n<script>\n  function apiGet(url) { return fetch(url).then(function (r) { return r.json(); }); }\n  function apiSend(url, method, body) {\n    return fetch(url, { method: method, headers: { 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined })\n      .then(function (r) { return r.json().then(function (data) { if (!r.ok) throw new Error(data.error || 'Erro'); return data; }); });\n  }\n  function escapeHtml(s) {\n    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;');\n  }\n  function formatBytes(n) {\n    if (!n) return '0 B';\n    var units = ['B', 'KB', 'MB', 'GB']; var i = 0; var v = n;\n    while (v >= 1024 && i < units.length - 1) { v /= 1024; i++; }\n    return v.toFixed(1) + ' ' + units[i];\n  }\n\n  var destinations = [];\n  function detectProtocolLabel(url) {\n    if (/^rtmps?:\\/\\//i.test(url)) return 'RTMP';\n    if (/^srt:\\/\\//i.test(url)) return 'SRT';\n    return '?';\n  }\n  function loadDestinations() {\n    return apiGet('/api/config').then(function (c) {\n      destinations = c.destinations || [];\n      renderDestinations();\n    });\n  }\n  function renderDestinations() {\n    var el = document.getElementById('destList');\n    if (!destinations.length) { el.innerHTML = '<div class=\"empty\">Nenhum destino cadastrado ainda.</div>'; return; }\n    var html = '';\n    destinations.forEach(function (d) {\n      html += '<div class=\"dest-row\">'\n        + '<label><input type=\"checkbox\" class=\"dest-toggle\" data-id=\"' + d.id + '\" ' + (d.enabled ? 'checked' : '') + ' /> '\n        + escapeHtml(d.name) + ' <span class=\"meta\">(' + detectProtocolLabel(d.url) + ')</span></label>'\n        + '<span class=\"dest-actions\">'\n        + '<button class=\"link-btn\" data-act=\"edit\" data-id=\"' + d.id + '\">Editar</button>'\n        + '<button class=\"del-btn\" data-act=\"del\" data-id=\"' + d.id + '\">Excluir</button>'\n        + '</span></div>';\n    });\n    el.innerHTML = html;\n  }\n  function saveDestinations() {\n    return apiSend('/api/config', 'PUT', { destinations: destinations });\n  }\n  document.getElementById('btnAddDest').addEventListener('click', function () {\n    var name = document.getElementById('destName').value.trim();\n    var url = document.getElementById('destUrl').value.trim();\n    if (!name || !url) { alert('Preencha nome e URL.'); return; }\n    destinations.push({ id: Date.now().toString(36), name: name, url: url, enabled: true });\n    document.getElementById('destName').value = '';\n    document.getElementById('destUrl').value = '';\n    saveDestinations().then(renderDestinations).catch(function (err) { alert(err.message); });\n  });\n  document.getElementById('destList').addEventListener('change', function (e) {\n    if (!e.target.classList.contains('dest-toggle')) return;\n    var dest = destinations.find(function (d) { return d.id === e.target.getAttribute('data-id'); });\n    if (dest) dest.enabled = e.target.checked;\n    saveDestinations().catch(function (err) { alert(err.message); });\n  });\n  document.getElementById('destList').addEventListener('click', function (e) {\n    var btn = e.target.closest('button[data-act]');\n    if (!btn) return;\n    var idx = destinations.findIndex(function (d) { return d.id === btn.getAttribute('data-id'); });\n    if (idx === -1) return;\n    if (btn.getAttribute('data-act') === 'del') {\n      if (!confirm('Excluir este destino?')) return;\n      destinations.splice(idx, 1);\n      saveDestinations().then(renderDestinations).catch(function (err) { alert(err.message); });\n    } else {\n      var d = destinations[idx];\n      var newName = prompt('Nome:', d.name);\n      if (newName === null) return;\n      var newUrl = prompt('URL (rtmp:// ou srt://):', d.url);\n      if (newUrl === null) return;\n      d.name = newName.trim() || d.name;\n      d.url = newUrl.trim() || d.url;\n      saveDestinations().then(renderDestinations).catch(function (err) { alert(err.message); });\n    }\n  });\n\n  function loadVideos() {\n    apiGet('/api/videos?sort=date').then(function (list) {\n      var ul = document.getElementById('videoList');\n      if (!list.length) { ul.innerHTML = '<li class=\"empty\">Nenhum vídeo enviado ainda.</li>'; return; }\n      var html = '';\n      list.forEach(function (v) {\n        html += '<li><div><div class=\"name\">' + escapeHtml(v.originalName) + '</div>'\n          + '<div class=\"meta\">' + formatBytes(v.size) + '</div></div>'\n          + '<button class=\"del-btn\" data-id=\"' + v.id + '\">Excluir</button></li>';\n      });\n      ul.innerHTML = html;\n    });\n  }\n  document.getElementById('videoList').addEventListener('click', function (e) {\n    var btn = e.target.closest('.del-btn');\n    if (!btn) return;\n    if (!confirm('Excluir este vídeo?')) return;\n    apiSend('/api/videos/' + btn.getAttribute('data-id'), 'DELETE').then(loadVideos).catch(function (err) { alert(err.message); });\n  });\n\n  document.getElementById('btnUpload').addEventListener('click', function () {\n    var input = document.getElementById('fileInput');\n    if (!input.files.length) { alert('Escolha um arquivo de vídeo primeiro.'); return; }\n    var fd = new FormData();\n    fd.append('video', input.files[0]);\n    var bar = document.getElementById('uploadProgress');\n    var fill = document.getElementById('uploadProgressFill');\n    bar.style.display = 'block'; fill.style.width = '0%';\n    var xhr = new XMLHttpRequest();\n    xhr.open('POST', '/api/videos/upload');\n    xhr.upload.onprogress = function (evt) {\n      if (evt.lengthComputable) fill.style.width = Math.round(evt.loaded / evt.total * 100) + '%';\n    };\n    xhr.onload = function () {\n      bar.style.display = 'none'; input.value = '';\n      if (xhr.status >= 200 && xhr.status < 300) loadVideos();\n      else alert('Falha no envio.');\n    };\n    xhr.onerror = function () { bar.style.display = 'none'; alert('Erro de rede no envio.'); };\n    xhr.send(fd);\n  });\n\n  function refreshStatus() {\n    apiGet('/api/status').then(function (s) {\n      document.getElementById('statusDot').classList.toggle('on', !!s.running);\n      document.getElementById('statusText').textContent = s.running ? 'Transmitindo' : 'Parado';\n      document.getElementById('btnPlay').disabled = !!s.running;\n      document.getElementById('btnStop').disabled = !s.running;\n      var pendingRow = document.getElementById('pendingRow');\n      if (s.pendingCount > 0) {\n        pendingRow.style.display = 'block';\n        document.getElementById('pendingText').textContent = s.pendingCount + (s.pendingCount === 1 ? ' vídeo pronto/pendente fora do ar — clique para incluir na programação.' : ' vídeos prontos/pendentes fora do ar — clique para incluir na programação.');\n      } else {\n        pendingRow.style.display = 'none';\n      }\n    }).catch(function () {});\n  }\n  document.getElementById('btnPlay').addEventListener('click', function () {\n    apiSend('/api/control', 'POST', { action: 'iniciar' }).then(refreshStatus).catch(function (err) { alert(err.message); });\n  });\n  document.getElementById('btnStop').addEventListener('click', function () {\n    apiSend('/api/control', 'POST', { action: 'parar' }).then(refreshStatus).catch(function (err) { alert(err.message); });\n  });\n  document.getElementById('btnUpdatePlaylist').addEventListener('click', function () {\n    // Reaproveita a mesma ação de \"reiniciar\" que já existe no motor —\n    // um único corte curto e controlado, só quando você clicar aqui,\n    // pra incluir todos os vídeos que já terminaram de preparar em\n    // segundo plano desde a última vez que a transmissão começou.\n    if (!confirm('Isso vai reiniciar a transmissão uma vez, por poucos segundos, para incluir os vídeos pendentes. Continuar?')) return;\n    apiSend('/api/control', 'POST', { action: 'reiniciar' }).then(refreshStatus).catch(function (err) { alert(err.message); });\n  });\n\n  loadDestinations();\n  loadVideos();\n  refreshStatus();\n  setInterval(refreshStatus, 2000);\n</script>\n</body>\n</html>\n";
 
 
 
@@ -1557,4 +1815,8 @@ killOrphanFFmpegProcesses();
 server.listen(PORT, function () {
   console.log('Painel TV Sul Capixaba (MVP) rodando em http://localhost:' + PORT);
   addLog('info', 'Painel iniciado na porta ' + PORT);
+  // Pega qualquer vídeo que já estava esperando normalização antes
+  // desse reinício do painel (por exemplo, um upload feito pouco antes
+  // de um restart) e continua preparando em segundo plano.
+  ensureBackgroundNormalizationRunning();
 });
