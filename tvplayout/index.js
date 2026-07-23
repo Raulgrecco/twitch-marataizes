@@ -1202,7 +1202,7 @@ const engine = {
       ];
       if (!hasVideoFile) playerEncodeArgs.push('-shortest');
       const playerOutputArgs = [
-        '-f', 'hls', '-hls_time', '4', '-hls_list_size', '6',
+        '-f', 'hls', '-hls_time', '4', '-hls_list_size', '15',
         '-hls_flags', 'delete_segments+append_list+omit_endlist',
         '-hls_segment_filename', path.join(PLAYER_HLS_DIR, 'seg_%05d.ts'),
         path.join(PLAYER_HLS_DIR, 'stream.m3u8')
