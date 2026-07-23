@@ -230,6 +230,11 @@ function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
       fs.copyFile(originalPath, normalizedPath, function (copyErr) {
         if (copyErr) return runEncode();
         addLog('info', 'Vídeo já estava no padrão de saída — copiado sem recodificar (mais rápido): ' + video.originalName);
+        // O original não é mais necessário — só a cópia normalizada é
+        // usada na transmissão. Removê-lo economiza espaço em disco
+        // (o vídeo passa a ocupar só uma vez, não duas). Melhor esforço:
+        // se falhar, não é grave, só sobra em disco.
+        fs.unlink(originalPath, function () { /* ignore erro */ });
         resolve(normalizedPath);
       });
     });
@@ -270,6 +275,11 @@ function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
 
     child.on('close', function (code) {
       if (code === 0 && fs.existsSync(normalizedPath)) {
+        // Mesmo raciocínio do caminho de cópia direta acima: depois que
+        // a versão normalizada existe com sucesso, o original não é
+        // mais necessário para a transmissão — remover economiza
+        // espaço em disco (evita guardar o vídeo duas vezes).
+        fs.unlink(originalPath, function () { /* ignore erro */ });
         resolve(normalizedPath);
         return;
       }
@@ -459,13 +469,27 @@ const engine = {
       return d.enabled && d.url && d.url.trim();
     });
 
-    // Transmite todos os vídeos enviados em sequência, do mais antigo ao
-    // mais novo, repetindo a lista inteira quando chegar ao fim. Se não
-    // houver nenhum vídeo ainda, cai para o sinal de teste local.
+    // Transmite todos os vídeos enviados em sequência seguindo a MESMA
+    // ordem que aparece na tela "Vídeos enviados" (mais novo primeiro,
+    // de cima para baixo) — assim, quando você sobe "PARTE 1" e depois
+    // "PARTE 2", a ordem de exibição na tela e a ordem de reprodução
+    // batem uma com a outra. Repete a lista inteira quando chegar ao
+    // fim. Se não houver nenhum vídeo ainda, cai para o sinal de teste
+    // local.
+    //
+    // Um vídeo conta como disponível se o ORIGINAL existir em uploads/
+    // OU se já existir uma cópia normalizada para a resolução atual —
+    // depois que um vídeo é normalizado com sucesso, o original é
+    // removido para economizar espaço em disco (ver
+    // ensureNormalizedVideoAsync), então checar só uploads/ excluiria
+    // por engano vídeos que já estão prontos e em cache.
+    const dimsForFilter = resolution.split('x');
     const playlistVideos = db.videos.slice().sort(function (a, b) {
-      return new Date(a.uploadedAt) - new Date(b.uploadedAt);
+      return new Date(b.uploadedAt) - new Date(a.uploadedAt);
     }).filter(function (v) {
-      return fs.existsSync(path.join(UPLOADS_DIR, v.storedName));
+      const hasOriginal = fs.existsSync(path.join(UPLOADS_DIR, v.storedName));
+      const normalizedCandidate = path.join(NORMALIZED_DIR, v.id + '_' + (dimsForFilter[0] || '1280') + 'x' + (dimsForFilter[1] || '720') + '.mp4');
+      return hasOriginal || fs.existsSync(normalizedCandidate);
     });
 
     // A preparação (normalização) dos vídeos é assíncrona e, para um
