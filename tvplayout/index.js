@@ -457,7 +457,15 @@ const engine = {
   restartTimer: null,
   restartToken: 0,
 
-  ffmpegProcess: null,
+  // Cada destino ativo tem seu PRÓPRIO processo FFmpeg, totalmente
+  // independente dos demais (nada de muxer "tee" compartilhado). Isso
+  // garante isolamento real: se um destino cair/travar, isso não tem
+  // absolutamente nenhuma forma de afetar os outros processos, porque
+  // são processos separados do sistema operacional, não um pipeline
+  // compartilhado. `children` mapeia id-do-destino -> processo; a chave
+  // especial 'teste-local' é usada quando não há nenhum destino ativo.
+  children: {},
+  retryTimers: {},
   playlistCount: 0,
   wasPlaylistMode: false,
 
@@ -651,12 +659,11 @@ const engine = {
         // Profile/level fixos (em vez de deixar o libx264 escolher
         // automaticamente): "main" nível "4.0" cobre 1280x720@30fps com
         // folga e é aceito sem problema por RTMP (YouTube) e SRT. Sem
-        // isso, em certas condições (por exemplo vídeos que passaram
-        // pelo ajuste rápido de áudio, com metadados um pouco diferentes
-        // do original) o libx264 pode calcular uma taxa de macroblocos
-        // que excede o limite do level escolhido automaticamente — o
-        // aviso "MB rate > level limit" nos Logs — e o destino RTMP
-        // rejeita o stream resultante ("Invalid argument").
+        // isso, em certas condições o libx264 pode calcular uma taxa de
+        // macroblocos que excede o limite do level escolhido
+        // automaticamente — o aviso "MB rate > level limit" nos Logs —
+        // e o destino RTMP rejeita o stream resultante ("Invalid
+        // argument").
         '-profile:v', 'main', '-level:v', '4.0',
         '-b:v', bitrate, '-maxrate', bitrate, '-bufsize', bufsize,
         '-g', '60', '-keyint_min', '60',
@@ -665,102 +672,110 @@ const engine = {
       ];
       if (!hasVideoFile) encodeArgs.push('-shortest');
 
-      let outputArgs;
-      if (activeDestinations.length > 0) {
-        // Detecta o protocolo pela URL (rtmp:// ou srt://) e usa o muxer do
-        // FFmpeg "tee" para mandar o mesmo encode para todos os destinos ativos
-        // ao mesmo tempo. "onfail=ignore" evita que um destino com problema
-        // derrube a transmissão para os demais.
-        const teeOutputs = activeDestinations.map(function (d) {
-          const url = d.url.trim();
-          const isSrt = /^srt:\/\//i.test(url);
-          const muxer = isSrt ? 'mpegts' : 'flv';
-          return '[f=' + muxer + ':onfail=ignore]' + url;
-        }).join('|');
-        outputArgs = ['-f', 'tee', teeOutputs];
-      } else {
-        outputArgs = ['-f', 'null', '-'];
-      }
+      const sourceLabel = hasVideoFile
+        ? (effectivePlaylistVideos.length === 1 ? effectivePlaylistVideos[0].originalName : 'playlist com ' + effectivePlaylistVideos.length + ' vídeos')
+        : 'sinal de teste';
 
-      const args = ['-hide_banner', '-loglevel', 'warning']
-        .concat(inputArgs, mapArgs, encodeArgs, outputArgs);
-
-      // Espera a limpeza de órfãos terminar ANTES de criar o processo
-      // novo. Sem esse `await`, o `pkill` (que busca pelo mesmo
-      // texto-marcador que o FFmpeg novo também carrega) pode terminar
-      // de rodar depois que o processo novo já nasceu — e matar ele
-      // também, por engano, com SIGKILL, quase na hora.
+      // Espera a limpeza de órfãos terminar ANTES de criar processos
+      // novos. Sem esse `await`, o `pkill` (que busca pelo mesmo
+      // texto-marcador que os FFmpeg novos também carregam) pode
+      // terminar de rodar depois que os processos novos já nasceram —
+      // e matar eles também, por engano, com SIGKILL, quase na hora.
       await killOrphanFFmpegProcesses();
 
       // Se Parar/Reiniciar foi acionado durante essa espera (breve, mas
-      // possível), este start() está obsoleto — não cria o processo.
+      // possível), este start() está obsoleto — não cria processo nenhum.
       if (self.restartToken !== token) {
         self.preparing = false;
         return;
       }
 
-      let child;
-      try {
-        child = spawn(envInfo.ffmpegPath, args);
-      } catch (err) {
-        self.preparing = false;
-        addLog('error', 'Falha ao iniciar o processo do FFmpeg: ' + err.message);
-        return;
-      }
-
       self.preparing = false;
-      self.ffmpegProcess = child;
-      self.running = true;
       self.startedAt = Date.now();
       self.outputLabel = resolution + ' @ ' + bitrate
         + (activeDestinations.length ? ' → ' + activeDestinations.length + ' destino(s)' : ' (teste local)');
-      addLog('info', 'Transmissão iniciada — processo FFmpeg criado (PID ' + child.pid + ')'
-        + (hasVideoFile
-            ? ' — fonte: ' + (effectivePlaylistVideos.length === 1 ? effectivePlaylistVideos[0].originalName : 'playlist com ' + effectivePlaylistVideos.length + ' vídeos')
-            : ' — fonte: sinal de teste')
-        + (activeDestinations.length
-            ? ' — destinos: ' + activeDestinations.map(function (d) { return d.name; }).join(', ')
-            : ' — destino: teste local (nenhum destino ativo configurado)'));
 
-      child.on('error', function (err) {
-        addLog('error', 'Erro no processo do FFmpeg: ' + err.message);
-        self.running = false;
-        self.startedAt = null;
-        self.outputLabel = '—';
-        self.ffmpegProcess = null;
-      });
+      // Recalcula self.running a partir de quantos processos estão
+      // realmente de pé agora — chamado sempre que um processo nasce ou
+      // morre, em qualquer destino.
+      function recomputeRunning() {
+        const stillUp = Object.keys(self.children).length > 0;
+        self.running = stillUp;
+        if (!stillUp) {
+          self.startedAt = null;
+          self.outputLabel = '—';
+        }
+      }
 
-      child.on('exit', function (code, signal) {
-        const wasStoppedManually = !self.running;
-        self.ffmpegProcess = null;
-        if (wasStoppedManually) return;
+      // Cria e acompanha o processo de UM destino específico (ou do
+      // sinal de teste local, quando não há nenhum destino configurado).
+      // key: identificador único para rastrear esse processo em
+      // self.children/self.retryTimers. destLabel/outputArgs: só o que
+      // muda de um destino pro outro — tudo mais (fonte de vídeo,
+      // codificação) é IDÊNTICO e computado uma única vez acima.
+      function spawnOne(key, destLabel, outputArgs) {
+        const args = ['-hide_banner', '-loglevel', 'warning']
+          .concat(inputArgs, mapArgs, encodeArgs, outputArgs);
 
-        // A playlist terminou de tocar sozinha (chegou ao fim da lista) e o
-        // usuário não mandou parar — reinicia do começo automaticamente para
-        // manter o loop contínuo, em vez de tratar isso como uma falha.
-        if (code === 0 && self.wasPlaylistMode) {
-          addLog('info', 'Playlist chegou ao fim — reiniciando do início automaticamente.');
-          const tokenAntes = self.restartToken;
-          self.running = false;
-          setTimeout(function () {
-            if (self.restartToken === tokenAntes) self.start();
-          }, 300);
+        let child;
+        try {
+          child = spawn(envInfo.ffmpegPath, args);
+        } catch (err) {
+          addLog('error', 'Falha ao iniciar processo do FFmpeg para ' + destLabel + ': ' + err.message);
           return;
         }
 
-        self.running = false;
-        self.startedAt = null;
-        self.outputLabel = '—';
-        addLog('error', 'Processo do FFmpeg encerrou inesperadamente (código ' + code + (signal ? ', sinal ' + signal : '') + ')');
-      });
+        self.children[key] = child;
+        recomputeRunning();
+        addLog('info', 'Transmissão iniciada para ' + destLabel + ' — processo FFmpeg criado (PID ' + child.pid + ') — fonte: ' + sourceLabel);
 
-      if (child.stderr) {
-        child.stderr.on('data', function (chunk) {
-          // FFmpeg escreve seu log de progresso/erros no stderr; guardamos só
-          // a última linha de cada bloco para não inundar os Logs do painel.
-          const text = chunk.toString('utf8').trim();
-          if (text) addLog('info', '[ffmpeg] ' + text.split('\n').pop());
+        if (child.stderr) {
+          child.stderr.on('data', function (chunk) {
+            const text = chunk.toString('utf8').trim();
+            if (text) addLog('info', '[ffmpeg:' + destLabel + '] ' + text.split('\n').pop());
+          });
+        }
+
+        child.on('error', function (err) {
+          addLog('error', 'Erro no processo do FFmpeg (' + destLabel + '): ' + err.message);
+          if (self.children[key] === child) delete self.children[key];
+          recomputeRunning();
         });
+
+        child.on('exit', function (code, signal) {
+          if (self.children[key] === child) delete self.children[key];
+          recomputeRunning();
+
+          // Esse destino foi parado de propósito (Stop/Reiniciar) — o
+          // token já mudou, não tenta religar.
+          if (self.restartToken !== token) return;
+
+          if (code === 0 && self.wasPlaylistMode) {
+            // Não deveria acontecer com "-stream_loop -1" (loop
+            // infinito), mas por segurança: se esse destino terminou
+            // "limpo", religa só ELE, sem afetar os demais destinos.
+            addLog('info', 'Processo de ' + destLabel + ' terminou — reiniciando só esse destino.');
+          } else {
+            addLog('error', 'Processo do FFmpeg para ' + destLabel + ' encerrou inesperadamente (código ' + code + (signal ? ', sinal ' + signal : '') + '). Tentando reconectar em 5s — os outros destinos não são afetados.');
+          }
+
+          clearTimeout(self.retryTimers[key]);
+          self.retryTimers[key] = setTimeout(function () {
+            if (self.restartToken !== token) return;
+            spawnOne(key, destLabel, outputArgs);
+          }, 5000);
+        });
+      }
+
+      if (activeDestinations.length > 0) {
+        activeDestinations.forEach(function (d) {
+          const url = d.url.trim();
+          const isSrt = /^srt:\/\//i.test(url);
+          const muxer = isSrt ? 'mpegts' : 'flv';
+          spawnOne(d.id, d.name, ['-f', muxer, url]);
+        });
+      } else {
+        spawnOne('teste-local', 'teste local (nenhum destino ativo configurado)', ['-f', 'null', '-']);
       }
     })().catch(function (err) {
       self.preparing = false;
@@ -771,21 +786,33 @@ const engine = {
   stop: function () {
     // Idem: invalida qualquer restart() pendente e qualquer start()
     // assíncrono em andamento (a preparação de vídeos em start() confere
-    // esse token entre uma normalização e outra e aborta se ele mudar).
+    // esse token entre uma normalização e outra, e cada processo de
+    // destino confere esse mesmo token antes de tentar religar).
     this.restartToken++;
+
+    // Cancela qualquer tentativa de reconexão pendente de qualquer
+    // destino, e mata cada processo rastreado diretamente (mais rápido
+    // que esperar o pkill assíncrono abaixo).
+    const self = this;
+    Object.keys(this.retryTimers).forEach(function (key) {
+      clearTimeout(self.retryTimers[key]);
+      delete self.retryTimers[key];
+    });
+    Object.keys(this.children).forEach(function (key) {
+      try { self.children[key].kill('SIGKILL'); } catch (e) { /* ignore */ }
+      delete self.children[key];
+    });
+
     // Garante de verdade que nada fica publicando depois do Parar —
     // independente do que o painel achava que era o estado (por exemplo,
     // um processo órfão de uma sessão anterior que o painel nem sabia
-    // que existia). Isso também mata um FFmpeg de normalização que
-    // porventura esteja rodando em segundo plano, já que ele usa a mesma
-    // marca (-metadata service=FFMPEG_MARKER) — então Parar funciona
-    // mesmo com uma normalização grande em andamento.
+    // que existia, ou um processo de normalização em segundo plano, já
+    // que ambos usam a mesma marca -metadata service=FFMPEG_MARKER).
     killOrphanFFmpegProcesses();
     this.running = false;
     this.preparing = false;
     this.startedAt = null;
     this.outputLabel = '—';
-    this.ffmpegProcess = null;
     addLog('info', 'Transmissão parada');
   },
 
