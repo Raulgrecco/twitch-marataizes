@@ -1852,108 +1852,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ---- player ao vivo (home) — troca automática YouTube (dia) / Castr (noite), igual TV Piúma ----
+  // ---- player ao vivo (home) — transmissão 24h somente pelo Castr (YouTube removido) ----
   var PLAYOUT_CONFIG = {
-    schedule: [
-      { source: 'youtube', start: '01:00', end: '18:00' },
-      { source: 'castr',   start: '18:00', end: '01:00' }
-    ],
-    sources: {
-      youtube: {
-        type: 'youtube',
-        videoId: 'p9qkwUUFmk0'
-      },
-      castr: {
-        type: 'castr',
-        liveUrl: 'https://player.castr.com/live_c5788f40839e11f1813a196cc11f122b'
-      }
-    }
+    liveUrl: 'https://player.castr.com/live_c5788f40839e11f1813a196cc11f122b'
   };
 
-  function timeToMinutes(hhmm) {
-    var parts = hhmm.split(":");
-    return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
-  }
-  function isWithinWindow(nowMin, startMin, endMin) {
-    if (startMin <= endMin) return nowMin >= startMin && nowMin < endMin;
-    return nowMin >= startMin || nowMin < endMin; // cruza meia-noite
-  }
-  // Horário sempre de Brasília, independente do fuso do visitante.
-  function getBrasiliaMinutesNow() {
-    var parts = new Intl.DateTimeFormat("en-US", {
-      timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit", hour12: false
-    }).formatToParts(new Date());
-    var h = 0, m = 0;
-    parts.forEach(function (p) {
-      if (p.type === "hour") h = parseInt(p.value, 10);
-      if (p.type === "minute") m = parseInt(p.value, 10);
-    });
-    return h * 60 + m;
-  }
-  function getActiveSourceKey() {
-    var nowMin = getBrasiliaMinutesNow();
-    for (var i = 0; i < PLAYOUT_CONFIG.schedule.length; i++) {
-      var rule = PLAYOUT_CONFIG.schedule[i];
-      if (isWithinWindow(nowMin, timeToMinutes(rule.start), timeToMinutes(rule.end))) return rule.source;
-    }
-    return PLAYOUT_CONFIG.schedule[0].source;
-  }
-
-  // ---------- API do YouTube (carregada uma única vez) ----------
-  var __ytApiReady = false, __ytApiLoading = false, __ytApiCallbacks = [];
-  function ensureYouTubeApi(callback) {
-    if (__ytApiReady) { callback(); return; }
-    __ytApiCallbacks.push(callback);
-    if (__ytApiLoading) return;
-    __ytApiLoading = true;
-    window.onYouTubeIframeAPIReady = function () {
-      __ytApiReady = true;
-      __ytApiCallbacks.forEach(function (cb) { cb(); });
-      __ytApiCallbacks = [];
-    };
-    var tag = document.createElement("script");
-    tag.src = "https://www.youtube.com/iframe_api";
-    document.head.appendChild(tag);
-  }
-
-  var __ytPlayerInstance = null;
-
-  function showUnmuteButton(wrapper) {
-    hideUnmuteButton();
-    var btn = document.createElement("button");
-    btn.id = "unmute-btn";
-    btn.setAttribute("aria-label", "Ativar som");
-    btn.style.cssText = "position:absolute;bottom:14px;left:14px;z-index:20;background:rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:24px;padding:9px 16px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;cursor:pointer;font-family:var(--font-body);";
-    btn.innerHTML = "🔇 Ativar som";
-    btn.onclick = function (e) {
-      e.stopPropagation();
-      if (__ytPlayerInstance) { __ytPlayerInstance.unMute(); __ytPlayerInstance.setVolume(100); }
-      hideUnmuteButton();
-    };
-    wrapper.appendChild(btn);
-  }
-  function hideUnmuteButton() {
-    var old = document.getElementById("unmute-btn");
-    if (old) old.parentNode.removeChild(old);
-  }
-
-  function buildEmbedUrl(sourceKey, options) {
+  function buildEmbedUrl(options) {
     options = options || {};
-    var src = PLAYOUT_CONFIG.sources[sourceKey];
-    if (!src) return "";
-    if (src.type === "castr") {
-      var autoplayParam = options.muted ? "autoplay=on&muted=on" : "autoplay=1";
-      return src.liveUrl + "?" + autoplayParam;
-    }
-    return "";
+    var autoplayParam = options.muted ? "autoplay=on&muted=on" : "autoplay=1";
+    return PLAYOUT_CONFIG.liveUrl + "?" + autoplayParam;
   }
 
   function destroyCurrentPlayer() {
-    hideUnmuteButton();
-    if (__ytPlayerInstance) {
-      try { __ytPlayerInstance.destroy(); } catch (e) {}
-      __ytPlayerInstance = null;
-    }
     var old = document.getElementById("live-player");
     if (old) old.parentNode.removeChild(old);
   }
@@ -1961,29 +1871,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderLivePlayer(wrapper, options) {
     options = options || {};
     destroyCurrentPlayer();
-    var activeKey = getActiveSourceKey();
-    window.__currentLiveSourceKey = activeKey;
-    var src = PLAYOUT_CONFIG.sources[activeKey];
-
-    if (src.type === "youtube") {
-      var holder = document.createElement("div");
-      holder.id = "live-player";
-      holder.style.cssText = "width:100%;height:100%;position:absolute;inset:0;";
-      wrapper.appendChild(holder);
-      ensureYouTubeApi(function () {
-        if (window.__currentLiveSourceKey !== activeKey) return;
-        __ytPlayerInstance = new YT.Player("live-player", {
-          videoId: src.videoId,
-          playerVars: { autoplay: 1, mute: 1, controls: 0, modestbranding: 1, rel: 0, fs: 0, playsinline: 1, iv_load_policy: 3 },
-          events: { onReady: function () { showUnmuteButton(wrapper); } }
-        });
-      });
-      return;
-    }
-
     var iframe = document.createElement("iframe");
     iframe.id = "live-player";
-    iframe.src = buildEmbedUrl(activeKey, options);
+    iframe.src = buildEmbedUrl(options);
     iframe.allow = "autoplay; fullscreen";
     iframe.allowFullscreen = true;
     iframe.style.cssText = "width:100%;height:100%;border:0;position:absolute;inset:0;border-radius:16px; z-index:3;";
@@ -2005,16 +1895,6 @@ document.addEventListener("DOMContentLoaded", () => {
     playerWrapper.addEventListener("click", loadLivePlayer);
     var liveBtn = document.querySelector(".btn-live");
     if (liveBtn) liveBtn.addEventListener("click", () => setTimeout(loadLivePlayer, 400));
-
-    // Troca de fonte sozinho quando o horário virar (18h / 1h), se já estiver no ar.
-    setInterval(function () {
-      var current = document.getElementById("live-player");
-      if (!current) return;
-      var activeKey = getActiveSourceKey();
-      if (activeKey !== window.__currentLiveSourceKey) {
-        renderLivePlayer(playerWrapper, { muted: false });
-      }
-    }, 30000);
   }
 
   // ---- vídeos VOD (clique pra tocar, sem autoplay) ----
