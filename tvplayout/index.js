@@ -171,18 +171,23 @@ function formatUptime(totalSeconds) {
 // (recodifica sempre), sem risco de tocar algo fora do padrão sem ajuste.
 function probeMatchesTargetSpec(originalPath, targetW, targetH) {
   return new Promise(function (resolve) {
-    if (!envInfo.ffprobePath) return resolve(false);
+    // Sempre resolve com o mesmo formato: { videoMatches, audioMatches }.
+    // Em caso de qualquer incerteza (ffprobe ausente, erro, JSON
+    // inesperado, sem trilha de vídeo), os dois ficam `false` — isso
+    // força o caminho de recodificação completa de sempre, sem risco.
+    const NONE = { videoMatches: false, audioMatches: false };
+    if (!envInfo.ffprobePath) return resolve(NONE);
 
     execFile(envInfo.ffprobePath, [
       '-v', 'error', '-show_streams', '-of', 'json', originalPath
     ], { maxBuffer: 1024 * 1024 * 10 }, function (err, stdout) {
-      if (err) return resolve(false);
+      if (err) return resolve(NONE);
       try {
         const data = JSON.parse(stdout);
         const streams = data.streams || [];
         const v = streams.find(function (s) { return s.codec_type === 'video'; });
         const a = streams.find(function (s) { return s.codec_type === 'audio'; });
-        if (!v) return resolve(false);
+        if (!v) return resolve(NONE);
 
         const wMatches = String(v.width) === String(targetW);
         const hMatches = String(v.height) === String(targetH);
@@ -203,9 +208,9 @@ function probeMatchesTargetSpec(originalPath, targetW, targetH) {
           && String(a.sample_rate) === '44100'
           && Number(a.channels) === 2;
 
-        resolve(wMatches && hMatches && isH264 && fpsMatches && audioMatches);
+        resolve({ videoMatches: wMatches && hMatches && isH264 && fpsMatches, audioMatches: audioMatches });
       } catch (parseErr) {
-        resolve(false);
+        resolve(NONE);
       }
     });
   });
@@ -221,23 +226,83 @@ function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
       return reject(new Error('Arquivo original não encontrado no disco'));
     }
 
-    // Otimização: se o vídeo já está exatamente no padrão de saída, só
-    // copia o arquivo em vez de recodificar. Qualquer problema aqui
-    // (probe indisponível, erro, ou não bater) cai direto no fluxo de
-    // recodificação normal abaixo, sem interromper nada.
-    probeMatchesTargetSpec(originalPath, targetW, targetH).then(function (matches) {
-      if (!matches) return runEncode();
-      fs.copyFile(originalPath, normalizedPath, function (copyErr) {
-        if (copyErr) return runEncode();
-        addLog('info', 'Vídeo já estava no padrão de saída — copiado sem recodificar (mais rápido): ' + video.originalName);
-        // O original não é mais necessário — só a cópia normalizada é
-        // usada na transmissão. Removê-lo economiza espaço em disco
-        // (o vídeo passa a ocupar só uma vez, não duas). Melhor esforço:
-        // se falhar, não é grave, só sobra em disco.
-        fs.unlink(originalPath, function () { /* ignore erro */ });
-        resolve(normalizedPath);
-      });
+    // Três caminhos possíveis, do mais rápido pro mais lento:
+    // 1. Vídeo E áudio já batem com o padrão -> só copia o arquivo.
+    // 2. Só o VÍDEO bate (resolução/codec/fps), o áudio não -> copia o
+    //    vídeo sem tocar nele (sem perda de imagem) e recodifica só o
+    //    áudio, que é rápido (não decodifica/codifica quadros de vídeo).
+    // 3. Nada bate -> recodificação completa de sempre (runEncode).
+    // Qualquer problema em qualquer etapa cai pro próximo caminho mais
+    // lento, nunca trava — o pior caso é sempre o comportamento antigo.
+    probeMatchesTargetSpec(originalPath, targetW, targetH).then(function (spec) {
+      if (spec.videoMatches && spec.audioMatches) {
+        fs.copyFile(originalPath, normalizedPath, function (copyErr) {
+          if (copyErr) return runEncode();
+          addLog('info', 'Vídeo já estava no padrão de saída — copiado sem recodificar (mais rápido): ' + video.originalName);
+          fs.unlink(originalPath, function () { /* ignore erro */ });
+          resolve(normalizedPath);
+        });
+        return;
+      }
+
+      if (spec.videoMatches && !spec.audioMatches) {
+        return runAudioOnlyRemux();
+      }
+
+      runEncode();
     });
+
+    // Caminho rápido do meio: a imagem já está no padrão certo (mesma
+    // resolução, H.264, 30fps) — só o áudio precisa mudar (ex.: 48000Hz
+    // em vez de 44100Hz). `-c:v copy` transfere os quadros de vídeo
+    // originais sem decodificar nem recodificar, então NÃO HÁ PERDA DE
+    // QUALIDADE de imagem nenhuma — é só uma cópia de container com o
+    // áudio recalculado. Muito mais rápido que a recodificação completa
+    // (não processa quadro de vídeo nenhum).
+    function runAudioOnlyRemux() {
+      const audioArgs = [
+        '-y', '-i', originalPath,
+        '-c:v', 'copy',
+        '-c:a', 'aac', '-ar', '44100', '-ac', '2', '-b:a', '128k',
+        '-metadata', 'service=' + FFMPEG_MARKER,
+        normalizedPath
+      ];
+
+      addLog('info', 'Vídeo já estava na resolução certa — ajustando só o áudio (sem perda de imagem): ' + video.originalName);
+
+      let audioChild;
+      try {
+        audioChild = spawn(envInfo.ffmpegPath, audioArgs);
+      } catch (err) {
+        return runEncode();
+      }
+
+      let audioStderrTail = '';
+      if (audioChild.stderr) {
+        audioChild.stderr.on('data', function (chunk) {
+          const text = chunk.toString('utf8').trim();
+          if (text) audioStderrTail = text.split('\n').pop();
+        });
+      }
+
+      audioChild.on('error', function () {
+        runEncode();
+      });
+
+      audioChild.on('close', function (code) {
+        if (code === 0 && fs.existsSync(normalizedPath)) {
+          fs.unlink(originalPath, function () { /* ignore erro */ });
+          resolve(normalizedPath);
+          return;
+        }
+        // Não conseguiu ajustar só o áudio (formato de vídeo incompatível
+        // com esse container/ajuste, por exemplo) — remove qualquer
+        // arquivo parcial e cai para a recodificação completa de sempre.
+        try { if (fs.existsSync(normalizedPath)) fs.unlinkSync(normalizedPath); } catch (e) { /* ignore */ }
+        addLog('warn', 'Ajuste rápido de áudio falhou, recodificando normalmente: ' + video.originalName + (audioStderrTail ? ' — ' + audioStderrTail : ''));
+        runEncode();
+      });
+    }
 
     function runEncode() {
     const args = [
