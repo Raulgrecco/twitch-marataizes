@@ -161,61 +161,27 @@ function formatUptime(totalSeconds) {
 // A Promise só resolve depois que o FFmpeg terminar com sucesso — quem
 // chama essa função é responsável por só considerar o vídeo "pronto"
 // (e incluí-lo na playlist) depois que a Promise resolver.
-// Usa o ffprobe (leitura de cabeçalho, quase instantânea — não decodifica
-// o vídeo) para checar se o arquivo já bate EXATAMENTE com o padrão de
-// saída (mesma resolução, H.264, 30fps, áudio AAC 44100 estéreo). Se
-// bater, ensureNormalizedVideoAsync pode só copiar o arquivo em vez de
-// recodificar (minutos -> segundos). Qualquer incerteza aqui (ffprobe
-// ausente, erro ao rodar, JSON inesperado, ou qualquer campo que não
-// bata) resolve para `false` — ou seja, cai no comportamento antigo
-// (recodifica sempre), sem risco de tocar algo fora do padrão sem ajuste.
-function probeMatchesTargetSpec(originalPath, targetW, targetH) {
-  return new Promise(function (resolve) {
-    // Sempre resolve com o mesmo formato: { videoMatches, audioMatches }.
-    // Em caso de qualquer incerteza (ffprobe ausente, erro, JSON
-    // inesperado, sem trilha de vídeo), os dois ficam `false` — isso
-    // força o caminho de recodificação completa de sempre, sem risco.
-    const NONE = { videoMatches: false, audioMatches: false };
-    if (!envInfo.ffprobePath) return resolve(NONE);
-
-    execFile(envInfo.ffprobePath, [
-      '-v', 'error', '-show_streams', '-of', 'json', originalPath
-    ], { maxBuffer: 1024 * 1024 * 10 }, function (err, stdout) {
-      if (err) return resolve(NONE);
-      try {
-        const data = JSON.parse(stdout);
-        const streams = data.streams || [];
-        const v = streams.find(function (s) { return s.codec_type === 'video'; });
-        const a = streams.find(function (s) { return s.codec_type === 'audio'; });
-        if (!v) return resolve(NONE);
-
-        const wMatches = String(v.width) === String(targetW);
-        const hMatches = String(v.height) === String(targetH);
-        const isH264 = v.codec_name === 'h264';
-
-        // r_frame_rate vem como "30/1", "30000/1001" etc. — só aceita
-        // 30fps exato, igual ao que o filtro de normalização usa.
-        let fpsMatches = false;
-        if (typeof v.r_frame_rate === 'string' && v.r_frame_rate.indexOf('/') !== -1) {
-          const parts = v.r_frame_rate.split('/');
-          const fps = Number(parts[0]) / Number(parts[1]);
-          fpsMatches = Math.abs(fps - 30) < 0.01;
-        }
-
-        // Áudio: se não houver trilha de áudio no original, não dá pra
-        // garantir compatibilidade com o resto da playlist — não pula.
-        const audioMatches = !!a && a.codec_name === 'aac'
-          && String(a.sample_rate) === '44100'
-          && Number(a.channels) === 2;
-
-        resolve({ videoMatches: wMatches && hMatches && isH264 && fpsMatches, audioMatches: audioMatches });
-      } catch (parseErr) {
-        resolve(NONE);
-      }
-    });
-  });
-}
-
+// Gera SEMPRE uma cópia normalizada nova (mesma resolução/taxa de
+// quadros/formato de áudio) para uso em playlists com mais de um vídeo —
+// sem nenhuma tentativa de detectar se o original "já está compatível"
+// e sem reaproveitar nada de execuções anteriores. Cada vídeo passa
+// pelo mesmo caminho único e previsível, sempre. Isso é proposital:
+// deixamos de existir múltiplos caminhos (cópia direta, ajuste só de
+// áudio, recodificação completa) porque essa variação de caminhos foi
+// fonte de instabilidade — voltamos a um fluxo único, simples e
+// confiável, priorizando funcionar sempre corretamente sobre economizar
+// CPU ou espaço em disco.
+//
+// IMPORTANTE: isso usa `spawn` (assíncrono) em vez de `execFileSync`.
+// Um vídeo grande pode levar minutos para normalizar — se isso fosse
+// síncrono, o processo Node inteiro ficaria bloqueado esse tempo todo,
+// incapaz de responder a QUALQUER outra requisição (nem /api/status,
+// nem o clique em "Stop"). Com `spawn`, o FFmpeg roda como processo
+// separado e o event loop do Node continua livre para atender a API
+// normalmente enquanto a normalização acontece em segundo plano.
+// A Promise só resolve depois que o FFmpeg terminar com sucesso — quem
+// chama essa função é responsável por só considerar o vídeo "pronto"
+// (e incluí-lo na playlist) depois que a Promise resolver.
 function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
   return new Promise(function (resolve, reject) {
     const normalizedPath = path.join(NORMALIZED_DIR, video.id + '_' + targetW + 'x' + targetH + '.mp4');
@@ -226,90 +192,17 @@ function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
       return reject(new Error('Arquivo original não encontrado no disco'));
     }
 
-    // Três caminhos possíveis, do mais rápido pro mais lento:
-    // 1. Vídeo E áudio já batem com o padrão -> só copia o arquivo.
-    // 2. Só o VÍDEO bate (resolução/codec/fps), o áudio não -> copia o
-    //    vídeo sem tocar nele (sem perda de imagem) e recodifica só o
-    //    áudio, que é rápido (não decodifica/codifica quadros de vídeo).
-    // 3. Nada bate -> recodificação completa de sempre (runEncode).
-    // Qualquer problema em qualquer etapa cai pro próximo caminho mais
-    // lento, nunca trava — o pior caso é sempre o comportamento antigo.
-    probeMatchesTargetSpec(originalPath, targetW, targetH).then(function (spec) {
-      if (spec.videoMatches && spec.audioMatches) {
-        fs.copyFile(originalPath, normalizedPath, function (copyErr) {
-          if (copyErr) return runEncode();
-          addLog('info', 'Vídeo já estava no padrão de saída — copiado sem recodificar (mais rápido): ' + video.originalName);
-          fs.unlink(originalPath, function () { /* ignore erro */ });
-          resolve(normalizedPath);
-        });
-        return;
-      }
-
-      if (spec.videoMatches && !spec.audioMatches) {
-        return runAudioOnlyRemux();
-      }
-
-      runEncode();
-    });
-
-    // Caminho rápido do meio: a imagem já está no padrão certo (mesma
-    // resolução, H.264, 30fps) — só o áudio precisa mudar (ex.: 48000Hz
-    // em vez de 44100Hz). `-c:v copy` transfere os quadros de vídeo
-    // originais sem decodificar nem recodificar, então NÃO HÁ PERDA DE
-    // QUALIDADE de imagem nenhuma — é só uma cópia de container com o
-    // áudio recalculado. Muito mais rápido que a recodificação completa
-    // (não processa quadro de vídeo nenhum).
-    function runAudioOnlyRemux() {
-      const audioArgs = [
-        '-y', '-i', originalPath,
-        '-c:v', 'copy',
-        '-c:a', 'aac', '-ar', '44100', '-ac', '2', '-b:a', '128k',
-        '-metadata', 'service=' + FFMPEG_MARKER,
-        normalizedPath
-      ];
-
-      addLog('info', 'Vídeo já estava na resolução certa — ajustando só o áudio (sem perda de imagem): ' + video.originalName);
-
-      let audioChild;
-      try {
-        audioChild = spawn(envInfo.ffmpegPath, audioArgs);
-      } catch (err) {
-        return runEncode();
-      }
-
-      let audioStderrTail = '';
-      if (audioChild.stderr) {
-        audioChild.stderr.on('data', function (chunk) {
-          const text = chunk.toString('utf8').trim();
-          if (text) audioStderrTail = text.split('\n').pop();
-        });
-      }
-
-      audioChild.on('error', function () {
-        runEncode();
-      });
-
-      audioChild.on('close', function (code) {
-        if (code === 0 && fs.existsSync(normalizedPath)) {
-          fs.unlink(originalPath, function () { /* ignore erro */ });
-          resolve(normalizedPath);
-          return;
-        }
-        // Não conseguiu ajustar só o áudio (formato de vídeo incompatível
-        // com esse container/ajuste, por exemplo) — remove qualquer
-        // arquivo parcial e cai para a recodificação completa de sempre.
-        try { if (fs.existsSync(normalizedPath)) fs.unlinkSync(normalizedPath); } catch (e) { /* ignore */ }
-        addLog('warn', 'Ajuste rápido de áudio falhou, recodificando normalmente: ' + video.originalName + (audioStderrTail ? ' — ' + audioStderrTail : ''));
-        runEncode();
-      });
-    }
-
-    function runEncode() {
+    // Profile/level fixos no vídeo normalizado (em vez de deixar o
+    // libx264 escolher automaticamente): "main" nível "4.0" cobre
+    // 1280x720@30fps com folga e é aceito sem problema tanto por RTMP
+    // (YouTube) quanto por SRT. Sem isso, o libx264 pode calcular uma
+    // taxa de macroblocos que excede o limite do level escolhido
+    // automaticamente — o destino então rejeita o stream resultante.
     const args = [
       '-y', '-i', originalPath,
       '-vf', 'scale=' + targetW + ':' + targetH + ':force_original_aspect_ratio=decrease,' +
         'pad=' + targetW + ':' + targetH + ':(ow-iw)/2:(oh-ih)/2:color=black,setsar=1,fps=30',
-      '-c:v', 'libx264', '-preset', 'ultrafast', '-b:v', bitrate,
+      '-c:v', 'libx264', '-preset', 'ultrafast', '-profile:v', 'main', '-level:v', '4.0', '-b:v', bitrate,
       '-c:a', 'aac', '-ar', '44100', '-ac', '2', '-b:a', '128k',
       '-metadata', 'service=' + FFMPEG_MARKER,
       normalizedPath
@@ -340,11 +233,12 @@ function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
 
     child.on('close', function (code) {
       if (code === 0 && fs.existsSync(normalizedPath)) {
-        // Mesmo raciocínio do caminho de cópia direta acima: depois que
-        // a versão normalizada existe com sucesso, o original não é
-        // mais necessário para a transmissão — remover economiza
-        // espaço em disco (evita guardar o vídeo duas vezes).
-        fs.unlink(originalPath, function () { /* ignore erro */ });
+        // O original NÃO é removido automaticamente aqui — fica em
+        // uploads/ até você decidir apagar manualmente, depois de
+        // confirmar que a transmissão está funcionando corretamente
+        // com o arquivo normalizado. Preferimos gastar mais espaço em
+        // disco a arriscar perder o único original de um vídeo por
+        // causa de uma exclusão automática prematura.
         resolve(normalizedPath);
         return;
       }
@@ -354,7 +248,6 @@ function ensureNormalizedVideoAsync(video, targetW, targetH, bitrate) {
       try { if (fs.existsSync(normalizedPath)) fs.unlinkSync(normalizedPath); } catch (e) { /* ignore */ }
       reject(new Error('FFmpeg encerrou com código ' + code + (stderrTail ? ' — ' + stderrTail : '')));
     });
-    } // fim de runEncode()
   });
 }
 
@@ -400,11 +293,7 @@ const envInfo = {
   ffmpegPath: null,
   ffmpegVersion: null,
   ffmpegHasH264: false,
-  ffmpegHasAac: false,
-  // Caminho do ffprobe, usado apenas para a otimização de "pular
-  // recodificação" abaixo. Se não for encontrado, essa otimização
-  // simplesmente não é usada — não afeta nada mais no painel.
-  ffprobePath: null
+  ffmpegHasAac: false
 };
 
 function formatBytesServer(n) {
@@ -419,20 +308,6 @@ function formatBytesServer(n) {
 function detectFFmpegPath() {
   try {
     const out = execFileSync('which', ['ffmpeg'], { encoding: 'utf8' }).trim();
-    return out || null;
-  } catch (e) {
-    return null;
-  }
-}
-
-// Mesma lógica do detectFFmpegPath acima, para o ffprobe (normalmente
-// instalado junto com o FFmpeg). Usado só pela otimização de "pular
-// recodificação" em ensureNormalizedVideoAsync — se não for encontrado,
-// essa função retorna null e a otimização é simplesmente ignorada,
-// sem afetar nada mais no painel.
-function detectFFprobePath() {
-  try {
-    const out = execFileSync('which', ['ffprobe'], { encoding: 'utf8' }).trim();
     return out || null;
   } catch (e) {
     return null;
@@ -488,17 +363,6 @@ function runEnvironmentDetection() {
   addLog('info', 'Versão do FFmpeg: ' + (info.version || 'não foi possível determinar'));
   addLog(info.hasH264 ? 'info' : 'warn', 'Codec H.264 (libx264): ' + (info.hasH264 ? 'disponível' : 'NÃO disponível'));
   addLog(info.hasAac ? 'info' : 'warn', 'Codec AAC: ' + (info.hasAac ? 'disponível' : 'NÃO disponível'));
-
-  // ffprobe é opcional: só habilita a otimização de "pular
-  // recodificação" quando o vídeo já está no padrão. Se não for
-  // encontrado, a normalização continua funcionando exatamente como
-  // antes (sempre recodificando) — nenhum outro comportamento muda.
-  envInfo.ffprobePath = detectFFprobePath();
-  if (envInfo.ffprobePath) {
-    addLog('info', 'ffprobe encontrado em ' + envInfo.ffprobePath + ' — vídeos já no padrão de saída vão pular a recodificação.');
-  } else {
-    addLog('warn', 'ffprobe não encontrado — todos os vídeos serão recodificados normalmente (sem a otimização de cópia direta).');
-  }
 }
 
 const engine = {
@@ -560,20 +424,10 @@ const engine = {
     // batem uma com a outra. Repete a lista inteira quando chegar ao
     // fim. Se não houver nenhum vídeo ainda, cai para o sinal de teste
     // local.
-    //
-    // Um vídeo conta como disponível se o ORIGINAL existir em uploads/
-    // OU se já existir uma cópia normalizada para a resolução atual —
-    // depois que um vídeo é normalizado com sucesso, o original é
-    // removido para economizar espaço em disco (ver
-    // ensureNormalizedVideoAsync), então checar só uploads/ excluiria
-    // por engano vídeos que já estão prontos e em cache.
-    const dimsForFilter = resolution.split('x');
     const playlistVideos = db.videos.slice().sort(function (a, b) {
       return new Date(b.uploadedAt) - new Date(a.uploadedAt);
     }).filter(function (v) {
-      const hasOriginal = fs.existsSync(path.join(UPLOADS_DIR, v.storedName));
-      const normalizedCandidate = path.join(NORMALIZED_DIR, v.id + '_' + (dimsForFilter[0] || '1280') + 'x' + (dimsForFilter[1] || '720') + '.mp4');
-      return hasOriginal || fs.existsSync(normalizedCandidate);
+      return fs.existsSync(path.join(UPLOADS_DIR, v.storedName));
     });
 
     // A preparação (normalização) dos vídeos é assíncrona e, para um
