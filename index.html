@@ -48,6 +48,84 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 .gp-arrow.prev{left:-8px;}
 .gp-arrow.next{right:-8px;}
 @media(max-width:600px){.gp-card{flex:0 0 160px;}.gp-arrow{display:none;}}
+
+/* ══════════ FACELIFT — NOVO (não afeta nada abaixo) ══════════ */
+/* TOPBAR */
+.mz-topbar{background:#050505;border-bottom:1px solid #1a1a1a;}
+.mz-topbar-inner{max-width:var(--max);margin:0 auto;padding:8px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.mz-topbar .tb-you{font-size:11.5px;color:#8a8a8a;font-weight:600;}
+.mz-topbar .tb-you strong{color:#fff;font-weight:800;}
+.mz-topbar .tb-you .tb-net{color:var(--accent);font-weight:800;}
+.mz-topbar .tb-cities{font-size:11px;color:#556;font-weight:600;}
+@media(max-width:760px){.mz-topbar .tb-cities{display:none;}}
+
+/* HERO */
+.mz-hero{max-width:var(--max);margin:18px auto 0;padding:0 14px;}
+.mz-hero-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:36px;align-items:center;}
+.mz-hero-copy h1{font-size:40px;line-height:1.08;font-weight:900;letter-spacing:-.5px;margin:0 0 14px;color:#fff;}
+.mz-hero-copy h1 .hl{color:var(--accent);}
+.mz-hero-copy p.mz-lead{font-size:15px;color:#a8a8a8;line-height:1.6;margin:0 0 10px;max-width:460px;}
+.mz-hero-copy p.mz-sub{font-size:11.5px;color:#666;line-height:1.6;margin:0 0 22px;max-width:460px;}
+.mz-hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.mz-btn-solid{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-weight:900;font-size:14px;padding:13px 22px;border-radius:8px;cursor:pointer;border:none;font-family:inherit;transition:filter .2s;}
+.mz-btn-solid:hover{filter:brightness(1.08);}
+.mz-btn-ghost{display:inline-flex;align-items:center;gap:8px;background:transparent;color:#fff;font-weight:800;font-size:14px;padding:13px 22px;border-radius:8px;border:1px solid #333;cursor:pointer;font-family:inherit;transition:border-color .2s,background .2s;}
+.mz-btn-ghost:hover{border-color:var(--accent);background:rgba(255,111,0,.06);}
+.mz-hero-grid .player-outer{max-width:none;margin:0;padding:0;}
+@media(max-width:880px){.mz-hero-grid{grid-template-columns:1fr;gap:20px;}.mz-hero-copy h1{font-size:29px;}}
+
+/* PATROCINADORES / APOIADORES — sem carrossel, grade fixa */
+.mz-sponsors{max-width:var(--max);margin:26px auto 0;padding:0 14px;}
+.mz-sp-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+.mz-sp-title{font-size:12px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:#fff;}
+.mz-sp-title.apoiadores{color:#aaa;}
+.mz-sp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;}
+.mz-sp-card{background:#fff;border:1px solid #1a1a1a;border-radius:10px;padding:16px 10px;display:flex;align-items:center;justify-content:center;min-height:78px;transition:transform .2s,box-shadow .2s;}
+.mz-sp-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.35);}
+.mz-sp-card img{max-width:100%;max-height:36px;object-fit:contain;}
+.mz-sp-card .mz-sp-txt{display:none;font-size:11px;font-weight:800;color:#1a1a1a;text-align:center;}
+.mz-sp-card.apoiador{min-height:64px;padding:12px 8px;}
+.mz-sp-card.apoiador img{max-height:28px;}
+.mz-sp-cta{background:#0e0e0e;border:1px dashed #333;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:78px;padding:12px;text-align:center;}
+.mz-sp-cta strong{font-size:11px;font-weight:900;color:#fff;}
+.mz-sp-cta span{font-size:9.5px;color:#888;}
+.mz-sp-more{text-align:center;margin-top:14px;}
+.mz-sp-more a{font-size:12px;font-weight:800;color:var(--accent);}
+
+/* A REDE — cartões das TVs municipais */
+.mz-rede-section{max-width:var(--max);margin:40px auto 0;padding:0 14px;}
+.mz-rede-inner{background:#0e0e0e;border:1px solid #1a1a1a;border-radius:14px;padding:28px 26px;}
+.mz-rede-top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px;}
+.mz-rede-top h2{font-size:19px;font-weight:900;color:#fff;margin:0 0 4px;}
+.mz-rede-top h2 .hl{color:var(--accent);}
+.mz-rede-top p{font-size:12.5px;color:#888;margin:0;max-width:520px;}
+.mz-rede-top a.mz-rede-cta{flex-shrink:0;background:var(--accent);color:#fff;font-weight:900;font-size:12.5px;padding:11px 18px;border-radius:8px;white-space:nowrap;}
+.mz-rede-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;}
+.mz-rede-card{background:#000;border:1px solid #1a1a1a;border-radius:10px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;transition:border-color .2s,transform .2s;}
+.mz-rede-card:not(.mz-rede-soon):hover{border-color:var(--accent);transform:translateY(-2px);}
+.mz-rede-badge{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;}
+.mz-rede-badge.mz-rede-badge-img{background:#000;overflow:hidden;padding:0;}
+.mz-rede-badge.mz-rede-badge-img img{width:100%;height:100%;object-fit:cover;}
+.mz-rede-name{font-size:13px;font-weight:900;color:#fff;}
+.mz-rede-city{font-size:10.5px;color:#666;margin-top:-4px;}
+.mz-rede-card.mz-rede-current{border-color:var(--accent);background:rgba(255,111,0,.06);}
+.mz-rede-btn{margin-top:2px;font-size:10.5px;font-weight:800;padding:5px 13px;border-radius:20px;background:rgba(255,111,0,.12);color:var(--accent);border:1px solid rgba(255,111,0,.35);}
+.mz-rede-btn.disabled{background:rgba(255,255,255,.04);color:#555;border-color:#222;}
+.mz-rede-here{font-size:10px;font-weight:800;color:var(--accent);letter-spacing:.5px;text-transform:uppercase;}
+
+/* RODAPÉ INSTITUCIONAL DA REDE */
+.mz-footer-net{max-width:var(--max);margin:0 auto;padding:0 20px 32px;}
+.mz-footer-net-top{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;padding-bottom:26px;border-bottom:1px solid #1a1a1a;margin-bottom:26px;text-align:left;}
+.mz-footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.mz-footer-logo img{height:38px;width:auto;display:block;}
+.mz-footer-tagline{font-size:12px;color:#666;max-width:280px;line-height:1.6;}
+.mz-footer-cols{display:flex;gap:48px;flex-wrap:wrap;}
+.mz-footer-col h4{font-size:10.5px;font-weight:900;color:#888;letter-spacing:1px;text-transform:uppercase;margin:0 0 12px;}
+.mz-footer-col a{display:block;font-size:13px;color:#aaa;margin-bottom:9px;font-weight:600;}
+.mz-footer-col a:hover{color:#fff;}
+.mz-footer-social{display:flex;gap:10px;}
+.mz-footer-social a{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#161616;border:1px solid #262626;font-size:14px;}
+.mz-footer-social a:hover{border-color:var(--accent);}
 </style>
 <meta name="keywords" content="Marataízes ES, portal Marataízes, TV Marataízes, notícias Marataízes, UPA Marataízes, SINE Marataízes, empregos Marataízes, restaurantes Marataízes, pousadas Marataízes, imóveis Marataízes, farmácias Marataízes, delivery Marataízes, praias Marataízes, Pérola Capixaba, sul Espírito Santo">
 <meta name="geo.region" content="BR-ES">
@@ -90,11 +168,26 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 </head>
 <body>
 
-<header style="color:#0a0a0a;font-weight:900;padding:14px;">TV MARATAÍZES — AO VIVO</header>
-<div style="text-align:center;max-width:980px;margin:6px auto 0;padding:0 14px;font-size:14px;line-height:1.4;color:#1a1a1a;font-weight:500;display:none;" class="desc-desktop">
-  TV Marataízes — emissora local multiplataforma e multicanal, com programação ao vivo 24h e atuação em comunicação territorial, cultura e entretenimento. Também disponível na plataforma SOUL TV - Canal 300
+<!-- BARRA DE PERTENCIMENTO À REDE -->
+<div class="mz-topbar">
+  <div class="mz-topbar-inner">
+    <div class="tb-you">📍 Você está em: <strong>TV Marataízes</strong> <span class="tb-net">· integrante da Rede TV Sul Capixaba</span></div>
+    <div class="tb-cities">Marataízes · Piúma · Itapemirim · Anchieta · Presidente Kennedy · e mais municípios do Sul</div>
+  </div>
 </div>
-<style>@media(min-width:600px){.desc-desktop{display:block!important}}</style>
+
+<!-- HERO -->
+<div class="mz-hero">
+  <div class="mz-hero-grid">
+    <div class="mz-hero-copy">
+      <h1>MARATAÍZES<br><span class="hl">ACONTECE AQUI.</span></h1>
+      <p class="mz-lead">Notícias, cultura, eventos, turismo e muito mais. A informação que conecta você à nossa cidade.</p>
+      <p class="mz-sub">TV Marataízes — emissora local multiplataforma e multicanal, com programação ao vivo 24h e atuação em comunicação territorial, cultura e entretenimento. Também disponível na plataforma SOUL TV - Canal 300.</p>
+      <div class="mz-hero-btns">
+        <button class="mz-btn-solid" onclick="loadLivePlayer();document.getElementById('player-wrapper').scrollIntoView({behavior:'smooth'});">▶ Assistir ao Vivo</button>
+        <button class="mz-btn-ghost" onclick="document.querySelector('.gp-featured').scrollIntoView({behavior:'smooth'});">Ver Programação</button>
+      </div>
+    </div>
 
 <div class="player-outer">
   <div class="player" id="player-wrapper" style="position:relative;cursor:pointer;" onclick="loadLivePlayer()">
@@ -109,6 +202,9 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
       </div>
       <p style="color:rgba(255,255,255,.75);font-size:14px;font-family:system-ui,Arial,sans-serif;margin:0;">Clique para assistir</p>
     </div>
+  </div>
+</div>
+
   </div>
 </div>
 <style>
@@ -164,6 +260,36 @@ function loadLivePlayer(){
   wrapper.onclick=null;
 }
 </script>
+
+<!-- PATROCINADORES OFICIAIS E APOIADORES — vitrine da home, sem carrossel.
+     Os mesmos parceiros continuam com sua página completa em #empresas-tv-marataizes,
+     mais abaixo, sem nenhuma alteração. -->
+<div class="mz-sponsors">
+  <div class="mz-sp-head"><span class="mz-sp-title">⭐ Patrocinadores Oficiais da TV Marataízes</span></div>
+  <div class="mz-sp-grid">
+    <a class="mz-sp-card" href="https://tvmarataizes.digital/julianamoveis/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Juliana%20Moveis.png" alt="Juliana Móveis" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Juliana Móveis</span></a>
+    <a class="mz-sp-card" href="https://piraque.com.br/" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Piraque.png" alt="Piraquê" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Piraquê</span></a>
+    <a class="mz-sp-card" href="https://skafe.com.br/" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/skafe.png" alt="Skafe Cosméticos" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Skafe Cosméticos</span></a>
+    <a class="mz-sp-cta" href="#anuncie"><strong>Anuncie aqui</strong><span>Seja um patrocinador</span></a>
+  </div>
+
+  <div class="mz-sp-head" style="margin-top:22px;"><span class="mz-sp-title apoiadores">Apoiadores</span></div>
+  <div class="mz-sp-grid">
+    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/quiosquedojogador/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Quiosquedojogador.png" alt="Quiosque do Jogador" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Quiosque do Jogador</span></a>
+    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/natufit/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Natufitsaladeria.png" alt="Natufit Saladeria" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Natufit Saladeria</span></a>
+    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/zerograu/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Zero%20Grau.png" alt="Zero Grau Distribuidora" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Zero Grau Distribuidora</span></a>
+    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/wmdistribuidora/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/wmdistribuidora.png" alt="WM Distribuidora & Mercearia" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">WM Distribuidora & Mercearia</span></a>
+    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/banzaisushi/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/banzai.png" alt="Banzai Sushi" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Banzai Sushi</span></a>
+    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/yakisobamarataizes/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Yaksoba.png" alt="YakisOba! Culinária Oriental" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">YakisOba! Culinária Oriental</span></a>
+    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/pizzariaportoseguro/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/pizzariaportoseguro.png" alt="Pizzaria Porto Seguro" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Pizzaria Porto Seguro</span></a>
+    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/siricascudo/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Siri%20Cascudo.png" alt="Siri Cascudo" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Siri Cascudo</span></a>
+    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/timeburguer/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Timeburguer.png" alt="Time Burger" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Time Burger</span></a>
+    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/cone/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Amordentrodocone.png" alt="Amor dentro do Cone" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Amor dentro do Cone</span></a>
+    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/mega20/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Mega20.png" alt="Mega 20 — Preço Único" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Mega 20</span></a>
+    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/litoralmoveis/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Litoral%20moveis.png" alt="Litoral Móveis" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Litoral Móveis</span></a>
+  </div>
+  <div class="mz-sp-more"><a href="#empresas-tv-marataizes">Veja todos os patrocinadores e apoiadores →</a></div>
+</div>
 
 <div id="vod-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;">
   <div style="position:relative;width:90%;max-width:960px;aspect-ratio:16/9;">
@@ -671,55 +797,55 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVodModa
 })();
 </script>
 <style>
-#tvmz-portal{background:#f2f2f2!important;color:#1a1a1a!important;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.5;}
+#tvmz-portal{background:#0a0a0a!important;color:#f0f0f0!important;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.5;}
 #tvmz-portal *{box-sizing:border-box;color:inherit;}
 #tvmz-portal a{text-decoration:none;color:inherit;}
 #tvmz-portal img{display:block;max-width:100%;}
 #tvmz-portal .cta{position:static!important;}
-#tvmz-portal{--red:#e8000a;--navy:#003781;--text:#1a1a1a;--muted:#666;--border:#ddd;--white:#fff;--bg:#f2f2f2;--green:#007a3d;--blue:#0066cc;--amber:#e67e00;--orange:#FF6F00;--r:4px}
+#tvmz-portal{--red:#e8000a;--navy:#003781;--text:#f0f0f0;--muted:#9a9a9a;--border:#262626;--white:#141414;--bg:#0a0a0a;--green:#007a3d;--blue:#0066cc;--amber:#e67e00;--orange:#FF6F00;--r:4px}
 #tvmz-portal .top-stripe{background:var(--red);height:4px}
-#tvmz-portal [data-tvmz="header"]{background:var(--navy);position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+#tvmz-portal [data-tvmz="header"]{background:#000;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.5);border-bottom:1px solid #1a1a1a;}
 #tvmz-portal .hi{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:14px;height:62px}
 #tvmz-portal .logo-w{flex-shrink:0;display:flex;align-items:center}
 #tvmz-portal .logo-fb{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:800;color:#fff}
 #tvmz-portal .logo-fb .tag{background:var(--red);padding:3px 8px;border-radius:3px;font-size:13px;font-weight:900}
-#tvmz-portal .sw2{flex:1;max-width:400px;display:flex;align-items:center;background:#fff;border-radius:2px;overflow:hidden}
-#tvmz-portal .sw2 input{border:0;padding:8px 12px;font-size:13px;width:100%;outline:none;color:#333}
+#tvmz-portal .sw2{flex:1;max-width:400px;display:flex;align-items:center;background:#141414;border:1px solid var(--border);border-radius:2px;overflow:hidden}
+#tvmz-portal .sw2 input{border:0;padding:8px 12px;font-size:13px;width:100%;outline:none;color:#eee;background:transparent;}
 #tvmz-portal .sw2 button{background:var(--red);border:0;cursor:pointer;padding:8px 14px;color:#fff;font-size:14px;flex-shrink:0}
 #tvmz-portal .hr{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
-#tvmz-portal .bl{background:var(--red);color:#fff;padding:7px 16px;border-radius:2px;font-size:12px;font-weight:700;letter-spacing:.3px;display:flex;align-items:center;gap:6px;transition:background .15s}
-#tvmz-portal .bl:hover{background:#c0000a}
+#tvmz-portal .bl{background:var(--accent);color:#fff;padding:7px 16px;border-radius:2px;font-size:12px;font-weight:700;letter-spacing:.3px;display:flex;align-items:center;gap:6px;transition:background .15s}
+#tvmz-portal .bl:hover{background:#e0630a}
 #tvmz-portal .dot{width:7px;height:7px;background:#fff;border-radius:50%;animation:blink 1.2s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
 #tvmz-portal .bw{background:var(--green);color:#fff;padding:7px 12px;border-radius:2px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px}
 #tvmz-portal .bw:hover{background:#005e2e}
-#tvmz-portal .cat{background:var(--navy);border-top:1px solid rgba(255,255,255,.12);border-bottom:3px solid var(--red)}
+#tvmz-portal .cat{background:#000;border-top:1px solid rgba(255,255,255,.08);border-bottom:3px solid var(--accent);}
 #tvmz-portal .cat-i{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;overflow-x:auto;scrollbar-width:none}
 #tvmz-portal .cat-i::-webkit-scrollbar{display:none}
 #tvmz-portal .cat-i a{color:rgba(255,255,255,.8);font-size:12px;font-weight:700;padding:9px 14px;white-space:nowrap;letter-spacing:.2px;text-transform:uppercase;border-bottom:3px solid transparent;margin-bottom:-3px;transition:all .15s}
 #tvmz-portal .cat-i a:hover,#tvmz-portal .cat-i a.active{color:#fff;border-bottom-color:var(--red)}
-#tvmz-portal .tick{background:#fff;border-bottom:1px solid var(--border);padding:5px 0}
+#tvmz-portal .tick{background:#111;border-bottom:1px solid var(--border);padding:5px 0}
 #tvmz-portal .tick-i{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:10px;font-size:12px}
 #tvmz-portal .tlbl{background:var(--red);color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:1px;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap}
 #tvmz-portal .ttxt{color:var(--muted);flex:1}
 #tvmz-portal .ttxt b{color:var(--text)}
 #tvmz-portal .wrap{max-width:1200px;margin:0 auto;padding:0 16px}
 #tvmz-portal .sh{display:flex;align-items:center;gap:10px;padding-bottom:8px;border-bottom:3px solid var(--red);margin-bottom:12px}
-#tvmz-portal .sh h2{font-size:13px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.3px}
+#tvmz-portal .sh h2{font-size:13px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:.3px}
 #tvmz-portal .sh a{margin-left:auto;font-size:11px;color:var(--red);font-weight:700}
-#tvmz-portal .box{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:16px}
+#tvmz-portal .box{background:#111;border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:16px}
 #tvmz-portal .neg-list{display:flex;flex-direction:column;gap:8px}
-#tvmz-portal .neg-item{background:#fafafa;border:1px solid var(--border);border-radius:var(--r);padding:10px 12px;display:flex;gap:12px;align-items:flex-start;transition:box-shadow .15s}
-#tvmz-portal .neg-item:hover{box-shadow:0 2px 8px rgba(0,0,0,.08);border-color:#bbb}
+#tvmz-portal .neg-item{background:#161616;border:1px solid var(--border);border-radius:var(--r);padding:10px 12px;display:flex;gap:12px;align-items:flex-start;transition:box-shadow .15s}
+#tvmz-portal .neg-item:hover{box-shadow:0 2px 8px rgba(0,0,0,.4);border-color:#3a3a3a}
 #tvmz-portal .neg-ico{font-size:22px;flex-shrink:0;margin-top:2px;width:32px;text-align:center}
 #tvmz-portal .neg-info{flex:1}
-#tvmz-portal .neg-name{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:2px}
+#tvmz-portal .neg-name{font-size:13px;font-weight:800;color:#fff;margin-bottom:2px}
 #tvmz-portal .neg-desc{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:3px}
 #tvmz-portal .neg-link{font-size:10px;color:var(--blue);font-weight:600}
 #tvmz-portal .neg-badge{font-size:9px;padding:2px 6px;border-radius:2px;font-weight:700;text-transform:uppercase;letter-spacing:.2px;margin-left:6px}
-#tvmz-portal .nb-g{background:#e6f4ec;color:#005c2e}
-#tvmz-portal .nb-a{background:#fff3e0;color:#a05000}
-#tvmz-portal .nb-o{background:#fff0e0;color:#a04000}
+#tvmz-portal .nb-g{background:rgba(0,122,61,.22);color:#5eead4}
+#tvmz-portal .nb-a{background:rgba(230,126,0,.22);color:#fbbf24}
+#tvmz-portal .nb-o{background:rgba(160,64,0,.22);color:#fb923c}
 .card-agenciado{display:block;background:#FFF8E1;border-radius:8px;padding:16px;margin-bottom:4px;text-decoration:none;border:2px solid #F57F17;position:relative;overflow:hidden;}
 .card-agenciado .badge-ag{position:absolute;top:0;right:0;background:#F57F17;color:#fff;font-size:10px;font-weight:900;padding:4px 12px;border-radius:0 6px 0 8px;letter-spacing:.5px;text-transform:uppercase;}
 .card-agenciado .inner{display:flex;gap:12px;align-items:center;margin-top:4px}
@@ -728,12 +854,12 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVodModa
 .card-agenciado .desc{font-size:12px;color:#5D4037;margin-bottom:6px;line-height:1.5}
 .card-agenciado .btn-zap{display:inline-flex;align-items:center;gap:6px;background:#F57F17;color:#fff;font-size:11px;font-weight:800;padding:5px 12px;border-radius:4px}
 .city-sub{margin-top:14px;padding-top:12px;border-top:1px solid var(--border);margin-bottom:8px;font-size:11px;font-weight:800;color:#888!important;text-transform:uppercase;letter-spacing:.5px;}
-.cta-guia{display:flex;align-items:center;gap:14px;background:#003781;border-radius:6px;padding:14px 18px;margin-top:14px;text-decoration:none;transition:opacity .15s;}
+.cta-guia{display:flex;align-items:center;gap:14px;background:#000;border:1px solid #1a1a1a;border-radius:6px;padding:14px 18px;margin-top:14px;text-decoration:none;transition:opacity .15s;}
 .cta-guia:hover{opacity:.88}
 .cta-guia .txt-main{font-size:13px;font-weight:900;color:#fff!important;margin-bottom:2px}
 .cta-guia .txt-sub{font-size:11px;color:rgba(255,255,255,.75)!important}
 .cta-guia .btn-fire{margin-left:auto;background:#25d366;color:#fff!important;font-size:11px;font-weight:800;padding:6px 12px;border-radius:4px;white-space:nowrap;flex-shrink:0}
-#tvmz-portal .cta{background:var(--navy);color:#fff;border-radius:var(--r);padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:24px}
+#tvmz-portal .cta{background:#000;border:1px solid #1a1a1a;color:#fff;border-radius:var(--r);padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:24px}
 #tvmz-portal .cta h3{font-size:18px;font-weight:800;margin-bottom:4px}
 #tvmz-portal .cta p{font-size:12px;color:rgba(255,255,255,.7);max-width:460px}
 #tvmz-portal .ctab{display:flex;gap:10px;flex-wrap:wrap;flex-shrink:0}
@@ -750,8 +876,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVodModa
 #tvmz-portal .tier-label .tag{font-size:10px;font-weight:900;letter-spacing:.6px;text-transform:uppercase;padding:3px 10px;border-radius:20px;color:#fff}
 #tvmz-portal .tier-ouro .tag{background:#c9962c}
 #tvmz-portal .tier-prata .tag{background:#7a7a7a}
-#tvmz-portal .tier-inst .tag{background:var(--navy)}
-#tvmz-portal .tier-label h3{font-size:14px;font-weight:900;color:var(--navy)}
+#tvmz-portal .tier-inst .tag{background:#333}
+#tvmz-portal .tier-label h3{font-size:14px;font-weight:900;color:#fff}
 #tvmz-portal .tier-sub{font-size:11px;color:var(--muted);margin-bottom:12px}
 #tvmz-portal .logo-grid{display:flex;flex-wrap:wrap;gap:12px}
 #tvmz-portal .logo-item{display:flex;align-items:center;justify-content:center;text-align:center;background:#fff;border:1px solid var(--border);border-radius:6px;font-weight:800;color:var(--navy);text-decoration:none;transition:box-shadow .15s,transform .15s;padding:10px}
@@ -779,7 +905,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVodModa
     <a href="https://www.tvmarataizes.digital/" class="logo-w"><span class="logo-fb"><span class="tag">TV</span>Marataízes</span></a>
     <div class="sw2" role="search"><input type="text" placeholder="Buscar em Marataízes..." aria-label="Buscar no portal"><button aria-label="Pesquisar">🔍</button></div>
     <div class="hr">
-      <a href="#empresas-tv-marataizes" class="bw" style="background:#003781;border:1px solid rgba(255,255,255,.2)">🏢 Empresas</a>
+      <a href="#empresas-tv-marataizes" class="bw" style="background:#141414;border:1px solid #333">🏢 Empresas</a>
       <a href="https://wa.me/5528999036141" target="_blank" rel="noopener" class="bw">📲 WhatsApp</a>
       <a href="#player" class="bl"><span class="dot"></span> Ao Vivo</a>
     </div>
@@ -803,7 +929,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVodModa
 <div class="wrap">
 <main id="main-content">
 
-<div style="background:#003781;border-radius:8px;padding:20px 20px 16px;margin-bottom:16px;margin-top:8px;">
+<div style="background:#000;border:1px solid #1a1a1a;border-radius:8px;padding:20px 20px 16px;margin-bottom:16px;margin-top:8px;">
   <div style="font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:6px;">Sul do Espírito Santo</div>
   <div style="font-size:24px;font-weight:900;color:#fff;margin-bottom:4px;">📍 MARATAÍZES</div>
   <div style="font-size:12px;color:rgba(255,255,255,.8);font-weight:500;">Restaurantes · Serviços · Lojas · Saúde · Lazer</div>
@@ -957,7 +1083,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVodModa
 
 <div id="turismo"></div>
 <style id="tvmz-turismo-styles">
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+#tvmz-turismo, #tvmz-turismo *, #tvmz-turismo *::before, #tvmz-turismo *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --ocean: #0A4D68; --ocean-mid: #1a6b8a; --ocean-light: #2E86AB;
   --sand: #F5EDD6; --sand-dark: #E8D9B0; --coral: #E8372A; --gold: #C9A84C;
@@ -966,7 +1092,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVodModa
   --font-body: 'Jost', sans-serif;
 }
 html { scroll-behavior: smooth; }
-body { background: var(--sand); color: var(--text); font-family: var(--font-body); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+#tvmz-turismo { background: var(--sand); color: var(--text); font-family: var(--font-body); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
 .abas-nav { background: var(--ocean); display: flex; justify-content: center; flex-wrap: wrap; }
 .aba-link { padding: 1rem 2rem; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; border-bottom: 3px solid transparent; transition: all 0.2s; }
 .aba-link:hover { color: var(--white); border-bottom-color: var(--gold); }
@@ -1120,7 +1246,94 @@ body { background: var(--sand); color: var(--text); font-family: var(--font-body
 </div>
 </div>
 
+<!-- A TV MARATAÍZES FAZ PARTE DA REDE TV SUL CAPIXABA -->
+<div class="mz-rede-section" id="rede">
+  <div class="mz-rede-inner">
+    <div class="mz-rede-top">
+      <div>
+        <h2>A TV Marataízes faz parte da <span class="hl">Rede TV Sul Capixaba</span></h2>
+        <p>Uma rede regional de comunicação que conecta cidades, pessoas e oportunidades em todo o Sul do Espírito Santo.</p>
+      </div>
+      <a class="mz-rede-cta" href="https://www.tvsulcapixaba.com.br" target="_blank" rel="noopener">CONHEÇA TODA A REDE</a>
+    </div>
+    <div class="mz-rede-grid">
+
+      <div class="mz-rede-card mz-rede-current">
+        <div class="mz-rede-badge" style="background:var(--accent);">TV</div>
+        <div class="mz-rede-name">TV Marataízes</div>
+        <div class="mz-rede-city">Marataízes</div>
+        <span class="mz-rede-here">Você está aqui</span>
+      </div>
+
+      <div class="mz-rede-card">
+        <div class="mz-rede-badge" style="background:#00AEEF;">TV</div>
+        <div class="mz-rede-name">TV Piúma</div>
+        <div class="mz-rede-city">Piúma</div>
+        <a href="https://www.tvpiuma.digital" target="_blank" rel="noopener" class="mz-rede-btn">Acessar</a>
+      </div>
+
+      <div class="mz-rede-card mz-rede-soon">
+        <div class="mz-rede-badge" style="background:#2FA84F;">TV</div>
+        <div class="mz-rede-name">TV Itapemirim</div>
+        <div class="mz-rede-city">Itapemirim</div>
+        <span class="mz-rede-btn disabled">Em implantação</span>
+      </div>
+
+      <div class="mz-rede-card mz-rede-soon">
+        <div class="mz-rede-badge" style="background:#8B5CF6;">TV</div>
+        <div class="mz-rede-name">TV Anchieta</div>
+        <div class="mz-rede-city">Anchieta</div>
+        <span class="mz-rede-btn disabled">Em implantação</span>
+      </div>
+
+      <div class="mz-rede-card mz-rede-soon">
+        <div class="mz-rede-badge" style="background:#D6336C;">TV</div>
+        <div class="mz-rede-name">TV Presidente Kennedy</div>
+        <div class="mz-rede-city">Presidente Kennedy</div>
+        <span class="mz-rede-btn disabled">Em implantação</span>
+      </div>
+
+      <div class="mz-rede-card">
+        <div class="mz-rede-badge" style="background:#E8370D;">TVS</div>
+        <div class="mz-rede-name">TV Sul Capixaba</div>
+        <div class="mz-rede-city">E mais municípios do Sul</div>
+        <a href="https://www.tvsulcapixaba.com.br" target="_blank" rel="noopener" class="mz-rede-btn">Acessar</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <footer style="text-align:center;padding:48px 20px 40px;background:#0a0a0a;border-top:1px solid #1a1a1a;">
+  <div class="mz-footer-net" style="text-align:left;">
+    <div class="mz-footer-net-top">
+      <div>
+        <div class="mz-footer-logo">
+          <span style="font-size:15px;font-weight:900;color:#fff;">REDE <span style="color:var(--accent);">TV SUL CAPIXABA</span></span>
+        </div>
+        <p class="mz-footer-tagline">Conectando cidades. Informando pessoas. Gerando oportunidades.</p>
+      </div>
+      <div class="mz-footer-cols">
+        <div class="mz-footer-col">
+          <h4>A Rede</h4>
+          <a href="https://tvmarataizes.digital/">TV Marataízes</a>
+          <a href="https://www.tvpiuma.digital" target="_blank" rel="noopener">TV Piúma</a>
+          <a href="#rede">TV Itapemirim</a>
+          <a href="#rede">TV Anchieta</a>
+          <a href="#rede">TV Presidente Kennedy</a>
+          <a href="https://www.tvsulcapixaba.com.br" target="_blank" rel="noopener">TV Sul Capixaba</a>
+        </div>
+        <div class="mz-footer-col">
+          <h4>Siga a Rede</h4>
+          <div class="mz-footer-social">
+            <a href="https://www.youtube.com/@tvsulcapixaba" target="_blank" rel="noopener" aria-label="YouTube">📺</a>
+            <a href="https://www.instagram.com/tvsulcapixaba" target="_blank" rel="noopener" aria-label="Instagram">📷</a>
+            <a href="https://wa.me/5528999036141" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <p style="font-size:22px;font-weight:900;color:#fff;margin:0 0 10px;line-height:1.3;max-width:640px;margin-left:auto;margin-right:auto;">
     Quem assiste à TV Marataízes já sabe onde comprar.<br>
     <span style="color:#FF6F00;">O seu negócio já está aqui?</span>
@@ -1173,7 +1386,7 @@ body { background: var(--sand); color: var(--text); font-family: var(--font-body
 </script>
 
 <a href="#empresas-tv-marataizes" id="btn-guia-float"
-   style="position:fixed;bottom:80px;left:16px;z-index:999;background:#003781;color:#fff;padding:10px 16px;border-radius:24px;font-size:13px;font-weight:800;box-shadow:0 4px 16px rgba(0,0,0,.4);display:flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.2);text-decoration:none;transition:opacity .3s"
+   style="position:fixed;bottom:80px;left:16px;z-index:999;background:#141414;color:#fff;padding:10px 16px;border-radius:24px;font-size:13px;font-weight:800;box-shadow:0 4px 16px rgba(0,0,0,.4);display:flex;align-items:center;gap:6px;border:1px solid var(--accent);text-decoration:none;transition:opacity .3s"
    aria-label="Ir para Empresas da TV Marataízes">
   🏢 Empresas da Região
 </a>
