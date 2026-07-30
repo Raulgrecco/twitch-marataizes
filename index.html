@@ -261,54 +261,67 @@ function loadLivePlayer(){
 }
 </script>
 
-<!-- PATROCINADORES OFICIAIS E APOIADORES — vitrine da home, sem carrossel.
-     Os mesmos parceiros continuam com sua página completa em #empresas-tv-marataizes,
-     mais abaixo, sem nenhuma alteração. -->
-<div class="mz-sponsors">
-  <div class="mz-sp-head"><span class="mz-sp-title">⭐ Patrocinadores Oficiais da TV Marataízes</span></div>
-  <div class="mz-sp-grid">
-    <a class="mz-sp-card" href="https://tvmarataizes.digital/julianamoveis/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Juliana%20Moveis.png" alt="Juliana Móveis" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Juliana Móveis</span></a>
-    <a class="mz-sp-card" href="https://piraque.com.br/" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Piraque.png" alt="Piraquê" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Piraquê</span></a>
-    <a class="mz-sp-card" href="https://skafe.com.br/" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/skafe.png" alt="Skafe Cosméticos" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Skafe Cosméticos</span></a>
-    <a class="mz-sp-cta" href="#anuncie"><strong>Anuncie aqui</strong><span>Seja um patrocinador</span></a>
+<!-- EMPRESAS PARCEIRAS — movida para logo após o player, a pedido.
+     Envolvida num wrapper com o mesmo id (#tvmz-portal) para manter exatamente
+     o mesmo CSS/estilo de cards grandes que a seção já tinha. Nenhum link, texto
+     ou schema foi alterado — só a posição na página. -->
+<div id="tvmz-portal">
+<section class="box" id="empresas-tv-marataizes">
+  <div class="sh"><h2>🏢 Empresas Parceiras da TV Marataízes</h2></div>
+  <p class="emp-intro">Estas empresas apoiam a comunicação regional e ajudam a manter a TV Marataízes como um veículo independente de informação. Clique em uma marca para conhecer sua história e seus serviços.</p>
+
+  <div class="tier tier-ouro">
+    <div class="tier-label"><span class="tag">🥇 Patrocinadores</span></div>
+    <div class="logo-grid">
+      <a href="https://tvmarataizes.digital/julianamoveis/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Juliana%20Moveis.png" alt="Juliana Móveis" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Juliana Móveis</span></a>
+      <a href="https://piraque.com.br/" target="_blank" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Piraque.png" alt="Piraquê" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Piraquê</span></a>
+      <a href="https://skafe.com.br/" target="_blank" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/skafe.png" alt="Skafe Cosméticos" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Skafe Cosméticos</span></a>
+    </div>
   </div>
 
-  <div class="mz-sp-head" style="margin-top:22px;"><span class="mz-sp-title apoiadores">Apoiadores</span></div>
-  <div class="mz-sp-grid">
-    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/quiosquedojogador/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Quiosquedojogador.png" alt="Quiosque do Jogador" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Quiosque do Jogador</span></a>
-    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/natufit/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Natufitsaladeria.png" alt="Natufit Saladeria" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Natufit Saladeria</span></a>
-    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/zerograu/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Zero%20Grau.png" alt="Zero Grau Distribuidora" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Zero Grau Distribuidora</span></a>
-    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/wmdistribuidora/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/wmdistribuidora.png" alt="WM Distribuidora & Mercearia" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">WM Distribuidora & Mercearia</span></a>
-    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/banzaisushi/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/banzai.png" alt="Banzai Sushi" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Banzai Sushi</span></a>
-    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/yakisobamarataizes/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Yaksoba.png" alt="YakisOba! Culinária Oriental" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">YakisOba! Culinária Oriental</span></a>
-    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/pizzariaportoseguro/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/pizzariaportoseguro.png" alt="Pizzaria Porto Seguro" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Pizzaria Porto Seguro</span></a>
-    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/siricascudo/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Siri%20Cascudo.png" alt="Siri Cascudo" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Siri Cascudo</span></a>
-    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/timeburguer/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Timeburguer.png" alt="Time Burger" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Time Burger</span></a>
-    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/cone/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Amordentrodocone.png" alt="Amor dentro do Cone" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Amor dentro do Cone</span></a>
-    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/mega20/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Mega20.png" alt="Mega 20 — Preço Único" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Mega 20</span></a>
-    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/litoralmoveis/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Litoral%20moveis.png" alt="Litoral Móveis" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Litoral Móveis</span></a>
-    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/pousadamiramar/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/pousadamiramar.png" alt="Pousada Miramar" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Pousada Miramar</span></a>
-    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/cinek/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Cinek%203%20d.png" alt="Cinek Marataízes 3D" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Cinek Marataízes 3D</span></a>
-    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/dronevisionfly/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Drone%20visioly.png" alt="Drone VisionFly" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Drone VisionFly</span></a>
-    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/assistecmarataizes/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Assistec.png" alt="Assistec Marataízes" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Assistec Marataízes</span></a>
-    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/ciadomar/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/ciadomar.png" alt="Cia do Mar — Fitness e Moda Praia" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Cia do Mar</span></a>
-    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/d&r_amor_de_pet/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/D%26ramordepet.png" alt="D&amp;R Amor de Pet" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">D&amp;R Amor de Pet</span></a>
+  <div class="tier tier-prata">
+    <div class="tier-label"><span class="tag">🥈 Apoiadores</span></div>
+    <p class="tier-sub">Clique sobre um apoiador para acessar sua página institucional.</p>
+    <div class="logo-grid">
+    <a href="https://tvmarataizes.digital/quiosquedojogador/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Quiosquedojogador.png" alt="Quiosque do Jogador" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Quiosque do Jogador</span></a>
+    <a href="https://tvmarataizes.digital/natufit/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Natufitsaladeria.png" alt="Natufit Saladeria" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Natufit Saladeria</span></a>
+    <a href="https://tvmarataizes.digital/zerograu/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Zero%20Grau.png" alt="Zero Grau Distribuidora" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Zero Grau Distribuidora</span></a>
+    <a href="https://tvmarataizes.digital/wmdistribuidora/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/wmdistribuidora.png" alt="WM Distribuidora & Mercearia" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">WM Distribuidora & Mercearia</span></a>
+    <a href="https://tvmarataizes.digital/banzaisushi/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/banzai.png" alt="Banzai Sushi" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Banzai Sushi</span></a>
+    <a href="https://tvmarataizes.digital/yakisobamarataizes/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Yaksoba.png" alt="YakisOba! Culinária Oriental" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">YakisOba! Culinária Oriental</span></a>
+    <a href="https://tvmarataizes.digital/pizzariaportoseguro/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/pizzariaportoseguro.png" alt="Pizzaria Porto Seguro" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Pizzaria Porto Seguro</span></a>
+    <a href="https://tvmarataizes.digital/siricascudo/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Siri%20Cascudo.png" alt="Siri Cascudo" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Siri Cascudo</span></a>
+    <a href="https://tvmarataizes.digital/timeburguer/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Timeburguer.png" alt="Time Burger" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Time Burger</span></a>
+    <a href="https://tvmarataizes.digital/cone/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Amordentrodocone.png" alt="Amor dentro do Cone" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Amor dentro do Cone</span></a>
+    <a href="https://tvmarataizes.digital/mega20/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Mega20.png" alt="Mega 20 — Preço Único" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Mega 20 — Preço Único</span></a>
+    <a href="https://tvmarataizes.digital/litoralmoveis/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Litoral%20moveis.png" alt="Litoral Móveis" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Litoral Móveis</span></a>
+    <a href="https://tvmarataizes.digital/pousadamiramar/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/pousadamiramar.png" alt="Pousada Miramar" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Pousada Miramar</span></a>
+    <a href="https://tvmarataizes.digital/cinek/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Cinek%203%20d.png" alt="Cinek Marataízes 3D" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Cinek Marataízes 3D</span></a>
+    <a href="https://tvmarataizes.digital/dronevisionfly/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Drone%20visioly.png" alt="Drone VisionFly" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Drone VisionFly</span></a>
+    <a href="https://tvmarataizes.digital/assistecmarataizes/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Assistec.png" alt="Assistec Marataízes" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Assistec Marataízes</span></a>
+    <a href="https://tvmarataizes.digital/ciadomar/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/ciadomar.png" alt="Cia do Mar — Fitness e Moda Praia" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Cia do Mar — Fitness e Moda Praia</span></a>
+    <a href="https://tvmarataizes.digital/d&r_amor_de_pet/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/D%26ramordepet.png" alt="D&amp;R Amor de Pet" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">D&amp;R Amor de Pet</span></a>
+    </div>
   </div>
 
-  <div class="mz-sp-head" style="margin-top:22px;"><span class="mz-sp-title apoiadores">🏛 Parceiros Institucionais</span></div>
-  <div class="mz-sp-grid">
-    <a class="mz-sp-card apoiador" href="https://www.soultv.com.br/" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Soultv.png" alt="Soul TV" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Soul TV</span></a>
-    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/tvsulcapixaba/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/logo%20tv%20sul%20capixaba%202026%20.png" alt="TV Sul Capixaba" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">TV Sul Capixaba</span></a>
-    <a class="mz-sp-card apoiador" href="https://www.ecoviascapixaba.com.br/" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Ecovias.png" alt="Ecovias Capixaba" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Ecovias Capixaba</span></a>
-    <a class="mz-sp-card apoiador" href="https://www.macucaproducoes.com.br" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Macuca.png" alt="Macuca Produções" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Macuca Produções</span></a>
+  <div class="tier tier-inst">
+    <div class="tier-label"><span class="tag">🏛 Parceiros Institucionais</span></div>
+    <div class="logo-grid">
+      <a href="https://www.soultv.com.br/" target="_blank" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Soultv.png" alt="Soul TV" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Soul TV</span></a>
+      <a href="https://tvmarataizes.digital/tvsulcapixaba/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/logo%20tv%20sul%20capixaba%202026%20.png" alt="TV Sul Capixaba" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">TV Sul Capixaba</span></a>
+      <a href="https://www.ecoviascapixaba.com.br/" target="_blank" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Ecovias.png" alt="Ecovias Capixaba" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Ecovias Capixaba</span></a>
+      <a href="https://www.macucaproducoes.com.br" target="_blank" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Macuca.png" alt="Macuca Produções" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Macuca Produções</span></a>
+    </div>
   </div>
 
-  <div class="mz-sp-head" style="margin-top:22px;"><span class="mz-sp-title apoiadores">🤝 Projetos Comunitários</span></div>
-  <div class="mz-sp-grid">
-    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/autita/" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Autitas.png" alt="AUTITA — Associação de Pais e Amigos do Autista" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">AUTITA</span></a>
-    <a class="mz-sp-card apoiador" href="https://tvmarataizes.digital/cultura&comunidade" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Cultura%20e%20comunidade.png" alt="Cultura &amp; Comunidade" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="mz-sp-txt">Cultura &amp; Comunidade</span></a>
+  <div class="tier tier-inst" id="projetos-comunitarios">
+    <div class="tier-label"><span class="tag">🤝 Projetos Comunitários</span></div>
+    <div class="logo-grid">
+      <a href="https://tvmarataizes.digital/autita/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Autitas.png" alt="AUTITA — Associação de Pais e Amigos do Autista" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">AUTITA — Associação de Pais e Amigos do Autista</span></a>
+      <a href="https://tvmarataizes.digital/cultura&comunidade" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Cultura%20e%20comunidade.png" alt="Cultura & Comunidade" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Cultura & Comunidade</span></a>
+    </div>
   </div>
-  <div class="mz-sp-more"><a href="#empresas-tv-marataizes">Veja todos os patrocinadores e apoiadores →</a></div>
+</section>
 </div>
 
 <div id="vod-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;">
@@ -909,8 +922,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVodModa
 #tvmz-portal .logo-item{position:relative}
 #tvmz-portal .tier-ouro .logo-item{flex:1 1 280px;min-height:130px;font-size:16px;border:2px solid #c9962c;padding:16px}
 #tvmz-portal .tier-ouro .logo-item img{max-height:88px}
-#tvmz-portal .tier-prata .logo-item{flex:1 1 150px;min-height:70px;font-size:12px}
-#tvmz-portal .tier-prata .logo-item img{max-height:44px}
+#tvmz-portal .tier-prata .logo-item{flex:1 1 150px;min-height:90px;font-size:12px}
+#tvmz-portal .tier-prata .logo-item img{max-height:64px}
 #tvmz-portal .tier-inst{margin-top:8px;padding-top:22px;border-top:2px solid var(--border)}
 #tvmz-portal .tier-inst .logo-item{flex:1 1 170px;min-height:70px;font-size:12px;color:#444;background:#fafafa}
 #tvmz-portal .tier-inst .logo-item img{max-height:40px}
@@ -955,63 +968,6 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVodModa
   <div style="font-size:12px;color:rgba(255,255,255,.8);font-weight:500;">Restaurantes · Serviços · Lojas · Saúde · Lazer</div>
 </div>
 
-<section class="box" id="empresas-tv-marataizes">
-  <div class="sh"><h2>🏢 Empresas Parceiras da TV Marataízes</h2></div>
-  <p class="emp-intro">Estas empresas apoiam a comunicação regional e ajudam a manter a TV Marataízes como um veículo independente de informação. Clique em uma marca para conhecer sua história e seus serviços.</p>
-
-  <div class="tier tier-ouro">
-    <div class="tier-label"><span class="tag">🥇 Patrocinadores</span></div>
-    <div class="logo-grid">
-      <a href="https://tvmarataizes.digital/julianamoveis/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Juliana%20Moveis.png" alt="Juliana Móveis" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Juliana Móveis</span></a>
-      <a href="https://piraque.com.br/" target="_blank" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Piraque.png" alt="Piraquê" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Piraquê</span></a>
-      <a href="https://skafe.com.br/" target="_blank" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/skafe.png" alt="Skafe Cosméticos" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Skafe Cosméticos</span></a>
-    </div>
-  </div>
-
-  <div class="tier tier-prata">
-    <div class="tier-label"><span class="tag">🥈 Apoiadores</span></div>
-    <p class="tier-sub">Clique sobre um apoiador para acessar sua página institucional.</p>
-    <div class="logo-grid">
-    <a href="https://tvmarataizes.digital/quiosquedojogador/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Quiosquedojogador.png" alt="Quiosque do Jogador" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Quiosque do Jogador</span></a>
-    <a href="https://tvmarataizes.digital/natufit/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Natufitsaladeria.png" alt="Natufit Saladeria" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Natufit Saladeria</span></a>
-    <a href="https://tvmarataizes.digital/zerograu/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Zero%20Grau.png" alt="Zero Grau Distribuidora" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Zero Grau Distribuidora</span></a>
-    <a href="https://tvmarataizes.digital/wmdistribuidora/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/wmdistribuidora.png" alt="WM Distribuidora & Mercearia" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">WM Distribuidora & Mercearia</span></a>
-    <a href="https://tvmarataizes.digital/banzaisushi/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/banzai.png" alt="Banzai Sushi" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Banzai Sushi</span></a>
-    <a href="https://tvmarataizes.digital/yakisobamarataizes/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Yaksoba.png" alt="YakisOba! Culinária Oriental" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">YakisOba! Culinária Oriental</span></a>
-    <a href="https://tvmarataizes.digital/pizzariaportoseguro/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/pizzariaportoseguro.png" alt="Pizzaria Porto Seguro" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Pizzaria Porto Seguro</span></a>
-    <a href="https://tvmarataizes.digital/siricascudo/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Siri%20Cascudo.png" alt="Siri Cascudo" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Siri Cascudo</span></a>
-    <a href="https://tvmarataizes.digital/timeburguer/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Timeburguer.png" alt="Time Burger" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Time Burger</span></a>
-    <a href="https://tvmarataizes.digital/cone/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Amordentrodocone.png" alt="Amor dentro do Cone" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Amor dentro do Cone</span></a>
-    <a href="https://tvmarataizes.digital/mega20/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Mega20.png" alt="Mega 20 — Preço Único" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Mega 20 — Preço Único</span></a>
-    <a href="https://tvmarataizes.digital/litoralmoveis/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Litoral%20moveis.png" alt="Litoral Móveis" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Litoral Móveis</span></a>
-    <a href="https://tvmarataizes.digital/pousadamiramar/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/pousadamiramar.png" alt="Pousada Miramar" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Pousada Miramar</span></a>
-    <a href="https://tvmarataizes.digital/cinek/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Cinek%203%20d.png" alt="Cinek Marataízes 3D" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Cinek Marataízes 3D</span></a>
-    <a href="https://tvmarataizes.digital/dronevisionfly/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Drone%20visioly.png" alt="Drone VisionFly" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Drone VisionFly</span></a>
-    <a href="https://tvmarataizes.digital/assistecmarataizes/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Assistec.png" alt="Assistec Marataízes" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Assistec Marataízes</span></a>
-    <a href="https://tvmarataizes.digital/ciadomar/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/ciadomar.png" alt="Cia do Mar — Fitness e Moda Praia" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Cia do Mar — Fitness e Moda Praia</span></a>
-    <a href="https://agenciaclap.com.br/" target="_blank" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Agencia%20Clap.png" alt="Agência Clap" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Agência Clap</span></a>
-    <a href="https://tvmarataizes.digital/d&r_amor_de_pet/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/D%26ramordepet.png" alt="D&amp;R Amor de Pet" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">D&amp;R Amor de Pet</span></a>
-    </div>
-  </div>
-
-  <div class="tier tier-inst">
-    <div class="tier-label"><span class="tag">🏛 Parceiros Institucionais</span></div>
-    <div class="logo-grid">
-      <a href="https://www.soultv.com.br/" target="_blank" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Soultv.png" alt="Soul TV" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Soul TV</span></a>
-      <a href="https://tvmarataizes.digital/tvsulcapixaba/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/logo%20tv%20sul%20capixaba%202026%20.png" alt="TV Sul Capixaba" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">TV Sul Capixaba</span></a>
-      <a href="https://www.ecoviascapixaba.com.br/" target="_blank" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Ecovias.png" alt="Ecovias Capixaba" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Ecovias Capixaba</span></a>
-      <a href="https://www.macucaproducoes.com.br" target="_blank" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Macuca.png" alt="Macuca Produções" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Macuca Produções</span></a>
-    </div>
-  </div>
-
-  <div class="tier tier-inst" id="projetos-comunitarios">
-    <div class="tier-label"><span class="tag">🤝 Projetos Comunitários</span></div>
-    <div class="logo-grid">
-      <a href="https://tvmarataizes.digital/autita/" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Autitas.png" alt="AUTITA — Associação de Pais e Amigos do Autista" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">AUTITA — Associação de Pais e Amigos do Autista</span></a>
-      <a href="https://tvmarataizes.digital/cultura&comunidade" rel="noopener" class="logo-item"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/Cultura%20e%20comunidade.png" alt="Cultura & Comunidade" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show-fallback')"><span class="logo-txt">Cultura & Comunidade</span></a>
-    </div>
-  </div>
-</section>
 
 
 <section class="box" id="cadastro-publico-empresas">
