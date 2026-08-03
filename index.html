@@ -49,6 +49,8 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 #grandes-filmes .gp-ribbon{position:absolute;top:9px;left:9px;z-index:3;background:rgba(0,0,0,.78);border:1px solid #D4AF37;color:#D4AF37;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:20px;}
 #grandes-filmes .gp-card-credit{display:block;font-size:10px;color:#c9962c;font-weight:700;letter-spacing:.3px;margin-bottom:2px;}
 #grandes-filmes .gp-card-imdb{display:block;font-size:9.5px;color:rgba(255,255,255,.55);margin-bottom:5px;}
+#grandes-filmes .gp-arrow,#festival-curtas .gp-arrow{opacity:.55;}
+#grandes-filmes .gp-row-wrap:hover .gp-arrow,#festival-curtas .gp-row-wrap:hover .gp-arrow{opacity:1;}
 .gp-arrow{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:56px;background:rgba(0,0,0,.75);border:none;border-radius:4px;color:#fff;font-size:20px;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:background .15s,opacity .15s;opacity:0;}
 .gp-row-wrap:hover .gp-arrow{opacity:1;}
 .gp-arrow:hover{background:rgba(0,0,0,.95);}
@@ -617,14 +619,80 @@ function loadLivePlayer(){
           </div>
         </div>
       </div>
+      <div class="gp-card" onclick="openFilmeWatch('zo4tJxlTbWs','O Melhor Lance','🧠 SUSPENSE','2013','2h04min')">
+        <div class="gp-card-thumb">
+          <span class="gp-ribbon">Suspense</span>
+          <img src="https://img.youtube.com/vi/zo4tJxlTbWs/hqdefault.jpg" alt="O Melhor Lance"/>
+          <div class="gp-card-overlay">
+            <div class="gp-card-title">O Melhor Lance</div>
+            <span class="gp-card-credit">🧠 SUSPENSE</span>
+            <span class="gp-card-imdb">⭐ IMDb 7.8</span>
+            <span class="gp-card-btn">▶ Assistir Agora</span>
+          </div>
+        </div>
+      </div>
+      <div class="gp-card" onclick="openFilmeWatch('nFYjdywfIpg','13 Assassinos','🏆 CLÁSSICO','2010','2h06min')">
+        <div class="gp-card-thumb">
+          <span class="gp-ribbon">Clássico</span>
+          <img src="https://img.youtube.com/vi/nFYjdywfIpg/hqdefault.jpg" alt="13 Assassinos"/>
+          <div class="gp-card-overlay">
+            <div class="gp-card-title">13 Assassinos</div>
+            <span class="gp-card-credit">🏆 CLÁSSICO</span>
+            <span class="gp-card-imdb">⭐ IMDb 7.6</span>
+            <span class="gp-card-btn">▶ Assistir Agora</span>
+          </div>
+        </div>
+      </div>
+      <div class="gp-card" onclick="openFilmeWatch('TBIrGx3P57Y','Corra, Menino, Corra','🔥 BASEADO EM FATOS','2013','1h55min')">
+        <div class="gp-card-thumb">
+          <span class="gp-ribbon">Baseado em Fatos</span>
+          <img src="https://img.youtube.com/vi/TBIrGx3P57Y/hqdefault.jpg" alt="Corra, Menino, Corra"/>
+          <div class="gp-card-overlay">
+            <div class="gp-card-title">Corra, Menino, Corra</div>
+            <span class="gp-card-credit">🔥 BASEADO EM FATOS</span>
+            <span class="gp-card-imdb">⭐ IMDb 7.8</span>
+            <span class="gp-card-btn">▶ Assistir Agora</span>
+          </div>
+        </div>
+      </div>
+      <div class="gp-card" onclick="openFilmeWatch('1pG7IhXQ6d4','Vicky Cristina Barcelona','🎖 OSCAR','2008','1h36min')">
+        <div class="gp-card-thumb">
+          <span class="gp-ribbon">Oscar</span>
+          <img src="https://img.youtube.com/vi/1pG7IhXQ6d4/hqdefault.jpg" alt="Vicky Cristina Barcelona"/>
+          <div class="gp-card-overlay">
+            <div class="gp-card-title">Vicky Cristina Barcelona</div>
+            <span class="gp-card-credit">🎖 OSCAR</span>
+            <span class="gp-card-imdb">⭐ IMDb 7.1</span>
+            <span class="gp-card-btn">▶ Assistir Agora</span>
+          </div>
+        </div>
+      </div>
+      <div class="gp-card" onclick="openFilmeWatch('6JebCclDVus','Revólver','🌍 CULT','2005','1h51min')">
+        <div class="gp-card-thumb">
+          <span class="gp-ribbon">Cult</span>
+          <img src="https://img.youtube.com/vi/6JebCclDVus/hqdefault.jpg" alt="Revólver"/>
+          <div class="gp-card-overlay">
+            <div class="gp-card-title">Revólver</div>
+            <span class="gp-card-credit">🌍 CULT</span>
+            <span class="gp-card-imdb">⭐ IMDb 6.5</span>
+            <span class="gp-card-btn">▶ Assistir Agora</span>
+          </div>
+        </div>
+      </div>
+      <div class="gp-card" onclick="openFilmeWatch('WGtmSiEr0mg','O Relutante Fundamentalista','🎬 INDICAÇÃO DA REDAÇÃO','2012','2h10min')">
+        <div class="gp-card-thumb">
+          <span class="gp-ribbon">Indicação da Redação</span>
+          <img src="https://img.youtube.com/vi/WGtmSiEr0mg/hqdefault.jpg" alt="O Relutante Fundamentalista"/>
+          <div class="gp-card-overlay">
+            <div class="gp-card-title">O Relutante Fundamentalista</div>
+            <span class="gp-card-credit">🎬 INDICAÇÃO DA REDAÇÃO</span>
+            <span class="gp-card-imdb">⭐ IMDb 6.8</span>
+            <span class="gp-card-btn">▶ Assistir Agora</span>
+          </div>
+        </div>
+      </div>
 
       <!-- PENDENTES: 15 títulos aguardando confirmação de link/pôster -->
-      <!-- 6. O Melhor Lance — ⭐7.8 · 🧠 Suspense -->
-      <!-- 7. Corra, Menino, Corra — ⭐7.8 · 🔥 Baseado em fatos -->
-      <!-- 8. 13 Assassinos — ⭐7.6 · 🏆 Clássico -->
-      <!-- 9. Vicky Cristina Barcelona — ⭐7.1 · 🎖 Oscar -->
-      <!-- 10. Revólver — ⭐6.5 · 🌍 Cult -->
-      <!-- 11. O Relutante Fundamentalista — ⭐6.8 · 🎬 Indicação da Redação -->
       <!-- 12. Na Praia de Chesil — ⭐6.3 · ❤️ Romance -->
       <!-- 13. O Doador de Memórias — ⭐6.5 · 🌍 Ficção Científica -->
       <!-- 14. Harry Brown — ⭐7.2 · 💥 Ação -->
