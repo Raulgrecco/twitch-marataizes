@@ -42,6 +42,13 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 .gp-card-title{font-size:12px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:6px;text-shadow:0 1px 4px rgba(0,0,0,.8);}
 .gp-card-btn{display:inline-block;background:var(--accent);color:#fff;padding:5px 12px;border-radius:20px;font-size:10px;font-weight:700;text-decoration:none;}
 .gp-card-btn:hover{opacity:.85;}
+#grandes-filmes{position:relative;padding:22px 0 8px;background:radial-gradient(ellipse 70% 100% at 50% 0%, #14110b 0%, rgba(0,0,0,0) 75%);}
+#grandes-filmes .gp-card{flex:0 0 253px;}
+#grandes-filmes .gp-card:hover{transform:scale(1.08);box-shadow:0 12px 32px rgba(0,0,0,.85);}
+#grandes-filmes .gp-card-btn:hover{background:#D4AF37;color:#0a0a0a;opacity:1;}
+#grandes-filmes .gp-ribbon{position:absolute;top:9px;left:9px;z-index:3;background:rgba(0,0,0,.78);border:1px solid #D4AF37;color:#D4AF37;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:20px;}
+#grandes-filmes .gp-card-credit{display:block;font-size:10px;color:#c9962c;font-weight:700;letter-spacing:.3px;margin-bottom:2px;}
+#grandes-filmes .gp-card-imdb{display:block;font-size:9.5px;color:rgba(255,255,255,.55);margin-bottom:5px;}
 .gp-arrow{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:56px;background:rgba(0,0,0,.75);border:none;border-radius:4px;color:#fff;font-size:20px;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:background .15s,opacity .15s;opacity:0;}
 .gp-row-wrap:hover .gp-arrow{opacity:1;}
 .gp-arrow:hover{background:rgba(0,0,0,.95);}
@@ -466,155 +473,154 @@ function loadLivePlayer(){
   </div>
 </div>
 
-<!-- PRODUÇÕES ESPECIAIS -->
-<div class="gp-featured" style="margin-top:10px;" id="producoes">
+<!-- FESTIVAL DE CURTAS -->
+<div class="gp-featured" style="margin-top:10px;" id="festival-curtas">
   <h2 style="font-size:17px;font-weight:900;color:#0a0a0a;margin-bottom:4px;display:flex;align-items:center;gap:10px;">
-    🎬 Produções Especiais
-    <span style="font-size:10px;font-weight:800;color:#0a0a0a;background:rgba(10,10,10,.08);border:1px solid rgba(10,10,10,.2);padding:3px 10px;border-radius:3px;letter-spacing:1px;text-transform:uppercase;">Acervo Audiovisual</span>
+    🎥 Festival de Curtas
   </h2>
-  <p style="font-size:13px;color:#556;margin-bottom:14px;">Uma seleção de produções audiovisuais realizadas ao longo de mais de duas décadas de atuação profissional da equipe da TV Marataízes e da Macuca Produções, incluindo documentários, videoclipes, DVDs musicais e projetos especiais.</p>
+  <p style="font-size:13px;color:#556;margin-bottom:14px;">Produções independentes e curtas-metragens selecionados pela TV Sul Capixaba.</p>
   <div class="gp-row-wrap">
-    <button class="gp-arrow prev" id="gp-prod-prev">&#8249;</button>
-    <div class="gp-row" id="gp-prod-row">
+    <button class="gp-arrow prev" id="gp-curtas-prev">&#8249;</button>
+    <div class="gp-row" id="gp-curtas-row">
 
-      <!-- 1. Save The Date -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/gN9JmfM2i5QkxWMw','Save The Date','Direção: Raul Grecco')">
+      <!-- 1. Festival de Curtas - Parte 1 -->
+      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/xAanDQmDQ1kBWfKY','Festival de Curtas — Parte 1')">
         <div class="gp-card-thumb">
-          <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/save2.png" alt="Save The Date"/>
+          <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/save2.png" alt="Festival de Curtas — Parte 1"/>
           <div class="gp-card-overlay">
-            <div class="gp-card-title">Save The Date</div>
+            <div class="gp-card-title">Festival de Curtas — Parte 1</div>
             <span class="gp-card-btn">▶ Assistir</span>
           </div>
         </div>
       </div>
 
-      <!-- 2. Dimensões Paralelas -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/bVCoXg16NWnpK21k','Dimensões Paralelas','Direção: Raul Grecco')">
+      <!-- 2. Festival de Curtas - Parte 2 -->
+      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/Qujp8flPa5UApcLE','Festival de Curtas — Parte 2')">
         <div class="gp-card-thumb">
-          <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/Dimensoes.png" alt="Dimensões Paralelas"/>
+          <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/Dimensoes.png" alt="Festival de Curtas — Parte 2"/>
           <div class="gp-card-overlay">
-            <div class="gp-card-title">Dimensões Paralelas</div>
+            <div class="gp-card-title">Festival de Curtas — Parte 2</div>
             <span class="gp-card-btn">▶ Assistir</span>
           </div>
         </div>
       </div>
 
-      <!-- 3. Clipe Bruno Galvão -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/ZrhJgEyEmuo7L4TL','Clipe Bruno Galvão','Direção: Raul Grecco · Ass. Dir.: Flávia Monteiro')">
+      <!-- 3. Festival de Curtas - Parte 3 -->
+      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/Dnt80uuWmeInSggK','Festival de Curtas — Parte 3')">
         <div class="gp-card-thumb">
-          <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/Brunogalvao.png" alt="Clipe Bruno Galvão"/>
+          <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/Brunogalvao.png" alt="Festival de Curtas — Parte 3"/>
           <div class="gp-card-overlay">
-            <div class="gp-card-title">Clipe Bruno Galvão</div>
-            <span class="gp-card-btn">▶ Assistir</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 4. Ana Carolina -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/VvIZd7byQEPgA9k4','Ana Carolina','Direção: Raul Grecco')">
-        <div class="gp-card-thumb">
-          <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/Felipe%20.png" alt="Ana Carolina"/>
-          <div class="gp-card-overlay">
-            <div class="gp-card-title">Ana Carolina</div>
-            <span class="gp-card-btn">▶ Assistir</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 5. Amor de Seu Mário -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/CoAFoMM29flaq1lP','Amor de Seu Mário','Direção: Raul Grecco')">
-        <div class="gp-card-thumb">
-          <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/Seumario.png" alt="Amor de Seu Mário"/>
-          <div class="gp-card-overlay">
-            <div class="gp-card-title">Amor de Seu Mário</div>
-            <span class="gp-card-btn">▶ Assistir</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 6. Mombaça — Chega -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/aKbR7urroevn6jJa','Mombaça — Chega','Direção: Raul Grecco')">
-        <div class="gp-card-thumb">
-          <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/mombaca.png" alt="Mombaça — Chega"/>
-          <div class="gp-card-overlay">
-            <div class="gp-card-title">Mombaça — Chega</div>
-            <span class="gp-card-btn">▶ Assistir</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 7. Rosemary — Ave Maria -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/HM2Ix2AfMTDlFX0d','Rosemary — Ave Maria','Produção Executiva: Rosemary')">
-        <div class="gp-card-thumb">
-          <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/Rosemaryavemaria.png" alt="Rosemary — Ave Maria"/>
-          <div class="gp-card-overlay">
-            <div class="gp-card-title">Rosemary — Ave Maria</div>
-            <span class="gp-card-btn">▶ Assistir</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 8. Rosemary — Alvorada -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/ZfKb602s8CMYg5YI','Rosemary — Alvorada','Produção Executiva: Rosemary')">
-        <div class="gp-card-thumb">
-          <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/Rosemaryalvorada.png" alt="Rosemary — Alvorada"/>
-          <div class="gp-card-overlay">
-            <div class="gp-card-title">Rosemary — Alvorada</div>
-            <span class="gp-card-credit">Produção Executiva: Raul Grecco</span>
-            <span class="gp-card-btn">▶ Assistir</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 9. Making Of Rosemary -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/X3XxT2UR9YEwtPEF','Making Of Rosemary','Produção Executiva: Rosemary')">
-        <div class="gp-card-thumb">
-          <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/Mkrosemary.png" alt="Making Of Rosemary"/>
-          <div class="gp-card-overlay">
-            <div class="gp-card-title">Making Of Rosemary</div>
-            <span class="gp-card-credit">Produção Executiva: Raul Grecco</span>
-            <span class="gp-card-btn">▶ Assistir</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 10. O Rappa — Último Show -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/HQu9ucJUtXQi50lv','O Rappa — Último Show · Turnê RJ','Direção: Raul Grecco')">
-        <div class="gp-card-thumb">
-          <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/ORappa.png" alt="O Rappa — Último Show · Turnê RJ"/>
-          <div class="gp-card-overlay">
-            <div class="gp-card-title">O Rappa — Último Show · Turnê RJ</div>
-            <span class="gp-card-credit">Direção: Raul Grecco</span>
-            <span class="gp-card-btn">▶ Assistir</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 11. Martinália — Raoni & Fernanda -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/A3ZQNqrV7Y9DjejE','Martinália — Raoni &amp; Fernanda','Direção: Raul Grecco')">
-        <div class="gp-card-thumb">
-          <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/martnalia.png" alt="Martinália — Raoni e Fernanda"/>
-          <div class="gp-card-overlay">
-            <div class="gp-card-title">Martinália — Raoni &amp; Fernanda</div>
-            <span class="gp-card-credit">Direção: Raul Grecco</span>
-            <span class="gp-card-btn">▶ Assistir</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 12. Casamento Cigano — Marisa & Sérgio -->
-      <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/Q5Kp2vqm4Kfcy0PW','Casamento Cigano — Marisa &amp; Sérgio','Direção: Raul Grecco')">
-        <div class="gp-card-thumb">
-          <img src="https://raw.githubusercontent.com/Biel2026ok/tvpiuma/main/fotospiuma/Marisa.png" alt="Casamento Cigano — Marisa e Sérgio"/>
-          <div class="gp-card-overlay">
-            <div class="gp-card-title">Casamento Cigano — Marisa &amp; Sérgio · Marina da Glória RJ</div>
+            <div class="gp-card-title">Festival de Curtas — Parte 3</div>
             <span class="gp-card-btn">▶ Assistir</span>
           </div>
         </div>
       </div>
 
     </div>
-    <button class="gp-arrow next" id="gp-prod-next">&#8250;</button>
+    <button class="gp-arrow next" id="gp-curtas-next">&#8250;</button>
+  </div>
+</div>
+
+<!-- GRANDES FILMES -->
+<div class="gp-featured" id="grandes-filmes">
+  <div style="text-align:center;margin-bottom:6px;">
+    <div style="font-size:11px;font-weight:800;color:#D4AF37;letter-spacing:3px;text-transform:uppercase;">Cinema</div>
+    <h2 style="font-size:24px;font-weight:900;color:#fff;margin:2px 0 8px;letter-spacing:1px;">🎬 GRANDES FILMES</h2>
+    <p style="font-size:13px;color:#9c9c9c;max-width:560px;margin:0 auto 14px;line-height:1.6;">Uma seleção especial da TV Sul Capixaba com grandes clássicos, filmes premiados e histórias inesquecíveis do cinema.</p>
+  </div>
+  <div class="gp-row-wrap">
+    <button class="gp-arrow prev" id="gp-filmes-prev">&#8249;</button>
+    <div class="gp-row" id="gp-filmes-row">
+
+      <!-- 1. Expresso do Amanhã -->
+      <div class="gp-card" onclick="openVodModal('https://www.youtube.com/embed/39sp73Zsp9o','Expresso do Amanhã','💥 Ação')">
+        <div class="gp-card-thumb">
+          <span class="gp-ribbon">Essencial</span>
+          <img src="https://image.tmdb.org/t/p/w500/6XBBjKGwEfBQ8H3iuz2QYr76ZbT.jpg" alt="Expresso do Amanhã"/>
+          <div class="gp-card-overlay">
+            <div class="gp-card-title">Expresso do Amanhã</div>
+            <span class="gp-card-credit">💥 AÇÃO</span>
+            <span class="gp-card-imdb">⭐ IMDb 7.8</span>
+            <span class="gp-card-btn">▶ Assistir Agora</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. O Poder e a Lei -->
+      <div class="gp-card" onclick="openVodModal('https://www.youtube.com/embed/XZOOxqtD1-Q','O Poder e a Lei','🎬 Indicação da Redação')">
+        <div class="gp-card-thumb">
+          <span class="gp-ribbon">Indicação da Redação</span>
+          <img src="https://image.tmdb.org/t/p/w500/1AAtb8LhaUvpVaZUCJt7Nkq6XRB.jpg" alt="O Poder e a Lei"/>
+          <div class="gp-card-overlay">
+            <div class="gp-card-title">O Poder e a Lei</div>
+            <span class="gp-card-credit">🎬 INDICAÇÃO DA REDAÇÃO</span>
+            <span class="gp-card-imdb">⭐ IMDb 7.3</span>
+            <span class="gp-card-btn">▶ Assistir Agora</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. O Lado Bom da Vida -->
+      <div class="gp-card" onclick="openVodModal('https://www.youtube.com/embed/ZB4SgYcWAkk','O Lado Bom da Vida','🏆 Clássico Moderno')">
+        <div class="gp-card-thumb">
+          <span class="gp-ribbon">Clássico</span>
+          <img src="https://image.tmdb.org/t/p/w500/tnmL0g604PDRJwGJ5fsUSYKFo9.jpg" alt="O Lado Bom da Vida"/>
+          <div class="gp-card-overlay">
+            <div class="gp-card-title">O Lado Bom da Vida</div>
+            <span class="gp-card-credit">🏆 CLÁSSICO MODERNO</span>
+            <span class="gp-card-imdb">⭐ IMDb 7.7</span>
+            <span class="gp-card-btn">▶ Assistir Agora</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Carol -->
+      <div class="gp-card" onclick="openVodModal('https://www.youtube.com/embed/3Tv5_qkTjNg','Carol','⭐ Premiado')">
+        <div class="gp-card-thumb">
+          <span class="gp-ribbon">Premiado</span>
+          <img src="https://image.tmdb.org/t/p/w500/y5CIVvWjq6RSNK4bMGGGgOu0PDp.jpg" alt="Carol"/>
+          <div class="gp-card-overlay">
+            <div class="gp-card-title">Carol</div>
+            <span class="gp-card-credit">⭐ PREMIADO</span>
+            <span class="gp-card-imdb">⭐ IMDb 7.2</span>
+            <span class="gp-card-btn">▶ Assistir Agora</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Grandes Olhos -->
+      <div class="gp-card" onclick="openVodModal('https://www.youtube.com/embed/dSLzeZDruY0','Grandes Olhos','🎭 Drama Premiado')">
+        <div class="gp-card-thumb">
+          <span class="gp-ribbon">Drama Premiado</span>
+          <img src="https://image.tmdb.org/t/p/w500/tZoIvSbSXjE2VXhMEz2NqOJPl4l.jpg" alt="Grandes Olhos"/>
+          <div class="gp-card-overlay">
+            <div class="gp-card-title">Grandes Olhos</div>
+            <span class="gp-card-credit">🎭 DRAMA PREMIADO</span>
+            <span class="gp-card-imdb">⭐ IMDb 7.0</span>
+            <span class="gp-card-btn">▶ Assistir Agora</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PENDENTES: 15 títulos aguardando confirmação de link/pôster -->
+      <!-- 6. O Melhor Lance — ⭐7.8 · 🧠 Suspense -->
+      <!-- 7. Corra, Menino, Corra — ⭐7.8 · 🔥 Baseado em fatos -->
+      <!-- 8. 13 Assassinos — ⭐7.6 · 🏆 Clássico -->
+      <!-- 9. Vicky Cristina Barcelona — ⭐7.1 · 🎖 Oscar -->
+      <!-- 10. Revólver — ⭐6.5 · 🌍 Cult -->
+      <!-- 11. O Relutante Fundamentalista — ⭐6.8 · 🎬 Indicação da Redação -->
+      <!-- 12. Na Praia de Chesil — ⭐6.3 · ❤️ Romance -->
+      <!-- 13. O Doador de Memórias — ⭐6.5 · 🌍 Ficção Científica -->
+      <!-- 14. Harry Brown — ⭐7.2 · 💥 Ação -->
+      <!-- 15. November Man — ⭐6.3 · 🕵️ Espionagem -->
+      <!-- 16. Wasabi — ⭐6.7 · 😄 Ação / Comédia -->
+      <!-- 17. Cão de Briga — ⭐7.0 · 🥊 Ação -->
+      <!-- 18. Momentum — ⭐5.5 · 💥 Ação -->
+      <!-- 19. Amnésia — ⭐6.4 · 🧠 Suspense -->
+      <!-- 20. Taxi 4 — ⭐5.6 · 🚗 Ação / Comédia -->
+
+    </div>
+    <button class="gp-arrow next" id="gp-filmes-next">&#8250;</button>
   </div>
 </div>
 
@@ -1357,7 +1363,8 @@ html { scroll-behavior: smooth; }
   document.addEventListener('DOMContentLoaded',function(){
     initCarousel('gp-featured-row','gp-feat-prev','gp-feat-next');
     initCarousel('gp-cob-row','gp-cob-prev','gp-cob-next');
-    initCarousel('gp-prod-row','gp-prod-prev','gp-prod-next');
+    initCarousel('gp-curtas-row','gp-curtas-prev','gp-curtas-next');
+    initCarousel('gp-filmes-row','gp-filmes-prev','gp-filmes-next');
   });
 })();
 </script>
