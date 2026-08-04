@@ -342,6 +342,29 @@ function loadLivePlayer(){
   </div>
 </div>
 
+<!-- MODAL DE DETALHES — GRANDES FILMES -->
+<div id="filme-detail" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.88);align-items:center;justify-content:center;padding:20px;">
+  <div style="position:relative;background:#111;max-width:920px;width:100%;max-height:88vh;overflow-y:auto;border-radius:10px;display:grid;grid-template-columns:1fr 1.3fr;">
+    <button onclick="closeFilmeDetail()" style="position:absolute;top:12px;right:16px;background:none;border:none;color:#fff;font-size:26px;cursor:pointer;z-index:2;">✕</button>
+    <div id="fd-poster" style="background-size:cover;background-position:center;min-height:320px;"></div>
+    <div style="padding:28px;">
+      <span id="fd-selo" style="display:inline-block;background:#e63b1e;color:#fff;font-size:11px;font-weight:800;padding:3px 10px;border-radius:4px;margin-right:8px;"></span>
+      <span id="fd-classificacao" style="display:inline-block;background:#2a2d36;color:#c9c9c9;font-size:11px;padding:3px 10px;border-radius:4px;"></span>
+      <h2 id="fd-titulo" style="color:#fff;font-size:24px;font-weight:900;margin:14px 0 10px;"></h2>
+      <p id="fd-sinopse" style="color:#c9c9c9;font-size:14px;line-height:1.6;margin-bottom:16px;"></p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px;color:#fff;margin-bottom:8px;">
+        <div><span style="color:#777;font-size:11px;text-transform:uppercase;display:block;">Gênero</span><span id="fd-genero"></span></div>
+        <div><span style="color:#777;font-size:11px;text-transform:uppercase;display:block;">Diretor</span><span id="fd-diretor"></span></div>
+        <div><span style="color:#777;font-size:11px;text-transform:uppercase;display:block;">Ano</span><span id="fd-ano"></span></div>
+        <div><span style="color:#777;font-size:11px;text-transform:uppercase;display:block;">Duração</span><span id="fd-duracao"></span></div>
+      </div>
+      <div style="font-size:13px;color:#fff;margin-bottom:6px;"><span style="color:#777;font-size:11px;text-transform:uppercase;display:block;">Elenco</span><span id="fd-elenco"></span></div>
+      <div id="fd-imdb" style="color:#ffce4d;font-size:13px;font-weight:700;margin-bottom:18px;"></div>
+      <button id="fd-assistir" style="background:#e63b1e;color:#fff;border:none;padding:13px 26px;border-radius:6px;font-weight:800;font-size:15px;cursor:pointer;">▶ Assistir Agora</button>
+    </div>
+  </div>
+</div>
+
 <!-- TELA CHEIA — GRANDES FILMES -->
 <div id="filme-watch" style="display:none;position:fixed;inset:0;z-index:10000;background:#0a0a0a;flex-direction:column;">
   <div style="display:flex;align-items:center;gap:18px;padding:16px 20px;background:#111;border-bottom:1px solid #222;">
@@ -352,9 +375,13 @@ function loadLivePlayer(){
     </div>
   </div>
   <div style="flex:1;display:flex;align-items:center;justify-content:center;background:#000;">
-    <div style="width:100%;max-width:1100px;aspect-ratio:16/9;">
+    <div style="width:100%;height:100%;">
       <iframe id="filme-watch-iframe" src="" style="width:100%;height:100%;border:0;" allow="autoplay; fullscreen" allowfullscreen></iframe>
     </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 20px;background:#111;border-top:1px solid #222;font-size:11px;color:#777;">
+    <span>PLAYER INCORPORADO</span>
+    <span>Conteúdo espelhado de: YOUTUBE</span>
   </div>
 </div>
 
@@ -551,7 +578,7 @@ function loadLivePlayer(){
     <div class="gp-row" id="gp-filmes-row">
 
       <!-- 1. Expresso do Amanhã -->
-      <div class="gp-card" onclick="openFilmeWatch('39sp73Zsp9o','Expresso do Amanhã','💥 AÇÃO','2013','2h06min')">
+      <div class="gp-card" onclick="openFilmeDetail('expresso_amanha')">
         <div class="gp-card-thumb">
           <span class="gp-ribbon">Essencial</span>
           <img src="https://img.youtube.com/vi/39sp73Zsp9o/hqdefault.jpg" alt="Expresso do Amanhã"/>
@@ -565,7 +592,7 @@ function loadLivePlayer(){
       </div>
 
       <!-- 2. O Poder e a Lei -->
-      <div class="gp-card" onclick="openFilmeWatch('XZOOxqtD1-Q','O Poder e a Lei','🎬 INDICAÇÃO DA REDAÇÃO','2011','1h58min')">
+      <div class="gp-card" onclick="openFilmeDetail('poder_e_a_lei')">
         <div class="gp-card-thumb">
           <span class="gp-ribbon">Indicação da Redação</span>
           <img src="https://img.youtube.com/vi/XZOOxqtD1-Q/hqdefault.jpg" alt="O Poder e a Lei"/>
@@ -579,7 +606,7 @@ function loadLivePlayer(){
       </div>
 
       <!-- 3. O Lado Bom da Vida -->
-      <div class="gp-card" onclick="openFilmeWatch('ZB4SgYcWAkk','O Lado Bom da Vida','🏆 CLÁSSICO MODERNO','2013','2h02min')">
+      <div class="gp-card" onclick="openFilmeDetail('lado_bom_da_vida')">
         <div class="gp-card-thumb">
           <span class="gp-ribbon">Clássico</span>
           <img src="https://img.youtube.com/vi/ZB4SgYcWAkk/hqdefault.jpg" alt="O Lado Bom da Vida"/>
@@ -593,7 +620,7 @@ function loadLivePlayer(){
       </div>
 
       <!-- 4. Carol -->
-      <div class="gp-card" onclick="openFilmeWatch('3Tv5_qkTjNg','Carol','⭐ PREMIADO','2015','1h58min')">
+      <div class="gp-card" onclick="openFilmeDetail('carol')">
         <div class="gp-card-thumb">
           <span class="gp-ribbon">Premiado</span>
           <img src="https://img.youtube.com/vi/3Tv5_qkTjNg/hqdefault.jpg" alt="Carol"/>
@@ -607,7 +634,7 @@ function loadLivePlayer(){
       </div>
 
       <!-- 5. Grandes Olhos -->
-      <div class="gp-card" onclick="openFilmeWatch('dSLzeZDruY0','Grandes Olhos','🎭 DRAMA PREMIADO','2014','1h46min')">
+      <div class="gp-card" onclick="openFilmeDetail('grandes_olhos')">
         <div class="gp-card-thumb">
           <span class="gp-ribbon">Drama Premiado</span>
           <img src="https://img.youtube.com/vi/dSLzeZDruY0/hqdefault.jpg" alt="Grandes Olhos"/>
@@ -619,7 +646,7 @@ function loadLivePlayer(){
           </div>
         </div>
       </div>
-      <div class="gp-card" onclick="openFilmeWatch('zo4tJxlTbWs','O Melhor Lance','🧠 SUSPENSE','2013','2h04min')">
+      <div class="gp-card" onclick="openFilmeDetail('melhor_lance')">
         <div class="gp-card-thumb">
           <span class="gp-ribbon">Suspense</span>
           <img src="https://img.youtube.com/vi/zo4tJxlTbWs/hqdefault.jpg" alt="O Melhor Lance"/>
@@ -631,7 +658,7 @@ function loadLivePlayer(){
           </div>
         </div>
       </div>
-      <div class="gp-card" onclick="openFilmeWatch('nFYjdywfIpg','13 Assassinos','🏆 CLÁSSICO','2010','2h06min')">
+      <div class="gp-card" onclick="openFilmeDetail('treze_assassinos')">
         <div class="gp-card-thumb">
           <span class="gp-ribbon">Clássico</span>
           <img src="https://img.youtube.com/vi/nFYjdywfIpg/hqdefault.jpg" alt="13 Assassinos"/>
@@ -643,7 +670,7 @@ function loadLivePlayer(){
           </div>
         </div>
       </div>
-      <div class="gp-card" onclick="openFilmeWatch('TBIrGx3P57Y','Corra, Menino, Corra','🔥 BASEADO EM FATOS','2013','1h55min')">
+      <div class="gp-card" onclick="openFilmeDetail('corra_menino_corra')">
         <div class="gp-card-thumb">
           <span class="gp-ribbon">Baseado em Fatos</span>
           <img src="https://img.youtube.com/vi/TBIrGx3P57Y/hqdefault.jpg" alt="Corra, Menino, Corra"/>
@@ -655,7 +682,7 @@ function loadLivePlayer(){
           </div>
         </div>
       </div>
-      <div class="gp-card" onclick="openFilmeWatch('1pG7IhXQ6d4','Vicky Cristina Barcelona','🎖 OSCAR','2008','1h36min')">
+      <div class="gp-card" onclick="openFilmeDetail('vicky_cristina_barcelona')">
         <div class="gp-card-thumb">
           <span class="gp-ribbon">Oscar</span>
           <img src="https://img.youtube.com/vi/1pG7IhXQ6d4/hqdefault.jpg" alt="Vicky Cristina Barcelona"/>
@@ -667,7 +694,7 @@ function loadLivePlayer(){
           </div>
         </div>
       </div>
-      <div class="gp-card" onclick="openFilmeWatch('6JebCclDVus','Revólver','🌍 CULT','2005','1h51min')">
+      <div class="gp-card" onclick="openFilmeDetail('revolver')">
         <div class="gp-card-thumb">
           <span class="gp-ribbon">Cult</span>
           <img src="https://img.youtube.com/vi/6JebCclDVus/hqdefault.jpg" alt="Revólver"/>
@@ -679,7 +706,7 @@ function loadLivePlayer(){
           </div>
         </div>
       </div>
-      <div class="gp-card" onclick="openFilmeWatch('WGtmSiEr0mg','O Relutante Fundamentalista','🎬 INDICAÇÃO DA REDAÇÃO','2012','2h10min')">
+      <div class="gp-card" onclick="openFilmeDetail('relutante_fundamentalista')">
         <div class="gp-card-thumb">
           <span class="gp-ribbon">Indicação da Redação</span>
           <img src="https://img.youtube.com/vi/WGtmSiEr0mg/hqdefault.jpg" alt="O Relutante Fundamentalista"/>
@@ -793,6 +820,134 @@ var ESC_EPISODIOS = [
 ════════════════════════════════════════════════════ -->
 
 <script>
+// ===== DADOS DOS FILMES — TUDO MANUAL, SEM API =====
+const filmes = {
+  expresso_amanha:{
+    titulo:"Expresso do Amanhã",
+    poster:"https://img.youtube.com/vi/39sp73Zsp9o/hqdefault.jpg",
+    sinopse:"Os últimos sobreviventes de uma tentativa fracassada de conter o aquecimento global vivem confinados em um trem que nunca para, divididos por classes sociais.",
+    ano:"2013", duracao:"2h06min", genero:"Ficção Científica, Ação",
+    diretor:"Bong Joon-ho", elenco:"Chris Evans, Song Kang-ho, Tilda Swinton",
+    classificacao:"14", imdb:"7.8", selo:"💥 Ação", youtube:"39sp73Zsp9o"
+  },
+  poder_e_a_lei:{
+    titulo:"O Poder e a Lei",
+    poster:"https://img.youtube.com/vi/XZOOxqtD1-Q/hqdefault.jpg",
+    sinopse:"Mick Haller é um advogado defensor que atende seus clientes a partir do banco de trás de uma limusine, até assumir um caso que muda completamente as regras do jogo.",
+    ano:"2011", duracao:"1h58min", genero:"Suspense, Drama",
+    diretor:"Brad Furman", elenco:"Matthew McConaughey, Marisa Tomei, Ryan Phillippe",
+    classificacao:"14", imdb:"7.3", selo:"🎬 Indicação da Redação", youtube:"XZOOxqtD1-Q"
+  },
+  lado_bom_da_vida:{
+    titulo:"O Lado Bom da Vida",
+    poster:"https://img.youtube.com/vi/ZB4SgYcWAkk/hqdefault.jpg",
+    sinopse:"Após passar um tempo internado, Pat Solitano perde quase tudo e volta a morar com os pais, decidido a reconstruir sua vida — até cruzar o caminho de Tiffany.",
+    ano:"2013", duracao:"2h02min", genero:"Drama, Comédia",
+    diretor:"David O. Russell", elenco:"Bradley Cooper, Jennifer Lawrence, Robert De Niro",
+    classificacao:"12", imdb:"7.7", selo:"🏆 Clássico Moderno", youtube:"ZB4SgYcWAkk"
+  },
+  carol:{
+    titulo:"Carol",
+    poster:"https://img.youtube.com/vi/3Tv5_qkTjNg/hqdefault.jpg",
+    sinopse:"Therese, uma jovem vendedora, se apaixona por Carol, uma mulher elegante em meio a um divórcio conturbado. Juntas, vivem um romance que desafia a época.",
+    ano:"2015", duracao:"1h58min", genero:"Drama, Romance",
+    diretor:"Todd Haynes", elenco:"Cate Blanchett, Rooney Mara, Sarah Paulson",
+    classificacao:"14", imdb:"7.2", selo:"⭐ Premiado", youtube:"3Tv5_qkTjNg"
+  },
+  grandes_olhos:{
+    titulo:"Grandes Olhos",
+    poster:"https://img.youtube.com/vi/dSLzeZDruY0/hqdefault.jpg",
+    sinopse:"Margaret Keane cria pinturas que fazem sucesso nos anos 1950, mas seu marido Walter assume publicamente a autoria — até ela decidir ir à justiça pela verdade.",
+    ano:"2014", duracao:"1h46min", genero:"Drama, Biografia",
+    diretor:"Tim Burton", elenco:"Amy Adams, Christoph Waltz",
+    classificacao:"12", imdb:"7.0", selo:"🎭 Drama Premiado", youtube:"dSLzeZDruY0"
+  },
+  melhor_lance:{
+    titulo:"O Melhor Lance",
+    poster:"https://img.youtube.com/vi/zo4tJxlTbWs/hqdefault.jpg",
+    sinopse:"Virgil Oldman, um rico leiloeiro de arte, conta com a ajuda de um jovem restaurador para compreender os segredos de uma misteriosa herdeira.",
+    ano:"2013", duracao:"2h04min", genero:"Drama, Suspense, Romance",
+    diretor:"Giuseppe Tornatore", elenco:"Geoffrey Rush",
+    classificacao:"14", imdb:"7.8", selo:"🧠 Suspense", youtube:"zo4tJxlTbWs"
+  },
+  treze_assassinos:{
+    titulo:"13 Assassinos",
+    poster:"https://img.youtube.com/vi/nFYjdywfIpg/hqdefault.jpg",
+    sinopse:"No Japão feudal do século XIX, o sádico e cruel Lorde Naritsugu ameaça a paz do país. Treze guerreiros se unem numa missão suicida para detê-lo.",
+    ano:"2010", duracao:"2h06min", genero:"Ação, Drama",
+    diretor:"Takashi Miike", elenco:"Koji Yakusho",
+    classificacao:"16", imdb:"7.6", selo:"🏆 Clássico", youtube:"nFYjdywfIpg"
+  },
+  corra_menino_corra:{
+    titulo:"Corra, Menino, Corra",
+    poster:"https://img.youtube.com/vi/TBIrGx3P57Y/hqdefault.jpg",
+    sinopse:"Baseado em uma história real, conta a emocionante jornada de um menino judeu de 9 anos que foge do gueto de Varsóvia e luta para sobreviver na floresta.",
+    ano:"2013", duracao:"1h55min", genero:"Drama, Guerra",
+    diretor:"Pepe Danquart", elenco:"Kamil Tkacz, Andy Tkacz",
+    classificacao:"14", imdb:"7.8", selo:"🔥 Baseado em fatos", youtube:"TBIrGx3P57Y"
+  },
+  vicky_cristina_barcelona:{
+    titulo:"Vicky Cristina Barcelona",
+    poster:"https://img.youtube.com/vi/1pG7IhXQ6d4/hqdefault.jpg",
+    sinopse:"Duas amigas americanas passam férias em Barcelona e se envolvem com um pintor sedutor e emocionalmente instável, sem saber da presença de sua ex-mulher.",
+    ano:"2008", duracao:"1h36min", genero:"Drama, Romance, Comédia",
+    diretor:"Woody Allen", elenco:"Javier Bardem, Penélope Cruz, Scarlett Johansson, Rebecca Hall",
+    classificacao:"16", imdb:"7.1", selo:"🎖 Oscar", youtube:"1pG7IhXQ6d4"
+  },
+  revolver:{
+    titulo:"Revólver",
+    poster:"https://img.youtube.com/vi/6JebCclDVus/hqdefault.jpg",
+    sinopse:"Após sete anos preso, o trapaceiro Jake Green sai decidido a se vingar do chefão do crime Dorothy Macha.",
+    ano:"2005", duracao:"1h51min", genero:"Ação, Suspense, Crime",
+    diretor:"Guy Ritchie", elenco:"Jason Statham, Ray Liotta, André 3000, Mark Strong",
+    classificacao:"16", imdb:"6.5", selo:"🌍 Cult", youtube:"6JebCclDVus"
+  },
+  relutante_fundamentalista:{
+    titulo:"O Relutante Fundamentalista",
+    poster:"https://img.youtube.com/vi/WGtmSiEr0mg/hqdefault.jpg",
+    sinopse:"Um jovem paquistanês persegue o sucesso corporativo em Wall Street e se vê envolvido em um conflito entre seu sonho americano e uma crise de reféns.",
+    ano:"2012", duracao:"2h10min", genero:"Drama, Suspense",
+    diretor:"Mira Nair", elenco:"Riz Ahmed, Kate Hudson",
+    classificacao:"14", imdb:"6.8", selo:"🎬 Indicação da Redação", youtube:"WGtmSiEr0mg"
+  },
+  // PENDENTES — preencher quando confirmados (estrutura já pronta)
+  doador_memorias:{ titulo:"O Doador de Memórias", poster:"", sinopse:"", ano:"", duracao:"", genero:"", diretor:"", elenco:"", classificacao:"", imdb:"6.5", selo:"🌍 Ficção Científica", youtube:"" },
+  harry_brown:{ titulo:"Harry Brown", poster:"", sinopse:"", ano:"", duracao:"", genero:"", diretor:"", elenco:"", classificacao:"", imdb:"7.2", selo:"💥 Ação", youtube:"" },
+  november_man:{ titulo:"November Man", poster:"", sinopse:"", ano:"", duracao:"", genero:"", diretor:"", elenco:"", classificacao:"", imdb:"6.3", selo:"🕵️ Espionagem", youtube:"" },
+  wasabi:{ titulo:"Wasabi", poster:"", sinopse:"", ano:"", duracao:"", genero:"", diretor:"", elenco:"", classificacao:"", imdb:"6.7", selo:"😄 Ação / Comédia", youtube:"" },
+  cao_de_briga:{ titulo:"Cão de Briga", poster:"", sinopse:"", ano:"", duracao:"", genero:"", diretor:"", elenco:"", classificacao:"", imdb:"7.0", selo:"🥊 Ação", youtube:"" },
+  momentum:{ titulo:"Momentum", poster:"", sinopse:"", ano:"", duracao:"", genero:"", diretor:"", elenco:"", classificacao:"", imdb:"5.5", selo:"💥 Ação", youtube:"" },
+  amnesia:{ titulo:"Amnésia", poster:"", sinopse:"", ano:"", duracao:"", genero:"", diretor:"", elenco:"", classificacao:"", imdb:"6.4", selo:"🧠 Suspense", youtube:"" },
+  taxi4:{ titulo:"Taxi 4", poster:"", sinopse:"", ano:"", duracao:"", genero:"", diretor:"", elenco:"", classificacao:"", imdb:"5.6", selo:"🚗 Ação / Comédia", youtube:"" },
+  na_praia_de_chesil:{ titulo:"Na Praia de Chesil", poster:"", sinopse:"", ano:"", duracao:"", genero:"", diretor:"", elenco:"", classificacao:"", imdb:"6.3", selo:"❤️ Romance", youtube:"" }
+};
+
+function openFilmeDetail(slug){
+  var f = filmes[slug];
+  if(!f || !f.youtube){ alert('Filme ainda não cadastrado.'); return; }
+  document.getElementById('fd-poster').style.backgroundImage="url("+f.poster+")";
+  document.getElementById('fd-titulo').textContent=f.titulo;
+  document.getElementById('fd-sinopse').textContent=f.sinopse;
+  document.getElementById('fd-selo').textContent=f.selo;
+  document.getElementById('fd-classificacao').textContent='Classificação: '+f.classificacao;
+  document.getElementById('fd-imdb').textContent='⭐ IMDb '+f.imdb;
+  document.getElementById('fd-genero').textContent=f.genero;
+  document.getElementById('fd-diretor').textContent=f.diretor;
+  document.getElementById('fd-ano').textContent=f.ano;
+  document.getElementById('fd-duracao').textContent=f.duracao;
+  document.getElementById('fd-elenco').textContent=f.elenco;
+  document.getElementById('fd-assistir').onclick=function(){
+    closeFilmeDetail();
+    openFilmeWatch(f.youtube, f.titulo, f.selo, f.ano, f.duracao);
+  };
+  document.getElementById('filme-detail').style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function closeFilmeDetail(){
+  document.getElementById('filme-detail').style.display='none';
+  document.body.style.overflow='';
+}
+
 function openFilmeWatch(youtubeId, titulo, selo, ano, duracao){
   var wasLive=!!document.getElementById('live-player');
   destroyCurrentPlayer();
