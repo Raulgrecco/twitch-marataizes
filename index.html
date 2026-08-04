@@ -51,6 +51,17 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 #grandes-filmes .gp-card-imdb{display:block;font-size:9.5px;color:rgba(255,255,255,.55);margin-bottom:5px;}
 #grandes-filmes .gp-arrow,#festival-curtas .gp-arrow{opacity:.55;}
 #grandes-filmes .gp-row-wrap:hover .gp-arrow,#festival-curtas .gp-row-wrap:hover .gp-arrow{opacity:1;}
+#palco-brasil{position:relative;padding:22px 0 8px;background:radial-gradient(ellipse 70% 100% at 50% 0%, #14110b 0%, rgba(0,0,0,0) 75%);}
+#palco-brasil .gp-card{flex:0 0 253px;}
+#palco-brasil .gp-card:hover{transform:scale(1.08);box-shadow:0 12px 32px rgba(0,0,0,.85);}
+#palco-brasil .gp-card-btn:hover{background:#D4AF37;color:#0a0a0a;opacity:1;}
+#palco-brasil .gp-ribbon{position:absolute;top:9px;left:9px;z-index:3;background:rgba(0,0,0,.78);border:1px solid #D4AF37;color:#D4AF37;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:20px;}
+#palco-brasil .gp-card-credit{display:block;font-size:10px;color:#c9962c;font-weight:700;letter-spacing:.3px;margin-bottom:2px;}
+#palco-brasil .gp-card-imdb{display:block;font-size:9.5px;color:rgba(255,255,255,.55);margin-bottom:5px;}
+#palco-brasil .gp-arrow{opacity:.55;}
+#palco-brasil .gp-row-wrap:hover .gp-arrow{opacity:1;}
+.pb-next-btn{display:inline-block;margin-left:14px;background:none;border:1px solid #444;color:#c9c9c9;padding:8px 16px;border-radius:6px;font-size:12px;cursor:pointer;}
+.pb-next-btn:hover{border-color:#D4AF37;color:#D4AF37;}
 .gp-arrow{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:56px;background:rgba(0,0,0,.75);border:none;border-radius:4px;color:#fff;font-size:20px;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:background .15s,opacity .15s;opacity:0;}
 .gp-row-wrap:hover .gp-arrow{opacity:1;}
 .gp-arrow:hover{background:rgba(0,0,0,.95);}
@@ -382,6 +393,40 @@ function loadLivePlayer(){
   <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 20px;background:#111;border-top:1px solid #222;font-size:11px;color:#777;">
     <span>PLAYER INCORPORADO</span>
     <span>Conteúdo espelhado de: YOUTUBE</span>
+  </div>
+</div>
+
+<!-- MODAL DE DETALHES — PALCO BRASIL -->
+<div id="palco-detail" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.88);align-items:center;justify-content:center;padding:20px;">
+  <div style="position:relative;background:#111;max-width:820px;width:100%;max-height:88vh;overflow-y:auto;border-radius:10px;display:grid;grid-template-columns:1fr 1.1fr;">
+    <button onclick="closePalcoDetail()" style="position:absolute;top:12px;right:16px;background:none;border:none;color:#fff;font-size:26px;cursor:pointer;z-index:2;">✕</button>
+    <div id="pd-poster" style="background-size:cover;background-position:center;min-height:280px;"></div>
+    <div style="padding:28px;">
+      <span style="display:inline-block;background:#D4AF37;color:#0a0a0a;font-size:11px;font-weight:800;padding:3px 10px;border-radius:4px;margin-bottom:14px;">🎵 Palco Brasil</span>
+      <h2 id="pd-titulo" style="color:#fff;font-size:22px;font-weight:900;margin:8px 0 10px;"></h2>
+      <p id="pd-descricao" style="color:#c9c9c9;font-size:14px;line-height:1.6;margin-bottom:14px;"></p>
+      <div style="font-size:13px;color:#999;margin-bottom:20px;">⏱ Duração: <span id="pd-duracao"></span></div>
+      <button onclick="openPalcoWatch()" style="background:#D4AF37;color:#0a0a0a;border:none;padding:13px 26px;border-radius:6px;font-weight:800;font-size:15px;cursor:pointer;">▶ Assistir Agora</button>
+    </div>
+  </div>
+</div>
+
+<!-- TELA CHEIA — PALCO BRASIL -->
+<div id="palco-watch" style="display:none;position:fixed;inset:0;z-index:10000;background:#0a0a0a;flex-direction:column;">
+  <div style="display:flex;align-items:center;gap:18px;padding:16px 20px;background:#111;border-bottom:1px solid #222;">
+    <button onclick="closePalcoWatch()" style="background:#e63b1e;color:#fff;border:none;padding:11px 22px;border-radius:6px;font-weight:800;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap;">← VOLTAR</button>
+    <div>
+      <div id="palco-watch-breadcrumb" style="font-size:11px;color:#D4AF37;font-weight:700;letter-spacing:.5px;text-transform:uppercase;"></div>
+      <div id="palco-watch-title" style="font-size:18px;font-weight:900;color:#fff;"></div>
+    </div>
+    <button class="pb-next-btn" onclick="palcoNext()">▶ Próxima apresentação</button>
+  </div>
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;background:#000;">
+    <div id="palco-watch-player-wrap" style="width:100%;height:100%;"></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 20px;background:#111;border-top:1px solid #222;font-size:11px;color:#777;">
+    <span>PLAYER INCORPORADO</span>
+    <span>Conteúdo espelhado de: YOUTUBE · avança automaticamente pra próxima apresentação</span>
   </div>
 </div>
 
@@ -840,6 +885,20 @@ function loadLivePlayer(){
   </div>
 </div>
 
+<!-- PALCO BRASIL -->
+<div class="gp-featured" id="palco-brasil">
+  <div style="text-align:center;margin-bottom:6px;">
+    <div style="font-size:11px;font-weight:800;color:#D4AF37;letter-spacing:3px;text-transform:uppercase;">Música</div>
+    <h2 style="font-size:24px;font-weight:900;color:#fff;margin:2px 0 8px;letter-spacing:1px;">🎵 PALCO BRASIL</h2>
+    <p style="font-size:13px;color:#9c9c9c;max-width:620px;margin:0 auto 14px;line-height:1.6;">Grandes apresentações musicais selecionadas pela curadoria da TV Marataízes. Performances intimistas, artistas consagrados e novos talentos da música brasileira. Tudo gratuitamente.</p>
+  </div>
+  <div class="gp-row-wrap">
+    <button class="gp-arrow prev" id="gp-palco-prev">&#8249;</button>
+    <div class="gp-row" id="gp-palco-row"></div>
+    <button class="gp-arrow next" id="gp-palco-next">&#8250;</button>
+  </div>
+</div>
+
 <!-- ════════════════════════════════════════════════════
      INÍCIO ENTENDA SUA CIDADE
      Biblioteca permanente — escalável.
@@ -1082,6 +1141,116 @@ function openFilmeWatch(youtubeId, titulo, selo, ano, duracao){
 function closeFilmeWatch(){
   document.getElementById('filme-watch-iframe').src='';
   document.getElementById('filme-watch').style.display='none';
+  document.body.style.overflow='';
+}
+
+// ===== PALCO BRASIL — ordem exata da playlist oficial, sem reordenar =====
+const palcoBrasil = [
+  { artista:"IZA", youtube:"oakGqyUPK0c", duracao:"18:59", descricao:"Apresentação intimista com repertório que passeia por diferentes fases da carreira da cantora." },
+  { artista:"Gloria Groove", youtube:"s3w6Qst7ee4", duracao:"21:04", descricao:"A drag queen e cantora leva ao formato mesinha grandes sucessos de sua trajetória no pop nacional." },
+  { artista:"Tulipa Ruiz", youtube:"VM5XRUqX9hI", duracao:"21:04", descricao:"Cantora e compositora, vencedora de Grammy Latino, apresenta versões especiais de seu repertório autoral." },
+  { artista:"Giovani Cidreira", youtube:"QpDPywMco50", duracao:"21:15", descricao:"O multi-instrumentista baiano mistura canção popular brasileira com ritmos afro-brasileiros e elementos eletrônicos." },
+  { artista:"Duquesa", youtube:"X0yHGC0ChrI", duracao:"20:56", descricao:"Um dos nomes mais relevantes da nova geração do rap nacional se apresenta na mesinha." },
+  { artista:"Gilberto Gil, Flor e Bento", youtube:"IiE7MAFu2Kw", duracao:"23:21", descricao:"Gilberto Gil se apresenta ao lado dos netos Flor e Bento, em um encontro entre gerações da música brasileira." },
+  { artista:"Alceu Valença", youtube:"T1ycoaPqRhM", duracao:"22:04", descricao:"O cantor e compositor pernambucano leva sua tradição forró e regional para o formato intimista da mesinha." },
+  { artista:"Manoel Cordeiro e Felipe Cordeiro", youtube:"Q9L7wMmlcD0", duracao:"19:27", descricao:"Dupla que representa a tradição da música regional brasileira no formato mesinha." },
+  { artista:"Liniker", youtube:"mB64XGyZFv8", duracao:"19:30", descricao:"Uma das vozes mais aclamadas da nova MPB, com repertório soul e intimista." },
+  { artista:"Tim Bernardes", youtube:"d25O8USd35Y", duracao:"23:31", descricao:"Cantor e compositor com um som introspectivo, entre o rock e a canção brasileira." },
+  { artista:"Arnaldo Antunes", youtube:"d3e29SP-eYI", duracao:"19:27", descricao:"Poeta, cantor e compositor, ex-Titãs, com décadas de carreira autoral." },
+  { artista:"Sandra Sá", youtube:"5XVLtuMtH74", duracao:"22:17", descricao:"Uma das grandes vozes do soul e da black music brasileira." },
+  { artista:"Tássia Reis", youtube:"axeUDhmIieg", duracao:"20:11", descricao:"Rapper e cantora paulistana, com forte presença no rap nacional." },
+  { artista:"Ney Matogrosso", youtube:"yvG_sA6DTdU", duracao:"19:19", descricao:"Um dos artistas mais icônicos da música brasileira, com décadas de carreira e performances marcantes." },
+  { artista:"Céu", youtube:"ZrksaLcNnFI", duracao:"23:47", descricao:"Cantora e compositora com um som que mistura MPB, soul e eletrônica." },
+  { artista:"Péricles", youtube:"JwvHyWfMm_U", duracao:"21:09", descricao:"Um dos maiores nomes do samba e pagode contemporâneo." },
+  { artista:"Metá Metá & Negro Leo", youtube:"kKk1_ZKedXE", duracao:"19:55", descricao:"Encontro entre o trio de vanguarda Metá Metá e o cantor Negro Leo, com música experimental." },
+  { artista:"João Gomes", youtube:"XUd4nYZxOi0", duracao:"20:16", descricao:"Um dos maiores nomes do piseiro e da nova música nordestina." }
+];
+var palcoCurrentIndex = 0;
+var palcoPlayer = null;
+
+function renderPalcoBrasil(){
+  var row = document.getElementById('gp-palco-row');
+  row.innerHTML = palcoBrasil.map(function(p, i){
+    if(!p.youtube) return '';
+    return '<div class="gp-card" onclick="openPalcoDetail('+i+')">'+
+      '<div class="gp-card-thumb">'+
+        '<span class="gp-ribbon">Palco Brasil</span>'+
+        '<img src="https://img.youtube.com/vi/'+p.youtube+'/hqdefault.jpg" alt="'+p.artista+'">'+
+        '<div class="gp-card-overlay">'+
+          '<div class="gp-card-title">'+p.artista+'</div>'+
+          '<span class="gp-card-imdb">⏱ '+p.duracao+'</span>'+
+          '<span class="gp-card-btn">▶ Assistir Agora</span>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+document.addEventListener('DOMContentLoaded', renderPalcoBrasil);
+
+function openPalcoDetail(i){
+  var p = palcoBrasil[i];
+  if(!p || !p.youtube){ return; }
+  palcoCurrentIndex = i;
+  document.getElementById('pd-poster').style.backgroundImage="url(https://img.youtube.com/vi/"+p.youtube+"/hqdefault.jpg)";
+  document.getElementById('pd-titulo').textContent=p.artista;
+  document.getElementById('pd-descricao').textContent=p.descricao;
+  document.getElementById('pd-duracao').textContent=p.duracao;
+  document.getElementById('palco-detail').style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function closePalcoDetail(){
+  document.getElementById('palco-detail').style.display='none';
+  document.body.style.overflow='';
+}
+function openPalcoWatch(){
+  closePalcoDetail();
+  loadPalcoTrack(palcoCurrentIndex);
+  document.getElementById('palco-watch').style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function loadPalcoTrack(i){
+  var p = palcoBrasil[i];
+  if(!p || !p.youtube) return;
+  palcoCurrentIndex = i;
+  document.getElementById('palco-watch-title').textContent=p.artista;
+  document.getElementById('palco-watch-breadcrumb').textContent='PALCO BRASIL · '+p.duracao;
+  var wrap = document.getElementById('palco-watch-player-wrap');
+  wrap.innerHTML = '<div id="palco-yt-player"></div>';
+  if(window.YT && window.YT.Player){
+    createPalcoPlayer(p.youtube);
+  } else {
+    window.onPalcoYouTubeReady = function(){ createPalcoPlayer(p.youtube); };
+    if(!document.getElementById('yt-iframe-api')){
+      var tag=document.createElement('script');
+      tag.id='yt-iframe-api';
+      tag.src='https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
+      window.onYouTubeIframeAPIReady = function(){ window.onPalcoYouTubeReady(); };
+    }
+  }
+}
+function createPalcoPlayer(videoId){
+  palcoPlayer = new YT.Player('palco-yt-player', {
+    videoId: videoId,
+    playerVars:{autoplay:1, rel:0},
+    events:{
+      'onStateChange': function(e){
+        if(e.data === YT.PlayerState.ENDED){ palcoNext(); }
+      }
+    }
+  });
+}
+function palcoNext(){
+  var next = palcoCurrentIndex;
+  for(var k=1;k<=palcoBrasil.length;k++){
+    var idx = (palcoCurrentIndex+k)%palcoBrasil.length;
+    if(palcoBrasil[idx].youtube){ next = idx; break; }
+  }
+  loadPalcoTrack(next);
+}
+function closePalcoWatch(){
+  document.getElementById('palco-watch-player-wrap').innerHTML='';
+  document.getElementById('palco-watch').style.display='none';
   document.body.style.overflow='';
 }
 
@@ -1741,6 +1910,7 @@ html { scroll-behavior: smooth; }
     initCarousel('gp-cob-row','gp-cob-prev','gp-cob-next');
     initCarousel('gp-curtas-row','gp-curtas-prev','gp-curtas-next');
     initCarousel('gp-filmes-row','gp-filmes-prev','gp-filmes-next');
+    initCarousel('gp-palco-row','gp-palco-prev','gp-palco-next');
   });
 })();
 </script>
