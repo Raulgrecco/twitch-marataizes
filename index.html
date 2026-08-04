@@ -62,6 +62,8 @@ footer{text-align:center;padding:40px 20px;font-size:14px;color:#ccc;}
 #palco-brasil .gp-row-wrap:hover .gp-arrow{opacity:1;}
 .pb-next-btn{display:inline-block;margin-left:14px;background:none;border:1px solid #444;color:#c9c9c9;padding:8px 16px;border-radius:6px;font-size:12px;cursor:pointer;}
 .pb-next-btn:hover{border-color:#D4AF37;color:#D4AF37;}
+#palco-watch-player-wrap{position:relative;width:100%;height:100%;}
+#palco-watch-player-wrap iframe,#palco-yt-player{width:100% !important;height:100% !important;position:absolute;inset:0;}
 .gp-arrow{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:56px;background:rgba(0,0,0,.75);border:none;border-radius:4px;color:#fff;font-size:20px;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:background .15s,opacity .15s;opacity:0;}
 .gp-row-wrap:hover .gp-arrow{opacity:1;}
 .gp-arrow:hover{background:rgba(0,0,0,.95);}
@@ -1231,6 +1233,8 @@ function loadPalcoTrack(i){
 }
 function createPalcoPlayer(videoId){
   palcoPlayer = new YT.Player('palco-yt-player', {
+    width: '100%',
+    height: '100%',
     videoId: videoId,
     playerVars:{autoplay:1, rel:0},
     events:{
