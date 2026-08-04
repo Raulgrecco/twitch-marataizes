@@ -390,6 +390,12 @@ function loadLivePlayer(){
   <div class="gp-row-wrap">
     <button class="gp-arrow prev" id="gp-feat-prev" aria-label="Anterior">&#8249;</button>
     <div class="gp-row" id="gp-featured-row">
+      <div class="gp-card"><a href="/entenda-sua-cidade/especial-1/" style="text-decoration:none">
+        <div class="gp-card-thumb"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/entenda.png" alt="Como Funciona a Administração Pública">
+          <div class="gp-card-overlay"><div class="gp-card-title">Como Funciona a Administração Pública</div><span class="gp-card-btn">▶ Assistir</span></div></div></a></div>
+      <div class="gp-card"><a href="/entenda-sua-cidade/especial-2/" style="text-decoration:none">
+        <div class="gp-card-thumb"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/entenda.png" alt="Fiscalização e Como a Máquina Pública Funciona">
+          <div class="gp-card-overlay"><div class="gp-card-title">Fiscalização e Como a Máquina Pública Funciona</div><span class="gp-card-btn">▶ Assistir</span></div></div></a></div>
       <div class="gp-card" onclick="openVodModal('https://player.castr.com/vod/WKrOtRolJ34I50iz')">
         <div class="gp-card-thumb"><img src="https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/oquequer.png" alt="O Que Marataízes Quer?">
           <div class="gp-card-overlay"><div class="gp-card-title">O Que Marataízes Quer?</div><span class="gp-card-btn">▶ Assistir agora</span></div></div></div>
@@ -517,6 +523,7 @@ function loadLivePlayer(){
     <button class="gp-arrow next" id="gp-cob-next">&#8250;</button>
   </div>
 </div>
+
 
 <!-- FESTIVAL DE CURTAS -->
 <div class="gp-featured" style="margin-top:10px;" id="festival-curtas">
@@ -866,53 +873,6 @@ function loadLivePlayer(){
 .esc-btn{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#E9CB6B,#B8860B);color:#000;font-size:11px;font-weight:800;letter-spacing:.3px;padding:7px 15px;border-radius:20px;}
 @media(max-width:600px){.esc-title{font-size:20px;}}
 </style>
-<div class="esc-wrap">
-  <div class="esc-head">
-    <span class="esc-eyebrow">Biblioteca de Cidadania</span>
-    <div class="esc-title">📚 Entenda Sua Cidade</div>
-    <div class="esc-subtitle">Série permanente de educação para a cidadania.</div>
-  </div>
-  <div class="esc-grid" id="esc-grid"></div>
-</div>
-<script>
-// Adicione novos episódios aqui — o layout se ajusta sozinho, sem precisar mexer no HTML/CSS acima.
-var ESC_EPISODIOS = [
-  {
-    badge: 'Especial 1',
-    titulo: 'Como Funciona a Administração Pública',
-    desc: 'Entenda, de forma simples, o papel do vereador, presidente da Câmara, prefeito, secretários, emendas, licitações, Portal da Transparência, Lei de Acesso à Informação, royalties, IPTU, de onde vem o dinheiro público e quem decide onde ele será aplicado.',
-    thumb: 'https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/entenda.png',
-    url: '/entenda-sua-cidade/especial-1/'
-  },
-  {
-    badge: 'Especial 2',
-    titulo: 'Fiscalização e Como a Máquina Pública Funciona',
-    desc: 'Aprenda como funcionam o Ministério Público, Tribunal de Contas, Controladoria, convênios, concursos públicos, pregão eletrônico, dispensa, inexigibilidade, obras públicas, hospitais, contratação de shows, medicamentos e outros temas da administração pública.',
-    thumb: 'https://cdn.jsdelivr.net/gh/Raulgrecco/twitch-marataizes@main/clima/entenda.png',
-    url: '/entenda-sua-cidade/especial-2/'
-  }
-];
-
-(function renderEscCards(){
-  var grid = document.getElementById('esc-grid');
-  var html = '';
-  ESC_EPISODIOS.forEach(function(ep){
-    html += '<a class="esc-card" href="'+ep.url+'">'
-          +   '<div class="esc-thumb">'
-          +     '<span class="esc-badge">'+ep.badge+'</span>'
-          +     '<img src="'+ep.thumb+'" alt="'+ep.titulo+'">'
-          +     '<div class="esc-play"><span><svg viewBox="0 0 24 24" width="14" height="14" fill="#000" style="margin-left:2px;"><polygon points="5,3 19,12 5,21"/></svg></span></div>'
-          +   '</div>'
-          +   '<div class="esc-body">'
-          +     '<div class="esc-card-title">'+ep.titulo+'</div>'
-          +     '<div class="esc-card-desc">'+ep.desc+'</div>'
-          +     '<span class="esc-btn">▶ Assistir</span>'
-          +   '</div>'
-          + '</a>';
-  });
-  grid.innerHTML = html;
-})();
-</script>
 <!-- ════════════════════════════════════════════════════
      FIM ENTENDA SUA CIDADE
 ════════════════════════════════════════════════════ -->
