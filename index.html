@@ -902,6 +902,668 @@ function loadLivePlayer(){
 </div>
 
 <!-- ════════════════════════════════════════════════════
+     ACONTECEU AQUI — bloco embutível, para colar logo após o Palco Brasil.
+     Namespace: tudo prefixado com "aa-" (CSS/IDs) e "AA" (JS), para nunca
+     colidir com o restante do site. Usa as cores do próprio site (--bg,
+     --fg, --accent) definidas no :root do topo do index.
+════════════════════════════════════════════════════ -->
+<style>
+#aa-section{position:relative;padding:26px 0 34px;background:radial-gradient(ellipse 70% 100% at 50% 0%, #140b06 0%, rgba(0,0,0,0) 75%);}
+#aa-section .aa-wrap{max-width:var(--max);margin:0 auto;padding:0 16px;}
+#aa-section .aa-head{text-align:center;margin-bottom:18px;}
+#aa-section .aa-eyebrow{font-size:11px;font-weight:800;color:var(--accent);letter-spacing:3px;text-transform:uppercase;}
+#aa-section .aa-title{font-size:24px;font-weight:900;color:#fff;margin:2px 0 8px;letter-spacing:1px;}
+#aa-section .aa-sub{font-size:13px;color:#9c9c9c;max-width:640px;margin:0 auto 18px;line-height:1.6;}
+#aa-section .aa-cta{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-weight:900;font-size:13.5px;padding:12px 22px;border-radius:8px;cursor:pointer;border:none;font-family:inherit;}
+#aa-section .aa-cta:hover{filter:brightness(1.08);}
+
+#aa-section .aa-tabs{display:flex;gap:8px;overflow-x:auto;padding:18px 0 6px;justify-content:center;flex-wrap:wrap;scrollbar-width:none;}
+#aa-section .aa-tab{flex-shrink:0;padding:8px 15px;border-radius:999px;font-size:12.5px;font-weight:700;color:#bbb;background:#0e0e0e;border:1px solid #262626;cursor:pointer;white-space:nowrap;}
+#aa-section .aa-tab.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+
+#aa-section .aa-feed-wrap{position:relative;margin-top:16px;}
+#aa-section .aa-row{display:flex;gap:14px;overflow-x:auto;scroll-behavior:smooth;padding-bottom:6px;scrollbar-width:none;}
+#aa-section .aa-row::-webkit-scrollbar{display:none;}
+#aa-section .aa-arrow{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;background:rgba(0,0,0,.7);border:1px solid #333;color:#fff;font-size:20px;cursor:pointer;z-index:5;display:flex;align-items:center;justify-content:center;opacity:.7;}
+#aa-section .aa-arrow:hover{opacity:1;border-color:var(--accent);}
+#aa-section .aa-arrow.prev{left:-6px;}
+#aa-section .aa-arrow.next{right:-6px;}
+#aa-section .aa-card{flex:0 0 300px;background:var(--card);border:1px solid #1a1a1a;border-radius:12px;padding:18px;}
+#aa-section .aa-card-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:6px;}
+#aa-section .aa-card-cat{font-size:10.5px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;}
+#aa-section .aa-card-data{font-size:11px;color:#777;}
+#aa-section .aa-card-titulo{font-size:15.5px;font-weight:800;color:#fff;margin:0 0 4px;line-height:1.35;}
+#aa-section .aa-card-autor{display:block;font-size:11px;color:#888;margin-bottom:8px;}
+#aa-section .aa-badge{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:999px;margin-bottom:10px;}
+#aa-section .aa-badge.wait{background:rgba(230,126,0,.14);color:#e67e00;}
+#aa-section .aa-badge.done{background:rgba(0,122,61,.16);color:#3ecf7e;}
+#aa-section .aa-card-texto{font-size:13px;color:#ccc;line-height:1.6;margin:0 0 12px;}
+#aa-section .aa-resposta{background:#141414;border-left:3px solid #3ecf7e;border-radius:8px;padding:12px 14px;margin-bottom:12px;font-size:12.5px;color:#ddd;}
+#aa-section .aa-resposta .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:#3ecf7e;font-weight:800;margin-bottom:5px;}
+#aa-section .aa-card-actions{display:flex;gap:8px;flex-wrap:wrap;}
+#aa-section .aa-btn-sm{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;padding:8px 12px;border-radius:7px;cursor:pointer;border:1px solid #262626;background:#141414;color:#eee;}
+#aa-section .aa-btn-sm:hover{border-color:var(--accent);color:var(--accent);}
+#aa-section .aa-btn-sm.share{background:var(--accent);border:none;color:#fff;text-decoration:none;}
+#aa-section .aa-btn-sm.apoiar{background:rgba(255,111,0,.14);border-color:var(--accent);color:var(--accent);}
+#aa-section .aa-empty{text-align:center;color:#888;font-size:13px;padding:40px 20px;}
+#aa-section .aa-loading{text-align:center;color:#888;font-size:13px;padding:40px 20px;}
+
+#aa-modal{display:none;position:fixed;inset:0;z-index:10050;background:rgba(0,0,0,.88);align-items:center;justify-content:center;padding:16px;}
+#aa-modal.open{display:flex;}
+#aa-modal .aa-modal-box{background:#0a0a0a;border:1px solid #262626;border-radius:16px;max-width:520px;width:100%;max-height:88vh;overflow-y:auto;padding:28px;position:relative;}
+#aa-modal .aa-close{position:absolute;top:14px;right:16px;font-size:22px;color:#888;cursor:pointer;background:none;border:none;line-height:1;}
+#aa-modal .aa-close:hover{color:#fff;}
+#aa-modal h3{font-size:19px;font-weight:900;color:#fff;margin:0 0 8px;}
+#aa-modal p{font-size:13px;color:#9c9c9c;line-height:1.6;margin:0 0 14px;}
+#aa-modal .aa-done-checklist{display:flex;flex-direction:column;gap:8px;text-align:left;background:#111;border:1px solid #262626;border-radius:10px;padding:14px 16px;}
+#aa-modal .aa-done-checklist span{font-size:13px;color:#ddd;line-height:1.5;}
+#aa-modal .aa-share-label{font-size:13.5px;font-weight:800;color:#fff;text-align:center;margin-bottom:10px;}
+#aa-modal .aa-confirm-extra p{margin-bottom:16px;}
+#aa-modal .aa-confirm-extra-actions{display:flex;gap:10px;margin-bottom:14px;}
+#aa-modal .aa-confirm-extra-actions .aa-submit{margin-bottom:0;}
+#aa-modal .aa-btn-ghost{background:#141414;border:1px solid #262626;color:#ccc;}
+#aa-modal label{display:block;font-size:11px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+#aa-modal input, #aa-modal textarea, #aa-modal select{width:100%;background:#141414;border:1px solid #262626;color:#fff;border-radius:8px;padding:11px 13px;font-size:14px;font-family:inherit;margin-bottom:14px;}
+#aa-modal input:focus, #aa-modal textarea:focus, #aa-modal select:focus{outline:none;border-color:var(--accent);}
+#aa-modal textarea{min-height:110px;resize:vertical;}
+#aa-modal .aa-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+#aa-modal .aa-chip{padding:7px 13px;border-radius:999px;border:1px solid #262626;background:#141414;color:#999;font-size:12px;font-weight:600;cursor:pointer;}
+#aa-modal .aa-chip.active{background:rgba(255,111,0,.14);border-color:var(--accent);color:var(--accent);}
+#aa-modal .aa-trust{background:#111;border:1px solid #262626;border-radius:10px;padding:14px 16px;margin-bottom:16px;}
+#aa-modal .aa-trust h4{font-size:13.5px;color:#fff;margin:0 0 6px;}
+#aa-modal .aa-trust p{font-size:12px;margin-bottom:8px;}
+#aa-modal .aa-example{display:flex;align-items:center;gap:12px;justify-content:center;background:#0a0a0a;border-radius:8px;padding:10px;margin:10px 0;}
+#aa-modal .aa-example-col{display:flex;flex-direction:column;align-items:center;gap:2px;}
+#aa-modal .aa-example-lbl{font-size:9.5px;color:#777;text-transform:uppercase;}
+#aa-modal .aa-example-val{font-size:14px;font-weight:800;color:#fff;}
+#aa-modal .aa-example-val.acc{color:var(--accent);}
+#aa-modal .aa-submit{width:100%;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:14px;font-size:14.5px;font-weight:800;cursor:pointer;}
+#aa-modal .aa-submit:disabled{opacity:.5;cursor:not-allowed;}
+#aa-modal .aa-free{display:block;text-align:center;font-size:11px;color:#3ecf7e;font-weight:700;margin-top:10px;}
+#aa-modal .aa-panel{display:none;}
+#aa-modal .aa-panel.show{display:block;}
+#aa-modal .aa-share-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+#aa-modal .aa-share-row a, #aa-modal .aa-share-row div{flex:1;min-width:110px;text-align:center;}
+#aa-modal .aa-donate-tabs{display:flex;gap:8px;margin:18px 0 12px;}
+#aa-modal .aa-donate-tab{flex:1;text-align:center;padding:9px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid #262626;background:#141414;color:#999;}
+#aa-modal .aa-donate-tab.active{border-color:var(--accent);background:rgba(255,111,0,.12);color:var(--accent);}
+#aa-modal .aa-amt-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+#aa-modal .aa-amt{flex:1;min-width:56px;text-align:center;padding:9px 6px;border-radius:8px;border:1px solid #262626;background:#141414;color:#fff;font-weight:700;font-size:13px;cursor:pointer;}
+#aa-modal .aa-amt.active{border-color:var(--accent);background:rgba(255,111,0,.14);color:var(--accent);}
+#aa-modal .aa-skip{display:block;text-align:center;font-size:12px;color:#888;cursor:pointer;margin-top:6px;}
+#aa-modal .aa-skip:hover{color:#ccc;}
+#aa-error{display:none;color:var(--accent);font-size:12.5px;margin-top:8px;}
+</style>
+
+<div id="aa-section">
+  <div class="aa-wrap">
+    <div class="aa-head">
+      <div class="aa-eyebrow">Participação</div>
+      <h2 class="aa-title">📢 ACONTECEU AQUI</h2>
+      <p class="aa-sub">Um espaço para registrar o que acontece na cidade — sem precisar dizer quem você é. Publica na hora, e você pode compartilhar imediatamente.</p>
+      <div class="aa-cta" id="aa-open-form">+ Registrar um relato</div>
+    </div>
+
+    <nav class="aa-tabs" id="aa-tabs">
+      <div class="aa-tab active" data-slug="">Todos</div>
+      <div class="aa-tab" data-slug="escola">Educação</div>
+      <div class="aa-tab" data-slug="saude">Saúde</div>
+      <div class="aa-tab" data-slug="obras">Obras</div>
+      <div class="aa-tab" data-slug="transito">Trânsito</div>
+      <div class="aa-tab" data-slug="ambiente">Meio Ambiente</div>
+      <div class="aa-tab" data-slug="seguranca">Segurança</div>
+      <div class="aa-tab" data-slug="outros">Outros</div>
+    </nav>
+
+    <div class="aa-loading" id="aa-loading">Carregando relatos…</div>
+    <div class="aa-empty" id="aa-empty" style="display:none;">Nenhum relato publicado ainda nessa categoria. <a href="#" id="aa-empty-cta" style="color:var(--accent);">Seja o primeiro.</a></div>
+    <div class="aa-feed-wrap">
+      <button class="aa-arrow prev" id="aa-arrow-prev">&#8249;</button>
+      <div class="aa-row" id="aa-feed"></div>
+      <button class="aa-arrow next" id="aa-arrow-next">&#8250;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ---- Modal: formulário + compartilhar + doação (tudo em um) ---- -->
+<div id="aa-modal">
+  <div class="aa-modal-box">
+    <button class="aa-close" id="aa-close">&times;</button>
+
+    <div class="aa-panel show" id="aa-panel-form">
+      <h3>Aconteceu aqui? Registra.</h3>
+      <p>Conte o que você vive ou vê em Marataízes.</p>
+
+      <div class="aa-trust">
+        <h4>Sua identidade é protegida</h4>
+        <p>Como veículo de comunicação, a TV Marataízes adota os princípios do jornalismo na proteção da identidade das fontes quando o anonimato é solicitado.</p>
+        <p>Por isso, durante o cadastro pedimos seu nome e WhatsApp apenas para contato da nossa equipe, caso seja necessário informar uma resposta oficial, solicitar algum esclarecimento ou acompanhar o andamento do seu relato. <b>Esses dados nunca serão publicados.</b></p>
+        <p>Antes da publicação, o sistema substitui automaticamente seu nome verdadeiro por um nome fictício, preservando sua identidade.</p>
+        <div class="aa-example">
+          <div class="aa-example-col"><span class="aa-example-lbl">Seu nome</span><span class="aa-example-val">Joana</span></div>
+          <div class="aa-example-col" style="color:#555;">→</div>
+          <div class="aa-example-col"><span class="aa-example-lbl">Aparece como</span><span class="aa-example-val acc">Fernanda</span></div>
+        </div>
+        <p>Seu relato será publicado automaticamente, exceto quando contiver conteúdo que exija análise por questões legais. Nesses casos, ele poderá passar por uma breve revisão antes da publicação.</p>
+        <p>Depois de publicado, você poderá compartilhar o relato imediatamente. Quanto mais pessoas conhecerem e compartilharem a situação, maiores serão as chances de ela chegar aos responsáveis e contribuir para uma solução.</p>
+        <p style="margin-bottom:0;">O Aconteceu Aqui é um espaço para dar voz à população, com responsabilidade, transparência e respeito à identidade de quem participa.</p>
+      </div>
+
+      <label for="aa-nome">Seu nome</label>
+      <input type="text" id="aa-nome" placeholder="Como quer ser chamado(a) — não aparece no site">
+
+      <label for="aa-whats">Seu WhatsApp</label>
+      <input type="tel" id="aa-whats" placeholder="(28) 9xxxx-xxxx — só para avisar se tiver resposta">
+
+      <label for="aa-titulo">Dê um nome curto para esse relato</label>
+      <input type="text" id="aa-titulo" maxlength="80" placeholder="Ex: Falta de medicamentos no ESF Barra">
+
+      <label>Assunto</label>
+      <div class="aa-chips" id="aa-chips">
+        <div class="aa-chip" data-value="Educação" data-slug="escola">Educação</div>
+        <div class="aa-chip" data-value="Saúde" data-slug="saude">Saúde</div>
+        <div class="aa-chip" data-value="Obras" data-slug="obras">Obras</div>
+        <div class="aa-chip" data-value="Trânsito" data-slug="transito">Trânsito</div>
+        <div class="aa-chip" data-value="Meio Ambiente" data-slug="ambiente">Meio Ambiente</div>
+        <div class="aa-chip" data-value="Segurança" data-slug="seguranca">Segurança</div>
+        <div class="aa-chip" data-value="Outro" data-slug="outros">Outro</div>
+      </div>
+
+      <label for="aa-texto">O que aconteceu</label>
+      <textarea id="aa-texto" maxlength="2000" placeholder="Descreva o que aconteceu. Quanto mais detalhe (local, data, frequência), mais fácil de apurar."></textarea>
+
+      <button class="aa-submit" id="aa-submit">Publicar relato</button>
+      <span class="aa-free">Gratuito e sigiloso — sempre</span>
+      <div id="aa-error"></div>
+    </div>
+
+    <div class="aa-panel" id="aa-panel-done">
+      <h3 id="aa-done-title">✅ Seu relato já foi publicado.</h3>
+      <p id="aa-done-sub" class="aa-done-checklist">
+        <span>🔒 Seu nome verdadeiro foi protegido automaticamente.</span>
+        <span>📡 Seu relato agora pode ser compartilhado.</span>
+        <span>📈 Quanto mais pessoas conhecerem esse caso, maiores são as chances de ele chegar aos responsáveis.</span>
+      </p>
+
+      <div id="aa-share-box">
+        <div class="aa-share-label">Ajude este caso a chegar mais longe.</div>
+        <div class="aa-share-row">
+          <a class="aa-btn-sm share" id="aa-share-whats" target="_blank" rel="noopener">📲 WhatsApp</a>
+          <a class="aa-btn-sm share" id="aa-share-fb" target="_blank" rel="noopener">📘 Facebook</a>
+          <div class="aa-btn-sm" id="aa-copy-link">🔗 Copiar link</div>
+        </div>
+        <span class="aa-free">Compartilhar é totalmente gratuito.</span>
+      </div>
+
+      <div style="margin-top:22px; border-top:1px solid #222; padding-top:18px;">
+        <h4 style="font-size:14px;color:#fff;margin:0 0 6px;">Gostou da iniciativa?</h4>
+        <p style="font-size:12.5px;">Se esta ferramenta for importante para a cidade, ajude a mantê-la funcionando.</p>
+
+        <div class="aa-donate-tabs">
+          <div class="aa-donate-tab active" data-tab="doacao">Contribuição</div>
+          <div class="aa-donate-tab" data-tab="membro">Membro</div>
+          <div class="aa-donate-tab" data-tab="pix">PIX direto</div>
+        </div>
+
+        <div class="aa-panel show" data-donate-panel="doacao">
+          <p style="font-size:12px;">Valor livre. Qualquer valor ajuda a manter esse espaço de pé.</p>
+          <label for="aa-valor-doacao">Valor (R$)</label>
+          <input type="number" id="aa-valor-doacao" min="5" step="1" placeholder="Ex: 20">
+          <button class="aa-submit" id="aa-btn-doar" style="margin-bottom:8px;">Fazer doação</button>
+        </div>
+
+        <div class="aa-panel" data-donate-panel="membro">
+          <p style="font-size:12px;">Empresas e cidadãos podem manter esta ferramenta funcionando através de uma contribuição mensal. A participação pode permanecer anônima.</p>
+          <div class="aa-amt-row" id="aa-amt-row">
+            <div class="aa-amt" data-value="10">R$10</div>
+            <div class="aa-amt active" data-value="25">R$25</div>
+            <div class="aa-amt" data-value="50">R$50</div>
+            <div class="aa-amt" data-value="100">R$100</div>
+          </div>
+          <label for="aa-valor-membro-custom">Ou outro valor mensal (R$)</label>
+          <input type="number" id="aa-valor-membro-custom" min="5" step="1" placeholder="Ex: 30">
+          <p style="font-size:11px;color:#777;">Cobrança única equivalente a 10 meses — mesmo modelo já usado nos outros planos da TV. Avisamos para renovar ao final.</p>
+          <button class="aa-submit" id="aa-btn-membro" style="margin-bottom:8px;">Quero ser membro</button>
+        </div>
+
+        <div class="aa-panel" data-donate-panel="pix">
+          <p style="font-size:12px;">Prefere fazer o PIX direto, sem passar por checkout? Copie a chave abaixo — valor livre, sem comprovante automático.</p>
+          <div style="background:#141414;border:1px solid #262626;border-radius:8px;padding:12px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;">
+            <span id="aa-pix-key" style="font-family:monospace;font-size:13px;color:#fff;word-break:break-all;">COLE_AQUI_SUA_CHAVE_PIX</span>
+            <div class="aa-btn-sm" id="aa-copy-pix" style="flex-shrink:0;">🔗 Copiar</div>
+          </div>
+          <p style="font-size:11px;color:#777;">Chave PIX da Macuca Produções / TV Marataízes — confirme com o Raul antes de divulgar.</p>
+        </div>
+
+        <span class="aa-skip" id="aa-skip">Continuar sem contribuir</span>
+      </div>
+    </div>
+
+    <div class="aa-panel" id="aa-panel-pay">
+      <h3>Só falta o pagamento</h3>
+      <label for="aa-email">Seu e-mail (só para o recibo)</label>
+      <input type="email" id="aa-email" placeholder="voce@email.com">
+      <p id="aa-pay-resumo" style="font-size:12.5px;"></p>
+      <button class="aa-submit" id="aa-btn-ir-pagamento">Continuar para o pagamento</button>
+      <div id="aa-mp-error" style="display:none;color:var(--accent);font-size:12.5px;margin-top:10px;"></div>
+      <div id="aa-payment-brick" style="margin-top:16px;"></div>
+    </div>
+
+    <!-- Confirmação "também acontece comigo" — perguntando se quer complementar -->
+    <div class="aa-panel aa-confirm-extra" id="aa-panel-confirm-extra">
+      <h3>Isso também acontece com você.</h3>
+      <p>Quer acrescentar alguma informação a esse caso?</p>
+      <div class="aa-confirm-extra-actions">
+        <button class="aa-submit aa-btn-ghost" id="aa-confirm-no">Não, só confirmar</button>
+        <button class="aa-submit" id="aa-confirm-yes">Sim, quero contar mais</button>
+      </div>
+    </div>
+
+    <div class="aa-panel" id="aa-panel-confirm-form">
+      <h3>Conte o que você sabe</h3>
+      <p>Isso entra como um novo relato, ligado a esse mesmo caso, e passa pela mesma checagem de segurança.</p>
+      <label for="aa-confirm-texto">O que você quer acrescentar</label>
+      <textarea id="aa-confirm-texto" maxlength="2000" placeholder="Conte o que você viu ou vive também."></textarea>
+      <button class="aa-submit" id="aa-confirm-enviar">Publicar complemento</button>
+      <div id="aa-confirm-error" style="display:none;color:var(--accent);font-size:12.5px;margin-top:10px;"></div>
+    </div>
+
+    <div class="aa-panel" id="aa-panel-confirm-done">
+      <h3>✅ Confirmado.</h3>
+      <p>Obrigado por reforçar esse caso. Isso ajuda a mostrar que não é só uma pessoa vivendo essa situação.</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+<script>
+(function(){
+  const AA_ENDPOINT = "COLE_AQUI_A_URL_DO_APPS_SCRIPT";
+  const AA_SITE_BASE = "https://tvmarataizes.digital";
+  const AA_PAY_CONFIG = {
+    apiBase: "https://agenciaclap-site.onrender.com",
+    publicKeyEndpoint: "/api/mercadopago/public-key",
+    createPaymentEndpoint: "/api/mercadopago/create-payment"
+  };
+  const AA_CONTRACT_MONTHS = 10;
+
+  let AA_TODOS = [];
+  let AA_CAT_ATIVA = "";
+  let AA_ULTIMO_SLUG = "";
+  let AA_PAGAMENTO = null;
+  let AA_MEMBRO_VALOR = 25;
+  let mpInstance = null, brickController = null, mpKeyCache = null;
+
+  function esc(s){ const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+  function escAttr(s){ return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function fmtData(iso){ try{ return new Date(iso).toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}); }catch(e){ return ''; } }
+  function linkDoCaso(slug){ return `${AA_SITE_BASE}/?caso=${encodeURIComponent(slug)}#aa-section`; }
+
+  const modal = document.getElementById('aa-modal');
+  function abrirModal(){ modal.classList.add('open'); document.body.style.overflow='hidden'; mostrarPainel('aa-panel-form'); }
+  function fecharModal(){ modal.classList.remove('open'); document.body.style.overflow=''; }
+  document.getElementById('aa-open-form').addEventListener('click', abrirModal);
+  document.getElementById('aa-empty-cta').addEventListener('click', (e)=>{ e.preventDefault(); abrirModal(); });
+  document.getElementById('aa-close').addEventListener('click', fecharModal);
+  modal.addEventListener('click', (e)=>{ if(e.target===modal) fecharModal(); });
+
+  function mostrarPainel(id){
+    document.querySelectorAll('#aa-modal > .aa-modal-box > .aa-panel').forEach(p=>p.classList.remove('show'));
+    document.getElementById(id).classList.add('show');
+  }
+
+  let AA_CAT_SEL = null, AA_SLUG_SEL = null;
+  document.querySelectorAll('#aa-chips .aa-chip').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      document.querySelectorAll('#aa-chips .aa-chip').forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      AA_CAT_SEL = chip.dataset.value;
+      AA_SLUG_SEL = chip.dataset.slug;
+    });
+  });
+
+  document.querySelectorAll('#aa-tabs .aa-tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      document.querySelectorAll('#aa-tabs .aa-tab').forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      AA_CAT_ATIVA = tab.dataset.slug;
+      renderFeed();
+    });
+  });
+
+  function renderCard(c, destaque){
+    const respondido = c.respostaOficial && c.respostaOficial.trim()!=='';
+    const link = linkDoCaso(c.slug);
+    const shareTxt = encodeURIComponent(`Aconteceu aqui em Marataízes (${c.categoria}):\n\n"${c.texto.slice(0,180)}${c.texto.length>180?'…':''}"\n\nVeja: ${link}`);
+    return `
+      <div class="aa-card" ${destaque?'style="border-color:var(--accent);"':''}>
+        <div class="aa-card-head">
+          <span class="aa-card-cat">${esc(c.categoria)}</span>
+          <span class="aa-card-data">${fmtData(c.dataHora)}</span>
+        </div>
+        <h3 class="aa-card-titulo">${esc(c.titulo)}</h3>
+        <span class="aa-card-autor">Relato de ${esc(c.nomeFicticio)}</span>
+        <span class="aa-badge ${respondido?'done':'wait'}">${respondido?'✓ Respondido':'⏳ Aguardando resposta'}</span>
+        <p class="aa-card-texto">${esc(c.texto)}</p>
+        ${respondido?`<div class="aa-resposta"><div class="lbl">Resposta de quem foi mencionado · ${fmtData(c.dataResposta)}</div>${esc(c.respostaOficial)}</div>`:''}
+        <div class="aa-card-actions">
+          <div class="aa-btn-sm aa-confirm-btn" data-slug="${escAttr(c.slug)}" data-titulo="${escAttr(c.titulo)}" data-categoria="${escAttr(c.categoria)}" data-categoria-slug="${escAttr(c.categoriaSlug)}">👍 (${c.confirmacoes||0})</div>
+          <a class="aa-btn-sm share" href="https://wa.me/?text=${shareTxt}" target="_blank" rel="noopener">↗ Compartilhar</a>
+          <div class="aa-btn-sm apoiar" onclick="AA_abrirApoio()">💛 Apoiar</div>
+        </div>
+      </div>`;
+  }
+
+  function renderFeed(){
+    const params = new URLSearchParams(window.location.search);
+    const casoFoco = params.get('caso');
+    let lista = AA_CAT_ATIVA ? AA_TODOS.filter(c=>c.categoriaSlug===AA_CAT_ATIVA) : AA_TODOS;
+    document.getElementById('aa-empty').style.display = lista.length===0 ? 'block' : 'none';
+    document.getElementById('aa-feed').innerHTML = lista.map(c=>renderCard(c, c.slug===casoFoco)).join('');
+  }
+
+  document.getElementById('aa-arrow-prev').addEventListener('click', ()=>{
+    document.getElementById('aa-feed').scrollBy({left:-320, behavior:'smooth'});
+  });
+  document.getElementById('aa-arrow-next').addEventListener('click', ()=>{
+    document.getElementById('aa-feed').scrollBy({left:320, behavior:'smooth'});
+  });
+
+  window.AA_abrirApoio = function(){
+    abrirModal();
+    mostrarPainel('aa-panel-done');
+    document.getElementById('aa-share-box').style.display = 'none';
+    document.getElementById('aa-done-title').textContent = 'Apoie o Aconteceu Aqui';
+    document.getElementById('aa-done-sub').innerHTML = '<span>Sua contribuição ajuda a manter esse canal aberto pra cidade.</span>';
+  };
+
+
+  let AA_CONFIRM_CTX = null;
+
+  document.getElementById('aa-feed').addEventListener('click', (e)=>{
+    const btn = e.target.closest('.aa-confirm-btn');
+    if (!btn || btn.dataset.done) return;
+    AA_CONFIRM_CTX = {
+      slug: btn.dataset.slug,
+      titulo: btn.dataset.titulo,
+      categoria: btn.dataset.categoria,
+      categoriaSlug: btn.dataset.categoriaSlug,
+      btn
+    };
+    abrirModal();
+    mostrarPainel('aa-panel-confirm-extra');
+  });
+
+  function AA_registrarConfirmacao(){
+    const { slug, btn } = AA_CONFIRM_CTX;
+    btn.dataset.done = '1';
+    const atual = parseInt((btn.textContent.match(/\d+/)||['0'])[0], 10) || 0;
+    btn.innerHTML = `✓ (${atual+1})`;
+    fetch(AA_ENDPOINT, { method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({acao:'confirmar', slug}) }).catch(()=>{});
+  }
+
+  document.getElementById('aa-confirm-no').addEventListener('click', ()=>{
+    AA_registrarConfirmacao();
+    mostrarPainel('aa-panel-confirm-done');
+  });
+
+  document.getElementById('aa-confirm-yes').addEventListener('click', ()=>{
+    document.getElementById('aa-confirm-texto').value = '';
+    mostrarPainel('aa-panel-confirm-form');
+  });
+
+  document.getElementById('aa-confirm-enviar').addEventListener('click', async ()=>{
+    const texto = document.getElementById('aa-confirm-texto').value.trim();
+    const errBox = document.getElementById('aa-confirm-error');
+    errBox.style.display = 'none';
+    if (!texto){ document.getElementById('aa-confirm-texto').focus(); return; }
+
+    const btnEnviar = document.getElementById('aa-confirm-enviar');
+    btnEnviar.disabled = true; btnEnviar.textContent = 'Enviando...';
+
+    const payload = {
+      nome: '', whatsapp: '',
+      titulo: `Complemento: ${AA_CONFIRM_CTX.titulo}`,
+      texto, cidade: 'Marataízes',
+      categoria: AA_CONFIRM_CTX.categoria,
+      categoriaSlug: AA_CONFIRM_CTX.categoriaSlug
+    };
+
+    let resultado = { ok:false };
+    try{
+      const resp = await fetch(AA_ENDPOINT, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(payload) });
+      resultado = await resp.json();
+    }catch(e){ resultado = { ok:false }; }
+
+    btnEnviar.disabled = false; btnEnviar.textContent = 'Publicar complemento';
+
+    if (!resultado.ok){
+      errBox.textContent = 'Não foi possível enviar agora. Tente novamente.';
+      errBox.style.display = 'block';
+      return;
+    }
+
+    AA_registrarConfirmacao();
+    mostrarPainel('aa-panel-confirm-done');
+    carregarFeed();
+  });
+
+  async function carregarFeed(){
+    const loading = document.getElementById('aa-loading');
+    if (!AA_ENDPOINT.startsWith('http')){ loading.textContent = 'Configure AA_ENDPOINT neste bloco.'; return; }
+    try{
+      const resp = await fetch(AA_ENDPOINT);
+      const data = await resp.json();
+      loading.style.display = 'none';
+      if (!data.ok || !data.casos){ document.getElementById('aa-empty').style.display='block'; return; }
+      AA_TODOS = data.casos;
+      const params = new URLSearchParams(window.location.search);
+      const casoFoco = params.get('caso');
+      if (casoFoco){
+        const achado = AA_TODOS.find(c=>c.slug===casoFoco);
+        if (achado){
+          AA_CAT_ATIVA = achado.categoriaSlug;
+          document.querySelectorAll('#aa-tabs .aa-tab').forEach(t=>t.classList.toggle('active', t.dataset.slug===AA_CAT_ATIVA));
+          AA_TODOS = [achado, ...AA_TODOS.filter(c=>c.slug!==casoFoco)];
+        }
+      }
+      renderFeed();
+    }catch(err){
+      loading.textContent = 'Não foi possível carregar os relatos agora.';
+    }
+  }
+  carregarFeed();
+
+  const submitBtn = document.getElementById('aa-submit');
+  submitBtn.addEventListener('click', async ()=>{
+    const titulo = document.getElementById('aa-titulo').value.trim();
+    const texto = document.getElementById('aa-texto').value.trim();
+    const errBox = document.getElementById('aa-error');
+    errBox.style.display = 'none';
+
+    if (!titulo){ document.getElementById('aa-titulo').focus(); return; }
+    if (!texto){ document.getElementById('aa-texto').focus(); return; }
+    if (!AA_CAT_SEL){ errBox.textContent='Escolha um assunto.'; errBox.style.display='block'; return; }
+
+    submitBtn.disabled = true; submitBtn.textContent = 'Enviando...';
+
+    const payload = {
+      nome: document.getElementById('aa-nome').value.trim(),
+      whatsapp: document.getElementById('aa-whats').value.trim(),
+      titulo, texto,
+      cidade: "Marataízes",
+      categoria: AA_CAT_SEL,
+      categoriaSlug: AA_SLUG_SEL
+    };
+
+    let resultado = { ok:false };
+    try{
+      const resp = await fetch(AA_ENDPOINT, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(payload) });
+      resultado = await resp.json();
+    }catch(e){ resultado = { ok:false }; }
+
+    submitBtn.disabled = false; submitBtn.textContent = 'Publicar relato';
+
+    if (!resultado.ok){
+      errBox.textContent = 'Não foi possível publicar agora. Tente novamente.';
+      errBox.style.display = 'block';
+      return;
+    }
+
+    AA_ULTIMO_SLUG = resultado.slug;
+    const link = linkDoCaso(resultado.slug);
+
+    if (resultado.statusModeracao === 'Publicado'){
+      document.getElementById('aa-done-title').textContent = '✅ Seu relato já foi publicado.';
+      document.getElementById('aa-done-sub').innerHTML =
+        '<span>🔒 Seu nome verdadeiro foi protegido automaticamente.</span>' +
+        '<span>📡 Seu relato agora pode ser compartilhado.</span>' +
+        '<span>📈 Quanto mais pessoas conhecerem esse caso, maiores são as chances de ele chegar aos responsáveis.</span>';
+      document.getElementById('aa-share-box').style.display = 'block';
+      const shareTxt = encodeURIComponent(`Aconteceu aqui em Marataízes:\n\n"${texto.slice(0,180)}${texto.length>180?'…':''}"\n\nVeja: ${link}`);
+      document.getElementById('aa-share-whats').href = `https://wa.me/?text=${shareTxt}`;
+      document.getElementById('aa-share-fb').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(link)}`;
+    } else {
+      document.getElementById('aa-done-title').textContent = 'Recebido — em análise de segurança.';
+      document.getElementById('aa-done-sub').innerHTML =
+        '<span>Esse relato precisa de checagem manual antes de publicar. Isso é raro, e só acontece quando o conteúdo pode envolver risco legal ou de segurança.</span>';
+      document.getElementById('aa-share-box').style.display = 'none';
+    }
+
+    mostrarPainel('aa-panel-done');
+    carregarFeed();
+  });
+
+  document.getElementById('aa-copy-link').addEventListener('click', ()=>{
+    navigator.clipboard.writeText(linkDoCaso(AA_ULTIMO_SLUG)).then(()=>{
+      const btn = document.getElementById('aa-copy-link');
+      const orig = btn.textContent;
+      btn.textContent = '✓ Copiado!';
+      setTimeout(()=>{ btn.textContent = orig; }, 2000);
+    });
+  });
+
+  document.getElementById('aa-skip').addEventListener('click', fecharModal);
+
+  document.getElementById('aa-copy-pix').addEventListener('click', ()=>{
+    const chave = document.getElementById('aa-pix-key').textContent.trim();
+    navigator.clipboard.writeText(chave).then(()=>{
+      const btn = document.getElementById('aa-copy-pix');
+      const orig = btn.textContent;
+      btn.textContent = '✓ Copiada!';
+      setTimeout(()=>{ btn.textContent = orig; }, 2000);
+    });
+  });
+
+  document.querySelectorAll('.aa-donate-tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      document.querySelectorAll('.aa-donate-tab').forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelectorAll('[data-donate-panel]').forEach(p=>{
+        p.classList.toggle('show', p.dataset.donatePanel===tab.dataset.tab);
+      });
+    });
+  });
+  document.querySelectorAll('#aa-amt-row .aa-amt').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      document.querySelectorAll('#aa-amt-row .aa-amt').forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      AA_MEMBRO_VALOR = parseInt(chip.dataset.value,10);
+      document.getElementById('aa-valor-membro-custom').value = '';
+    });
+  });
+  document.getElementById('aa-valor-membro-custom').addEventListener('input', (e)=>{
+    if (e.target.value){
+      document.querySelectorAll('#aa-amt-row .aa-amt').forEach(c=>c.classList.remove('active'));
+      AA_MEMBRO_VALOR = parseInt(e.target.value,10)||0;
+    }
+  });
+
+  function irParaPagamento(){
+    mostrarPainel('aa-panel-pay');
+    const resumo = document.getElementById('aa-pay-resumo');
+    if (AA_PAGAMENTO.tipo==='membro'){
+      resumo.textContent = `Membro — R$${AA_PAGAMENTO.valor}/mês × ${AA_CONTRACT_MONTHS} meses = R$${AA_PAGAMENTO.valorTotal} agora.`;
+    } else {
+      resumo.textContent = `Doação única de R$${AA_PAGAMENTO.valor}.`;
+    }
+  }
+
+  document.getElementById('aa-btn-doar').addEventListener('click', ()=>{
+    const v = parseInt(document.getElementById('aa-valor-doacao').value,10);
+    if (!v || v<5){ alert('Informe um valor de pelo menos R$5.'); return; }
+    AA_PAGAMENTO = { tipo:'doacao', valor:v, valorTotal:v };
+    irParaPagamento();
+  });
+  document.getElementById('aa-btn-membro').addEventListener('click', ()=>{
+    if (!AA_MEMBRO_VALOR || AA_MEMBRO_VALOR<5){ alert('Escolha um valor mensal de pelo menos R$5.'); return; }
+    AA_PAGAMENTO = { tipo:'membro', valor:AA_MEMBRO_VALOR, valorTotal:AA_MEMBRO_VALOR*AA_CONTRACT_MONTHS };
+    irParaPagamento();
+  });
+
+  async function getMpKey(){
+    if (mpKeyCache) return mpKeyCache;
+    const res = await fetch(AA_PAY_CONFIG.apiBase + AA_PAY_CONFIG.publicKeyEndpoint);
+    if (!res.ok) throw new Error('erro ao buscar public key');
+    const body = await res.json();
+    mpKeyCache = body.publicKey;
+    return mpKeyCache;
+  }
+  function showMpErr(msg){ const b=document.getElementById('aa-mp-error'); b.textContent=msg; b.style.display='block'; }
+
+  document.getElementById('aa-btn-ir-pagamento').addEventListener('click', async ()=>{
+    const email = document.getElementById('aa-email').value.trim();
+    if (!email || !email.includes('@')){ alert('Informe um e-mail válido.'); return; }
+
+    const errBox = document.getElementById('aa-mp-error');
+    errBox.style.display = 'none';
+    let publicKey;
+    try{ publicKey = await getMpKey(); }
+    catch(e){ showMpErr('Pagamento indisponível: não foi possível conectar ao servidor.'); return; }
+    if (!publicKey){ showMpErr('Pagamento indisponível no momento.'); return; }
+
+    if (!mpInstance) mpInstance = new MercadoPago(publicKey, { locale:'pt-BR' });
+    if (brickController){ brickController.unmount(); brickController=null; }
+
+    try{
+      brickController = await mpInstance.bricks().create('payment', 'aa-payment-brick', {
+        initialization: { amount: AA_PAGAMENTO.valorTotal, payer:{ email } },
+        customization: { paymentMethods: { bankTransfer:'all', creditCard:'all' } },
+        callbacks: {
+          onReady: ()=>{},
+          onSubmit: ({formData}) => new Promise((resolve, reject)=>{
+            fetch(AA_PAY_CONFIG.apiBase + AA_PAY_CONFIG.createPaymentEndpoint, {
+              method:'POST', headers:{'Content-Type':'application/json'},
+              body: JSON.stringify({
+                formData,
+                external_reference: `aconteceuaqui-${Date.now()}-${Math.random().toString(36).slice(2,8)}`,
+                description: AA_PAGAMENTO.tipo==='membro'
+                  ? `Aconteceu Aqui — Membro (R$${AA_PAGAMENTO.valor}/mês × ${AA_CONTRACT_MONTHS})`
+                  : `Aconteceu Aqui — Doação (R$${AA_PAGAMENTO.valor})`,
+                origin: "aconteceuaqui-tvmarataizes",
+                tipo: AA_PAGAMENTO.tipo,
+                valorMensal: AA_PAGAMENTO.valor
+              })
+            })
+            .then(r=>r.json().then(b=>({ok:r.ok, b})))
+            .then(({ok,b})=>{
+              if (!ok || b.error){ showMpErr(b.error || 'Não foi possível criar o pagamento.'); reject(); return; }
+              document.getElementById('aa-panel-pay').innerHTML = '<h3>Muito obrigado.</h3><p>Sua contribuição foi recebida.</p>';
+              resolve();
+            })
+            .catch(()=>{ showMpErr('Falha de conexão.'); reject(); });
+          }),
+          onError: (err)=>{ showMpErr('Não foi possível carregar o pagamento.'); }
+        }
+      });
+    }catch(e){ showMpErr('Pagamento indisponível no momento.'); }
+  });
+
+})();
+</script>
+
+
+<!-- ════════════════════════════════════════════════════
      INÍCIO ENTENDA SUA CIDADE
      Biblioteca permanente — escalável.
      Para adicionar um novo episódio no futuro:
