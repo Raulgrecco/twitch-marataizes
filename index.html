@@ -1021,6 +1021,17 @@ function loadLivePlayer(){
 #aa-modal .aa-btn-ghost{background:#141414;border:1px solid #262626;color:#ccc;}
 #aa-modal label{display:block;font-size:11px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
 #aa-modal input, #aa-modal textarea, #aa-modal select{width:100%;background:#141414;border:1px solid #262626;color:#fff;border-radius:8px;padding:11px 13px;font-size:14px;font-family:inherit;margin-bottom:14px;}
+/* O Mercado Pago injeta campos próprios (ex: e-mail do PIX) dentro do container
+   do Payment Brick. Sem isso, a regra acima vaza pra dentro do widget deles e
+   deixa o campo deles ilegível (fundo escuro nosso + texto escuro deles). */
+#aa-payment-brick input, #aa-payment-brick select, #aa-payment-brick textarea,
+#aa-statusscreen-brick input, #aa-statusscreen-brick select, #aa-statusscreen-brick textarea{
+  all: revert;
+}
+#aa-payment-brick input:focus, #aa-payment-brick select:focus, #aa-payment-brick textarea:focus,
+#aa-statusscreen-brick input:focus, #aa-statusscreen-brick select:focus, #aa-statusscreen-brick textarea:focus{
+  all: revert;
+}
 #aa-modal input:focus, #aa-modal textarea:focus, #aa-modal select:focus{outline:none;border-color:var(--accent);}
 #aa-modal textarea{min-height:110px;resize:vertical;}
 #aa-modal .aa-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
