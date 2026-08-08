@@ -908,45 +908,85 @@ function loadLivePlayer(){
      --fg, --accent) definidas no :root do topo do index.
 ════════════════════════════════════════════════════ -->
 <style>
-#aa-section{position:relative;padding:26px 0 34px;background:radial-gradient(ellipse 70% 100% at 50% 0%, #140b06 0%, rgba(0,0,0,0) 75%);}
-#aa-section .aa-wrap{max-width:var(--max);margin:0 auto;padding:0 16px;}
-#aa-section .aa-head{text-align:center;margin-bottom:18px;}
-#aa-section .aa-eyebrow{font-size:11px;font-weight:800;color:var(--accent);letter-spacing:3px;text-transform:uppercase;}
-#aa-section .aa-title{font-size:24px;font-weight:900;color:#fff;margin:2px 0 8px;letter-spacing:1px;}
-#aa-section .aa-sub{font-size:13px;color:#9c9c9c;max-width:640px;margin:0 auto 18px;line-height:1.6;}
-#aa-section .aa-cta{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-weight:900;font-size:13.5px;padding:12px 22px;border-radius:8px;cursor:pointer;border:none;font-family:inherit;}
-#aa-section .aa-cta:hover{filter:brightness(1.08);}
+#aa-section{
+  position:relative;
+  padding:40px 0 46px;
+  background:
+    radial-gradient(ellipse 60% 80% at 15% 0%, rgba(255,111,0,.16) 0%, rgba(255,111,0,0) 60%),
+    radial-gradient(ellipse 60% 80% at 85% 100%, rgba(255,111,0,.10) 0%, rgba(255,111,0,0) 60%),
+    linear-gradient(180deg, #0d0704 0%, #050302 50%, #0d0704 100%);
+  border-top:1px solid rgba(255,111,0,.35);
+  border-bottom:1px solid rgba(255,111,0,.35);
+  overflow:hidden;
+}
+#aa-section::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity:.8;
+}
+#aa-section .aa-wrap{max-width:var(--max);margin:0 auto;padding:0 16px;position:relative;z-index:1;}
+#aa-section .aa-head{text-align:center;margin-bottom:22px;}
+#aa-section .aa-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:3px;text-transform:uppercase;background:rgba(255,111,0,.1);border:1px solid rgba(255,111,0,.3);padding:5px 14px;border-radius:999px;margin-bottom:10px;}
+#aa-section .aa-eyebrow::before{content:"●";font-size:8px;animation:aa-pulse 1.8s infinite;}
+@keyframes aa-pulse{0%,100%{opacity:1;}50%{opacity:.25;}}
+#aa-section .aa-title{font-size:clamp(26px,5vw,34px);font-weight:900;color:#fff;margin:2px 0 10px;letter-spacing:.5px;text-shadow:0 0 24px rgba(255,111,0,.35);}
+#aa-section .aa-sub{font-size:13.5px;color:#a8a8a8;max-width:600px;margin:0 auto 22px;line-height:1.65;}
+#aa-section .aa-legal{font-size:11.5px;color:#787070;max-width:560px;margin:0 auto 24px;line-height:1.6;background:#120e0c;border:1px solid #241c1a;border-radius:10px;padding:14px 18px;text-align:left;}
+#aa-section .aa-cta{
+  display:inline-flex;align-items:center;gap:9px;
+  background:linear-gradient(135deg, var(--accent), #ff8a3d);
+  color:#fff;font-weight:900;font-size:15px;
+  padding:16px 30px;border-radius:10px;cursor:pointer;border:none;font-family:inherit;
+  box-shadow:0 8px 28px rgba(255,111,0,.4), 0 0 0 1px rgba(255,255,255,.08) inset;
+  animation:aa-glow 2.4s ease-in-out infinite;
+  letter-spacing:.3px;
+}
+@keyframes aa-glow{0%,100%{box-shadow:0 8px 28px rgba(255,111,0,.4), 0 0 0 1px rgba(255,255,255,.08) inset;}50%{box-shadow:0 8px 40px rgba(255,111,0,.7), 0 0 0 1px rgba(255,255,255,.12) inset;}}
+#aa-section .aa-cta:hover{filter:brightness(1.08);transform:translateY(-1px);}
 
-#aa-section .aa-tabs{display:flex;gap:8px;overflow-x:auto;padding:18px 0 6px;justify-content:center;flex-wrap:wrap;scrollbar-width:none;}
-#aa-section .aa-tab{flex-shrink:0;padding:8px 15px;border-radius:999px;font-size:12.5px;font-weight:700;color:#bbb;background:#0e0e0e;border:1px solid #262626;cursor:pointer;white-space:nowrap;}
-#aa-section .aa-tab.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+#aa-section .aa-tabs{display:flex;gap:8px;overflow-x:auto;padding:22px 0 6px;justify-content:center;flex-wrap:wrap;scrollbar-width:none;}
+#aa-section .aa-tab{flex-shrink:0;padding:9px 16px;border-radius:999px;font-size:12.5px;font-weight:700;color:#bbb;background:#141010;border:1px solid #2a2020;cursor:pointer;white-space:nowrap;transition:all .15s;}
+#aa-section .aa-tab:hover{border-color:var(--accent);}
+#aa-section .aa-tab.active{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 4px 14px rgba(255,111,0,.35);}
 
-#aa-section .aa-feed-wrap{position:relative;margin-top:16px;}
-#aa-section .aa-row{display:flex;gap:14px;overflow-x:auto;scroll-behavior:smooth;padding-bottom:6px;scrollbar-width:none;}
-#aa-section .aa-row::-webkit-scrollbar{display:none;}
-#aa-section .aa-arrow{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;background:rgba(0,0,0,.7);border:1px solid #333;color:#fff;font-size:20px;cursor:pointer;z-index:5;display:flex;align-items:center;justify-content:center;opacity:.7;}
-#aa-section .aa-arrow:hover{opacity:1;border-color:var(--accent);}
-#aa-section .aa-arrow.prev{left:-6px;}
-#aa-section .aa-arrow.next{right:-6px;}
-#aa-section .aa-card{flex:0 0 300px;background:var(--card);border:1px solid #1a1a1a;border-radius:12px;padding:18px;}
-#aa-section .aa-card-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:6px;}
-#aa-section .aa-card-cat{font-size:10.5px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;}
+#aa-section .aa-feed-wrap{position:relative;margin-top:24px;max-width:680px;margin-left:auto;margin-right:auto;}
+#aa-section .aa-row{display:flex;flex-direction:column;gap:16px;}
+#aa-section .aa-card{background:linear-gradient(160deg, #161010, #0e0b0a);border:1px solid #2a2020;border-radius:14px;padding:20px;box-shadow:0 4px 18px rgba(0,0,0,.3);}
+#aa-section .aa-card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;flex-wrap:wrap;}
+#aa-section .aa-card-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+#aa-section .aa-card-cat{font-size:10.5px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;background:rgba(255,111,0,.1);padding:3px 9px;border-radius:5px;}
+#aa-section .aa-card-bairro{font-size:11px;color:#999;background:#1c1616;padding:3px 9px;border-radius:5px;}
 #aa-section .aa-card-data{font-size:11px;color:#777;}
-#aa-section .aa-card-titulo{font-size:15.5px;font-weight:800;color:#fff;margin:0 0 4px;line-height:1.35;}
-#aa-section .aa-card-autor{display:block;font-size:11px;color:#888;margin-bottom:8px;}
+#aa-section .aa-card-titulo{font-size:16px;font-weight:800;color:#fff;margin:0 0 4px;line-height:1.35;}
+#aa-section .aa-card-autor{display:block;font-size:11.5px;color:#999;margin-bottom:10px;}
+#aa-section .aa-card-autor b{color:#c8c8c8;}
 #aa-section .aa-badge{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:999px;margin-bottom:10px;}
 #aa-section .aa-badge.wait{background:rgba(230,126,0,.14);color:#e67e00;}
 #aa-section .aa-badge.done{background:rgba(0,122,61,.16);color:#3ecf7e;}
-#aa-section .aa-card-texto{font-size:13px;color:#ccc;line-height:1.6;margin:0 0 12px;}
-#aa-section .aa-resposta{background:#141414;border-left:3px solid #3ecf7e;border-radius:8px;padding:12px 14px;margin-bottom:12px;font-size:12.5px;color:#ddd;}
-#aa-section .aa-resposta .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:#3ecf7e;font-weight:800;margin-bottom:5px;}
-#aa-section .aa-card-actions{display:flex;gap:8px;flex-wrap:wrap;}
-#aa-section .aa-btn-sm{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;padding:8px 12px;border-radius:7px;cursor:pointer;border:1px solid #262626;background:#141414;color:#eee;}
+#aa-section .aa-card-texto{font-size:14px;color:#ddd;line-height:1.65;margin:0 0 14px;white-space:pre-wrap;}
+#aa-section .aa-resposta{background:#12181a;border-left:3px solid #3ecf7e;border-radius:8px;padding:14px 16px;margin-bottom:14px;font-size:13px;color:#dde;}
+#aa-section .aa-resposta .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:#3ecf7e;font-weight:800;margin-bottom:6px;}
+#aa-section .aa-card-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+#aa-section .aa-btn-sm{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;padding:8px 12px;border-radius:7px;cursor:pointer;border:1px solid #2a2020;background:#181212;color:#eee;}
 #aa-section .aa-btn-sm:hover{border-color:var(--accent);color:var(--accent);}
 #aa-section .aa-btn-sm.share{background:var(--accent);border:none;color:#fff;text-decoration:none;}
 #aa-section .aa-btn-sm.apoiar{background:rgba(255,111,0,.14);border-color:var(--accent);color:var(--accent);}
 #aa-section .aa-empty{text-align:center;color:#888;font-size:13px;padding:40px 20px;}
 #aa-section .aa-loading{text-align:center;color:#888;font-size:13px;padding:40px 20px;}
+#aa-section .aa-load-more{display:block;margin:22px auto 0;background:#181212;border:1px solid #2a2020;color:#ccc;font-weight:700;font-size:13px;padding:12px 26px;border-radius:8px;cursor:pointer;}
+#aa-section .aa-load-more:hover{border-color:var(--accent);color:var(--accent);}
+
+#aa-section .aa-comments{border-top:1px solid #241c1c;padding-top:14px;margin-top:4px;}
+#aa-section .aa-comments-title{font-size:11.5px;font-weight:800;color:#999;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;}
+#aa-section .aa-comment{background:#141010;border:1px solid #221a1a;border-radius:8px;padding:10px 12px;margin-bottom:8px;}
+#aa-section .aa-comment-head{display:flex;justify-content:space-between;font-size:10.5px;color:#888;margin-bottom:4px;}
+#aa-section .aa-comment-texto{font-size:12.5px;color:#ddd;line-height:1.5;}
+#aa-section .aa-comment-form{display:flex;gap:8px;margin-top:10px;}
+#aa-section .aa-comment-input{flex:1;background:#141010;border:1px solid #2a2020;color:#fff;border-radius:7px;padding:9px 12px;font-size:12.5px;font-family:inherit;}
+#aa-section .aa-comment-input:focus{outline:none;border-color:var(--accent);}
+#aa-section .aa-comment-send{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:9px 14px;font-size:12px;font-weight:700;cursor:pointer;}
+#aa-section .aa-no-comments{font-size:12px;color:#666;font-style:italic;}
+
 
 #aa-modal{display:none;position:fixed;inset:0;z-index:10050;background:rgba(0,0,0,.88);align-items:center;justify-content:center;padding:16px;}
 #aa-modal.open{display:flex;}
@@ -998,29 +1038,29 @@ function loadLivePlayer(){
 <div id="aa-section">
   <div class="aa-wrap">
     <div class="aa-head">
-      <div class="aa-eyebrow">Participação</div>
-      <h2 class="aa-title">📢 ACONTECEU AQUI</h2>
-      <p class="aa-sub">Um espaço para registrar o que acontece na cidade — sem precisar dizer quem você é. Publica na hora, e você pode compartilhar imediatamente.</p>
-      <div class="aa-cta" id="aa-open-form">+ Registrar um relato</div>
+      <div class="aa-eyebrow">Participação da população</div>
+      <h2 class="aa-title">📢 FALA SEM MEDO</h2>
+      <p class="aa-sub">Um espaço com identidade própria da TV Marataízes — para registrar o que acontece na cidade, sem precisar dizer quem você é. Publica na hora, e você pode compartilhar imediatamente.</p>
+      <p class="aa-legal">Este relato é escrito por você, com suas próprias palavras. A TV Marataízes preserva sua identidade e mantém seus dados sob sigilo, acessíveis apenas à equipe responsável pela plataforma. Ao enviar, você declara que as informações foram prestadas de boa-fé e são verdadeiras segundo seu conhecimento.<br><br>Relatos com conteúdo ilícito, discriminatório ou manifestamente falso serão removidos e, quando necessário, encaminhados às autoridades competentes. Para esses casos, a plataforma pode fornecer, quando formalmente requisitado por autoridade competente, os registros técnicos disponíveis do envio, como data e hora.</p>
+      <div class="aa-cta" id="aa-open-form">🎙️ Fale sem medo — registrar um relato</div>
     </div>
 
     <nav class="aa-tabs" id="aa-tabs">
       <div class="aa-tab active" data-slug="">Todos</div>
-      <div class="aa-tab" data-slug="escola">Educação</div>
       <div class="aa-tab" data-slug="saude">Saúde</div>
+      <div class="aa-tab" data-slug="escola">Educação</div>
       <div class="aa-tab" data-slug="obras">Obras</div>
       <div class="aa-tab" data-slug="transito">Trânsito</div>
-      <div class="aa-tab" data-slug="ambiente">Meio Ambiente</div>
       <div class="aa-tab" data-slug="seguranca">Segurança</div>
+      <div class="aa-tab" data-slug="empresas">Empresas</div>
       <div class="aa-tab" data-slug="outros">Outros</div>
     </nav>
 
     <div class="aa-loading" id="aa-loading">Carregando relatos…</div>
     <div class="aa-empty" id="aa-empty" style="display:none;">Nenhum relato publicado ainda nessa categoria. <a href="#" id="aa-empty-cta" style="color:var(--accent);">Seja o primeiro.</a></div>
     <div class="aa-feed-wrap">
-      <button class="aa-arrow prev" id="aa-arrow-prev">&#8249;</button>
       <div class="aa-row" id="aa-feed"></div>
-      <button class="aa-arrow next" id="aa-arrow-next">&#8250;</button>
+      <button class="aa-load-more" id="aa-load-more" style="display:none;">Carregar mais relatos</button>
     </div>
   </div>
 </div>
@@ -1044,9 +1084,9 @@ function loadLivePlayer(){
           <div class="aa-example-col" style="color:#555;">→</div>
           <div class="aa-example-col"><span class="aa-example-lbl">Aparece como</span><span class="aa-example-val acc">Fernanda</span></div>
         </div>
-        <p>Seu relato será publicado automaticamente, exceto quando contiver conteúdo que exija análise por questões legais. Nesses casos, ele poderá passar por uma breve revisão antes da publicação.</p>
+        <p>Seu relato é publicado automaticamente, sem análise prévia. Conteúdo ilícito, discriminatório ou manifestamente falso pode ser removido depois, e encaminhado às autoridades quando necessário.</p>
         <p>Depois de publicado, você poderá compartilhar o relato imediatamente. Quanto mais pessoas conhecerem e compartilharem a situação, maiores serão as chances de ela chegar aos responsáveis e contribuir para uma solução.</p>
-        <p style="margin-bottom:0;">O Aconteceu Aqui é um espaço para dar voz à população, com responsabilidade, transparência e respeito à identidade de quem participa.</p>
+        <p style="margin-bottom:0;">O Fala Sem Medo é um espaço para dar voz à população, com responsabilidade, transparência e respeito à identidade de quem participa.</p>
       </div>
 
       <label for="aa-nome">Seu nome</label>
@@ -1060,14 +1100,17 @@ function loadLivePlayer(){
 
       <label>Assunto</label>
       <div class="aa-chips" id="aa-chips">
-        <div class="aa-chip" data-value="Educação" data-slug="escola">Educação</div>
         <div class="aa-chip" data-value="Saúde" data-slug="saude">Saúde</div>
+        <div class="aa-chip" data-value="Educação" data-slug="escola">Educação</div>
         <div class="aa-chip" data-value="Obras" data-slug="obras">Obras</div>
         <div class="aa-chip" data-value="Trânsito" data-slug="transito">Trânsito</div>
-        <div class="aa-chip" data-value="Meio Ambiente" data-slug="ambiente">Meio Ambiente</div>
         <div class="aa-chip" data-value="Segurança" data-slug="seguranca">Segurança</div>
+        <div class="aa-chip" data-value="Empresas" data-slug="empresas">Empresas</div>
         <div class="aa-chip" data-value="Outro" data-slug="outros">Outro</div>
       </div>
+
+      <label for="aa-bairro">Bairro (opcional)</label>
+      <input type="text" id="aa-bairro" maxlength="60" placeholder="Ex: Barra, Centro, Recanto... deixe em branco se preferir">
 
       <label for="aa-texto">O que aconteceu</label>
       <textarea id="aa-texto" maxlength="2000" placeholder="Descreva o que aconteceu. Quanto mais detalhe (local, data, frequência), mais fácil de apurar."></textarea>
@@ -1090,6 +1133,7 @@ function loadLivePlayer(){
         <div class="aa-share-row">
           <a class="aa-btn-sm share" id="aa-share-whats" target="_blank" rel="noopener">📲 WhatsApp</a>
           <a class="aa-btn-sm share" id="aa-share-fb" target="_blank" rel="noopener">📘 Facebook</a>
+          <div class="aa-btn-sm" id="aa-share-native">📤 Instagram / Mais</div>
           <div class="aa-btn-sm" id="aa-copy-link">🔗 Copiar link</div>
         </div>
         <span class="aa-free">Compartilhar é totalmente gratuito.</span>
@@ -1129,7 +1173,7 @@ function loadLivePlayer(){
         <div class="aa-panel" data-donate-panel="pix">
           <p style="font-size:12px;">Prefere fazer o PIX direto, sem passar por checkout? Copie a chave abaixo — valor livre, sem comprovante automático.</p>
           <div style="background:#141414;border:1px solid #262626;border-radius:8px;padding:12px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;">
-            <span id="aa-pix-key" style="font-family:monospace;font-size:13px;color:#fff;word-break:break-all;">COLE_AQUI_SUA_CHAVE_PIX</span>
+            <span id="aa-pix-key" style="font-family:monospace;font-size:13px;color:#fff;word-break:break-all;">59245417000167</span>
             <div class="aa-btn-sm" id="aa-copy-pix" style="flex-shrink:0;">🔗 Copiar</div>
           </div>
           <p style="font-size:11px;color:#777;">Chave PIX da Macuca Produções / TV Marataízes — confirme com o Raul antes de divulgar.</p>
@@ -1197,7 +1241,7 @@ function loadLivePlayer(){
   function esc(s){ const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
   function escAttr(s){ return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
   function fmtData(iso){ try{ return new Date(iso).toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}); }catch(e){ return ''; } }
-  function linkDoCaso(slug){ return `${AA_SITE_BASE}/?caso=${encodeURIComponent(slug)}#aa-section`; }
+  function linkDoCaso(slug){ return `${AA_SITE_BASE}/casos/${encodeURIComponent(slug)}`; }
 
   const modal = document.getElementById('aa-modal');
   function abrirModal(){ modal.classList.add('open'); document.body.style.overflow='hidden'; mostrarPainel('aa-panel-form'); }
@@ -1227,53 +1271,112 @@ function loadLivePlayer(){
       document.querySelectorAll('#aa-tabs .aa-tab').forEach(t=>t.classList.remove('active'));
       tab.classList.add('active');
       AA_CAT_ATIVA = tab.dataset.slug;
+      AA_PAGINA_ATUAL = 1;
       renderFeed();
     });
   });
 
-  function renderCard(c, destaque){
-    const respondido = c.respostaOficial && c.respostaOficial.trim()!=='';
-    const link = linkDoCaso(c.slug);
-    const shareTxt = encodeURIComponent(`Aconteceu aqui em Marataízes (${c.categoria}):\n\n"${c.texto.slice(0,180)}${c.texto.length>180?'…':''}"\n\nVeja: ${link}`);
+  function renderComentarios(c){
+    const lista = c.comentarios || [];
+    const itens = lista.length
+      ? lista.map(cm => `
+          <div class="aa-comment">
+            <div class="aa-comment-head"><b>${esc(cm.nomeFicticio)}</b><span>${fmtData(cm.dataHora)}</span></div>
+            <div class="aa-comment-texto">${esc(cm.texto)}</div>
+          </div>`).join('')
+      : `<div class="aa-no-comments">Nenhum comentário ainda. Seja o primeiro a complementar.</div>`;
+
     return `
-      <div class="aa-card" ${destaque?'style="border-color:var(--accent);"':''}>
-        <div class="aa-card-head">
-          <span class="aa-card-cat">${esc(c.categoria)}</span>
-          <span class="aa-card-data">${fmtData(c.dataHora)}</span>
-        </div>
-        <h3 class="aa-card-titulo">${esc(c.titulo)}</h3>
-        <span class="aa-card-autor">Relato de ${esc(c.nomeFicticio)}</span>
-        <span class="aa-badge ${respondido?'done':'wait'}">${respondido?'✓ Respondido':'⏳ Aguardando resposta'}</span>
-        <p class="aa-card-texto">${esc(c.texto)}</p>
-        ${respondido?`<div class="aa-resposta"><div class="lbl">Resposta de quem foi mencionado · ${fmtData(c.dataResposta)}</div>${esc(c.respostaOficial)}</div>`:''}
-        <div class="aa-card-actions">
-          <div class="aa-btn-sm aa-confirm-btn" data-slug="${escAttr(c.slug)}" data-titulo="${escAttr(c.titulo)}" data-categoria="${escAttr(c.categoria)}" data-categoria-slug="${escAttr(c.categoriaSlug)}">👍 (${c.confirmacoes||0})</div>
-          <a class="aa-btn-sm share" href="https://wa.me/?text=${shareTxt}" target="_blank" rel="noopener">↗ Compartilhar</a>
-          <div class="aa-btn-sm apoiar" onclick="AA_abrirApoio()">💛 Apoiar</div>
+      <div class="aa-comments">
+        <div class="aa-comments-title">💬 Comentários</div>
+        ${itens}
+        <div class="aa-comment-form">
+          <input type="text" class="aa-comment-input" id="aa-comment-input-${escAttr(c.slug)}" maxlength="500" placeholder="Complementar essa informação...">
+          <button class="aa-comment-send" data-slug="${escAttr(c.slug)}">Enviar</button>
         </div>
       </div>`;
   }
+
+  function renderCard(c, destaque){
+    const respondido = c.respostaOficial && c.respostaOficial.trim()!=='';
+    const link = linkDoCaso(c.slug);
+    const shareTxt = encodeURIComponent(`Fala Sem Medo — Marataízes (${c.categoria}):\n\n"${c.texto.slice(0,180)}${c.texto.length>180?'…':''}"\n\nVeja: ${link}`);
+    return `
+      <div class="aa-card" ${destaque?'style="border-color:var(--accent);"':''}>
+        <div class="aa-card-head">
+          <div class="aa-card-meta">
+            <span class="aa-card-cat">${esc(c.categoria)}</span>
+            ${c.bairro ? `<span class="aa-card-bairro">📍 ${esc(c.bairro)}</span>` : ''}
+          </div>
+          <span class="aa-card-data">${fmtData(c.dataHora)}</span>
+        </div>
+        <h3 class="aa-card-titulo">${esc(c.titulo)}</h3>
+        <span class="aa-card-autor">Relato de <b>${esc(c.nomeFicticio)}</b></span>
+        <span class="aa-badge ${respondido?'done':'wait'}">${respondido?'✓ Respondido':'⏳ Aguardando resposta oficial'}</span>
+        <p class="aa-card-texto">${esc(c.texto)}</p>
+        ${respondido?`<div class="aa-resposta"><div class="lbl">Resposta oficial · ${fmtData(c.dataResposta)}</div>${esc(c.respostaOficial)}</div>`:''}
+        <div class="aa-card-actions">
+          <div class="aa-btn-sm aa-confirm-btn" data-slug="${escAttr(c.slug)}" data-titulo="${escAttr(c.titulo)}" data-categoria="${escAttr(c.categoria)}" data-categoria-slug="${escAttr(c.categoriaSlug)}">👍 Isso também aconteceu comigo (${c.confirmacoes||0})</div>
+          <a class="aa-btn-sm share" href="https://wa.me/?text=${shareTxt}" target="_blank" rel="noopener">↗ Compartilhar</a>
+          <div class="aa-btn-sm apoiar" onclick="AA_abrirApoio()">💛 Apoiar</div>
+        </div>
+        ${renderComentarios(c)}
+      </div>`;
+  }
+
+  const AA_PAGE_SIZE = 10;
+  let AA_PAGINA_ATUAL = 1;
 
   function renderFeed(){
     const params = new URLSearchParams(window.location.search);
     const casoFoco = params.get('caso');
     let lista = AA_CAT_ATIVA ? AA_TODOS.filter(c=>c.categoriaSlug===AA_CAT_ATIVA) : AA_TODOS;
     document.getElementById('aa-empty').style.display = lista.length===0 ? 'block' : 'none';
-    document.getElementById('aa-feed').innerHTML = lista.map(c=>renderCard(c, c.slug===casoFoco)).join('');
+
+    const visiveis = lista.slice(0, AA_PAGINA_ATUAL * AA_PAGE_SIZE);
+    document.getElementById('aa-feed').innerHTML = visiveis.map(c=>renderCard(c, c.slug===casoFoco)).join('');
+
+    const loadMore = document.getElementById('aa-load-more');
+    loadMore.style.display = (visiveis.length < lista.length) ? 'block' : 'none';
+
+    document.querySelectorAll('.aa-comment-send').forEach(btn=>{
+      btn.addEventListener('click', ()=> AA_enviarComentario(btn.dataset.slug));
+    });
   }
 
-  document.getElementById('aa-arrow-prev').addEventListener('click', ()=>{
-    document.getElementById('aa-feed').scrollBy({left:-320, behavior:'smooth'});
+  document.getElementById('aa-load-more').addEventListener('click', ()=>{
+    AA_PAGINA_ATUAL++;
+    renderFeed();
   });
-  document.getElementById('aa-arrow-next').addEventListener('click', ()=>{
-    document.getElementById('aa-feed').scrollBy({left:320, behavior:'smooth'});
-  });
+
+  async function AA_enviarComentario(slug){
+    const input = document.getElementById(`aa-comment-input-${slug}`);
+    const texto = input.value.trim();
+    if (!texto) { input.focus(); return; }
+    input.disabled = true;
+    try{
+      const resp = await fetch(AA_ENDPOINT, {
+        method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body: JSON.stringify({ acao:'comentar', slug, texto })
+      });
+      const resultado = await resp.json();
+      if (resultado.ok) {
+        input.value = '';
+        carregarFeed();
+      } else {
+        alert('Não foi possível enviar o comentário agora.');
+      }
+    }catch(e){
+      alert('Falha de conexão ao enviar o comentário.');
+    }
+    input.disabled = false;
+  }
 
   window.AA_abrirApoio = function(){
     abrirModal();
     mostrarPainel('aa-panel-done');
     document.getElementById('aa-share-box').style.display = 'none';
-    document.getElementById('aa-done-title').textContent = 'Apoie o Aconteceu Aqui';
+    document.getElementById('aa-done-title').textContent = 'Apoie o Fala Sem Medo';
     document.getElementById('aa-done-sub').innerHTML = '<span>Sua contribuição ajuda a manter esse canal aberto pra cidade.</span>';
   };
 
@@ -1374,6 +1477,11 @@ function loadLivePlayer(){
   }
   carregarFeed();
 
+  // Se chegou via /aconteceu-aqui (link direto/QR Code), abre o formulário automaticamente.
+  if (new URLSearchParams(window.location.search).get('abrir') === 'formulario') {
+    abrirModal();
+  }
+
   const submitBtn = document.getElementById('aa-submit');
   submitBtn.addEventListener('click', async ()=>{
     const titulo = document.getElementById('aa-titulo').value.trim();
@@ -1423,6 +1531,17 @@ function loadLivePlayer(){
       const shareTxt = encodeURIComponent(`Aconteceu aqui em Marataízes:\n\n"${texto.slice(0,180)}${texto.length>180?'…':''}"\n\nVeja: ${link}`);
       document.getElementById('aa-share-whats').href = `https://wa.me/?text=${shareTxt}`;
       document.getElementById('aa-share-fb').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(link)}`;
+      const nativeBtn = document.getElementById('aa-share-native');
+      nativeBtn.onclick = () => {
+        if (navigator.share) {
+          navigator.share({ title: 'Fala Sem Medo — TV Marataízes', text: `Aconteceu aqui em Marataízes: "${texto.slice(0,180)}${texto.length>180?'…':''}"`, url: link }).catch(()=>{});
+        } else {
+          navigator.clipboard.writeText(link).then(()=>{
+            nativeBtn.textContent = '✓ Link copiado! Cole no Instagram';
+            setTimeout(()=>{ nativeBtn.textContent = '📤 Instagram / Mais'; }, 2500);
+          });
+        }
+      };
     } else {
       document.getElementById('aa-done-title').textContent = 'Recebido — em análise de segurança.';
       document.getElementById('aa-done-sub').innerHTML =
@@ -1538,8 +1657,8 @@ function loadLivePlayer(){
                 formData,
                 external_reference: `aconteceuaqui-${Date.now()}-${Math.random().toString(36).slice(2,8)}`,
                 description: AA_PAGAMENTO.tipo==='membro'
-                  ? `Aconteceu Aqui — Membro (R$${AA_PAGAMENTO.valor}/mês × ${AA_CONTRACT_MONTHS})`
-                  : `Aconteceu Aqui — Doação (R$${AA_PAGAMENTO.valor})`,
+                  ? `Fala Sem Medo — Membro (R$${AA_PAGAMENTO.valor}/mês × ${AA_CONTRACT_MONTHS})`
+                  : `Fala Sem Medo — Doação (R$${AA_PAGAMENTO.valor})`,
                 origin: "aconteceuaqui-tvmarataizes",
                 tipo: AA_PAGAMENTO.tipo,
                 valorMensal: AA_PAGAMENTO.valor
@@ -1548,7 +1667,46 @@ function loadLivePlayer(){
             .then(r=>r.json().then(b=>({ok:r.ok, b})))
             .then(({ok,b})=>{
               if (!ok || b.error){ showMpErr(b.error || 'Não foi possível criar o pagamento.'); reject(); return; }
-              document.getElementById('aa-panel-pay').innerHTML = '<h3>Muito obrigado.</h3><p>Sua contribuição foi recebida.</p>';
+
+              // Procura o QR/código PIX em qualquer um dos formatos que o backend possa devolver.
+              const dadosTransacao =
+                b?.point_of_interaction?.transaction_data ||
+                b?.payment?.point_of_interaction?.transaction_data ||
+                b?.data?.point_of_interaction?.transaction_data ||
+                null;
+
+              const qrBase64 = dadosTransacao?.qr_code_base64 || null;
+              const qrCopiaCola = dadosTransacao?.qr_code || null;
+
+              if (qrBase64 || qrCopiaCola) {
+                document.getElementById('aa-panel-pay').innerHTML = `
+                  <h3>Escaneie ou copie o código PIX</h3>
+                  <p>Abra o app do seu banco, escaneie o QR Code ou cole o código copia-e-cola.</p>
+                  ${qrBase64 ? `<div style="text-align:center;margin-bottom:16px;"><img src="data:image/png;base64,${qrBase64}" alt="QR Code PIX" style="width:220px;height:220px;border-radius:10px;background:#fff;padding:8px;"></div>` : ''}
+                  ${qrCopiaCola ? `
+                    <label>Código copia e cola</label>
+                    <div style="background:#141414;border:1px solid #262626;border-radius:8px;padding:12px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;gap:10px;">
+                      <span id="aa-qr-copia-cola" style="font-family:monospace;font-size:11px;color:#fff;word-break:break-all;">${qrCopiaCola}</span>
+                      <div class="aa-btn-sm" id="aa-copy-qr" style="flex-shrink:0;">🔗 Copiar</div>
+                    </div>
+                  ` : ''}
+                  <p style="font-size:11.5px;color:#777;">O pagamento é confirmado automaticamente assim que o PIX for identificado. Pode fechar esta janela.</p>
+                `;
+                if (qrCopiaCola){
+                  document.getElementById('aa-copy-qr').addEventListener('click', ()=>{
+                    navigator.clipboard.writeText(qrCopiaCola).then(()=>{
+                      const btn = document.getElementById('aa-copy-qr');
+                      const orig = btn.textContent;
+                      btn.textContent = '✓ Copiado!';
+                      setTimeout(()=>{ btn.textContent = orig; }, 2000);
+                    });
+                  });
+                }
+              } else {
+                // Cartão de crédito ou qualquer meio sem QR: mensagem padrão.
+                document.getElementById('aa-panel-pay').innerHTML = '<h3>Muito obrigado.</h3><p>Sua contribuição foi recebida.</p>';
+              }
+
               resolve();
             })
             .catch(()=>{ showMpErr('Falha de conexão.'); reject(); });
