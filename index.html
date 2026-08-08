@@ -965,6 +965,15 @@ function loadLivePlayer(){
 #aa-section .aa-badge.done{background:rgba(0,122,61,.16);color:#3ecf7e;}
 #aa-section .aa-card-texto{font-size:14px;color:#ddd;line-height:1.65;margin:0 0 14px;white-space:pre-wrap;}
 #aa-section .aa-resposta{background:#12181a;border-left:3px solid #3ecf7e;border-radius:8px;padding:14px 16px;margin-bottom:14px;font-size:13px;color:#dde;}
+#aa-section .aa-resposta-convite{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#181410;border:1px dashed #3a2f22;border-radius:8px;padding:10px 14px;margin-bottom:12px;flex-wrap:wrap;}
+#aa-section .aa-resposta-convite-txt{font-size:12px;color:#c9a876;}
+#aa-section .aa-resposta-form{background:#141010;border:1px solid #2a2020;border-radius:8px;padding:12px;margin-bottom:12px;}
+#aa-section .aa-resposta-form input, #aa-section .aa-resposta-form textarea{
+  width:100%;background:#0e0b0a;border:1px solid #2a2020;color:#fff;border-radius:6px;
+  padding:8px 10px;font-size:12.5px;font-family:inherit;margin-bottom:8px;box-sizing:border-box;
+}
+#aa-section .aa-resposta-form textarea{min-height:70px;resize:vertical;}
+#aa-section .aa-resp-enviar{background:var(--accent);color:#fff;border:none;border-radius:6px;padding:9px 14px;font-size:12.5px;font-weight:700;cursor:pointer;}
 #aa-section .aa-resposta .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:#3ecf7e;font-weight:800;margin-bottom:6px;}
 #aa-section .aa-card-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
 #aa-section .aa-btn-sm{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;padding:8px 12px;border-radius:7px;cursor:pointer;border:1px solid #2a2020;background:#181212;color:#eee;}
@@ -1324,7 +1333,18 @@ function loadLivePlayer(){
         <span class="aa-card-autor">Relato de <b>${esc(c.nomeFicticio)}</b></span>
         <span class="aa-badge ${respondido?'done':'wait'}">${respondido?'✓ Respondido':'⏳ Aguardando resposta oficial'}</span>
         <p class="aa-card-texto">${esc(c.texto)}</p>
-        ${respondido?`<div class="aa-resposta"><div class="lbl">Resposta oficial · ${fmtData(c.dataResposta)}</div>${esc(c.respostaOficial)}</div>`:''}
+        ${respondido?`<div class="aa-resposta"><div class="lbl">Resposta oficial · ${fmtData(c.dataResposta)}</div>${esc(c.respostaOficial)}</div>`:`
+        <div class="aa-resposta-convite">
+          <span class="aa-resposta-convite-txt">📢 Foi citado nesse relato? Responda oficialmente aqui.</span>
+          <div class="aa-btn-sm aa-abrir-resposta" data-slug="${escAttr(c.slug)}">Responder</div>
+        </div>
+        <div class="aa-resposta-form" id="aa-resp-form-${escAttr(c.slug)}" style="display:none;">
+          <input type="text" class="aa-resp-nome" id="aa-resp-nome-${escAttr(c.slug)}" placeholder="Seu nome (opcional)">
+          <input type="text" class="aa-resp-cargo" id="aa-resp-cargo-${escAttr(c.slug)}" placeholder="Cargo/órgão (ex: Secretaria de Obras)">
+          <textarea class="aa-resp-texto" id="aa-resp-texto-${escAttr(c.slug)}" placeholder="Escreva a resposta oficial a esse relato..."></textarea>
+          <button class="aa-resp-enviar" data-slug="${escAttr(c.slug)}">Publicar resposta</button>
+        </div>
+        `}
         <div class="aa-card-actions">
           <div class="aa-btn-sm aa-confirm-btn" data-slug="${escAttr(c.slug)}" data-titulo="${escAttr(c.titulo)}" data-categoria="${escAttr(c.categoria)}" data-categoria-slug="${escAttr(c.categoriaSlug)}">👍 Isso também aconteceu comigo (${c.confirmacoes||0})</div>
           <a class="aa-btn-sm share" href="https://wa.me/?text=${shareTxt}" target="_blank" rel="noopener">↗ Compartilhar</a>
@@ -1394,18 +1414,58 @@ function loadLivePlayer(){
   let AA_CONFIRM_CTX = null;
 
   document.getElementById('aa-feed').addEventListener('click', (e)=>{
-    const btn = e.target.closest('.aa-confirm-btn');
-    if (!btn || btn.dataset.done) return;
-    AA_CONFIRM_CTX = {
-      slug: btn.dataset.slug,
-      titulo: btn.dataset.titulo,
-      categoria: btn.dataset.categoria,
-      categoriaSlug: btn.dataset.categoriaSlug,
-      btn
-    };
-    abrirModal();
-    mostrarPainel('aa-panel-confirm-extra');
+    const confirmBtn = e.target.closest('.aa-confirm-btn');
+    if (confirmBtn && !confirmBtn.dataset.done) {
+      AA_CONFIRM_CTX = {
+        slug: confirmBtn.dataset.slug,
+        titulo: confirmBtn.dataset.titulo,
+        categoria: confirmBtn.dataset.categoria,
+        categoriaSlug: confirmBtn.dataset.categoriaSlug,
+        btn: confirmBtn
+      };
+      abrirModal();
+      mostrarPainel('aa-panel-confirm-extra');
+      return;
+    }
+
+    const abrirRespBtn = e.target.closest('.aa-abrir-resposta');
+    if (abrirRespBtn) {
+      const form = document.getElementById(`aa-resp-form-${abrirRespBtn.dataset.slug}`);
+      form.style.display = form.style.display === 'none' ? 'block' : 'none';
+      return;
+    }
+
+    const enviarRespBtn = e.target.closest('.aa-resp-enviar');
+    if (enviarRespBtn) {
+      AA_enviarResposta(enviarRespBtn.dataset.slug, enviarRespBtn);
+      return;
+    }
   });
+
+  async function AA_enviarResposta(slug, btn){
+    const resposta = document.getElementById(`aa-resp-texto-${slug}`).value.trim();
+    if (!resposta){ document.getElementById(`aa-resp-texto-${slug}`).focus(); return; }
+    const nomeRespondente = document.getElementById(`aa-resp-nome-${slug}`).value.trim();
+    const cargoRespondente = document.getElementById(`aa-resp-cargo-${slug}`).value.trim();
+
+    btn.disabled = true; btn.textContent = 'Enviando...';
+    try{
+      const resp = await fetch(AA_ENDPOINT, {
+        method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body: JSON.stringify({ acao:'responder', slug, resposta, nomeRespondente, cargoRespondente })
+      });
+      const resultado = await resp.json();
+      if (resultado.ok) {
+        carregarFeed();
+      } else {
+        alert('Não foi possível publicar a resposta agora.');
+        btn.disabled = false; btn.textContent = 'Publicar resposta';
+      }
+    }catch(e){
+      alert('Falha de conexão ao enviar a resposta.');
+      btn.disabled = false; btn.textContent = 'Publicar resposta';
+    }
+  }
 
   function AA_registrarConfirmacao(){
     const { slug, btn } = AA_CONFIRM_CTX;
