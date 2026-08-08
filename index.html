@@ -973,6 +973,9 @@ function loadLivePlayer(){
 #aa-section .aa-resposta-convite{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#181410;border:1px dashed #3a2f22;border-radius:8px;padding:10px 14px;margin-bottom:12px;flex-wrap:wrap;}
 #aa-section .aa-resposta-convite-txt{font-size:12px;color:#c9a876;}
 #aa-section .aa-resposta-form{background:#141010;border:1px solid #2a2020;border-radius:8px;padding:12px;margin-bottom:12px;}
+#aa-section .aa-video-form{background:#141010;border:1px solid #2a2020;border-radius:8px;padding:12px;margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;}
+#aa-section .aa-video-input{flex:1;min-width:200px;background:#0e0b0a;border:1px solid #2a2020;color:#fff;border-radius:6px;padding:9px 11px;font-size:12.5px;font-family:inherit;}
+#aa-section .aa-video-enviar{background:var(--accent);color:#fff;border:none;border-radius:6px;padding:9px 14px;font-size:12.5px;font-weight:700;cursor:pointer;}
 #aa-section .aa-resposta-form input, #aa-section .aa-resposta-form textarea{
   width:100%;background:#0e0b0a;border:1px solid #2a2020;color:#fff;border-radius:6px;
   padding:8px 10px;font-size:12.5px;font-family:inherit;margin-bottom:8px;box-sizing:border-box;
@@ -1138,6 +1141,9 @@ function loadLivePlayer(){
       <label for="aa-foto">Foto (opcional)</label>
       <input type="file" id="aa-foto" accept="image/*">
       <div id="aa-foto-preview" style="display:none; margin-bottom:14px;"><img style="max-width:100%; border-radius:8px;"></div>
+
+      <label for="aa-video-link">Link de um vídeo (opcional)</label>
+      <input type="text" id="aa-video-link" placeholder="Cole aqui o link do YouTube, Castr ou outro — se você já tiver um">
 
       <label for="aa-texto">O que aconteceu</label>
       <textarea id="aa-texto" maxlength="2000" placeholder="Descreva o que aconteceu. Quanto mais detalhe (local, data, frequência), mais fácil de apurar."></textarea>
@@ -1387,6 +1393,11 @@ function loadLivePlayer(){
           <div class="aa-btn-sm aa-confirm-btn" data-slug="${escAttr(c.slug)}" data-titulo="${escAttr(c.titulo)}" data-categoria="${escAttr(c.categoria)}" data-categoria-slug="${escAttr(c.categoriaSlug)}">👍 Isso também aconteceu comigo (${c.confirmacoes||0})</div>
           <a class="aa-btn-sm share" href="https://wa.me/?text=${shareTxt}" target="_blank" rel="noopener">↗ Compartilhar</a>
           <div class="aa-btn-sm apoiar" onclick="AA_abrirApoio()">💛 Apoiar</div>
+          <div class="aa-btn-sm aa-abrir-video" data-slug="${escAttr(c.slug)}">🎥 ${c.videoEmbedURL ? 'Trocar vídeo' : 'Adicionar vídeo'}</div>
+        </div>
+        <div class="aa-video-form" id="aa-video-form-${escAttr(c.slug)}" style="display:none;">
+          <input type="text" class="aa-video-input" id="aa-video-input-${escAttr(c.slug)}" placeholder="Cole aqui o link do vídeo (ex: https://player.castr.com/vod/...)" value="${escAttr(c.videoEmbedURL||'')}">
+          <button class="aa-video-enviar" data-slug="${escAttr(c.slug)}">Salvar vídeo</button>
         </div>
         ${renderComentarios(c)}
       </div>`;
@@ -1478,7 +1489,42 @@ function loadLivePlayer(){
       AA_enviarResposta(enviarRespBtn.dataset.slug, enviarRespBtn);
       return;
     }
+
+    const abrirVideoBtn = e.target.closest('.aa-abrir-video');
+    if (abrirVideoBtn) {
+      const form = document.getElementById(`aa-video-form-${abrirVideoBtn.dataset.slug}`);
+      form.style.display = form.style.display === 'none' ? 'block' : 'none';
+      return;
+    }
+
+    const enviarVideoBtn = e.target.closest('.aa-video-enviar');
+    if (enviarVideoBtn) {
+      AA_enviarVideo(enviarVideoBtn.dataset.slug, enviarVideoBtn);
+      return;
+    }
   });
+
+  async function AA_enviarVideo(slug, btn){
+    const videoEmbedURL = document.getElementById(`aa-video-input-${slug}`).value.trim();
+    if (!videoEmbedURL){ document.getElementById(`aa-video-input-${slug}`).focus(); return; }
+    btn.disabled = true; btn.textContent = 'Salvando...';
+    try{
+      const resp = await fetch(AA_ENDPOINT, {
+        method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body: JSON.stringify({ acao:'video', slug, videoEmbedURL })
+      });
+      const resultado = await resp.json();
+      if (resultado.ok) {
+        carregarFeed();
+      } else {
+        alert('Não foi possível salvar o vídeo agora.');
+        btn.disabled = false; btn.textContent = 'Salvar vídeo';
+      }
+    }catch(e){
+      alert('Falha de conexão ao salvar o vídeo.');
+      btn.disabled = false; btn.textContent = 'Salvar vídeo';
+    }
+  }
 
   async function AA_enviarResposta(slug, btn){
     const resposta = document.getElementById(`aa-resp-texto-${slug}`).value.trim();
@@ -1627,7 +1673,8 @@ function loadLivePlayer(){
       categoria: AA_CAT_SEL,
       categoriaSlug: AA_SLUG_SEL,
       bairro: document.getElementById('aa-bairro').value.trim(),
-      foto: fotoBase64
+      foto: fotoBase64,
+      videoEmbedURL: document.getElementById('aa-video-link').value.trim()
     };
 
     let resultado = { ok:false };
