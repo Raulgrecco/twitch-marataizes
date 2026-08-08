@@ -1024,6 +1024,15 @@ function loadLivePlayer(){
 #aa-modal .aa-panel.show{display:block;}
 #aa-modal .aa-share-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
 #aa-modal .aa-share-row a, #aa-modal .aa-share-row div{flex:1;min-width:110px;text-align:center;}
+#aa-modal .aa-btn-sm{
+  display:inline-flex;align-items:center;justify-content:center;gap:5px;
+  font-size:12px;font-weight:700;padding:10px 12px;border-radius:7px;cursor:pointer;
+  border:1px solid #2a2020;background:#181212;color:#eee;text-decoration:none;
+}
+#aa-modal .aa-btn-sm:hover{filter:brightness(1.1);}
+#aa-modal .share-whatsapp{background:#25D366;border:none;color:#fff;}
+#aa-modal .share-facebook{background:#1877F2;border:none;color:#fff;}
+#aa-modal .share-instagram{background:linear-gradient(45deg, #FEDA75, #FA7E1E, #D62976, #962FBF, #4F5BD5);border:none;color:#fff;}
 #aa-modal .aa-donate-tabs{display:flex;gap:8px;margin:18px 0 12px;}
 #aa-modal .aa-donate-tab{flex:1;text-align:center;padding:9px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid #262626;background:#141414;color:#999;}
 #aa-modal .aa-donate-tab.active{border-color:var(--accent);background:rgba(255,111,0,.12);color:var(--accent);}
@@ -1131,9 +1140,9 @@ function loadLivePlayer(){
       <div id="aa-share-box">
         <div class="aa-share-label">Ajude este caso a chegar mais longe.</div>
         <div class="aa-share-row">
-          <a class="aa-btn-sm share" id="aa-share-whats" target="_blank" rel="noopener">📲 WhatsApp</a>
-          <a class="aa-btn-sm share" id="aa-share-fb" target="_blank" rel="noopener">📘 Facebook</a>
-          <div class="aa-btn-sm" id="aa-share-native">📤 Instagram / Mais</div>
+          <a class="aa-btn-sm share-whatsapp" id="aa-share-whats" target="_blank" rel="noopener">📲 WhatsApp</a>
+          <a class="aa-btn-sm share-facebook" id="aa-share-fb" target="_blank" rel="noopener">📘 Facebook</a>
+          <div class="aa-btn-sm share-instagram" id="aa-share-native">📤 Instagram / Mais</div>
           <div class="aa-btn-sm" id="aa-copy-link">🔗 Copiar link</div>
         </div>
         <span class="aa-free">Compartilhar é totalmente gratuito.</span>
