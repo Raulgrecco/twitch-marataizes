@@ -1674,6 +1674,10 @@ function loadLivePlayer(){
     AA_ULTIMO_SLUG = resultado.slug;
     const link = linkDoCaso(resultado.slug);
 
+    if (resultado.fotoErro) {
+      alert('A foto não foi salva. Motivo técnico: ' + resultado.fotoErro);
+    }
+
     if (resultado.statusModeracao === 'Publicado'){
       document.getElementById('aa-done-title').textContent = '✅ Seu relato já foi publicado.';
       document.getElementById('aa-done-sub').innerHTML =
