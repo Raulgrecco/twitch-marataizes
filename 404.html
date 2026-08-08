@@ -24,6 +24,9 @@
   .aa-badge.wait{background:rgba(230,126,0,.14);color:#e67e00;}
   .aa-badge.done{background:rgba(0,122,61,.16);color:#3ecf7e;}
   .aa-card-texto{font-size:15px;color:#ddd;line-height:1.7;margin:0 0 18px;white-space:pre-wrap;}
+  .aa-card-foto{display:block;max-width:100%;border-radius:10px;margin-bottom:18px;border:1px solid #2a2020;}
+  .aa-card-video{position:relative;width:100%;padding-top:56.25%;margin-bottom:18px;border-radius:10px;overflow:hidden;background:#000;}
+  .aa-card-video iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
   .aa-resposta{background:#12181a;border-left:3px solid #3ecf7e;border-radius:8px;padding:14px 16px;margin-bottom:18px;font-size:13.5px;color:#dde;}
   .aa-resposta .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:#3ecf7e;font-weight:800;margin-bottom:6px;}
   .aa-resposta-convite{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#181410;border:1px dashed #3a2f22;border-radius:8px;padding:12px 16px;margin-bottom:16px;flex-wrap:wrap;}
@@ -52,6 +55,29 @@
   const AA_SITE_BASE = "https://tvmarataizes.digital";
 
   function esc(s){ const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+
+  function AA_prepararFoto(file, maxLado, qualidade){
+    return new Promise((resolve)=>{
+      if (!file) { resolve(null); return; }
+      const reader = new FileReader();
+      reader.onload = (e)=>{
+        const img = new Image();
+        img.onload = ()=>{
+          let { width, height } = img;
+          if (width > height && width > maxLado){ height = height*(maxLado/width); width = maxLado; }
+          else if (height > maxLado){ width = width*(maxLado/height); height = maxLado; }
+          const canvas = document.createElement('canvas');
+          canvas.width = width; canvas.height = height;
+          canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL('image/jpeg', qualidade || 0.75));
+        };
+        img.onerror = ()=> resolve(null);
+        img.src = e.target.result;
+      };
+      reader.onerror = ()=> resolve(null);
+      reader.readAsDataURL(file);
+    });
+  }
   function fmtData(iso){ try{ return new Date(iso).toLocaleDateString('pt-BR', { day:'2-digit', month:'short', year:'numeric' }); }catch(e){ return ''; } }
 
   const conteudo = document.getElementById('conteudo');
@@ -100,7 +126,9 @@
             <span class="aa-card-autor">Relato de ${esc(caso.nomeFicticio)}</span>
             <span class="aa-badge ${respondido?'done':'wait'}">${respondido?'✓ Respondido oficialmente':'⏳ Aguardando resposta oficial'}</span>
             <p class="aa-card-texto">${esc(caso.texto)}</p>
-            ${respondido ? `<div class="aa-resposta"><div class="lbl">Resposta oficial · ${fmtData(caso.dataResposta)}</div>${esc(caso.respostaOficial)}</div>` : `
+            ${caso.fotoURL ? `<img src="${esc(caso.fotoURL)}" alt="Foto enviada com o relato" class="aa-card-foto">` : ''}
+            ${caso.videoEmbedURL ? `<div class="aa-card-video"><iframe src="${esc(caso.videoEmbedURL)}" allowfullscreen frameborder="0"></iframe></div>` : ''}
+            ${respondido ? `<div class="aa-resposta"><div class="lbl">Resposta oficial · ${fmtData(caso.dataResposta)}</div>${esc(caso.respostaOficial)}${caso.fotoRespostaURL?`<img src="${esc(caso.fotoRespostaURL)}" alt="Foto da resposta oficial" class="aa-card-foto" style="margin-top:10px;">`:''}</div>` : `
               <div class="aa-resposta-convite">
                 <span class="aa-resposta-convite-txt">📢 Foi citado nesse relato? Responda oficialmente aqui.</span>
                 <div class="aa-btn" id="aa-abrir-resposta">Responder</div>
@@ -109,6 +137,8 @@
                 <input type="text" id="aa-resp-nome" placeholder="Seu nome (opcional)">
                 <input type="text" id="aa-resp-cargo" placeholder="Cargo/órgão (ex: Secretaria de Obras)">
                 <textarea id="aa-resp-texto" placeholder="Escreva a resposta oficial a esse relato..."></textarea>
+                <label class="aa-resp-foto-label" style="display:block;font-size:11px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;">Foto (opcional)</label>
+                <input type="file" id="aa-resp-foto" accept="image/*" style="width:100%;background:#0e0b0a;border:1px solid #2a2020;color:#fff;border-radius:6px;padding:8px 10px;font-size:12px;margin-bottom:10px;box-sizing:border-box;">
                 <button class="aa-resp-enviar" id="aa-resp-enviar">Publicar resposta</button>
               </div>
             `}
@@ -129,13 +159,16 @@
             if (!respostaTxt) { document.getElementById('aa-resp-texto').focus(); return; }
             const btn = e.target;
             btn.disabled = true; btn.textContent = 'Enviando...';
+            const fotoInput = document.getElementById('aa-resp-foto');
+            const fotoBase64 = fotoInput && fotoInput.files[0] ? await AA_prepararFoto(fotoInput.files[0], 1000, 0.75) : null;
             try {
               const r = await fetch(AA_ENDPOINT, {
                 method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify({
                   acao: 'responder', slug: caso.slug, resposta: respostaTxt,
                   nomeRespondente: document.getElementById('aa-resp-nome').value.trim(),
-                  cargoRespondente: document.getElementById('aa-resp-cargo').value.trim()
+                  cargoRespondente: document.getElementById('aa-resp-cargo').value.trim(),
+                  foto: fotoBase64
                 })
               });
               const resultado = await r.json();
