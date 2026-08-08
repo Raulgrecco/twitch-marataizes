@@ -964,6 +964,11 @@ function loadLivePlayer(){
 #aa-section .aa-badge.wait{background:rgba(230,126,0,.14);color:#e67e00;}
 #aa-section .aa-badge.done{background:rgba(0,122,61,.16);color:#3ecf7e;}
 #aa-section .aa-card-texto{font-size:14px;color:#ddd;line-height:1.65;margin:0 0 14px;white-space:pre-wrap;}
+#aa-section .aa-card-foto{display:block;max-width:100%;border-radius:10px;margin-bottom:14px;border:1px solid #2a2020;}
+#aa-section .aa-card-video{position:relative;width:100%;padding-top:56.25%;margin-bottom:14px;border-radius:10px;overflow:hidden;background:#000;}
+#aa-section .aa-card-video iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+#aa-section .aa-resp-foto-label{display:block;font-size:11px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+#aa-section .aa-resp-foto{width:100%;background:#0e0b0a;border:1px solid #2a2020;color:#fff;border-radius:6px;padding:8px 10px;font-size:12px;margin-bottom:10px;box-sizing:border-box;}
 #aa-section .aa-resposta{background:#12181a;border-left:3px solid #3ecf7e;border-radius:8px;padding:14px 16px;margin-bottom:14px;font-size:13px;color:#dde;}
 #aa-section .aa-resposta-convite{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#181410;border:1px dashed #3a2f22;border-radius:8px;padding:10px 14px;margin-bottom:12px;flex-wrap:wrap;}
 #aa-section .aa-resposta-convite-txt{font-size:12px;color:#c9a876;}
@@ -1130,6 +1135,10 @@ function loadLivePlayer(){
       <label for="aa-bairro">Bairro (opcional)</label>
       <input type="text" id="aa-bairro" maxlength="60" placeholder="Ex: Barra, Centro, Recanto... deixe em branco se preferir">
 
+      <label for="aa-foto">Foto (opcional)</label>
+      <input type="file" id="aa-foto" accept="image/*">
+      <div id="aa-foto-preview" style="display:none; margin-bottom:14px;"><img style="max-width:100%; border-radius:8px;"></div>
+
       <label for="aa-texto">O que aconteceu</label>
       <textarea id="aa-texto" maxlength="2000" placeholder="Descreva o que aconteceu. Quanto mais detalhe (local, data, frequência), mais fácil de apurar."></textarea>
 
@@ -1259,6 +1268,31 @@ function loadLivePlayer(){
 
   function esc(s){ const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
   function escAttr(s){ return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  // Redimensiona a imagem no próprio navegador antes de mandar (evita foto de celular
+  // de 8-10MB estourando o limite de envio) e devolve um base64 pronto para o backend.
+  function AA_prepararFoto(file, maxLado, qualidade){
+    return new Promise((resolve, reject)=>{
+      if (!file) { resolve(null); return; }
+      const reader = new FileReader();
+      reader.onload = (e)=>{
+        const img = new Image();
+        img.onload = ()=>{
+          let { width, height } = img;
+          if (width > height && width > maxLado){ height = height*(maxLado/width); width = maxLado; }
+          else if (height > maxLado){ width = width*(maxLado/height); height = maxLado; }
+          const canvas = document.createElement('canvas');
+          canvas.width = width; canvas.height = height;
+          canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL('image/jpeg', qualidade || 0.75));
+        };
+        img.onerror = ()=> resolve(null);
+        img.src = e.target.result;
+      };
+      reader.onerror = ()=> resolve(null);
+      reader.readAsDataURL(file);
+    });
+  }
   function fmtData(iso){ try{ return new Date(iso).toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}); }catch(e){ return ''; } }
   function linkDoCaso(slug){ return `${AA_SITE_BASE}/casos/${encodeURIComponent(slug)}`; }
 
@@ -1333,7 +1367,9 @@ function loadLivePlayer(){
         <span class="aa-card-autor">Relato de <b>${esc(c.nomeFicticio)}</b></span>
         <span class="aa-badge ${respondido?'done':'wait'}">${respondido?'✓ Respondido':'⏳ Aguardando resposta oficial'}</span>
         <p class="aa-card-texto">${esc(c.texto)}</p>
-        ${respondido?`<div class="aa-resposta"><div class="lbl">Resposta oficial · ${fmtData(c.dataResposta)}</div>${esc(c.respostaOficial)}</div>`:`
+        ${c.fotoURL ? `<img src="${escAttr(c.fotoURL)}" alt="Foto enviada com o relato" class="aa-card-foto">` : ''}
+        ${c.videoEmbedURL ? `<div class="aa-card-video"><iframe src="${escAttr(c.videoEmbedURL)}" allowfullscreen frameborder="0"></iframe></div>` : ''}
+        ${respondido?`<div class="aa-resposta"><div class="lbl">Resposta oficial · ${fmtData(c.dataResposta)}</div>${esc(c.respostaOficial)}${c.fotoRespostaURL?`<img src="${escAttr(c.fotoRespostaURL)}" alt="Foto da resposta oficial" class="aa-card-foto" style="margin-top:10px;">`:''}</div>`:`
         <div class="aa-resposta-convite">
           <span class="aa-resposta-convite-txt">📢 Foi citado nesse relato? Responda oficialmente aqui.</span>
           <div class="aa-btn-sm aa-abrir-resposta" data-slug="${escAttr(c.slug)}">Responder</div>
@@ -1342,6 +1378,8 @@ function loadLivePlayer(){
           <input type="text" class="aa-resp-nome" id="aa-resp-nome-${escAttr(c.slug)}" placeholder="Seu nome (opcional)">
           <input type="text" class="aa-resp-cargo" id="aa-resp-cargo-${escAttr(c.slug)}" placeholder="Cargo/órgão (ex: Secretaria de Obras)">
           <textarea class="aa-resp-texto" id="aa-resp-texto-${escAttr(c.slug)}" placeholder="Escreva a resposta oficial a esse relato..."></textarea>
+          <label class="aa-resp-foto-label">Foto (opcional)</label>
+          <input type="file" class="aa-resp-foto" id="aa-resp-foto-${escAttr(c.slug)}" accept="image/*">
           <button class="aa-resp-enviar" data-slug="${escAttr(c.slug)}">Publicar resposta</button>
         </div>
         `}
@@ -1447,12 +1485,14 @@ function loadLivePlayer(){
     if (!resposta){ document.getElementById(`aa-resp-texto-${slug}`).focus(); return; }
     const nomeRespondente = document.getElementById(`aa-resp-nome-${slug}`).value.trim();
     const cargoRespondente = document.getElementById(`aa-resp-cargo-${slug}`).value.trim();
+    const fotoInput = document.getElementById(`aa-resp-foto-${slug}`);
+    const fotoBase64 = fotoInput && fotoInput.files[0] ? await AA_prepararFoto(fotoInput.files[0], 1000, 0.75) : null;
 
     btn.disabled = true; btn.textContent = 'Enviando...';
     try{
       const resp = await fetch(AA_ENDPOINT, {
         method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
-        body: JSON.stringify({ acao:'responder', slug, resposta, nomeRespondente, cargoRespondente })
+        body: JSON.stringify({ acao:'responder', slug, resposta, nomeRespondente, cargoRespondente, foto: fotoBase64 })
       });
       const resultado = await resp.json();
       if (resultado.ok) {
@@ -1553,6 +1593,17 @@ function loadLivePlayer(){
   }
 
   const submitBtn = document.getElementById('aa-submit');
+  document.getElementById('aa-foto').addEventListener('change', async (e)=>{
+    const file = e.target.files[0];
+    const preview = document.getElementById('aa-foto-preview');
+    if (!file){ preview.style.display = 'none'; return; }
+    const base64 = await AA_prepararFoto(file, 1000, 0.75);
+    if (base64){
+      preview.querySelector('img').src = base64;
+      preview.style.display = 'block';
+    }
+  });
+
   submitBtn.addEventListener('click', async ()=>{
     const titulo = document.getElementById('aa-titulo').value.trim();
     const texto = document.getElementById('aa-texto').value.trim();
@@ -1565,13 +1616,18 @@ function loadLivePlayer(){
 
     submitBtn.disabled = true; submitBtn.textContent = 'Enviando...';
 
+    const fotoInput = document.getElementById('aa-foto');
+    const fotoBase64 = fotoInput.files[0] ? await AA_prepararFoto(fotoInput.files[0], 1000, 0.75) : null;
+
     const payload = {
       nome: document.getElementById('aa-nome').value.trim(),
       whatsapp: document.getElementById('aa-whats').value.trim(),
       titulo, texto,
       cidade: "Marataízes",
       categoria: AA_CAT_SEL,
-      categoriaSlug: AA_SLUG_SEL
+      categoriaSlug: AA_SLUG_SEL,
+      bairro: document.getElementById('aa-bairro').value.trim(),
+      foto: fotoBase64
     };
 
     let resultado = { ok:false };
