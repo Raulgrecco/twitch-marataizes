@@ -1619,11 +1619,14 @@ function loadLivePlayer(){
   }
 
   const submitBtn = document.getElementById('aa-submit');
+  let AA_FOTO_BASE64_CACHE = null;
+
   document.getElementById('aa-foto').addEventListener('change', async (e)=>{
     const file = e.target.files[0];
     const preview = document.getElementById('aa-foto-preview');
-    if (!file){ preview.style.display = 'none'; return; }
+    if (!file){ preview.style.display = 'none'; AA_FOTO_BASE64_CACHE = null; return; }
     const base64 = await AA_prepararFoto(file, 1000, 0.75);
+    AA_FOTO_BASE64_CACHE = base64;
     if (base64){
       preview.querySelector('img').src = base64;
       preview.style.display = 'block';
@@ -1642,8 +1645,7 @@ function loadLivePlayer(){
 
     submitBtn.disabled = true; submitBtn.textContent = 'Enviando...';
 
-    const fotoInput = document.getElementById('aa-foto');
-    const fotoBase64 = fotoInput.files[0] ? await AA_prepararFoto(fotoInput.files[0], 1000, 0.75) : null;
+    const fotoBase64 = AA_FOTO_BASE64_CACHE;
 
     const payload = {
       nome: document.getElementById('aa-nome').value.trim(),
@@ -1712,6 +1714,9 @@ function loadLivePlayer(){
 
     mostrarPainel('aa-panel-done');
     carregarFeed();
+    AA_FOTO_BASE64_CACHE = null;
+    document.getElementById('aa-foto').value = '';
+    document.getElementById('aa-foto-preview').style.display = 'none';
   });
 
   document.getElementById('aa-copy-link').addEventListener('click', ()=>{
