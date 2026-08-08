@@ -1172,6 +1172,11 @@ function loadLivePlayer(){
         <span class="aa-free">Compartilhar é totalmente gratuito.</span>
       </div>
 
+      <div id="aa-video-whatsapp-note" style="background:#141010;border:1px dashed #3a2f22;border-radius:10px;padding:14px 16px;margin-top:16px;text-align:center;">
+        <span style="font-size:12.5px;color:#c9a876;display:block;margin-bottom:10px;">🎥 Tem um vídeo sobre isso? Envie pra gente pelo WhatsApp que a gente sobe pra você.</span>
+        <a id="aa-video-whatsapp-link" href="#" target="_blank" rel="noopener" class="aa-btn-sm" style="background:#25D366;border:none;color:#fff;display:inline-flex;">📲 Enviar vídeo pelo WhatsApp</a>
+      </div>
+
       <div style="margin-top:22px; border-top:1px solid #222; padding-top:18px;">
         <h4 style="font-size:14px;color:#fff;margin:0 0 6px;">Gostou da iniciativa?</h4>
         <p style="font-size:12.5px;">Se esta ferramenta for importante para a cidade, ajude a mantê-la funcionando.</p>
@@ -1393,11 +1398,7 @@ function loadLivePlayer(){
           <div class="aa-btn-sm aa-confirm-btn" data-slug="${escAttr(c.slug)}" data-titulo="${escAttr(c.titulo)}" data-categoria="${escAttr(c.categoria)}" data-categoria-slug="${escAttr(c.categoriaSlug)}">👍 Isso também aconteceu comigo (${c.confirmacoes||0})</div>
           <a class="aa-btn-sm share" href="https://wa.me/?text=${shareTxt}" target="_blank" rel="noopener">↗ Compartilhar</a>
           <div class="aa-btn-sm apoiar" onclick="AA_abrirApoio()">💛 Apoiar</div>
-          <div class="aa-btn-sm aa-abrir-video" data-slug="${escAttr(c.slug)}">🎥 ${c.videoEmbedURL ? 'Trocar vídeo' : 'Adicionar vídeo'}</div>
-        </div>
-        <div class="aa-video-form" id="aa-video-form-${escAttr(c.slug)}" style="display:none;">
-          <input type="text" class="aa-video-input" id="aa-video-input-${escAttr(c.slug)}" placeholder="Cole aqui o link do vídeo (ex: https://player.castr.com/vod/...)" value="${escAttr(c.videoEmbedURL||'')}">
-          <button class="aa-video-enviar" data-slug="${escAttr(c.slug)}">Salvar vídeo</button>
+          <a class="aa-btn-sm" href="https://wa.me/5528999036141?text=${encodeURIComponent(`Quero enviar um vídeo para o relato "${c.titulo}" (${link})`)}" target="_blank" rel="noopener">🎥 Tem vídeo? Envie no WhatsApp</a>
         </div>
         ${renderComentarios(c)}
       </div>`;
@@ -1455,6 +1456,7 @@ function loadLivePlayer(){
     abrirModal();
     mostrarPainel('aa-panel-done');
     document.getElementById('aa-share-box').style.display = 'none';
+    document.getElementById('aa-video-whatsapp-note').style.display = 'none';
     document.getElementById('aa-done-title').textContent = 'Apoie o Fala Sem Medo';
     document.getElementById('aa-done-sub').innerHTML = '<span>Sua contribuição ajuda a manter esse canal aberto pra cidade.</span>';
   };
@@ -1489,42 +1491,9 @@ function loadLivePlayer(){
       AA_enviarResposta(enviarRespBtn.dataset.slug, enviarRespBtn);
       return;
     }
-
-    const abrirVideoBtn = e.target.closest('.aa-abrir-video');
-    if (abrirVideoBtn) {
-      const form = document.getElementById(`aa-video-form-${abrirVideoBtn.dataset.slug}`);
-      form.style.display = form.style.display === 'none' ? 'block' : 'none';
-      return;
-    }
-
-    const enviarVideoBtn = e.target.closest('.aa-video-enviar');
-    if (enviarVideoBtn) {
-      AA_enviarVideo(enviarVideoBtn.dataset.slug, enviarVideoBtn);
-      return;
-    }
   });
 
-  async function AA_enviarVideo(slug, btn){
-    const videoEmbedURL = document.getElementById(`aa-video-input-${slug}`).value.trim();
-    if (!videoEmbedURL){ document.getElementById(`aa-video-input-${slug}`).focus(); return; }
-    btn.disabled = true; btn.textContent = 'Salvando...';
-    try{
-      const resp = await fetch(AA_ENDPOINT, {
-        method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
-        body: JSON.stringify({ acao:'video', slug, videoEmbedURL })
-      });
-      const resultado = await resp.json();
-      if (resultado.ok) {
-        carregarFeed();
-      } else {
-        alert('Não foi possível salvar o vídeo agora.');
-        btn.disabled = false; btn.textContent = 'Salvar vídeo';
-      }
-    }catch(e){
-      alert('Falha de conexão ao salvar o vídeo.');
-      btn.disabled = false; btn.textContent = 'Salvar vídeo';
-    }
-  }
+
 
   async function AA_enviarResposta(slug, btn){
     const resposta = document.getElementById(`aa-resp-texto-${slug}`).value.trim();
@@ -1701,9 +1670,12 @@ function loadLivePlayer(){
         '<span>📡 Seu relato agora pode ser compartilhado.</span>' +
         '<span>📈 Quanto mais pessoas conhecerem esse caso, maiores são as chances de ele chegar aos responsáveis.</span>';
       document.getElementById('aa-share-box').style.display = 'block';
+      document.getElementById('aa-video-whatsapp-note').style.display = 'block';
       const shareTxt = encodeURIComponent(`Aconteceu aqui em Marataízes:\n\n"${texto.slice(0,180)}${texto.length>180?'…':''}"\n\nVeja: ${link}`);
       document.getElementById('aa-share-whats').href = `https://wa.me/?text=${shareTxt}`;
       document.getElementById('aa-share-fb').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(link)}`;
+      const msgVideo = encodeURIComponent(`Oi! Acabei de registrar um relato no Fala Sem Medo ("${titulo}") e tenho um vídeo sobre isso. Link do relato: ${link}`);
+      document.getElementById('aa-video-whatsapp-link').href = `https://wa.me/5528999036141?text=${msgVideo}`;
       const nativeBtn = document.getElementById('aa-share-native');
       nativeBtn.onclick = () => {
         if (navigator.share) {
@@ -1720,6 +1692,7 @@ function loadLivePlayer(){
       document.getElementById('aa-done-sub').innerHTML =
         '<span>Esse relato precisa de checagem manual antes de publicar. Isso é raro, e só acontece quando o conteúdo pode envolver risco legal ou de segurança.</span>';
       document.getElementById('aa-share-box').style.display = 'none';
+      document.getElementById('aa-video-whatsapp-note').style.display = 'none';
     }
 
     mostrarPainel('aa-panel-done');
