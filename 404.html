@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fala Sem Medo — TV Marataízes</title>
+<meta name="description" content="Um relato registrado pela população de Marataízes, com resposta oficial quando houver.">
+<style>
+  :root{--bg:#000;--fg:#fff;--card:#0e0e0e;--accent:#FF6F00;--max:1320px;}
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:#050302;color:#fff;font-family:system-ui,-apple-system,sans-serif;min-height:100%;}
+  .wrap{max-width:680px;margin:0 auto;padding:40px 16px 60px;}
+  .brand{display:flex;align-items:center;gap:10px;margin-bottom:28px;text-decoration:none;color:#fff;font-weight:800;font-size:14px;}
+  .brand span{color:var(--accent);}
+  .aa-card{background:linear-gradient(160deg, #161010, #0e0b0a);border:1px solid #2a2020;border-radius:14px;padding:22px;margin-bottom:20px;}
+  .aa-card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;flex-wrap:wrap;}
+  .aa-card-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .aa-card-cat{font-size:10.5px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;background:rgba(255,111,0,.1);padding:3px 9px;border-radius:5px;}
+  .aa-card-bairro{font-size:11px;color:#999;background:#1c1616;padding:3px 9px;border-radius:5px;}
+  .aa-card-data{font-size:11px;color:#777;}
+  .aa-card-titulo{font-size:22px;font-weight:900;color:#fff;margin:6px 0 6px;line-height:1.3;}
+  .aa-card-autor{display:block;font-size:12.5px;color:#999;margin-bottom:14px;}
+  .aa-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:5px 11px;border-radius:999px;margin-bottom:14px;}
+  .aa-badge.wait{background:rgba(230,126,0,.14);color:#e67e00;}
+  .aa-badge.done{background:rgba(0,122,61,.16);color:#3ecf7e;}
+  .aa-card-texto{font-size:15px;color:#ddd;line-height:1.7;margin:0 0 18px;white-space:pre-wrap;}
+  .aa-resposta{background:#12181a;border-left:3px solid #3ecf7e;border-radius:8px;padding:14px 16px;margin-bottom:18px;font-size:13.5px;color:#dde;}
+  .aa-resposta .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:#3ecf7e;font-weight:800;margin-bottom:6px;}
+  .aa-actions{display:flex;gap:10px;flex-wrap:wrap;}
+  .aa-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;padding:11px 16px;border-radius:8px;cursor:pointer;border:1px solid #2a2020;background:#181212;color:#eee;text-decoration:none;}
+  .aa-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .aa-btn.primary{background:var(--accent);border:none;color:#fff;}
+  .aa-fallback{text-align:center;padding:60px 20px;color:#888;}
+  .aa-fallback a{color:var(--accent);text-decoration:none;font-weight:700;}
+  .aa-loading{text-align:center;color:#888;padding:60px 20px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="brand" href="/">📢 TV Marataízes <span>· Fala Sem Medo</span></a>
+  <div id="conteudo" class="aa-loading">Carregando relato…</div>
+</div>
+
+<script>
+  const AA_ENDPOINT = "https://script.google.com/macros/s/AKfycbxEmPVROvZItAZs_CDeiixWoANZ84I2iSTOSoZHqhcyAXayDnWGTVmok6QX0ruyPJmCag/exec";
+  const AA_SITE_BASE = "https://tvmarataizes.digital";
+
+  function esc(s){ const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+  function fmtData(iso){ try{ return new Date(iso).toLocaleDateString('pt-BR', { day:'2-digit', month:'short', year:'numeric' }); }catch(e){ return ''; } }
+
+  const conteudo = document.getElementById('conteudo');
+  const path = window.location.pathname;
+
+  // Link direto de divulgação — redireciona pra home já com o formulário aberto.
+  if (/^\/falasemmedo\/?$/.test(path)) {
+    window.location.replace('/?abrir=formulario#aa-section');
+  } else {
+
+  const match = path.match(/^\/casos\/([^\/]+)\/?$/);
+
+  if (!match) {
+    // Não é um link de caso — 404 normal.
+    conteudo.className = 'aa-fallback';
+    conteudo.innerHTML = 'Página não encontrada. <a href="/">Voltar para a home</a>';
+  } else {
+    const slug = decodeURIComponent(match[1]);
+    fetch(`${AA_ENDPOINT}?slug=${encodeURIComponent(slug)}`)
+      .then(r => r.json())
+      .then(data => {
+        const caso = (data.ok && data.casos && data.casos[0]) || null;
+        if (!caso) {
+          conteudo.className = 'aa-fallback';
+          conteudo.innerHTML = 'Esse relato não foi encontrado, ou ainda não foi publicado. <a href="/">Ver todos os relatos</a>';
+          return;
+        }
+
+        const respondido = caso.respostaOficial && caso.respostaOficial.trim() !== '';
+        const linkCaso = `${AA_SITE_BASE}/casos/${encodeURIComponent(caso.slug)}`;
+        const shareTxt = encodeURIComponent(`Fala Sem Medo — Marataízes (${caso.categoria}):\n\n"${caso.texto.slice(0,180)}${caso.texto.length>180?'…':''}"\n\nVeja: ${linkCaso}`);
+
+        document.title = `${caso.titulo} — Fala Sem Medo | TV Marataízes`;
+
+        conteudo.className = '';
+        conteudo.innerHTML = `
+          <div class="aa-card">
+            <div class="aa-card-head">
+              <div class="aa-card-meta">
+                <span class="aa-card-cat">${esc(caso.categoria)}</span>
+                ${caso.bairro ? `<span class="aa-card-bairro">📍 ${esc(caso.bairro)}</span>` : ''}
+              </div>
+              <span class="aa-card-data">${fmtData(caso.dataHora)}</span>
+            </div>
+            <h1 class="aa-card-titulo">${esc(caso.titulo)}</h1>
+            <span class="aa-card-autor">Relato de ${esc(caso.nomeFicticio)}</span>
+            <span class="aa-badge ${respondido?'done':'wait'}">${respondido?'✓ Respondido oficialmente':'⏳ Aguardando resposta oficial'}</span>
+            <p class="aa-card-texto">${esc(caso.texto)}</p>
+            ${respondido ? `<div class="aa-resposta"><div class="lbl">Resposta oficial · ${fmtData(caso.dataResposta)}</div>${esc(caso.respostaOficial)}</div>` : ''}
+            <div class="aa-actions">
+              <a class="aa-btn primary" href="https://wa.me/?text=${shareTxt}" target="_blank" rel="noopener">📲 Compartilhar no WhatsApp</a>
+              <a class="aa-btn" href="/#aa-section">Ver todos os relatos</a>
+            </div>
+          </div>
+        `;
+      })
+      .catch(() => {
+        conteudo.className = 'aa-fallback';
+        conteudo.innerHTML = 'Não foi possível carregar esse relato agora. <a href="/">Voltar para a home</a>';
+      });
+  }
+
+  } // fecha o else do bloco /falasemmedo
+</script>
+</body>
+</html>
