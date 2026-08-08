@@ -1589,12 +1589,17 @@ function loadLivePlayer(){
 
   async function carregarFeed(){
     const loading = document.getElementById('aa-loading');
+    loading.style.display = 'block';
+    loading.textContent = 'Carregando relatos…';
     if (!AA_ENDPOINT.startsWith('http')){ loading.textContent = 'Configure AA_ENDPOINT neste bloco.'; return; }
     try{
       const resp = await fetch(AA_ENDPOINT);
       const data = await resp.json();
-      loading.style.display = 'none';
-      if (!data.ok || !data.casos){ document.getElementById('aa-empty').style.display='block'; return; }
+      if (!data.ok || !data.casos){
+        loading.style.display = 'none';
+        document.getElementById('aa-empty').style.display='block';
+        return;
+      }
       AA_TODOS = data.casos;
       const params = new URLSearchParams(window.location.search);
       const casoFoco = params.get('caso');
@@ -1607,8 +1612,11 @@ function loadLivePlayer(){
         }
       }
       renderFeed();
+      loading.style.display = 'none'; // só esconde depois que o desenho na tela deu certo de verdade
     }catch(err){
-      loading.textContent = 'Não foi possível carregar os relatos agora.';
+      loading.style.display = 'block';
+      loading.textContent = 'Não foi possível carregar os relatos agora. Detalhe técnico: ' + (err && err.message ? err.message : err);
+      console.error('[falasemmedo] erro ao carregar feed:', err);
     }
   }
   carregarFeed();
