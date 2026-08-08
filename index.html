@@ -1191,6 +1191,7 @@ function loadLivePlayer(){
       <button class="aa-submit" id="aa-btn-ir-pagamento">Continuar para o pagamento</button>
       <div id="aa-mp-error" style="display:none;color:var(--accent);font-size:12.5px;margin-top:10px;"></div>
       <div id="aa-payment-brick" style="margin-top:16px;"></div>
+      <div id="aa-statusscreen-brick" style="margin-top:16px; display:none;"></div>
     </div>
 
     <!-- Confirmação "também acontece comigo" — perguntando se quer complementar -->
@@ -1236,7 +1237,7 @@ function loadLivePlayer(){
   let AA_ULTIMO_SLUG = "";
   let AA_PAGAMENTO = null;
   let AA_MEMBRO_VALOR = 25;
-  let mpInstance = null, brickController = null, mpKeyCache = null;
+  let mpInstance = null, brickController = null, mpKeyCache = null, statusScreenController = null;
 
   function esc(s){ const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
   function escAttr(s){ return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -1600,6 +1601,9 @@ function loadLivePlayer(){
 
   function irParaPagamento(){
     mostrarPainel('aa-panel-pay');
+    document.getElementById('aa-payment-brick').style.display = 'block';
+    document.getElementById('aa-statusscreen-brick').style.display = 'none';
+    document.getElementById('aa-statusscreen-brick').innerHTML = '';
     const resumo = document.getElementById('aa-pay-resumo');
     if (AA_PAGAMENTO.tipo==='membro'){
       resumo.textContent = `Membro — R$${AA_PAGAMENTO.valor}/mês × ${AA_CONTRACT_MONTHS} meses = R$${AA_PAGAMENTO.valorTotal} agora.`;
@@ -1655,11 +1659,11 @@ function loadLivePlayer(){
               method:'POST', headers:{'Content-Type':'application/json'},
               body: JSON.stringify({
                 formData,
-                external_reference: `aconteceuaqui-${Date.now()}-${Math.random().toString(36).slice(2,8)}`,
+                external_reference: `falasemmedo-${Date.now()}-${Math.random().toString(36).slice(2,8)}`,
                 description: AA_PAGAMENTO.tipo==='membro'
                   ? `Fala Sem Medo — Membro (R$${AA_PAGAMENTO.valor}/mês × ${AA_CONTRACT_MONTHS})`
                   : `Fala Sem Medo — Doação (R$${AA_PAGAMENTO.valor})`,
-                origin: "aconteceuaqui-tvmarataizes",
+                origin: "falasemmedo-tvmarataizes",
                 tipo: AA_PAGAMENTO.tipo,
                 valorMensal: AA_PAGAMENTO.valor
               })
@@ -1667,46 +1671,7 @@ function loadLivePlayer(){
             .then(r=>r.json().then(b=>({ok:r.ok, b})))
             .then(({ok,b})=>{
               if (!ok || b.error){ showMpErr(b.error || 'Não foi possível criar o pagamento.'); reject(); return; }
-
-              // Procura o QR/código PIX em qualquer um dos formatos que o backend possa devolver.
-              const dadosTransacao =
-                b?.point_of_interaction?.transaction_data ||
-                b?.payment?.point_of_interaction?.transaction_data ||
-                b?.data?.point_of_interaction?.transaction_data ||
-                null;
-
-              const qrBase64 = dadosTransacao?.qr_code_base64 || null;
-              const qrCopiaCola = dadosTransacao?.qr_code || null;
-
-              if (qrBase64 || qrCopiaCola) {
-                document.getElementById('aa-panel-pay').innerHTML = `
-                  <h3>Escaneie ou copie o código PIX</h3>
-                  <p>Abra o app do seu banco, escaneie o QR Code ou cole o código copia-e-cola.</p>
-                  ${qrBase64 ? `<div style="text-align:center;margin-bottom:16px;"><img src="data:image/png;base64,${qrBase64}" alt="QR Code PIX" style="width:220px;height:220px;border-radius:10px;background:#fff;padding:8px;"></div>` : ''}
-                  ${qrCopiaCola ? `
-                    <label>Código copia e cola</label>
-                    <div style="background:#141414;border:1px solid #262626;border-radius:8px;padding:12px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;gap:10px;">
-                      <span id="aa-qr-copia-cola" style="font-family:monospace;font-size:11px;color:#fff;word-break:break-all;">${qrCopiaCola}</span>
-                      <div class="aa-btn-sm" id="aa-copy-qr" style="flex-shrink:0;">🔗 Copiar</div>
-                    </div>
-                  ` : ''}
-                  <p style="font-size:11.5px;color:#777;">O pagamento é confirmado automaticamente assim que o PIX for identificado. Pode fechar esta janela.</p>
-                `;
-                if (qrCopiaCola){
-                  document.getElementById('aa-copy-qr').addEventListener('click', ()=>{
-                    navigator.clipboard.writeText(qrCopiaCola).then(()=>{
-                      const btn = document.getElementById('aa-copy-qr');
-                      const orig = btn.textContent;
-                      btn.textContent = '✓ Copiado!';
-                      setTimeout(()=>{ btn.textContent = orig; }, 2000);
-                    });
-                  });
-                }
-              } else {
-                // Cartão de crédito ou qualquer meio sem QR: mensagem padrão.
-                document.getElementById('aa-panel-pay').innerHTML = '<h3>Muito obrigado.</h3><p>Sua contribuição foi recebida.</p>';
-              }
-
+              mountStatusScreen(b.id);
               resolve();
             })
             .catch(()=>{ showMpErr('Falha de conexão.'); reject(); });
@@ -1716,6 +1681,24 @@ function loadLivePlayer(){
       });
     }catch(e){ showMpErr('Pagamento indisponível no momento.'); }
   });
+
+  // Mesmo padrão já usado (e comprovado) no checkout de anúncios da TV Sul Capixaba:
+  // depois de criar o pagamento, monta o Status Screen oficial do Mercado Pago —
+  // ele desenha o QR e o copia-e-cola sozinho, sem eu precisar adivinhar formato de resposta.
+  async function mountStatusScreen(paymentId){
+    if (brickController){ brickController.unmount(); brickController = null; }
+    document.getElementById('aa-payment-brick').style.display = 'none';
+    document.getElementById('aa-statusscreen-brick').style.display = 'block';
+    if (statusScreenController){ statusScreenController.unmount(); statusScreenController = null; }
+    try{
+      statusScreenController = await mpInstance.bricks().create('statusScreen', 'aa-statusscreen-brick', {
+        initialization: { paymentId },
+        callbacks: { onReady: ()=>{}, onError: (err)=>{ console.error('[falasemmedo] Status Screen error:', err); } }
+      });
+    }catch(err){
+      console.error('[falasemmedo] falha ao iniciar Status Screen:', err);
+    }
+  }
 
 })();
 </script>
