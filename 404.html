@@ -26,6 +26,12 @@
   .aa-card-texto{font-size:15px;color:#ddd;line-height:1.7;margin:0 0 18px;white-space:pre-wrap;}
   .aa-resposta{background:#12181a;border-left:3px solid #3ecf7e;border-radius:8px;padding:14px 16px;margin-bottom:18px;font-size:13.5px;color:#dde;}
   .aa-resposta .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:#3ecf7e;font-weight:800;margin-bottom:6px;}
+  .aa-resposta-convite{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#181410;border:1px dashed #3a2f22;border-radius:8px;padding:12px 16px;margin-bottom:16px;flex-wrap:wrap;}
+  .aa-resposta-convite-txt{font-size:12.5px;color:#c9a876;}
+  .aa-resposta-form{background:#141010;border:1px solid #2a2020;border-radius:8px;padding:14px;margin-bottom:18px;display:none;}
+  .aa-resposta-form input, .aa-resposta-form textarea{width:100%;background:#0e0b0a;border:1px solid #2a2020;color:#fff;border-radius:6px;padding:9px 11px;font-size:13px;font-family:inherit;margin-bottom:10px;box-sizing:border-box;}
+  .aa-resposta-form textarea{min-height:80px;resize:vertical;}
+  .aa-resp-enviar{background:var(--accent);color:#fff;border:none;border-radius:6px;padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer;}
   .aa-actions{display:flex;gap:10px;flex-wrap:wrap;}
   .aa-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;padding:11px 16px;border-radius:8px;cursor:pointer;border:1px solid #2a2020;background:#181212;color:#eee;text-decoration:none;}
   .aa-btn:hover{border-color:var(--accent);color:var(--accent);}
@@ -94,13 +100,57 @@
             <span class="aa-card-autor">Relato de ${esc(caso.nomeFicticio)}</span>
             <span class="aa-badge ${respondido?'done':'wait'}">${respondido?'✓ Respondido oficialmente':'⏳ Aguardando resposta oficial'}</span>
             <p class="aa-card-texto">${esc(caso.texto)}</p>
-            ${respondido ? `<div class="aa-resposta"><div class="lbl">Resposta oficial · ${fmtData(caso.dataResposta)}</div>${esc(caso.respostaOficial)}</div>` : ''}
+            ${respondido ? `<div class="aa-resposta"><div class="lbl">Resposta oficial · ${fmtData(caso.dataResposta)}</div>${esc(caso.respostaOficial)}</div>` : `
+              <div class="aa-resposta-convite">
+                <span class="aa-resposta-convite-txt">📢 Foi citado nesse relato? Responda oficialmente aqui.</span>
+                <div class="aa-btn" id="aa-abrir-resposta">Responder</div>
+              </div>
+              <div class="aa-resposta-form" id="aa-resposta-form">
+                <input type="text" id="aa-resp-nome" placeholder="Seu nome (opcional)">
+                <input type="text" id="aa-resp-cargo" placeholder="Cargo/órgão (ex: Secretaria de Obras)">
+                <textarea id="aa-resp-texto" placeholder="Escreva a resposta oficial a esse relato..."></textarea>
+                <button class="aa-resp-enviar" id="aa-resp-enviar">Publicar resposta</button>
+              </div>
+            `}
             <div class="aa-actions">
               <a class="aa-btn primary" href="https://wa.me/?text=${shareTxt}" target="_blank" rel="noopener">📲 Compartilhar no WhatsApp</a>
               <a class="aa-btn" href="/#aa-section">Ver todos os relatos</a>
             </div>
           </div>
         `;
+
+        if (!respondido) {
+          document.getElementById('aa-abrir-resposta').addEventListener('click', () => {
+            const form = document.getElementById('aa-resposta-form');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+          });
+          document.getElementById('aa-resp-enviar').addEventListener('click', async (e) => {
+            const respostaTxt = document.getElementById('aa-resp-texto').value.trim();
+            if (!respostaTxt) { document.getElementById('aa-resp-texto').focus(); return; }
+            const btn = e.target;
+            btn.disabled = true; btn.textContent = 'Enviando...';
+            try {
+              const r = await fetch(AA_ENDPOINT, {
+                method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({
+                  acao: 'responder', slug: caso.slug, resposta: respostaTxt,
+                  nomeRespondente: document.getElementById('aa-resp-nome').value.trim(),
+                  cargoRespondente: document.getElementById('aa-resp-cargo').value.trim()
+                })
+              });
+              const resultado = await r.json();
+              if (resultado.ok) {
+                window.location.reload();
+              } else {
+                alert('Não foi possível publicar a resposta agora.');
+                btn.disabled = false; btn.textContent = 'Publicar resposta';
+              }
+            } catch (err) {
+              alert('Falha de conexão ao enviar a resposta.');
+              btn.disabled = false; btn.textContent = 'Publicar resposta';
+            }
+          });
+        }
       })
       .catch(() => {
         conteudo.className = 'aa-fallback';
