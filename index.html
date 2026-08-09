@@ -964,7 +964,8 @@ function loadLivePlayer(){
 #aa-section .aa-badge.wait{background:rgba(230,126,0,.14);color:#e67e00;}
 #aa-section .aa-badge.done{background:rgba(0,122,61,.16);color:#3ecf7e;}
 #aa-section .aa-card-texto{font-size:14px;color:#ddd;line-height:1.65;margin:0 0 14px;white-space:pre-wrap;}
-#aa-section .aa-card-foto{display:block;max-width:100%;border-radius:10px;margin-bottom:14px;border:1px solid #2a2020;}
+#aa-section .aa-card-fotos{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+#aa-section .aa-card-foto{display:block;width:calc(33.333% - 6px);min-width:96px;aspect-ratio:1/1;object-fit:cover;border-radius:10px;border:1px solid #2a2020;cursor:pointer;}
 #aa-section .aa-card-video{position:relative;width:100%;padding-top:56.25%;margin-bottom:14px;border-radius:10px;overflow:hidden;background:#000;}
 #aa-section .aa-card-video iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
 #aa-section .aa-resp-foto-label{display:block;font-size:11px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
@@ -1475,6 +1476,7 @@ function loadLivePlayer(){
         <span class="aa-card-autor">Relato de <b>${esc(c.nomeFicticio)}</b></span>
         <span class="aa-badge ${respondido?'done':'wait'}">${respondido?'✓ Respondido':'⏳ Aguardando resposta oficial'}</span>
         <p class="aa-card-texto">${esc(c.texto)}</p>
+        ${c.fotoURL ? `<div class="aa-card-fotos">${String(c.fotoURL).split('|').map(u=>u.trim()).filter(Boolean).map(u=>`<img class="aa-card-foto" src="${escAttr(u)}" alt="Foto enviada com o relato" loading="lazy" onclick="window.open('${escAttr(u)}','_blank')">`).join('')}</div>` : ''}
         ${c.videoEmbedURL ? `<div class="aa-card-video"><iframe src="${escAttr(c.videoEmbedURL)}" allowfullscreen frameborder="0"></iframe></div>` : ''}
         ${respondido?`<div class="aa-resposta"><div class="lbl">Resposta oficial · ${fmtData(c.dataResposta)}</div>${esc(c.respostaOficial)}</div>`:`
         <div class="aa-resposta-convite">
