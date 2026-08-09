@@ -1071,20 +1071,30 @@ function loadLivePlayer(){
 #aa-modal .aa-skip{display:block;text-align:center;font-size:12px;color:#888;cursor:pointer;margin-top:6px;}
 #aa-modal .aa-skip:hover{color:#ccc;}
 #aa-error{display:none;color:var(--accent);font-size:12.5px;margin-top:8px;}
-#aa-modal .aa-foto-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
-#aa-modal .aa-foto-thumb{position:relative;width:74px;height:74px;border-radius:8px;overflow:hidden;border:1px solid #262626;background:#141414;flex-shrink:0;}
-#aa-modal .aa-foto-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
-#aa-modal .aa-foto-status{position:absolute;inset:0;background:rgba(0,0,0,.6);color:#fff;font-size:9.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:4px;}
-#aa-modal .aa-foto-status.ok{display:none;}
-#aa-modal .aa-foto-status.erro{background:rgba(180,20,20,.78);}
-#aa-modal .aa-foto-remove{position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,.8);color:#fff;border:none;font-size:12px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;}
-#aa-modal .aa-foto-remove:hover{background:var(--accent);}
-#aa-modal .aa-foto-add{width:74px;height:74px;border:1.5px dashed #333;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;flex-shrink:0;color:#888;margin-bottom:0;}
-#aa-modal .aa-foto-add:hover{border-color:var(--accent);color:var(--accent);}
-#aa-modal .aa-foto-add.disabled{opacity:.35;cursor:not-allowed;pointer-events:none;}
-#aa-modal .aa-foto-add-icon{font-size:18px;}
-#aa-modal .aa-foto-add-txt{font-size:8.5px;text-align:center;line-height:1.2;}
+#aa-modal .aa-foto-row, .aa-admin-box .aa-foto-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
+#aa-modal .aa-foto-thumb, .aa-admin-box .aa-foto-thumb{position:relative;width:74px;height:74px;border-radius:8px;overflow:hidden;border:1px solid #262626;background:#141414;flex-shrink:0;}
+#aa-modal .aa-foto-thumb img, .aa-admin-box .aa-foto-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+#aa-modal .aa-foto-status, .aa-admin-box .aa-foto-status{position:absolute;inset:0;background:rgba(0,0,0,.6);color:#fff;font-size:9.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:4px;}
+#aa-modal .aa-foto-status.ok, .aa-admin-box .aa-foto-status.ok{display:none;}
+#aa-modal .aa-foto-status.erro, .aa-admin-box .aa-foto-status.erro{background:rgba(180,20,20,.78);}
+#aa-modal .aa-foto-remove, .aa-admin-box .aa-foto-remove{position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,.8);color:#fff;border:none;font-size:12px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;}
+#aa-modal .aa-foto-remove:hover, .aa-admin-box .aa-foto-remove:hover{background:var(--accent);}
+#aa-modal .aa-foto-add, .aa-admin-box .aa-foto-add{width:74px;height:74px;border:1.5px dashed #333;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;flex-shrink:0;color:#888;margin-bottom:0;}
+#aa-modal .aa-foto-add:hover, .aa-admin-box .aa-foto-add:hover{border-color:var(--accent);color:var(--accent);}
+#aa-modal .aa-foto-add.disabled, .aa-admin-box .aa-foto-add.disabled{opacity:.35;cursor:not-allowed;pointer-events:none;}
+#aa-modal .aa-foto-add-icon, .aa-admin-box .aa-foto-add-icon{font-size:18px;}
+#aa-modal .aa-foto-add-txt, .aa-admin-box .aa-foto-add-txt{font-size:8.5px;text-align:center;line-height:1.2;}
 #aa-modal .aa-foto-hint{font-size:11px;color:#666;margin:0 0 14px;}
+.aa-admin-toggle{display:inline-block;margin-top:22px;font-size:11px;color:#555;cursor:pointer;border:1px solid #262626;border-radius:20px;padding:6px 14px;}
+.aa-admin-toggle:hover{color:#999;border-color:#3a3a3a;}
+.aa-admin-box{margin-top:14px;background:#0a0a0a;border:1px solid #262626;border-radius:12px;padding:18px;max-width:480px;}
+.aa-admin-box input[type="password"], .aa-admin-box input[type="text"]{width:100%;background:#141414;border:1px solid #262626;color:#fff;border-radius:8px;padding:10px 12px;font-size:13px;font-family:inherit;}
+#aa-admin-resultados{margin-top:8px;max-height:220px;overflow-y:auto;}
+.aa-admin-item{padding:9px 10px;border-radius:7px;font-size:12.5px;color:#ccc;cursor:pointer;border:1px solid transparent;}
+.aa-admin-item:hover{background:#161010;border-color:#262626;}
+.aa-admin-editor{margin-top:16px;border-top:1px solid #262626;padding-top:14px;}
+.aa-admin-editor-titulo{font-size:13px;font-weight:800;color:#fff;margin-bottom:12px;}
+#aa-admin-foto-row{margin-bottom:12px;}
 </style>
 
 <div id="aa-section">
@@ -1114,6 +1124,32 @@ function loadLivePlayer(){
       <div class="aa-row" id="aa-feed"></div>
       <button class="aa-load-more" id="aa-load-more" style="display:none;">Carregar mais relatos</button>
     </div>
+
+    <div class="aa-admin-toggle" id="aa-admin-toggle">⚙ Admin fotos</div>
+    <div class="aa-admin-box" id="aa-admin-box" style="display:none;">
+      <div id="aa-admin-login">
+        <input type="password" id="aa-admin-pass" placeholder="Senha">
+        <button class="aa-btn-sm" id="aa-admin-entrar" style="margin-top:8px;">Entrar</button>
+        <div id="aa-admin-login-erro" style="display:none;color:var(--accent);font-size:12px;margin-top:6px;">Senha incorreta.</div>
+      </div>
+      <div id="aa-admin-painel" style="display:none;">
+        <input type="text" id="aa-admin-busca" placeholder="Buscar relato pelo título ou slug...">
+        <div id="aa-admin-resultados"></div>
+        <div id="aa-admin-editor" style="display:none;">
+          <div class="aa-admin-editor-titulo" id="aa-admin-editor-titulo"></div>
+          <div class="aa-foto-row" id="aa-admin-foto-row">
+            <label class="aa-foto-add" id="aa-admin-foto-add">
+              <span class="aa-foto-add-icon">📎</span>
+              <span class="aa-foto-add-txt">Adicionar</span>
+              <input type="file" accept="image/*" id="aa-admin-foto-input" multiple style="display:none">
+            </label>
+          </div>
+          <button class="aa-submit" id="aa-admin-salvar">Salvar fotos deste relato</button>
+          <div id="aa-admin-status" style="font-size:12.5px;margin-top:8px;"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -1355,11 +1391,11 @@ function loadLivePlayer(){
   function fmtData(iso){ try{ return new Date(iso).toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}); }catch(e){ return ''; } }
   function linkDoCaso(slug){ return `${AA_SITE_BASE}/casos/${encodeURIComponent(slug)}`; }
 
-  function AA_renderFotos(){
-    const row = document.getElementById('aa-foto-row');
-    const addBtn = document.getElementById('aa-foto-add');
+  function AA_renderFotosEm(rowId, addBtnId, fotos){
+    const row = document.getElementById(rowId);
+    const addBtn = document.getElementById(addBtnId);
     row.querySelectorAll('.aa-foto-thumb').forEach(n=>n.remove());
-    AA_FOTOS.forEach((f, idx)=>{
+    fotos.forEach((f, idx)=>{
       const div = document.createElement('div');
       div.className = 'aa-foto-thumb';
       const statusCls = f.status==='ok' ? 'ok' : (f.status==='erro' ? 'erro' : '');
@@ -1367,22 +1403,22 @@ function loadLivePlayer(){
       div.innerHTML = `<img src="${f.dataUrl}" alt=""><div class="aa-foto-status ${statusCls}">${statusTxt}</div><button type="button" class="aa-foto-remove" data-idx="${idx}" aria-label="Remover foto">×</button>`;
       row.insertBefore(div, addBtn);
     });
-    addBtn.classList.toggle('disabled', AA_FOTOS.length >= AA_FOTO_MAX);
+    addBtn.classList.toggle('disabled', fotos.length >= AA_FOTO_MAX);
     row.querySelectorAll('.aa-foto-remove').forEach(btn=>{
       btn.addEventListener('click', ()=>{
-        AA_FOTOS.splice(Number(btn.dataset.idx), 1);
-        AA_renderFotos();
+        fotos.splice(Number(btn.dataset.idx), 1);
+        AA_renderFotosEm(rowId, addBtnId, fotos);
       });
     });
   }
 
-  async function AA_subirFoto(file){
-    if (AA_FOTOS.length >= AA_FOTO_MAX) return;
+  async function AA_subirFotoEm(file, fotos, rowId, addBtnId){
+    if (fotos.length >= AA_FOTO_MAX) return;
     const dataUrl = await AA_prepararFoto(file, 1280, 0.75);
     if (!dataUrl) return;
     const item = { dataUrl, url: null, status: 'enviando' };
-    AA_FOTOS.push(item);
-    AA_renderFotos();
+    fotos.push(item);
+    AA_renderFotosEm(rowId, addBtnId, fotos);
     try {
       const nomeArquivo = `denuncias/${Date.now()}-${Math.random().toString(36).slice(2,8)}.jpg`;
       const ref = AA_STORAGE.ref(nomeArquivo);
@@ -1393,8 +1429,11 @@ function loadLivePlayer(){
       item.status = 'erro';
       console.error('[falasemmedo] erro ao subir foto:', e);
     }
-    AA_renderFotos();
+    AA_renderFotosEm(rowId, addBtnId, fotos);
   }
+
+  function AA_renderFotos(){ AA_renderFotosEm('aa-foto-row', 'aa-foto-add', AA_FOTOS); }
+  async function AA_subirFoto(file){ await AA_subirFotoEm(file, AA_FOTOS, 'aa-foto-row', 'aa-foto-add'); }
 
   document.getElementById('aa-foto-input').addEventListener('change', (e)=>{
     const vagas = AA_FOTO_MAX - AA_FOTOS.length;
@@ -1404,6 +1443,86 @@ function loadLivePlayer(){
   });
 
   function AA_limparFotos(){ AA_FOTOS = []; AA_renderFotos(); }
+
+  // ---- Painel Admin: adicionar/remover fotos de um relato já publicado ----
+  // Senha fica só no navegador (não é segurança de verdade — é só pra afastar
+  // curioso comum). A ação real de salvar já passa pelo Apps Script normal.
+  const AA_ADMIN_SENHA = "TV2026";
+  let AA_ADMIN_FOTOS = [];
+  let AA_ADMIN_SLUG_ATUAL = null;
+
+  document.getElementById('aa-admin-toggle').addEventListener('click', ()=>{
+    const box = document.getElementById('aa-admin-box');
+    box.style.display = box.style.display === 'none' ? 'block' : 'none';
+  });
+
+  document.getElementById('aa-admin-entrar').addEventListener('click', ()=>{
+    const val = document.getElementById('aa-admin-pass').value;
+    const erro = document.getElementById('aa-admin-login-erro');
+    if (val === AA_ADMIN_SENHA){
+      erro.style.display = 'none';
+      document.getElementById('aa-admin-login').style.display = 'none';
+      document.getElementById('aa-admin-painel').style.display = 'block';
+    } else {
+      erro.style.display = 'block';
+    }
+  });
+
+  document.getElementById('aa-admin-busca').addEventListener('input', (e)=>{
+    const termo = e.target.value.trim().toLowerCase();
+    const resultadosBox = document.getElementById('aa-admin-resultados');
+    if (!termo){ resultadosBox.innerHTML = ''; return; }
+    const achados = AA_TODOS.filter(c =>
+      (c.titulo||'').toLowerCase().includes(termo) || (c.slug||'').toLowerCase().includes(termo)
+    ).slice(0, 15);
+    resultadosBox.innerHTML = achados.map(c =>
+      `<div class="aa-admin-item" data-slug="${escAttr(c.slug)}">${esc(c.titulo)} <span style="color:#666;">— ${esc(c.categoria)}</span></div>`
+    ).join('') || '<div class="aa-admin-item" style="cursor:default;color:#666;">Nenhum relato encontrado.</div>';
+    resultadosBox.querySelectorAll('.aa-admin-item[data-slug]').forEach(item=>{
+      item.addEventListener('click', ()=> AA_admin_selecionarCaso(item.dataset.slug));
+    });
+  });
+
+  function AA_admin_selecionarCaso(slug){
+    const c = AA_TODOS.find(x=>x.slug===slug);
+    if (!c) return;
+    AA_ADMIN_SLUG_ATUAL = slug;
+    AA_ADMIN_FOTOS = String(c.fotoURL||'').split('|').map(u=>u.trim()).filter(Boolean)
+      .map(u=>({ dataUrl: u, url: u, status: 'ok' }));
+    document.getElementById('aa-admin-editor-titulo').textContent = c.titulo;
+    document.getElementById('aa-admin-editor').style.display = 'block';
+    document.getElementById('aa-admin-status').textContent = '';
+    AA_renderFotosEm('aa-admin-foto-row', 'aa-admin-foto-add', AA_ADMIN_FOTOS);
+  }
+
+  document.getElementById('aa-admin-foto-input').addEventListener('change', (e)=>{
+    const vagas = AA_FOTO_MAX - AA_ADMIN_FOTOS.length;
+    const arquivos = Array.from(e.target.files || []).slice(0, vagas);
+    arquivos.forEach(f => AA_subirFotoEm(f, AA_ADMIN_FOTOS, 'aa-admin-foto-row', 'aa-admin-foto-add'));
+    e.target.value = '';
+  });
+
+  document.getElementById('aa-admin-salvar').addEventListener('click', async ()=>{
+    const status = document.getElementById('aa-admin-status');
+    if (!AA_ADMIN_SLUG_ATUAL) return;
+    if (AA_ADMIN_FOTOS.some(f=>f.status==='enviando')){ status.textContent = 'Aguarde o envio das fotos terminar.'; status.style.color = 'var(--accent)'; return; }
+    status.textContent = 'Salvando...'; status.style.color = '#999';
+    const fotoURL = AA_ADMIN_FOTOS.filter(f=>f.status==='ok' && f.url).map(f=>f.url).join(' | ');
+    try{
+      const resp = await fetch(AA_ENDPOINT, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({ acao:'adicionarFoto', slug: AA_ADMIN_SLUG_ATUAL, fotoURL }) });
+      const resultado = await resp.json();
+      if (resultado.ok){
+        status.textContent = '✅ Salvo.'; status.style.color = '#3ecf7e';
+        const c = AA_TODOS.find(x=>x.slug===AA_ADMIN_SLUG_ATUAL);
+        if (c) c.fotoURL = fotoURL;
+        renderFeed();
+      } else {
+        status.textContent = 'Não foi possível salvar. ' + (resultado.error||''); status.style.color = 'var(--accent)';
+      }
+    }catch(e){
+      status.textContent = 'Erro de conexão ao salvar.'; status.style.color = 'var(--accent)';
+    }
+  });
 
   const modal = document.getElementById('aa-modal');
   function abrirModal(){ modal.classList.add('open'); document.body.style.overflow='hidden'; mostrarPainel('aa-panel-form'); }
