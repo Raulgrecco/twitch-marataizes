@@ -86,6 +86,9 @@
   // Link direto de divulgação — redireciona pra home já com o formulário aberto.
   if (/^\/falasemmedo\/?$/.test(path)) {
     window.location.replace('/?abrir=formulario#aa-section');
+  } else if (/^\/veja-os-relatos\/?$/.test(path)) {
+    // Link só pra conhecer o projeto — rola até a seção, sem abrir o formulário.
+    window.location.replace('/#aa-section');
   } else {
 
   const match = path.match(/^\/casos\/([^\/]+)\/?$/);
